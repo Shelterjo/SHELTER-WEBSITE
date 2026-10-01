@@ -11,7 +11,7 @@
 | **مؤجلة إلى قرار المنصة DB-08** (تفترض React) | shadcn/ui · Radix · Motion (`motion/react`) · Storybook · Lucide (`lucide-react`) · React Aria |
 | **مؤجلة إلى قرار المنصة + الهوية (M-10)** | Tailwind (لا قيم Tokens بدون ملفات الهوية) |
 | **مؤجلة لمرحلة لاحقة** | Unlighthouse (قبل الإطلاق، يحتاج موقعًا حقيقيًا متعدد الصفحات) · sitespeed.io (مرحلة QA، عبر Docker) |
-| **اختيارية ومقيدة** | Lenis: ليس عامًا، **ممنوع على صفحة المنيو** (191 صنفًا، أداء التمرير والـa11y)، يُقيّم فقط لصفحات قصصية مثل About |
+| **اختيارية ومقيدة** | Lenis: ليس عامًا، و**لا يُشغّل تلقائيًا على صفحة المنيو** (191 صنفًا، والتمرير الأصلي أفضل). يُستخدم فقط في صفحات تستفيد بصريًا مثل Home/About **إذا أثبت الاختبار أنه لا يضر الأداء** (نص الـOwner) |
 | **مرفوضة / مكررة** | لا شيء مثبت مكرر. **ممنوع:** مكتبة حركة ثانية بجانب Motion · مكتبة أيقونات ثانية · إطار اختبار E2E ثانٍ (Cypress) · axe بأكثر من تكامل |
 
 ## 2. FRONTEND TOOLING MATRIX
@@ -27,15 +27,15 @@
 | **Radix Primitives** | ❌ | Dialog/Popover/Tabs… بسلوك وa11y صحيح | React Aria | **React فقط** | منخفض | RECOMMENDED (شرطي) | ⏸ DB-08 | Sheet/Modal/Combobox تحتاج سلوكًا صحيحًا |
 | **React Aria** | ❌ | بديل/مكمل لـRadix لأنماط معقدة | Radix | React فقط | منخفض | OPTIONAL | ⏸ فقط عند فجوة حقيقية | لا نثبت مكتبتي Primitives بلا حاجة |
 | **Tailwind CSS** | ❌ | تنفيذ الـTokens كـUtilities | — | أي إطار | منخفض (CSS مُقلّم) | RECOMMENDED (شرطي) | ⏸ DB-08 + M-10 | بلا قيم هوية لا فائدة من إعداده الآن |
-| **Motion** | ❌ | حركة هادفة (Sheet، انتقالات) | Lenis (جزئيًا) | `motion/react` يحتاج React. نسخة JS عامة متاحة | متوسط، يجب تقسيمه (lazy) | RECOMMENDED (شرطي) | ⏸ DB-08 | **ممنوع في حزمة المنيو** (CSS transitions فقط) |
-| **Lenis** | ❌ | تمرير ناعم | يتعارض مع `scroll-padding` والـanchors والـa11y | أي إطار | متوسط | OPTIONAL | ❌ الآن | ليس عامًا، وممنوع على المنيو |
+| **Motion** | ❌ | حركة هادفة: Micro-interactions، انتقالات، **Sheet المنيو**، Modal، Cards (حسب الـOwner) | Lenis (جزئيًا) | `motion/react` يحتاج React. نسخة JS عامة متاحة | متوسط ← يُحمّل **Lazy** عند أول تفاعل | REQUIRED (شرطي) | ⏸ DB-08 | مسموح للـSheet/Modal في المنيو، **بشرط** ألا يدخل المسار الحرج: لا يؤثر على LCP/INP/CLS، وضمن ميزانية JS المنيو، وإلا CSS بديلًا (CF في سجل التعارضات) |
+| **Lenis** | ❌ | تمرير ناعم لصفحات Story/Home | قد يتعارض مع `scroll-padding` والـanchors والـa11y | أي إطار | متوسط | OPTIONAL | ⏸ عند الحاجة | ليس عامًا · لا يُشغّل تلقائيًا على المنيو · فقط إذا أثبت الاختبار أنه لا يضر الأداء |
 | **Storybook** | ❌ | توثيق واختبار المكونات وحالاتها (AR/EN، Viewports) | لا | يحتاج إطارًا | صفر | RECOMMENDED | ⏸ DB-08 | الخطة في §6 |
 | **Lucide** | ❌ | أيقونات خطية موحدة | — | `lucide-react` أو SVG ثابتة | منخفض جدًا (Tree-shaking) | RECOMMENDED | ⏸ DB-08 | مجموعة واحدة فقط |
 
 ## 3. TOOLING REGISTRY (قاعدة الدمج)
 | TOOL | PURPOSE | INSTALLED? | CONFIGURED? | USED? | REDUNDANT? | KEEP/REMOVE |
 |---|---|---|---|---|---|---|
-| Playwright Test 1.56.1 (`tooling/`) | اختبارات Responsive/A11y/Structure | ✅ | ✅ `playwright.config.mjs` + `viewports.mjs` | ✅ 336+ اختبار على الـWireframes | لا | KEEP |
+| Playwright Test 1.56.1 (`tooling/`) | اختبارات Responsive/A11y/Structure | ✅ | ✅ `playwright.config.mjs` + `viewports.mjs` | ✅ 456 فحصًا ناجحًا على الـWireframes (آخر تشغيل) | لا | KEEP |
 | Playwright CLI عام 1.56.1 (بيئة) | تشغيل أدوات الـWireframes القديمة (`shots.js`، `measure.js`، `compose.js`) | ✅ (بيئة) | ✅ | ✅ | **جزئيًا** (نفس الإصدار) | KEEP الآن · IMPROVE: نقل أدوات الـWireframes إلى `tooling/` لاحقًا |
 | @axe-core/playwright 4.13.0 | WCAG آلي | ✅ | ✅ (wcag2a/aa، 21a/aa، 22aa) | ✅ | لا | KEEP |
 | Lighthouse 13.5.0 | أداء/جودة | ✅ | ✅ `scripts/lighthouse.mjs` | ✅ | لا | KEEP |

@@ -31,7 +31,7 @@
 | **الأقسام البعيدة** | `content-visibility: auto` + `contain-intrinsic-size` | رسم أسرع لـ191 بطاقة **دون حذفها من الـHTML**، أي بدون Virtualization |
 | **الأدوات الخارجية** | GTM/GA4 **بعد** `load` + Idle (حوالي ثانيتين)، أو أول تفاعل · Consent Mode v2 | لا تؤخر أول محتوى مفيد |
 | | **ممنوع في صفحة المنيو:** HubSpot · Chat · خرائط Google · YouTube · خطوط من Google مباشرة | أي واحدة منها تضيف 100–500KB JS |
-| **الحركة** | CSS Transitions فقط (`transform` / `opacity`) · لا مكتبة حركة في حزمة المنيو | لا Jank ولا تأخير في التفاعل (INP) |
+| **الحركة** | `transform` / `opacity` فقط. **Motion** مسموح للـSheet/Modal (قرار الأدوات من الـOwner) **بتحميل Lazy عند أول فتح**، خارج المسار الحرج وضمن ميزانية JS المنيو. إذا تجاوز الميزانية أو أثّر على INP ← CSS Transitions | لا Jank ولا تأخير في التفاعل (INP). الأداء يتقدم على الحركة الزخرفية |
 
 ## 3. Core Web Vitals
 

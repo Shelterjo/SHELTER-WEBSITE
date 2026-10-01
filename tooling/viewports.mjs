@@ -13,4 +13,4 @@ export const VIEWPORTS = [
   // Browser zoom 200% on a 1280×800 laptop = 640×400 CSS px layout viewport at 2× density (WCAG 1.4.4 / 1.4.10 reflow check).
   ['zoom200-1280', 640, 400, false, 'zoom-200'],
 ];
-export const DESKTOP_MIN = 1024; // IA spec R-01: desktop layout (sidebar + modal) from 1024px
+export const DESKTOP_MIN = 1024; // IA spec §11 / UX-VALIDATION R-03 + R-05: desktop layout (sidebar + modal) from 1024px
