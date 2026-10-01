@@ -1,6 +1,7 @@
 # 17 — Menu Data Model (v0.4)
 
-> **الحالة:** `v0.4` — **مطبّق في MENU INVENTORY v1.0** ([`21`](21-menu-inventory-v1.0-freeze-report.md)) · **المعرّفات مجمّدة** (`CAT-001→011` · `PRD-00001→00192`، D-134) · **آخر تحديث:** 2026-10-01
+> **الحالة:** `v0.4` — **أساس MENU INVENTORY v1.0 — APPROVED BASELINE (D-135)**. تجميد الـID لا يجمّد الاسم أو السعر أو الفئة أو التوفر أو الصورة أو الوصف أو الحالة؛ كلها Versioned مع Audit History (D-136)
+> **سابقًا:** مطبّق في MENU INVENTORY v1.0 ([`21`](21-menu-inventory-v1.0-freeze-report.md)) · **المعرّفات مجمّدة** (`CAT-001→011` · `PRD-00001→00192`، D-134) · **آخر تحديث:** 2026-10-01
 >
 > **السجل:**
 > - **v0.1:** قبل الملف (D-075 → D-089).
@@ -199,7 +200,7 @@ content_review (REV-#####) · menu_change (CHG-#####) · audit_log
 |---|---|
 | `pending_id` | `PND-###` |
 | `mentioned_name` · `mention_source` | كما ذكره الـOwner، مثل "Cold Brew" |
-| `status` | `ACTIVE PRODUCT — MISSING CURRENT MENU DATA` · `STATUS UNKNOWN — OWNER VERIFICATION REQUIRED` |
+| `status` | `ACTIVE — DATA INCOMPLETE` · `OWNER VERIFICATION REQUIRED` (D-140) |
 | `missing_fields` | الاسم الرسمي EN · الاسم العربي · الفئة · السعر شامل الضريبة · التوفر في الفرعين · الوصف · الصورة |
 | `converted_product_id` | يُملأ عند إنشاء `PRD` بعد وصول الاسم الرسمي والسعر والفئة. **لا اختراع لأي حقل** |
 

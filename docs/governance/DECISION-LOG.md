@@ -151,6 +151,13 @@
 | D-132 | **G9 APPROVED:** CAKE → كيك · COOKIES → كوكيز · والأسماء العربية الـ26 المقترحة للكيك والكوكيز كما هي | 2026-10-01 | Final Owner Decisions — Naming & Duplicates | ✅ Owner | الأسماء | `APPROVED` |
 | D-133 | **Source Preservation:** لا تغيير لـ`source_name_en` و`source_name_ar` و`source_category_name`. source = القيمة الأصلية · normalized = القيمة المصححة المعتمدة · display = القيمة المعروضة المعتمدة. تعديل الاسم لا يغيّر Product ID | 2026-10-01 | Final Owner Decisions — Naming & Duplicates | ✅ Owner | الـData Model | `APPROVED` |
 | D-134 | **إصدار MENU INVENTORY v1.0:** تطبيق كل القرارات · تنفيذ دمج DUP-01 فقط · لا دمج لـDUP-04 · تجميد Product IDs وCategory IDs · Menu Version `MV-2026-10-01` · تقرير Freeze مختصر · **انتظار موافقة الـOwner قبل Menu IA** | 2026-10-01 | Final Owner Decisions — Naming & Duplicates | ✅ Owner | سير العمل | `APPROVED` |
+| D-135 | **MENU INVENTORY v1.0 = APPROVED BASELINE.** تجميد: Product IDs · Category IDs · Source Lineage · Menu Version `MV-2026-10-01` · تاريخ سريان الأسعار 2026-10-01 · بنية دمج DUP-01 | 2026-10-01 | MENU INVENTORY v1.0 — Owner Acceptance | ✅ Owner | المنيو | `APPROVED` |
+| D-136 | **قواعد الـBaseline:** `PRD-00120` = RETIRED / MERGED ولا يُعاد استخدامه أبدًا · `PRD-00115` = Canonical Product ID للصنف المدموج · أي صنف جديد يبدأ من `PRD-00193` · **تجميد الـID لا يجمّد:** الاسم، السعر، الفئة، التوفر، الصورة، الوصف، حالة المنتج — كلها Versioned وقابلة للتعديل مع Audit History | 2026-10-01 | MENU INVENTORY v1.0 — Owner Acceptance | ✅ Owner | الـData Model | `APPROVED` |
+| D-137 | **الأسماء العربية الـ152:** لا اعتماد دفعة واحدة. تبقى `SOURCE-PROVIDED — PENDING OWNER REVIEW`، ولا تمنع بدء Menu IA. المراجعة لاحقًا **بمجموعات حسب الفئة**: الاسم الإنجليزي + العربي من المصدر + أي ملاحظة. السليم يُراجع كمجموعة، والمشكوك فيه فقط منفردًا | 2026-10-01 | MENU INVENTORY v1.0 — Owner Acceptance | ✅ Owner | الأسماء | `APPROVED` |
+| D-138 | **ICED SHAKEN SALTED CARAMEL:** الاسم الإنجليزي معتمد. الاسم العربي `PENDING OWNER APPROVAL` ولا يتغير تلقائيًا | 2026-10-01 | MENU INVENTORY v1.0 — Owner Acceptance | ✅ Owner | الأسماء | `APPROVED` |
+| D-139 | **الأسماء غير الواضحة** (MESTEKH · ICED CROCCONATE · MILKSHAKE BAJ · MILKSHAKE ASH BERRY · V60 HONDURAS LAS · ROZY BASIL) تبقى كما هي، ولا تُصحح من عندنا. تُجمع لاحقًا في Owner Review منفصل | 2026-10-01 | MENU INVENTORY v1.0 — Owner Acceptance | ✅ Owner | الأسماء | `APPROVED` |
+| D-140 | **Cold Brew · Lotus Cheesecake · Ice Cream · Single Espresso** = `ACTIVE — DATA INCOMPLETE`. لا سعر ولا فئة ولا ID نهائي من عندنا حتى تصل بياناتها. **Snacks · Pastries** = `OWNER VERIFICATION REQUIRED` | 2026-10-01 | MENU INVENTORY v1.0 — Owner Acceptance | ✅ Owner | المنيو | `APPROVED` |
+| D-141 | **المرحلة التالية: MENU INFORMATION ARCHITECTURE** — دراسة بنية فقط، **لا Visual UI**. تحليل 191 صنفًا و11 فئة، والإجابة على 15 سؤالًا، وعرض Options A / B / C مع مقارنة (Mobile UX · Taps · Scroll · Discoverability · Speed · SEO · Accessibility · Maintainability · Scalability) وتوصية. لا UI ولا Components قبل اختيار الـArchitecture | 2026-10-01 | MENU INVENTORY v1.0 — Owner Acceptance | ✅ Owner | سير العمل | `APPROVED` |
 
 ## قرارات مفتوحة (PROPOSED — بانتظار الـOwner)
 
@@ -165,13 +172,13 @@
 | DB-03 | لغة الـSlugs | لاتينية + 301 من العربية | المبدأ ✅ (D-014) · التفاصيل مع DB-02 |
 | DB-04 | الصفحات القديمة ذات القرار التجاري | — | ✅ جزئيًا (D-015)؛ المؤجل: الحجز، الرعايات، الفريق، النشرة، دليل كافيهات إربد (R7-03) |
 | DB-05 | نموذج الـNavigation على الموبايل | Top Sticky Header + Contextual Actions | `PROPOSED` |
-| DB-06 | بنية المنيو | Hybrid | `PROPOSED` |
+| DB-06 | بنية المنيو | **Option C — Hybrid** (دراسة كاملة في `22`) | `PROPOSED` — ⏳ IA-01 → IA-08 |
 | DB-07 | بنية الفروع | Hierarchical + Progressive Activation | `PROPOSED` |
 | DB-08 | المنصة / الـCMS | يُدرس بعد الـIA | `PROPOSED` |
 | DB-09 | اسم ومسار قسم المعرفة | Stage 6 | `PROPOSED` |
 | DB-10 | عرض الأسعار | — | ✅ البنية تدعم العرض الكامل (D-078) |
 | DB-21 | المصدر الوحيد للمنيو (SSOT) | ✅ A الآن + جاهزية C (D-085) | `APPROVED` |
-| DB-22 | Menu Data Model النهائي + بنية المعرّفات | `17` v0.4 · **MENU INVENTORY v1.0** (`21`) · `CAT-001→011` · `PRD-00001→00192` مجمّدة | ✅ مجمّدة (D-134) · ⏳ موافقة الـOwner قبل Menu IA |
+| DB-22 | Menu Data Model النهائي + بنية المعرّفات | `17` v0.4 · **MENU INVENTORY v1.0** (`21`) | ✅ **APPROVED BASELINE** (D-135، D-136) |
 | DB-11 | الـHost الرسمي | `www.shelterjo.com` | `PROPOSED` |
 | DB-12 | `shop.shelterjo.com` | يُفحص عند توفر الوصول (D-016) | `PENDING ACCESS` |
 | DB-15 | نموذج بيانات المواقع (Country → City → Location بأنواع وحالات ورؤية) | `09` AR-02 | `PROPOSED` |

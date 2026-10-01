@@ -185,11 +185,11 @@
 ## F. المنيو الرسمي (ملف الـOwner — 2026-10-01)
 
 - **المرجع الوحيد للمنيو** هو ملف الـOwner (D-006، D-076، D-089). سجل الاعتماد لكل صنف موجود في النسخة المنظمة: [`menu/SHELTER-MENU-INVENTORY-v1.0.xlsx`](menu/SHELTER-MENU-INVENTORY-v1.0.xlsx)، عمود `owner_decision`.
-- **MENU INVENTORY v1.0 (D-134):** 191 صنفًا فعالًا `APPROVED — v1.0`، والمعرّفات مجمّدة. التفاصيل في [`21`](21-menu-inventory-v1.0-freeze-report.md).
+- **MENU INVENTORY v1.0 = APPROVED BASELINE (D-134، D-135):** 191 صنفًا فعالًا `APPROVED — v1.0`، والمعرّفات مجمّدة. التفاصيل في [`21`](21-menu-inventory-v1.0-freeze-report.md).
 - **أسماء العرض:** الإنجليزية 191/191 معتمدة · العربية 39 معتمدة و152 بانتظار المراجعة (OV-1).
 - **الأسماء العربية الموجودة في الملف** = `SOURCE-PROVIDED ARABIC NAME — PENDING OWNER REVIEW`، ولا تُستخدم في الموقع قبل الاعتماد (D-091). المتبقي منها: 152 صنفًا + 9 فئات.
 - **الأصناف القديمة الغائبة عن الملف** = `NOT PRESENT IN CURRENT OWNER FILE`، وليس `DISCONTINUED` (D-099).
-- **Cold Brew · Lotus Cheesecake · Ice Cream · Single Espresso** = `ACTIVE PRODUCT — MISSING CURRENT MENU DATA` (D-115). **Snacks · Pastries** = `STATUS UNKNOWN — OWNER VERIFICATION REQUIRED` (D-116). القائمة في [`20`](20-menu-pre-v1-review.md) §2–3.
+- **Cold Brew · Lotus Cheesecake · Ice Cream · Single Espresso** = `ACTIVE — DATA INCOMPLETE` (D-140). **Snacks · Pastries** = `OWNER VERIFICATION REQUIRED` (D-140). القائمة في [`20`](20-menu-pre-v1-review.md) §2–3.
   - الأسعار من الملف كما هي، شاملة الضريبة.
   - الأوصاف والمكونات والصور والأحجام والإضافات: `MISSING`.
   - التوفر في الفرعين: `UNKNOWN`.

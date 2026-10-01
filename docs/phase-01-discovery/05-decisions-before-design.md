@@ -84,6 +84,8 @@
 
 **التوصية المبدئية:** Option C. يعتمد على حجم المنيو الرسمي الذي سترسله.
 
+> **تحديث:** الدراسة الكاملة على المنيو الفعلي (191 صنفًا) في [`22-menu-information-architecture.md`](22-menu-information-architecture.md) — التوصية **Option C**، بانتظار IA-01.
+
 ### DB-07 — بنية الفروع (Country → City → Branch)
 
 | | Option A — Flat | Option B — Hierarchical | Option C — Country Prefix على الجذر |

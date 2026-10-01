@@ -1,7 +1,7 @@
 # PHASE 01 — DISCOVERY & OWNER INTERVIEW
 
 **المشروع:** SHELTER COFFEE — Global Website Rebuild From Zero
-**الحالة:** 🟡 In progress — R1 ✅ · R2 ✅ · R2P ✅ · PG ✅ · R2B موثقة (MISSING) · R3 قرارات ✅ · R3 ✅ · **MENU INVENTORY v1.0 صادرة والمعرّفات مجمّدة** (`21`) · **⏳ موافقتك قبل Menu IA**
+**الحالة:** 🟡 In progress — R1 ✅ · R2 ✅ · R2P ✅ · PG ✅ · R2B موثقة (MISSING) · R3 قرارات ✅ · R3 ✅ · **MENU INVENTORY v1.0 = APPROVED BASELINE** (D-135) · **⏳ Menu IA: اختيار الـArchitecture (`22`)**
 **آخر تحديث:** 2026-10-01
 
 > لا Coding · لا Framework · لا Plugins · لا تغييرات Cloudflare/Cloudways/DNS · لا نشر.
@@ -31,7 +31,8 @@
 | 18 | [`18-official-menu-inventory-report.md`](18-official-menu-inventory-report.md) + [`menu/`](menu/) | تقرير ملف المنيو الرسمي (11 بندًا): 11 فئة · 192 صنفًا · المكرر · التسمية · الأسماء العربية · الأسئلة · المعرّفات. النسخة المنظمة `SHELTER-MENU-INVENTORY-v1.0.xlsx` (v1.0 — FROZEN) + CSV + نسخة مطابقة من الملف الأصلي |
 | 19 | [`19-menu-p0-owner-review.md`](19-menu-p0-owner-review.md) | أسئلة P0 للمنيو (✅ أُجيبت) + فصل: Source errors · Possible corrections · Possible duplicates · Missing business information |
 | 20 | [`20-menu-pre-v1-review.md`](20-menu-pre-v1-review.md) | مراجعة ما قبل v1.0 (✅ مغلقة) |
-| 21 | [`21-menu-inventory-v1.0-freeze-report.md`](21-menu-inventory-v1.0-freeze-report.md) + `menu/SHELTER-MENU-INVENTORY-v1.0.xlsx` | **تقرير التجميد:** 11 فئة · 191 صنفًا · `PRD-00001→00192` مجمّدة · ما بقي MISSING أو بانتظار التحقق |
+| 21 | [`21-menu-inventory-v1.0-freeze-report.md`](21-menu-inventory-v1.0-freeze-report.md) + `menu/SHELTER-MENU-INVENTORY-v1.0.xlsx` | **تقرير التجميد** (✅ APPROVED BASELINE): 11 فئة · 191 صنفًا · `PRD-00001→00192` · ما بقي MISSING أو بانتظار التحقق |
+| 22 | [`22-menu-information-architecture.md`](22-menu-information-architecture.md) | **Menu IA:** Options A / B / C · مقارنة 9 معايير · إجابات 15 سؤالًا · التوصية C · قرارات IA-01 → IA-08 |
 | 09 | [`09-architecture-options-after-r1.md`](09-architecture-options-after-r1.md) | مقترحات بعد الجولة 1: اللغة/السوق/الدومين (AR-01)، نموذج المواقع، ترتيب الـCTA، أثر الجمهور، النشرة، جاهزية الطلب أونلاين |
 
 ## الحوكمة
@@ -57,7 +58,8 @@
 - [x] استلام ملف المنيو الرسمي ← تقرير الـ11 بندًا (`18`)
 - [x] أجوبة P0 (D-109 → D-123)
 - [x] Menu Inventory v1.0 + تجميد المعرّفات (D-134، `21`)
-- [ ] موافقتك على تقرير التجميد ← Menu IA
+- [x] موافقتك على تقرير التجميد (D-135)
+- [ ] اختيار الـMenu Architecture (IA-01 → IA-08 في `22`) ← مواصفات IA تفصيلية ← Wireframes
 - [x] اعتماد مجموعات الأسماء G1 → G9 وC1 وC2 (D-126 → D-132)
 - [ ] الأسماء العربية الـ152 من الملف (OV-1) — ليست مانعًا لـIA
 

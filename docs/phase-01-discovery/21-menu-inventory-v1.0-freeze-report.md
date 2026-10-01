@@ -1,6 +1,6 @@
 # 21 — MENU INVENTORY v1.0 — Freeze Report
 
-> **الحالة:** ✅ **v1.0 صادرة · المعرّفات مجمّدة** (D-134) · ⏳ **بانتظار موافقتك قبل Menu IA** · **آخر تحديث:** 2026-10-01
+> **الحالة:** ✅ **APPROVED BASELINE** (D-135) · المعرّفات وسجل الأصل والـMenu Version مجمّدة · **الاسم والسعر والفئة والتوفر والصورة والوصف والحالة تبقى قابلة للتعديل مع سجل تغييرات (D-136)** · المرحلة الحالية: Menu IA ([`22`](22-menu-information-architecture.md)) · **آخر تحديث:** 2026-10-01
 >
 > **الملفات:**
 > - [`menu/SHELTER-MENU-INVENTORY-v1.0.xlsx`](menu/SHELTER-MENU-INVENTORY-v1.0.xlsx)
@@ -23,12 +23,12 @@
 
 | # | الصنف | الحالة |
 |---|---|---|
-| PND-001 | Cold Brew | `ACTIVE PRODUCT — MISSING CURRENT MENU DATA` |
-| PND-002 | Lotus Cheesecake | `ACTIVE PRODUCT — MISSING CURRENT MENU DATA` |
-| PND-003 | Ice Cream | `ACTIVE PRODUCT — MISSING CURRENT MENU DATA` |
-| PND-004 | Single Espresso | `ACTIVE PRODUCT — MISSING CURRENT MENU DATA` |
-| PND-005 | Snacks | `STATUS UNKNOWN — OWNER VERIFICATION REQUIRED` |
-| PND-006 | Pastries | `STATUS UNKNOWN — OWNER VERIFICATION REQUIRED` |
+| PND-001 | Cold Brew | `ACTIVE — DATA INCOMPLETE` |
+| PND-002 | Lotus Cheesecake | `ACTIVE — DATA INCOMPLETE` |
+| PND-003 | Ice Cream | `ACTIVE — DATA INCOMPLETE` |
+| PND-004 | Single Espresso | `ACTIVE — DATA INCOMPLETE` |
+| PND-005 | Snacks | `OWNER VERIFICATION REQUIRED` |
+| PND-006 | Pastries | `OWNER VERIFICATION REQUIRED` |
 
 - **لإنشاء أي صنف منها يلزم:** الاسم الرسمي بالإنجليزي، والسعر شامل الضريبة، والفئة.
 - **عند الإنشاء:** يأخذ المعرّف `PRD-00193` وما بعده، ويُسجّل كإضافة (ADDED) في سجل التغييرات.
@@ -49,8 +49,8 @@
 
 | # | البند | النطاق |
 |---|---|---|
-| OV-1 | **الأسماء العربية الموجودة في الملف ولم تُعتمد بعد للعرض** (D-091). يمكن اعتمادها دفعة واحدة كما هي من ورقة `Arabic_Names_Pending` | **152 صنفًا + 9 فئات** |
-| OV-2 | الاسم العربي لـ`ICED SHAKEN SALTED CARAMEL`: المصدر "آيس شيكن سولتد"، والمقترح "آيس شيكن سولتد كراميل" | `PRD-00067` |
+| OV-1 | **الأسماء العربية الموجودة في الملف ولم تُعتمد بعد للعرض** (D-091). المراجعة لاحقًا بمجموعات حسب الفئة؛ المشكوك فيه فقط منفردًا (D-137) | **152 صنفًا + 9 فئات** |
+| OV-2 | الاسم العربي لـ`ICED SHAKEN SALTED CARAMEL`: `PENDING OWNER APPROVAL` (D-138). المصدر "آيس شيكن سولتد" | `PRD-00067` |
 | OV-3 | أسماء غير واضحة، تُعرض كما في المصدر حتى تأكيدك (MQ-12): MESTEKH · ICED CROCCONATE · MILKSHAKE BAJ · MILKSHAKE ASH BERRY · V60 HONDURAS LAS · ROZY BASIL | 6 |
 | OV-4 | حالة Snacks وPastries | 2 |
 | OV-5 | أسماء عرض الفئات (EN/AR) وتجميعها | يُحسم في Menu IA (D-105). `CAT-008` يبقى SPECIALITY COFFEE (D-130) |

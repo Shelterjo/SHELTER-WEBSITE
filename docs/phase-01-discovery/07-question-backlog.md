@@ -14,7 +14,8 @@
 | PG | متابعة الصفحات بعد اعتماد الأرقام | 4 | ✅ أُجيبت (D-069 → D-072) — الرعايات MISSING |
 | R2B | تطبيقات التوصيل وقنوات الطلب | 5 | ✅ موثقة (D-073) — R2B-01/03/04 MISSING حتى يسلّمها الـOwner |
 | R3 | المنيو الرسمي (Menu) — الاستلام + المصدر الوحيد | 10 | ✅ أُجيبت (D-075 → D-089) · ✅ الملف استُلم ← التقرير `18` |
-| R3M | أسئلة ملف المنيو (MQ) | 22 | ✅ مغلقة ← **MENU INVENTORY v1.0** (`21`) · باقٍ: OV-1 → OV-5 (ليست موانع) |
+| R3M | أسئلة ملف المنيو (MQ) | 22 | ✅ مغلقة ← **MENU INVENTORY v1.0 = APPROVED BASELINE** (D-135) · باقٍ: OV-1 → OV-5 (ليست موانع) |
+| IA | Menu Information Architecture | 8 | ⏳ **الحالية:** IA-01 → IA-08 في [`22`](22-menu-information-architecture.md) |
 | R4 | الصفحة الرئيسية، الـNavigation، الفعاليات والحملات | 10 | |
 | R5 | الـCMS / Dashboard، الفريق، مصدر البيانات الموحد | 9 | |
 | R6 | Google Integrations، Analytics، Search Console، Google Business Profile | 9 | |
@@ -136,9 +137,9 @@
 | MQ-17 | P0 | تاريخ السريان | ✅ 2026-10-01 (D-122) |
 | MQ-18 | Pre-v1 | DUP-04 | ✅ كلها مختلفة · ICED SHAKEN SALTED CARAMEL (D-124) |
 | MQ-19 | Pre-v1 | خطة دمج DUP-01 | ✅ نُفّذت (D-125) |
-| MQ-21 | OV-1 | اعتماد الأسماء العربية الـ152 + 9 فئات من الملف كما هي | `OPEN` — ورقة `Arabic_Names_Pending` |
-| MQ-22 | OV-2 | الاسم العربي لـICED SHAKEN SALTED CARAMEL | `OPEN` |
-| MQ-20 | Pre-v1 | بيانات PND-001 → PND-004 (الاسم الرسمي، السعر، الفئة) | `OPEN` — ليست Blocker (`20` §3) |
+| MQ-21 | OV-1 | الأسماء العربية الـ152 + 9 فئات من الملف | `OPEN` — لا اعتماد دفعة واحدة؛ مراجعة لاحقة بمجموعات حسب الفئة (D-137) |
+| MQ-22 | OV-2 | الاسم العربي لـICED SHAKEN SALTED CARAMEL | `OPEN` — PENDING OWNER APPROVAL (D-138) |
+| MQ-20 | Pre-v1 | بيانات PND-001 → PND-004 (الاسم الرسمي، السعر، الفئة) | `OPEN` — ACTIVE — DATA INCOMPLETE (D-140) |
 
 ## R4 — الصفحة الرئيسية، الـNavigation، الفعاليات والحملات
 
