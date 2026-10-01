@@ -2,7 +2,9 @@
 
 use App\Http\Middleware\BasicAuthGate;
 use App\Http\Middleware\CanonicalTrailingSlash;
+use App\Http\Middleware\EnsureOwner;
 use App\Http\Middleware\Indexing;
+use App\Http\Middleware\RequireRecentConfirmation;
 use App\Http\Middleware\ResolveMarket;
 use App\Http\Middleware\SecurityHeaders;
 use App\Http\Middleware\SetLocale;
@@ -26,7 +28,11 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'locale' => SetLocale::class,
             'market' => ResolveMarket::class,
+            'owner' => EnsureOwner::class,
+            'confirmed' => RequireRecentConfirmation::class,
         ]);
+        $middleware->redirectGuestsTo(fn () => route('login'));
+        $middleware->redirectUsersTo(fn () => route('dashboard.home'));
         // Trust only known proxies (Cloudways local stack + Cloudflare ranges set in TRUSTED_PROXIES on the server),
         // so a client cannot spoof X-Forwarded-For to dodge rate limits. Never '*'.
         $proxies = env('TRUSTED_PROXIES', '127.0.0.1,::1');

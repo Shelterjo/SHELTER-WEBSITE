@@ -1,0 +1,37 @@
+<?php
+
+// Owner-language interface strings (DASH-034). Arabic first.
+return [
+    'name' => 'لوحة SHELTER',
+    'command_center' => 'مركز التحكم',
+    'skip_to_content' => 'انتقل إلى المحتوى',
+    'auth' => [
+        'login_title' => 'تسجيل الدخول',
+        'email' => 'البريد الإلكتروني',
+        'password' => 'كلمة المرور',
+        'continue' => 'متابعة',
+        'failed' => 'بيانات الدخول غير صحيحة.',
+        'throttled' => 'محاولات كثيرة. حاول بعد :seconds ثانية.',
+        'session_expired' => 'انتهت الجلسة. سجّل الدخول من جديد.',
+        'two_factor_title' => 'رمز التحقق',
+        'two_factor_help' => 'أدخل الرمز المكوّن من 6 أرقام من تطبيق المصادقة.',
+        'code' => 'رمز التحقق',
+        'code_invalid' => 'الرمز غير صحيح أو مستخدم من قبل.',
+        'use_recovery' => 'لا أستطيع الوصول إلى التطبيق؟ استخدم رمز استرداد',
+        'recovery_code' => 'رمز الاسترداد',
+        'verify' => 'تحقق',
+        'setup_title' => 'تفعيل التحقق بخطوتين',
+        'setup_step1' => 'افتح تطبيق مصادقة (مثل Google Authenticator أو Microsoft Authenticator) وامسح الرمز.',
+        'setup_step2' => 'أدخل الرمز الذي يظهر في التطبيق لإكمال التفعيل.',
+        'setup_manual' => 'لا يمكنك المسح؟ أدخل هذا المفتاح يدويًا:',
+        'enable' => 'تفعيل',
+        'recovery_title' => 'رموز الاسترداد',
+        'recovery_warning' => 'احفظ هذه الرموز في مكان آمن الآن. لن تظهر مرة أخرى، وكل رمز يُستخدم مرة واحدة.',
+        'recovery_done' => 'حفظتها، تابع',
+        'confirm_title' => 'تأكيد الهوية',
+        'confirm_help' => 'هذا إجراء حساس. أكّد كلمة المرور ورمز التحقق للمتابعة.',
+        'confirm' => 'تأكيد',
+        'confirm_failed' => 'تعذّر التأكيد. تحقّق من كلمة المرور والرمز.',
+        'logout' => 'تسجيل الخروج',
+    ],
+];
