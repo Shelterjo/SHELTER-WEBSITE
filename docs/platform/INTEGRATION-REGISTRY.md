@@ -59,9 +59,9 @@
 
 | الخدمة | مالك الحساب | طريقة الاسترداد | من لديه وصول |
 |---|---|---|---|
-| الدومين `shelterjo.com` (المسجّل + موعد التجديد) | `PENDING OWNER INPUT (PO-037)` | `PENDING` | `PENDING` |
-| DNS (هل الـNameservers على Cloudflare؟) | `PENDING (PO-013، PO-037)` | `PENDING` | `PENDING` |
-| حساب Cloudflare | `PENDING (PO-013)` | `PENDING` | `PENDING` |
+| الدومين `shelterjo.com` (المسجّل + موعد التجديد) | المسجّل: **Namecheap** (من الـOwner، 2026-10-01). صاحب الحساب وموعد التجديد: `PENDING (PO-037)` | `PENDING` | `PENDING` |
+| DNS (هل الـNameservers على Cloudflare؟) | ✅ نعم: Cloudflare (`leif` · `zariyah`)، DNS Setup: Full (تدقيق 2026-10-01) | `PENDING` | `PENDING` |
+| حساب Cloudflare | حساب `info@shelterjo.com` (من لوحة الـOwner). Token قراءة `shelter-readonly` حتى 2027-10-01 (API credential) | `PENDING` | الـOwner + Claude (قراءة فقط) |
 | حساب Cloudways | `PENDING (PO-037، A-10)` | `PENDING` | `PENDING` |
 | مستودع Git (`Shelterjo/SHELTER-WEBSITE` على GitHub — مرصود) | `PENDING (PO-037)` | `PENDING` | `PENDING` |
 | مشروع Google Cloud (للـAPIs) | لم يُنشأ بعد — يُنشأ باسم المنشأة بموافقتك | — | — |
