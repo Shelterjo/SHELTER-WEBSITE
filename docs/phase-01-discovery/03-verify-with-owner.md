@@ -1,5 +1,7 @@
 # 03 — Verify With Owner (التعارضات والأسئلة)
 
+> **ملاحظة (تدقيق 2026-10-01):** الأسئلة المفتوحة تُتابع الآن فقط في [`../PENDING-OWNER-INPUT.md`](../PENDING-OWNER-INPUT.md)، والحالة الحالية للقرارات في [`../MASTER-DECISION-REGISTER.md`](../MASTER-DECISION-REGISTER.md). هذا الملف يبقى سجلًا تاريخيًا وتحليليًا.
+
 > كل بند هنا وُجد له أكثر من قيمة عبر الموقع القديم والمصادر الخارجية، أو يحتاج قرارًا تجاريًا.
 > **لا شيء منها معتمد.** أنت المرجع الوحيد. القيم المنقولة من فهرس البحث ملخّصة وليست حرفية.
 > رقم كل بند (VQ-xx) يُستخدم في الردود وفي سجل القرارات.
@@ -265,7 +267,7 @@
 
 **لماذا يهم:** Published prices are a promise to customers. There are three menu versions and the prices conflict. Item names seen only in machine translation cannot be reused.
 
-**قرار الـOwner:** ⬜ لم يُحسم
+**قرار الـOwner:** ~~⬜ لم يُحسم~~ → ✅ **حُسم (D-076، D-078، D-089، D-122، D-135):** المنيو الرسمي من الـOwner هو المصدر الوحيد (MENU INVENTORY v1.0 = APPROVED BASELINE · `MV-2026-10-01`). الأسعار تُعرض من الملف الرسمي فقط، شاملة الضريبة وسارية من 2026-10-01. المنيو والأسعار القديمة للمقارنة فقط ولا تُنقل. تطابق الأصناف والأسعار بين DRIVE وHOUSE = `UNKNOWN` حتى تأكيدك (D-079، D-094 — M-01).
 
 ### VQ-17 — How far the 'first drive-thru' claim reaches
 
@@ -351,7 +353,7 @@
 
 **لماذا يهم:** Seasonal content is already out of date, and the item names differ between sources.
 
-**قرار الـOwner:** ⬜ لم يُحسم
+**قرار الـOwner:** ~~⬜ لم يُحسم~~ → ✅ **حُسم (D-117، D-135، D-139):** أصناف SPRING الخمسة في الملف الرسمي (`CAT-009`: ROZY BASIL · RED LEMONADE · MANGO SUNRISE SHAKE · PEACH LEMONADE · GREEN MIX) = `CURRENTLY AVAILABLE`، بأسماء الملف الرسمي. تواريخ الموسم `MISSING` ولا تمنع العرض (M-04). ROZY BASIL من الأسماء غير الواضحة، ويبقى كما في المصدر حتى مراجعتك (D-139 — P-03).
 
 ### VQ-23 — Product range (ice cream, snacks, Turkish/French coffee, manual brew methods)
 
@@ -365,7 +367,7 @@
 
 **لماذا يهم:** This sets the menu categories and the product description used in the schema and on directories.
 
-**قرار الـOwner:** ⬜ لم يُحسم
+**قرار الـOwner:** ~~⬜ لم يُحسم~~ → 🟡 **جزئيًا (D-076، D-089، D-115، D-116، D-140):** نطاق المنتجات يُحسم من الملف الرسمي، وفيه TURKISH COFFEE وFRENCH COFFEE وV60. Cold Brew · Lotus Cheesecake · Ice Cream · Single Espresso تُباع حاليًا = `ACTIVE — DATA INCOMPLETE` (D-140). المتبقي فقط: Snacks وPastries = `OWNER VERIFICATION REQUIRED` (PO-023). أي صنف قديم آخر غير موجود في الملف ليس `DISCONTINUED` إلا بتأكيدك (D-099).
 
 ### VQ-24 — Facilities and accessibility
 

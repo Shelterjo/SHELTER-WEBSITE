@@ -58,6 +58,7 @@
 9. **Event Taxonomy قبل التنفيذ:**
    - أحداث للدراسة على الأقل: `menu_view` · `menu_category_click` · `menu_search` · `product_view` · `branch_view` · `directions_click` · `phone_click` · `whatsapp_click` · `social_click` · `campaign_view` · `campaign_click` · `event_view` · `article_view` · `language_switch` · `site_search` — وأي حدث إضافي مقترح.
    - **Business Meaningful Events فقط** (لا أحداث Scroll 10% ولا "أي ضغطة").
+   - **تحديث الحالة:** القائمة الحالية (D-149، D-204 — M27 §18) تضيف `zero_result_search` · `branch_filter_change`؛ `branch_view` · `social_click` · `event_view` = مرشحات اختيارية. التفاصيل في [`GA4-MEASUREMENT-PLAN.md`](GA4-MEASUREMENT-PLAN.md).
 
 10. **Parameters ثابتة التسمية:** `branch_name` · `branch_id` · `product_name` · `product_category` · `campaign_name` · `event_name` · `language` · `market` · `destination` · `content_type`.
 
@@ -145,6 +146,7 @@
 31. **Owner Dashboard (اقتراح إن أمكن بدون ثقل):**
     - داخل إدارة الموقع، يعرض: Visits · Organic traffic · Top pages · Menu views · Product views · Directions clicks · Branch interest · Campaign performance · Blog performance.
     - بدون APIs ثقيلة أو مدفوعة إلا بموافقة.
+    - **تحديث الحالة (M25):** ~~اقتراح إن أمكن بدون ثقل~~ → **متطلب معتمد:** SHELTER OWNER DASHBOARD / WEBSITE CONTROL CENTER = Control Center + CMS + Analytics + SEO + Site Health، جزء أساسي من الموقع و**P0 في V1** (D-211، D-212)، مع GA4 Data API وSearch Console API. قاعدة "لا API أو خدمة مدفوعة بدون موافقة" تبقى (D-029، D-044، D-210). المعمارية والـWireframes بانتظار الاعتماد (PO-007).
 
 32. **Final Google Acceptance Test** — لا اكتمال حتى يتحقق كل ما يلي:
     - GA4 connected · GTM connected · Google tag correct.

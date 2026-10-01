@@ -26,7 +26,7 @@
 | 7 | **غائب عن الملف ≠ متوقف:** الحالة `NOT PRESENT IN CURRENT OWNER FILE` | D-099 |
 | 8 | **السعر بالفلس** كعدد صحيح، شامل الضريبة، والوحدة موثقة صراحة. لا Net Price ولا Tax data الآن | D-103، D-104 |
 | 9 | **Menu Versioning:** أي استيراد لا يمسح التاريخ | D-107 |
-| 10 | **المعرّفات PROVISIONAL** حتى إغلاق P0 وإصدار v1.0 | D-090 |
+| 10 | ~~**المعرّفات PROVISIONAL** حتى إغلاق P0 وإصدار v1.0~~ → **المعرّفات مجمّدة** منذ v1.0 (`CAT-001→011` · `PRD-00001→00192`)؛ تجميد الـID لا يجمّد باقي الحقول | ~~D-090~~ `SUPERSEDED` → D-135، D-136 |
 
 ---
 
@@ -115,11 +115,11 @@ content_review (REV-#####) · menu_change (CHG-#####) · audit_log
 | | `name_en_status` / `name_ar_status` + القرار | مثل `APPROVED — CORRECTED` + `G1 D-126` · `SOURCE-PROVIDED — PENDING OWNER REVIEW` |
 | | `slug` | بعد اعتماد `display_name_en` |
 | **التجميع** | `product_family_id` · `variant_group_id` | **فارغان** (D-097) |
-| | `merge_status` · `merged_into_product_id` | `NONE` · `SURVIVOR` · `PLANNED` · `MERGED`. الصنف المدموج يبقى بكل تاريخه ومعرّفه (D-110). الحالي: `PRD-00120` → `PRD-00115` (PLANNED) |
+| | `merge_status` · `merged_into_product_id` | `NONE` · `SURVIVOR` · `PLANNED` · `MERGED`. الصنف المدموج يبقى بكل تاريخه ومعرّفه (D-110). الحالي: `PRD-00120` → `PRD-00115` (~~PLANNED~~ → `MERGED` في v1.0؛ `PRD-00115` = `SURVIVOR` — D-125، D-136) |
 | **الحالة** | `approval_status` | `PENDING OWNER REVIEW` · `APPROVED` · `REJECTED` |
 | | `data_quality_status` + `data_quality_flags` | `SOURCE_CONFLICT` · `POSSIBLE_DUPLICATE` · `MEANING_UNVERIFIED` · `UNCLEAR_NAME` · `SEASONAL_AVAILABILITY_UNVERIFIED` · `ARABIC_NAME_MISSING` · `SUGGESTED_CORRECTION` · `NO_SOURCE_ISSUE_FOUND` |
 | | `presence_status` | `PRESENT IN CURRENT OWNER FILE` · `NOT PRESENT IN CURRENT OWNER FILE` · `DISCONTINUED` (بتأكيدك فقط) |
-| | `sale_status` | `ON OFFICIAL MENU MV-…` · `CURRENTLY AVAILABLE` (مؤكد من الـOwner، مثل SPRING) · `ACTIVE PRODUCT — MISSING CURRENT MENU DATA` · `STATUS UNKNOWN` |
+| | `sale_status` | `ON OFFICIAL MENU MV-…` · `CURRENTLY AVAILABLE` (مؤكد من الـOwner، مثل SPRING) · `ACTIVE — DATA INCOMPLETE` (D-140؛ كانت `ACTIVE PRODUCT — MISSING CURRENT MENU DATA` — D-115، نفس المعنى) · `OWNER VERIFICATION REQUIRED` (D-140؛ كانت `STATUS UNKNOWN` — D-116) |
 | | `owner_clarification` | توضيحات معتمدة لا تغيّر المصدر، مثل: `S = Single` لـ`PRD-00001` (D-109) |
 | | `publish_status` | `Draft` · `Published` · `Hidden` · `Archived` |
 | **التشغيل** | `availability_drive` · `availability_house` | `UNKNOWN` (D-094). ملخص من جدول `availability` |
@@ -163,11 +163,11 @@ content_review (REV-#####) · menu_change (CHG-#####) · audit_log
 |---|---|
 | `price_id` (1:1) · `price_before_tax_fils` · `tax_rate_basis_points` · `tax_amount_fils` · `tax_source` · `rounding_rule` | **الجدول موجود في التصميم وفارغ.** لا يُملأ من عندنا. يُفعّل فقط بقرار ومن مصدر رسمي (ERP/POS)، فيمكن إضافة الضريبة لاحقًا بدون إعادة بناء |
 
-### availability (D-094)
+### availability (D-094، D-145)
 | الحقل | ملاحظات |
 |---|---|
-| `product_id` · `size_id` (اختياري) · `branch_id` | 192 × 2 = 384 سجلًا |
-| `state` | `UNKNOWN` (الحالي) · `AVAILABLE` · `UNAVAILABLE` |
+| `product_id` · `size_id` (اختياري) · `branch_id` | ~~192 × 2 = 384 سجلًا~~ **191 × 2 = 382 سجلًا** للأصناف الفعالة (192 سجل مصدر؛ `PRD-00120` مدموج — D-125، F-03، M-01) |
+| `state` | `UNKNOWN` (الحالي) · `AVAILABLE` · `UNAVAILABLE_SHOW` · `UNAVAILABLE_HIDE` — **4 حالات معتمدة** (D-145، F-19؛ توسيع v0.5 في [`../menu-ia/SHELTER-MENU-IA-SPEC.md`](../menu-ia/SHELTER-MENU-IA-SPEC.md) §19). كانت 3 حالات (`UNAVAILABLE` واحدة — CF-06) |
 | `note` · `updated_at` | — |
 
 ### product_family / variant_group (D-097)
@@ -238,7 +238,7 @@ content_review (REV-#####) · menu_change (CHG-#####) · audit_log
 
 ---
 
-## 3. المعرّفات (PROVISIONAL — D-090)
+## 3. المعرّفات (~~PROVISIONAL — D-090~~ → **FROZEN — D-135، D-136**)
 
 | الكيان | الصيغة | الحالي |
 |---|---|---|
@@ -255,7 +255,7 @@ content_review (REV-#####) · menu_change (CHG-#####) · audit_log
 
 **القواعد:**
 - المعرّف **لا يحتوي** الاسم ولا الفئة ولا رقم الكاشير، ولا يعتمد على عمود # (D-120).
-- **الآن:** المعرّفات PROVISIONAL. تُجمّد عند إصدار v1.0 بعد إغلاق P0.
+- ~~**الآن:** المعرّفات PROVISIONAL. تُجمّد عند إصدار v1.0 بعد إغلاق P0.~~ **الآن:** مجمّدة منذ إصدار MENU INVENTORY v1.0 (D-135). `PRD-00120` = RETIRED / MERGED ولا يُعاد استخدامه، والتالي `PRD-00193` (D-136).
 - **بعد التجميد:**
   - لا يتغير أي معرّف، ولا يُعاد استخدام أي رقم.
   - الصنف المدموج يحتفظ بمعرّفه وتاريخه (`merged_into_product_id`).

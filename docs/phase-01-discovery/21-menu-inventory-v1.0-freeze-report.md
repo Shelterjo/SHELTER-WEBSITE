@@ -21,6 +21,8 @@
 
 ليست ضمن المعرّفات المجمّدة.
 
+> **مفردات الحالات (D-224 — M27 §7):** التسميات هنا aliases بنفس المعنى: `ACTIVE — DATA INCOMPLETE` = منتج ACTIVE وبياناته `MISSING` · `OWNER VERIFICATION REQUIRED` = `PENDING VERIFICATION` · `PENDING OWNER REVIEW` = `PENDING OWNER APPROVAL`. لا يتغير معنى أي قرار.
+
 | # | الصنف | الحالة |
 |---|---|---|
 | PND-001 | Cold Brew | `ACTIVE — DATA INCOMPLETE` |
@@ -90,4 +92,4 @@
 
 ---
 
-**الخطوة التالية بعد موافقتك:** Menu Information Architecture. **لم نبدأ IA ولا UX/UI.**
+**الخطوة التالية بعد موافقتك:** Menu Information Architecture. **لم نبدأ IA ولا UX/UI.** ← (تاريخي — وقت التجميد) بدأت Menu IA بعد موافقة الـOwner (D-141، D-142، D-143): [`22`](22-menu-information-architecture.md) و[`../menu-ia/`](../menu-ia/README.md). لا Production Code.

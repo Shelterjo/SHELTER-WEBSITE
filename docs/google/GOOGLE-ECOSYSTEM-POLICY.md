@@ -95,6 +95,8 @@ GA4 نظيف ومنظم؛ لا Events عشوائية؛ **MEASUREMENT PLAN** قب
 ## 26. Core GA4 Events (للدراسة — الأسماء النهائية تُعرض قبل الاعتماد)
 menu_view · menu_category_click · product_view · branch_view · directions_click · phone_click · whatsapp_click · social_click · campaign_view · campaign_click · event_view · blog_view · language_switch · search_use
 
+> **تحديث الحالة (القائمة أعلاه = النص الأصلي للسياسة، للتاريخ):** الأسماء الحالية (D-149، D-204 — M12 §9، M27 §18): `menu_view` · `menu_search` · `zero_result_search` · `menu_category_click` · `product_view` · `branch_filter_change` · `directions_click` · `phone_click` · `whatsapp_click` · `campaign_view` · `campaign_click` · `article_view` · `language_switch` · `site_search`. **`SUPERSEDED`:** `blog_view` → `article_view` · `search_use` → `menu_search` / `site_search` (CF-09). `branch_view` · `event_view` · `social_click` = مرشحات اختيارية للمراجعة. **Key Events** كلها قرار الـOwner (PO-036)؛ توصية Claude: لا Key Events في أحداث المنيو (D-149، CF-M-104).
+
 ## 27. Event Documentation
 لكل Event: Event Name · Trigger · Parameters · Purpose · Page · Destination · Business Value.
 
@@ -200,4 +202,4 @@ Google ليس مجرد أداة Analytics — هو جزء أساسي من Local 
 | 7 | لا API مدفوع | ✅ لم يُستخدم |
 | 8 | لا تغيير لأي Google property | ✅ لم يُلمس شيء |
 | 9 | المعلومات والصلاحيات المطلوبة لاحقًا | ✅ `GOOGLE-INTEGRATION-ARCHITECTURE.md` §6 |
-| 10 | العودة لـDiscovery | ⏳ R2P |
+| 10 | العودة لـDiscovery | ~~⏳ R2P~~ ✅ R2P (D-057 → D-060) |

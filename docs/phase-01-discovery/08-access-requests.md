@@ -215,6 +215,6 @@ Desktop · Mobile · DOM · Navigation · Redirects · Schema · Console · Netw
 ---
 
 ## خدمات لا نحتاجها الآن
-- **Meta Business Suite / Facebook / Instagram:** نحتاج روابط الحسابات فقط (R2-09). الـPixel يُبحث في مرحلة Analytics.
+- **Meta Business Suite / Facebook / Instagram:** نحتاج روابط الحسابات فقط (~~R2-09~~ R2-06 / R2-11 — R2-09 = طرق الدفع). الـPixel يُبحث في مرحلة Analytics.
 - **WordPress.com Connector:** الموقع على Cloudways، وليس على WordPress.com، فلا علاقة له.
 - **Gmail / Calendar / Notion / Make / n8n / Supabase:** غير مطلوبة لمرحلة الاكتشاف. Supabase وn8n قد نحتاجهما لاحقًا إذا اخترت أن تكون بيانات المنيو والفروع مصدرًا موحدًا للبوت (R5-06).
