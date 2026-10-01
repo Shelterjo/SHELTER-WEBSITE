@@ -248,7 +248,7 @@
 | `CF-M-074` | 03 VQ-16 / VQ-22 / VQ-23 ⬜ رغم قرارات المنيو | VQ-16 '⬜ لم يُحسم'؛ VQ-22 وVQ-23 بلا تحديث<br>_(03)_ | D-076، D-089، D-117، D-122، D-135، D-140<br>_(DECISION-LOG)_ | القرارات المعتمدة | لم يُحدّث 03 | تحديث الحالات (VQ-23 يبقى جزئيًا لـSnacks/Pastries) | docs/phase-01-discovery/03-verify-with-owner.md | **DOC FIX NEEDED** |
 | `CF-M-141` | مسودة إجابة FAQ «التقديم من خارج الأردن» تقرر سياسة سوق | مسودة Claude (docs/franchise/02 §4 س2): «نعم، يمكن إرسال الطلب من أي دولة، وتتم مراجعته وفق نفس الأسس.» — موسومة «✅ محايدة»<br>_(docs/franchise/02-PAGE-IA-AND-CONTENT.md §4 (DRAFT))_ | لا تخترع Answers تجارية؛ Approved Market سؤال تجاري للـOwner؛ لا إعلان توفر أسواق<br>_(M29 §04, §25, §95)_ | M29 | إمكانية الإرسال من أي دولة مقبولة تقنيًا (حقل Country دولي)، لكن «وفق نفس الأسس» التزام سياسة؛ الصياغة يجب أن تكون محايدة مثل س1 («لا يعني استلام الطلب توفر فرصة في سوق محدد») حتى قرار الأسواق | تعديل المسودة + PO-054 | docs/franchise/02-PAGE-IA-AND-CONTENT.md §4 | **DOC FIX NEEDED** |
 
-## Technical flags من المواصفات الجديدة (M28–M30) — 113
+## Technical flags من المواصفات الجديدة (M28–M30) — 114
 
 > قيود تقنية أو أمنية أو قانونية **تُبلَّغ ولا تعيد فتح القرارات المجمّدة**. ما يحتاج الـOwner منها مربوط ببند في `PENDING-OWNER-INPUT.md`.
 
@@ -367,6 +367,7 @@
 | G21-TF-02 | روابط يستخدمها تطبيق Meta على الأرجح | /privacy/ و/terms/ و/data-deletion/ موجودة في الموقع القديم ومرجّح أنها Privacy Policy URL وData Deletion URL لتطبيق Meta. | KEEP أو 301 عند الإطلاق، والتحقق من إعدادات تطبيق Meta قبل الإطلاق (LEGACY-URL-MIGRATION) | — |
 | G22-TF-01 | أدوات M40 غير المتصلة بهذه الجلسة | shadcn MCP و21st MCP وMotion AI Kit غير متصلة؛ skill ui-ux-pro-max متاح بقواعده فقط (بلا قاعدة بحثه scripts/search.py). حسب M40 §58: لا توقف، تُطبق القواعد والمعرفة الرسمية. | ربطها لاحقًا إن رغب الـOwner (شرح التكلفة والصلاحيات أولًا) | — |
 | G22-TF-02 | Page Rules في Cloudflare غير مقروءة بـAccount token | خطأ 1011: Page Rules endpoint does not support account owned tokens. | لقطة شاشة من Rules ← Page Rules عند جرد التحويلات (PHASE 7) | — |
+| G22-TF-03 | رصيد Cloudways متأخر | لوحة Cloudways (لقطة الـOwner 2026-10-01): «past due balance $29.00 — pay before Sunday Oct 11 to prevent account suspension». الإيقاف يوقف الموقع الحالي ويمنع الـStaging. | إبلاغ الـOwner فورًا؛ الدفع قراره | ✅ |
 
 ## ملاحظات الربط (المعرفات القديمة ← الجديدة)
 
