@@ -10,12 +10,12 @@
  "results": {
   "360x800": {
    "A": {
-    "pageScreensEmpty": 4.18,
-    "pageScreensFilled": 4.54,
+    "pageScreensEmpty": 4.14,
+    "pageScreensFilled": 4.5,
     "interactionsToSubmit": 23,
-    "userScrollScreens": 3.37,
+    "userScrollScreens": 3.32,
     "emptySubmit": {
-     "scrollBeforeFirstFeedbackScreens": 3.18,
+     "scrollBeforeFirstFeedbackScreens": 3.14,
      "summaryVisible": true,
      "summaryFocused": true,
      "errorsListed": 19,
@@ -27,79 +27,27 @@
      "summaryVisible": true,
      "summaryFocused": true,
      "errorsListed": 1,
-     "summaryScreens": 0.17,
+     "summaryScreens": 0.15,
      "firstInlineErrorVisible": false
     }
    },
    "B": {
-    "pageScreensEmpty": 1.82,
+    "pageScreensEmpty": 1.8,
     "stepScreens": [
-     1.82,
      1.8,
-     1.52,
+     1.79,
+     1.53,
      1.54
     ],
-    "maxStepScreens": 1.82,
+    "maxStepScreens": 1.8,
     "interactionsToSubmit": 26,
-    "userScrollScreens": 1.02,
+    "userScrollScreens": 0.99,
     "emptySubmit": {
-     "scrollBeforeFirstFeedbackScreens": 0.82,
+     "scrollBeforeFirstFeedbackScreens": 0.8,
      "summaryVisible": true,
      "summaryFocused": true,
      "errorsListed": 7,
      "summaryScreens": 0.47,
-     "firstInlineErrorVisible": true
-    },
-    "realisticMiss": {
-     "caughtAtStep": 2,
-     "summaryVisible": true,
-     "summaryFocused": true,
-     "errorsListed": 1,
-     "summaryScreens": 0.14,
-     "firstInlineErrorVisible": true
-    }
-   }
-  },
-  "390x844": {
-   "A": {
-    "pageScreensEmpty": 3.88,
-    "pageScreensFilled": 4.22,
-    "interactionsToSubmit": 23,
-    "userScrollScreens": 3.06,
-    "emptySubmit": {
-     "scrollBeforeFirstFeedbackScreens": 2.88,
-     "summaryVisible": true,
-     "summaryFocused": true,
-     "errorsListed": 19,
-     "summaryScreens": 1.1,
-     "firstInlineErrorVisible": false
-    },
-    "realisticMiss": {
-     "caughtAtStep": "submit",
-     "summaryVisible": true,
-     "summaryFocused": true,
-     "errorsListed": 1,
-     "summaryScreens": 0.16,
-     "firstInlineErrorVisible": false
-    }
-   },
-   "B": {
-    "pageScreensEmpty": 1.66,
-    "stepScreens": [
-     1.66,
-     1.64,
-     1.37,
-     1.36
-    ],
-    "maxStepScreens": 1.66,
-    "interactionsToSubmit": 26,
-    "userScrollScreens": 0.76,
-    "emptySubmit": {
-     "scrollBeforeFirstFeedbackScreens": 0.66,
-     "summaryVisible": true,
-     "summaryFocused": true,
-     "errorsListed": 7,
-     "summaryScreens": 0.44,
      "firstInlineErrorVisible": true
     },
     "realisticMiss": {
@@ -112,18 +60,18 @@
     }
    }
   },
-  "430x932": {
+  "390x844": {
    "A": {
-    "pageScreensEmpty": 3.5,
-    "pageScreensFilled": 3.8,
+    "pageScreensEmpty": 3.9,
+    "pageScreensFilled": 4.24,
     "interactionsToSubmit": 23,
-    "userScrollScreens": 2.67,
+    "userScrollScreens": 3.07,
     "emptySubmit": {
-     "scrollBeforeFirstFeedbackScreens": 2.5,
+     "scrollBeforeFirstFeedbackScreens": 2.9,
      "summaryVisible": true,
      "summaryFocused": true,
      "errorsListed": 19,
-     "summaryScreens": 0.99,
+     "summaryScreens": 1.1,
      "firstInlineErrorVisible": false
     },
     "realisticMiss": {
@@ -131,27 +79,27 @@
      "summaryVisible": true,
      "summaryFocused": true,
      "errorsListed": 1,
-     "summaryScreens": 0.14,
+     "summaryScreens": 0.15,
      "firstInlineErrorVisible": false
     }
    },
    "B": {
-    "pageScreensEmpty": 1.5,
+    "pageScreensEmpty": 1.66,
     "stepScreens": [
-     1.5,
-     1.48,
-     1.24,
-     1.23
+     1.66,
+     1.64,
+     1.4,
+     1.41
     ],
-    "maxStepScreens": 1.5,
+    "maxStepScreens": 1.66,
     "interactionsToSubmit": 26,
-    "userScrollScreens": 0.51,
+    "userScrollScreens": 0.75,
     "emptySubmit": {
-     "scrollBeforeFirstFeedbackScreens": 0.5,
+     "scrollBeforeFirstFeedbackScreens": 0.66,
      "summaryVisible": true,
      "summaryFocused": true,
      "errorsListed": 7,
-     "summaryScreens": 0.4,
+     "summaryScreens": 0.43,
      "firstInlineErrorVisible": true
     },
     "realisticMiss": {
@@ -160,6 +108,58 @@
      "summaryFocused": true,
      "errorsListed": 1,
      "summaryScreens": 0.12,
+     "firstInlineErrorVisible": true
+    }
+   }
+  },
+  "430x932": {
+   "A": {
+    "pageScreensEmpty": 3.48,
+    "pageScreensFilled": 3.79,
+    "interactionsToSubmit": 23,
+    "userScrollScreens": 2.66,
+    "emptySubmit": {
+     "scrollBeforeFirstFeedbackScreens": 2.48,
+     "summaryVisible": true,
+     "summaryFocused": true,
+     "errorsListed": 19,
+     "summaryScreens": 0.98,
+     "firstInlineErrorVisible": false
+    },
+    "realisticMiss": {
+     "caughtAtStep": "submit",
+     "summaryVisible": true,
+     "summaryFocused": true,
+     "errorsListed": 1,
+     "summaryScreens": 0.13,
+     "firstInlineErrorVisible": false
+    }
+   },
+   "B": {
+    "pageScreensEmpty": 1.5,
+    "stepScreens": [
+     1.5,
+     1.49,
+     1.27,
+     1.25
+    ],
+    "maxStepScreens": 1.5,
+    "interactionsToSubmit": 26,
+    "userScrollScreens": 0.49,
+    "emptySubmit": {
+     "scrollBeforeFirstFeedbackScreens": 0.5,
+     "summaryVisible": true,
+     "summaryFocused": true,
+     "errorsListed": 7,
+     "summaryScreens": 0.39,
+     "firstInlineErrorVisible": true
+    },
+    "realisticMiss": {
+     "caughtAtStep": 2,
+     "summaryVisible": true,
+     "summaryFocused": true,
+     "errorsListed": 1,
+     "summaryScreens": 0.11,
      "firstInlineErrorVisible": true
     }
    }
@@ -172,16 +172,16 @@
   },
   "userScrollScreens": {
    "360x800": {
-    "A": 3.37,
-    "B": 1.02
+    "A": 3.32,
+    "B": 0.99
    },
    "390x844": {
-    "A": 3.06,
-    "B": 0.76
+    "A": 3.07,
+    "B": 0.75
    },
    "430x932": {
-    "A": 2.67,
-    "B": 0.51
+    "A": 2.66,
+    "B": 0.49
    }
   },
   "firstErrorVisibleWithoutScroll": {

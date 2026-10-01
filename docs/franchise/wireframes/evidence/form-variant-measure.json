@@ -1,0 +1,438 @@
+{
+ "spec": "M29 §33 — single structured form vs short multi-step (About you → Market → Experience → Opportunity → Review & submit); owner: choose the lower friction",
+ "method": [
+  "Same fields (docs/franchise/03: 11 required + 3 optional + consent), same order, same intro block, AR and EN pages; happy path fills the 11 required fields + consent and skips the optional ones.",
+  "interactionsToSubmit = Playwright actions on the happy path (fill/select/check = 1 each) + step buttons + submit.",
+  "userScrollScreens = (sum of the minimal scrolls needed to bring each control into view (16px margin) + any scroll the fill/select/check itself caused) ÷ viewport height; the page’s own programmatic scroll (B step change, error summary focus) is not counted.",
+  "pageScreens = document height ÷ viewport height (A: empty and filled; B: each step on entry).",
+  "effort = interactionsToSubmit + userScrollScreens (lower = less friction). Error visibility: empty submit (A) / empty step 1 (B), and a realistic miss (only City left empty). \"Visible\" = in the viewport with no extra scrolling."
+ ],
+ "results": {
+  "ar": {
+   "360x800": {
+    "A": {
+     "pageScreensEmpty": 3.66,
+     "pageScreensFilled": 3.66,
+     "interactionsToSubmit": 13,
+     "userScrollScreens": 2.49,
+     "effort": 15.49,
+     "emptySubmit": {
+      "scrollBeforeFirstFeedbackScreens": 2.66,
+      "summaryVisible": true,
+      "summaryFocused": true,
+      "errorsListed": 12,
+      "summaryScreens": 0.78,
+      "firstInlineErrorVisible": true
+     },
+     "realisticMiss": {
+      "caughtAtStep": "submit",
+      "summaryVisible": true,
+      "summaryFocused": true,
+      "errorsListed": 1,
+      "summaryScreens": 0.16,
+      "firstInlineErrorVisible": true
+     }
+    },
+    "B": {
+     "pageScreensEmpty": 1.2,
+     "stepScreens": [
+      1.2,
+      1.25,
+      1.46,
+      1.55,
+      2.64
+     ],
+     "maxStepScreens": 2.64,
+     "interactionsToSubmit": 17,
+     "userScrollScreens": 1.1,
+     "effort": 18.1,
+     "emptySubmit": {
+      "scrollBeforeFirstFeedbackScreens": 0.01,
+      "summaryVisible": true,
+      "summaryFocused": true,
+      "errorsListed": 3,
+      "summaryScreens": 0.24,
+      "firstInlineErrorVisible": true
+     },
+     "realisticMiss": {
+      "caughtAtStep": 2,
+      "summaryVisible": true,
+      "summaryFocused": true,
+      "errorsListed": 1,
+      "summaryScreens": 0.13,
+      "firstInlineErrorVisible": true
+     }
+    }
+   },
+   "390x844": {
+    "A": {
+     "pageScreensEmpty": 3.41,
+     "pageScreensFilled": 3.47,
+     "interactionsToSubmit": 13,
+     "userScrollScreens": 2.31,
+     "effort": 15.31,
+     "emptySubmit": {
+      "scrollBeforeFirstFeedbackScreens": 2.41,
+      "summaryVisible": true,
+      "summaryFocused": true,
+      "errorsListed": 12,
+      "summaryScreens": 0.74,
+      "firstInlineErrorVisible": true
+     },
+     "realisticMiss": {
+      "caughtAtStep": "submit",
+      "summaryVisible": true,
+      "summaryFocused": true,
+      "errorsListed": 1,
+      "summaryScreens": 0.15,
+      "firstInlineErrorVisible": true
+     }
+    },
+    "B": {
+     "pageScreensEmpty": 1.14,
+     "stepScreens": [
+      1.14,
+      1.19,
+      1.38,
+      1.41,
+      2.45
+     ],
+     "maxStepScreens": 2.45,
+     "interactionsToSubmit": 17,
+     "userScrollScreens": 0.91,
+     "effort": 17.91,
+     "emptySubmit": {
+      "scrollBeforeFirstFeedbackScreens": 0,
+      "summaryVisible": true,
+      "summaryFocused": true,
+      "errorsListed": 3,
+      "summaryScreens": 0.23,
+      "firstInlineErrorVisible": true
+     },
+     "realisticMiss": {
+      "caughtAtStep": 2,
+      "summaryVisible": true,
+      "summaryFocused": true,
+      "errorsListed": 1,
+      "summaryScreens": 0.12,
+      "firstInlineErrorVisible": true
+     }
+    }
+   },
+   "430x932": {
+    "A": {
+     "pageScreensEmpty": 3.01,
+     "pageScreensFilled": 3.01,
+     "interactionsToSubmit": 13,
+     "userScrollScreens": 1.89,
+     "effort": 14.89,
+     "emptySubmit": {
+      "scrollBeforeFirstFeedbackScreens": 2.01,
+      "summaryVisible": true,
+      "summaryFocused": true,
+      "errorsListed": 12,
+      "summaryScreens": 0.67,
+      "firstInlineErrorVisible": true
+     },
+     "realisticMiss": {
+      "caughtAtStep": "submit",
+      "summaryVisible": true,
+      "summaryFocused": true,
+      "errorsListed": 1,
+      "summaryScreens": 0.14,
+      "firstInlineErrorVisible": true
+     }
+    },
+    "B": {
+     "pageScreensEmpty": 1,
+     "stepScreens": [
+      1,
+      1.03,
+      1.21,
+      1.23,
+      2.05
+     ],
+     "maxStepScreens": 2.05,
+     "interactionsToSubmit": 17,
+     "userScrollScreens": 0.61,
+     "effort": 17.61,
+     "emptySubmit": {
+      "scrollBeforeFirstFeedbackScreens": 0,
+      "summaryVisible": true,
+      "summaryFocused": true,
+      "errorsListed": 3,
+      "summaryScreens": 0.21,
+      "firstInlineErrorVisible": true
+     },
+     "realisticMiss": {
+      "caughtAtStep": 2,
+      "summaryVisible": true,
+      "summaryFocused": true,
+      "errorsListed": 1,
+      "summaryScreens": 0.11,
+      "firstInlineErrorVisible": true
+     }
+    }
+   }
+  },
+  "en": {
+   "360x800": {
+    "A": {
+     "pageScreensEmpty": 3.66,
+     "pageScreensFilled": 3.66,
+     "interactionsToSubmit": 13,
+     "userScrollScreens": 2.51,
+     "effort": 15.51,
+     "emptySubmit": {
+      "scrollBeforeFirstFeedbackScreens": 2.66,
+      "summaryVisible": true,
+      "summaryFocused": true,
+      "errorsListed": 12,
+      "summaryScreens": 0.85,
+      "firstInlineErrorVisible": true
+     },
+     "realisticMiss": {
+      "caughtAtStep": "submit",
+      "summaryVisible": true,
+      "summaryFocused": true,
+      "errorsListed": 1,
+      "summaryScreens": 0.19,
+      "firstInlineErrorVisible": true
+     }
+    },
+    "B": {
+     "pageScreensEmpty": 1.19,
+     "stepScreens": [
+      1.19,
+      1.26,
+      1.47,
+      1.53,
+      2.76
+     ],
+     "maxStepScreens": 2.76,
+     "interactionsToSubmit": 17,
+     "userScrollScreens": 1.21,
+     "effort": 18.21,
+     "emptySubmit": {
+      "scrollBeforeFirstFeedbackScreens": 0.01,
+      "summaryVisible": true,
+      "summaryFocused": true,
+      "errorsListed": 3,
+      "summaryScreens": 0.24,
+      "firstInlineErrorVisible": true
+     },
+     "realisticMiss": {
+      "caughtAtStep": 2,
+      "summaryVisible": true,
+      "summaryFocused": true,
+      "errorsListed": 1,
+      "summaryScreens": 0.13,
+      "firstInlineErrorVisible": true
+     }
+    }
+   },
+   "390x844": {
+    "A": {
+     "pageScreensEmpty": 3.47,
+     "pageScreensFilled": 3.47,
+     "interactionsToSubmit": 13,
+     "userScrollScreens": 2.33,
+     "effort": 15.33,
+     "emptySubmit": {
+      "scrollBeforeFirstFeedbackScreens": 2.47,
+      "summaryVisible": true,
+      "summaryFocused": true,
+      "errorsListed": 12,
+      "summaryScreens": 0.75,
+      "firstInlineErrorVisible": true
+     },
+     "realisticMiss": {
+      "caughtAtStep": "submit",
+      "summaryVisible": true,
+      "summaryFocused": true,
+      "errorsListed": 1,
+      "summaryScreens": 0.15,
+      "firstInlineErrorVisible": true
+     }
+    },
+    "B": {
+     "pageScreensEmpty": 1.13,
+     "stepScreens": [
+      1.13,
+      1.2,
+      1.4,
+      1.46,
+      2.59
+     ],
+     "maxStepScreens": 2.59,
+     "interactionsToSubmit": 17,
+     "userScrollScreens": 1.04,
+     "effort": 18.04,
+     "emptySubmit": {
+      "scrollBeforeFirstFeedbackScreens": 0,
+      "summaryVisible": true,
+      "summaryFocused": true,
+      "errorsListed": 3,
+      "summaryScreens": 0.23,
+      "firstInlineErrorVisible": true
+     },
+     "realisticMiss": {
+      "caughtAtStep": 2,
+      "summaryVisible": true,
+      "summaryFocused": true,
+      "errorsListed": 1,
+      "summaryScreens": 0.12,
+      "firstInlineErrorVisible": true
+     }
+    }
+   },
+   "430x932": {
+    "A": {
+     "pageScreensEmpty": 3.06,
+     "pageScreensFilled": 3.06,
+     "interactionsToSubmit": 13,
+     "userScrollScreens": 1.93,
+     "effort": 14.93,
+     "emptySubmit": {
+      "scrollBeforeFirstFeedbackScreens": 2.06,
+      "summaryVisible": true,
+      "summaryFocused": true,
+      "errorsListed": 12,
+      "summaryScreens": 0.67,
+      "firstInlineErrorVisible": true
+     },
+     "realisticMiss": {
+      "caughtAtStep": "submit",
+      "summaryVisible": true,
+      "summaryFocused": true,
+      "errorsListed": 1,
+      "summaryScreens": 0.14,
+      "firstInlineErrorVisible": true
+     }
+    },
+    "B": {
+     "pageScreensEmpty": 1,
+     "stepScreens": [
+      1,
+      1.03,
+      1.23,
+      1.28,
+      2.19
+     ],
+     "maxStepScreens": 2.19,
+     "interactionsToSubmit": 17,
+     "userScrollScreens": 0.73,
+     "effort": 17.73,
+     "emptySubmit": {
+      "scrollBeforeFirstFeedbackScreens": 0,
+      "summaryVisible": true,
+      "summaryFocused": true,
+      "errorsListed": 3,
+      "summaryScreens": 0.21,
+      "firstInlineErrorVisible": true
+     },
+     "realisticMiss": {
+      "caughtAtStep": 2,
+      "summaryVisible": true,
+      "summaryFocused": true,
+      "errorsListed": 1,
+      "summaryScreens": 0.11,
+      "firstInlineErrorVisible": true
+     }
+    }
+   }
+  }
+ },
+ "summary": {
+  "interactions": {
+   "A": 13,
+   "B": 17
+  },
+  "userScrollScreens": {
+   "ar 360x800": {
+    "A": 2.49,
+    "B": 1.1
+   },
+   "ar 390x844": {
+    "A": 2.31,
+    "B": 0.91
+   },
+   "ar 430x932": {
+    "A": 1.89,
+    "B": 0.61
+   },
+   "en 360x800": {
+    "A": 2.51,
+    "B": 1.21
+   },
+   "en 390x844": {
+    "A": 2.33,
+    "B": 1.04
+   },
+   "en 430x932": {
+    "A": 1.93,
+    "B": 0.73
+   }
+  },
+  "effort": {
+   "ar 360x800": {
+    "A": 15.49,
+    "B": 18.1
+   },
+   "ar 390x844": {
+    "A": 15.31,
+    "B": 17.91
+   },
+   "ar 430x932": {
+    "A": 14.89,
+    "B": 17.61
+   },
+   "en 360x800": {
+    "A": 15.51,
+    "B": 18.21
+   },
+   "en 390x844": {
+    "A": 15.33,
+    "B": 18.04
+   },
+   "en 430x932": {
+    "A": 14.93,
+    "B": 17.73
+   }
+  },
+  "firstErrorVisibleWithoutScroll": {
+   "ar 360x800": {
+    "A": true,
+    "B": true
+   },
+   "ar 390x844": {
+    "A": true,
+    "B": true
+   },
+   "ar 430x932": {
+    "A": true,
+    "B": true
+   },
+   "en 360x800": {
+    "A": true,
+    "B": true
+   },
+   "en 390x844": {
+    "A": true,
+    "B": true
+   },
+   "en 430x932": {
+    "A": true,
+    "B": true
+   }
+  },
+  "lowerFriction": {
+   "ar 360x800": "A",
+   "ar 390x844": "A",
+   "ar 430x932": "A",
+   "en 360x800": "A",
+   "en 390x844": "A",
+   "en 430x932": "A"
+  }
+ }
+}

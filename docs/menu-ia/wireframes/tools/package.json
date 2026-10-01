@@ -1,0 +1,5 @@
+{
+  "private": true,
+  "type": "commonjs",
+  "description": "Wireframe scripts (measure.js, shots.js, compose.js) are CommonJS; this keeps them working under the repo-root \"type\": \"module\"."
+}
