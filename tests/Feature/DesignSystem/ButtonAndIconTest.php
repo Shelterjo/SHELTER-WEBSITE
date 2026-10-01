@@ -107,6 +107,12 @@ class ButtonAndIconTest extends TestCase
             preg_match_all('/stroke-width="([^"]+)"/', $svg, $widths);
             $this->assertSame([$stroke], array_values(array_unique($widths[1])), basename($file).' must use the token stroke');
             $this->assertStringNotContainsString('<!--', $svg);
+            // Normalising must only touch the root <svg>: shapes keep their geometry.
+            $this->assertSame(0, preg_match('/<svg[^>]*\s(width|height|class)=/', $svg), basename($file));
+            preg_match_all('/<rect\b[^>]*>/', $svg, $rects);
+            foreach ($rects[0] as $rect) {
+                $this->assertMatchesRegularExpression('/\swidth="[^"]+".*\sheight="[^"]+"|\sheight="[^"]+".*\swidth="[^"]+"/', $rect, basename($file).' lost its rect size');
+            }
         }
     }
 }

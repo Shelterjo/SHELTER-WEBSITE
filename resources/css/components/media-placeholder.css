@@ -3,6 +3,7 @@
 .ui-media-placeholder {
     display: grid;
     place-items: center;
+    align-content: center;
     gap: var(--space-1);
     inline-size: 100%;
     aspect-ratio: 1 / 1;

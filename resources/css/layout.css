@@ -80,6 +80,11 @@
     list-style: none;
 }
 
+/* A list item wrapping a card stretches it, so cards in one row share the same height. */
+:where(.ui-grid) > li {
+    display: grid;
+}
+
 @media (min-width: 360px) {
     .ui-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));

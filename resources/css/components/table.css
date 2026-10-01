@@ -78,7 +78,8 @@
     font-weight: var(--weight-medium);
 }
 
-.ui-table--stack .ui-table__numeric {
+.ui-table--stack th.ui-table__numeric,
+.ui-table--stack td.ui-table__numeric {
     text-align: start;
 }
 
@@ -106,7 +107,8 @@
         content: none;
     }
 
-    .ui-table--stack .ui-table__numeric {
+    .ui-table--stack th.ui-table__numeric,
+    .ui-table--stack td.ui-table__numeric {
         text-align: end;
     }
 }

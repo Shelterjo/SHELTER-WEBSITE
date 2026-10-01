@@ -38,15 +38,18 @@ const ICONS = [
 ];
 
 function normalise(svg, stroke = STROKE) {
-    return svg
-        .replace(/<!--[\s\S]*?-->/g, '')
-        .replace(/\s(class|width|height)="[^"]*"/g, '')
-        .replace(/stroke-width="[^"]*"/g, `stroke-width="${stroke}"`)
-        .replace(/\s+/g, ' ')
-        .replace(/>\s+</g, '><')
-        .replace(/\s+(\/?)>/g, '$1>')
-        .replace(/<svg\s+/, '<svg ')
-        .trim();
+    return (
+        svg
+            .replace(/<!--[\s\S]*?-->/g, '')
+            // Only the root <svg> loses class/width/height (shapes such as <rect width height> keep theirs).
+            .replace(/<svg\b[^>]*>/, (tag) => tag.replace(/\s(class|width|height)="[^"]*"/g, ''))
+            .replace(/stroke-width="[^"]*"/g, `stroke-width="${stroke}"`)
+            .replace(/\s+/g, ' ')
+            .replace(/>\s+</g, '><')
+            .replace(/\s+(\/?)>/g, '$1>')
+            .replace(/<svg\s+/, '<svg ')
+            .trim()
+    );
 }
 
 mkdirSync(TARGET, { recursive: true });

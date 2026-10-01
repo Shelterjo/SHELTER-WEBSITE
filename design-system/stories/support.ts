@@ -46,6 +46,14 @@ export function story(component: string, name: string): StoryObj {
         play: async ({ canvasElement, id }) => {
             // "Open" overlays are shown as real modal dialogs (top layer, inert page, focus on the title).
             if (state === 'open') canvasElement.querySelector<HTMLDialogElement>('dialog[data-ui-dialog]')?.showModal();
+            // Let opening transitions finish (infinite ones — spinner, skeleton pulse — never do), so checks and
+            // screenshots see the final state, not a half-faded dialog.
+            await Promise.all(
+                document
+                    .getAnimations()
+                    .filter((animation) => animation.effect?.getComputedTiming().iterations !== Infinity)
+                    .map((animation) => animation.finished.catch(() => undefined)),
+            );
             // Marker for tests/Browser/storybook-a11y.spec.mjs: the story is rendered and its play step is done.
             document.body.dataset['dsReady'] = id;
         },
