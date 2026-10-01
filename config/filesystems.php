@@ -36,7 +36,7 @@ return [
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app/private'),
-            'serve' => true,
+            'serve' => false, // No public file-serving routes for private storage (SECURITY-CENTER.md)
             'throw' => false,
             'report' => false,
         ],
