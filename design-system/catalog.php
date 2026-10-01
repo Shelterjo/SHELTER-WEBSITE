@@ -529,6 +529,34 @@ return [
             ['story' => 'Panel', 'props' => ['branch' => $both(fn (string $l) => $branchCard($l, 'closing')), 'variant' => 'panel', 'details-label' => $t('التفاصيل والساعات', 'Details and hours')]],
             ['story' => 'Closed', 'props' => ['branch' => $both(fn (string $l) => $branchCard($l, 'closed')), 'variant' => 'panel']],
         ]],
+        'contact-card' => ['stories' => [
+            ['story' => 'Intent', 'props' => [
+                'icon' => 'message-square-text',
+                'title' => $t('الشكاوى والاقتراحات', 'Complaints & Feedback'),
+                'lead' => $t('وصف قصير تجريبي.', 'A short sample description.'),
+                'phone' => $both(fn (string $l) => new ContactAction('tel:+962799338445', $l === 'ar' ? '0799338445' : '+962 79 933 8445')),
+            ]],
+            ['story' => 'General', 'props' => [
+                'icon' => 'store',
+                'title' => $t('التواصل العام والفروع', 'General & Branches'),
+                'lead' => $t('وصف قصير تجريبي.', 'A short sample description.'),
+                'phone' => $both(fn (string $l) => new ContactAction('tel:+962799009436', $l === 'ar' ? '0799009436' : '+962 79 900 9436')),
+                'whatsapp' => $whatsapp,
+                'href' => '#locations',
+                'link-label' => $t('الفروع وساعات الدوام', 'Locations and opening hours'),
+                'wide' => true,
+            ], 'slot' => $t(
+                '<ul class="ui-contact-card__list" role="list"><li class="ui-contact-card__item"><a class="ui-contact-card__item-link" href="#drive">شلتر كوفي درايف</a></li><li class="ui-contact-card__item"><a class="ui-contact-card__item-link" href="#house">شلتر كوفي هاوس</a></li></ul>',
+                '<ul class="ui-contact-card__list" role="list"><li class="ui-contact-card__item"><a class="ui-contact-card__item-link" href="#drive">SHELTER COFFEE DRIVE</a></li><li class="ui-contact-card__item"><a class="ui-contact-card__item-link" href="#house">SHELTER COFFEE HOUSE</a></li></ul>',
+            )],
+            ['story' => 'WithLink', 'props' => [
+                'icon' => 'handshake',
+                'title' => $t('استفسارات الفرنشايز', 'Franchise inquiries'),
+                'phone' => $both(fn (string $l) => new ContactAction('tel:+962799338445', $l === 'ar' ? '0799338445' : '+962 79 933 8445')),
+                'href' => '#franchise',
+                'link-label' => $t('صفحة الفرنشايز', 'Franchise page'),
+            ]],
+        ]],
         'open-status' => ['stories' => [
             ['story' => 'Open', 'props' => ['timeline' => $both(fn (string $l) => $status('open', $l))]],
             ['story' => 'Closing', 'props' => ['timeline' => $both(fn (string $l) => $status('closing', $l))]],

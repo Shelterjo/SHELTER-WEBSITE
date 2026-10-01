@@ -17,12 +17,12 @@
 |---|---|
 | **التخطيط** | CLOSED (M36) |
 | **المرحلة الحالية** | **PHASE 2 — Core Website** (IN PROGRESS). PHASE 1 **COMPLETE**، والـStaging الفعلي ينتظر Cloudways (PO-064) |
-| **اختبارات التطبيق** | **138 PHPUnit** (1,801 تحققًا) · Vitest 9 · Storybook 432 · Larastan المستوى 8 بلا أخطاء · Pint · Semgrep · Gitleaks |
+| **اختبارات التطبيق** | **159 PHPUnit** · Vitest 19 · Storybook: آخر تشغيل كامل 521 ناجحًا + الإصلاح الوحيد مختبر (Header عند 360) + قصص بطاقة التواصل · Larastan المستوى 8 بلا أخطاء · Pint · Semgrep · Gitleaks |
 | **CI** | `.github/workflows/quality.yml` يعمل على GitHub (سرعة + أمان + بناء) |
 | **Blockers للعمل المحلي** | لا يوجد |
 | **Blockers للـStaging والإطلاق** | - تطبيق Cloudways للـStaging (PO-064).<br>- ملفات الهوية (M-10).<br>- الوصول إلى Google وCloudflare (PO-011…013). |
 | **الصلاحيات (D-308)** | خطوات [`ACCESS-SETUP`](platform/ACCESS-SETUP.md):<br>1. ✅ **الشبكة:** متحقق منها، وأول جرد مباشر للموقع القديم في [`24-live-site-crawl`](phase-01-discovery/24-live-site-crawl-2026-10-01.md).<br>2. ✅ **Cloudflare:** Token قراءة كـAPI credential، متحقق منه 2026-10-01.<br>3. ⏳ **Google:** حساب خدمة للقراءة عبر GitHub Secrets.<br>4. ⏳ **Cloudways Staging** |
-| **قرار مطلوب منك الآن** | - **PO-071:** ترخيص خط GE SS Two (يمنع الإطلاق فقط).<br>- **PO-066:** ملف "Menu List" ([`23-menu-list-reconciliation`](phase-01-discovery/23-menu-list-reconciliation.md)).<br>- Cloudflare: **PO-070 · PO-072 · PO-073** ([`25-cloudflare-audit`](phase-01-discovery/25-cloudflare-audit-2026-10-01.md)) |
+| **قرار مطلوب منك الآن** | - **PO-071:** ترخيص خط GE SS Two (يمنع الإطلاق فقط).<br>- **PO-066:** ملف "Menu List" ([`23-menu-list-reconciliation`](phase-01-discovery/23-menu-list-reconciliation.md)).<br>- Cloudflare: PO-070 · PO-072 · PO-073 **نُفذت** (D-311…D-313). الباقي (Full strict · DNSSEC) مع Cloudways في النهاية (D-314) |
 
 ## PHASE 1 — Foundation
 | الوحدة | الحالة | الدليل |
@@ -41,6 +41,19 @@
 | التوجيه + AR/EN + Canonical + hreflang + الـHeaders الأمنية + robots | **TESTED** | `tests/Feature/Http/*` |
 | الـDesign System: Tokens + مكونات Blade + Storybook | **TESTED** · **الهوية من الموقع القديم مطبقة (D-309)** | - 36 مكونًا `x-ui.*` و143 قصة Storybook.<br>- 51 اختبار PHP.<br>- `ds-gate`: 0 مخالفات.<br>- اختبار Storybook: **432/432** (axe + التمدد + AR/EN × 360/768/1280).<br>- الحزم: site.css 5.8 KB وdashboard.css 6.4 KB.<br><br>الهوية: من الموقع القديم (D-309)، والخط العربي ينتظر الترخيص (PO-071) |
 
+## PHASE 2 — Core Website (M40)
+> الترتيب (D-314): كل صفحات الموقع أولًا، وCloudways وCloudflare في النهاية. كل صفحة تُفحص على 320…1920 بالعربي والإنجليزي، بلا تمدد أفقي وبلا أخطاء Console.
+
+| الوحدة | الحالة | الدليل |
+|---|---|---|
+| الهيكل: Header (يقيس عرضه بنفسه — Container query) · Drawer · Footer · 404/500 | **TESTED** | `PagesTest` · `LocationsPagesTest` · Storybook (Header 360 مصلح) |
+| الرئيسية (Hero + الفروع بالحالة الحية) | **TESTED** | `LocationsPagesTest` · صور 390/1440 |
+| الفروع + صفحة كل فرع (الساعات، الحالة الآن، JSON-LD بالمعتمد فقط) | **TESTED** | `LocationsPagesTest` (8 اختبارات) |
+| المنيو: بحث عربي/إنجليزي، اختيار الفرع، التفاصيل (Bottom sheet / Modal) مع زر Back | **TESTED** | `MenuPageTest` (8) · `search.test.ts` (7) · مسار المتصفح |
+| التواصل حسب النية `/ar/contact/` (D-059، D-065، D-071، CT-06) | **TESTED** | `ContactPageTest` (5) · صور 390/1440 · البريد مخفي حتى D-035 |
+| صفحات المحتوى: من نحن · الأسئلة الشائعة · الخصوصية · الشروط (نموذج `pages`) | IN PROGRESS | تبقى 404 حتى يُنشر محتوى معتمد (لا نصوص مخترعة) |
+| البحث · الفعاليات | NOT STARTED | — |
+
 ## إغلاق المهام السابقة
 | المهمة | الحالة |
 |---|---|
@@ -50,7 +63,7 @@
 ## المراحل التالية
 | المرحلة | الحالة | ما ينتظر منك |
 |---|---|---|
-| **2 — Core Website** | **IN PROGRESS** (M40: Premium UI/UX/Motion) — الهيكل والرئيسية والفروع + صفحة المنيو قيد البناء | قرارات المنيو PO-066…069 (عند النشر) · النصوص والصور (MEDIA PENDING OWNER APPROVAL) · ترخيص الخط PO-071 |
+| **2 — Core Website** | **IN PROGRESS** (M40) — الهيكل والرئيسية والفروع والمنيو والتواصل **TESTED**؛ صفحات المحتوى قيد البناء (التفاصيل أعلاه) | قرارات المنيو PO-066…069 (عند النشر) · النصوص والصور (MEDIA PENDING OWNER APPROVAL) · ترخيص الخط PO-071 |
 | **3 — Owner Dashboard** | NOT STARTED | — |
 | **4 — Business Modules** | NOT STARTED | ملفات Franchise Master · المراجعة القانونية (PO-019) |
 | **5 — Integrations** | NOT STARTED → **BLOCKED** على الصلاحيات | PO-009…013 (PO-008 ✅) |

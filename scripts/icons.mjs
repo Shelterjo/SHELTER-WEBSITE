@@ -14,6 +14,7 @@ const STROKE = JSON.parse(readFileSync('design-system/tokens/tokens.json', 'utf8
 const ICONS = [
     'arrow-right', // site: branch link, CTA nudge (directional)
     'ban', // status-pill NOT SUPPORTED
+    'briefcase-business', // contact page: catering, B2B & events intent
     'calendar', // event-card date
     'check', // pressed chip (state not shown by colour alone)
     'chevron-down', // select
@@ -24,19 +25,23 @@ const ICONS = [
     'circle-x', // status-pill FAILED
     'clock', // status-pill PENDING
     'hand', // status-pill MANUAL ACTION REQUIRED
+    'handshake', // contact page: franchise inquiries intent
     'house', // navigation (home)
     'image', // media placeholder
     'inbox', // empty state
     'info', // info alert
     'loader-circle', // loading
+    'mail', // contact page: email (only once approved — D-035)
     'log-out', // dashboard sign out (directional)
     'map-pin', // event-card place
     'menu', // site header drawer + menu page "all categories"
     'message-circle', // site: WhatsApp action (no brand logos — Lucide only, D-062)
+    'message-square-text', // contact page: complaints & feedback intent
     'phone', // site: call action (tel:)
     'refresh-cw-off', // status-pill OUT OF SYNC
     'rotate-cw', // 500 page: try again
     'search', // search field, compact search in the menu category bar (never mirrors)
+    'store', // contact page: general & branches intent
     'trending-down', // stat-tile trend
     'trending-up', // stat-tile trend
     'triangle-alert', // warning alert

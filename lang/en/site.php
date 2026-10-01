@@ -73,6 +73,32 @@ return [
         'back' => 'All locations',
     ],
 
+    // Contact by intent (D-059; titles from the approved intent map, docs/phase-01-discovery/14 §1 / §4).
+    'contact' => [
+        'title' => 'Contact',
+        'lead' => 'Choose why you are getting in touch to reach the right number directly.',
+        'general' => [
+            'title' => 'General & Branches',
+            'lead' => 'General questions, branches, opening hours and orders.',
+            'branches' => 'Branch status now',
+            'link' => 'Locations and opening hours',
+        ],
+        'complaints' => [
+            'title' => 'Complaints & Feedback',
+            'lead' => 'For a complaint or a suggestion about your visit.',
+        ],
+        'catering' => [
+            'title' => 'Catering, B2B & Events',
+            'lead' => 'Catering, business orders and events.',
+        ],
+        'franchise' => [
+            'title' => 'Franchise inquiries',
+            'lead' => 'For questions about the franchise.',
+            'link' => 'Franchise page',
+        ],
+        'status_note' => 'Branch status updates automatically from the opening hours.',
+    ],
+
     'errors' => [
         '404_title' => 'Page not found',
         '404_text' => 'The link may have changed or the page was removed. Here are some good places to start:',

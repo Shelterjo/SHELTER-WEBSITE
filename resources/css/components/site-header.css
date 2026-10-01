@@ -1,6 +1,7 @@
 /* Site header (DS-018, D-309 old-site theme): white logo on the dark brand background. Phones: Menu + Locations stay
-   in the bar from 360px (NAV-004), the language switch is a compact toggle and the menu button opens the drawer.
-   From 1024px: everything inline, no menu button. Tokens only, logical properties only. */
+   in the bar from a 360px screen (NAV-004), the language switch is a compact toggle and the menu button opens the
+   drawer. The bar decides from its own width (container query), so the links never push it wider than the screen —
+   in a narrower frame they live in the drawer. From 1024px: everything inline, no menu button. Tokens only. */
 
 .ui-site-header {
     position: relative;
@@ -12,9 +13,10 @@
 }
 
 .ui-site-header__inner {
+    container: site-header-bar / inline-size;
     display: flex;
     align-items: center;
-    gap: var(--space-2);
+    gap: var(--space-1);
     min-block-size: calc(var(--control-lg) + var(--space-4));
 }
 
@@ -47,7 +49,7 @@
 }
 
 .ui-site-header__list .ui-nav-link {
-    padding-inline: var(--space-2);
+    padding-inline: var(--space-1);
 }
 
 .ui-site-header__end {
@@ -88,7 +90,8 @@
     font-weight: var(--weight-bold);
 }
 
-@media (min-width: 360px) {
+/* 320px of bar = a 360px phone minus the page gutters: logo + Menu + Locations + language + menu button fit. */
+@container site-header-bar (min-width: 320px) {
     .ui-site-header__nav {
         display: block;
     }
@@ -96,6 +99,12 @@
     /* Phones keep the first two items in the bar (Menu, Locations — NAV-006); the rest live in the drawer. */
     .ui-site-header__list > li:nth-child(n + 3) {
         display: none;
+    }
+}
+
+@container site-header-bar (min-width: 360px) {
+    .ui-site-header__list .ui-nav-link {
+        padding-inline: var(--space-2);
     }
 }
 

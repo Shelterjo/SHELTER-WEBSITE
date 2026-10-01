@@ -30,6 +30,25 @@ final class ContactActions
         return $point === null ? null : new ContactAction(PhoneNumber::whatsapp((string) $point->value), $this->display($point, $locale));
     }
 
+    /**
+     * Any approved, public contact point by intent (contact page — D-059): the number as displayed in this locale and
+     * its link (tel:, wa.me or mailto:). Intent numbers are shown only here and on their own pages, never on cards.
+     */
+    public function intent(ContactKind $kind, string $locale): ?ContactAction
+    {
+        $point = $this->data->contact($kind);
+        if ($point === null) {
+            return null;
+        }
+        $value = (string) $point->value;
+
+        return match ($kind) {
+            ContactKind::Email => new ContactAction('mailto:'.$value, $value),
+            ContactKind::Whatsapp => new ContactAction(PhoneNumber::whatsapp($value), $this->display($point, $locale)),
+            default => new ContactAction(PhoneNumber::tel($value), $this->display($point, $locale)),
+        };
+    }
+
     private function point(ContactKind $kind): ?ContactPoint
     {
         $point = $this->data->contact($kind);
