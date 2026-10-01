@@ -1,6 +1,6 @@
 # REQUIREMENTS TRACEABILITY MATRIX
 
-> **Requirement → Decision → Design → Code → Test.** لكل متطلب من **1344**: من أين جاء، وبأي قرار، وأين صُمم، وأين نُفذ، وكيف يُختبر. · **آخر تحديث:** 2026-10-01
+> **Requirement → Decision → Design → Code → Test.** لكل متطلب من **1345**: من أين جاء، وبأي قرار، وأين صُمم، وأين نُفذ، وكيف يُختبر. · **آخر تحديث:** 2026-10-01
 > **المصادر:** مفاتيح البنود الخام (مثل `M23-045`)، وأرشيفها في التدقيق.
 >
 > **قراءة الأعمدة:**
@@ -500,8 +500,8 @@
 | `DASH-033` | لا حاجة لفتح ملفات المصدر أو GitHub أو قاعدة البيانات للإدارة اليومية | M30 §MAIN PRINCIPLE, M35 |  |  |  |  | NOT STARTED | NO |
 | `DASH-034` | لغة صاحب العمل لا لغة المطور (+ قسم Advanced) | M30 §OWNER EXPERIENCE, M32, M33, M35 |  |  |  |  | NOT STARTED | NO |
 | `DASH-035` | معيار النجاح النهائي: 95%+ من العمليات اليومية بلا كود | M30 §FINAL SUCCESS CRITERIA |  |  |  |  | NOT STARTED | NO |
-| `ANL-001` | جرد التتبع والتكاملات الحالية في الموقع القديم | M01-036 | GC-06, D-041 | docs/phase-01-discovery/01-current-website-inventory.md · docs/phase-01-discovery/12-homepage-screenshots-audit.md §7 · docs/google/GTM-TAG-REGISTER.md |  |  | PARTIAL | NO |
-| `ANL-002` | فحص Duplicate Tracking في الموقع القديم والجديد | M11-072, M12-012 | GEP-§31, D-050, GIO-§A3/§A4 | docs/google/GOOGLE-ECOSYSTEM-POLICY.md §31 · docs/google/POST-LAUNCH-GOOGLE-CHECKLIST.md |  |  | NOT STARTED | NO |
+| `ANL-001` | جرد التتبع والتكاملات الحالية في الموقع القديم | M01-036, M39 | GC-06, D-041 | docs/phase-01-discovery/01-current-website-inventory.md · docs/phase-01-discovery/12-homepage-screenshots-audit.md §7 · docs/google/GTM-TAG-REGISTER.md |  |  | PARTIAL | NO |
+| `ANL-002` | فحص Duplicate Tracking في الموقع القديم والجديد | M11-072, M12-012, M39 | GEP-§31, D-050, GIO-§A3/§A4 | docs/google/GOOGLE-ECOSYSTEM-POLICY.md §31 · docs/google/POST-LAUNCH-GOOGLE-CHECKLIST.md |  |  | NOT STARTED | NO |
 | `ANL-003` | مصدر واحد لكل آلية تتبع — نظام Analytics واحد بلا GA4/GTM مكرر | M12-013, M25-127, M27-075, M27-142 | D-050, D-051, GEP-§31 | docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §A4 §A33 |  |  | NOT STARTED | NO |
 | `ANL-004` | لا حذف لأي Duplicate (Tag/Property/Tracking) بدون موافقة الـOwner | M12-076 | D-051, GIO-§A3/§A4 | docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §A33 |  |  | IMPLEMENTED — NOT TESTED | N/A |
 | `ANL-005` | Measurement Plan للموقع قبل تنفيذ أي Tracking | M01-209, M11-062 | D-050, GEP-§25/§27, GC-13 | docs/google/GA4-MEASUREMENT-PLAN.md · docs/google/GOOGLE-ECOSYSTEM-CHECKLIST.md GC-13 |  |  | PARTIAL | NO |
@@ -553,7 +553,7 @@
 | `GOOGLE-006` | تدخل الـOwner فقط عند Login/OAuth/2FA/Ownership/Permission/Legal-financial | M25-181, M27-074, M36 | D-051, GIO-§A1/§A2 | docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §A2 §A29 |  |  | PARTIAL | NO |
 | `GOOGLE-007` | وصول GA4/GTM للقراءة فقط لاحقًا (Read-only أولًا) | M10-047 | D-042, AC-05 | docs/phase-01-discovery/08-access-requests.md AC-05 · docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §B |  |  | NOT STARTED | NO |
 | `GOOGLE-008` | ممنوع تغيير أي Google property/configuration في المرحلة الحالية | M11-129, M23-231, M36 | D-046, D-149, GEP-§58 | docs/google/GOOGLE-ECOSYSTEM-POLICY.md §58 · docs/menu-ia/MENU-MEASUREMENT-PLAN.md |  |  | IMPLEMENTED — NOT TESTED | N/A |
-| `GOOGLE-009` | Audit الإعداد الموجود أولًا قبل إنشاء أي GA4/GTM/Integration | M12-010, M12-011, M12-081, M25-126, M27-076 | D-051, GIO-§A3/§A4, GC-06 | docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §A3 §D · docs/google/GTM-TAG-REGISTER.md · docs/google/GOOGLE-ECOSYSTEM-CHECKLIST.md GC-06 |  |  | NOT STARTED | NO |
+| `GOOGLE-009` | Audit الإعداد الموجود أولًا قبل إنشاء أي GA4/GTM/Integration | M12-010, M12-011, M12-081, M25-126, M27-076, M39 | D-051, GIO-§A3/§A4, GC-06 | docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §A3 §D · docs/google/GTM-TAG-REGISTER.md · docs/google/GOOGLE-ECOSYSTEM-CHECKLIST.md GC-06 |  |  | NOT STARTED | NO |
 | `GOOGLE-010` | قرار طريقة نشر Google tag واستخدام GTM (GA-01) — Implementation واحد | M11-066, M11-075, M12-020, M12-021 | GIO-§A7/§A8, GEP-§32, GA-01, GC-14 | docs/google/GOOGLE-INTEGRATION-ARCHITECTURE.md §3 · docs/google/GOOGLE-ECOSYSTEM-POLICY.md §32 · docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §A7 |  |  | PARTIAL | NO |
 | `GOOGLE-011` | GTM ليس مستودع Scripts — كل Tag Documented/Named/Justified/Tested | M11-067, M11-068 | GEP-§28/§29/§30, D-050 | docs/google/GTM-TAG-REGISTER.md · docs/google/GOOGLE-ECOSYSTEM-POLICY.md §28 |  |  | NOT STARTED | NO |
 | `GOOGLE-012` | GTM Naming Standard موحد قبل التنفيذ | M11-069, M12-016, M12-017, M12-018, M12-019 | GEP-§28/§29/§30, GIO-§A5/§A6/§A27 | docs/google/GTM-TAG-REGISTER.md · docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §A6 |  |  | NEEDS FIX | NO |
@@ -762,7 +762,7 @@
 | `INT-006` | Official APIs فقط (GA Data API · GSC API) — لا scraping لـGoogle dashboards | M25-130, M25-131, M33 |  |  |  |  | NOT STARTED | NO |
 | `INT-007` | ممنوع تثبيت WordPress Plugins في هذه المرحلة | M01-024 | D-002 (G1), D-037 |  |  |  | IMPLEMENTED — NOT TESTED | N/A |
 | `INT-008` | No Plugin Bloat + تقييم أي Plugin/أداة طرف ثالث قبل الإضافة | M01-182, M01-183 |  | docs/FRONTEND-TOOLING.md §7 |  |  | PARTIAL | NO |
-| `INT-009` | Google Site Kit (موجود حاليًا): فحص ما يديره — لا افتراض لاستخدامه في الجديد | M11-073, M11-074, M12-082 | GEP-§32, GA-01 | docs/phase-01-discovery/12-homepage-screenshots-audit.md §7 · docs/google/GOOGLE-INTEGRATION-ARCHITECTURE.md G-06 |  |  | PARTIAL | NO |
+| `INT-009` | Google Site Kit (موجود حاليًا): فحص ما يديره — لا افتراض لاستخدامه في الجديد | M11-073, M11-074, M12-082, M39 | GEP-§32, GA-01 | docs/phase-01-discovery/12-homepage-screenshots-audit.md §7 · docs/google/GOOGLE-INTEGRATION-ARCHITECTURE.md G-06 |  |  | PARTIAL | NO |
 | `INT-010` | منصات التوصيل لكل فرع: من الـOwner فقط — لا استنتاج من الموقع القديم أو الإنترنت | M03-059, M14-041 | D-016 (G2), D-073 |  |  |  | IMPLEMENTED — NOT TESTED | N/A |
 | `INT-011` | R2B-01: منصات التوصيل لكل فرع وروابطها الرسمية = MISSING | M14-042 | D-073 |  |  |  | NOT STARTED | NO |
 | `INT-012` | نظام الكاشير (POS) = LATER / MISSING — ممنوع اختراع اسمه | M15-014, M19-031, M23-136 | D-077 (G3), D-102 (G3), D-121 |  |  |  | IMPLEMENTED — NOT TESTED | N/A |
@@ -773,12 +773,12 @@
 | `CF-001` | البنية الحالية: www.shelterjo.com على Cloudways خلف Cloudflare | M01-002, M01-003, M01-004 | D-011 |  |  |  | IMPLEMENTED — NOT TESTED | N/A |
 | `CF-002` | Phase 01: ممنوع تغيير Cloudflare أو Cloudways أو DNS | M01-025, M01-026, M01-027, M28, M36 | D-002 (G1) |  |  |  | IMPLEMENTED — NOT TESTED | N/A |
 | `CF-003` | لا تغيير DNS (أو إعدادات Cloudflare Production) بدون موافقة الـOwner | M12-039 | GIO-§A13, D-051 | docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §A13 §A28 |  |  | IMPLEMENTED — NOT TESTED | N/A |
-| `CF-004` | مراجعة إعدادات Cloudflare | M01-194 | AC-06 | docs/phase-01-discovery/08-access-requests.md AC-06 |  |  | NOT STARTED | NO |
+| `CF-004` | مراجعة إعدادات Cloudflare | M01-194, M39 | AC-06 | docs/phase-01-discovery/08-access-requests.md AC-06 |  |  | NOT STARTED | NO |
 | `CF-005` | مراجعة إعدادات Cloudways | M01-196, M28, M35 | AC-11 | docs/phase-01-discovery/08-access-requests.md AC-11 |  |  | NOT STARTED | NO |
 | `CF-006` | جاهزية Global CDN | M01-076 | D-010, D-011 |  |  |  | NOT STARTED | NO |
 | `CF-007` | تجهيز قيمة DNS verification (TXT) لـSearch Console مسبقًا | M12-038 | GIO-§A13 | docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §A13 §B |  |  | NOT STARTED | NO |
 | `CF-008` | Cloudflare API للـSite Health: شرح الصلاحيات الدقيقة أولًا | M25-182, M35 |  |  |  |  | PARTIAL | NO |
-| `CF-009` | Cloudflare Token بأقل صلاحية — لا Global API Key | M25-183 | GIO-§A13, D-051 | docs/phase-01-discovery/08-access-requests.md AC-06 · docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §B |  |  | IMPLEMENTED — NOT TESTED | N/A |
+| `CF-009` | Cloudflare Token بأقل صلاحية — لا Global API Key | M25-183, M39 | GIO-§A13, D-051 | docs/phase-01-discovery/08-access-requests.md AC-06 · docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §B |  |  | IMPLEMENTED — NOT TESTED | N/A |
 | `TEST-001` | بوابة QA قبل الإطلاق (M01 §92) | M01-225, M01-226, M01-227, M01-228, M01-229 |  |  |  |  | NOT STARTED | NO |
 | `TEST-002` | Definition of Done: لا Requirement منتهية لمجرد كتابة الكود | M01-236, M27-145, M28, M32, M34, M35, M36 |  | docs/FRONTEND-TOOLING.md §5 |  |  | NOT STARTED | N/A |
 | `TEST-003` | التحقق من التنفيذ الحقيقي — لا افتراض من أسماء الملفات | M27-036 |  |  |  |  | IMPLEMENTED — NOT TESTED | N/A |
@@ -1327,6 +1327,7 @@
 | `INFRA-043` | الوثائق العشرون لأنظمة M35 (§56) | M35 §56 | D-287 | docs/platform/ · docs/FINAL-ARCHITECTURE-REVIEW.md |  |  | IMPLEMENTED — NOT TESTED | NO |
 | `INFRA-044` | المعمارية النهائية المستهدفة (M35 §60) | M35 §60 | D-287 | docs/architecture/PLATFORM-ARCHITECTURE.md · docs/FINAL-ARCHITECTURE-REVIEW.md §11–12 |  |  | IMPLEMENTED — NOT TESTED | NO |
 | `INFRA-045` | الاستجابة الأولى لـM35: المراجعة المعمارية ذات البنود الـ17 | M35 §61 | D-287 | docs/FINAL-ARCHITECTURE-REVIEW.md |  |  | NEEDS FIX | N/A |
+| `INFRA-046` | مكان الأسرار: لا سر في Environment variables لبيئة التطوير | M39 §1 | D-308 | docs/platform/ACCESS-SETUP.md |  |  | IMPLEMENTED — NOT YET VERIFIED | NO |
 | `BUILD-001` | التخطيط مغلق — BUILD MODE، ويبدأ البناء بعد إنهاء كل المهام الحالية | M36 §00, M36 §01, M36 §25, M36 FU-1, M36 FU-2 | D-298 | CLAUDE.md §Build mode · docs/PROGRESS.md |  |  | IMPLEMENTED — NOT TESTED | N/A |
 | `BUILD-002` | تنظيم المشروع داخل المستودع قبل أول Implementation كبير — لا اعتماد على ذاكرة المحادثة | M36 §02 | D-298 | docs/SHELTER-WEBSITE-MASTER-REQUIREMENTS.md · docs/IMPLEMENTATION-PLAN.md · docs/platform/SITE-INVENTORY.md · docs/platform/CONTENT-SOURCE-OF-TRUTH.md · docs/platform/INTEGRATION-REGISTRY.md |  |  | PARTIAL | NO |
 | `BUILD-003` | إزالة التكرار — نظام واحد لكل وظيفة | M36 §03 | D-305 | docs/FINAL-ARCHITECTURE-REVIEW.md §5 · docs/architecture/PLATFORM-ARCHITECTURE.md §3 |  |  | PARTIAL | N/A |

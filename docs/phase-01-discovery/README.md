@@ -33,6 +33,8 @@
 | 20 | [`20-menu-pre-v1-review.md`](20-menu-pre-v1-review.md) | مراجعة ما قبل v1.0 (✅ مغلقة) |
 | 21 | [`21-menu-inventory-v1.0-freeze-report.md`](21-menu-inventory-v1.0-freeze-report.md) + `menu/SHELTER-MENU-INVENTORY-v1.0.xlsx` | **تقرير التجميد** (✅ APPROVED BASELINE): 11 فئة · 191 صنفًا · `PRD-00001→00192` · ما بقي MISSING أو بانتظار التحقق |
 | 22 | [`22-menu-information-architecture.md`](22-menu-information-architecture.md) | **Menu IA:** Options A / B / C · مقارنة 9 معايير · إجابات 15 سؤالًا · التوصية C · قرارات IA-01 → IA-08 |
+| 23 | [`23-menu-list-reconciliation.md`](23-menu-list-reconciliation.md) | مطابقة ملف "Menu List" المستلم مع v1.0: 190 مطابقًا، 6 أسماء عربية متعارضة، أصناف مرشحة (PO-066…069) |
+| 24 | [`24-live-site-crawl-2026-10-01.md`](24-live-site-crawl-2026-10-01.md) + [`data/live-site-urls-2026-10-01.csv`](data/live-site-urls-2026-10-01.csv) | **أول فحص مباشر للموقع الحالي** (قراءة فقط): 34 رابطًا في الـSitemaps، والتتبع الموجود، وملاحظات SEO، وروابط يجب حمايتها، وملاحظة أمنية على `shop` |
 | 09 | [`09-architecture-options-after-r1.md`](09-architecture-options-after-r1.md) | مقترحات بعد الجولة 1: اللغة/السوق/الدومين (AR-01)، نموذج المواقع، ترتيب الـCTA، أثر الجمهور، النشرة، جاهزية الطلب أونلاين |
 
 ## الحوكمة

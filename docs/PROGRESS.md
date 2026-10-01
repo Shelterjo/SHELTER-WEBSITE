@@ -20,7 +20,8 @@
 | **اختبارات التطبيق** | **87 PHPUnit** ناجحة · Larastan المستوى 8 بلا أخطاء · Pint · Semgrep · Gitleaks |
 | **CI** | `.github/workflows/quality.yml` يعمل على GitHub (سرعة + أمان + بناء) |
 | **Blockers للعمل المحلي** | لا يوجد |
-| **Blockers للـStaging والإطلاق** | - تطبيق Cloudways للـStaging (PO-064).<br>- ملفات الهوية (M-10).<br>- الوصول إلى Google وCloudflare (PO-008…013). |
+| **Blockers للـStaging والإطلاق** | - تطبيق Cloudways للـStaging (PO-064).<br>- ملفات الهوية (M-10).<br>- الوصول إلى Google وCloudflare (PO-011…013). |
+| **الصلاحيات (D-308)** | خطوات [`ACCESS-SETUP`](platform/ACCESS-SETUP.md):<br>1. ✅ **الشبكة:** متحقق منها، وأول جرد مباشر للموقع القديم في [`24-live-site-crawl`](phase-01-discovery/24-live-site-crawl-2026-10-01.md).<br>2. ⏳ **Cloudflare:** Token قراءة كـAPI credential (**الخطوة التالية**).<br>3. ⏳ **Google:** حساب خدمة للقراءة عبر GitHub Secrets.<br>4. ⏳ **Cloudways Staging** |
 | **قرار مطلوب منك الآن** | **PO-066:** ملف "Menu List" الذي أرسلته (التفاصيل في [`23-menu-list-reconciliation`](phase-01-discovery/23-menu-list-reconciliation.md)) |
 
 ## PHASE 1 — Foundation
@@ -52,6 +53,6 @@
 | **2 — Core Website** | NOT STARTED | قرارات المنيو PO-066…069 (عند نشر المنيو) · النصوص والصور |
 | **3 — Owner Dashboard** | NOT STARTED | — |
 | **4 — Business Modules** | NOT STARTED | ملفات Franchise Master · المراجعة القانونية (PO-019) |
-| **5 — Integrations** | NOT STARTED → **BLOCKED** على الصلاحيات | PO-008…013 |
+| **5 — Integrations** | NOT STARTED → **BLOCKED** على الصلاحيات | PO-009…013 (PO-008 ✅) |
 | **6 — Quality / Operations** | NOT STARTED | — |
 | **7 — Release** | NOT STARTED | **موافقة الإنتاج** |

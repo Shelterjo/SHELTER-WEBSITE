@@ -13,7 +13,7 @@
 
 | # | الخدمة | المستوى | الأولوية | الحالة |
 |---|---|---|---|---|
-| AC-01 | إعدادات شبكة بيئة العمل (السماح بدومين الموقع) | Read-only | 🔴 الأعلى | ✅ `GRANTED` من الـOwner (D-028) — ⏳ **لم يُفعَّل بعد في الإعدادات** (آخر اختبار 2026-10-01 14:04 UTC: محجوب) |
+| AC-01 | إعدادات شبكة بيئة العمل (السماح بدومين الموقع) | Read-only | 🔴 الأعلى | ✅ `GRANTED` (D-028) — ✅ **مفعّل ومتحقق منه** (2026-10-01): الجرد في [`24`](24-live-site-crawl-2026-10-01.md) |
 | AC-02 | Google Search Console | Read-only | 🔴 | ✅ مبدئيًا (Restricted) — ⏳ طريقة الربط |
 | AC-03 | Google Business Profile (الفرعان) | معلومات/لقطات فقط | 🔴 | ✅ Read-only info — ⏳ طريقة الحصول |
 | AC-04 | Supermetrics (متصل أصلًا بالجلسة) | Read-only | 🟠 | ⏳ بانتظار موافقة على خطة الاستهلاك أدناه |
@@ -132,7 +132,7 @@ Desktop · Mobile · DOM · Navigation · Redirects · Schema · Console · Netw
 5. **المخاطرة:** لا شيء مع Token للقراءة فقط.
 - **ملاحظة تقنية:** الشبكة تحجب `api.cloudflare.com` حاليًا، فيجب إضافته أيضًا إلى الـAllowed domains.
 - **كيف تمنحه:**
-  - أنشئ Token بصلاحيات Read فقط، وضعه في إعدادات بيئة العمل باسم المتغير `CLOUDFLARE_API_TOKEN_READONLY`، ثم ابدأ جلسة جديدة.
+  - أنشئ Token بصلاحيات Read فقط، وأضفه كـ**API credential** (Bearer، النطاق `api.cloudflare.com`)، **وليس** كـEnvironment variable (INFRA-046). الخطوات في [`ACCESS-SETUP`](../platform/ACCESS-SETUP.md) §2.
   - **البديل الأسهل:** لقطات شاشة لصفحات DNS وRules وSSL/TLS.
 
 ## AC-07 — WordPress (تصدير المحتوى)

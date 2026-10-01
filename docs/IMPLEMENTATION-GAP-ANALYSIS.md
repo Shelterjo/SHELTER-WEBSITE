@@ -21,8 +21,9 @@
 | TESTED | 12 | 0% |
 | NEEDS FIX | 8 | 0% |
 | CONFLICT | 1 | 0% |
+| IMPLEMENTED — NOT YET VERIFIED | 1 | 0% |
 
-- **مُنفذ أو مجمّد** (وثائق، بيانات، أدوات): **181 من 1344** (13%).
+- **مُنفذ أو مجمّد** (وثائق، بيانات، أدوات): **182 من 1345** (13%).
 - **مُختبر فعليًا:** 54. **على النموذج فقط** (`PROTOTYPE`): 135.
 - **الموقع والـDashboard المبنيان:** 0%.
 
@@ -180,6 +181,7 @@
 | `GOV-043` | أسئلة Phase 01: Pages · Nav · Homepage · Menu · Locations · Blog · Contact | PARTIAL | 06-owner-interview-round-1.md، 07-question-backlog.md | جولات Navigation وHomepage وBlog وإغلاق DB-02/DB-03 | P0 | GOV-031, DB-02, DB-05, DB-09 | كل موضوع من الثمانية له قرار معتمد أو بند في PENDING-OWNER-INPUT | P01 |
 | `GSC-003` | الوصول: مجاني أولًا · Read-only / Restricted · Exports من الـOwner | NOT STARTED | docs/google/SEARCH-CONSOLE-BASELINE.md (بانتظار Exports)؛ docs/phase-01-discovery/08-access-requests.md | Exports / صلاحية Read-only من الـOwner | P0 | OWNER INPUT | تأكيد الدور Restricted في GSC Users؛ استلام SC-01…SC-10 | P01 |
 | `GSC-005` | Search Console Migration Baseline قبل الإطلاق — مدخل لخطة النقل | NOT STARTED | template: docs/google/SEARCH-CONSOLE-BASELINE.md (كل القيم MISSING) | استلام Exports وملء الجداول ونقلها لـSEO-MIGRATION-MAP | P0 | GSC-003, SEO-009 | الجداول مملوءة بتاريخ ومصدر لكل رقم؛ كل URL ذي قيمة منقول إلى SEO-MIGRATION-MAP | P01 |
+| `INFRA-046` | مكان الأسرار: لا سر في Environment variables لبيئة التطوير | IMPLEMENTED — NOT YET VERIFIED | docs/platform/ACCESS-SETUP.md | التحقق عند إضافة أول API credential (Cloudflare) وأول GitHub secret | P0 | CF-009, SEC-001 | قراءة واحدة عبر الـcredential دون ظهور المفتاح في env أو الملفات | P01 |
 | `MENU-005` | المنيو الرسمي من الـOwner = PRIMARY MENU SOURCE (المصدر الوحيد للحقيقة) | FROZEN | docs/phase-01-discovery/menu/menu-inventory-v1.0.csv + docs/phase-01-discovery/menu/SHELTER-MENU-INVENTORY-v1.0.xlsx (Inventory v1.0 — APPROVED BASELINE D-135); source preserved byte-identical: docs/phase-01-discovery/menu/source/OWNER-OFFICIAL-MENU-2026-10-01.xlsx (SHA-256 recorded) | عند أي استيراد رسمي مستقبلي: نفس الإجراء (حفظ الأصل + Menu Version جديد D-107) عبر الـCMS | P0 | PROD-019, MENU-021 | data validation: كل صف في الـInventory/CMS يطابق سجل المصدر (192/192) · price_fils = price × 1000 · source_* لم تتغير · SHA-256 للملف الأصلي ثابت — آليًا قبل أي استيراد للـCMS وبعده؛ + مراجعة Owner | P01 |
 | `MENU-006` | منيو الموقع القديم للمقارنة فقط | FROZEN | Inventory v1.0 بلا أي بيانات من الموقع القديم (docs/phase-01-discovery/21-menu-inventory-v1.0-freeze-report.md §لا استنتاج غير مدعوم) | الإبقاء على القاعدة في أي تحديث لاحق للمنيو وفي ترحيل المحتوى | P0 |  | مراجعة: كل قيمة في الـInventory/CMS مصدرها الملف الرسمي أو قرار Owner موثق | P01 |
 | `MENU-007` | نطاق الملف الرسمي: مصدر للحقول والأصناف الموجودة فيه فقط | FROZEN | docs/phase-01-discovery/menu/menu-inventory-v1.0.csv + docs/phase-01-discovery/menu/SHELTER-MENU-INVENTORY-v1.0.xlsx (Inventory v1.0 — APPROVED BASELINE D-135); source preserved byte-identical: docs/phase-01-discovery/menu/source/OWNER-OFFICIAL-MENU-2026-10-01.xlsx (SHA-256 recorded) | — | P0 |  | data validation: كل صف في الـInventory/CMS يطابق سجل المصدر (192/192) · price_fils = price × 1000 · source_* لم تتغير · SHA-256 للملف الأصلي ثابت — آليًا قبل أي استيراد للـCMS وبعده؛ + مراجعة Owner | P01 |

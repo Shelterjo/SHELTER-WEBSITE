@@ -8,7 +8,7 @@
 1. **الاستخراج:** كل رسائل الـOwner قُرئت كاملة بالترتيب M01 ← M38.
    - M01–M27: استُخرج منها **1797 بندًا خامًا** بمصدره ونصه الحرفي.
    - M28 (التوظيف) وM29 (الشراكات) وM30 (لوحة التحكم للـOwner فقط): مواصفات مُهيكلة، دُمجت مباشرة بمتطلبات قانونية مع مصادرها بالأقسام.
-2. **الدمج:** دُمجت البنود في **1344 متطلبًا قانونيًا** بمعرفات ثابتة `PREFIX-NNN`.
+2. **الدمج:** دُمجت البنود في **1345 متطلبًا قانونيًا** بمعرفات ثابتة `PREFIX-NNN`.
 3. **التغطية:**
    - 1789 بندًا خامًا مربوطة بمتطلب.
    - 8 مستبعدة لأنها مثال أو مرجع فقط، والسبب موثق.
@@ -26,8 +26,8 @@
 ## الملفات المرتبطة
 | الملف | الدور |
 |---|---|
-| [`MASTER-DECISION-REGISTER.md`](MASTER-DECISION-REGISTER.md) | الحالة الحالية لكل قرار (430 قرارًا) |
-| [`governance/DECISION-LOG.md`](governance/DECISION-LOG.md) | السجل الزمني (D-000 ← D-307) |
+| [`MASTER-DECISION-REGISTER.md`](MASTER-DECISION-REGISTER.md) | الحالة الحالية لكل قرار (431 قرارًا) |
+| [`governance/DECISION-LOG.md`](governance/DECISION-LOG.md) | السجل الزمني (D-000 ← D-308) |
 | [`CONFLICT-REGISTER.md`](CONFLICT-REGISTER.md) | 209 تعارضًا وطريقة حسمها |
 | [`PENDING-OWNER-INPUT.md`](PENDING-OWNER-INPUT.md) | 67 بندًا فقط تحتاجك |
 | [`REQUIREMENTS-TRACEABILITY-MATRIX.md`](REQUIREMENTS-TRACEABILITY-MATRIX.md) | متطلب ← قرار ← تصميم ← كود ← اختبار |
@@ -70,11 +70,11 @@
 ## لقطة الحالة
 | المقياس | العدد |
 |---|---|
-| متطلبات | **1344**: REQUIREMENT 490, RULE 439, DECISION 208, DELIVERABLE 109, GATE 98 |
-| حسب الحالة | APPROVED 894, FROZEN 294, APPROVED WITH CONDITIONS 73, PENDING OWNER INPUT 35, DEFERRED 22, SUPERSEDED 17, PENDING VERIFICATION 9 |
-| حسب الأولوية | P0 685, P1 572, P2 69, P3 18 |
-| حسب التنفيذ | NOT STARTED 965, PARTIAL 189, IMPLEMENTED — NOT TESTED 126, FROZEN 43, TESTED 12, NEEDS FIX 8, CONFLICT 1 |
-| مُختبر | NO 808, N/A 347, PROTOTYPE 135, YES 54 |
+| متطلبات | **1345**: REQUIREMENT 490, RULE 440, DECISION 208, DELIVERABLE 109, GATE 98 |
+| حسب الحالة | APPROVED 895, FROZEN 294, APPROVED WITH CONDITIONS 73, PENDING OWNER INPUT 35, DEFERRED 22, SUPERSEDED 17, PENDING VERIFICATION 9 |
+| حسب الأولوية | P0 686, P1 572, P2 69, P3 18 |
+| حسب التنفيذ | NOT STARTED 965, PARTIAL 189, IMPLEMENTED — NOT TESTED 126, FROZEN 43, TESTED 12, NEEDS FIX 8, CONFLICT 1, IMPLEMENTED — NOT YET VERIFIED 1 |
+| مُختبر | NO 809, N/A 347, PROTOTYPE 135, YES 54 |
 
 ## فهرس المجالات
 | # | المجال | متطلبات | P0 | معتمد/مجمّد | معلّق | تنفيذ (منفذ أو مجمّد) |
@@ -127,7 +127,7 @@
 | 46 | [Platform Quality & Operations](master-requirements/46-platform-quality-operations.md) | 56 | 39 | 56 | 0 | 2 |
 | 47 | [Master Data & Channel Sync](master-requirements/47-master-data-channel-sync.md) | 36 | 34 | 36 | 0 | 0 |
 | 48 | [Design System & UI Consistency](master-requirements/48-design-system-ui-consistency.md) | 28 | 28 | 28 | 0 | 1 |
-| 49 | [Infrastructure, Release & Operations](master-requirements/49-infrastructure-release-operations.md) | 45 | 37 | 45 | 0 | 7 |
+| 49 | [Infrastructure, Release & Operations](master-requirements/49-infrastructure-release-operations.md) | 46 | 38 | 46 | 0 | 8 |
 | 50 | [Build Mode & Delivery Governance](master-requirements/50-build-mode-delivery-governance.md) | 26 | 19 | 26 | 0 | 5 |
 
 > **التفاصيل الكاملة لكل متطلب** في ملف مجاله تحت [`master-requirements/`](master-requirements/):
@@ -1696,6 +1696,7 @@
 | `INFRA-043` | الوثائق العشرون لأنظمة M35 (§56) | APPROVED | P0 | IMPLEMENTED — NOT TESTED |
 | `INFRA-044` | المعمارية النهائية المستهدفة (M35 §60) | APPROVED | P0 | IMPLEMENTED — NOT TESTED |
 | `INFRA-045` | الاستجابة الأولى لـM35: المراجعة المعمارية ذات البنود الـ17 | APPROVED | P0 | NEEDS FIX |
+| `INFRA-046` | مكان الأسرار: لا سر في Environment variables لبيئة التطوير | APPROVED | P0 | IMPLEMENTED — NOT YET VERIFIED |
 
 ## 50 · Build Mode & Delivery Governance — [التفاصيل](master-requirements/50-build-mode-delivery-governance.md)
 
