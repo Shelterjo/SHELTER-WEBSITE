@@ -1,8 +1,22 @@
 # 19 — Menu: P0 Owner Review + Issue Separation
 
-> **الحالة:** `OPEN — WAITING FOR OWNER` · **آخر تحديث:** 2026-10-01
+> **الحالة:** ✅ **P0 أُجيبت (D-109 → D-123)** — الخطوة التالية في [`20-menu-pre-v1-review.md`](20-menu-pre-v1-review.md) · **آخر تحديث:** 2026-10-01
+>
+> **ملخص الأجوبة:**
+> - S = Single، D = Double.
+> - DUP-01 = نفس الصنف (خطة دمج).
+> - DUP-02 وDUP-03 = مختلفة.
+> - DUP-04 = كل زوج وحده.
+> - #129 = MANGO.
+> - Cold Brew وLotus Cheesecake وIce Cream وSingle Espresso تُباع. Snacks وPastries غير معروفة.
+> - SPRING متاحة الآن.
+> - حجم واحد لكل مشروب، والإضافات لا تظهر على الموقع.
+> - عمود # تسلسلي فقط، والـPOS لاحقًا.
+> - السريان من 2026-10-01.
+>
+> ما يلي هو النسخة الأصلية من الأسئلة والتصنيف، محفوظة للمرجع.
 > - **المعرّفات PROVISIONAL**، وغير مجمّدة حتى تُغلق أسئلة P0 ويصدر **Menu Inventory v1.0** المعتمد (D-090).
-> - الملف المنظم: [`menu/SHELTER-MENU-INVENTORY-v0.2.xlsx`](menu/SHELTER-MENU-INVENTORY-v0.2.xlsx). ورقة `P0_Owner_Review` فيها عمود للإجابة.
+> - الملف المنظم: [`menu/SHELTER-MENU-INVENTORY-v0.3.xlsx`](menu/SHELTER-MENU-INVENTORY-v0.3.xlsx). ورقة `P0_Owner_Review` فيها عمود للإجابة.
 > - الـData Model: [`17`](17-menu-data-model-draft.md) **v0.3**.
 > - التقرير الأصلي (11 بندًا): [`18`](18-official-menu-inventory-report.md).
 > - **لا Menu IA ولا UX/UI قبل إغلاق P0 (D-108).**

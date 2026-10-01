@@ -9,14 +9,15 @@
 > - **سُحبت كل الاستنتاجات:** معنى S/D، و"مكرر على الأغلب"، و"قد تعني Banana".
 > - **الـData Model الحالي:** [`17`](17-menu-data-model-draft.md) **v0.3**.
 > - **الأسئلة الحالية المختصرة وتصنيف الملاحظات:** [`19-menu-p0-owner-review.md`](19-menu-p0-owner-review.md).
+> - **تحديث 2:** P0 أُجيبت (D-109 → D-123). الوضع الحالي ومراجعة ما قبل v1.0: [`20-menu-pre-v1-review.md`](20-menu-pre-v1-review.md).
 >
 > **المصدر:** ملف المنيو الرسمي من الـOwner، استُلم 2026-10-01.
 > - نسخة مطابقة للأصل بدون أي تعديل: [`menu/source/OWNER-OFFICIAL-MENU-2026-10-01.xlsx`](menu/source/OWNER-OFFICIAL-MENU-2026-10-01.xlsx)
 > - SHA-256: `dfde223f219443454872e81ae64a1e8d4c55e486fe52a29f87ca1682979c8d97`
 >
 > **النسخة المنظمة (للمراجعة والاعتماد):**
-> - [`menu/SHELTER-MENU-INVENTORY-v0.2.xlsx`](menu/SHELTER-MENU-INVENTORY-v0.2.xlsx) — فيها عمود `owner_decision` لكل صف.
-> - [`menu/menu-inventory-v0.2.csv`](menu/menu-inventory-v0.2.csv)
+> - [`menu/SHELTER-MENU-INVENTORY-v0.3.xlsx`](menu/SHELTER-MENU-INVENTORY-v0.3.xlsx) — فيها عمود `owner_decision` لكل صف.
+> - [`menu/menu-inventory-v0.3.csv`](menu/menu-inventory-v0.3.csv)
 >
 > **القواعد المطبقة (D-076، D-079، D-081، D-082، D-089):**
 > - الملف = **PRIMARY OFFICIAL MENU SOURCE** للحقول الموجودة فيه فقط.

@@ -14,7 +14,7 @@
 | PG | متابعة الصفحات بعد اعتماد الأرقام | 4 | ✅ أُجيبت (D-069 → D-072) — الرعايات MISSING |
 | R2B | تطبيقات التوصيل وقنوات الطلب | 5 | ✅ موثقة (D-073) — R2B-01/03/04 MISSING حتى يسلّمها الـOwner |
 | R3 | المنيو الرسمي (Menu) — الاستلام + المصدر الوحيد | 10 | ✅ أُجيبت (D-075 → D-089) · ✅ الملف استُلم ← التقرير `18` |
-| R3M | أسئلة ملف المنيو (MQ) | 17 | ⏳ **الحالية: P0 في `19` (8 أسئلة)** · الأسماء P1 دفعة واحدة لاحقًا · P2 مع الـIA |
+| R3M | أسئلة ملف المنيو (MQ) | 17 | ✅ P0 أُجيبت (D-109 → D-123) · ⏳ **الحالية في `20`:** DUP-04 (5 أزواج) + خطة دمج DUP-01 + مجموعات الأسماء G1 → G9 |
 | R4 | الصفحة الرئيسية، الـNavigation، الفعاليات والحملات | 10 | |
 | R5 | الـCMS / Dashboard، الفريق، مصدر البيانات الموحد | 9 | |
 | R6 | Google Integrations، Analytics، Search Console، Google Business Profile | 9 | |
@@ -113,19 +113,19 @@
 
 ## R3M — أسئلة ملف المنيو الرسمي (من التقرير `18`)
 
-> **الأسئلة الحالية المختصرة:** [`19-menu-p0-owner-review.md`](19-menu-p0-owner-review.md) §1. الخلفية في [`18-official-menu-inventory-report.md`](18-official-menu-inventory-report.md) §9، وفي ورقة `P0_Owner_Review` في [`menu/SHELTER-MENU-INVENTORY-v0.2.xlsx`](menu/SHELTER-MENU-INVENTORY-v0.2.xlsx).
+> **الأسئلة الحالية المختصرة:** [`19-menu-p0-owner-review.md`](19-menu-p0-owner-review.md) §1. الخلفية في [`18-official-menu-inventory-report.md`](18-official-menu-inventory-report.md) §9، وفي ورقة `P0_Owner_Review` في [`menu/SHELTER-MENU-INVENTORY-v0.3.xlsx`](menu/SHELTER-MENU-INVENTORY-v0.3.xlsx).
 
 | ID | الأولوية | السؤال باختصار | الحالة |
 |---|---|---|---|
 | MQ-01 | لاحقًا | استثناءات DRIVE/HOUSE | `OPEN` — كل الأصناف UNKNOWN، لا يوقف الـData Model (D-094) |
-| MQ-02 | P0 | TURKISH COFFEE S/D: ما المعنى؟ | `OPEN` — NEEDS OWNER VERIFICATION (D-095) |
-| MQ-03 | P0 | الأصناف المتشابهة DUP-01 → DUP-04: نفس الصنف أم مختلف؟ | `OPEN` — لا دمج (D-096) |
-| MQ-04 | P0 | #129: الفاكهة الثالثة | `OPEN` — MISSING (D-098) |
-| MQ-05 | P0 | الأصناف NOT PRESENT IN CURRENT OWNER FILE: متوقفة أم تُباع؟ | `OPEN` (D-099) |
-| MQ-06 | P0 | SPRING: متاح الآن؟ التواريخ؟ | `OPEN` — SEASONAL CATEGORY (D-100) |
-| MQ-07 | P0 | أحجام وإضافات مدفوعة؟ | `OPEN` — MISSING (D-101) |
+| MQ-02 | P0 | TURKISH COFFEE S/D | ✅ S = Single · D = Double (D-109) |
+| MQ-03 | P0 | الأصناف المتشابهة | ✅ DUP-01 نفس الصنف · DUP-02/03 مختلفة (D-110 → D-112) · ⏳ DUP-04 كل زوج وحده (`20` §4) |
+| MQ-04 | P0 | #129 | ✅ MANGO (D-114) |
+| MQ-05 | P0 | الأصناف خارج الملف | ✅ 4 تُباع (بياناتها MISSING — `20` §3) · Snacks/Pastries غير معروفة (D-115، D-116) |
+| MQ-06 | P0 | SPRING | ✅ متاحة الآن · التواريخ MISSING (D-117) |
+| MQ-07 | P0 | الأحجام والإضافات | ✅ حجم واحد · الإضافات لا تظهر على الموقع (D-118، D-119) |
 | MQ-08 | — | تجميع "بدون سكر" وRED BULL | `DEFERRED` — DO NOT MERGE YET؛ مقترح Product Families بعد المراجعة (D-097) |
-| MQ-09 | P0 | معنى عمود # + اسم نظام الكاشير | `OPEN` — UNKNOWN BUSINESS MEANING (D-102) |
+| MQ-09 | P0 | عمود # + الكاشير | ✅ تسلسلي فقط · POS لاحقًا (D-120، D-121) |
 | MQ-10 | P1 | اعتماد التصحيحات المقترحة (دفعة واحدة) | `OPEN` (D-093) |
 | MQ-11 | P1 | الأسماء العربية في الملف + ملاحظات AR-01 → AR-08 | `OPEN` |
 | MQ-12 | P1 | 7 أسماء غير واضحة | `OPEN` |
@@ -133,7 +133,10 @@
 | MQ-14 | P1 | SPECIALITY أم SPECIALTY؟ ALL CAPS أم Title Case؟ | `OPEN` |
 | MQ-15 | P2 | مكان بعض الأصناف في الفئات (مع الـIA) | `DEFERRED` |
 | MQ-16 | P2 | سعر الكيك/الكوكيز للقطعة أم للشريحة؟ | `DEFERRED` |
-| MQ-17 | P0 | تاريخ سريان أسعار الملف (Menu Version الأولى) | `OPEN` (D-107) |
+| MQ-17 | P0 | تاريخ السريان | ✅ 2026-10-01 (D-122) |
+| MQ-18 | Pre-v1 | DUP-04: 5 أزواج، قرار لكل زوج + الاسم الكامل لـICED SHAKEN SALTED | `OPEN` (`20` §4) |
+| MQ-19 | Pre-v1 | اعتماد خطة دمج DUP-01 (يبقى PRD-00115) | `OPEN` (`20` §5) |
+| MQ-20 | Pre-v1 | بيانات PND-001 → PND-004 (الاسم الرسمي، السعر، الفئة) | `OPEN` — ليست Blocker (`20` §3) |
 
 ## R4 — الصفحة الرئيسية، الـNavigation، الفعاليات والحملات
 

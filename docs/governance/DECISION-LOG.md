@@ -125,6 +125,21 @@
 | D-106 | **حقول إلزامية في الـData Model:** `source_file` · `source_sheet` · `source_row` · `source_hash/version` · `source_name_en` · `source_name_ar` · `source_price` · `normalized_name_en/ar` · `display_name_en/ar` · `product_family_id` · `variant_group_id` · `approval_status` · `data_quality_status` · `availability_drive` · `availability_house` · `image_status` · `menu_version` · `valid_from` · `valid_to` · `created_at` · `updated_at` | 2026-10-01 | تصحيحات الـOwner على تقرير المنيو | ✅ Owner | الـData Model | `APPROVED` |
 | D-107 | **MENU VERSION** (مثل `2026-10-01`): كل استيراد رسمي مستقبلي **لا يمسح التاريخ**، ونعرف: Previous Price · Current Price · Effective Date · Changed / Added / Archived Item — للموقع وللربط مع ERP/POS | 2026-10-01 | تصحيحات الـOwner على تقرير المنيو | ✅ Owner | الـData Model | `APPROVED` |
 | D-108 | **الخطوة التالية:** Data Model v0.3 + IDs Provisional + P0 Owner Review Table مختصر جدًا (فقط ما لا يُستنتج) + فصل: Source errors · Possible corrections · Possible duplicates · Missing business information. **لا Menu IA ولا UX/UI**. بعد حسم P0 ← Menu Inventory v1.0 المعتمد | 2026-10-01 | تصحيحات الـOwner على تقرير المنيو | ✅ Owner | سير العمل | `APPROVED` |
+| D-109 | **TURKISH COFFEE:** `S = Single` · `D = Double`. القيم المصدرية تبقى كما هي، وتصحيح الأسماء يتم عبر دفعة الأسماء (G6) | 2026-10-01 | R3 — P0 Owner Decisions | ✅ Owner | المنيو | `APPROVED` |
+| D-110 | **DUP-01 (#115 و#120) = SAME PRODUCT.** خطة دمج تحفظ كل Source Row وتاريخها ومعلوماتها الأصلية. لا يُفقد أي Source Evidence. الخطة المقترحة: يبقى `PRD-00115` ويُدمج `PRD-00120` (المعرّف محفوظ). التنفيذ عند اعتماد v1.0 | 2026-10-01 | R3 — P0 Owner Decisions | ✅ Owner | الـData Model | `APPROVED` |
+| D-111 | **DUP-02:** AMERICAN COFFEE / AMERICANO = **DIFFERENT PRODUCTS** · ICED AMERICAN / ICED AMERICANO = **DIFFERENT PRODUCTS** | 2026-10-01 | R3 — P0 Owner Decisions | ✅ Owner | المنيو | `APPROVED` |
+| D-112 | **DUP-03:** ESPRESSO MACCHIATO / MACCHIATO = **DIFFERENT PRODUCTS** | 2026-10-01 | R3 — P0 Owner Decisions | ✅ Owner | المنيو | `APPROVED` |
+| D-113 | **DUP-04 (ICED SHAKEN … / ICED … LATTE):** لا افتراض عام. مراجعة كل زوج منفصلًا بجدول (A · B · Price · Source AR · Source EN · Evidence) وسؤال لكل زوج. **لا دمج قبل الاعتماد. لا تجميد لمعرّفات هذه الأصناف حتى انتهاء المراجعة** | 2026-10-01 | R3 — P0 Owner Decisions | ✅ Owner | المنيو، المعرّفات | `APPROVED` |
+| D-114 | **#129:** الفاكهة الثالثة = **MANGO**. يُصحح الـNormalized فقط، والقيمة الأصلية تبقى في Source | 2026-10-01 | R3 — P0 Owner Decisions | ✅ Owner | المنيو | `APPROVED` |
+| D-115 | **Cold Brew · Lotus Cheesecake · Ice Cream · Single Espresso = CURRENTLY SOLD** ← `ACTIVE PRODUCT — MISSING CURRENT MENU DATA`. لا اختراع لـPrice · Category · Arabic name · Description · Availability · Image. قائمة Missing Data خاصة بها | 2026-10-01 | R3 — P0 Owner Decisions | ✅ Owner | المنيو | `APPROVED` |
+| D-116 | **Snacks · Pastries** = `STATUS UNKNOWN — OWNER VERIFICATION REQUIRED` | 2026-10-01 | R3 — P0 Owner Decisions | ✅ Owner | المنيو | `APPROVED` |
+| D-117 | **SPRING:** الأصناف الخمسة **CURRENTLY AVAILABLE**. اسم الفئة لا يعني أنها دائمة؛ تُحفظ إمكانية Seasonal Metadata. تواريخ الموسم `MISSING — OWNER INPUT REQUIRED`، وغيابها لا يمنع عرض الأصناف الحالية بعد اعتماد الموقع. يحدّث D-100 | 2026-10-01 | R3 — P0 Owner Decisions | ✅ Owner | المنيو | `APPROVED` |
+| D-118 | **الأحجام:** كل مشروب (ساخن أو بارد) **ONE SIZE ONLY**. لا عرض لأحجام متعددة على الموقع. الـData Model يبقى قابلًا لدعم الأحجام مستقبلًا بدون إعادة بناء. يحدّث D-101 | 2026-10-01 | R3 — P0 Owner Decisions | ✅ Owner | الـData Model، الـUX | `APPROVED` |
+| D-119 | **الإضافات لا تظهر على الموقع.** Operational Add-ons ≠ Website Menu Content. حتى لو وُجدت في الـPOS (Extra Shot، Alternative Milk، Syrups…): `show_on_website = false`، وليست جزءًا من Menu UI | 2026-10-01 | R3 — P0 Owner Decisions | ✅ Owner | الـUX، الـData Model | `APPROVED` |
+| D-120 | **عمود # = SEQUENTIAL NUMBER ONLY.** ليس POS ID ولا Product ID ولا SKU ولا External ID. لا يُستخدم كمعرّف تجاري ولا في أي تكامل. يحدّث D-102 | 2026-10-01 | R3 — P0 Owner Decisions | ✅ Owner | الـData Model | `APPROVED` |
+| D-121 | **نظام الكاشير (POS)** = LATER / MISSING. لا يوقف المشروع. `pos_item_id` و`external_item_id` فارغان | 2026-10-01 | R3 — P0 Owner Decisions | ✅ Owner | الـData Model | `APPROVED` |
+| D-122 | **تاريخ السريان:** أسعار الملف الرسمي سارية من **2026-10-01**. `Menu Version = MV-2026-10-01` · `valid_from = 2026-10-01` · VAT INCLUSIVE · JOD · `price_fils` (1 JOD = 1000 fils). لا Net Price ولا VAT Amount من عندنا | 2026-10-01 | R3 — P0 Owner Decisions | ✅ Owner | المنيو | `APPROVED` |
+| D-123 | **قبل إصدار v1.0** تُعرض فقط: العدد النهائي بعد DUP-01 · الأصناف التي تُباع وليست في الملف · Missing Data لها · جدول DUP-04 · Blockers التجميد · تصحيحات الأسماء كمجموعات. إغلاق Data Quality أولًا ثم اعتماد **MENU INVENTORY v1.0**. لا Menu IA ولا UX/UI | 2026-10-01 | R3 — P0 Owner Decisions | ✅ Owner | سير العمل | `APPROVED` |
 
 ## قرارات مفتوحة (PROPOSED — بانتظار الـOwner)
 
@@ -145,7 +160,7 @@
 | DB-09 | اسم ومسار قسم المعرفة | Stage 6 | `PROPOSED` |
 | DB-10 | عرض الأسعار | — | ✅ البنية تدعم العرض الكامل (D-078) |
 | DB-21 | المصدر الوحيد للمنيو (SSOT) | ✅ A الآن + جاهزية C (D-085) | `APPROVED` |
-| DB-22 | Menu Data Model النهائي + بنية المعرّفات | **v0.3** في `17` (D-090 → D-108) · المعرّفات `CAT-001→011` · `PRD-00001→00192` = **PROVISIONAL** | ⏳ بانتظار P0 في `19` (8 أسئلة) ← Menu Inventory v1.0 |
+| DB-22 | Menu Data Model النهائي + بنية المعرّفات | **v0.4** في `17` · P0 مغلقة (D-109 → D-123) · 181 معرّفًا FREEZE-READY · 10 HOLD (DUP-04) | ⏳ أزواج DUP-04 + خطة دمج DUP-01 + اعتماد v1.0 (`20`) |
 | DB-11 | الـHost الرسمي | `www.shelterjo.com` | `PROPOSED` |
 | DB-12 | `shop.shelterjo.com` | يُفحص عند توفر الوصول (D-016) | `PENDING ACCESS` |
 | DB-15 | نموذج بيانات المواقع (Country → City → Location بأنواع وحالات ورؤية) | `09` AR-02 | `PROPOSED` |

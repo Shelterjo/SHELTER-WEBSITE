@@ -1,13 +1,14 @@
-# 17 — Menu Data Model (v0.3)
+# 17 — Menu Data Model (v0.4)
 
-> **الحالة:** `DRAFT v0.3 — PENDING OWNER APPROVAL` · **المعرّفات PROVISIONAL** · **آخر تحديث:** 2026-10-01
+> **الحالة:** `DRAFT v0.4 — PENDING OWNER APPROVAL` · **المعرّفات PROVISIONAL** (181 جاهزة للتجميد · 10 معلقة لـDUP-04) · **آخر تحديث:** 2026-10-01
 >
 > **السجل:**
 > - **v0.1:** قبل الملف (D-075 → D-089).
 > - **v0.2:** بعد قراءة الملف.
-> - **v0.3:** بعد قرارات الـOwner D-090 → D-108، وهي الأساس الآن.
+> - **v0.3:** بعد قرارات الـOwner D-090 → D-108.
+> - **v0.4:** بعد أجوبة P0 (D-109 → D-123): سجل الأصل، خطة الدمج، الأصناف المعلقة، حجم واحد، الإضافات خارج الموقع، تاريخ السريان. انظر §6.
 >
-> **المراجع:** التقرير [`18`](18-official-menu-inventory-report.md) · أسئلة P0 [`19`](19-menu-p0-owner-review.md) · البيانات [`menu/SHELTER-MENU-INVENTORY-v0.2.xlsx`](menu/SHELTER-MENU-INVENTORY-v0.2.xlsx)
+> **المراجع:** التقرير [`18`](18-official-menu-inventory-report.md) · P0 [`19`](19-menu-p0-owner-review.md) · مراجعة ما قبل v1.0 [`20`](20-menu-pre-v1-review.md) · البيانات [`menu/SHELTER-MENU-INVENTORY-v0.3.xlsx`](menu/SHELTER-MENU-INVENTORY-v0.3.xlsx)
 >
 > **المنصة لم تُختر بعد (DB-08).** هذا نموذج منطقي يصلح لأي CMS أو قاعدة بيانات (مثل Supabase/Postgres).
 
@@ -32,7 +33,9 @@
 
 ```
 menu_version (MV-YYYY-MM-DD) ── import_batch (IMP-####: الملف + SHA-256)
+   └── source_record (SRC-#####)          ← صف واحد لكل صف في الملف. لا يُعدّل ولا يُحذف. يرتبط بصنف (عدة صفوف → صنف واحد بعد الدمج)
 market (jo) ── branch (drive · house)
+pending_product (PND-###)                 ← صنف يُباع وليس في الملف، أو حالته غير معروفة. يصبح PRD عند وصول بياناته
 
 category (CAT-###)
 product (PRD-#####)                      ← صف واحد من المصدر = صنف واحد. لا يُحذف ولا يُدمج تلقائيًا
@@ -40,8 +43,9 @@ product (PRD-#####)                      ← صف واحد من المصدر = �
   ├── price (PRC-######)                 ← price_fils · tax_inclusive · branch · size · menu_version · valid_from/to
   │     └── price_tax_detail             ← محجوز وفارغ (تكامل ERP/POS مستقبلًا)
   ├── availability                       ← product [× size] × branch
+  ├── external_reference                ← أرقام الكاشير/ERP: عدة أرقام → صنف واحد (مهم بعد الدمج)
   ├── media (MED-######)
-  └── modifier_link → modifier_group (MGR-###) → modifier (MOD-####)   ← لا يوجد الآن
+  └── modifier_link → modifier_group (MGR-###) → modifier (MOD-####)   ← show_on_website = false (D-119)
 
 product_family (FAM-###)   ← تجميع بصري للعرض فقط — فارغ حتى قرارك
 variant_group  (VGR-###)   ← أصناف أكّدت أنها "نفس الصنف بخيار مختلف" — فارغ حتى قرارك
@@ -67,7 +71,7 @@ content_review (REV-#####) · menu_change (CHG-#####) · audit_log
 | `menu_version_id` | `MV-2026-10-01` |
 | `status` | `DRAFT` → `APPROVED` → `SUPERSEDED` |
 | `received_at` | 2026-10-01 |
-| `effective_from` | **`OWNER VERIFICATION REQUIRED`** (MQ-17) |
+| `effective_from` | **2026-10-01** ✅ (D-122) |
 | `import_batch_ids` · `previous_version_id` | — |
 | `approved_by` · `approved_at` · `notes` | — |
 
@@ -89,32 +93,36 @@ content_review (REV-#####) · menu_change (CHG-#####) · audit_log
 | `normalized_category_name_en/ar` | بعد اعتماد التصحيحات |
 | `display_category_name_en` · `display_category_name_ar` | **فارغ حتى اعتمادك** |
 | `slug` · `sort_order` | الـSlug بعد اعتماد اسم العرض |
-| `category_type` | `SEASONAL` لفئة SPRING (D-100) · غيرها `UNSPECIFIED` |
-| `current_availability` | SPRING: `OWNER VERIFICATION REQUIRED` |
-| `season_start` · `season_end` · `historical_context` | `MISSING`. لا يوجد لدينا دليل تاريخي على موسم محدد |
+| `category_type` | `SEASONAL` لفئة SPRING (D-100) — لا تعني أنها دائمة ولا أنها متوقفة · غيرها `UNSPECIFIED` |
+| `current_availability` | SPRING: **`CURRENTLY AVAILABLE`** ✅ (D-117) |
+| `season_start` · `season_end` · `historical_context` | `MISSING — OWNER INPUT REQUIRED`. **غياب التواريخ لا يمنع عرض الأصناف المتاحة بعد اعتماد الموقع** (D-117) |
 | `approval_status` · `created_at` · `updated_at` | — |
 
 ### product
 | المجموعة | الحقل | القيمة الحالية / القاعدة |
 |---|---|---|
-| **الهوية** | `product_id` · `id_status` | `PRD-#####` · `PROVISIONAL` |
+| **الهوية** | `product_id` · `id_status` | `PRD-#####` · `PROVISIONAL` / `FREEZE-READY` / `HOLD — DUP-04 PAIR REVIEW` / `FROZEN` / `RETIRED — MERGED` |
 | | `category_id` | — |
 | **المصدر** (لا يُعدّل أبدًا) | `source_file` · `source_sheet` · `source_row` · `source_hash` · `menu_version` | مثال: `Sheet1` · `60` · `MV-2026-10-01` |
-| | `source_row_number` | قيمة عمود #: **`SOURCE ROW NUMBER / UNKNOWN BUSINESS MEANING`** (D-102). لا إعادة ترقيم (D-099) |
+| | `source_sequence_number` | قيمة عمود #: **`SEQUENTIAL NUMBER ONLY`** (D-120). ليس POS ID ولا Product ID ولا SKU ولا External ID. لا يُستخدم في أي تكامل. لا إعادة ترقيم (D-099) |
+| | `source_lineage` | قائمة `source_record` المرتبطة بالصنف (D-110) |
 | | `source_category_name` · `source_name_en` · `source_name_ar` · `source_price` | كما في الملف حرفيًا. `source_price` نص مثل `"2.75"` |
 | | `source_name_ar_status` | `SOURCE-PROVIDED — PENDING OWNER REVIEW` (166 صنفًا) · `MISSING — OWNER INPUT REQUIRED` (26 صنفًا) |
 | **المعالجة** | `normalized_name_en` · `normalized_name_ar` | **فارغ.** يُملأ فقط بالتصحيحات المعتمدة |
 | **العرض** | `display_name_en` · `display_name_ar` | **فارغ حتى اعتمادك.** الموقع لا يعرض إلا `display_*` المعتمد |
 | | `slug` | بعد اعتماد `display_name_en` |
 | **التجميع** | `product_family_id` · `variant_group_id` | **فارغان** (D-097) |
-| | `merged_into_product_id` | فارغ. يُستخدم فقط إذا اعتمدت دمجًا لاحقًا، والصنف المدموج يبقى بكل تاريخه |
+| | `merge_status` · `merged_into_product_id` | `NONE` · `SURVIVOR` · `PLANNED` · `MERGED`. الصنف المدموج يبقى بكل تاريخه ومعرّفه (D-110). الحالي: `PRD-00120` → `PRD-00115` (PLANNED) |
 | **الحالة** | `approval_status` | `PENDING OWNER REVIEW` · `APPROVED` · `REJECTED` |
 | | `data_quality_status` + `data_quality_flags` | `SOURCE_CONFLICT` · `POSSIBLE_DUPLICATE` · `MEANING_UNVERIFIED` · `UNCLEAR_NAME` · `SEASONAL_AVAILABILITY_UNVERIFIED` · `ARABIC_NAME_MISSING` · `SUGGESTED_CORRECTION` · `NO_SOURCE_ISSUE_FOUND` |
 | | `presence_status` | `PRESENT IN CURRENT OWNER FILE` · `NOT PRESENT IN CURRENT OWNER FILE` · `DISCONTINUED` (بتأكيدك فقط) |
+| | `sale_status` | `ON OFFICIAL MENU MV-…` · `CURRENTLY AVAILABLE` (مؤكد من الـOwner، مثل SPRING) · `ACTIVE PRODUCT — MISSING CURRENT MENU DATA` · `STATUS UNKNOWN` |
+| | `owner_clarification` | توضيحات معتمدة لا تغيّر المصدر، مثل: `S = Single` لـ`PRD-00001` (D-109) |
 | | `publish_status` | `Draft` · `Published` · `Hidden` · `Archived` |
 | **التشغيل** | `availability_drive` · `availability_house` | `UNKNOWN` (D-094). ملخص من جدول `availability` |
-| | `size_info_status` · `modifiers_status` | `MISSING — OWNER INPUT REQUIRED` (D-101). **لا نفترض حجمًا واحدًا** |
-| | `pos_item_id` · `external_item_id` | **فارغان** (D-102) |
+| | `size_info_status` | المشروبات: **`ONE SIZE ONLY`** ✅ (D-118) · الحلويات: `UNCONFIRMED` (MQ-16). لا عرض لأحجام متعددة على الموقع |
+| | `addons_on_website` | **`false`** (D-119): الإضافات التشغيلية ≠ محتوى منيو الموقع |
+| | `pos_item_id` · `external_item_id` | **فارغان** — نظام الكاشير LATER / MISSING (D-121). المراجع الإضافية في `external_reference` |
 | **المحتوى** | `description_*` · `ingredients_*` · `allergens` · `calories` | `DESCRIPTION MISSING` / `MISSING` (D-081) |
 | | `image_status` | `MISSING` · `PENDING` · `APPROVED` (D-083) |
 | | `temperature` · `is_sugar_free` (اختياري) | فارغ. **لا يُستنتج من الاسم** |
@@ -144,7 +152,7 @@ content_review (REV-#####) · menu_change (CHG-#####) · audit_log
 | `source_price` | النص كما في الملف (`"2.75"`). **لا يُعدّل** |
 | **`tax_inclusive`** | **`true`.** السعر النهائي للزبون كما في الملف |
 | `price_type` | `base` · `branch_override`. مستقبلًا (غير مفعّل): `temporary` · `promotional` |
-| `menu_version_id` · `valid_from` · `valid_to` | السعر الحالي: `valid_to` فارغ. عند التغيير يُغلق القديم بـ`valid_to` ويُضاف سجل جديد. **لا overwrite ولا حذف** |
+| `menu_version_id` · `valid_from` · `valid_to` | **كل الأسعار الحالية: `MV-2026-10-01` · `valid_from = 2026-10-01`** ✅ (D-122) · `valid_to` فارغ. عند التغيير يُغلق القديم بـ`valid_to` ويُضاف سجل جديد. **لا overwrite ولا حذف** |
 | `created_at` · `updated_at` | — |
 
 ### price_tax_detail (محجوز — D-104)
@@ -170,6 +178,29 @@ content_review (REV-#####) · menu_change (CHG-#####) · audit_log
 - كيف تظهر على الموبايل.
 - تأكيد أن كل خيار يبقى بمعرّفه وسعره.
 
+### source_record (جديد — D-110)
+| الحقل | ملاحظات |
+|---|---|
+| `source_record_id` | `SRC-#####` — 192 سجلًا للملف الحالي |
+| `import_batch_id` · `menu_version_id` · `source_file` · `source_hash` · `source_sheet` · `source_row` · `source_sequence_number` | — |
+| `source_category_name` · `source_name_en` · `source_name_ar` · `source_price` | كما في الملف حرفيًا |
+| `original_product_id` · `linked_product_id` | يتغيران فقط بالدمج: الصف يبقى، والربط ينتقل |
+| `status` | `IMMUTABLE` |
+
+### external_reference (جديد — D-110، D-121)
+| الحقل | ملاحظات |
+|---|---|
+| `product_id` · `system` (`POS` / `ERP` / `DRIVE_SYSTEM`) · `external_id` · `source_record_id` · `valid_from/to` | عدة أرقام خارجية يمكن أن تشير لصنف واحد. لا سجلات الآن |
+
+### pending_product (جديد — D-115، D-116)
+| الحقل | ملاحظات |
+|---|---|
+| `pending_id` | `PND-###` |
+| `mentioned_name` · `mention_source` | كما ذكره الـOwner، مثل "Cold Brew" |
+| `status` | `ACTIVE PRODUCT — MISSING CURRENT MENU DATA` · `STATUS UNKNOWN — OWNER VERIFICATION REQUIRED` |
+| `missing_fields` | الاسم الرسمي EN · الاسم العربي · الفئة · السعر شامل الضريبة · التوفر في الفرعين · الوصف · الصورة |
+| `converted_product_id` | يُملأ عند إنشاء `PRD` بعد وصول الاسم الرسمي والسعر والفئة. **لا اختراع لأي حقل** |
+
 ### media (D-083)
 | الحقل | ملاحظات |
 |---|---|
@@ -181,6 +212,7 @@ content_review (REV-#####) · menu_change (CHG-#####) · audit_log
 | الحقل | ملاحظات |
 |---|---|
 | `MGR-###` · `MOD-####` · `name_en/ar` · `price_delta_fils` · `selection_rule` · `applies_to` | **من مصدر رسمي فقط. لا توجد سجلات الآن** |
+| **`show_on_website`** | **`false` افتراضيًا ودائمًا حتى قرار جديد** (D-119). حتى لو أُضيفت إضافات تشغيلية من الكاشير (Extra Shot، حليب بديل، Syrups)، لا تظهر في منيو الموقع |
 
 ### content_review (D-093)
 | الحقل | ملاحظات |
@@ -216,8 +248,10 @@ content_review (REV-#####) · menu_change (CHG-#####) · audit_log
 | Review / Change | `REV-#####` / `CHG-#####` | — |
 | Media · Modifier | `MED-######` · `MGR-###` / `MOD-####` | — |
 
+| Source record · Pending | `SRC-#####` · `PND-###` | `SRC-00001` → `SRC-00192` · `PND-001` → `PND-006` |
+
 **القواعد:**
-- المعرّف **لا يحتوي** الاسم ولا الفئة ولا رقم الكاشير.
+- المعرّف **لا يحتوي** الاسم ولا الفئة ولا رقم الكاشير، ولا يعتمد على عمود # (D-120).
 - **الآن:** المعرّفات PROVISIONAL. تُجمّد عند إصدار v1.0 بعد إغلاق P0.
 - **بعد التجميد:**
   - لا يتغير أي معرّف، ولا يُعاد استخدام أي رقم.
@@ -248,6 +282,16 @@ content_review (REV-#####) · menu_change (CHG-#####) · audit_log
 5. الصنف الغائب عن الملف الجديد لا يُؤرشف تلقائيًا. يبقى `NOT PRESENT IN CURRENT OWNER FILE` حتى تقرر.
 6. النسخة السابقة تصبح `SUPERSEDED`، ويبقى تاريخها كاملًا. هذا يفيد لاحقًا في الربط مع POS/ERP وSHELTER COFFEE DRIVE SYSTEM.
 
+## 4b. إجراء الدمج (D-110) — مثال DUP-01
+
+1. **يبقى:** `PRD-00115` (أقدم صف). **يُدمج:** `PRD-00120`.
+2. صفا المصدر (`SRC` لـ#115 و#120) يبقيان كما هما، ويُربط الاثنان بـ`PRD-00115`.
+3. `PRD-00120`: `merge_status = MERGED` · `merged_into_product_id = PRD-00115` · يحتفظ بمعرّفه وحقوله المصدرية وسجل سعره. **لا يُحذف ولا يُعاد استخدام رقمه، ولا يُنشر.**
+4. السعر: 3.50 = 3.50، فلا تعارض. سعر أساسي واحد للصنف الباقي.
+5. الكاشير لاحقًا: إذا كان للصنفين رقمان، يُربطان معًا بـ`PRD-00115` عبر `external_reference`.
+6. `menu_change`: `MERGED` · `PRD-00120 → PRD-00115` · موافقة الـOwner · تاريخ اعتماد v1.0.
+7. **التنفيذ عند اعتماد v1.0 فقط.**
+
 ## 5. ما تغيّر من v0.2
 
 | v0.2 | v0.3 |
@@ -258,3 +302,20 @@ content_review (REV-#####) · menu_change (CHG-#####) · audit_log
 | `price_before_tax / tax_rate / tax_amount` "غير موجودة" | جدول `price_tax_detail` **محجوز وفارغ** |
 | — | `menu_version` · `menu_change` · `presence_status` · `data_quality_status` · `approval_status` · `image_status` · `valid_from/to` · `created_at/updated_at` |
 | المعرّفات "تُجمّد عند اعتماد التقرير" | `PROVISIONAL` حتى إغلاق P0 + v1.0 |
+
+## 6. ما تغيّر في v0.4 (أجوبة P0 — D-109 → D-123)
+
+| القرار | الأثر على النموذج |
+|---|---|
+| D-109 TURKISH S = Single · D = Double | `owner_clarification`. الأسماء تُصحح فقط عبر دفعة الأسماء (G6) |
+| D-110 DUP-01 = نفس الصنف | `source_record` + `merge_status` + `external_reference` + إجراء الدمج §4b |
+| D-111، D-112 DUP-02، DUP-03 = أصناف مختلفة | أُزيلت علامة التكرار |
+| D-113 DUP-04 = مراجعة كل زوج | `id_status = HOLD — DUP-04 PAIR REVIEW` لـ10 أصناف |
+| D-114 #129 = MANGO | `normalized_name_en = SMOOTHES PASSION+PINAPPLE+MANGO`. المصدر بلا تغيير |
+| D-115، D-116 أصناف خارج الملف | كيان `pending_product` (`PND-001` → `PND-006`) |
+| D-117 SPRING متاحة الآن | `current_availability` + قاعدة: غياب التواريخ لا يمنع العرض |
+| D-118 حجم واحد لكل مشروب | `size_info_status = ONE SIZE ONLY`. جدول `product_size` يبقى للمستقبل |
+| D-119 الإضافات لا تظهر على الموقع | `show_on_website = false` + `addons_on_website = false` |
+| D-120 عمود # تسلسلي فقط | `source_sequence_number` بدل `source_row_number` |
+| D-121 POS لاحقًا | الحقول فارغة + `external_reference` |
+| D-122 تاريخ السريان 2026-10-01 | `menu_version.effective_from` و`price.valid_from` |
