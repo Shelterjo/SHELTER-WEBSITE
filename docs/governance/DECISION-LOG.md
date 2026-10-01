@@ -77,6 +77,20 @@
 | D-058 | **WhatsApp الرسمي = `0799009436`.** يُجهّز WhatsApp CTA مناسب للموبايل، لكن **قبل التنفيذ النهائي** يُعرض: مكان الظهور · نص الزر · رسالة مسبقة أم لا · هل تختلف حسب الصفحة/الفرع. **لا Pre-filled Message قبل الموافقة** | 2026-10-01 | R2P | ✅ Owner | الـCTA | `APPROVED` (الرقم) · ⏳ (تفاصيل الـCTA) |
 | D-059 | **Contact Architecture حسب نية المستخدم** — لا عرض 3 أرقام متجاورة بلا شرح: عام/فروع ← 0799009436 · واتساب ← 0799009436 · شكاوى واقتراحات ← 0799338445 · Franchise ← 0799338445 · Catering/B2B/Events ← 0799530383. مقترح UX مطلوب لـ: Contact Page · Footer (غير مزدحم) · Mobile · Branch Pages · Franchise · B2B / Events | 2026-10-01 | R2P | ✅ Owner | الـIA، الـUX | `APPROVED` (المبدأ) · ⏳ (الـUX) |
 | D-060 | **قاعدة Google/Schema للهاتف:** الرقم العام المعتمد للفروع في GBP والـSchema = `0799009436`. إذا عرض Google رقمًا مختلفًا لأي فرع ← `CONFLICT — OWNER REVIEW REQUIRED`، ولا تغيير تلقائي في Google أو الموقع | 2026-10-01 | R2P | ✅ Owner | الـLocal SEO | `APPROVED` |
+| D-061 | **CT-02:** شريط صفحة الفرع على الموبايل: **[الاتجاهات] [اتصال] [واتساب]** — المنيو في الـNavigation/Header وليس زرًا رابعًا. **في UX Testing:** لا يغطي المحتوى · لا يزاحم Cookie/Consent UI · لا مشكلة مع Safe Area في iPhone · ليس أكبر من اللازم. أي Pattern أفضل في الـPrototype يُعرض قبل التغيير | 2026-10-01 | رد الـOwner على `14` | ✅ Owner | الـUX | `APPROVED` |
+| D-062 | **CT-03:** واتساب في Branch Card · Branch Page · Contact Page · Footer — **بدون Floating WhatsApp Bubble** (واجهة نظيفة وغير شبيهة بالقوالب) | 2026-10-01 | `14` | ✅ Owner | الـUX | `APPROVED` |
+| D-063 | **CT-04 (مبدئي):** "راسلنا على واتساب" / "Message us on WhatsApp". يمكن اقتراح صياغة أقصر للموبايل لاحقًا — لا تغيير بدون موافقة | 2026-10-01 | `14` | ✅ Owner (مبدئي) | المحتوى | `APPROVED` (مبدئي) |
+| D-064 | **CT-05 = W-2:** رسالة مسبقة حسب الفرع. مسودة: "مرحبًا SHELTER COFFEE، لدي استفسار عن فرع DRIVE." / "…فرع HOUSE." — **قبل التنفيذ النهائي** يُقترح أفضل نص عربي وإنجليزي، قصير وطبيعي، بلا رسائل طويلة أو تسويقية | 2026-10-01 | `14` | ✅ Owner (الخيار) · ⏳ (النص النهائي) | الـCTA | `APPROVED` (جزئيًا) |
+| D-065 | **CT-07:** العرض العربي `0799009436` · العرض الإنجليزي `+962 79 900 9436` · روابط tel: وWhatsApp والـSchema بالصيغة الدولية الصحيحة | 2026-10-01 | `14` | ✅ Owner | المحتوى، التقنية | `APPROVED` |
+| D-066 | **RG-02:** Header مختصر جدًا على `/`. الجذر **ليس نسخة ثالثة كاملة** من الموقع — هدفه: تعريف سريع · اختيار اللغة/السوق بطبيعية · وصول سريع للمنيو · وصول للفروع | 2026-10-01 | `15` | ✅ Owner | الجذر | `APPROVED` |
+| D-067 | **RG-03:** في الأردن وعلى الموبايل العربية أولًا بصريًا — **لا IP Redirect · لا Geo Redirect إجباري · لا منع لاختيار English مباشرة** | 2026-10-01 | `15` | ✅ Owner | الجذر | `APPROVED` |
+| D-068 | **RG-04 / RG-05:** النصوص المقترحة = **DRAFT ONLY / Placeholder** في الـWireframe. في مرحلة Brand Content / Homepage Copy تُعرض **3 خيارات لكل نص** (A — Minimal / Premium · B — Brand-led · C — SEO-aware but natural) بالعربية والإنجليزية — بلا حشو SEO ولا صياغة تبدو مولّدة بالذكاء الاصطناعي | 2026-10-01 | `15` | ✅ Owner | المحتوى | `APPROVED` |
+| D-069 | **PG-01:** صفحة Catering / B2B / Business inquiries / Events services = **PAGE RESERVED** · **CONTENT = MISSING — OWNER INPUT REQUIRED** · **PUBLICATION = NOT APPROVED YET**. لا خدمات تُكتب من عندنا | 2026-10-01 | PG-01 | ✅ Owner | الـSitemap | `APPROVED` |
+| D-070 | **PG-02:** فصل تام بين (1) **SHELTER Events & Campaigns** = فعاليات وعروض وحملات تنظمها SHELTER للزبائن، و(2) **Catering / B2B / Private Events** = خدمات للعملاء والشركات. لا استخدام ملتبس لكلمة Events. Naming نهائي بالعربي والإنجليزي يُقترح لاحقًا | 2026-10-01 | PG-02 | ✅ Owner | الـIA، المحتوى | `APPROVED` |
+| D-071 | **PG-03:** خيار **"استفسارات الفرنشايز / Franchise Inquiries" → 0799338445** يظهر في صفحة التواصل من يوم الإطلاق. صفحة Franchise الكاملة **غير منشورة** حتى اعتماد محتواها. لا نشر لـ: Fees · Requirements · Territories · Financial claims · Application criteria | 2026-10-01 | PG-03 | ✅ Owner | التواصل | `APPROVED` |
+| D-072 | **PG-04 الرعايات:** لا رقم ولا قناة تلقائيًا — `MISSING — OWNER INPUT REQUIRED` — تُسأل لاحقًا بشكل مستقل | 2026-10-01 | PG-04 | ✅ Owner | التوجيه | `APPROVED` |
+| D-073 | **R2B التوصيل:** لا اعتماد لأي منصة أو رابط من الإنترنت. R2B-01 (المنصات لكل فرع) · R2B-03 (أسعار التطبيقات) · R2B-04 (قنوات الطلب) = `MISSING — OWNER INPUT REQUIRED`؛ الهاتف وواتساب **ليسا** قناة طلب رسمية لمجرد أنهما قنوات تواصل. R2B-02: البنية تدعم زر "اطلب" لكل فرع مستقبلًا، **دون إبراز Online Ordering كهدف أساسي الآن**. R2B-05: جاهزية مستقبلية لـPre-order · Pickup · Drive-thru pickup · Direct Online Ordering — **FUTURE CAPABILITY ONLY** | 2026-10-01 | R2B | ✅ Owner | الـArchitecture | `APPROVED` |
+| D-074 | **قاعدة التقدم:** المعلومات التشغيلية الناقصة لا توقف المشروع — تُسجّل MISSING وننتقل. التالي: **R3 — Official Menu** (الملفات والصيغة المطلوبة ليصبح المنيو Single Source of Truth) | 2026-10-01 | رد الـOwner | ✅ Owner | سير العمل | `APPROVED` |
 
 ## قرارات مفتوحة (PROPOSED — بانتظار الـOwner)
 
@@ -86,7 +100,7 @@
 |---|---|---|---|
 | DB-01 | الحقائق التأسيسية (الاسم، سنة التأسيس، الفروع) | — | ✅ حُسمت في D-007، D-008، D-018، D-020 |
 | DB-02 | بنية اللغة + السوق + الـURL + قابلية نقل الدومين | Option C ✅ (D-019) + **P3 ✅ مبدئيًا مشروط (D-031)** | ⏳ قبل التجميد: قرار الجذر ROOT-01 وخطة `13` |
-| DB-19 | سلوك الجذر `/` (ROOT-01) | **D** ✅ مبدئيًا (D-052) | ⏳ Wireframe + محتوى للموافقة — `15` |
+| DB-19 | سلوك الجذر `/` (ROOT-01) | **D** ✅ (D-052) + الهيكل ✅ (D-066، D-067) | النصوص Placeholder حتى مرحلة Brand Content (D-068) |
 | DB-20 | `/menu` القديم (MENU-01) | ✅ (D-054) — التنفيذ وقت الإطلاق فقط | `APPROVED` |
 | DB-03 | لغة الـSlugs | لاتينية + 301 من العربية | المبدأ ✅ (D-014) · التفاصيل مع DB-02 |
 | DB-04 | الصفحات القديمة ذات القرار التجاري | — | ✅ جزئيًا (D-015)؛ المؤجل: الحجز، الرعايات، الفريق، النشرة، دليل كافيهات إربد (R7-03) |
@@ -95,7 +109,8 @@
 | DB-07 | بنية الفروع | Hierarchical + Progressive Activation | `PROPOSED` |
 | DB-08 | المنصة / الـCMS | يُدرس بعد الـIA | `PROPOSED` |
 | DB-09 | اسم ومسار قسم المعرفة | Stage 6 | `PROPOSED` |
-| DB-10 | عرض الأسعار | — | `PROPOSED` |
+| DB-10 | عرض الأسعار | — | `PROPOSED` — سؤال R3-03 |
+| DB-21 | المصدر الوحيد للمنيو (SSOT) | **A** (الـCMS) + جاهزية C (رمز الكاشير) — `16` §4 | `PROPOSED` — سؤال R3-10 |
 | DB-11 | الـHost الرسمي | `www.shelterjo.com` | `PROPOSED` |
 | DB-12 | `shop.shelterjo.com` | يُفحص عند توفر الوصول (D-016) | `PENDING ACCESS` |
 | DB-15 | نموذج بيانات المواقع (Country → City → Location بأنواع وحالات ورؤية) | `09` AR-02 | `PROPOSED` |

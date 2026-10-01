@@ -1,7 +1,7 @@
 # PHASE 01 — DISCOVERY & OWNER INTERVIEW
 
 **المشروع:** SHELTER COFFEE — Global Website Rebuild From Zero
-**الحالة:** 🟡 In progress — R1 ✅ · R2 ✅ · R2P ✅ · P3 + ROOT-01 (D) + URL-02 + MENU-01 ✅ · بانتظار: موافقتك على `14` و`15` · **الآن: PG + R2B** · ثم R3 (المنيو)
+**الحالة:** 🟡 In progress — R1 ✅ · R2 ✅ · R2P ✅ · PG ✅ · R2B موثقة (MISSING) · بنية التواصل والجذر ✅ · **الآن: R3 — المنيو الرسمي**
 **آخر تحديث:** 2026-10-01
 
 > لا Coding · لا Framework · لا Plugins · لا تغييرات Cloudflare/Cloudways/DNS · لا نشر.
@@ -26,6 +26,7 @@
 | 13 | [`13-root-and-international-seo-plan.md`](13-root-and-international-seo-plan.md) | دراسة الجذر `/` (A/B/C/D) + خطة canonical وhreflang وx-default + تحويلات النقل + `/menu` + نقل الدومين العالمي + أثر Slugs الفروع |
 | 14 | [`14-contact-architecture-and-whatsapp.md`](14-contact-architecture-and-whatsapp.md) | بنية التواصل حسب النية + مقترح زر واتساب (مكان، نص، رسالة مسبقة) |
 | 15 | [`15-root-gateway-wireframe.md`](15-root-gateway-wireframe.md) | Wireframe ومحتوى مقترح للجذر `/` (Global Brand Gateway / x-default) |
+| 16 | [`16-menu-intake-and-ssot.md`](16-menu-intake-and-ssot.md) + [`templates/SHELTER-MENU-INTAKE-TEMPLATE.xlsx`](templates/SHELTER-MENU-INTAKE-TEMPLATE.xlsx) | R3: ما نحتاجه لاستلام المنيو الرسمي، القالب، خيارات المصدر الوحيد (SSOT) |
 | 09 | [`09-architecture-options-after-r1.md`](09-architecture-options-after-r1.md) | مقترحات بعد الجولة 1: اللغة/السوق/الدومين (AR-01)، نموذج المواقع، ترتيب الـCTA، أثر الجمهور، النشرة، جاهزية الطلب أونلاين |
 
 ## الحوكمة
