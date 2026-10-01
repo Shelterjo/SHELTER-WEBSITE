@@ -55,7 +55,7 @@ Never treat a prompt in isolation. Never resolve a conflict silently.
   - Least privilege (e.g. a scoped Cloudflare token, never the Global API Key).
   - No PII in analytics.
   - Archive instead of hard delete.
-- **Done means verified.** Use `IMPLEMENTED — NOT TESTED` or `PARTIAL` honestly.
+- **Done means verified.** Use `IMPLEMENTED — NOT YET VERIFIED` (M36 §20) or `PARTIAL` honestly.
 - **Responsive is mandatory** for the website and the Owner Dashboard. It must be mobile-first and checked on every viewport in `tooling/viewports.mjs`, in RTL and LTR. Overflow, clipping or overlap is a bug.
 - **Replies to the Owner:** Arabic, structured, technical terms in English.
 

@@ -1,6 +1,6 @@
 # REQUIREMENTS TRACEABILITY MATRIX
 
-> **Requirement → Decision → Design → Code → Test.** لكل متطلب من **866**: من أين جاء، وبأي قرار، وأين صُمم، وأين نُفذ، وكيف يُختبر. · **آخر تحديث:** 2026-10-01
+> **Requirement → Decision → Design → Code → Test.** لكل متطلب من **1344**: من أين جاء، وبأي قرار، وأين صُمم، وأين نُفذ، وكيف يُختبر. · **آخر تحديث:** 2026-10-01
 > **المصادر:** مفاتيح البنود الخام (مثل `M23-045`)، وأرشيفها في التدقيق.
 >
 > **قراءة الأعمدة:**
@@ -9,40 +9,40 @@
 
 | ID | Title | Source (raw items) | Decision | Design | Code | Test | Impl | Tested |
 |---|---|---|---|---|---|---|---|---|
-| `BRAND-001` | الاسم الرسمي للعلامة: SHELTER COFFEE / شلتر كوفي | M03-001, M03-002, M03-003, M03-004 | D-007, DB-01 | docs/governance/DECISION-LOG.md D-007 · docs/phase-01-discovery/12-homepage-screenshots-audit.md §6 · docs/phase-01-discovery/15-root-gateway-wireframe.md §3 |  |  | NOT STARTED | N/A |
-| `BRAND-002` | الهوية البصرية المعتمدة فقط — ملفاتها مفقودة وتمنع Visual Design (M-10) | M23-260 | M-10, CF-11, MI-021, MI-022 | docs/menu-ia/MENU-DECISION-REGISTER.md M-10, CF-11 · docs/phase-01-discovery/04-content-approval-register.md MI-021, MI-022 · design-system/README.md · design-system/tokens/tokens.template.json · docs/menu-ia/PERFORMANCE-BUDGET.md |  |  | NOT STARTED | N/A |
+| `BRAND-001` | الاسم الرسمي للعلامة: SHELTER COFFEE / شلتر كوفي | M03-001, M03-002, M03-003, M03-004, M33 | D-007, DB-01 | docs/governance/DECISION-LOG.md D-007 · docs/phase-01-discovery/12-homepage-screenshots-audit.md §6 · docs/phase-01-discovery/15-root-gateway-wireframe.md §3 |  |  | NOT STARTED | N/A |
+| `BRAND-002` | الهوية البصرية المعتمدة فقط — ملفاتها مفقودة وتمنع Visual Design (M-10) | M23-260, M29 | M-10, CF-11, MI-021, MI-022 | docs/menu-ia/MENU-DECISION-REGISTER.md M-10, CF-11 · docs/phase-01-discovery/04-content-approval-register.md MI-021, MI-022 · design-system/README.md · design-system/tokens/tokens.template.json · docs/menu-ia/PERFORMANCE-BUDGET.md |  |  | NOT STARTED | N/A |
 | `BRAND-003` | الموقع الحالي ليس مرجعًا للتصميم أو الـUI أو الـUX أو الحركة | M01-006 | D-000 | docs/governance/DECISION-LOG.md D-000 · docs/phase-01-discovery/12-homepage-screenshots-audit.md |  |  | IMPLEMENTED — NOT TESTED | N/A |
 | `BRAND-004` | تصميم Bespoke لعلامة قهوة مختصة عالمية — ليس قالبًا | M01-207, M01-247, M01-248 | D-005, D-004 | design-system/README.md |  |  | NOT STARTED | NO |
-| `BRAND-005` | مبادئ التصميم المثبتة (Design Principles) | M23-259, M27-093, M27-094, M27-095, M14-011, M27-101 | D-005, D-062 | design-system/README.md §Rules · design-system/tokens/tokens.template.json |  |  | PARTIAL | N/A |
-| `BRAND-006` | ممنوع AI / Vibe-coding look (قائمة الأنماط المحظورة) | M01-206, M23-258, M27-096, M27-098, M27-099, M27-100 | D-005 | design-system/README.md §Rules · docs/governance/DECISION-LOG.md D-005 |  |  | NOT STARTED | NO |
-| `BRAND-007` | shadcn/Radix أساس هندسي فقط — ممنوع هوية shadcn الافتراضية | M24-046, M24-047, M24-048 | DB-08 | docs/FRONTEND-TOOLING.md §2 · design-system/README.md §Rules |  |  | NOT STARTED | NO |
-| `BRAND-008` | Design System كامل (15 مجالًا) | M01-204 |  | design-system/README.md · design-system/tokens/tokens.template.json |  |  | PARTIAL | N/A |
-| `BRAND-009` | هيكلية الـDesign System بطبقات | M24-049 |  | design-system/README.md §Layers |  |  | PARTIAL | N/A |
-| `BRAND-010` | الحد الأدنى للـDesign Tokens + منع الـhardcode | M24-050, M24-051 |  | design-system/tokens/tokens.template.json · docs/menu-ia/MENU-DECISION-REGISTER.md R-02, R-03, R-06, R-09 |  |  | PARTIAL | N/A |
-| `BRAND-011` | Design Lock بعد اعتماد الـDesign System | M01-205 |  | design-system/README.md |  |  | NOT STARTED | NO |
-| `BRAND-012` | Design System واحد — لا مكونات أو أنظمة تصميم مكررة | M27-144 |  | design-system/README.md · docs/FRONTEND-TOOLING.md §3 |  |  | PARTIAL | N/A |
-| `BRAND-013` | الـPage Editor / CMS لا يسمح بكسر الـDesign System | M25-084 |  | design-system/README.md §Rules |  |  | NOT STARTED | NO |
-| `BRAND-014` | Reusable Sections ضمن الـDesign System | M01-221 |  | design-system/README.md |  |  | NOT STARTED | NO |
-| `BRAND-015` | Storybook: ورشة مكونات SHELTER (20 مكونًا × 11 حالة) | M24-015, M24-016 | DB-08 | docs/FRONTEND-TOOLING.md §6 |  |  | NOT STARTED | NO |
-| `BRAND-016` | الأيقونات فقط عندما تحسّن الفهم | M24-018 |  | docs/FRONTEND-TOOLING.md §2 |  |  | NOT STARTED | NO |
+| `BRAND-005` | مبادئ التصميم المثبتة (Design Principles) | M23-259, M27-093, M27-094, M27-095, M14-011, M27-101, M29, M34 | D-005, D-062 | design-system/README.md §Rules · design-system/tokens/tokens.template.json |  |  | PARTIAL | N/A |
+| `BRAND-006` | ممنوع AI / Vibe-coding look (قائمة الأنماط المحظورة) | M01-206, M23-258, M27-096, M27-098, M27-099, M27-100, M29, M34, M36 | D-005 | design-system/README.md §Rules · docs/governance/DECISION-LOG.md D-005 |  |  | NOT STARTED | NO |
+| `BRAND-007` | shadcn/Radix أساس هندسي فقط — ممنوع هوية shadcn الافتراضية | M24-046, M24-047, M24-048, M34 | DB-08 | docs/FRONTEND-TOOLING.md §2 · design-system/README.md §Rules |  |  | NOT STARTED | NO |
+| `BRAND-008` | Design System كامل (15 مجالًا) | M01-204, M34 |  | design-system/README.md · design-system/tokens/tokens.template.json |  |  | PARTIAL | N/A |
+| `BRAND-009` | هيكلية الـDesign System بطبقات | M24-049, M34 |  | design-system/README.md §Layers |  |  | PARTIAL | N/A |
+| `BRAND-010` | الحد الأدنى للـDesign Tokens + منع الـhardcode | M24-050, M24-051, M34 |  | design-system/tokens/tokens.template.json · docs/menu-ia/MENU-DECISION-REGISTER.md R-02, R-03, R-06, R-09 |  |  | PARTIAL | N/A |
+| `BRAND-011` | Design Lock بعد اعتماد الـDesign System | M01-205, M34 |  | design-system/README.md |  |  | NOT STARTED | NO |
+| `BRAND-012` | Design System واحد — لا مكونات أو أنظمة تصميم مكررة | M27-144, M34 |  | design-system/README.md · docs/FRONTEND-TOOLING.md §3 |  |  | PARTIAL | N/A |
+| `BRAND-013` | الـPage Editor / CMS لا يسمح بكسر الـDesign System | M25-084, M34 |  | design-system/README.md §Rules |  |  | NOT STARTED | NO |
+| `BRAND-014` | Reusable Sections ضمن الـDesign System | M01-221, M34 |  | design-system/README.md |  |  | NOT STARTED | NO |
+| `BRAND-015` | Storybook: ورشة مكونات SHELTER (20 مكونًا × 11 حالة) | M24-015, M24-016, M34 | DB-08 | docs/FRONTEND-TOOLING.md §6 |  |  | NOT STARTED | NO |
+| `BRAND-016` | الأيقونات فقط عندما تحسّن الفهم | M24-018, M34 |  | docs/FRONTEND-TOOLING.md §2 |  |  | NOT STARTED | NO |
 | `BRAND-017` | لا قلب (Mirror) للـLogo في RTL | M01-203 |  |  |  |  | NOT STARTED | NO |
 | `BRAND-018` | الشكل البصري النهائي للـCTA وBranch Card في مرحلة UX/UI فقط | M04-049 | D-027, D-061 | docs/governance/DECISION-LOG.md D-027 · docs/phase-01-discovery/09-architecture-options-after-r1.md AR-03 |  |  | NOT STARTED | NO |
-| `BRAND-019` | أسلوب تصميم الـOwner Dashboard | M25-023, M25-024, M25-140 |  | design-system/README.md |  |  | NOT STARTED | NO |
-| `BRAND-020` | أنماط ممنوعة في الـDashboard | M25-141, M27-097 | D-005 |  |  |  | NOT STARTED | NO |
+| `BRAND-019` | أسلوب تصميم الـOwner Dashboard | M25-023, M25-024, M25-140, M34 |  | design-system/README.md |  |  | NOT STARTED | NO |
+| `BRAND-020` | أنماط ممنوعة في الـDashboard | M25-141, M27-097, M34 | D-005 |  |  |  | NOT STARTED | NO |
 | `IA-001` | غرض الموقع ونطاقه الحالي | M01-066, M03-057 | D-016 | docs/governance/DECISION-LOG.md D-016 · docs/phase-01-discovery/10-url-architecture-draft.md §1, §3 |  |  | NOT STARTED | NO |
 | `IA-002` | الموقع ليس E-Commerce حاليًا — جاهز للطلب أونلاين لاحقًا | M01-067 | D-016, D-073 | docs/phase-01-discovery/09-architecture-options-after-r1.md AR-06 |  |  | NOT STARTED | NO |
 | `IA-003` | مهام الزائر السريعة | M01-068, M01-069, M01-070 |  | docs/phase-01-discovery/09-architecture-options-after-r1.md AR-04 |  |  | NOT STARTED | NO |
 | `IA-004` | أهم أفعال الزائر بالترتيب | M03-027 | D-013, D-027 | docs/governance/DECISION-LOG.md D-013 · docs/phase-01-discovery/15-root-gateway-wireframe.md §2 |  |  | NOT STARTED | NO |
-| `IA-005` | بوابة الصفحات: سؤال الـOwner قبل بناء أي صفحة | M01-079, M01-080, M01-081 | D-015, DB-04, DB-05 | docs/phase-01-discovery/07-question-backlog.md R4-01..R4-05 · docs/phase-01-discovery/10-url-architecture-draft.md §6 URL-04 |  |  | PARTIAL | N/A |
+| `IA-005` | بوابة الصفحات: سؤال الـOwner قبل بناء أي صفحة | M01-079, M01-080, M01-081, M36 | D-015, DB-04, DB-05 | docs/phase-01-discovery/07-question-backlog.md R4-01..R4-05 · docs/phase-01-discovery/10-url-architecture-draft.md §6 URL-04 |  |  | PARTIAL | N/A |
 | `IA-006` | صفحة FAQ معتمدة (ضمن قائمة صفحات V1) | M03-044 | D-015, URL-06 | docs/governance/DECISION-LOG.md D-015 · docs/phase-01-discovery/10-url-architecture-draft.md §3, §6 · docs/phase-01-discovery/04-content-approval-register.md MI-019 |  |  | NOT STARTED | NO |
-| `IA-007` | صفحة التوظيف (Careers): معتمدة مع إعادة تصميم كاملة | M03-049 | D-015, RISK-06, D-024 | docs/phase-01-discovery/10-url-architecture-draft.md §3 careers/ |  |  | NOT STARTED | NO |
+| `IA-007` | صفحة التوظيف (Careers): معتمدة مع إعادة تصميم كاملة | M03-049, M28 | D-015, RISK-06, D-024 | docs/phase-01-discovery/10-url-architecture-draft.md §3 careers/ |  |  | NOT STARTED | NO |
 | `IA-008` | صفحة Catering / B2B / Business inquiries / Events services = PAGE RESERVED | M03-047, M14-029 | D-015, D-069, D-057 | docs/governance/DECISION-LOG.md D-069 |  |  | NOT STARTED | NO |
 | `IA-009` | فصل مصطلح Events: حملات SHELTER ≠ Catering / B2B / Private Events | M14-031 | D-070 | docs/governance/DECISION-LOG.md D-070 |  |  | NOT STARTED | NO |
 | `IA-010` | الرعايات: غير معتمدة — MISSING | M03-048, M14-038 | D-015, D-072, DB-04 | docs/governance/DECISION-LOG.md D-072 |  |  | NOT STARTED | NO |
 | `IA-011` | صفحة الفريق / SHELTER Family: مؤجلة للنقاش | M03-053 | D-015, DB-04, VQ-19 |  |  |  | NOT STARTED | NO |
-| `IA-012` | النشرة البريدية DEFERRED في V1 — «قائمة الولاء» ليست Loyalty Program | M03-054, M10-038, M10-039 | D-040, DB-17, DB-14 | docs/phase-01-discovery/09-architecture-options-after-r1.md AR-05 · docs/phase-01-discovery/12-homepage-screenshots-audit.md §2-15 |  |  | NOT STARTED | NO |
+| `IA-012` | النشرة البريدية DEFERRED في V1 — «قائمة الولاء» ليست Loyalty Program | M03-054, M10-038, M10-039, M29 | D-040, DB-17, DB-14 | docs/phase-01-discovery/09-architecture-options-after-r1.md AR-05 · docs/phase-01-discovery/12-homepage-screenshots-audit.md §2-15 |  |  | NOT STARTED | NO |
 | `IA-013` | لا Linktree إذا كان الموقع يقدم تجربة أفضل | M10-025 | D-036 |  |  |  | NOT STARTED | NO |
-| `IA-014` | لا UI Design قبل اعتماد الـInformation Architecture | M01-257 | D-001, D-017, D-142 | docs/menu-ia/README.md · docs/phase-01-discovery/10-url-architecture-draft.md |  |  | PARTIAL | N/A |
+| `IA-014` | لا UI Design قبل اعتماد الـInformation Architecture | M01-257, M36 | D-001, D-017, D-142 | docs/menu-ia/README.md · docs/phase-01-discovery/10-url-architecture-draft.md |  |  | PARTIAL | N/A |
 | `IA-015` | Hybrid Menu Architecture: صفحة منيو واحدة | M23-035 | D-143, F-09, DB-06 | docs/menu-ia/SHELTER-MENU-IA-SPEC.md §1–§3 · docs/menu-ia/MENU-DECISION-REGISTER.md F-09 |  | tooling/tests/prototype/menu-wireframe.spec.mjs · tooling/tests/app/menu.spec.mjs | NOT STARTED | PROTOTYPE |
 | `IA-016` | لا Product Page مستقلة لكل صنف في V1 | M23-036 | D-143, D-147, F-09, F-21 | docs/menu-ia/SHELTER-MENU-IA-SPEC.md §1, §13 · docs/phase-01-discovery/10-url-architecture-draft.md §3 |  |  | NOT STARTED | NO |
 | `IA-017` | تسلسل مكونات صفحة المنيو | M23-037 | D-143, F-15, F-17, R-01 | docs/menu-ia/SHELTER-MENU-IA-SPEC.md §2, §3 |  | tooling/tests/prototype/menu-wireframe.spec.mjs | NOT STARTED | PROTOTYPE |
@@ -50,23 +50,23 @@
 | `IA-019` | User Flows للمنيو (Phase D) | M23-240 | D-142 | docs/menu-ia/USER-FLOWS.md |  | tooling/tests/app/menu.spec.mjs | IMPLEMENTED — NOT TESTED | N/A |
 | `IA-020` | Low-Fi Wireframes للمنيو: 4 نسخ وحالات مهمة (Phase E) | M23-241, M23-242, M23-243 | D-142 | docs/menu-ia/wireframes/README.md |  | tooling/tests/prototype/menu-wireframe.spec.mjs · tooling/tests/prototype/responsive.spec.mjs | TESTED | PROTOTYPE |
 | `IA-021` | UX Validation للـWireframes (Phase F) | M23-244 | D-142 | docs/menu-ia/UX-VALIDATION.md |  |  | IMPLEMENTED — NOT TESTED | N/A |
-| `IA-022` | SHELTER OWNER DASHBOARD IA (Tree كاملة) | M25-170 |  |  |  |  | NOT STARTED | NO |
+| `IA-022` | SHELTER OWNER DASHBOARD IA (Tree كاملة) | M25-170, M32, M36 |  |  |  |  | NOT STARTED | NO |
 | `WEB-001` | إعادة بناء كاملة من الصفر لموقع عالمي طويل الأمد | M01-001, M01-012 | D-000, D-001 | docs/governance/DECISION-LOG.md |  |  | NOT STARTED | N/A |
-| `WEB-002` | Global-ready من البداية — غير مرتبط بالأردن | M01-071, M03-014, M03-021 | D-010, D-011 | docs/phase-01-discovery/09-architecture-options-after-r1.md AR-01 · docs/phase-01-discovery/10-url-architecture-draft.md §1–§5 |  |  | NOT STARTED | N/A |
-| `WEB-003` | هرمية Country → City → Branch وجاهزية التوسع | M01-072, M01-073, M01-077, M03-009, M03-016 | D-010, D-008, D-026, DB-15, DB-07 | docs/phase-01-discovery/09-architecture-options-after-r1.md AR-02 · docs/phase-01-discovery/10-url-architecture-draft.md §3 |  |  | NOT STARTED | N/A |
-| `WEB-004` | لا اختراع للتوسع — أي دولة/فرع مستقبلي Hidden حتى موافقة الـOwner | M03-017, M03-018 | D-010 | docs/phase-01-discovery/09-architecture-options-after-r1.md AR-02 · docs/phase-01-discovery/10-url-architecture-draft.md §3 |  |  | NOT STARTED | N/A |
+| `WEB-002` | Global-ready من البداية — غير مرتبط بالأردن | M01-071, M03-014, M03-021, M35 | D-010, D-011 | docs/phase-01-discovery/09-architecture-options-after-r1.md AR-01 · docs/phase-01-discovery/10-url-architecture-draft.md §1–§5 |  |  | NOT STARTED | N/A |
+| `WEB-003` | هرمية Country → City → Branch وجاهزية التوسع | M01-072, M01-073, M01-077, M03-009, M03-016, M35, M36 | D-010, D-008, D-026, DB-15, DB-07 | docs/phase-01-discovery/09-architecture-options-after-r1.md AR-02 · docs/phase-01-discovery/10-url-architecture-draft.md §3 |  |  | NOT STARTED | N/A |
+| `WEB-004` | لا اختراع للتوسع — أي دولة/فرع مستقبلي Hidden حتى موافقة الـOwner | M03-017, M03-018, M29 | D-010 | docs/phase-01-discovery/09-architecture-options-after-r1.md AR-02 · docs/phase-01-discovery/10-url-architecture-draft.md §3 |  |  | NOT STARTED | N/A |
 | `WEB-005` | الدومين الحالي shelterjo.com — لا تغيير ولا Domain Migration الآن | M03-019, M03-022, M03-023 | D-011, DB-11, D-002 | docs/phase-01-discovery/05-decisions-before-design.md DB-11 · docs/phase-01-discovery/13-root-and-international-seo-plan.md §1 |  |  | IMPLEMENTED — NOT TESTED | N/A |
 | `WEB-006` | الدومين العالمي المستقبلي — مؤجل | M03-020 | D-011 | docs/phase-01-discovery/13-root-and-international-seo-plan.md §7 |  |  | NOT STARTED | N/A |
 | `WEB-007` | Option C — Brand Layer + Market Layer (مبدئي) | M04-006 | D-019, DB-02 | docs/phase-01-discovery/09-architecture-options-after-r1.md AR-01 · docs/phase-01-discovery/10-url-architecture-draft.md §1 |  |  | NOT STARTED | N/A |
-| `WEB-008` | P3: /ar/ و/en/ + طبقة السوق /ar/jo/… /en/jo/… (مبدئي بشرطين) | M10-002, M10-003, M03-033 | D-031, D-014, DB-02 | docs/phase-01-discovery/10-url-architecture-draft.md §2–§5 · docs/phase-01-discovery/13-root-and-international-seo-plan.md |  |  | NOT STARTED | N/A |
-| `WEB-009` | لا تجميد للـURL/Language Architecture بدون نقاش واعتماد الـOwner | M01-078, M03-034, M04-007 | D-014, D-019, D-031, DB-02, D-017 | docs/phase-01-discovery/10-url-architecture-draft.md · docs/phase-01-discovery/13-root-and-international-seo-plan.md · docs/governance/DECISION-LOG.md DB-02 |  |  | IMPLEMENTED — NOT TESTED | N/A |
+| `WEB-008` | P3: /ar/ و/en/ + طبقة السوق /ar/jo/… /en/jo/… (مبدئي بشرطين) | M10-002, M10-003, M03-033, M28 | D-031, D-014, DB-02 | docs/phase-01-discovery/10-url-architecture-draft.md §2–§5 · docs/phase-01-discovery/13-root-and-international-seo-plan.md |  |  | NOT STARTED | N/A |
+| `WEB-009` | لا تجميد للـURL/Language Architecture بدون نقاش واعتماد الـOwner | M01-078, M03-034, M04-007, M36 | D-014, D-019, D-031, DB-02, D-017 | docs/phase-01-discovery/10-url-architecture-draft.md · docs/phase-01-discovery/13-root-and-international-seo-plan.md · docs/governance/DECISION-LOG.md DB-02 |  |  | IMPLEMENTED — NOT TESTED | N/A |
 | `WEB-010` | URL Tree كامل + مقارنة ترتيب اللغة/الدولة | M04-008, M04-009 | D-019, D-031 | docs/phase-01-discovery/10-url-architecture-draft.md |  |  | IMPLEMENTED — NOT TESTED | N/A |
 | `WEB-011` | معايير الرموز: ar/en · ISO country (jo) · xx للتوثيق فقط | M10-008, M10-009, M10-010 | D-031 | docs/phase-01-discovery/10-url-architecture-draft.md · docs/phase-01-discovery/13-root-and-international-seo-plan.md §4 |  |  | NOT STARTED | N/A |
 | `WEB-012` | URLs نظيفة لاتينية: قصيرة · مقروءة · دلالية · SEO Friendly · قابلة للتوسع | M01-084, M01-085, M03-032 | D-014, DB-03 | docs/phase-01-discovery/10-url-architecture-draft.md §3 · docs/phase-01-discovery/05-decisions-before-design.md DB-03 |  |  | NOT STARTED | N/A |
 | `WEB-013` | ROOT-01 = D: الجذر / = Global Brand Gateway / x-default — لا 301 إلى /ar/ | M13-001, M10-004, M11-050 | D-052, D-031, DB-19, GEP-§20/§21 | docs/phase-01-discovery/13-root-and-international-seo-plan.md §2 · docs/phase-01-discovery/15-root-gateway-wireframe.md |  |  | NOT STARTED | N/A |
 | `WEB-014` | دراسة الجذر A/B/C/D ثم انتظار قرار الـOwner | M10-005, M10-006, M11-051, M11-052 | D-031, D-052, GEP-§20/§21 | docs/phase-01-discovery/13-root-and-international-seo-plan.md |  |  | IMPLEMENTED — NOT TESTED | N/A |
 | `WEB-015` | وظيفة الجذر: مفيد للمستخدم والبحث والـAI — Header مختصر — ليس نسخة ثالثة | M13-003, M14-020, M14-021, M14-022 | D-052, D-066, DB-19 | docs/phase-01-discovery/15-root-gateway-wireframe.md |  |  | NOT STARTED | N/A |
-| `WEB-016` | Wireframe ومحتوى الجذر قبل الـFreeze — لا تنفيذ قبل الموافقة | M13-004 | D-052, D-066, D-067, D-068, DB-19 | docs/phase-01-discovery/15-root-gateway-wireframe.md |  |  | PARTIAL | N/A |
+| `WEB-016` | Wireframe ومحتوى الجذر قبل الـFreeze — لا تنفيذ قبل الموافقة | M13-004, M36 | D-052, D-066, D-067, D-068, DB-19 | docs/phase-01-discovery/15-root-gateway-wireframe.md |  |  | PARTIAL | N/A |
 | `WEB-017` | لا Geo/IP/Language Redirect تلقائي — لا منع لاختيار English | M13-002, M14-024, M10-007 | D-052, D-067, D-031 | docs/phase-01-discovery/13-root-and-international-seo-plan.md §1–§2 · docs/phase-01-discovery/15-root-gateway-wireframe.md §5 |  |  | NOT STARTED | N/A |
 | `WEB-018` | URL-02: Slugs الفروع القصيرة drive و house | M13-005, M10-013, M10-014 | D-053, D-032 | docs/phase-01-discovery/10-url-architecture-draft.md §3 · docs/phase-01-discovery/13-root-and-international-seo-plan.md §8 |  |  | NOT STARTED | N/A |
 | `WEB-019` | قاعدة الفرع الثاني من نفس النوع: drive-{area} / house-{area} (مبدئي) | M13-006 | D-053 | docs/phase-01-discovery/13-root-and-international-seo-plan.md §8 |  |  | NOT STARTED | N/A |
@@ -78,14 +78,14 @@
 | `RESP-001` | Responsive إلزامي للموقع كاملًا وللـOwner Dashboard | M26-001, M26-002, M27-056, M27-057 |  | docs/FRONTEND-TOOLING.md §5 · docs/qa/RESPONSIVE-QA-MATRIX.md | tooling/viewports.mjs · tooling/playwright.config.mjs | tooling/tests/prototype/responsive.spec.mjs · tooling/tests/prototype/menu-wireframe.spec.mjs | NOT STARTED | PROTOTYPE |
 | `RESP-002` | Mobile-First Responsive Architecture | M01-096, M26-004, M27-058 |  | docs/menu-ia/SHELTER-MENU-IA-SPEC.md §11 |  |  | NOT STARTED | PROTOTYPE |
 | `RESP-003` | فئات الأجهزة المدعومة (10 فئات) | M26-003, M01-097, M27-062 |  |  | tooling/viewports.mjs | tooling/tests/prototype/responsive.spec.mjs | NOT STARTED | PROTOTYPE |
-| `RESP-004` | 14 عرضًا إلزاميًا مع اختبار فعلي بالمحتوى الحقيقي | M26-005, M26-006, M27-059, M27-060, M27-061, M24-021, M23-053 |  | docs/menu-ia/UX-VALIDATION.md §3 · docs/qa/RESPONSIVE-QA-MATRIX.md | tooling/viewports.mjs · tooling/playwright.config.mjs | tooling/tests/prototype/menu-wireframe.spec.mjs · tooling/tests/prototype/responsive.spec.mjs | PARTIAL | PROTOTYPE |
+| `RESP-004` | 14 عرضًا إلزاميًا مع اختبار فعلي بالمحتوى الحقيقي | M26-005, M26-006, M27-059, M27-060, M27-061, M24-021, M23-053, M28, M29, M36 |  | docs/menu-ia/UX-VALIDATION.md §3 · docs/qa/RESPONSIVE-QA-MATRIX.md | tooling/viewports.mjs · tooling/playwright.config.mjs | tooling/tests/prototype/menu-wireframe.spec.mjs · tooling/tests/prototype/responsive.spec.mjs | PARTIAL | PROTOTYPE |
 | `RESP-005` | Portrait وLandscape | M26-045, M27-064 |  |  | tooling/viewports.mjs | tooling/tests/prototype/responsive.spec.mjs | PARTIAL | PROTOTYPE |
 | `RESP-006` | أساليب الإدخال: Touch وMouse وKeyboard | M01-098, M27-066 |  |  | tooling/playwright.config.mjs | tooling/tests/prototype/responsive.spec.mjs | PARTIAL | PROTOTYPE |
-| `RESP-007` | كل Responsive layout وكل اختبار بالعربي RTL والإنجليزي LTR | M27-063, M24-020 |  |  |  | tooling/tests/prototype/menu-wireframe.spec.mjs · tooling/tests/prototype/responsive.spec.mjs | PARTIAL | PROTOTYPE |
+| `RESP-007` | كل Responsive layout وكل اختبار بالعربي RTL والإنجليزي LTR | M27-063, M24-020, M28 |  |  |  | tooling/tests/prototype/menu-wireframe.spec.mjs · tooling/tests/prototype/responsive.spec.mjs | PARTIAL | PROTOTYPE |
 | `RESP-008` | Browser zoom 200% بلا فقدان محتوى | M26-046, M27-065 |  | docs/menu-ia/ACCESSIBILITY-CHECKLIST.md | tooling/viewports.mjs | tooling/tests/prototype/responsive.spec.mjs | PARTIAL | PROTOTYPE |
 | `RESP-009` | No overflow · No clipping · No overlap — أي مشكلة Responsive = BUG | M27-067, M27-068, M26-055, M26-007 |  |  |  | tooling/tests/prototype/menu-wireframe.spec.mjs · tooling/tests/prototype/responsive.spec.mjs | PARTIAL | PROTOTYPE |
-| `RESP-010` | Typography مقروءة: لا clipping ولا tiny fonts ولا سطور طويلة | M26-008, M26-022, M26-023 |  |  |  | tooling/tests/prototype/responsive.spec.mjs | NOT STARTED | PROTOTYPE |
-| `RESP-011` | Responsive typography scaling مدروس | M26-021 |  | design-system/README.md |  |  | NOT STARTED | NO |
+| `RESP-010` | Typography مقروءة: لا clipping ولا tiny fonts ولا سطور طويلة | M26-008, M26-022, M26-023, M34 |  |  |  | tooling/tests/prototype/responsive.spec.mjs | NOT STARTED | PROTOTYPE |
+| `RESP-011` | Responsive typography scaling مدروس | M26-021, M34 |  | design-system/README.md |  |  | NOT STARTED | NO |
 | `RESP-012` | القوائم سهلة الاستخدام بيد واحدة على الهاتف | M26-010 |  | docs/menu-ia/UX-VALIDATION.md §1, §2 |  |  | NOT STARTED | PROTOTYPE |
 | `RESP-013` | العناصر اللاصقة والـbanners لا تغطي المحتوى ولا العناصر الأساسية | M26-011, M23-221, M23-220 | R-06 | docs/menu-ia/UX-VALIDATION.md §3 R-06 |  | tooling/tests/prototype/responsive.spec.mjs | NOT STARTED | PROTOTYPE |
 | `RESP-014` | شريط إجراءات صفحة الفرع على الموبايل (CT-02) — معايير UX Testing | M14-004, M14-005, M14-006, M14-007 | D-061 | docs/phase-01-discovery/14-contact-architecture-whatsapp.md |  |  | NOT STARTED | NO |
@@ -93,11 +93,11 @@
 | `RESP-016` | دعم Safe Area لأجهزة iPhone | M26-013 |  |  |  |  | NOT STARTED | NO |
 | `RESP-017` | النماذج على الهاتف سهلة ولوحة المفاتيح لا تغطي الحقول | M26-015, M26-016 |  |  |  |  | NOT STARTED | NO |
 | `RESP-018` | الجداول على الهاتف: Mobile-friendly بلا إخفاء بيانات مهمة | M26-039, M26-040 |  | docs/FRONTEND-TOOLING.md §6 |  |  | NOT STARTED | NO |
-| `RESP-019` | Desktop: max-width containers وعدم مط المحتوى | M26-017 | R-03 |  |  | tooling/tests/prototype/responsive.spec.mjs | NOT STARTED | PROTOTYPE |
+| `RESP-019` | Desktop: max-width containers وعدم مط المحتوى | M26-017, M34 | R-03 |  |  | tooling/tests/prototype/responsive.spec.mjs | NOT STARTED | PROTOTYPE |
 | `RESP-020` | Desktop: الاستفادة من المساحة الإضافية دون كثافة زائدة | M26-018 |  | docs/menu-ia/SHELTER-MENU-IA-SPEC.md §11 |  |  | NOT STARTED | PROTOTYPE |
 | `RESP-021` | Tablet حالة مستقلة | M26-019 | R-03 | docs/menu-ia/SHELTER-MENU-IA-SPEC.md §11 · docs/menu-ia/UX-VALIDATION.md §2 |  | tooling/tests/prototype/responsive.spec.mjs | NOT STARTED | PROTOTYPE |
-| `RESP-022` | كل Component متجاوب بذاته | M26-020 |  | docs/FRONTEND-TOOLING.md §6 |  |  | NOT STARTED | NO |
-| `RESP-023` | Fluid Responsive System بلا device-specific patching | M26-052, M26-053 |  | design-system/README.md |  |  | NOT STARTED | NO |
+| `RESP-022` | كل Component متجاوب بذاته | M26-020, M34 |  | docs/FRONTEND-TOOLING.md §6 |  |  | NOT STARTED | NO |
+| `RESP-023` | Fluid Responsive System بلا device-specific patching | M26-052, M26-053, M34 |  | design-system/README.md |  |  | NOT STARTED | NO |
 | `RESP-024` | المبدأ النهائي: تجربة مصممة لكل جهاز بلا compromises | M26-056, M26-057 |  |  |  |  | NOT STARTED | NO |
 | `RESP-025` | Owner Dashboard ممتازة على الهاتف | M25-138, M25-139 |  |  |  |  | NOT STARTED | NO |
 | `RESP-026` | شبكة المنيو على الموبايل: عمودان من 360px، عمود واحد أفقي تحته | M23-052 | F-12, R-02, R-07, D-144 | docs/menu-ia/SHELTER-MENU-IA-SPEC.md §11 · docs/menu-ia/UX-VALIDATION.md §3 · docs/menu-ia/MENU-DECISION-REGISTER.md R-02, R-07 |  | tooling/tests/prototype/menu-wireframe.spec.mjs | NOT STARTED | PROTOTYPE |
@@ -108,7 +108,7 @@
 | `NAV-002` | اختصارات سريعة: Menu · Locations · Contact | M01-100 | DB-05, D-027 | docs/phase-01-discovery/05-decisions-before-design.md DB-05 |  |  | NOT STARTED | NO |
 | `NAV-003` | دراسة Event Indicator و Campaign Indicator في الـNavigation | M01-102 |  |  |  |  | NOT STARTED | NO |
 | `NAV-004` | لا إخفاء للمعلومات أو الوظائف المهمة على الموبايل | M01-103, M26-027 | DB-05 | docs/phase-01-discovery/05-decisions-before-design.md DB-05 |  |  | NOT STARTED | NO |
-| `NAV-005` | Navigation حسب السياق بنفس الـIA | M26-026 |  |  |  |  | NOT STARTED | NO |
+| `NAV-005` | Navigation حسب السياق بنفس الـIA | M26-026, M34 |  |  |  |  | NOT STARTED | NO |
 | `NAV-006` | ترتيب الـCTA على الموبايل (مبدئي): Menu ثم Locations / Directions | M03-028, M03-029, M04-047 | D-013, D-027, DB-16 | docs/phase-01-discovery/09-architecture-options-after-r1.md AR-03 · docs/governance/DECISION-LOG.md D-027 |  |  | NOT STARTED | NO |
 | `NAV-007` | المنيو في الـHeader وليس زرًا رابعًا في شريط صفحة الفرع | M14-003 | D-061, D-062 | docs/governance/DECISION-LOG.md D-061 · docs/phase-01-discovery/09-architecture-options-after-r1.md AR-03 |  |  | NOT STARTED | NO |
 | `NAV-008` | دراسة Menu IA تجيب عن أسئلة التنقل 9 و13 | M21-033, M21-037 | D-141, D-142, F-16 | docs/phase-01-discovery/22-menu-information-architecture.md · docs/menu-ia/MENU-DECISION-REGISTER.md F-16 |  |  | IMPLEMENTED — NOT TESTED | N/A |
@@ -147,10 +147,10 @@
 | `MENU-021` | Menu Version MV-2026-10-01 وتاريخ سريان الأسعار 2026-10-01 | M19-032, M23-014 | D-107, D-122, D-135, F-01 | docs/phase-01-discovery/21-menu-inventory-v1.0-freeze-report.md · docs/phase-01-discovery/17-menu-data-model-draft.md §4 |  |  | FROZEN | YES |
 | `MENU-022` | جاهزية أنواع الأسعار المستقبلية | M15-019 | D-078 | docs/phase-01-discovery/17-menu-data-model-draft.md §2 price |  |  | PARTIAL | N/A |
 | `MENU-023` | لا نظام عروض (Promotions) معقد داخل المنيو قبل مناقشة الـOwner | M15-020 | D-078 |  |  |  | NOT STARTED | N/A |
-| `MENU-024` | فرق السعر بين DRIVE وHOUSE = نفس Product ID + Branch Price Override | M15-021, M23-134 | D-078, D-079 | docs/phase-01-discovery/17-menu-data-model-draft.md §2 price |  |  | PARTIAL | N/A |
+| `MENU-024` | فرق السعر بين DRIVE وHOUSE = نفس Product ID + Branch Price Override | M15-021, M23-134, M33 | D-078, D-079 | docs/phase-01-discovery/17-menu-data-model-draft.md §2 price |  |  | PARTIAL | N/A |
 | `MENU-025` | أسعار تطبيقات التوصيل (R2B-03) = MISSING | M14-045 | D-073 |  |  |  | NOT STARTED | N/A |
 | `MENU-026` | لا افتراض لتطابق الأصناف والأسعار بين DRIVE وHOUSE | M15-022, M15-023, M15-025 | D-079, D-094 | docs/menu-ia/MENU-DECISION-REGISTER.md §3 M-01 |  |  | PARTIAL | YES |
-| `MENU-027` | حقول التوفر لكل صنف: availability_drive · availability_house | M15-024 | D-079, D-106, D-145 | docs/phase-01-discovery/17-menu-data-model-draft.md §2 · docs/menu-ia/SHELTER-MENU-IA-SPEC.md §19 |  |  | FROZEN | YES |
+| `MENU-027` | حقول التوفر لكل صنف: availability_drive · availability_house | M15-024, M33 | D-079, D-106, D-145 | docs/phase-01-discovery/17-menu-data-model-draft.md §2 · docs/menu-ia/SHELTER-MENU-IA-SPEC.md §19 |  |  | FROZEN | YES |
 | `MENU-028` | التوفر الحالي لكل الأصناف في الفرعين = UNKNOWN | M18-010 | D-094, F-19 | docs/menu-ia/SHELTER-MENU-IA-SPEC.md §9.6 · docs/menu-ia/MENU-DECISION-REGISTER.md §3 M-01 |  | tooling/tests/app/menu.spec.mjs | PARTIAL | YES |
 | `MENU-029` | حالات التوفر للعميل: Available · Unavailable + Show · Unavailable + Hide | M23-115, M23-116 | D-145, F-19 | docs/menu-ia/SHELTER-MENU-IA-SPEC.md §9.6 · docs/menu-ia/USER-FLOWS.md F-12 |  | tooling/tests/app/menu.spec.mjs | NOT STARTED | NO |
 | `MENU-030` | كل مشروب ONE SIZE ONLY — مع بقاء الـData Model قابلًا لدعم الأحجام والـModifiers | M15-026, M18-027, M18-028, M19-024, M19-025 | D-080, D-101, D-118 | docs/phase-01-discovery/17-menu-data-model-draft.md §2 product_size · docs/menu-ia/MENU-DECISION-REGISTER.md §3 M-11 |  |  | FROZEN | YES |
@@ -175,7 +175,7 @@
 | `MENU-049` | دراسة Menu IA: 15 سؤالًا + OPTION A/B/C + مقارنة + توصية | M21-024, M21-025, M21-026, M21-027, M21-028, M21-029, M21-030, M21-031, M21-032, M21-034, M21-040, M21-041, M21-042 | D-141, D-142, D-143, DB-06 | docs/phase-01-discovery/22-menu-information-architecture.md · docs/menu-ia/MENU-DECISION-REGISTER.md §4 |  |  | IMPLEMENTED — NOT TESTED | N/A |
 | `MENU-050` | لا يُعاد فتح Menu IA المعتمدة | M27-069 | D-142, D-143, D-144, D-145, D-146, D-147, D-148, D-149 | docs/menu-ia/MENU-DECISION-REGISTER.md §1 |  |  | FROZEN | N/A |
 | `MENU-051` | استخراج كل قرارات المنيو إلى Decision Register بحالة FROZEN/APPROVED | M27-070, M27-071 | D-142 | docs/menu-ia/MENU-DECISION-REGISTER.md · docs/governance/DECISION-LOG.md |  |  | PARTIAL | N/A |
-| `MENU-052` | بوابة: اعتماد الـOwner لـMenu IA Spec + Wireframes قبل Visual Design/Production |  | D-142, DB-06, F-23 | docs/menu-ia/README.md · docs/menu-ia/SHELTER-MENU-IA-SPEC.md · docs/menu-ia/MENU-DECISION-REGISTER.md · docs/menu-ia/UX-VALIDATION.md · docs/menu-ia/wireframes/README.md | docs/menu-ia/wireframes/tools/wf.py | tooling/tests/prototype/menu-wireframe.spec.mjs · tooling/tests/prototype/responsive.spec.mjs | IMPLEMENTED — NOT TESTED | PROTOTYPE |
+| `MENU-052` | بوابة: اعتماد الـOwner لـMenu IA Spec + Wireframes قبل Visual Design/Production | M36 | D-142, DB-06, F-23 | docs/menu-ia/README.md · docs/menu-ia/SHELTER-MENU-IA-SPEC.md · docs/menu-ia/MENU-DECISION-REGISTER.md · docs/menu-ia/UX-VALIDATION.md · docs/menu-ia/wireframes/README.md | docs/menu-ia/wireframes/tools/wf.py | tooling/tests/prototype/menu-wireframe.spec.mjs · tooling/tests/prototype/responsive.spec.mjs | IMPLEMENTED — NOT TESTED | PROTOTYPE |
 | `MENU-053` | تنقل الفئات: Sticky + قفز فوري + Active Category أثناء التمرير | M01-105, M01-106, M01-107 | F-16, D-143 | docs/menu-ia/SHELTER-MENU-IA-SPEC.md §2 · docs/menu-ia/USER-FLOWS.md F-06 · docs/menu-ia/UX-VALIDATION.md §3 R-06 |  | tooling/tests/prototype/responsive.spec.mjs · tooling/tests/app/menu.spec.mjs | NOT STARTED | PROTOTYPE |
 | `MENU-054` | لا Infinite Scroll ولا Pagination ولا Load More في صفحة المنيو | M23-039 | D-147, F-09 | docs/menu-ia/SHELTER-MENU-IA-SPEC.md §2 · docs/menu-ia/PERFORMANCE-BUDGET.md |  | tooling/tests/prototype/menu-wireframe.spec.mjs | NOT STARTED | PROTOTYPE |
 | `MENU-055` | استعادة حالة الصفحة: التمرير والفرع وسياق الفئة | M23-216 | D-145, D-146 | docs/menu-ia/SHELTER-MENU-IA-SPEC.md §12 |  | tooling/tests/app/menu.spec.mjs | NOT STARTED | NO |
@@ -183,8 +183,8 @@
 | `MENU-057` | لا Favorites ولا Heart Icons في V1 | M23-127 | D-147, F-21 | docs/menu-ia/MENU-DECISION-REGISTER.md §1 F-21 |  |  | NOT STARTED | N/A |
 | `MENU-058` | لا زر مشاركة للصنف في V1 (#p-{slug} للـHistory فقط) | M23-129 | D-147, F-21 | docs/menu-ia/SHELTER-MENU-IA-SPEC.md §7 · docs/menu-ia/MENU-DECISION-REGISTER.md §4 CF-04 |  |  | NOT STARTED | N/A |
 | `MENU-059` | أي Intelligent Recommendation System لاحقًا وليس في V1 | M23-208 | D-148 |  |  |  | NOT STARTED | N/A |
-| `MENU-060` | Menu Editor في الـDashboard | M25-085 | D-084, D-136, D-148 | docs/menu-ia/SHELTER-MENU-IA-SPEC.md §18 |  |  | NOT STARTED | NO |
-| `MENU-061` | إدارة التوفر لكل صنف في DRIVE وHOUSE من الـMenu Editor | M25-086, M25-087 | D-145, F-19 | docs/menu-ia/SHELTER-MENU-IA-SPEC.md §18 |  |  | NOT STARTED | NO |
+| `MENU-060` | Menu Editor في الـDashboard | M25-085, M33 | D-084, D-136, D-148 | docs/menu-ia/SHELTER-MENU-IA-SPEC.md §18 |  |  | NOT STARTED | NO |
+| `MENU-061` | إدارة التوفر لكل صنف في DRIVE وHOUSE من الـMenu Editor | M25-086, M25-087, M33 | D-145, F-19 | docs/menu-ia/SHELTER-MENU-IA-SPEC.md §18 |  |  | NOT STARTED | NO |
 | `MENU-062` | Bulk Actions للمنيو | M25-088 |  |  |  |  | NOT STARTED | NO |
 | `PROD-001` | Product ID داخلي ثابت لكل صنف — لا يعتمد على الاسم ولا يتغير | M15-083, M15-084, M15-085, M15-086, M20-003 | D-089, D-133, D-135, F-03 | docs/phase-01-discovery/17-menu-data-model-draft.md §3 · docs/phase-01-discovery/21-menu-inventory-v1.0-freeze-report.md |  |  | FROZEN | YES |
 | `PROD-002` | Inventory مجمّد: 192 سجل مصدر ← 191 صنفًا فعالًا | M21-008, M23-018, M23-019 | D-135, F-02, F-03, DB-22 | docs/phase-01-discovery/21-menu-inventory-v1.0-freeze-report.md · docs/menu-ia/MENU-DECISION-REGISTER.md §1 F-02/F-03 |  |  | FROZEN | YES |
@@ -192,7 +192,7 @@
 | `PROD-004` | المعرّف التالي لأي صنف جديد: PRD-00193 | M21-005, M23-021 | D-136, F-03 | docs/phase-01-discovery/21-menu-inventory-v1.0-freeze-report.md |  |  | PARTIAL | N/A |
 | `PROD-005` | تجميد الـID لا يجمّد الحقول — كلها Versioned مع Audit History | M21-006 | D-136 | docs/phase-01-discovery/17-menu-data-model-draft.md §2 |  |  | PARTIAL | N/A |
 | `PROD-006` | عمود # في المصدر = SEQUENTIAL NUMBER ONLY | M18-031, M19-029, M23-138 | D-102, D-120 | docs/phase-01-discovery/21-menu-inventory-v1.0-freeze-report.md |  |  | FROZEN | YES |
-| `PROD-007` | حقلا pos_item_id و external_item_id ثابتان وفارغان حتى توفر الـPOS | M15-016 | D-077, D-102, D-121 | docs/phase-01-discovery/17-menu-data-model-draft.md §2 product |  |  | FROZEN | YES |
+| `PROD-007` | حقلا pos_item_id و external_item_id ثابتان وفارغان حتى توفر الـPOS | M15-016, M33 | D-077, D-102, D-121 | docs/phase-01-discovery/17-menu-data-model-draft.md §2 product |  |  | FROZEN | YES |
 | `PROD-008` | قواعد الدمج: Preserve first, merge later | M18-013, M18-014, M18-015 | D-096, D-110, D-125 | docs/phase-01-discovery/17-menu-data-model-draft.md §4b |  |  | FROZEN | YES |
 | `PROD-009` | DUP-01: #115 و#120 = SAME PRODUCT — دمج بحفظ كامل الـLineage | M19-003, M19-004, M19-037, M20-010, M20-028 | D-110, D-125, F-22 | docs/phase-01-discovery/21-menu-inventory-v1.0-freeze-report.md |  |  | FROZEN | YES |
 | `PROD-010` | DUP-02: AMERICAN COFFEE ≠ AMERICANO · ICED AMERICAN ≠ ICED AMERICANO | M19-005, M19-006, M23-143, M23-144 | D-111, F-22 | docs/phase-01-discovery/21-menu-inventory-v1.0-freeze-report.md |  |  | FROZEN | YES |
@@ -227,11 +227,11 @@
 | `SRCH-003` | اقتراحات سريعة + فلترة مباشرة للشبكة أثناء الكتابة | M23-073, M23-074 | D-143, F-15 | docs/menu-ia/SHELTER-MENU-IA-SPEC.md §8 |  | tooling/tests/app/menu.spec.mjs | NOT STARTED | NO |
 | `SRCH-004` | Jump to Product: الانتقال للصنف وإبرازه بلطف بدون Reload | M23-075 | F-15 | docs/menu-ia/SHELTER-MENU-IA-SPEC.md §8 |  | tooling/tests/app/menu.spec.mjs | NOT STARTED | NO |
 | `SRCH-005` | البحث بالعربي والإنجليزي بغض النظر عن لغة الصفحة | M23-076 | D-143, F-15 | docs/menu-ia/SHELTER-MENU-IA-SPEC.md §8 |  | tooling/tests/app/menu.spec.mjs | NOT STARTED | NO |
-| `SRCH-006` | مطابقة البحث: حالة الأحرف · تطبيع العربية · الأخطاء الشائعة · Aliases معتمدة | M23-077 | F-15 | docs/menu-ia/SHELTER-MENU-IA-SPEC.md §8 |  | tooling/tests/app/menu.spec.mjs | NOT STARTED | NO |
+| `SRCH-006` | مطابقة البحث: حالة الأحرف · تطبيع العربية · الأخطاء الشائعة · Aliases معتمدة | M23-077, M32 | F-15 | docs/menu-ia/SHELTER-MENU-IA-SPEC.md §8 |  | tooling/tests/app/menu.spec.mjs | NOT STARTED | NO |
 | `SRCH-007` | لا synonyms مخترعة أو غير موثوقة | M23-078 | F-15, P-06 | docs/menu-ia/SHELTER-MENU-IA-SPEC.md §8 |  |  | NOT STARTED | N/A |
 | `SRCH-008` | بحث بلا نتائج: رسالة + مسح البحث (+ أقرب فئة إن كان منطقيًا) | M23-080, M23-081 | F-15 | docs/menu-ia/SHELTER-MENU-IA-SPEC.md §8 · docs/menu-ia/USER-FLOWS.md F-13 |  | tooling/tests/app/menu.spec.mjs | NOT STARTED | NO |
 | `SRCH-009` | Sticky Search: حقل كامل في البداية ثم أيقونة مضغوطة داخل شريط الفئات | M23-083 | F-15, R-06 | docs/menu-ia/SHELTER-MENU-IA-SPEC.md §8 · docs/menu-ia/UX-VALIDATION.md §3 R-06 |  | tooling/tests/prototype/responsive.spec.mjs | NOT STARTED | PROTOTYPE |
-| `BRANCH-001` | بوابة نشر بيانات الفروع: لا نشر قبل تحقق/موافقة الـOwner | M01-045 | D-003, D-017, D-008, D-020 | docs/phase-01-discovery/04-content-approval-register.md §A CR-017…CR-037، §B MI-007…MI-009 · docs/phase-01-discovery/03-verify-with-owner.md VQ-02، VQ-09…VQ-12، VQ-15 |  |  | PARTIAL | N/A |
+| `BRANCH-001` | بوابة نشر بيانات الفروع: لا نشر قبل تحقق/موافقة الـOwner | M01-045, M33 | D-003, D-017, D-008, D-020 | docs/phase-01-discovery/04-content-approval-register.md §A CR-017…CR-037، §B MI-007…MI-009 · docs/phase-01-discovery/03-verify-with-owner.md VQ-02، VQ-09…VQ-12، VQ-15 |  |  | PARTIAL | N/A |
 | `BRANCH-002` | الفروع العامة الحالية = فرعان فقط (DRIVE وHOUSE) في إربد | M03-008, M03-010, M03-015, M23-097 | D-008, D-010, GEP-§3 | docs/phase-01-discovery/09-architecture-options-after-r1.md AR-02 · docs/google/GOOGLE-BUSINESS-PROFILE-SOURCE-OF-TRUTH.md |  |  | NOT STARTED | NO |
 | `BRANCH-003` | هوية فرع DRIVE: الاسم AR/EN والموقع ووجود Drive Thru | M03-005, M04-011, M04-012 | D-008, D-020, D-053 | docs/google/GOOGLE-BUSINESS-PROFILE-SOURCE-OF-TRUTH.md (DRIVE) · docs/phase-01-discovery/04-content-approval-register.md CR-018…CR-024 |  |  | NOT STARTED | NO |
 | `BRANCH-004` | هوية فرع HOUSE: الاسم AR/EN والموقع داخل Irbid City Center | M03-006, M04-021, M04-022 | D-008, D-020, D-053 | docs/google/GOOGLE-BUSINESS-PROFILE-SOURCE-OF-TRUTH.md (HOUSE) · docs/phase-01-discovery/04-content-approval-register.md CR-030…CR-037 |  |  | NOT STARTED | NO |
@@ -239,18 +239,18 @@
 | `BRANCH-006` | اسم المول الرسمي لـHOUSE من GBP/موقع المول ثم موافقة الـOwner | M04-023 | D-020 | docs/google/GOOGLE-BUSINESS-PROFILE-SOURCE-OF-TRUTH.md |  |  | NOT STARTED | N/A |
 | `BRANCH-007` | مشغل الحلويات = NON-PUBLIC LOCATION | M03-007, M04-044 | D-008, D-026 | docs/phase-01-discovery/09-architecture-options-after-r1.md AR-02 · docs/google/GOOGLE-BUSINESS-PROFILE-SOURCE-OF-TRUTH.md §مواقع غير عامة |  |  | NOT STARTED | NO |
 | `BRANCH-008` | صفحة الفروع (Locations) + صفحة مستقلة لكل فرع | M03-038, M03-039, M01-215 | D-015, D-031, D-053, DB-07 | docs/phase-01-discovery/10-url-architecture-draft.md §3، §5، §6 |  |  | NOT STARTED | NO |
-| `BRANCH-009` | نموذج بيانات الفرع (Branch data model) — الحقول | M01-214 | D-010, D-049, DB-15, DB-07 | docs/phase-01-discovery/09-architecture-options-after-r1.md AR-02، AR-08 · docs/google/BRANCH-DATA-SYNC.md |  |  | NOT STARTED | NO |
-| `BRANCH-010` | Branch Editor في الـOwner Dashboard مع Preview قبل Publish | M25-090, M25-091 | D-021, D-049, D-057, D-058, D-056 |  |  |  | NOT STARTED | NO |
-| `BRANCH-011` | إمكانية إضافة فرع Coming Soon بدون إطلاق صفحة كاملة | M01-217 | D-010, DB-15 | docs/phase-01-discovery/09-architecture-options-after-r1.md AR-02 |  |  | NOT STARTED | NO |
+| `BRANCH-009` | نموذج بيانات الفرع (Branch data model) — الحقول | M01-214, M33 | D-010, D-049, DB-15, DB-07 | docs/phase-01-discovery/09-architecture-options-after-r1.md AR-02، AR-08 · docs/google/BRANCH-DATA-SYNC.md |  |  | NOT STARTED | NO |
+| `BRANCH-010` | Branch Editor في الـOwner Dashboard مع Preview قبل Publish | M25-090, M25-091, M33 | D-021, D-049, D-057, D-058, D-056 |  |  |  | NOT STARTED | NO |
+| `BRANCH-011` | إمكانية إضافة فرع Coming Soon بدون إطلاق صفحة كاملة | M01-217, M33 | D-010, DB-15 | docs/phase-01-discovery/09-architecture-options-after-r1.md AR-02 |  |  | NOT STARTED | NO |
 | `BRANCH-012` | خدمات الفروع: Data Model فقط — لا استنتاج ولا نشر True/False قبل تأكيد الـOwner | M10-015, M10-016, M10-018 | D-033 | docs/phase-01-discovery/09-architecture-options-after-r1.md AR-08 |  |  | NOT STARTED | NO |
 | `BRANCH-013` | قيم خدمات DRIVE وHOUSE = MISSING — OWNER INPUT REQUIRED | M04-019, M10-017 | D-020, D-033, D-045 | docs/phase-01-discovery/03-verify-with-owner.md VQ-24 · docs/phase-01-discovery/04-content-approval-register.md CR-025، CR-083 |  |  | NOT STARTED | N/A |
 | `BRANCH-014` | طرق الدفع: Architecture تدعم 5 طرق — لا نشر قبل تأكيد الـOwner | M10-019, M10-020 | D-034 | docs/phase-01-discovery/09-architecture-options-after-r1.md AR-08 |  |  | NOT STARTED | NO |
 | `BRANCH-015` | قيم طرق الدفع لـDRIVE وHOUSE = MISSING — OWNER INPUT REQUIRED | M04-020 | D-020, D-034 | docs/phase-01-discovery/04-content-approval-register.md CR-082 |  |  | NOT STARTED | N/A |
 | `BRANCH-016` | بطاقة الفرع (Branch Card) تعرض حالة الفرع وساعات العمل | M04-048 | D-027, D-062, D-057 | docs/phase-01-discovery/09-architecture-options-after-r1.md AR-03 · docs/phase-01-discovery/14-contact-architecture-and-whatsapp.md §2 |  |  | NOT STARTED | NO |
 | `BRANCH-017` | شريط صفحة الفرع على الموبايل: [الاتجاهات] [اتصال] [واتساب] | M14-002 | D-061, D-062, D-064, D-065 | docs/phase-01-discovery/14-contact-architecture-and-whatsapp.md §3 · docs/phase-01-discovery/09-architecture-options-after-r1.md AR-03 |  |  | NOT STARTED | NO |
-| `BRANCH-018` | عملية BRANCH DATA SYNC CHECK بين GBP والموقع والـSchema والخرائط | M11-020, M11-021, M12-048, M11-126, M11-133 | D-049, GEP-§7/§8, GIO-§A17/§A18/§A19, D-047 | docs/google/BRANCH-DATA-SYNC.md · docs/google/GOOGLE-ECOSYSTEM-POLICY.md §4، §7، §8، §11 · docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §17–§19 |  |  | PARTIAL | NO |
-| `BRANCH-019` | متى يُشغَّل Branch Data Sync + فحص اتساق إلزامي عند بناء/تعديل أي صفحة فرع | M11-014, M11-015, M11-022 | D-049, GEP-§4, GEP-§7/§8 | docs/google/BRANCH-DATA-SYNC.md · docs/google/GOOGLE-ECOSYSTEM-POLICY.md §4، §8 |  |  | PARTIAL | NO |
-| `BRANCH-020` | NAP Consistency: الاسم والعنوان والهاتف متطابقة وأي اختلاف يُسجَّل | M11-027, M11-028 | GEP-§5, D-060 | docs/google/GOOGLE-ECOSYSTEM-POLICY.md §11 |  |  | NOT STARTED | NO |
+| `BRANCH-018` | عملية BRANCH DATA SYNC CHECK بين GBP والموقع والـSchema والخرائط | M11-020, M11-021, M12-048, M11-126, M11-133, M33 | D-049, GEP-§7/§8, GIO-§A17/§A18/§A19, D-047 | docs/google/BRANCH-DATA-SYNC.md · docs/google/GOOGLE-ECOSYSTEM-POLICY.md §4، §7، §8، §11 · docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §17–§19 |  |  | PARTIAL | NO |
+| `BRANCH-019` | متى يُشغَّل Branch Data Sync + فحص اتساق إلزامي عند بناء/تعديل أي صفحة فرع | M11-014, M11-015, M11-022, M33 | D-049, GEP-§4, GEP-§7/§8 | docs/google/BRANCH-DATA-SYNC.md · docs/google/GOOGLE-ECOSYSTEM-POLICY.md §4، §8 |  |  | PARTIAL | NO |
+| `BRANCH-020` | NAP Consistency: الاسم والعنوان والهاتف متطابقة وأي اختلاف يُسجَّل | M11-027, M11-028, M33 | GEP-§5, D-060 | docs/google/GOOGLE-ECOSYSTEM-POLICY.md §11 |  |  | NOT STARTED | NO |
 | `BRANCH-021` | محدد الفرع في المنيو: كل الفروع / DRIVE / HOUSE — اختياري والافتراضي كل الفروع | M23-098 | F-18, D-145, CF-02 | docs/menu-ia/SHELTER-MENU-IA-SPEC.md §9.1، §9.6 · docs/menu-ia/MENU-DECISION-REGISTER.md F-18، CF-02 |  | tooling/tests/prototype/menu-wireframe.spec.mjs | NOT STARTED | PROTOTYPE |
 | `BRANCH-022` | Segmented Control 'كل الفروع \| DRIVE \| HOUSE' قابل للتحول إلى Bottom Sheet | M23-099, M23-100 | F-18, D-145 | docs/menu-ia/SHELTER-MENU-IA-SPEC.md §9.1 |  | tooling/tests/prototype/menu-wireframe.spec.mjs | NOT STARTED | PROTOTYPE |
 | `BRANCH-023` | موضع محدد الفرع: اختبار A/B بالـWireframe والقرار A (تحت البحث وقبل الفئات) | M23-101 | R-01, D-142 | docs/menu-ia/UX-VALIDATION.md R-01 · docs/menu-ia/SHELTER-MENU-IA-SPEC.md §9.1 |  |  | TESTED | PROTOTYPE |
@@ -265,40 +265,40 @@
 | `HOURS-001` | ساعات DRIVE العادية: السبت–الخميس 07:00–02:00 · الجمعة 08:00–02:00 | M04-016, M23-119 | D-020, F-20, P-08 | docs/menu-ia/SHELTER-MENU-IA-SPEC.md §9.4 · docs/menu-ia/evidence/hours_logic_check.py · docs/google/GOOGLE-BUSINESS-PROFILE-SOURCE-OF-TRUTH.md |  |  | NOT STARTED | PROTOTYPE |
 | `HOURS-002` | ساعات HOUSE العادية: السبت–الأربعاء 09:00–22:00 · الخميس–الجمعة 09:00–23:00 | M04-026, M23-120 | D-020, F-20, P-08 | docs/menu-ia/SHELTER-MENU-IA-SPEC.md §9.4 · docs/menu-ia/evidence/hours_logic_check.py · docs/google/GOOGLE-BUSINESS-PROFILE-SOURCE-OF-TRUTH.md |  |  | NOT STARTED | PROTOTYPE |
 | `HOURS-003` | لا فرق بين ساعات الدرايف ثرو والجلسات في DRIVE إلا بمعلومة موثقة وسؤال الـOwner | M04-017 | D-020 |  |  |  | NOT STARTED | N/A |
-| `HOURS-004` | ساعات المول المختلفة أو الخاصة لـHOUSE تُعرض كتعارض ولا تُغيَّر تلقائيًا | M04-027 | D-020, GEP-§5, GEP-§9 | docs/google/GOOGLE-BUSINESS-PROFILE-SOURCE-OF-TRUTH.md |  |  | NOT STARTED | N/A |
-| `HOURS-005` | بنية الساعات: Regular + Special/Holiday + Temporary Closure + Emergency Closure | M04-030, M23-121 | D-021, DB-18, F-20 | docs/phase-01-discovery/09-architecture-options-after-r1.md AR-07 · docs/menu-ia/SHELTER-MENU-IA-SPEC.md §19 |  |  | NOT STARTED | PROTOTYPE |
-| `HOURS-006` | تعديل رمضان/العيد لا يغيّر الساعات العادية | M04-029 | D-021 | docs/phase-01-discovery/09-architecture-options-after-r1.md AR-07 |  |  | NOT STARTED | NO |
-| `HOURS-007` | أولوية الحالة الخاصة/المؤقتة على الساعات العادية | M23-122 | D-021, F-20, DB-18 | docs/menu-ia/SHELTER-MENU-IA-SPEC.md §9.4 |  |  | NOT STARTED | PROTOTYPE |
-| `HOURS-008` | تعديل الساعات بسهولة من الـDashboard (Regular ثم Special) | M25-092 | D-021, DB-18, D-049 | docs/phase-01-discovery/09-architecture-options-after-r1.md AR-07 |  |  | NOT STARTED | NO |
-| `HOURS-009` | حالة الفرع تُحسب ديناميكيًا: Open Now · Closed Now · Closing Soon · Next Opening | M23-118, M25-093 | F-20, D-145, D-021 | docs/menu-ia/SHELTER-MENU-IA-SPEC.md §9.4 · docs/menu-ia/evidence/hours_logic_check.py | docs/menu-ia/evidence/hours_logic_check.py | tooling/tests/app/menu.spec.mjs (F-10، F-11 — fixme) · docs/menu-ia/evidence/hours_logic_check.py | NOT STARTED | PROTOTYPE |
+| `HOURS-004` | ساعات المول المختلفة أو الخاصة لـHOUSE تُعرض كتعارض ولا تُغيَّر تلقائيًا | M04-027, M33 | D-020, GEP-§5, GEP-§9 | docs/google/GOOGLE-BUSINESS-PROFILE-SOURCE-OF-TRUTH.md |  |  | NOT STARTED | N/A |
+| `HOURS-005` | بنية الساعات: Regular + Special/Holiday + Temporary Closure + Emergency Closure | M04-030, M23-121, M33, M36 | D-021, DB-18, F-20 | docs/phase-01-discovery/09-architecture-options-after-r1.md AR-07 · docs/menu-ia/SHELTER-MENU-IA-SPEC.md §19 |  |  | NOT STARTED | PROTOTYPE |
+| `HOURS-006` | تعديل رمضان/العيد لا يغيّر الساعات العادية | M04-029, M33 | D-021 | docs/phase-01-discovery/09-architecture-options-after-r1.md AR-07 |  |  | NOT STARTED | NO |
+| `HOURS-007` | أولوية الحالة الخاصة/المؤقتة على الساعات العادية | M23-122, M33 | D-021, F-20, DB-18 | docs/menu-ia/SHELTER-MENU-IA-SPEC.md §9.4 |  |  | NOT STARTED | PROTOTYPE |
+| `HOURS-008` | تعديل الساعات بسهولة من الـDashboard (Regular ثم Special) | M25-092, M33 | D-021, DB-18, D-049 | docs/phase-01-discovery/09-architecture-options-after-r1.md AR-07 |  |  | NOT STARTED | NO |
+| `HOURS-009` | حالة الفرع تُحسب ديناميكيًا: Open Now · Closed Now · Closing Soon · Next Opening | M23-118, M25-093, M33 | F-20, D-145, D-021 | docs/menu-ia/SHELTER-MENU-IA-SPEC.md §9.4 · docs/menu-ia/evidence/hours_logic_check.py | docs/menu-ia/evidence/hours_logic_check.py | tooling/tests/app/menu.spec.mjs (F-10، F-11 — fixme) · docs/menu-ia/evidence/hours_logic_check.py | NOT STARTED | PROTOTYPE |
 | `HOURS-010` | عرض الحالة مع معلومات ساعات اليوم داخل محدد الفرع (ونصوص AR/EN) | M23-117, M23-124 | F-20, D-145 | docs/menu-ia/SHELTER-MENU-IA-SPEC.md §9.4 |  |  | NOT STARTED | PROTOTYPE |
 | `HOURS-011` | يغلق قريبًا: آخر 60 دقيقة قبل الإغلاق مع العد | M23-123 | F-20, D-145 | docs/menu-ia/SHELTER-MENU-IA-SPEC.md §9.4 · docs/menu-ia/evidence/hours_logic_check.py | docs/menu-ia/evidence/hours_logic_check.py | tooling/tests/app/menu.spec.mjs (F-11 — fixme) · docs/menu-ia/evidence/hours_logic_check.py | NOT STARTED | PROTOTYPE |
-| `HOURS-012` | التعامل الصحيح مع ساعات تمتد بعد منتصف الليل ("نقطة مهمة جدًا") | M23-125 | F-20, D-145 | docs/menu-ia/SHELTER-MENU-IA-SPEC.md §9.4 · docs/menu-ia/evidence/hours_logic_check.py | docs/menu-ia/evidence/hours_logic_check.py | tooling/tests/app/menu.spec.mjs (F-11 — fixme) · docs/menu-ia/evidence/hours_logic_check.py | NOT STARTED | PROTOTYPE |
-| `HOURS-013` | Google Special Hours تُقارن مع الموقع ولا تغيير تلقائي على Production | M11-023, M11-024 | GEP-§9, D-049, D-048 | docs/google/GOOGLE-ECOSYSTEM-POLICY.md §9 · docs/google/BRANCH-DATA-SYNC.md |  |  | NOT STARTED | N/A |
+| `HOURS-012` | التعامل الصحيح مع ساعات تمتد بعد منتصف الليل ("نقطة مهمة جدًا") | M23-125, M33 | F-20, D-145 | docs/menu-ia/SHELTER-MENU-IA-SPEC.md §9.4 · docs/menu-ia/evidence/hours_logic_check.py | docs/menu-ia/evidence/hours_logic_check.py | tooling/tests/app/menu.spec.mjs (F-11 — fixme) · docs/menu-ia/evidence/hours_logic_check.py | NOT STARTED | PROTOTYPE |
+| `HOURS-013` | Google Special Hours تُقارن مع الموقع ولا تغيير تلقائي على Production | M11-023, M11-024, M33 | GEP-§9, D-049, D-048 | docs/google/GOOGLE-ECOSYSTEM-POLICY.md §9 · docs/google/BRANCH-DATA-SYNC.md |  |  | NOT STARTED | N/A |
 | `CAMP-001` | صفحة «الفعاليات والحملات» معتمدة | M03-042 | D-015, D-070, URL-04 | docs/phase-01-discovery/10-url-architecture-draft.md §3, §6 URL-04 · docs/governance/DECISION-LOG.md D-070 |  |  | NOT STARTED | NO |
 | `CAMP-002` | مساحة مخصصة للحملات والفعاليات ضمن الـDesign System — ليست Banner عشوائية | M01-126, M01-128 |  |  |  |  | NOT STARTED | NO |
 | `CAMP-003` | العروض والخصومات والفعاليات والحملات تُتحقق مع الـOwner قبل النشر | M01-048 | D-003, MI-015 | docs/phase-01-discovery/04-content-approval-register.md MI-015 · docs/phase-01-discovery/07-question-backlog.md R4-06, R4-07, R4-10 |  |  | NOT STARTED | NO |
-| `CAMP-004` | Event / Campaign Manager في الـDashboard — الحقول | M01-129, M01-130, M25-094 |  |  |  |  | NOT STARTED | NO |
+| `CAMP-004` | Event / Campaign Manager في الـDashboard — الحقول | M01-129, M01-130, M25-094, M33 |  |  |  |  | NOT STARTED | NO |
 | `CAMP-005` | دورة حياة الحملة: Draft · Scheduled · Active · Expired · Archived | M25-095 | D-148 |  |  |  | NOT STARTED | NO |
-| `CAMP-006` | الجدولة التلقائية: ظهور واختفاء تلقائي ثم Archive | M01-131, M01-132, M01-133, M25-096 | D-148, F-17 |  |  |  | NOT STARTED | NO |
-| `CAMP-007` | Emergency Announcement سريع | M01-134, M01-135 | D-021 | docs/phase-01-discovery/09-architecture-options-after-r1.md AR-07 · docs/phase-01-discovery/07-question-backlog.md R4-08 |  |  | NOT STARTED | NO |
+| `CAMP-006` | الجدولة التلقائية: ظهور واختفاء تلقائي ثم Archive | M01-131, M01-132, M01-133, M25-096, M35 | D-148, F-17 |  |  |  | NOT STARTED | NO |
+| `CAMP-007` | Emergency Announcement سريع | M01-134, M01-135, M32, M33 | D-021 | docs/phase-01-discovery/09-architecture-options-after-r1.md AR-07 · docs/phase-01-discovery/07-question-backlog.md R4-08 |  |  | NOT STARTED | NO |
 | `ABOUT-001` | صفحة «من نحن» معتمدة | M03-040 | D-015 | docs/phase-01-discovery/10-url-architecture-draft.md §3 |  |  | NOT STARTED | NO |
 | `ABOUT-002` | معلومات الهوية تُتحقق مع الـOwner قبل النشر | M01-044 | D-003, D-007, D-038 | docs/phase-01-discovery/04-content-approval-register.md MI-002, MI-003, MI-004, MI-006 |  |  | NOT STARTED | NO |
-| `ABOUT-003` | سنة التأسيس: 2019 | M03-011, M04-001 | D-018, D-009, D-038 | docs/governance/DECISION-LOG.md D-018 |  |  | NOT STARTED | N/A |
-| `ABOUT-004` | تاريخ السنوية 20/04 واستخداماته | M03-012, M04-002, M04-004 | D-018 | docs/governance/DECISION-LOG.md D-018 |  |  | NOT STARTED | N/A |
+| `ABOUT-003` | سنة التأسيس: 2019 | M03-011, M04-001, M33 | D-018, D-009, D-038 | docs/governance/DECISION-LOG.md D-018 |  |  | NOT STARTED | N/A |
+| `ABOUT-004` | تاريخ السنوية 20/04 واستخداماته | M03-012, M04-002, M04-004, M32, M33 | D-018 | docs/governance/DECISION-LOG.md D-018 |  |  | NOT STARTED | N/A |
 | `CONTACT-001` | بوابة نشر بيانات التواصل: الهاتف وواتساب والبريد والحسابات | M01-046 | D-003, D-017, D-057, D-058, D-035, D-036 | docs/phase-01-discovery/04-content-approval-register.md · docs/phase-01-discovery/11-social-accounts-verification.md |  |  | PARTIAL | N/A |
 | `CONTACT-002` | صفحة التواصل (Contact) معتمدة | M03-043 | D-015, D-031, D-059 | docs/phase-01-discovery/14-contact-architecture-and-whatsapp.md §4 · docs/phase-01-discovery/10-url-architecture-draft.md §3، URL-06 |  |  | NOT STARTED | NO |
 | `CONTACT-003` | لا رقم في أي مكان قبل الاعتماد الصريح من الـOwner، ولا وظيفة رقم من مصادر خارجية | M13-021, M13-022 | D-057 | docs/phase-01-discovery/14-contact-architecture-and-whatsapp.md §1 |  |  | NOT STARTED | N/A |
-| `CONTACT-004` | التوزيع الرسمي للأرقام (R2P-04 OFFICIAL MAPPING) | M13-035, M04-018, M04-033, M04-035, M10-058 | D-057, D-022, D-058 | docs/phase-01-discovery/14-contact-architecture-and-whatsapp.md §1 |  |  | NOT STARTED | N/A |
+| `CONTACT-004` | التوزيع الرسمي للأرقام (R2P-04 OFFICIAL MAPPING) | M13-035, M04-018, M04-033, M04-035, M10-058, M33 | D-057, D-022, D-058 | docs/phase-01-discovery/14-contact-architecture-and-whatsapp.md §1 |  |  | NOT STARTED | N/A |
 | `CONTACT-005` | 0799009436 = الرقم العام الرئيسي لكل الفروع واستخداماته المسموحة | M13-023, M13-025 | D-057, D-060 | docs/phase-01-discovery/14-contact-architecture-and-whatsapp.md §1، §2 |  |  | NOT STARTED | N/A |
 | `CONTACT-006` | 0799009436 = رقم WhatsApp الرسمي | M13-024, M04-036 | D-058, D-023 | docs/phase-01-discovery/14-contact-architecture-and-whatsapp.md §5.4 |  |  | NOT STARTED | N/A |
-| `CONTACT-007` | 0799338445 = الشكاوى والاقتراحات والفرنشايز — أماكن استخدامه فقط | M13-027, M13-030, M04-034 | D-057, D-071 | docs/phase-01-discovery/14-contact-architecture-and-whatsapp.md §2، §4 |  |  | NOT STARTED | N/A |
+| `CONTACT-007` | 0799338445 = الشكاوى والاقتراحات والفرنشايز — أماكن استخدامه فقط | M13-027, M13-030, M04-034, M29, M32 | D-057, D-071 | docs/phase-01-discovery/14-contact-architecture-and-whatsapp.md §2، §4 |  |  | NOT STARTED | N/A |
 | `CONTACT-008` | 0799338445 ليس رقمًا عامًا للفروع ولا يظهر أبدًا في Branch Cards | M13-029 | D-057, D-060 | docs/phase-01-discovery/14-contact-architecture-and-whatsapp.md §2 |  |  | NOT STARTED | N/A |
 | `CONTACT-009` | أي اقتراح مستقبلي لفصل وظائف 0799338445 يُعرض على الـOwner أولًا | M13-031 | D-057 |  |  |  | NOT STARTED | N/A |
 | `CONTACT-010` | 0799530383 = الكيترنج والأعمال والفعاليات — ليس رقمًا عامًا | M13-032, M13-034 | D-057, D-059, D-069, D-070 | docs/phase-01-discovery/14-contact-architecture-and-whatsapp.md §1، §2 |  |  | NOT STARTED | N/A |
 | `CONTACT-011` | الحجوزات: لا رقم منفصل؛ أي Reservation flow يُسأل عنه أولًا | M13-036 | D-057, D-015 |  |  |  | NOT STARTED | N/A |
 | `CONTACT-012` | الرعايات: لا رقم ولا قناة تلقائيًا — MISSING | M14-037 | D-072 |  |  |  | NOT STARTED | N/A |
-| `CONTACT-013` | Contact Architecture حسب نية المستخدم (Intent-based) — لا 3 أرقام بلا سياق | M13-037, M14-039, M14-040 | D-059, D-071 | docs/phase-01-discovery/14-contact-architecture-and-whatsapp.md §1، §4 |  |  | NOT STARTED | NO |
+| `CONTACT-013` | Contact Architecture حسب نية المستخدم (Intent-based) — لا 3 أرقام بلا سياق | M13-037, M14-039, M14-040, M29, M35 | D-059, D-071 | docs/phase-01-discovery/14-contact-architecture-and-whatsapp.md §1، §4 |  |  | NOT STARTED | NO |
 | `CONTACT-014` | مقترح UX لعرض قنوات التواصل في كل الأسطح (وثيقة 14) | M13-038 | D-059, D-061, D-062, D-063, D-064, D-065 | docs/phase-01-discovery/14-contact-architecture-and-whatsapp.md §2، §6 |  |  | PARTIAL | N/A |
 | `CONTACT-015` | الـFooter غير مزدحم بقنوات التواصل | M13-039 | D-059, D-062 | docs/phase-01-discovery/14-contact-architecture-and-whatsapp.md §2 |  |  | NOT STARTED | NO |
 | `CONTACT-016` | WhatsApp CTA مناسب للموبايل | M13-041 | D-058, D-063 | docs/phase-01-discovery/14-contact-architecture-and-whatsapp.md §5 |  |  | NOT STARTED | NO |
@@ -306,10 +306,10 @@
 | `CONTACT-018` | ممنوع Floating WhatsApp Bubble ثابتة على كل الصفحات | M14-010 | D-062 | docs/phase-01-discovery/14-contact-architecture-and-whatsapp.md §5.1 |  |  | NOT STARTED | N/A |
 | `CONTACT-019` | رسالة واتساب مسبقة حسب الفرع (W-2) — النص النهائي بانتظار الاعتماد | M14-014, M13-043 | D-064, D-058 | docs/phase-01-discovery/14-contact-architecture-and-whatsapp.md §5.3 |  |  | NOT STARTED | N/A |
 | `CONTACT-020` | صيغة عرض الرقم: عربي 0799009436 · إنجليزي +962 79 900 9436 | M14-018 | D-065 | docs/phase-01-discovery/14-contact-architecture-and-whatsapp.md §6 |  |  | NOT STARTED | N/A |
-| `CONTACT-021` | روابط tel: وWhatsApp والـSchema بالصيغة الدولية الصحيحة | M14-019 | D-065, D-060 | docs/phase-01-discovery/14-contact-architecture-and-whatsapp.md §5.4 |  |  | NOT STARTED | N/A |
+| `CONTACT-021` | روابط tel: وWhatsApp والـSchema بالصيغة الدولية الصحيحة | M14-019, M33 | D-065, D-060 | docs/phase-01-discovery/14-contact-architecture-and-whatsapp.md §5.4 |  |  | NOT STARTED | N/A |
 | `CONTACT-022` | واتساب والهاتف ليسا قناة طلب رسمية — MISSING | M14-046 | D-073 |  |  |  | NOT STARTED | N/A |
 | `CONTACT-023` | البريد info@shelterjo.com = PENDING OWNER VERIFICATION — لا يُنشر بعد | M04-037, M10-021 | D-024, D-035 | docs/phase-01-discovery/03-verify-with-owner.md VQ-25 · docs/phase-01-discovery/14-contact-architecture-and-whatsapp.md §4 |  |  | NOT STARTED | N/A |
-| `CONTACT-024` | دعم مستقبلي لبريد منفصل: Careers · Franchise · Business inquiries | M04-038 | D-024 |  |  |  | NOT STARTED | NO |
+| `CONTACT-024` | دعم مستقبلي لبريد منفصل: Careers · Franchise · Business inquiries | M04-038, M28, M29 | D-024 |  |  |  | NOT STARTED | NO |
 | `CONTACT-025` | ممنوع إنشاء أو نشر أي بريد غير موجود فعليًا | M04-039 | D-024 |  |  |  | NOT STARTED | N/A |
 | `CONTACT-026` | الحسابات الاجتماعية: لا اعتماد لأي حساب حتى الآن ولا اعتماد تلقائي من البحث | M04-040, M10-022 | D-025, D-036 | docs/phase-01-discovery/11-social-accounts-verification.md |  |  | NOT STARTED | N/A |
 | `CONTACT-027` | جدول التحقق من الحسابات الاجتماعية وعرضها واحدًا واحدًا | M04-041, M10-023 | D-025, D-036 | docs/phase-01-discovery/11-social-accounts-verification.md |  |  | PARTIAL | N/A |
@@ -320,41 +320,160 @@
 | `BLOG-002` | Knowledge Hub مترابط وليس Posts عشوائية | M01-139, M01-140 |  | docs/phase-01-discovery/10-url-architecture-draft.md §3 |  |  | NOT STARTED | NO |
 | `BLOG-003` | مواضيع المدونة وبناء Topic Authority | M01-137, M11-102 | GEP-§47 | docs/google/GOOGLE-ECOSYSTEM-POLICY.md §47 · docs/phase-01-discovery/07-question-backlog.md R8-03, R8-08 |  |  | NOT STARTED | NO |
 | `BLOG-004` | لا اختراع للمحتوى — فقط محتوى صحيح ومعتمد | M01-138, M11-103 | D-003, GEP-§47 | docs/phase-01-discovery/04-content-approval-register.md MI-020 · docs/phase-01-discovery/07-question-backlog.md R8-01, R8-06 |  |  | NOT STARTED | NO |
-| `BLOG-005` | حزمة اعتماد المقال قبل النشر — AI لا ينشر من نفسه | M01-142, M25-098 | D-003 |  |  |  | NOT STARTED | NO |
+| `BLOG-005` | حزمة اعتماد المقال قبل النشر — AI لا ينشر من نفسه | M01-142, M25-098, M32 | D-003 |  |  |  | NOT STARTED | NO |
 | `BLOG-006` | Content Editor للمقالات — الحقول | M25-097 |  | docs/phase-01-discovery/07-question-backlog.md R8-05 |  |  | NOT STARTED | NO |
-| `FRAN-001` | صفحة Franchise الكاملة: قدرة مستقبلية — غير منشورة حتى اعتماد المحتوى | M03-051, M14-035 | D-015, D-071, D-010 | docs/phase-01-discovery/10-url-architecture-draft.md §3, §5 · docs/governance/DECISION-LOG.md D-071 |  |  | NOT STARTED | NO |
-| `FRAN-002` | خيار «Franchise Inquiries / استفسارات الفرنشايز» في صفحة التواصل من يوم الإطلاق | M14-034 | D-071, D-057, D-059 | docs/governance/DECISION-LOG.md D-071, D-057, D-059 |  |  | NOT STARTED | NO |
-| `FRAN-003` | ممنوع نشر رسوم أو شروط أو ادعاءات Franchise من عندنا | M03-052, M14-036 | D-015, D-071 |  |  |  | NOT STARTED | NO |
-| `CMS-001` | 95%+ من العمليات اليومية يديرها الـOwner من الـDashboard بدون لمس الكود | M01-112, M25-079, M25-207, M27-050 | D-084, DB-08 | docs/menu-ia/SHELTER-MENU-IA-SPEC.md §18 (CMS — SSOT في V1) · docs/phase-01-discovery/05-decisions-before-design.md DB-08 |  |  | NOT STARTED | NO |
+| `FRAN-001` | صفحة Franchise الكاملة: قدرة مستقبلية — غير منشورة حتى اعتماد المحتوى | M03-051, M14-035, M29 | D-015, D-071, D-010 | docs/phase-01-discovery/10-url-architecture-draft.md §3, §5 · docs/governance/DECISION-LOG.md D-071 |  |  | NOT STARTED | NO |
+| `FRAN-002` | خيار «Franchise Inquiries / استفسارات الفرنشايز» في صفحة التواصل من يوم الإطلاق | M14-034, M29 | D-071, D-057, D-059 | docs/governance/DECISION-LOG.md D-071, D-057, D-059 |  |  | NOT STARTED | NO |
+| `FRAN-003` | ممنوع نشر رسوم أو شروط أو ادعاءات Franchise من عندنا | M03-052, M14-036, M29 | D-015, D-071 |  |  |  | NOT STARTED | NO |
+| `FRAN-004` | M29 = المرجع التنفيذي الحالي لصفحة الفرنشايز + طلب الشراكة + وحدة الـDashboard | M29-§00, M29-§100 | D-248, D-015, D-071 | docs/franchise/01-SOURCES-CONFLICTS-MISSING.md |  |  | NOT STARTED | N/A |
+| `FRAN-005` | ترتيب السلطة الخاص بالفرنشايز (7 مستويات) | M29-§AUTHORITY ORDER | D-248, D-221 | docs/franchise/01-SOURCES-CONFLICTS-MISSING.md |  |  | NOT STARTED | N/A |
+| `FRAN-006` | الصفحة القديمة /franchise-shelter-coffee/ ليست مصدر حقيقة — للهجرة التقنية فقط | M29-§SOURCE OF TRUTH, M29-§07, M29-§99, M29-§100 | D-248, GOV-004, BRAND-003 | docs/franchise/01-SOURCES-CONFLICTS-MISSING.md · docs/google/SEO-MIGRATION-MAP.md |  |  | NOT STARTED | N/A |
+| `FRAN-007` | كل محتوى الفرنشايز التجاري من APPROVED SHELTER FRANCHISE MASTER FILES — ليس من AI | M29-§10, M29-§AUTHORITY ORDER, M29-§95 | D-249 | docs/franchise/01-SOURCES-CONFLICTS-MISSING.md · docs/franchise/02-PAGE-IA-AND-CONTENT.md |  |  | NOT STARTED | NO |
+| `FRAN-008` | المبدأ التجاري: بيع العلامة والنظام — لا وعود مالية | M29-§98 | D-250 | docs/franchise/02-PAGE-IA-AND-CONTENT.md |  |  | NOT STARTED | NO |
+| `FRAN-009` | هدف الصفحة: تجربة شراكة Premium + قصة + فرصة + تأهيل + طلب + Pipeline | M29-§01 | D-250 | docs/franchise/02-PAGE-IA-AND-CONTENT.md |  |  | NOT STARTED | NO |
+| `FRAN-010` | الصفحة رحلة: DISCOVER → UNDERSTAND → TRUST → QUALIFY → APPLY | M29-§11 | D-250 | docs/franchise/02-PAGE-IA-AND-CONTENT.md |  |  | NOT STARTED | NO |
+| `FRAN-011` | عنوان الصفحة: «كن شريكًا مع SHELTER COFFEE» — والتوصيف الثانوي FRANCHISE | M29-§02 | D-250 | docs/franchise/02-PAGE-IA-AND-CONTENT.md · docs/franchise/05-SEO-ANALYTICS-PERFORMANCE.md |  |  | NOT STARTED | NO |
+| `FRAN-012` | الـHero: قوي جدًا — عنوان + جملة اتجاه (ليست التزامًا قانونيًا) | M29-§13 | D-250 | docs/franchise/02-PAGE-IA-AND-CONTENT.md |  |  | NOT STARTED | NO |
+| `FRAN-013` | استراتيجية الـCTA: «ابدأ طلب الشراكة» في 3 مواضع بلا إزعاج | M29-§13, M29-§26 | D-250 | docs/franchise/02-PAGE-IA-AND-CONTENT.md |  |  | NOT STARTED | NO |
+| `FRAN-014` | حقائق العلامة المعتمدة للصفحة: 2019 · 20/04 · إربد · DRIVE/HOUSE | M29-§03 | D-251, D-007, D-018, D-008 | docs/franchise/02-PAGE-IA-AND-CONTENT.md |  |  | NOT STARTED | NO |
+| `FRAN-015` | قسم «من هي SHELTER؟»: حقائق معتمدة فقط — بلا ادعاءات تفوق | M29-§15 | D-251, D-038 | docs/franchise/02-PAGE-IA-AND-CONTENT.md |  |  | NOT STARTED | NO |
+| `FRAN-016` | DRIVE/HOUSE = «نماذج تجربة SHELTER الحالية» — وليست باقات فرنشايز | M29-§16 | D-251, D-008 | docs/franchise/02-PAGE-IA-AND-CONTENT.md |  |  | NOT STARTED | NO |
+| `FRAN-017` | Global-ready بلا إعلان أي دولة/مدينة/Territory متاحة | M29-§04 | D-253, D-010 | docs/franchise/02-PAGE-IA-AND-CONTENT.md |  |  | NOT STARTED | NO |
+| `FRAN-018` | الصفحة كاملة AR (RTL) وEN (LTR) — بلا ترجمة حرفية | M29-§05, M29-§82 | D-250, D-014 | docs/franchise/02-PAGE-IA-AND-CONTENT.md |  |  | NOT STARTED | NO |
+| `FRAN-019` | الروابط: /ar/franchise/ و /en/franchise/ (طبقة العلامة — مبدئي) | M29-§06 | D-260, D-019, D-031 | docs/phase-01-discovery/10-url-architecture-draft.md §3, §4 · docs/franchise/05-SEO-ANALYTICS-PERFORMANCE.md |  |  | NOT STARTED | NO |
+| `FRAN-020` | محتوى قديم يُحذف ولا يُعاد استخدامه (9 بنود) | M29-§08 | D-252 | docs/franchise/02-PAGE-IA-AND-CONTENT.md · docs/phase-01-discovery/04-content-approval-register.md CR-087, CR-088 |  |  | NOT STARTED | NO |
+| `FRAN-021` | محتوى قديم يبقى كفكرة ويُعاد كتابته (8 بنود) — بعد المطابقة | M29-§08, M29-§17 | D-252 | docs/franchise/02-PAGE-IA-AND-CONTENT.md |  |  | NOT STARTED | NO |
+| `FRAN-022` | حظر نشر الشروط المالية (19 بندًا) بدون موافقة من مشروع Franchise | M29-§09 | D-253, D-071 | docs/franchise/02-PAGE-IA-AND-CONTENT.md · docs/franchise/03-APPLICATION-FIELD-MATRIX.md |  |  | NOT STARTED | NO |
+| `FRAN-023` | الـIA الأساسية للصفحة: 13 قسمًا | M29-§12 | D-250 | docs/franchise/02-PAGE-IA-AND-CONTENT.md |  |  | NOT STARTED | NO |
+| `FRAN-024` | قصة بصرية متسلسلة — لا Section dump | M29-§54 | D-258 | docs/franchise/02-PAGE-IA-AND-CONTENT.md |  |  | NOT STARTED | NO |
+| `FRAN-025` | صور الـHero والصفحة: صور SHELTER حقيقية معتمدة فقط | M29-§14 | D-258, D-003 | docs/franchise/02-PAGE-IA-AND-CONTENT.md · docs/governance/APPROVED-ASSET-LIBRARY.md |  |  | NOT STARTED | NO |
+| `FRAN-026` | «لماذا تصبح شريكًا مع SHELTER؟»: 9 ركائز = PENDING VERIFICATION حتى المطابقة | M29-§17 | D-249, D-253 | docs/franchise/02-PAGE-IA-AND-CONTENT.md |  |  | NOT STARTED | NO |
+| `FRAN-027` | Visual hierarchy متنوع — لا 9 بطاقات متطابقة ولا شكل Admin Dashboard | M29-§18 | D-258 | docs/franchise/02-PAGE-IA-AND-CONTENT.md |  |  | NOT STARTED | NO |
+| `FRAN-028` | قسم «أكثر من مجرد اسم على الواجهة» — منظومة لا ترخيص شعار | M29-§19 | D-250, D-253 | docs/franchise/02-PAGE-IA-AND-CONTENT.md |  |  | NOT STARTED | NO |
+| `FRAN-029` | رحلة الدعم (Support Journey) — 9 مراحل — Franchise Master Process يفوز | M29-§20 | D-250, D-249 | docs/franchise/02-PAGE-IA-AND-CONTENT.md |  |  | NOT STARTED | NO |
+| `FRAN-030` | «ما الذي نبحث عنه في الشريك؟»: 7 معايير عامة قابلة للعرض | M29-§21 | D-253, D-071 | docs/franchise/02-PAGE-IA-AND-CONTENT.md |  |  | NOT STARTED | NO |
+| `FRAN-031` | ممنوع نشر اشتراطات الشريك المحددة حتى اعتمادها | M29-§21 | D-253, D-071 | docs/franchise/02-PAGE-IA-AND-CONTENT.md · docs/franchise/03-APPLICATION-FIELD-MATRIX.md |  |  | NOT STARTED | NO |
+| `FRAN-032` | رحلة الشراكة العامة (9 خطوات) — تُطابق مع Franchise Master قبل النشر | M29-§22 | D-250, D-249 | docs/franchise/02-PAGE-IA-AND-CONTENT.md |  |  | NOT STARTED | NO |
+| `FRAN-033` | لا وعد بمدة رد (لا SLA) — الصياغة البديلة المعتمدة | M29-§23, M29-§08 | D-252 | docs/franchise/02-PAGE-IA-AND-CONTENT.md |  |  | NOT STARTED | NO |
+| `FRAN-034` | قسم «أسواق النمو / Where We Grow» عام — Jordan + International Growth بلا Territories | M29-§24 | D-253, D-010 | docs/franchise/02-PAGE-IA-AND-CONTENT.md |  |  | NOT STARTED | NO |
+| `FRAN-035` | FAQ خاص بالفرنشايز — 10 مواضيع | M29-§25 | D-250 | docs/franchise/02-PAGE-IA-AND-CONTENT.md §4 |  |  | NOT STARTED | NO |
+| `FRAN-036` | إجابات FAQ: لا إجابات تجارية مخترعة — الصياغة المحايدة المعتمدة | M29-§25 | D-252, D-253 | docs/franchise/02-PAGE-IA-AND-CONTENT.md §4 |  |  | NOT STARTED | NO |
+| `FRAN-037` | الروابط الداخلية: About · Locations · Menu · Coffee Knowledge · Contact | M29-§67 | D-260 | docs/franchise/05-SEO-ANALYTICS-PERFORMANCE.md |  |  | NOT STARTED | NO |
+| `FRAN-038` | SHELTER PARTNERSHIP APPLICATION أصلي: لا HubSpot/Google Forms/Airtable/CRM — Cloudways | M29-§27 | D-254 | docs/franchise/03-APPLICATION-FIELD-MATRIX.md · docs/CLOUDWAYS-RECRUITMENT-ARCHITECTURE.md |  |  | NOT STARTED | NO |
+| `FRAN-039` | لا قاعدة بيانات محلية — لا Falcon — كل البيانات Server-side | M29-§28 | D-254 | docs/CLOUDWAYS-RECRUITMENT-ARCHITECTURE.md |  |  | NOT STARTED | N/A |
+| `FRAN-040` | Cloudways audit قبل التنفيذ — بلا عبث بـWordPress القديم أو Production DB | M29-§29 | D-254, D-229 | docs/CLOUDWAYS-RECRUITMENT-ARCHITECTURE.md §3 |  |  | NOT STARTED | NO |
+| `FRAN-041` | فلسفة النموذج: Lead Qualification محترف — ليس طويلًا ولا استجوابًا ماليًا | M29-§30 | D-255 | docs/franchise/03-APPLICATION-FIELD-MATRIX.md |  |  | NOT STARTED | NO |
+| `FRAN-042` | بيانات الطلب الأولية (11 حقلًا) — النموذج ثنائي اللغة | M29-§31, M29-§05 | D-255 | docs/franchise/03-APPLICATION-FIELD-MATRIX.md |  |  | NOT STARTED | NO |
+| `FRAN-043` | حقول مستقبلية (5) — أي حقل مالي/استثماري لا يُنشر بلا موافقة | M29-§31 | D-255 | docs/franchise/03-APPLICATION-FIELD-MATRIX.md |  |  | NOT STARTED | NO |
+| `FRAN-044` | FRANCHISE APPLICATION FIELD MATRIX قبل التنفيذ النهائي للنموذج | M29-§32 | D-255 | docs/franchise/03-APPLICATION-FIELD-MATRIX.md |  |  | PARTIAL | N/A |
+| `FRAN-045` | Single Structured Form مقابل Short Multi-step — يُختار الأقل Friction بالاختبار | M29-§33 | D-255, D-176 | docs/franchise/03-APPLICATION-FIELD-MATRIX.md |  |  | NOT STARTED | NO |
+| `FRAN-046` | رقم طلب فريد FR-YYYY-NNNNN — يُولد في الخادم، قابل للبحث، بلا PII | M29-§34, M35 | D-254, CAREERS-040 | docs/franchise/03-APPLICATION-FIELD-MATRIX.md · docs/RECRUITMENT-DATA-MODEL.md §3 |  |  | NOT STARTED | NO |
+| `FRAN-047` | صفحة النجاح: شكر + رقم الطلب + المراجعة — بلا أي وعد | M29-§35 | D-254 | docs/franchise/03-APPLICATION-FIELD-MATRIX.md |  |  | NOT STARTED | NO |
+| `FRAN-048` | Disclaimer قانوني: الإرسال ليس موافقة ولا التزامًا تعاقديًا — الصياغة النهائية معلقة | M29-§36 | D-254 | docs/franchise/03-APPLICATION-FIELD-MATRIX.md |  |  | NOT STARTED | NO |
+| `FRAN-049` | أمان النموذج العام (8 ضوابط) — بلا CAPTCHA خارجي تلقائيًا | M29-§74 | D-254, D-166 | docs/franchise/03-APPLICATION-FIELD-MATRIX.md · docs/RECRUITMENT-SECURITY.md |  |  | NOT STARTED | NO |
+| `FRAN-050` | الخصوصية: لا تحويل للنشرة، لا Marketing opt-in افتراضي، موافقة واضحة | M29-§75 | D-254 | docs/franchise/03-APPLICATION-FIELD-MATRIX.md |  |  | NOT STARTED | NO |
+| `FRAN-051` | المرفقات: مستقبلية واختيارية — غير إلزامية في V1 — تخزين خاص فقط | M29-§76, M35 | D-255 | docs/franchise/03-APPLICATION-FIELD-MATRIX.md · docs/RECRUITMENT-SECURITY.md §3 · docs/CLOUDWAYS-RECRUITMENT-ARCHITECTURE.md |  |  | NOT STARTED | NO |
+| `FRAN-052` | لا وثائق داخلية في الحزمة العامة للموقع | M29-§77 | D-254 | docs/franchise/04-DASHBOARD-MODULE-IA.md |  |  | NOT STARTED | NO |
+| `FRAN-053` | Attribution آمن للخصوصية يُخزن مع الطلب | M29-§70 | D-259, D-194 | docs/franchise/03-APPLICATION-FIELD-MATRIX.md · docs/franchise/05-SEO-ANALYTICS-PERFORMANCE.md |  |  | NOT STARTED | NO |
+| `FRAN-054` | وحدة «Franchise & Partnerships» أصلية في الـOwner Dashboard — ليست iframe | M29-§37 | D-256 | docs/franchise/04-DASHBOARD-MODULE-IA.md |  |  | NOT STARTED | NO |
+| `FRAN-055` | IA مبدئية للوحدة (11 عنصرًا) — ليست الحالات النهائية؛ Franchise Master يفوز | M29-§38 | D-256, D-249 | docs/franchise/04-DASHBOARD-MODULE-IA.md §1, §2 |  |  | NOT STARTED | NO |
+| `FRAN-056` | أعمدة قائمة الطلبات المبدئية (7) | M29-§39 | D-256 | docs/franchise/04-DASHBOARD-MODULE-IA.md §3 |  |  | NOT STARTED | NO |
+| `FRAN-057` | Quick Side Panel + Full Application Page | M29-§40 | D-256 | docs/franchise/04-DASHBOARD-MODULE-IA.md §3 |  |  | NOT STARTED | NO |
+| `FRAN-058` | ملاحظات داخلية متعددة — الكاتب والوقت والمحتوى — بلا Overwrite صامت | M29-§41 | D-256 | docs/franchise/04-DASHBOARD-MODULE-IA.md |  |  | NOT STARTED | NO |
+| `FRAN-059` | إدارة الاجتماعات — الملاحظات الداخلية لا تُعرض للمتقدم | M29-§42 | D-256 | docs/franchise/04-DASHBOARD-MODULE-IA.md §3 |  |  | NOT STARTED | NO |
+| `FRAN-060` | الطلبات المكررة: لا منع تلقائي، كشف بالهاتف/البريد/اسم الشركة، بلا دمج | M29-§43 | D-256 | docs/franchise/04-DASHBOARD-MODULE-IA.md §4 |  |  | NOT STARTED | NO |
+| `FRAN-061` | لا قبول ولا رفض آلي — لا تأهيل أو تقييم استثماري آلي | M29-§44 | D-256, D-216 | docs/franchise/04-DASHBOARD-MODULE-IA.md §4 |  |  | NOT STARTED | NO |
+| `FRAN-062` | الصلاحيات: بيانات تجارية حساسة — V1 للـOwner فقط — Server-side | M29-§45, M30 | D-256, D-263, D-162 | docs/franchise/04-DASHBOARD-MODULE-IA.md §4 · docs/RECRUITMENT-PERMISSIONS.md |  |  | NOT STARTED | NO |
+| `FRAN-063` | تحليلات الوحدة: القيمة التشغيلية أولًا — لا 30 رسمًا | M29-§78 | D-256 | docs/franchise/04-DASHBOARD-MODULE-IA.md §5 |  |  | NOT STARTED | NO |
+| `FRAN-064` | البحث والفلاتر في وحدة الشراكات | M29-§79 | D-256 | docs/franchise/04-DASHBOARD-MODULE-IA.md §3 |  |  | NOT STARTED | NO |
+| `FRAN-065` | Audit Log للوحدة: 8 أنواع إجراءات + 6 حقول | M29-§80 | D-256, D-164 | docs/franchise/04-DASHBOARD-MODULE-IA.md §4 |  |  | NOT STARTED | NO |
+| `FRAN-066` | النسخ الاحتياطي: DB + مرفقات خاصة + إجراء استعادة — يُتحقق ولا يُفترض | M29-§81, M35 | D-254, D-229 | docs/CLOUDWAYS-RECRUITMENT-ARCHITECTURE.md §6 |  |  | NOT STARTED | NO |
+| `FRAN-067` | الصفحة قابلة للتحرير بالكامل من الـOwner Dashboard بلا كود (16 عنصرًا) | M29-§46, M30 | D-257 | docs/franchise/02-PAGE-IA-AND-CONTENT.md · docs/franchise/04-DASHBOARD-MODULE-IA.md |  |  | NOT STARTED | NO |
+| `FRAN-068` | Design System Lock: المحتوى قابل للتحرير — التصميم مضبوط | M29-§47, M34 | D-257, D-165 | docs/franchise/02-PAGE-IA-AND-CONTENT.md |  |  | NOT STARTED | NO |
+| `FRAN-069` | Workflow المحتوى: Draft · Review · Scheduled · Published · Archived + Preview + Versions + Audit | M29-§48 | D-257, D-163 | docs/franchise/04-DASHBOARD-MODULE-IA.md |  |  | NOT STARTED | NO |
+| `FRAN-070` | حالة لكل محتوى فرنشايز: APPROVED · PENDING · MISSING · SUPERSEDED — المعلّق لا يُنشر كحقيقة | M29-§49 | D-257, D-224 | docs/franchise/02-PAGE-IA-AND-CONTENT.md |  |  | NOT STARTED | NO |
+| `FRAN-071` | Versioning إلزامي لمحتوى الفرنشايز الحساس (7 أنواع) | M29-§50, M30 | D-257, D-164 | docs/franchise/04-DASHBOARD-MODULE-IA.md |  |  | NOT STARTED | NO |
+| `FRAN-072` | وسائط الصفحة معتمدة من الـOwner + حقول Media Library | M29-§51 | D-257, D-195 | docs/franchise/02-PAGE-IA-AND-CONTENT.md |  |  | NOT STARTED | NO |
+| `FRAN-073` | الاتجاه البصري: Premium · Warm · Minimal · Architectural · Modern · Confident · Global · Coffee-led | M29-§52 | D-258, D-178 | docs/franchise/02-PAGE-IA-AND-CONTENT.md |  |  | NOT STARTED | NO |
+| `FRAN-074` | ممنوعات التصميم لصفحة الفرنشايز (8) | M29-§53 | D-258, D-178 | docs/franchise/02-PAGE-IA-AND-CONTENT.md |  |  | NOT STARTED | NO |
+| `FRAN-075` | الـVisual Concept السابق: اتجاه فقط — «أسود/كريمي» ليس Brand Tokens | M29-§84 | D-258 | docs/franchise/01-SOURCES-CONFLICTS-MISSING.md |  |  | NOT STARTED | NO |
+| `FRAN-076` | Motion Premium هادف — بلا Scroll hijack — مع prefers-reduced-motion | M29-§55 | D-258, D-157, D-188 | docs/franchise/05-SEO-ANALYTICS-PERFORMANCE.md §3 |  |  | NOT STARTED | NO |
+| `FRAN-077` | أدوات الحركة: الـStack الحالي فقط — لا مكتبة حركة مكررة | M29-§56 | D-258, D-151, D-152 | docs/FRONTEND-TOOLING.md |  |  | NOT STARTED | NO |
+| `FRAN-078` | الأدوات: أدوات المشروع الحالية — بلا بدائل مكررة | M29-§85 | D-261, D-192 | docs/FRONTEND-TOOLING.md | tooling/package.json |  | NOT STARTED | NO |
+| `FRAN-079` | Responsive إلزامي: 14 عرضًا · 5 فئات أجهزة · RTL/LTR · Portrait/Landscape · 200% Zoom | M29-§57 | D-262, D-217 |  | tooling/viewports.mjs |  | NOT STARTED | NO |
+| `FRAN-080` | الموبايل: Mobile-first وليس Desktop مصغرًا (11 قاعدة) | M29-§58 | D-262 | docs/franchise/02-PAGE-IA-AND-CONTENT.md |  |  | NOT STARTED | NO |
+| `FRAN-081` | التابلت حالة UX مستقلة | M29-§59 | D-262 |  |  |  | NOT STARTED | NO |
+| `FRAN-082` | الديسكتوب يستفيد من المساحة — بحاويات max-width | M29-§60 | D-262 |  | tooling/tests/prototype/responsive.spec.mjs |  | NOT STARTED | NO |
+| `FRAN-083` | Accessibility: 14 بندًا (بما فيها ملخص أخطاء النموذج وFAQ) | M29-§61 | D-262, D-173 |  |  |  | NOT STARTED | NO |
+| `FRAN-084` | الأداء: السرعة أهم من البصريات — LCP/INP/CLS — بلا فيديو ضخم على الموبايل | M29-§62 | D-262, D-174 | docs/franchise/05-SEO-ANALYTICS-PERFORMANCE.md §3 |  |  | NOT STARTED | NO |
+| `FRAN-085` | تحسين كل صورة معتمدة + أولوية تحميل صورة الـLCP | M29-§86 | D-262 |  | tooling/scripts/images.mjs |  | NOT STARTED | NO |
+| `FRAN-086` | Performance Budget واقعي للصفحة — بلا Score عشوائي | M29-§87 | D-262, D-174 | docs/franchise/05-SEO-ANALYTICS-PERFORMANCE.md §3 |  |  | PARTIAL | N/A |
+| `FRAN-087` | سكربتات الطرف الثالث لا تؤخر الصفحة — تدقيق HubSpot قبل أي إزالة/إبقاء | M29-§63 | D-254, D-206 | docs/franchise/05-SEO-ANALYTICS-PERFORMANCE.md §3 |  |  | NOT STARTED | NO |
+| `FRAN-088` | نية البحث (AR 7 · EN 4) — بلا Keyword Stuffing | M29-§64 | D-260, SEO-006 | docs/franchise/05-SEO-ANALYTICS-PERFORMANCE.md §1 |  |  | NOT STARTED | NO |
+| `FRAN-089` | AEO/GEO: عناوين واقعية وحقائق مختصرة وFAQ وعلاقات كيان — بلا خداع | M29-§65 | D-260 | docs/franchise/05-SEO-ANALYTICS-PERFORMANCE.md §1 |  |  | NOT STARTED | NO |
+| `FRAN-090` | Structured Data: Organization · WebPage · BreadcrumbList · FAQPage (عند الملاءمة) — ممنوع اختراع Offer/Price/Rating/Review/Investment/Availability | M29-§66 | D-260, D-183 | docs/franchise/05-SEO-ANALYTICS-PERFORMANCE.md §1 |  |  | NOT STARTED | NO |
+| `FRAN-091` | أحداث Analytics للفرنشايز (7) — ذات معنى فقط | M29-§68 | D-259, D-185, D-204 | docs/franchise/05-SEO-ANALYTICS-PERFORMANCE.md §2 · docs/google/GA4-MEASUREMENT-PLAN.md |  |  | NOT STARTED | NO |
+| `FRAN-092` | لا PII في الـAnalytics | M29-§69 | D-259, D-194 | docs/franchise/05-SEO-ANALYTICS-PERFORMANCE.md §2 |  |  | NOT STARTED | NO |
+| `FRAN-093` | هجرة الرابط القديم /franchise-shelter-coffee/: لا Redirect الآن — 10 فحوص — 301 بعد موافقة الـOwner | M29-§71 | D-260, D-054, D-182 | docs/franchise/05-SEO-ANALYTICS-PERFORMANCE.md §1 · docs/google/SEO-MIGRATION-MAP.md · docs/phase-01-discovery/10-url-architecture-draft.md §5 |  |  | NOT STARTED | NO |
+| `FRAN-094` | Canonical + hreflang + x-default للزوج AR/EN — بلا تحويل جغرافي تلقائي | M29-§72 | D-260, D-031, D-052 | docs/franchise/05-SEO-ANALYTICS-PERFORMANCE.md §1 |  |  | NOT STARTED | NO |
+| `FRAN-095` | منظومة Google: تدقيق الموجود أولًا — بلا تتبع مكرر — الصفحة في Sitemap/GSC/Analytics/المراقبة | M29-§73 | D-260, D-051, D-227 | docs/franchise/05-SEO-ANALYTICS-PERFORMANCE.md |  |  | NOT STARTED | NO |
+| `FRAN-096` | نبرة المحتوى AR/EN | M29-§82 | D-252 | docs/franchise/02-PAGE-IA-AND-CONTENT.md |  |  | NOT STARTED | NO |
+| `FRAN-097` | كلمات ممنوعة (6) ومفضلة (7) | M29-§83 | D-252 | docs/franchise/02-PAGE-IA-AND-CONTENT.md |  |  | NOT STARTED | NO |
+| `FRAN-098` | مصفوفة QA للصفحة: AR/EN · 10 عروض (ضمن الـ14) · اتجاهان · Zoom · 3 محركات · لمس/كيبورد/حركة مخفضة | M29-§88 | D-262, D-217 |  | tooling/viewports.mjs · tooling/playwright.config.mjs |  | NOT STARTED | NO |
+| `FRAN-099` | تدفقات Playwright (13 على الأقل) | M29-§89 | D-262 |  | tooling/tests/app/ |  | NOT STARTED | NO |
+| `FRAN-100` | SEO QA للصفحة (12 فحصًا) | M29-§90 | D-260 |  |  |  | NOT STARTED | NO |
+| `FRAN-101` | Analytics QA: 6 تحققات — بلا أحداث مكررة — بلا PII | M29-§91 | D-259 |  |  |  | NOT STARTED | NO |
+| `FRAN-102` | Definition of Done لصفحة الفرنشايز (21 شرطًا) | M29-§97, M35 | D-262, D-170 |  |  |  | NOT STARTED | NO |
+| `FRAN-103` | لا تغييرات Production في المرحلة الأولى — وثائق وWireframes فقط | M29-§92, M36 | D-261, D-002 |  |  |  | NOT STARTED | N/A |
+| `FRAN-104` | مخرجات المرحلة الأولى (20) ثم التوقف قبل التنفيذ الكامل | M29-§93, M36 | D-261 | docs/franchise/01-SOURCES-CONFLICTS-MISSING.md · docs/franchise/02-PAGE-IA-AND-CONTENT.md · docs/franchise/03-APPLICATION-FIELD-MATRIX.md · docs/franchise/04-DASHBOARD-MODULE-IA.md · docs/franchise/05-SEO-ANALYTICS-PERFORMANCE.md |  |  | PARTIAL | NO |
+| `FRAN-105` | ترتيب البدء (9 خطوات) + ملخص تنفيذي | M29-§100 | D-261 | docs/franchise/01-SOURCES-CONFLICTS-MISSING.md |  |  | PARTIAL | N/A |
+| `FRAN-106` | لا أسئلة صغيرة للـOwner — Claude يتخذ أفضل قرار تقني | M29-§94 | D-261, D-176 |  |  |  | NOT STARTED | N/A |
+| `FRAN-107` | سؤال الـOwner فقط عن القرارات التجارية الحقيقية (12) | M29-§95 | D-261 |  |  |  | NOT STARTED | N/A |
+| `FRAN-108` | Master Project Sync: كل قرار ← Master/Decision Register/Traceability — والتعارض والنواقص في سجلاتها | M29-§96 | D-261, D-222 |  |  |  | PARTIAL | N/A |
+| `CMS-001` | 95%+ من العمليات اليومية يديرها الـOwner من الـDashboard بدون لمس الكود | M01-112, M25-079, M25-207, M27-050, M30 | D-084, DB-08 | docs/menu-ia/SHELTER-MENU-IA-SPEC.md §18 (CMS — SSOT في V1) · docs/phase-01-discovery/05-decisions-before-design.md DB-08 |  |  | NOT STARTED | NO |
 | `CMS-002` | نطاق كيانات الـCMS (القائمة الموحدة القابلة للتعديل من UI) | M01-113, M01-114, M01-115, M01-116, M25-080, M25-209, M27-051, M27-052, M27-053, M27-054 | D-084, D-148, D-021 | docs/menu-ia/SHELTER-MENU-IA-SPEC.md §18 (CMS — SSOT في V1) · docs/phase-01-discovery/17-menu-data-model-draft.md (v0.4) |  |  | NOT STARTED | NO |
-| `CMS-003` | Menu CMS = Single Source of Truth في V1 (A الآن + جاهزية C) — لا Google Sheet | M15-048, M15-050, M23-202 | D-085, DB-21, D-142, D-148 | docs/menu-ia/SHELTER-MENU-IA-SPEC.md §18 (CMS — SSOT في V1) · docs/phase-01-discovery/17-menu-data-model-draft.md (v0.4) · docs/phase-01-discovery/16-menu-intake-and-ssot.md |  |  | NOT STARTED | NO |
-| `CMS-004` | مصدر واحد للحقيقة: لا CMS مزدوج ولا مصدر منيو مزدوج | M27-143 | D-085 | docs/phase-01-discovery/05-decisions-before-design.md DB-08 |  |  | NOT STARTED | NO |
+| `CMS-003` | Menu CMS = Single Source of Truth في V1 (A الآن + جاهزية C) — لا Google Sheet | M15-048, M15-050, M23-202, M33 | D-085, DB-21, D-142, D-148 | docs/menu-ia/SHELTER-MENU-IA-SPEC.md §18 (CMS — SSOT في V1) · docs/phase-01-discovery/17-menu-data-model-draft.md (v0.4) · docs/phase-01-discovery/16-menu-intake-and-ssot.md |  |  | NOT STARTED | NO |
+| `CMS-004` | مصدر واحد للحقيقة: لا CMS مزدوج ولا مصدر منيو مزدوج | M27-143, M33 | D-085 | docs/phase-01-discovery/05-decisions-before-design.md DB-08 |  |  | NOT STARTED | NO |
 | `CMS-005` | إدارة المنيو بعد الإطلاق من الـDashboard | M15-045 | D-084, D-148 | docs/menu-ia/SHELTER-MENU-IA-SPEC.md §18 (CMS — SSOT في V1) · docs/menu-ia/SHELTER-MENU-IA-SPEC.md §19 (Data Model v0.5 delta) |  |  | NOT STARTED | NO |
 | `CMS-006` | Workflow لكل المحتوى: DRAFT · IN REVIEW · SCHEDULED · PUBLISHED · ARCHIVED | M01-120, M23-203, M25-109, M23-204 | D-148, D-084 | docs/menu-ia/SHELTER-MENU-IA-SPEC.md §18 (CMS — SSOT في V1) · docs/menu-ia/SHELTER-MENU-IA-SPEC.md §19 (Data Model v0.5 delta) |  |  | NOT STARTED | NO |
 | `CMS-007` | لا يصل أي تعديل للعميل قبل Publish — لا تعديل مباشر على Production | M23-205 | D-148 | docs/menu-ia/SHELTER-MENU-IA-SPEC.md §18 (CMS — SSOT في V1) |  |  | NOT STARTED | NO |
 | `CMS-008` | Preview قبل Publish: Desktop · Mobile (+ Arabic · English إذا أمكن) | M01-119, M25-116 | D-148 | docs/menu-ia/SHELTER-MENU-IA-SPEC.md §18 (CMS — SSOT في V1) |  |  | NOT STARTED | NO |
-| `CMS-009` | Scheduling والنشر الموسمي: تفعيل/انتهاء تلقائي · تجاوز يدوي · Audit trail | M23-095 | D-148, F-17, D-117 | docs/menu-ia/SHELTER-MENU-IA-SPEC.md §19 (Data Model v0.5 delta) · docs/menu-ia/MENU-DECISION-REGISTER.md F-17 |  |  | NOT STARTED | NO |
-| `CMS-010` | Page Editor بسيط مبني على Sections/Blocks (ليس Page Builder مثل Elementor) | M25-081, M25-083 | DB-08 | docs/phase-01-discovery/05-decisions-before-design.md DB-08 |  |  | NOT STARTED | NO |
-| `CMS-011` | Design Lock: الـCMS لا يسمح بكسر الـDesign System | M01-117, M01-118, M27-055 |  | design-system/README.md |  |  | NOT STARTED | NO |
-| `CMS-012` | Global Components تُدار من مكان واحد | M01-220 |  |  |  |  | NOT STARTED | NO |
-| `CMS-013` | نظام Special Hours في الـCMS (Regular · Special/Holiday · Closure/Emergency) | M04-028, M04-031 | D-021, DB-18 | docs/phase-01-discovery/09-architecture-options-after-r1.md AR-07 (نموذج الساعات الخاصة — للنقاش) · docs/menu-ia/SHELTER-MENU-IA-SPEC.md §9.4 · docs/menu-ia/SHELTER-MENU-IA-SPEC.md §19 (Data Model v0.5 delta) |  | docs/menu-ia/evidence/hours_logic_check.py | NOT STARTED | NO |
-| `CMS-014` | مناقشة UX والـCMS لنظام الساعات الخاصة مع الـOwner قبل التنفيذ | M04-032 | D-021, DB-18 | docs/phase-01-discovery/09-architecture-options-after-r1.md AR-07 (نموذج الساعات الخاصة — للنقاش) |  |  | NOT STARTED | N/A |
+| `CMS-009` | Scheduling والنشر الموسمي: تفعيل/انتهاء تلقائي · تجاوز يدوي · Audit trail | M23-095, M32, M35 | D-148, F-17, D-117 | docs/menu-ia/SHELTER-MENU-IA-SPEC.md §19 (Data Model v0.5 delta) · docs/menu-ia/MENU-DECISION-REGISTER.md F-17 |  |  | NOT STARTED | NO |
+| `CMS-010` | Page Editor بسيط مبني على Sections/Blocks (ليس Page Builder مثل Elementor) | M25-081, M25-083, M34 | DB-08 | docs/phase-01-discovery/05-decisions-before-design.md DB-08 |  |  | NOT STARTED | NO |
+| `CMS-011` | Design Lock: الـCMS لا يسمح بكسر الـDesign System | M01-117, M01-118, M27-055, M30, M34 |  | design-system/README.md |  |  | NOT STARTED | NO |
+| `CMS-012` | Global Components تُدار من مكان واحد | M01-220, M32, M33 |  |  |  |  | NOT STARTED | NO |
+| `CMS-013` | نظام Special Hours في الـCMS (Regular · Special/Holiday · Closure/Emergency) | M04-028, M04-031, M33 | D-021, DB-18 | docs/phase-01-discovery/09-architecture-options-after-r1.md AR-07 (نموذج الساعات الخاصة — للنقاش) · docs/menu-ia/SHELTER-MENU-IA-SPEC.md §9.4 · docs/menu-ia/SHELTER-MENU-IA-SPEC.md §19 (Data Model v0.5 delta) |  | docs/menu-ia/evidence/hours_logic_check.py | NOT STARTED | NO |
+| `CMS-014` | مناقشة UX والـCMS لنظام الساعات الخاصة مع الـOwner قبل التنفيذ | M04-032, M33, M36 | D-021, DB-18 | docs/phase-01-discovery/09-architecture-options-after-r1.md AR-07 (نموذج الساعات الخاصة — للنقاش) |  |  | NOT STARTED | N/A |
 | `CMS-015` | التوفر لكل Product × Branch: Available · Unavailable + Show · Unavailable + Hide | M23-114 | D-145, F-19, D-079 | docs/menu-ia/SHELTER-MENU-IA-SPEC.md §19 (Data Model v0.5 delta) · docs/menu-ia/MENU-DECISION-REGISTER.md F-19 · CF-06 |  |  | NOT STARTED | NO |
 | `CMS-016` | ترتيب المنتجات بـsort_order يدوي من الـCMS — ممنوع Random Algorithm | M23-206 | D-148 | docs/menu-ia/SHELTER-MENU-IA-SPEC.md §18 (CMS — SSOT في V1) |  |  | NOT STARTED | NO |
 | `CMS-017` | FEATURED = خاصية CMS داخلية — لا Badge 'Featured' للعميل | M23-070, M23-207 | F-14, D-144, D-148 | docs/menu-ia/MENU-DECISION-REGISTER.md F-14 · docs/menu-ia/SHELTER-MENU-IA-SPEC.md §19 (Data Model v0.5 delta) |  |  | NOT STARTED | NO |
 | `CMS-018` | Search Alias Dictionary قابل للإدارة من الـCMS | M23-079 | D-143, F-15 | docs/menu-ia/SHELTER-MENU-IA-SPEC.md §19 (Data Model v0.5 delta) · docs/menu-ia/MENU-DECISION-REGISTER.md F-15 · P-06 |  |  | NOT STARTED | NO |
-| `CMS-019` | حالة المحتوى في الـDashboard: صفحات تحتاج تحديث + Drafts تنتظر النشر | M25-011 |  |  |  |  | NOT STARTED | NO |
+| `CMS-019` | حالة المحتوى في الـDashboard: صفحات تحتاج تحديث + Drafts تنتظر النشر | M25-011, M32 |  |  |  |  | NOT STARTED | NO |
 | `CMS-020` | لا تعديل يدوي لقاعدة البيانات: كل Business Content اليومي له UI | M25-165, M25-166 | DB-08 | docs/phase-01-discovery/05-decisions-before-design.md DB-08 |  |  | NOT STARTED | NO |
-| `CMS-021` | CMS Data Model والتخزين (CMS-DATA-MODEL.md) — Supabase مشروط بقرار DB-08 | M25-135 | DB-08, D-107, D-135, D-136 | docs/phase-01-discovery/17-menu-data-model-draft.md (v0.4) · docs/menu-ia/SHELTER-MENU-IA-SPEC.md §19 (Data Model v0.5 delta) · docs/phase-01-discovery/05-decisions-before-design.md DB-08 |  |  | PARTIAL | N/A |
+| `CMS-021` | CMS Data Model والتخزين (CMS-DATA-MODEL.md) — Supabase مشروط بقرار DB-08 | M25-135, M28, M29, M36 | DB-08, D-107, D-135, D-136 | docs/phase-01-discovery/17-menu-data-model-draft.md (v0.4) · docs/menu-ia/SHELTER-MENU-IA-SPEC.md §19 (Data Model v0.5 delta) · docs/phase-01-discovery/05-decisions-before-design.md DB-08 |  |  | PARTIAL | N/A |
+| `CMS-022` | المنيو بلا كود: كل حقول المنتج والتوفر والنشر | M30 §MENU |  |  |  |  | NOT STARTED | NO |
+| `CMS-023` | الوسائط بلا كود | M30 §MEDIA, M31 |  | media/README.md | tooling/scripts/images.mjs |  | PARTIAL | NO |
+| `CMS-024` | الصفحات بلا كود | M30 §PAGES |  |  |  |  | NOT STARTED | NO |
+| `CMS-025` | الفروع والساعات بلا كود | M30 §BRANCHES, M32, M33 |  |  |  |  | NOT STARTED | NO |
+| `CMS-026` | الحملات والفعاليات بلا كود | M30 §CAMPAIGNS, M31 |  |  |  |  | NOT STARTED | NO |
+| `CMS-027` | المدونة / المعرفة بلا كود | M30 §BLOG |  |  |  |  | NOT STARTED | NO |
+| `CMS-028` | التوظيف بلا كود | M30 §CAREERS |  | docs/CAREERS-REQUIREMENTS.md |  |  | NOT STARTED | NO |
+| `CMS-029` | الشراكات / الفرنشايز بلا كود | M30 §FRANCHISE |  | docs/franchise/04-DASHBOARD-MODULE-IA.md |  |  | NOT STARTED | NO |
+| `CMS-030` | معلومات التواصل بلا كود | M30 §CONTACT, M32, M33 |  |  |  |  | NOT STARTED | NO |
+| `CMS-031` | الـSEO بلا كود (والمتقدم محمي) | M30 §SEO |  |  |  |  | NOT STARTED | NO |
+| `CMS-032` | الإعدادات العامة للموقع بلا كود | M30 §GLOBAL WEBSITE SETTINGS, M31, M32, M33 |  |  |  |  | NOT STARTED | NO |
+| `CMS-033` | قاعدة لا-كود: أي تغيير عادي يحتاج كودًا = مشكلة معمارية | M30 §NO-CODE RULE, M30 §WHAT STILL REQUIRES DEVELOPER, M32, M35, M36 |  |  |  |  | NOT STARTED | NO |
+| `CMS-034` | حماية نظام التصميم: محتوى حر + خيارات مضبوطة فقط | M30 §DESIGN SYSTEM PROTECTION, M34 |  | design-system/README.md |  |  | NOT STARTED | NO |
+| `CMS-035` | مسودة ← معاينة ← نشر ← جدولة ← أرشفة للتغييرات المهمة | M30 §PREVIEW / PUBLISH |  |  |  |  | NOT STARTED | NO |
 | `DASH-001` | Owner Dashboard = SHELTER Website Control Center (جزء أساسي من المشروع) | M25-001, M25-002, M25-003, M27-040, M12-071 | GIO-§31, DB-08, D-084, D-148 | docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §31 (اقتراح قديم — تجاوزه M25) · docs/phase-01-discovery/05-decisions-before-design.md DB-08 · docs/FRONTEND-TOOLING.md (مكونات الـDashboard لاحقًا: KPI Card · Chart · Table↔Cards · Alert · Editor forms) |  |  | NOT STARTED | NO |
-| `DASH-002` | مبدأ الـDashboard: فهم خلال ثوانٍ + WHAT/WHERE/WHY/ATTENTION + Action | M25-004, M25-012, M25-205 |  | docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §31 (اقتراح قديم — تجاوزه M25) |  |  | NOT STARTED | NO |
-| `DASH-003` | أولويات الـDashboard لـVersion 1 (P0 / P1 / P2 حسب M25 §68) | M25-189, M25-190, M25-191 |  | docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §31 (اقتراح قديم — تجاوزه M25) |  |  | NOT STARTED | N/A |
-| `DASH-004` | تسلسل تنفيذ الـDashboard (Phases A–N) — لا بناء قبل Gate H | M25-178 | DB-08 | docs/phase-01-discovery/05-decisions-before-design.md DB-08 |  |  | NOT STARTED | NO |
-| `DASH-005` | Low-Fidelity Wireframes للـDashboard قبل الـCoding (12 شاشة) | M25-176 |  | docs/qa/RESPONSIVE-QA-MATRIX.md (أعمدة Owner Dashboard · Menu Editor · Product Editor · Analytics · Site Health — غير مبنية) · docs/menu-ia/wireframes/README.md (نموذج الأسلوب) |  |  | NOT STARTED | NO |
-| `DASH-006` | وحدات الـDashboard والتنقل — القائمة الدنيا الكاملة (M25 §49 ∪ M27 §13) | M25-143, M25-144, M27-041, M27-047, M27-048, M27-049 |  | docs/FRONTEND-TOOLING.md (مكونات الـDashboard لاحقًا: KPI Card · Chart · Table↔Cards · Alert · Editor forms) · docs/qa/RESPONSIVE-QA-MATRIX.md (أعمدة Owner Dashboard · Menu Editor · Product Editor · Analytics · Site Health — غير مبنية) |  |  | NOT STARTED | NO |
-| `DASH-007` | الشاشة الأولى بعد Login = Executive Dashboard (Owner KPIs فقط) | M25-018, M25-019, M25-175 |  | docs/FRONTEND-TOOLING.md (مكونات الـDashboard لاحقًا: KPI Card · Chart · Table↔Cards · Alert · Editor forms) |  |  | NOT STARTED | NO |
-| `DASH-008` | TOP SUMMARY: 10 مؤشرات + مقارنة + percentage/trend arrow/mini chart | M25-020, M25-021, M25-022 | D-149 | docs/FRONTEND-TOOLING.md (مكونات الـDashboard لاحقًا: KPI Card · Chart · Table↔Cards · Alert · Editor forms) |  |  | NOT STARTED | NO |
-| `DASH-009` | Date Selector عام أعلى الـDashboard مع Presets | M25-025, M25-026, M25-028 |  |  |  |  | NOT STARTED | NO |
+| `DASH-002` | مبدأ الـDashboard: فهم خلال ثوانٍ + WHAT/WHERE/WHY/ATTENTION + Action | M25-004, M25-012, M25-205, M32 |  | docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §31 (اقتراح قديم — تجاوزه M25) |  |  | NOT STARTED | NO |
+| `DASH-003` | أولويات الـDashboard لـVersion 1 (P0 / P1 / P2 حسب M25 §68) | M25-189, M25-190, M25-191, M28 |  | docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §31 (اقتراح قديم — تجاوزه M25) |  |  | NOT STARTED | N/A |
+| `DASH-004` | تسلسل تنفيذ الـDashboard (Phases A–N) — لا بناء قبل Gate H | M25-178, M28, M36 | DB-08 | docs/phase-01-discovery/05-decisions-before-design.md DB-08 |  |  | NOT STARTED | NO |
+| `DASH-005` | Low-Fidelity Wireframes للـDashboard قبل الـCoding (12 شاشة) | M25-176, M28, M36 |  | docs/qa/RESPONSIVE-QA-MATRIX.md (أعمدة Owner Dashboard · Menu Editor · Product Editor · Analytics · Site Health — غير مبنية) · docs/menu-ia/wireframes/README.md (نموذج الأسلوب) |  |  | NOT STARTED | NO |
+| `DASH-006` | وحدات الـDashboard والتنقل — القائمة الدنيا الكاملة (M25 §49 ∪ M27 §13) | M25-143, M25-144, M27-041, M27-047, M27-048, M27-049, M28, M29, M32 |  | docs/FRONTEND-TOOLING.md (مكونات الـDashboard لاحقًا: KPI Card · Chart · Table↔Cards · Alert · Editor forms) · docs/qa/RESPONSIVE-QA-MATRIX.md (أعمدة Owner Dashboard · Menu Editor · Product Editor · Analytics · Site Health — غير مبنية) |  |  | NOT STARTED | NO |
+| `DASH-007` | الشاشة الأولى بعد Login = Executive Dashboard (Owner KPIs فقط) | M25-018, M25-019, M25-175, M35 |  | docs/FRONTEND-TOOLING.md (مكونات الـDashboard لاحقًا: KPI Card · Chart · Table↔Cards · Alert · Editor forms) |  |  | NOT STARTED | NO |
+| `DASH-008` | TOP SUMMARY: 10 مؤشرات + مقارنة + percentage/trend arrow/mini chart | M25-020, M25-021, M25-022, M28, M35 | D-149 | docs/FRONTEND-TOOLING.md (مكونات الـDashboard لاحقًا: KPI Card · Chart · Table↔Cards · Alert · Editor forms) |  |  | NOT STARTED | NO |
+| `DASH-009` | Date Selector عام أعلى الـDashboard مع Presets | M25-025, M25-026, M25-028, M28 |  |  |  |  | NOT STARTED | NO |
 | `DASH-010` | Comparison: previous period / previous year — فقط إذا البيانات متوفرة | M25-027 |  |  |  |  | NOT STARTED | NO |
 | `DASH-011` | وحدات Analytics في الـDashboard (حد أدنى) | M27-042, M12-072 | D-149 | docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §31 (اقتراح قديم — تجاوزه M25) · docs/google/GA4-MEASUREMENT-PLAN.md (DRAFT) · docs/menu-ia/MENU-MEASUREMENT-PLAN.md |  |  | NOT STARTED | NO |
 | `DASH-012` | وحدات Click / Customer Actions: WhatsApp · Phone · Directions · Branch | M27-043 | D-149 | docs/phase-01-discovery/14-contact-architecture-and-whatsapp.md |  |  | NOT STARTED | NO |
@@ -362,29 +481,33 @@
 | `DASH-014` | وحدات الأداء والصحة: CWV · Lighthouse · Site Health · Errors · Accessibility | M27-045 |  | docs/menu-ia/PERFORMANCE-BUDGET.md · docs/menu-ia/ACCESSIBILITY-CHECKLIST.md | tooling/scripts/lighthouse.mjs · tooling/playwright.config.mjs |  | NOT STARTED | NO |
 | `DASH-015` | وحدة Media Health (صحة الصور والوسائط) | M27-046 | D-083 |  | tooling/scripts/images.mjs |  | NOT STARTED | NO |
 | `DASH-016` | Page Health View لكل صفحة | M25-078 | D-031, D-054 |  |  |  | NOT STARTED | NO |
-| `DASH-017` | Needs Attention (Command Center) أعلى الـOverview — CRITICAL/WARNING/INFO | M25-145, M25-146 |  |  |  |  | NOT STARTED | NO |
-| `DASH-018` | كل Metric أو Alert قابل للتنفيذ عبر Deep Link | M25-147 |  |  |  |  | NOT STARTED | NO |
-| `DASH-019` | Global Search داخل الـDashboard عبر كل الكيانات | M25-117 |  |  |  |  | NOT STARTED | NO |
-| `DASH-020` | لغة سهلة للـOwner + Advanced Details للمطور | M25-149 |  |  |  |  | NOT STARTED | NO |
+| `DASH-017` | Needs Attention (Command Center) أعلى الـOverview — CRITICAL/WARNING/INFO | M25-145, M25-146, M28, M32, M33, M35 |  |  |  |  | NOT STARTED | NO |
+| `DASH-018` | كل Metric أو Alert قابل للتنفيذ عبر Deep Link | M25-147, M32, M35 |  |  |  |  | NOT STARTED | NO |
+| `DASH-019` | Global Search داخل الـDashboard عبر كل الكيانات | M25-117, M32, M35 |  |  |  |  | NOT STARTED | NO |
+| `DASH-020` | لغة سهلة للـOwner + Advanced Details للمطور | M25-149, M30, M32, M35 |  |  |  |  | NOT STARTED | NO |
 | `DASH-021` | مصادر بيانات الـDashboard: APIs رسمية فقط · لا APIs ثقيلة أو مدفوعة بدون موافقة | M12-073 | D-029, D-044, D-046, D-051, GIO-§A3/§A4, GIO-§31 | docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §31 (اقتراح قديم — تجاوزه M25) |  |  | NOT STARTED | NO |
 | `DASH-022` | Data freshness indicators + زر Refresh (مع Caching من جهة الخادم) | M25-134 |  |  |  |  | NOT STARTED | NO |
-| `DASH-023` | Graceful degradation: الـDashboard لا تنهار إذا توقفت خدمة خارجية | M25-196 |  |  |  |  | NOT STARTED | NO |
+| `DASH-023` | Graceful degradation: الـDashboard لا تنهار إذا توقفت خدمة خارجية | M25-196, M33, M35 |  |  |  |  | NOT STARTED | NO |
 | `DASH-024` | Labels واضحة: DEMO DATA مقابل LIVE DATA — ممنوع الخلط | M25-179 |  |  |  |  | NOT STARTED | NO |
 | `DASH-025` | لا أرقام مزيفة: أي Score يوضح طريقة حسابه | M25-121 |  |  |  |  | NOT STARTED | NO |
-| `DASH-026` | Summary Health Score اختياري — فقط بقواعد واضحة؛ الـIssues أهم من الرقم | M25-120, M25-122 |  |  |  |  | NOT STARTED | NO |
+| `DASH-026` | Summary Health Score اختياري — فقط بقواعد واضحة؛ الـIssues أهم من الرقم | M25-120, M25-122, M35 |  |  |  |  | NOT STARTED | NO |
 | `DASH-027` | الـOwner Dashboard كاملة الوظائف على Mobile و Desktop | M26-028 |  | docs/qa/RESPONSIVE-QA-MATRIX.md (أعمدة Owner Dashboard · Menu Editor · Product Editor · Analytics · Site Health — غير مبنية) | tooling/viewports.mjs |  | NOT STARTED | NO |
-| `DASH-028` | 9 مهام Owner يجب أن تكون سهلة على الهاتف | M26-029, M26-030, M26-031, M26-032, M26-033, M26-034, M26-035, M26-036, M26-037 |  | docs/qa/RESPONSIVE-QA-MATRIX.md (أعمدة Owner Dashboard · Menu Editor · Product Editor · Analytics · Site Health — غير مبنية) | tooling/viewports.mjs |  | NOT STARTED | NO |
+| `DASH-028` | 9 مهام Owner يجب أن تكون سهلة على الهاتف | M26-029, M26-030, M26-031, M26-032, M26-033, M26-034, M26-035, M26-036, M26-037, M28 |  | docs/qa/RESPONSIVE-QA-MATRIX.md (أعمدة Owner Dashboard · Menu Editor · Product Editor · Analytics · Site Health — غير مبنية) | tooling/viewports.mjs |  | NOT STARTED | NO |
 | `DASH-029` | Dashboard cards لا تنضغط بشكل سيئ على الهاتف · Desktop أكثر كثافة عند الفائدة | M26-014, M26-038 |  | docs/qa/RESPONSIVE-QA-MATRIX.md (أعمدة Owner Dashboard · Menu Editor · Product Editor · Analytics · Site Health — غير مبنية) |  |  | NOT STARTED | NO |
 | `DASH-030` | Charts متجاوبة — وتتحول إلى Summary/Card على الشاشات الصغيرة عند الحاجة | M26-041, M26-042 |  | docs/FRONTEND-TOOLING.md (مكونات الـDashboard لاحقًا: KPI Card · Chart · Table↔Cards · Alert · Editor forms) |  |  | NOT STARTED | NO |
-| `DASH-031` | AI Assistant داخل الـDashboard — مستقبلي (Architecture جاهزة فقط إن لم تعقّد) | M25-150, M25-152 |  |  |  |  | NOT STARTED | N/A |
+| `DASH-031` | AI Assistant داخل الـDashboard — مستقبلي (Architecture جاهزة فقط إن لم تعقّد) | M25-150, M25-152, M32 |  |  |  |  | NOT STARTED | N/A |
+| `DASH-032` | V1: لوحة التحكم للـOwner فقط — لا مستخدمين آخرين | M30 §OWNER ONLY, M32, M35, M36 |  | docs/RECRUITMENT-PERMISSIONS.md |  |  | NOT STARTED | NO |
+| `DASH-033` | لا حاجة لفتح ملفات المصدر أو GitHub أو قاعدة البيانات للإدارة اليومية | M30 §MAIN PRINCIPLE, M35 |  |  |  |  | NOT STARTED | NO |
+| `DASH-034` | لغة صاحب العمل لا لغة المطور (+ قسم Advanced) | M30 §OWNER EXPERIENCE, M32, M33, M35 |  |  |  |  | NOT STARTED | NO |
+| `DASH-035` | معيار النجاح النهائي: 95%+ من العمليات اليومية بلا كود | M30 §FINAL SUCCESS CRITERIA |  |  |  |  | NOT STARTED | NO |
 | `ANL-001` | جرد التتبع والتكاملات الحالية في الموقع القديم | M01-036 | GC-06, D-041 | docs/phase-01-discovery/01-current-website-inventory.md · docs/phase-01-discovery/12-homepage-screenshots-audit.md §7 · docs/google/GTM-TAG-REGISTER.md |  |  | PARTIAL | NO |
 | `ANL-002` | فحص Duplicate Tracking في الموقع القديم والجديد | M11-072, M12-012 | GEP-§31, D-050, GIO-§A3/§A4 | docs/google/GOOGLE-ECOSYSTEM-POLICY.md §31 · docs/google/POST-LAUNCH-GOOGLE-CHECKLIST.md |  |  | NOT STARTED | NO |
 | `ANL-003` | مصدر واحد لكل آلية تتبع — نظام Analytics واحد بلا GA4/GTM مكرر | M12-013, M25-127, M27-075, M27-142 | D-050, D-051, GEP-§31 | docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §A4 §A33 |  |  | NOT STARTED | NO |
 | `ANL-004` | لا حذف لأي Duplicate (Tag/Property/Tracking) بدون موافقة الـOwner | M12-076 | D-051, GIO-§A3/§A4 | docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §A33 |  |  | IMPLEMENTED — NOT TESTED | N/A |
 | `ANL-005` | Measurement Plan للموقع قبل تنفيذ أي Tracking | M01-209, M11-062 | D-050, GEP-§25/§27, GC-13 | docs/google/GA4-MEASUREMENT-PLAN.md · docs/google/GOOGLE-ECOSYSTEM-CHECKLIST.md GC-13 |  |  | PARTIAL | NO |
 | `ANL-006` | تتبع ذو معنى تجاري فقط — لا Tracking بلا داعٍ ولا كل Click | M01-212, M11-061, M12-031, M25-042, M27-092 | GEP-§25/§27, GIO-§A9/§A10, D-050 | docs/google/GA4-MEASUREMENT-PLAN.md · docs/menu-ia/MENU-MEASUREMENT-PLAN.md §6 |  |  | NOT STARTED | NO |
-| `ANL-007` | توثيق كل Event بحقول ثابتة | M01-211, M11-065, M23-196 | GEP-§25/§27 | docs/google/GA4-MEASUREMENT-PLAN.md · docs/menu-ia/MENU-MEASUREMENT-PLAN.md |  |  | PARTIAL | NO |
-| `ANL-008` | Event Taxonomy موحدة قبل التنفيذ — القائمة الـcanonical للأحداث | M01-210, M12-028, M12-029, M12-030, M25-041, M27-077 | D-149, GIO-§A9/§A10, GEP-§26, CF-09 | docs/google/GA4-MEASUREMENT-PLAN.md · docs/google/GOOGLE-ECOSYSTEM-POLICY.md §26 · docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §A9 · docs/menu-ia/MENU-MEASUREMENT-PLAN.md |  |  | NEEDS FIX | NO |
+| `ANL-007` | توثيق كل Event بحقول ثابتة | M01-211, M11-065, M23-196, M28 | GEP-§25/§27 | docs/google/GA4-MEASUREMENT-PLAN.md · docs/menu-ia/MENU-MEASUREMENT-PLAN.md |  |  | PARTIAL | NO |
+| `ANL-008` | Event Taxonomy موحدة قبل التنفيذ — القائمة الـcanonical للأحداث | M01-210, M12-028, M12-029, M12-030, M25-041, M27-077, M28, M29 | D-149, GIO-§A9/§A10, GEP-§26, CF-09 | docs/google/GA4-MEASUREMENT-PLAN.md · docs/google/GOOGLE-ECOSYSTEM-POLICY.md §26 · docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §A9 · docs/menu-ia/MENU-MEASUREMENT-PLAN.md |  |  | NEEDS FIX | NO |
 | `ANL-009` | الأسماء النهائية للأحداث تُعرض على الـOwner قبل الاعتماد | M11-064 | GEP-§25/§27 | docs/menu-ia/README.md §16 |  |  | PARTIAL | NO |
 | `ANL-010` | قاعدة إعادة التسمية التقنية: نفس المعنى + توثيق أي تعديل | M23-198 | D-149 | docs/menu-ia/MENU-MEASUREMENT-PLAN.md §2 |  |  | IMPLEMENTED — NOT TESTED | N/A |
 | `ANL-011` | Menu Measurement Plan (Phase I) — أحداث المنيو الستة | M23-194, M23-195, M23-250 | D-149, CF-09, CF-10 | docs/menu-ia/MENU-MEASUREMENT-PLAN.md · docs/menu-ia/README.md §16 · docs/menu-ia/SHELTER-MENU-IA-SPEC.md §14 |  | tooling/tests/app/menu.spec.mjs | IMPLEMENTED — NOT TESTED | N/A |
@@ -401,9 +524,9 @@
 | `ANL-022` | حدث `campaign_click` | M27-087 |  | docs/google/GA4-MEASUREMENT-PLAN.md |  |  | NOT STARTED | NO |
 | `ANL-023` | حدث `article_view` | M27-088 |  | docs/google/GA4-MEASUREMENT-PLAN.md |  |  | NOT STARTED | NO |
 | `ANL-024` | حدث `language_switch` | M27-089 | D-014 | docs/google/GA4-MEASUREMENT-PLAN.md |  |  | NOT STARTED | NO |
-| `ANL-025` | حدث `site_search` | M27-090 |  | docs/google/GA4-MEASUREMENT-PLAN.md |  |  | NOT STARTED | NO |
+| `ANL-025` | حدث `site_search` | M27-090, M32 |  | docs/google/GA4-MEASUREMENT-PLAN.md |  |  | NOT STARTED | NO |
 | `ANL-026` | أحداث مرشحة بانتظار قرار: branch_view · social_click · event_view | M11-063 | GIO-§A9/§A10, GEP-§26, D-036 | docs/google/GA4-MEASUREMENT-PLAN.md · docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §A9 |  |  | NOT STARTED | NO |
-| `ANL-027` | Search Analytics: ما يجب معرفته من البحث | M23-200 | D-149, CF-10 | docs/menu-ia/MENU-MEASUREMENT-PLAN.md §2 §3 |  |  | NOT STARTED | NO |
+| `ANL-027` | Search Analytics: ما يجب معرفته من البحث | M23-200, M32 | D-149, CF-10 | docs/menu-ia/MENU-MEASUREMENT-PLAN.md §2 §3 |  |  | NOT STARTED | NO |
 | `ANL-028` | قاموس Event Parameters موحد بتسمية ثابتة | M12-032 | GIO-§A9/§A10 | docs/google/GA4-MEASUREMENT-PLAN.md §معجم · docs/menu-ia/MENU-MEASUREMENT-PLAN.md §2 §5 |  |  | NEEDS FIX | NO |
 | `ANL-029` | استخدام بيانات GA4 الفعلية بدل التخمين — دون أن تقرر التصميم وحدها | M11-110, M11-111 | GEP-§50/§52 (G8), D-042 | docs/google/GOOGLE-ECOSYSTEM-POLICY.md §52 |  |  | NOT STARTED | NO |
 | `ANL-030` | لا Business Conclusions غير مدعومة بالبيانات | M25-206 |  |  |  |  | NOT STARTED | NO |
@@ -427,9 +550,9 @@
 | `GOOGLE-003` | Google Measurement & Search Architecture + المعمارية المستهدفة | M12-007, M12-080 | GIO-§A1/§A2, D-050, D-051 | docs/google/GOOGLE-INTEGRATION-ARCHITECTURE.md §2 §3 · docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §C |  |  | PARTIAL | NO |
 | `GOOGLE-004` | جاهزية الموقع لـGA4 وGTM وSearch Console (تكاملات مطلوبة لاحقًا) | M01-151, M01-208, M11-127 | D-050 | docs/google/GOOGLE-INTEGRATION-ARCHITECTURE.md §2 · docs/menu-ia/PERFORMANCE-BUDGET.md (GTM/GA4 بعد load + Idle) |  |  | PARTIAL | NO |
 | `GOOGLE-005` | Claude ينفذ إعداد وربط Google بنفسه عند المرحلة والصلاحيات | M13-013, M25-180, M27-073 | D-051, D-055, GIO-§A1/§A2 | docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md |  |  | NOT STARTED | NO |
-| `GOOGLE-006` | تدخل الـOwner فقط عند Login/OAuth/2FA/Ownership/Permission/Legal-financial | M25-181, M27-074 | D-051, GIO-§A1/§A2 | docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §A2 §A29 |  |  | PARTIAL | NO |
+| `GOOGLE-006` | تدخل الـOwner فقط عند Login/OAuth/2FA/Ownership/Permission/Legal-financial | M25-181, M27-074, M36 | D-051, GIO-§A1/§A2 | docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §A2 §A29 |  |  | PARTIAL | NO |
 | `GOOGLE-007` | وصول GA4/GTM للقراءة فقط لاحقًا (Read-only أولًا) | M10-047 | D-042, AC-05 | docs/phase-01-discovery/08-access-requests.md AC-05 · docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §B |  |  | NOT STARTED | NO |
-| `GOOGLE-008` | ممنوع تغيير أي Google property/configuration في المرحلة الحالية | M11-129, M23-231 | D-046, D-149, GEP-§58 | docs/google/GOOGLE-ECOSYSTEM-POLICY.md §58 · docs/menu-ia/MENU-MEASUREMENT-PLAN.md |  |  | IMPLEMENTED — NOT TESTED | N/A |
+| `GOOGLE-008` | ممنوع تغيير أي Google property/configuration في المرحلة الحالية | M11-129, M23-231, M36 | D-046, D-149, GEP-§58 | docs/google/GOOGLE-ECOSYSTEM-POLICY.md §58 · docs/menu-ia/MENU-MEASUREMENT-PLAN.md |  |  | IMPLEMENTED — NOT TESTED | N/A |
 | `GOOGLE-009` | Audit الإعداد الموجود أولًا قبل إنشاء أي GA4/GTM/Integration | M12-010, M12-011, M12-081, M25-126, M27-076 | D-051, GIO-§A3/§A4, GC-06 | docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §A3 §D · docs/google/GTM-TAG-REGISTER.md · docs/google/GOOGLE-ECOSYSTEM-CHECKLIST.md GC-06 |  |  | NOT STARTED | NO |
 | `GOOGLE-010` | قرار طريقة نشر Google tag واستخدام GTM (GA-01) — Implementation واحد | M11-066, M11-075, M12-020, M12-021 | GIO-§A7/§A8, GEP-§32, GA-01, GC-14 | docs/google/GOOGLE-INTEGRATION-ARCHITECTURE.md §3 · docs/google/GOOGLE-ECOSYSTEM-POLICY.md §32 · docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §A7 |  |  | PARTIAL | NO |
 | `GOOGLE-011` | GTM ليس مستودع Scripts — كل Tag Documented/Named/Justified/Tested | M11-067, M11-068 | GEP-§28/§29/§30, D-050 | docs/google/GTM-TAG-REGISTER.md · docs/google/GOOGLE-ECOSYSTEM-POLICY.md §28 |  |  | NOT STARTED | NO |
@@ -443,7 +566,7 @@
 | `GOOGLE-019` | GA4 Data retention + Referral exclusions عند الحاجة | M12-026 | GIO-§A7/§A8 | docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §A8 |  |  | NOT STARTED | NO |
 | `GOOGLE-020` | Cross-domain tracking — مستقبلًا فقط إذا احتجناه | M12-025 | GIO-§A7/§A8 | docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §A8 |  |  | NOT STARTED | NO |
 | `GOOGLE-021` | Key Events تُحدد مع الـOwner — ليس كل Click Conversion | M12-033, M12-034, M23-197 | D-149, GIO-§A9/§A10 | docs/google/GA4-MEASUREMENT-PLAN.md §Key Events · docs/menu-ia/MENU-MEASUREMENT-PLAN.md §1 |  |  | PARTIAL | NO |
-| `GOOGLE-022` | Consent (Consent Mode v2) مدمج في معمارية GA4/GTM — بانتظار قرار الخصوصية |  | GIO-§A22/§A23 (G1), R11-04 | docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §A22 §A23 · docs/menu-ia/MENU-MEASUREMENT-PLAN.md §3 §5 · docs/menu-ia/PERFORMANCE-BUDGET.md |  |  | CONFLICT | NO |
+| `GOOGLE-022` | Consent (Consent Mode v2) مدمج في معمارية GA4/GTM — بانتظار قرار الخصوصية | M28 | GIO-§A22/§A23 (G1), R11-04 | docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §A22 §A23 · docs/menu-ia/MENU-MEASUREMENT-PLAN.md §3 §5 · docs/menu-ia/PERFORMANCE-BUDGET.md |  |  | CONFLICT | NO |
 | `GOOGLE-023` | استخراج كل متطلبات Google السابقة (GA4/GTM/Tag/GSC/GBP/Maps/Schema/Sitemap) | M27-072 | D-046, D-051, D-055 |  |  |  | IMPLEMENTED — NOT TESTED | N/A |
 | `GSC-001` | إعداد وربط Search Console كاملًا — الفريق ينفذ | M01-150, M12-035, M13-014 | D-050, D-051, D-055 | docs/google/GOOGLE-INTEGRATION-ARCHITECTURE.md · docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md |  |  | NOT STARTED | N/A |
 | `GSC-002` | GSC = مصدر الحقيقة لأداء Google Search — لا Semrush بدلًا منه | M11-029, M11-030, M11-031, M11-109, M10-046 | GEP-§12/§51, D-042, D-029 | docs/google/GOOGLE-ECOSYSTEM-POLICY.md §12، §51 · docs/google/SEARCH-CONSOLE-BASELINE.md |  |  | NOT STARTED | N/A |
@@ -457,22 +580,22 @@
 | `GSC-010` | لا Finished إذا أظهر Google مشاكل مهمة | M01-154 |  |  |  |  | NOT STARTED | N/A |
 | `GSC-011` | Dashboard ↔ Search Console API: Google Search Performance | M25-008, M25-050, M25-051 | D-050 |  |  |  | NOT STARTED | N/A |
 | `GSC-012` | مقارنة الاستعلامات عبر الزمن (Clicks · Impressions · Position · Trend) | M25-052 |  |  |  |  | NOT STARTED | N/A |
-| `GSC-013` | قسم Google Indexation — فقط ما يسمح به الـAPI | M25-063 |  |  |  |  | NOT STARTED | N/A |
-| `GBP-001` | الموقع جاهز للتكامل مع Google Business Profile وGoogle Maps | M01-152 | D-046, D-050, D-051 | docs/google/GOOGLE-INTEGRATION-ARCHITECTURE.md · docs/google/GOOGLE-ECOSYSTEM-POLICY.md §1، §49 |  |  | NOT STARTED | NO |
+| `GSC-013` | قسم Google Indexation — فقط ما يسمح به الـAPI | M25-063, M32 |  |  |  |  | NOT STARTED | N/A |
+| `GBP-001` | الموقع جاهز للتكامل مع Google Business Profile وGoogle Maps | M01-152, M33 | D-046, D-050, D-051 | docs/google/GOOGLE-INTEGRATION-ARCHITECTURE.md · docs/google/GOOGLE-ECOSYSTEM-POLICY.md §1، §49 |  |  | NOT STARTED | NO |
 | `GBP-002` | ملفان رسميان فقط على Google Business Profile: DRIVE وHOUSE | M11-012 | GEP-§3, D-048, D-008 | docs/google/GOOGLE-BUSINESS-PROFILE-SOURCE-OF-TRUTH.md |  |  | NOT STARTED | N/A |
-| `GBP-003` | GBP الرسمي لكل فرع = OFFICIAL OPERATIONAL SOURCE (تابع للـOwner) | M11-013, M13-018, M23-211, M11-124 | D-048, GEP-§3, D-047, D-056 | docs/google/GOOGLE-BUSINESS-PROFILE-SOURCE-OF-TRUTH.md · docs/google/GOOGLE-ECOSYSTEM-POLICY.md §2، §3 |  |  | PARTIAL | N/A |
-| `GBP-004` | GBP لا يتجاوز الـOwner: الاختلاف = CONFLICT — OWNER REVIEW REQUIRED | M11-016 | GEP-§5, D-048, D-047 | docs/google/GOOGLE-ECOSYSTEM-POLICY.md §5 · docs/google/BRANCH-DATA-SYNC.md |  |  | NOT STARTED | N/A |
-| `GBP-005` | هاتف الفروع في GBP والـSchema = 0799009436؛ المختلف = CONFLICT | M13-026 | D-060, D-057 | docs/google/GOOGLE-BUSINESS-PROFILE-SOURCE-OF-TRUTH.md |  |  | NOT STARTED | N/A |
-| `GBP-006` | لا تُستخدم بيانات منتجات/منيو Google بدل مصدر المنيو الرسمي | M23-213 | D-076, D-089 | docs/menu-ia/SHELTER-MENU-IA-SPEC.md §9.5 |  |  | NOT STARTED | N/A |
-| `GBP-007` | AC-03: صلاحية Google Business Profile = Read-only information فقط | M04-054 | D-028 | docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md |  |  | NOT STARTED | N/A |
-| `GBP-008` | جمع بيانات GBP بالخيار المجاني وللتحقق فقط (لا Places API مدفوع) | M10-049, M10-051 | D-043, D-029, D-044 | docs/google/GOOGLE-INTEGRATION-ARCHITECTURE.md §6 |  |  | NOT STARTED | N/A |
-| `GBP-009` | تعديل GBP: Proposal → Owner Approval → Change (ينفذه Claude) | M11-096, M11-097, M12-045 | GEP-§44, GIO-§A17/§A18/§A19, D-043, D-051 | docs/google/GOOGLE-ECOSYSTEM-POLICY.md §44 · docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §17 |  |  | NOT STARTED | N/A |
-| `GBP-010` | الفريق ينفذ فعليًا اتساق Business Profile وMaps (وليس تعليمات فقط) | M13-016 | D-055, D-051, GIO-§A17/§A18/§A19 | docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md |  |  | NOT STARTED | N/A |
-| `GBP-011` | رابط Maps الرسمي لكل فرع في صفحته — لا نفس الرابط للفرعين | M11-078, M12-046, M12-047 | GEP-§33/§34, GIO-§A17/§A18/§A19, D-013 | docs/google/GOOGLE-ECOSYSTEM-POLICY.md §34 · docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §18 |  |  | NOT STARTED | NO |
-| `GBP-012` | لا Pin يدوي إذا كان GBP الرسمي موجودًا | M11-079 | GEP-§33/§34 | docs/google/GOOGLE-ECOSYSTEM-POLICY.md §34 |  |  | NOT STARTED | N/A |
+| `GBP-003` | GBP الرسمي لكل فرع = OFFICIAL OPERATIONAL SOURCE (تابع للـOwner) | M11-013, M13-018, M23-211, M11-124, M33 | D-048, GEP-§3, D-047, D-056 | docs/google/GOOGLE-BUSINESS-PROFILE-SOURCE-OF-TRUTH.md · docs/google/GOOGLE-ECOSYSTEM-POLICY.md §2، §3 |  |  | PARTIAL | N/A |
+| `GBP-004` | GBP لا يتجاوز الـOwner: الاختلاف = CONFLICT — OWNER REVIEW REQUIRED | M11-016, M33 | GEP-§5, D-048, D-047 | docs/google/GOOGLE-ECOSYSTEM-POLICY.md §5 · docs/google/BRANCH-DATA-SYNC.md |  |  | NOT STARTED | N/A |
+| `GBP-005` | هاتف الفروع في GBP والـSchema = 0799009436؛ المختلف = CONFLICT | M13-026, M33 | D-060, D-057 | docs/google/GOOGLE-BUSINESS-PROFILE-SOURCE-OF-TRUTH.md |  |  | NOT STARTED | N/A |
+| `GBP-006` | لا تُستخدم بيانات منتجات/منيو Google بدل مصدر المنيو الرسمي | M23-213, M33 | D-076, D-089 | docs/menu-ia/SHELTER-MENU-IA-SPEC.md §9.5 |  |  | NOT STARTED | N/A |
+| `GBP-007` | AC-03: صلاحية Google Business Profile = Read-only information فقط | M04-054, M32, M33 | D-028 | docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md |  |  | NOT STARTED | N/A |
+| `GBP-008` | جمع بيانات GBP بالخيار المجاني وللتحقق فقط (لا Places API مدفوع) | M10-049, M10-051, M33 | D-043, D-029, D-044 | docs/google/GOOGLE-INTEGRATION-ARCHITECTURE.md §6 |  |  | NOT STARTED | N/A |
+| `GBP-009` | تعديل GBP: Proposal → Owner Approval → Change (ينفذه Claude) | M11-096, M11-097, M12-045, M32, M33 | GEP-§44, GIO-§A17/§A18/§A19, D-043, D-051 | docs/google/GOOGLE-ECOSYSTEM-POLICY.md §44 · docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §17 |  |  | NOT STARTED | N/A |
+| `GBP-010` | الفريق ينفذ فعليًا اتساق Business Profile وMaps (وليس تعليمات فقط) | M13-016, M33 | D-055, D-051, GIO-§A17/§A18/§A19 | docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md |  |  | NOT STARTED | N/A |
+| `GBP-011` | رابط Maps الرسمي لكل فرع في صفحته — لا نفس الرابط للفرعين | M11-078, M12-046, M12-047, M33 | GEP-§33/§34, GIO-§A17/§A18/§A19, D-013 | docs/google/GOOGLE-ECOSYSTEM-POLICY.md §34 · docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §18 |  |  | NOT STARTED | NO |
+| `GBP-012` | لا Pin يدوي إذا كان GBP الرسمي موجودًا | M11-079, M33 | GEP-§33/§34 | docs/google/GOOGLE-ECOSYSTEM-POLICY.md §34 |  |  | NOT STARTED | N/A |
 | `GBP-013` | روابط Google Maps لـDRIVE وHOUSE = MISSING — VERIFY | M04-015, M04-025 | D-020 | docs/google/GOOGLE-BUSINESS-PROFILE-SOURCE-OF-TRUTH.md · docs/phase-01-discovery/03-verify-with-owner.md VQ-15 |  |  | NOT STARTED | N/A |
-| `GBP-014` | قبل الإطلاق: ملفا GBP للفرعين Verified | M11-113 | D-046, GEP-§3 | docs/google/GOOGLE-ECOSYSTEM-CHECKLIST.md |  |  | NOT STARTED | N/A |
-| `GBP-015` | Google Reviews تُقرأ كمرجع لفهم تجربة العملاء فقط | M11-094 | D-046 | docs/google/GOOGLE-ECOSYSTEM-POLICY.md §42 |  |  | NOT STARTED | N/A |
+| `GBP-014` | قبل الإطلاق: ملفا GBP للفرعين Verified | M11-113, M33, M35 | D-046, GEP-§3 | docs/google/GOOGLE-ECOSYSTEM-CHECKLIST.md |  |  | NOT STARTED | N/A |
+| `GBP-015` | Google Reviews تُقرأ كمرجع لفهم تجربة العملاء فقط | M11-094, M32 | D-046 | docs/google/GOOGLE-ECOSYSTEM-POLICY.md §42 |  |  | NOT STARTED | N/A |
 | `SEO-001` | SEO من اليوم الأول — الموقع القديم ليس مرجع SEO Architecture | M01-143, M01-008 | D-000, D-004 | docs/phase-01-discovery/10-url-architecture-draft.md · docs/phase-01-discovery/13-root-and-international-seo-plan.md · docs/menu-ia/SHELTER-MENU-IA-SPEC.md §13 | tooling/scripts/lighthouse.mjs |  | NOT STARTED | PROTOTYPE |
 | `SEO-002` | جاهزية International SEO و Local SEO | M01-075 | D-010, GEP-§10/§11, GEP-§20/§21 | docs/phase-01-discovery/13-root-and-international-seo-plan.md · docs/google/GOOGLE-ECOSYSTEM-POLICY.md §10، §20 |  |  | NOT STARTED | N/A |
 | `SEO-003` | فحص الموقع الحالي واستخراج بيانات الـSEO (مصدر معلومات فقط) | M01-032, M01-034 | D-000, D-028, D-041, D-044 | docs/phase-01-discovery/01-current-website-inventory.md · docs/phase-01-discovery/02-url-inventory-and-migration-seed.md |  |  | PARTIAL | N/A |
@@ -480,19 +603,19 @@
 | `SEO-005` | الظهور على Intent حقيقي وليس الاسم فقط | M11-099, M11-100 | GEP-§46/§47, D-007 | docs/google/GOOGLE-ECOSYSTEM-POLICY.md §46 |  |  | NOT STARTED | N/A |
 | `SEO-006` | ممنوع Keyword Stuffing | M11-101 | GEP-§46/§47, D-068 | docs/google/GOOGLE-ECOSYSTEM-POLICY.md §46 |  |  | NOT STARTED | N/A |
 | `SEO-007` | Internal Linking قوية في Coffee Knowledge Hub | M01-141 | GEP-§46/§47, DB-09 | docs/google/GOOGLE-ECOSYSTEM-POLICY.md §47 |  |  | NOT STARTED | N/A |
-| `SEO-008` | Local SEO لكل فرع (NAP، Maps، الساعات، Schema، Metadata) | M01-216, M11-025, M11-026 | GEP-§10/§11, D-020, D-048, D-049, D-057, D-060 | docs/google/GOOGLE-ECOSYSTEM-POLICY.md §10–§11 · docs/google/BRANCH-DATA-SYNC.md |  |  | NOT STARTED | N/A |
-| `SEO-009` | URL Migration Map رسمية قبل تغيير الموقع القديم | M01-146, M27-119 | GEP-§15, D-054, DB-13 | docs/google/SEO-MIGRATION-MAP.md · docs/phase-01-discovery/02-url-inventory-and-migration-seed.md · docs/phase-01-discovery/13-root-and-international-seo-plan.md §5–§7 |  |  | PARTIAL | N/A |
-| `SEO-010` | تصنيف كل URL قديم ذي قيمة: KEEP · REBUILD · REDIRECT · REMOVE | M01-147, M11-037, M11-038 | GEP-§15 | docs/google/SEO-MIGRATION-MAP.md · docs/phase-01-discovery/02-url-inventory-and-migration-seed.md |  |  | PARTIAL | N/A |
+| `SEO-008` | Local SEO لكل فرع (NAP، Maps، الساعات، Schema، Metadata) | M01-216, M11-025, M11-026, M33 | GEP-§10/§11, D-020, D-048, D-049, D-057, D-060 | docs/google/GOOGLE-ECOSYSTEM-POLICY.md §10–§11 · docs/google/BRANCH-DATA-SYNC.md |  |  | NOT STARTED | N/A |
+| `SEO-009` | URL Migration Map رسمية قبل تغيير الموقع القديم | M01-146, M27-119, M35 | GEP-§15, D-054, DB-13 | docs/google/SEO-MIGRATION-MAP.md · docs/phase-01-discovery/02-url-inventory-and-migration-seed.md · docs/phase-01-discovery/13-root-and-international-seo-plan.md §5–§7 |  |  | PARTIAL | N/A |
+| `SEO-010` | تصنيف كل URL قديم ذي قيمة: KEEP · REBUILD · REDIRECT · REMOVE | M01-147, M11-037, M11-038, M29, M35 | GEP-§15 | docs/google/SEO-MIGRATION-MAP.md · docs/phase-01-discovery/02-url-inventory-and-migration-seed.md |  |  | PARTIAL | N/A |
 | `SEO-011` | 301 بقفزة واحدة لكل URL ذي قيمة يتغير — بلا خسارة SEO أو Backlinks | M01-148, M01-149, M11-039, M27-120 | GEP-§15, D-011, D-054 | docs/phase-01-discovery/13-root-and-international-seo-plan.md §5 · docs/google/SEO-MIGRATION-MAP.md |  |  | NOT STARTED | N/A |
 | `SEO-012` | MENU-01: /menu → 301 → /ar/jo/menu/ | M13-009, M11-040, M11-041, M23-189 | D-054, DB-20, GEP-§16, F-23 | docs/phase-01-discovery/13-root-and-international-seo-plan.md §6 · docs/google/SEO-MIGRATION-MAP.md · docs/menu-ia/SHELTER-MENU-IA-SPEC.md §1 |  |  | NOT STARTED | N/A |
 | `SEO-013` | تنفيذ /menu 301 وقت الإطلاق فقط بعد 6 فحوص + موافقة الـOwner | M13-010, M23-190 | D-054, DB-20, F-23 | docs/phase-01-discovery/13-root-and-international-seo-plan.md §6 · docs/menu-ia/SHELTER-MENU-IA-SPEC.md §1 |  |  | IMPLEMENTED — NOT TESTED | N/A |
 | `SEO-014` | أي QR أو رابط قديم يستمر بالعمل بعد الإطلاق | M13-011 | D-054 | docs/phase-01-discovery/10-url-architecture-draft.md §3 · docs/phase-01-discovery/13-root-and-international-seo-plan.md §6 |  |  | NOT STARTED | N/A |
-| `SEO-015` | لا URLs ولا Redirects ولا SEO changes على Production الآن | M13-008, M23-230, M27-123 | D-053, D-054, F-23, D-002 | docs/menu-ia/MENU-DECISION-REGISTER.md F-23 |  |  | IMPLEMENTED — NOT TESTED | N/A |
+| `SEO-015` | لا URLs ولا Redirects ولا SEO changes على Production الآن | M13-008, M23-230, M27-123, M36 | D-053, D-054, F-23, D-002 | docs/menu-ia/MENU-DECISION-REGISTER.md F-23 |  |  | IMPLEMENTED — NOT TESTED | N/A |
 | `SEO-016` | رابط الفرع الأصلي لا يتغير أبدًا | M13-007 | D-053 | docs/phase-01-discovery/13-root-and-international-seo-plan.md §8 |  |  | NOT STARTED | N/A |
 | `SEO-017` | جاهزية نقل 1:1 إلى Global Domain بلا خسارة SEO | M03-024, M04-010 | D-011, D-019, D-031 | docs/phase-01-discovery/09-architecture-options-after-r1.md AR-01 · docs/phase-01-discovery/10-url-architecture-draft.md §5 · docs/phase-01-discovery/13-root-and-international-seo-plan.md §7 |  |  | NOT STARTED | N/A |
-| `SEO-018` | Redirect Manager لإدارة 301 والروابط القديمة والمتغيرة | M01-219 |  | docs/phase-01-discovery/13-root-and-international-seo-plan.md §5 |  |  | NOT STARTED | N/A |
-| `SEO-019` | صفحة 404 غير فارغة: Menu · Locations · Search · Home | M01-218 |  |  |  |  | NOT STARTED | N/A |
-| `SEO-020` | قبل الإطلاق: 404 reviewed · Old URLs mapped · 301 migration ready | M11-114 | GEP-§15 | docs/google/GOOGLE-ECOSYSTEM-CHECKLIST.md |  |  | NOT STARTED | N/A |
+| `SEO-018` | Redirect Manager لإدارة 301 والروابط القديمة والمتغيرة | M01-219, M35 |  | docs/phase-01-discovery/13-root-and-international-seo-plan.md §5 |  |  | NOT STARTED | N/A |
+| `SEO-019` | صفحة 404 غير فارغة: Menu · Locations · Search · Home | M01-218, M35 |  |  |  |  | NOT STARTED | N/A |
+| `SEO-020` | قبل الإطلاق: 404 reviewed · Old URLs mapped · 301 migration ready | M11-114, M35 | GEP-§15 | docs/google/GOOGLE-ECOSYSTEM-CHECKLIST.md |  |  | NOT STARTED | N/A |
 | `SEO-021` | Canonical صحيح لكل صفحة | M11-053, M11-054 | GEP-§17/§19/§22 | docs/phase-01-discovery/13-root-and-international-seo-plan.md §3 · docs/google/GOOGLE-ECOSYSTEM-POLICY.md §22 |  |  | NOT STARTED | N/A |
 | `SEO-022` | ?branch= بـCanonical واحد — لا نسخة منيو لكل فرع | M23-106, M23-105 | D-145, F-18 | docs/menu-ia/SHELTER-MENU-IA-SPEC.md §12–§13 |  |  | NOT STARTED | NO |
 | `SEO-023` | لا URLs قابلة للفهرسة من search/category/branch | M23-214, M23-215 | D-145, F-18 | docs/menu-ia/SHELTER-MENU-IA-SPEC.md §12 |  |  | NOT STARTED | N/A |
@@ -500,63 +623,63 @@
 | `SEO-025` | صفحات أصناف مستقبلًا فقط لمنتجات تستحق SEO Content فعليًا | M23-131 | D-147, D-081 | docs/menu-ia/SHELTER-MENU-IA-SPEC.md §13 |  |  | NOT STARTED | N/A |
 | `SEO-026` | كل المنتجات والأسعار في الـHTML الأولي — لا JS-only ولا Virtualization | M23-038, M23-187, M23-219 | F-09, D-147, F-16 | docs/menu-ia/SHELTER-MENU-IA-SPEC.md §13 |  | tooling/tests/prototype/menu-wireframe.spec.mjs | NOT STARTED | PROTOTYPE |
 | `SEO-027` | تحقق ما بعد البناء: Crawlability · Indexability · robots.txt · noindex … | M11-042 | GEP-§17/§19/§22 | docs/google/GOOGLE-ECOSYSTEM-POLICY.md §17 |  |  | NOT STARTED | N/A |
-| `SEO-028` | Staging لا يُفهرس: Authentication + noindex + blocking | M11-043 | GEP-§18, GEP-§17/§19/§22 | docs/google/GOOGLE-ECOSYSTEM-POLICY.md §18 |  |  | NOT STARTED | N/A |
-| `SEO-029` | XML Sitemap: Canonical · Public · Indexable · Approved فقط | M11-045, M11-046 | GEP-§17/§19/§22 | docs/google/GOOGLE-ECOSYSTEM-POLICY.md §19 · docs/phase-01-discovery/10-url-architecture-draft.md §3 · docs/phase-01-discovery/02-url-inventory-and-migration-seed.md §B |  |  | NOT STARTED | N/A |
+| `SEO-028` | Staging لا يُفهرس: Authentication + noindex + blocking | M11-043, M35 | GEP-§18, GEP-§17/§19/§22 | docs/google/GOOGLE-ECOSYSTEM-POLICY.md §18 |  |  | NOT STARTED | N/A |
+| `SEO-029` | XML Sitemap: Canonical · Public · Indexable · Approved فقط | M11-045, M11-046, M32 | GEP-§17/§19/§22 | docs/google/GOOGLE-ECOSYSTEM-POLICY.md §19 · docs/phase-01-discovery/10-url-architecture-draft.md §3 · docs/phase-01-discovery/02-url-inventory-and-migration-seed.md §B |  |  | NOT STARTED | N/A |
 | `SEO-030` | إرسال الـSitemap لـGSC بعد اعتماد الموقع — Submit ≠ Success | M12-042, M12-043 | GIO-§A15/§A16, D-055 | docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md |  |  | NOT STARTED | N/A |
 | `SEO-031` | تقرير Indexing حقيقي بعد الإطلاق | M12-044 | GIO-§A15/§A16 | docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md · docs/google/POST-LAUNCH-GOOGLE-CHECKLIST.md |  |  | NOT STARTED | N/A |
 | `SEO-032` | hreflang صحيح: Arabic Alternate + English Alternate لكل صفحة مترجمة | M11-048 | GEP-§20/§21, D-031 | docs/phase-01-discovery/13-root-and-international-seo-plan.md §4 · docs/menu-ia/SHELTER-MENU-IA-SPEC.md §13 |  |  | NOT STARTED | N/A |
 | `SEO-033` | x-default: الجذر محسوم (/) — صفحات العلامة والسوق معلّقة (ROOT-02) | M11-049 | D-052, GEP-§20/§21 | docs/phase-01-discovery/13-root-and-international-seo-plan.md §4، §9 · docs/menu-ia/SHELTER-MENU-IA-SPEC.md §13 |  |  | NOT STARTED | N/A |
-| `SEO-034` | خطة ما قبل Freeze: canonical · hreflang · x-default · redirects · /menu | M10-011, M10-012, M27-122 | D-031, DB-02, DB-11 | docs/phase-01-discovery/13-root-and-international-seo-plan.md · docs/phase-01-discovery/10-url-architecture-draft.md §6 |  |  | PARTIAL | N/A |
-| `SEO-035` | SEO Editor في الـDashboard لكل Page / Article (/ Product) | M01-160, M01-161, M25-105 | D-086 |  |  |  | NOT STARTED | N/A |
+| `SEO-034` | خطة ما قبل Freeze: canonical · hreflang · x-default · redirects · /menu | M10-011, M10-012, M27-122, M36 | D-031, DB-02, DB-11 | docs/phase-01-discovery/13-root-and-international-seo-plan.md · docs/phase-01-discovery/10-url-architecture-draft.md §6 |  |  | PARTIAL | N/A |
+| `SEO-035` | SEO Editor في الـDashboard لكل Page / Article (/ Product) | M01-160, M01-161, M25-105, M33 | D-086 |  |  |  | NOT STARTED | N/A |
 | `SEO-036` | إعدادات SEO الخطرة في Advanced section | M25-107 |  |  |  |  | NOT STARTED | N/A |
 | `SEO-037` | SEO Preview (Google) + Social Preview | M25-108 |  |  |  |  | NOT STARTED | N/A |
-| `SEO-038` | SEO HEALTH CENTER: GOOD/WARNING/CRITICAL + Issue/Page/Severity/Fix | M25-053, M25-061 |  |  |  |  | NOT STARTED | N/A |
-| `SEO-039` | قائمة فحوص SEO Health | M01-163, M25-054, M25-055, M25-056, M25-057, M25-058, M25-059 |  |  |  |  | NOT STARTED | N/A |
+| `SEO-038` | SEO HEALTH CENTER: GOOD/WARNING/CRITICAL + Issue/Page/Severity/Fix | M25-053, M25-061, M32, M35 |  |  |  |  | NOT STARTED | N/A |
+| `SEO-039` | قائمة فحوص SEO Health | M01-163, M25-054, M25-055, M25-056, M25-057, M25-058, M25-059, M32 |  |  |  |  | NOT STARTED | N/A |
 | `SEO-040` | لا تغييرات SEO تلقائية — موافقة الـOwner على أي تعديل حساس | M25-060, M25-062 |  |  |  |  | NOT STARTED | N/A |
-| `SEO-041` | DoD (بحث): SEO Clean · Google/AEO/GEO Ready · Redirects/Schema Correct | M01-235 |  |  |  |  | NOT STARTED | N/A |
+| `SEO-041` | DoD (بحث): SEO Clean · Google/AEO/GEO Ready · Redirects/Schema Correct | M01-235, M35 |  |  |  |  | NOT STARTED | N/A |
 | `AEO-001` | الظهور في AI Search (AI Overviews، ChatGPT، Gemini، Perplexity، Copilot، Bing) | M01-155, M11-104 | GEP-§48/§49, D-003 | docs/google/GOOGLE-ECOSYSTEM-POLICY.md §48 · docs/phase-01-discovery/13-root-and-international-seo-plan.md §1 · docs/phase-01-discovery/15-root-gateway-wireframe.md §1 |  |  | NOT STARTED | N/A |
 | `AEO-002` | Entity Clarity: أسئلة الكيان بالإنجليزية والعربية | M01-156, M01-157 | D-007, D-008, D-018, D-020, D-057 |  |  |  | NOT STARTED | N/A |
-| `AEO-003` | اتساق GBP ↔ الموقع وهرمية الكيان SHELTER COFFEE → Jordan → Irbid → DRIVE/HOUSE | M11-105, M11-106 | GEP-§48/§49, D-048, D-049 | docs/google/GOOGLE-ECOSYSTEM-POLICY.md §49 · docs/google/BRANCH-DATA-SYNC.md |  |  | NOT STARTED | N/A |
+| `AEO-003` | اتساق GBP ↔ الموقع وهرمية الكيان SHELTER COFFEE → Jordan → Irbid → DRIVE/HOUSE | M11-105, M11-106, M33 | GEP-§48/§49, D-048, D-049 | docs/google/GOOGLE-ECOSYSTEM-POLICY.md §49 · docs/google/BRANCH-DATA-SYNC.md |  |  | NOT STARTED | N/A |
 | `SCHEMA-001` | أنواع Schema المسموحة عند الحاجة | M01-158, M11-056 | GEP-§23/§24 | docs/google/GOOGLE-ECOSYSTEM-POLICY.md §23 · docs/phase-01-discovery/15-root-gateway-wireframe.md §5 · docs/menu-ia/SHELTER-MENU-IA-SPEC.md §13 |  |  | NOT STARTED | N/A |
 | `SCHEMA-002` | Structured Data حقيقي وظاهر فقط — ممنوع Schema Spam | M01-159, M11-055, M11-058, M23-191, M23-193 | GEP-§23/§24 | docs/google/GOOGLE-ECOSYSTEM-POLICY.md §23 |  |  | NOT STARTED | N/A |
-| `SCHEMA-003` | ممنوع اختراع rating/reviews/availability/offers/nutrition/claims في Schema | M23-192 | D-038, D-039, D-081, D-089, D-094 | docs/menu-ia/SHELTER-MENU-IA-SPEC.md §13 |  |  | NOT STARTED | N/A |
-| `SCHEMA-004` | FAQPage فقط عند استيفاء الشروط ووجود محتوى فعلي | M11-057 | GEP-§23/§24 | docs/google/GOOGLE-ECOSYSTEM-POLICY.md §23 |  |  | NOT STARTED | N/A |
-| `SCHEMA-005` | Branch Schema متوافق مع GBP: Name · Address · Geo · Hours · Phone · SameAs | M11-059 | GEP-§23/§24, D-020, D-021, D-048, D-049, D-033, D-034 | docs/google/GOOGLE-ECOSYSTEM-POLICY.md §24 · docs/google/BRANCH-DATA-SYNC.md · docs/phase-01-discovery/09-architecture-options-after-r1.md AR-07، AR-08 |  |  | NOT STARTED | N/A |
+| `SCHEMA-003` | ممنوع اختراع rating/reviews/availability/offers/nutrition/claims في Schema | M23-192, M29 | D-038, D-039, D-081, D-089, D-094 | docs/menu-ia/SHELTER-MENU-IA-SPEC.md §13 |  |  | NOT STARTED | N/A |
+| `SCHEMA-004` | FAQPage فقط عند استيفاء الشروط ووجود محتوى فعلي | M11-057, M29 | GEP-§23/§24 | docs/google/GOOGLE-ECOSYSTEM-POLICY.md §23 |  |  | NOT STARTED | N/A |
+| `SCHEMA-005` | Branch Schema متوافق مع GBP: Name · Address · Geo · Hours · Phone · SameAs | M11-059, M32, M33 | GEP-§23/§24, D-020, D-021, D-048, D-049, D-033, D-034 | docs/google/GOOGLE-ECOSYSTEM-POLICY.md §24 · docs/google/BRANCH-DATA-SYNC.md · docs/phase-01-discovery/09-architecture-options-after-r1.md AR-07، AR-08 |  |  | NOT STARTED | N/A |
 | `SCHEMA-006` | Image في الـSchema فقط إذا اعتمدها الـOwner | M11-060 | GEP-§23/§24, D-056, D-083 | docs/google/GOOGLE-ECOSYSTEM-POLICY.md §24 |  |  | NOT STARTED | N/A |
 | `SCHEMA-007` | Telephone في Schema/GBP = 0799009436 (+962799009436) | M13-040 | D-060, D-057, D-065 | docs/phase-01-discovery/15-root-gateway-wireframe.md |  |  | NOT STARTED | N/A |
-| `SCHEMA-008` | تنفيذ الـSchema فعليًا بعد اعتماد البيانات — البيانات المطلوبة لكل نوع | M12-049, M13-015 | GIO-§A20/§A21, D-055, D-018, D-007, D-070 | docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md · docs/phase-01-discovery/15-root-gateway-wireframe.md §5 · docs/menu-ia/SHELTER-MENU-IA-SPEC.md §13 |  |  | NOT STARTED | N/A |
+| `SCHEMA-008` | تنفيذ الـSchema فعليًا بعد اعتماد البيانات — البيانات المطلوبة لكل نوع | M12-049, M13-015, M33 | GIO-§A20/§A21, D-055, D-018, D-007, D-070 | docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md · docs/phase-01-discovery/15-root-gateway-wireframe.md §5 · docs/menu-ia/SHELTER-MENU-IA-SPEC.md §13 |  |  | NOT STARTED | N/A |
 | `SCHEMA-009` | تحقق Rich Results: إصلاح Errors قبل الإطلاق — JSON-LD ≠ مكتمل | M11-092, M11-093, M12-050, M12-051 | GEP-§41, GIO-§A20/§A21 | docs/google/GOOGLE-ECOSYSTEM-POLICY.md §41 · docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md |  |  | NOT STARTED | N/A |
-| `SCHEMA-010` | Schema Settings في الـDashboard حسب نوع المحتوى | M01-162, M25-106 |  |  |  |  | NOT STARTED | N/A |
+| `SCHEMA-010` | Schema Settings في الـDashboard حسب نوع المحتوى | M01-162, M25-106, M33 |  |  |  |  | NOT STARTED | N/A |
 | `PERF-001` | الموقع سريع جدًا ولا يشعر بأنه ثقيل (CRITICAL) | M01-184 |  | docs/menu-ia/PERFORMANCE-BUDGET.md | tooling/scripts/lighthouse.mjs |  | NOT STARTED | PROTOTYPE |
 | `PERF-002` | Core Web Vitals جيدة تحت قيود شبكة وأجهزة الموبايل | M23-185 | GEP-§36/§39/§40 | docs/menu-ia/PERFORMANCE-BUDGET.md §3 | tooling/scripts/lighthouse.mjs |  | NOT STARTED | PROTOTYPE |
-| `PERF-003` | مراقبة Core Web Vitals طوال المشروع | M01-185, M11-090 | GEP-§36/§39/§40 | docs/menu-ia/PERFORMANCE-BUDGET.md §4 · docs/google/GOOGLE-ECOSYSTEM-POLICY.md §40 | tooling/scripts/lighthouse.mjs |  | PARTIAL | PROTOTYPE |
+| `PERF-003` | مراقبة Core Web Vitals طوال المشروع | M01-185, M11-090, M32 | GEP-§36/§39/§40 | docs/menu-ia/PERFORMANCE-BUDGET.md §4 · docs/google/GOOGLE-ECOSYSTEM-POLICY.md §40 | tooling/scripts/lighthouse.mjs |  | PARTIAL | PROTOTYPE |
 | `PERF-004` | Baseline أداء الموقع القديم قبل وبعد إعادة البناء | M01-035, M11-091 | GEP-§36/§39/§40, D-041, D-042 | docs/google/GOOGLE-ECOSYSTEM-POLICY.md §40 · docs/google/SEARCH-CONSOLE-BASELINE.md |  |  | NOT STARTED | NO |
-| `PERF-005` | Performance Budget للموقع كاملًا | M01-186 |  | docs/menu-ia/PERFORMANCE-BUDGET.md |  |  | PARTIAL | PROTOTYPE |
+| `PERF-005` | Performance Budget للموقع كاملًا | M01-186, M36 |  | docs/menu-ia/PERFORMANCE-BUDGET.md |  |  | PARTIAL | PROTOTYPE |
 | `PERF-006` | Performance Budget أولي للمنيو (Phase H) بأهداف واقعية ومبررة | M23-248, M23-249 |  | docs/menu-ia/PERFORMANCE-BUDGET.md | tooling/scripts/lighthouse.mjs |  | IMPLEMENTED — NOT TESTED | PROTOTYPE |
 | `PERF-007` | المنيو: ممنوع تحميل 191 صورة عالية الدقة مباشرة | M23-179, M21-036 | D-147 | docs/menu-ia/PERFORMANCE-BUDGET.md §2 |  |  | NOT STARTED | PROTOTYPE |
 | `PERF-008` | الصور: responsive sizes وAVIF/WebP وsrcset وأبعاد محجوزة | M23-180, M26-025 |  |  | tooling/scripts/images.mjs |  | PARTIAL | PROTOTYPE |
 | `PERF-009` | Lazy loading تحت الـfold وأولوية لصور الشاشة الأولى فقط | M23-181 |  | docs/menu-ia/PERFORMANCE-BUDGET.md |  |  | NOT STARTED | NO |
 | `PERF-010` | النص والواجهة الأساسية أولًا ثم الصور | M23-183 |  |  |  | tooling/tests/app/menu.spec.mjs | NOT STARTED | PROTOTYPE |
-| `PERF-011` | الـThird-party وGoogle scripts لا تبطئ الموقع ولا تؤخر أول محتوى مفيد | M23-184, M11-082, M11-083 | GEP-§36/§39/§40 | docs/menu-ia/PERFORMANCE-BUDGET.md §2 · docs/google/GOOGLE-ECOSYSTEM-POLICY.md §36 |  |  | NOT STARTED | NO |
+| `PERF-011` | الـThird-party وGoogle scripts لا تبطئ الموقع ولا تؤخر أول محتوى مفيد | M23-184, M11-082, M11-083, M29 | GEP-§36/§39/§40 | docs/menu-ia/PERFORMANCE-BUDGET.md §2 · docs/google/GOOGLE-ECOSYSTEM-POLICY.md §36 |  |  | NOT STARTED | NO |
 | `PERF-012` | الخرائط: لا Google Map Embed ثقيل تلقائيًا — اختيار الأخف | M11-080, M11-081 |  | docs/google/GOOGLE-ECOSYSTEM-POLICY.md §35 |  |  | NOT STARTED | NO |
-| `PERF-013` | أداء الخطوط | M01-189, M11-084, M11-085 |  | docs/menu-ia/PERFORMANCE-BUDGET.md §2 · docs/google/GOOGLE-ECOSYSTEM-POLICY.md §37 |  |  | NOT STARTED | NO |
-| `PERF-014` | Code splitting حيث يناسب | M23-182 |  | docs/menu-ia/PERFORMANCE-BUDGET.md |  |  | NOT STARTED | NO |
-| `PERF-015` | Progressive Enhancement عند فشل JS | M23-218 | F-16 | docs/menu-ia/SHELTER-MENU-IA-SPEC.md §20 |  |  | NOT STARTED | PROTOTYPE |
+| `PERF-013` | أداء الخطوط | M01-189, M11-084, M11-085, M34 |  | docs/menu-ia/PERFORMANCE-BUDGET.md §2 · docs/google/GOOGLE-ECOSYSTEM-POLICY.md §37 |  |  | NOT STARTED | NO |
+| `PERF-014` | Code splitting حيث يناسب | M23-182, M28 |  | docs/menu-ia/PERFORMANCE-BUDGET.md |  |  | NOT STARTED | NO |
+| `PERF-015` | Progressive Enhancement عند فشل JS | M23-218, M35 | F-16 | docs/menu-ia/SHELTER-MENU-IA-SPEC.md §20 |  |  | NOT STARTED | PROTOTYPE |
 | `PERF-016` | أداء الحركة: transform/opacity وتجنب Jank | M01-190, M01-191 |  | docs/menu-ia/SHELTER-MENU-IA-SPEC.md §17 |  |  | NOT STARTED | NO |
 | `PERF-017` | Lighthouse / PageSpeed checks قابلة للتكرار (Mobile وDesktop) | M11-088, M24-032 | GEP-§36/§39/§40 |  | tooling/scripts/lighthouse.mjs |  | PARTIAL | PROTOTYPE |
 | `PERF-018` | لا مطاردة الـScore — معالجة الأسباب الجذرية وتجربة المستخدم الحقيقية | M11-089, M24-033 | GEP-§36/§39/§40 |  | tooling/scripts/lighthouse.mjs |  | PARTIAL | PROTOTYPE |
 | `PERF-019` | sitespeed.io لفحص أداء أعمق للصفحات المهمة | M24-037, M24-038 |  | docs/FRONTEND-TOOLING.md §2 |  |  | NOT STARTED | NO |
-| `PERF-020` | Dashboard: لوحة Performance & Core Web Vitals بلغة سهلة | M25-065, M25-066, M25-067 |  |  |  |  | NOT STARTED | NO |
+| `PERF-020` | Dashboard: لوحة Performance & Core Web Vitals بلغة سهلة | M25-065, M25-066, M25-067, M32 |  |  |  |  | NOT STARTED | NO |
 | `PERF-021` | Dashboard: Lighthouse مجدول ويدوي مع الأسباب الجذرية | M25-068, M25-069, M25-070 | D-044 |  | tooling/scripts/lighthouse.mjs |  | NOT STARTED | NO |
 | `PERF-022` | الـDashboard نفسها سريعة | M25-137 |  |  |  |  | NOT STARTED | NO |
 | `PERF-023` | لا استدعاء APIs في كل Page Load ولا real-time polling ثقيل | M25-133, M25-030 | D-029, D-044 |  |  |  | NOT STARTED | NO |
-| `A11Y-001` | الهدف WCAG 2.2 AA وWCAG-conscious UX | M01-199, M23-164 |  | docs/menu-ia/ACCESSIBILITY-CHECKLIST.md |  | tooling/tests/prototype/menu-wireframe.spec.mjs | NOT STARTED | PROTOTYPE |
-| `A11Y-002` | نطاق مراجعة الوصولية | M01-200 |  | docs/menu-ia/ACCESSIBILITY-CHECKLIST.md |  |  | PARTIAL | PROTOTYPE |
-| `A11Y-003` | الاختبار الآلي لا يكفي: automated + manual checklist | M24-030, M25-124 |  | docs/menu-ia/ACCESSIBILITY-CHECKLIST.md · docs/qa/RESPONSIVE-QA-MATRIX.md |  |  | PARTIAL | PROTOTYPE |
+| `A11Y-001` | الهدف WCAG 2.2 AA وWCAG-conscious UX | M01-199, M23-164, M32 |  | docs/menu-ia/ACCESSIBILITY-CHECKLIST.md |  | tooling/tests/prototype/menu-wireframe.spec.mjs | NOT STARTED | PROTOTYPE |
+| `A11Y-002` | نطاق مراجعة الوصولية | M01-200, M32 |  | docs/menu-ia/ACCESSIBILITY-CHECKLIST.md |  |  | PARTIAL | PROTOTYPE |
+| `A11Y-003` | الاختبار الآلي لا يكفي: automated + manual checklist | M24-030, M25-124, M32 |  | docs/menu-ia/ACCESSIBILITY-CHECKLIST.md · docs/qa/RESPONSIVE-QA-MATRIX.md |  |  | PARTIAL | PROTOTYPE |
 | `A11Y-004` | axe يُفشل/يبلّغ المشاكل الجدية | M24-029 |  |  |  | tooling/tests/prototype/menu-wireframe.spec.mjs | PARTIAL | PROTOTYPE |
 | `A11Y-005` | احترام prefers-reduced-motion | M01-193, M24-010 |  | docs/menu-ia/SHELTER-MENU-IA-SPEC.md §17 · docs/menu-ia/ACCESSIBILITY-CHECKLIST.md |  |  | NOT STARTED | NO |
-| `A11Y-006` | تباين كافٍ | M23-172 |  | docs/menu-ia/ACCESSIBILITY-CHECKLIST.md |  | tooling/tests/prototype/menu-wireframe.spec.mjs | NOT STARTED | PROTOTYPE |
-| `A11Y-007` | Keyboard navigation كامل مع focus مرئي | M23-166 |  | docs/menu-ia/ACCESSIBILITY-CHECKLIST.md |  | tooling/tests/prototype/responsive.spec.mjs | NOT STARTED | PROTOTYPE |
+| `A11Y-006` | تباين كافٍ | M23-172, M34 |  | docs/menu-ia/ACCESSIBILITY-CHECKLIST.md |  | tooling/tests/prototype/menu-wireframe.spec.mjs | NOT STARTED | PROTOTYPE |
+| `A11Y-007` | Keyboard navigation كامل مع focus مرئي | M23-166, M34 |  | docs/menu-ia/ACCESSIBILITY-CHECKLIST.md |  | tooling/tests/prototype/responsive.spec.mjs | NOT STARTED | PROTOTYPE |
 | `A11Y-008` | تفاصيل المنتج: إدارة التركيز وEscape وfocus trap/return | M23-064, M23-065, M23-168 | D-146, F-13, R-05 | docs/menu-ia/ACCESSIBILITY-CHECKLIST.md |  | tooling/tests/app/menu.spec.mjs | NOT STARTED | NO |
 | `A11Y-009` | Screen reader labels وARIA فقط حيث يلزم | M23-167 |  | docs/menu-ia/ACCESSIBILITY-CHECKLIST.md |  |  | NOT STARTED | PROTOTYPE |
 | `A11Y-010` | إعلانات البحث: عدد النتائج وزر مسح accessible | M23-169 |  | docs/menu-ia/ACCESSIBILITY-CHECKLIST.md |  | tooling/tests/app/menu.spec.mjs | NOT STARTED | NO |
@@ -565,205 +688,208 @@
 | `A11Y-013` | سمات اللغة والاتجاه الصحيحة | M23-042 |  | docs/menu-ia/ACCESSIBILITY-CHECKLIST.md |  | tooling/tests/prototype/menu-wireframe.spec.mjs | NOT STARTED | PROTOTYPE |
 | `A11Y-014` | السعر مفهوم لقارئ الشاشة | M23-173 | R-08 | docs/menu-ia/ACCESSIBILITY-CHECKLIST.md |  |  | NOT STARTED | NO |
 | `A11Y-015` | ALL CAPS لا يسبب نطقًا حرفيًا | M23-045 | D-131 | docs/menu-ia/ACCESSIBILITY-CHECKLIST.md |  |  | NOT STARTED | NO |
-| `A11Y-016` | الحالات لا تعتمد على اللون وحده | M23-094 |  | docs/menu-ia/ACCESSIBILITY-CHECKLIST.md |  |  | NOT STARTED | PROTOTYPE |
-| `A11Y-017` | أهداف اللمس ≥ 44×44px | M23-165, M26-009 |  | docs/menu-ia/UX-VALIDATION.md §2 P0-01 · docs/menu-ia/ACCESSIBILITY-CHECKLIST.md |  | tooling/tests/prototype/menu-wireframe.spec.mjs · tooling/tests/prototype/responsive.spec.mjs | NOT STARTED | PROTOTYPE |
+| `A11Y-016` | الحالات لا تعتمد على اللون وحده | M23-094, M28, M34 |  | docs/menu-ia/ACCESSIBILITY-CHECKLIST.md |  |  | NOT STARTED | PROTOTYPE |
+| `A11Y-017` | أهداف اللمس ≥ 44×44px | M23-165, M26-009, M34 |  | docs/menu-ia/UX-VALIDATION.md §2 P0-01 · docs/menu-ia/ACCESSIBILITY-CHECKLIST.md |  | tooling/tests/prototype/menu-wireframe.spec.mjs · tooling/tests/prototype/responsive.spec.mjs | NOT STARTED | PROTOTYPE |
 | `A11Y-018` | ممنوع منع pinch zoom | M26-047 |  |  |  | tooling/tests/prototype/responsive.spec.mjs | NOT STARTED | PROTOTYPE |
 | `A11Y-019` | Accessibility checklist لصفحة المنيو (Phase J) | M23-251 |  | docs/menu-ia/ACCESSIBILITY-CHECKLIST.md |  |  | IMPLEMENTED — NOT TESTED | PROTOTYPE |
-| `A11Y-020` | Dashboard: تقرير مشاكل الوصولية | M25-123 |  |  |  |  | NOT STARTED | NO |
+| `A11Y-020` | Dashboard: تقرير مشاكل الوصولية | M25-123, M32 |  |  |  |  | NOT STARTED | NO |
 | `MOTION-001` | الموقع يجب أن يشعر بأنه حيّ (Alive) — Premium وليس Static | M01-164, M24-054, M27-102 | D-004 | design-system/tokens/tokens.template.json motion |  |  | NOT STARTED | NO |
 | `MOTION-002` | الحركة تخدم الـUX — لا حركة لمجرد أن المكتبة تدعمها | M01-165, M01-170, M24-055 |  | docs/menu-ia/SHELTER-MENU-IA-SPEC.md §17 |  |  | NOT STARTED | NO |
 | `MOTION-003` | Performance always wins over decorative motion — لا مساس بـLCP / INP / CLS | M27-103, M24-009 | D-004 | docs/FRONTEND-TOOLING.md §5 · docs/menu-ia/PERFORMANCE-BUDGET.md | tooling/scripts/lighthouse.mjs |  | NOT STARTED | NO |
-| `MOTION-004` | Motion Design System | M01-166, M01-167, M01-168 |  | design-system/tokens/tokens.template.json · docs/menu-ia/SHELTER-MENU-IA-SPEC.md §17 |  |  | PARTIAL | N/A |
+| `MOTION-004` | Motion Design System | M01-166, M01-167, M01-168, M34 |  | design-system/tokens/tokens.template.json · docs/menu-ia/SHELTER-MENU-IA-SPEC.md §17 |  |  | PARTIAL | N/A |
 | `MOTION-005` | دراسة تقنيات الحركة الممكنة (ليست كلها معتمدة) | M01-169 |  |  |  |  | NOT STARTED | NO |
 | `MOTION-006` | ممنوعات الحركة (Do not over-animate) | M01-171, M01-172, M24-056 |  | docs/menu-ia/SHELTER-MENU-IA-SPEC.md §17 |  |  | NOT STARTED | NO |
-| `MOTION-007` | تقنية الحركة: Motion كخيار أساسي (يحل محل دراسة GSAP / Motion.page) | M01-174, M01-175, M01-176 | DB-08 | docs/FRONTEND-TOOLING.md §1, §2 |  |  | NOT STARTED | NO |
+| `MOTION-007` | تقنية الحركة: Motion كخيار أساسي (يحل محل دراسة GSAP / Motion.page) | M01-174, M01-175, M01-176, M29, M34 | DB-08 | docs/FRONTEND-TOOLING.md §1, §2 |  |  | NOT STARTED | NO |
 | `MOTION-008` | Lenis: اختياري ومشروط — ليس عامًا، وليس على المنيو افتراضيًا | M01-177, M01-178, M24-012 |  | docs/FRONTEND-TOOLING.md §1, §2 |  |  | NOT STARTED | NO |
 | `MOTION-009` | مكتبات مشروطة: Lottie · Swiper · Three.js | M01-179, M01-180, M01-181 |  | docs/governance/APPROVED-ASSET-LIBRARY.md · docs/FRONTEND-TOOLING.md §7 |  |  | NOT STARTED | NO |
 | `MOTION-010` | Progressive Enhancement: المحتوى لا يعتمد على الحركة | M01-192, M23-177 |  | docs/menu-ia/SHELTER-MENU-IA-SPEC.md §16, §20 |  | tooling/tests/app/menu.spec.mjs | NOT STARTED | NO |
-| `MOTION-011` | دعم prefers-reduced-motion | M23-178 |  | docs/menu-ia/SHELTER-MENU-IA-SPEC.md §17 · docs/menu-ia/ACCESSIBILITY-CHECKLIST.md |  |  | NOT STARTED | NO |
+| `MOTION-011` | دعم prefers-reduced-motion | M23-178, M34 |  | docs/menu-ia/SHELTER-MENU-IA-SPEC.md §17 · docs/menu-ia/ACCESSIBILITY-CHECKLIST.md |  |  | NOT STARTED | NO |
 | `MOTION-012` | حركة المنيو: High Motion للموقع لكن المنيو سريعة | M23-174, M23-175, M23-176 |  | docs/menu-ia/SHELTER-MENU-IA-SPEC.md §17 · docs/menu-ia/PERFORMANCE-BUDGET.md |  |  | NOT STARTED | NO |
 | `MOTION-013` | نطاق حركة الواجهة المسموح | M24-008 |  |  |  |  | NOT STARTED | NO |
 | `MEDIA-001` | قاعدة صارمة: لا صورة أو Asset بدون موافقة الـOwner (كل صورة بموافقة منفصلة) | M01-055, M01-056, M13-020, M23-049, M27-114, M27-113 | D-003, D-056, D-083, F-11, AAL-RULE-01 | docs/governance/APPROVED-ASSET-LIBRARY.md · media/README.md | tooling/scripts/images.mjs |  | PARTIAL | YES |
 | `MEDIA-002` | حزمة عرض الصورة المقترحة | M01-057 | AAL-RULE-01 | docs/governance/APPROVED-ASSET-LIBRARY.md · media/README.md |  |  | PARTIAL | N/A |
 | `MEDIA-003` | كل صورة مقترحة أو مطلوبة تبدأ PENDING OWNER APPROVAL | M01-058, M15-042, M27-116 | D-083, AAL-RULE-01 | media/README.md | tooling/scripts/images.mjs |  | PARTIAL | YES |
 | `MEDIA-004` | صور Google ليست Approved Assets | M13-019, M11-017, M11-018, M11-019 | D-056, D-046, GEP-§6/§43 | docs/google/GOOGLE-ECOSYSTEM-POLICY.md §6, §43 · docs/governance/DECISION-LOG.md D-056 |  |  | IMPLEMENTED — NOT TESTED | N/A |
-| `MEDIA-005` | لا Stock ولا AI ولا Google ولا صور الموقع القديم تلقائيًا | M15-040, M15-041, M23-048, M27-115 | D-083, F-11, F-23 | docs/menu-ia/MENU-DECISION-REGISTER.md F-11 · docs/menu-ia/wireframes/README.md |  |  | IMPLEMENTED — NOT TESTED | N/A |
-| `MEDIA-006` | نظام Approved Asset Library | M01-059, M01-060 | AAL-RULE-01 | docs/governance/APPROVED-ASSET-LIBRARY.md · media/README.md |  |  | PARTIAL | N/A |
+| `MEDIA-005` | لا Stock ولا AI ولا Google ولا صور الموقع القديم تلقائيًا | M15-040, M15-041, M23-048, M27-115, M29 | D-083, F-11, F-23 | docs/menu-ia/MENU-DECISION-REGISTER.md F-11 · docs/menu-ia/wireframes/README.md |  |  | IMPLEMENTED — NOT TESTED | N/A |
+| `MEDIA-006` | نظام Approved Asset Library | M01-059, M01-060, M32 | AAL-RULE-01 | docs/governance/APPROVED-ASSET-LIBRARY.md · media/README.md |  |  | PARTIAL | N/A |
 | `MEDIA-007` | صور المنتجات من الـOwner وربطها بالـProduct ID | M15-039, M15-043 | D-083, M-02, MI-023 | docs/menu-ia/MENU-DECISION-REGISTER.md M-02 · media/README.md · docs/menu-ia/SHELTER-MENU-IA-SPEC.md §6 | tooling/scripts/images.mjs |  | PARTIAL | YES |
 | `MEDIA-008` | Media Architecture / Media Model | M15-044, M23-051 | D-083 | media/README.md |  |  | PARTIAL | N/A |
 | `MEDIA-009` | صورة بطاقة المنتج: كبيرة بنسبة 1:1 | M23-046, M23-047 | F-11, R-04, CF-05 | docs/menu-ia/SHELTER-MENU-IA-SPEC.md §6 · docs/menu-ia/MENU-DECISION-REGISTER.md F-11, R-04, CF-05 | tooling/scripts/images.mjs |  | NOT STARTED | PROTOTYPE |
 | `MEDIA-010` | أداء الصور و Responsive images | M01-187, M01-188, M26-024 |  | docs/menu-ia/PERFORMANCE-BUDGET.md · media/README.md | tooling/scripts/images.mjs · tooling/scripts/lighthouse.mjs |  | PARTIAL | YES |
 | `MEDIA-011` | Sharp image pipeline: بلا تكبير، الأصول الأصلية محفوظة، الاعتماد قائم | M24-041, M24-042, M24-043, M24-044 |  | media/README.md · docs/FRONTEND-TOOLING.md §2 | tooling/scripts/images.mjs | tooling/scripts/images.mjs (selftest) | TESTED | YES |
-| `MEDIA-012` | Media Library في الـDashboard | M25-099, M25-100 | D-083, D-056, AAL-RULE-01 | media/README.md |  |  | NOT STARTED | NO |
-| `MEDIA-013` | تتبع استخدام كل صورة (Usage tracking) | M25-101 |  |  |  |  | NOT STARTED | NO |
+| `MEDIA-012` | Media Library في الـDashboard | M25-099, M25-100, M28, M32, M35 | D-083, D-056, AAL-RULE-01 | media/README.md |  |  | NOT STARTED | NO |
+| `MEDIA-013` | تتبع استخدام كل صورة (Usage tracking) | M25-101, M32 |  |  |  |  | NOT STARTED | NO |
 | `MEDIA-014` | لا ملفات مكررة في الـMedia Library | M25-102 |  |  |  |  | NOT STARTED | NO |
 | `MEDIA-015` | Image Health في الـDashboard مع الإصلاح | M25-103, M25-104 |  |  |  |  | NOT STARTED | NO |
 | `MEDIA-016` | ممنوع Autoplay Audio | M01-173 |  |  |  |  | NOT STARTED | NO |
-| `SEC-001` | فحص أمني شامل (الموقع الحالي ثم الجديد قبل الإطلاق) | M01-222, M01-223 | D-037, D-028 | docs/governance/RISK-REGISTER.md RISK-01 · docs/phase-01-discovery/08-access-requests.md |  |  | NOT STARTED | NO |
-| `SEC-002` | لا Secrets في الـFront-End — الـCredentials Server-side وفي إعدادات البيئة فقط | M01-224, M11-087, M25-132 | AC-RULE-02, GIO-§B-SEC, GEP-§38 | docs/phase-01-discovery/08-access-requests.md · docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §B (مبادئ الأمان + مصفوفة الصلاحيات) |  |  | NOT STARTED | NO |
+| `SEC-001` | فحص أمني شامل (الموقع الحالي ثم الجديد قبل الإطلاق) | M01-222, M01-223, M28, M32 | D-037, D-028 | docs/governance/RISK-REGISTER.md RISK-01 · docs/phase-01-discovery/08-access-requests.md |  |  | NOT STARTED | NO |
+| `SEC-002` | لا Secrets في الـFront-End — الـCredentials Server-side وفي إعدادات البيئة فقط | M01-224, M11-087, M25-132, M28, M33, M35 | AC-RULE-02, GIO-§B-SEC, GEP-§38 | docs/phase-01-discovery/08-access-requests.md · docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §B (مبادئ الأمان + مصفوفة الصلاحيات) |  |  | NOT STARTED | NO |
 | `SEC-003` | Maps API Key (إن لزم) مقيد: HTTP referrer · API restrictions · Usage limits | M11-086 | GEP-§38, D-043, D-046 | docs/google/GOOGLE-ECOSYSTEM-POLICY.md §38 Google Maps API |  |  | NOT STARTED | N/A |
-| `SEC-004` | حماية الـStaging: Authentication + noindex — robots.txt وحده ليس حماية أمنية | M11-044 | GEP-§18, D-046 | docs/google/GOOGLE-ECOSYSTEM-POLICY.md §18 Staging Must Not Index |  |  | NOT STARTED | NO |
-| `SEC-005` | Secure authentication + Session security لنظام الـAdmin | M25-153, M25-155 | DB-08 |  |  |  | NOT STARTED | NO |
-| `SEC-006` | CSRF protection حسب الـArchitecture | M25-156 | DB-08 |  |  |  | NOT STARTED | NO |
-| `SEC-007` | Rate limiting حيث يلزم (Login · Forms · APIs) | M25-157 |  |  |  |  | NOT STARTED | NO |
+| `SEC-004` | حماية الـStaging: Authentication + noindex — robots.txt وحده ليس حماية أمنية | M11-044, M35 | GEP-§18, D-046 | docs/google/GOOGLE-ECOSYSTEM-POLICY.md §18 Staging Must Not Index |  |  | NOT STARTED | NO |
+| `SEC-005` | Secure authentication + Session security لنظام الـAdmin | M25-153, M25-155, M28, M32 | DB-08 |  |  |  | NOT STARTED | NO |
+| `SEC-006` | CSRF protection حسب الـArchitecture | M25-156, M28 | DB-08 |  |  |  | NOT STARTED | NO |
+| `SEC-007` | Rate limiting حيث يلزم (Login · Forms · APIs) | M25-157, M28 |  |  |  |  | NOT STARTED | NO |
 | `SEC-008` | Secure API access + audit logging — لا Admin APIs عامة بدون Authorization | M25-158, M25-160 |  |  |  |  | NOT STARTED | NO |
-| `SEC-009` | Safe file uploads في الـMedia Library | M25-159 | D-083 |  | tooling/scripts/images.mjs |  | NOT STARTED | NO |
+| `SEC-009` | Safe file uploads في الـMedia Library | M25-159, M28, M35 | D-083 |  | tooling/scripts/images.mjs |  | NOT STARTED | NO |
 | `SEC-010` | أمان الموقع القديم: الخيار A — Backup → Staging → … → Owner Approval | M10-026, M10-027, M10-030 | D-037 | docs/governance/RISK-REGISTER.md RISK-01 |  |  | NOT STARTED | NO |
 | `SEC-011` | ممنوع حذف Comments أو Users أو Plugins أو Content بدون موافقة الـOwner | M10-029 | D-037, GIO-§A29/§A33 | docs/governance/RISK-REGISTER.md RISK-01 |  |  | NOT STARTED | N/A |
-| `PERM-001` | V1: الـOwner وحده لديه Full Control ويرى كل شيء | M25-013, M25-015 | D-148 |  |  |  | NOT STARTED | NO |
-| `PERM-002` | أدوار مستقبلية: OWNER · ADMIN · EDITOR · SEO · MARKETING · CONTENT MANAGER | M25-014, M01-122 | D-148 |  |  |  | NOT STARTED | NO |
+| `PERM-001` | V1: الـOwner وحده لديه Full Control ويرى كل شيء | M25-013, M25-015, M28, M30 | D-148 |  |  |  | NOT STARTED | NO |
+| `PERM-002` | أدوار مستقبلية: OWNER · ADMIN · EDITOR · SEO · MARKETING · CONTENT MANAGER | M25-014, M01-122, M28, M30 | D-148 |  |  |  | NOT STARTED | NO |
 | `PERM-003` | Least privilege للمستخدمين: لا Full Access للجميع | M01-123, M25-016 | D-051, GIO-§A29/§A33 |  |  |  | NOT STARTED | NO |
-| `PERM-004` | الصلاحيات تُفرض Server-side — لا اعتماد على إخفاء الأزرار | M25-017, M25-154 |  |  |  |  | NOT STARTED | NO |
-| `PERM-005` | Permissions Model (PERMISSIONS.md) قبل التنفيذ — Phase E | M25-214 |  |  |  |  | NOT STARTED | NO |
+| `PERM-004` | الصلاحيات تُفرض Server-side — لا اعتماد على إخفاء الأزرار | M25-017, M25-154, M28, M30, M33 |  |  |  |  | NOT STARTED | NO |
+| `PERM-005` | Permissions Model (PERMISSIONS.md) قبل التنفيذ — Phase E | M25-214, M28, M36 |  |  |  |  | NOT STARTED | NO |
 | `PERM-006` | تعديلات المنيو الحساسة: موافقة الـOwner حيث يلزم | M15-047 | D-084 |  |  |  | NOT STARTED | NO |
-| `PERM-007` | AI لا ينفذ تغييرات حساسة بدون Approval | M25-151 |  |  |  |  | NOT STARTED | N/A |
+| `PERM-007` | AI لا ينفذ تغييرات حساسة بدون Approval | M25-151, M32 |  |  |  |  | NOT STARTED | N/A |
 | `PERM-008` | بروتوكول طلب الصلاحيات (5 بنود) بأقل صلاحية لازمة | M02-006, M12-077 | AC-RULE-01, AC-RULE-04, GIO-§B-SEC, GIO-§A29/§A33, D-028, D-029, D-051 | docs/phase-01-discovery/08-access-requests.md · docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §B (مبادئ الأمان + مصفوفة الصلاحيات) |  |  | IMPLEMENTED — NOT TESTED | N/A |
-| `PERM-009` | الـOwner يُطلب منه فقط Auth · Approval · 2FA · Ownership · Billing · Legal | M12-069 | GIO-§A29/§A33, D-051, D-055 | docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §29/§33 |  |  | NOT STARTED | N/A |
+| `PERM-009` | الـOwner يُطلب منه فقط Auth · Approval · 2FA · Ownership · Billing · Legal | M12-069, M36 | GIO-§A29/§A33, D-051, D-055 | docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §29/§33 |  |  | NOT STARTED | N/A |
 | `PERM-010` | AC-01: وصول مباشر للقراءة والفحص فقط على shelterjo.com · www · shop — أولًا | M04-050, M10-040 | D-028, D-041 | docs/phase-01-discovery/08-access-requests.md · docs/governance/RISK-REGISTER.md RISK-07 |  |  | NOT STARTED | NO |
-| `AUDIT-001` | Audit Log لكل Action في الـDashboard (Who · What · Before · After · Date/Time) | M01-124, M01-125, M25-113, M25-114 | D-084, D-148 | docs/phase-01-discovery/17-menu-data-model-draft.md §2 audit_log · menu_change · menu_version · docs/menu-ia/SHELTER-MENU-IA-SPEC.md §18 (CMS — SSOT في V1) · docs/phase-01-discovery/09-architecture-options-after-r1.md AR-08 |  |  | NOT STARTED | NO |
+| `PERM-011` | المستخدمون مستقبلًا: إنشاء صريح وصلاحيات مختارة — بلا أدوار معقدة الآن | M30 §FUTURE USERS |  |  |  |  | NOT STARTED | NO |
+| `AUDIT-001` | Audit Log لكل Action في الـDashboard (Who · What · Before · After · Date/Time) | M01-124, M01-125, M25-113, M25-114, M28, M29, M33, M35 | D-084, D-148 | docs/phase-01-discovery/17-menu-data-model-draft.md §2 audit_log · menu_change · menu_version · docs/menu-ia/SHELTER-MENU-IA-SPEC.md §18 (CMS — SSOT في V1) · docs/phase-01-discovery/09-architecture-options-after-r1.md AR-08 |  |  | NOT STARTED | NO |
 | `AUDIT-002` | لا Silent Changes | M25-115 | D-093 | docs/phase-01-discovery/17-menu-data-model-draft.md §2 audit_log · menu_change · menu_version |  |  | NOT STARTED | NO |
-| `AUDIT-003` | Version History لكل تغيير مهم (User · Time · Old Value · New Value) قابلة للعرض | M25-111, M15-046, M21-007 | D-084, D-136, D-148 | docs/phase-01-discovery/17-menu-data-model-draft.md §2 audit_log · menu_change · menu_version · docs/phase-01-discovery/17-menu-data-model-draft.md §4 Menu Versioning |  |  | NOT STARTED | NO |
-| `AUDIT-004` | Restore / Revert لنسخة سابقة — إذا كان آمنًا | M01-121, M25-112 |  |  |  |  | NOT STARTED | NO |
+| `AUDIT-003` | Version History لكل تغيير مهم (User · Time · Old Value · New Value) قابلة للعرض | M25-111, M15-046, M21-007, M33 | D-084, D-136, D-148 | docs/phase-01-discovery/17-menu-data-model-draft.md §2 audit_log · menu_change · menu_version · docs/phase-01-discovery/17-menu-data-model-draft.md §4 Menu Versioning |  |  | NOT STARTED | NO |
+| `AUDIT-004` | Restore / Revert لنسخة سابقة — إذا كان آمنًا | M01-121, M25-112, M33, M35 |  |  |  |  | NOT STARTED | NO |
 | `AUDIT-005` | MENU VERSION `MV-YYYY-MM-DD` — الحالية MV-2026-10-01 (سارية من 2026-10-01) | M18-043, M19-033, M20-031 | D-107, D-122, D-135, F-01 | docs/phase-01-discovery/21-menu-inventory-v1.0-freeze-report.md · docs/phase-01-discovery/17-menu-data-model-draft.md (v0.4) §2 menu_version · docs/menu-ia/MENU-DECISION-REGISTER.md F-01 |  |  | FROZEN | N/A |
 | `AUDIT-006` | استيراد المنيو لا يمسح التاريخ (Previous/Current Price · Effective Date) | M18-044, M18-042 | D-107, D-099 | docs/phase-01-discovery/17-menu-data-model-draft.md §4 Menu Versioning |  |  | NOT STARTED | NO |
 | `AUDIT-007` | الحفاظ على Lineage لكل منتج (المصدر · الصف · الـHash · النسخة · التاريخ) | M23-023 | D-110, D-133, D-135, F-02, F-04 | docs/phase-01-discovery/menu/menu-inventory-v1.0.csv + SHELTER-MENU-INVENTORY-v1.0.xlsx · docs/phase-01-discovery/17-menu-data-model-draft.md (v0.4) |  |  | PARTIAL | N/A |
-| `AUDIT-008` | Versioning + Backup strategy + Safe rollback لإدارة المحتوى الحساس | M25-161 |  |  |  |  | NOT STARTED | NO |
-| `INT-001` | لا Paid API/Quota/Credits/Service بدون موافقة مسبقة + إفصاح خماسي | M04-056, M10-052, M11-107, M11-108, M11-128, M23-225, M25-077, M27-110, M27-111 | D-029, D-044, D-046, GEP-§50/§52 (G8) | docs/phase-01-discovery/08-access-requests.md · docs/FRONTEND-TOOLING.md §7 · docs/google/GOOGLE-ECOSYSTEM-POLICY.md §50 |  |  | IMPLEMENTED — NOT TESTED | N/A |
-| `INT-002` | لا Google Places API مدفوع حاليًا | M10-050 | D-043 (G4) | docs/phase-01-discovery/08-access-requests.md AC-03 |  |  | IMPLEMENTED — NOT TESTED | N/A |
+| `AUDIT-008` | Versioning + Backup strategy + Safe rollback لإدارة المحتوى الحساس | M25-161, M28, M32, M35 |  |  |  |  | NOT STARTED | NO |
+| `AUDIT-009` | سجل نسخ مفهوم: ماذا تغير، من ماذا، إلى ماذا، ومتى | M30 §VERSION HISTORY, M33 |  |  |  |  | NOT STARTED | NO |
+| `AUDIT-010` | معمارية Audit Log حتى مع مستخدم واحد | M30 §AUDIT LOG, M33, M35 |  | docs/RECRUITMENT-DATA-MODEL.md |  |  | NOT STARTED | NO |
+| `INT-001` | لا Paid API/Quota/Credits/Service بدون موافقة مسبقة + إفصاح خماسي | M04-056, M10-052, M11-107, M11-108, M11-128, M23-225, M25-077, M27-110, M27-111, M28, M32 | D-029, D-044, D-046, GEP-§50/§52 (G8) | docs/phase-01-discovery/08-access-requests.md · docs/FRONTEND-TOOLING.md §7 · docs/google/GOOGLE-ECOSYSTEM-POLICY.md §50 |  |  | IMPLEMENTED — NOT TESTED | N/A |
+| `INT-002` | لا Google Places API مدفوع حاليًا | M10-050, M33 | D-043 (G4) | docs/phase-01-discovery/08-access-requests.md AC-03 |  |  | IMPLEMENTED — NOT TESTED | N/A |
 | `INT-003` | Supermetrics (AC-04): لا استهلاك Quota قبل الإفصاح والموافقة | M04-055, M10-048 | D-028 (G7), D-042 (G5) | docs/phase-01-discovery/08-access-requests.md AC-04 |  |  | IMPLEMENTED — NOT TESTED | N/A |
 | `INT-004` | الأدوات المحلية المجانية مسموحة: Playwright · Lighthouse · local testing | M27-112 | D-044 |  | tooling/ |  | IMPLEMENTED — NOT TESTED | N/A |
-| `INT-005` | خدمة مراقبة أخطاء خارجية (مثل Sentry) تُقترح أولًا ولا تُفعّل قبل الموافقة | M25-076 |  | docs/FRONTEND-TOOLING.md §3 §7 |  |  | NOT STARTED | NO |
-| `INT-006` | Official APIs فقط (GA Data API · GSC API) — لا scraping لـGoogle dashboards | M25-130, M25-131 |  |  |  |  | NOT STARTED | NO |
+| `INT-005` | خدمة مراقبة أخطاء خارجية (مثل Sentry) تُقترح أولًا ولا تُفعّل قبل الموافقة | M25-076, M28 |  | docs/FRONTEND-TOOLING.md §3 §7 |  |  | NOT STARTED | NO |
+| `INT-006` | Official APIs فقط (GA Data API · GSC API) — لا scraping لـGoogle dashboards | M25-130, M25-131, M33 |  |  |  |  | NOT STARTED | NO |
 | `INT-007` | ممنوع تثبيت WordPress Plugins في هذه المرحلة | M01-024 | D-002 (G1), D-037 |  |  |  | IMPLEMENTED — NOT TESTED | N/A |
 | `INT-008` | No Plugin Bloat + تقييم أي Plugin/أداة طرف ثالث قبل الإضافة | M01-182, M01-183 |  | docs/FRONTEND-TOOLING.md §7 |  |  | PARTIAL | NO |
 | `INT-009` | Google Site Kit (موجود حاليًا): فحص ما يديره — لا افتراض لاستخدامه في الجديد | M11-073, M11-074, M12-082 | GEP-§32, GA-01 | docs/phase-01-discovery/12-homepage-screenshots-audit.md §7 · docs/google/GOOGLE-INTEGRATION-ARCHITECTURE.md G-06 |  |  | PARTIAL | NO |
 | `INT-010` | منصات التوصيل لكل فرع: من الـOwner فقط — لا استنتاج من الموقع القديم أو الإنترنت | M03-059, M14-041 | D-016 (G2), D-073 |  |  |  | IMPLEMENTED — NOT TESTED | N/A |
 | `INT-011` | R2B-01: منصات التوصيل لكل فرع وروابطها الرسمية = MISSING | M14-042 | D-073 |  |  |  | NOT STARTED | NO |
 | `INT-012` | نظام الكاشير (POS) = LATER / MISSING — ممنوع اختراع اسمه | M15-014, M19-031, M23-136 | D-077 (G3), D-102 (G3), D-121 |  |  |  | IMPLEMENTED — NOT TESTED | N/A |
-| `INT-013` | حقلا pos_item_id و external_item_id يبقيان nullable وفارغين | M18-032, M23-137 | D-077 (G3), D-102 (G3), D-121 | docs/phase-01-discovery/17-menu-data-model-draft.md |  |  | PARTIAL | YES |
+| `INT-013` | حقلا pos_item_id و external_item_id يبقيان nullable وفارغين | M18-032, M23-137, M33 | D-077 (G3), D-102 (G3), D-121 | docs/phase-01-discovery/17-menu-data-model-draft.md |  |  | PARTIAL | YES |
 | `INT-014` | عمود # ليس معرّفًا تجاريًا ولا يُستخدم في أي تكامل | M19-030 | D-102 (G3), D-120 (G3) |  |  |  | IMPLEMENTED — NOT TESTED | N/A |
 | `INT-015` | لا اتصال مباشر بقاعدة بيانات POS الآن | M15-051 | D-085 (G7) |  |  |  | IMPLEMENTED — NOT TESTED | N/A |
-| `INT-016` | جاهزية تكامل مستقبلي: POS / ERP / Customer App / Login | M15-049, M23-010, M23-128 | D-085 (G7), D-077 (G3), D-107, D-147 (G3) |  |  |  | NOT STARTED | NO |
+| `INT-016` | جاهزية تكامل مستقبلي: POS / ERP / Customer App / Login | M15-049, M23-010, M23-128, M33 | D-085 (G7), D-077 (G3), D-107, D-147 (G3) |  |  |  | NOT STARTED | NO |
 | `CF-001` | البنية الحالية: www.shelterjo.com على Cloudways خلف Cloudflare | M01-002, M01-003, M01-004 | D-011 |  |  |  | IMPLEMENTED — NOT TESTED | N/A |
-| `CF-002` | Phase 01: ممنوع تغيير Cloudflare أو Cloudways أو DNS | M01-025, M01-026, M01-027 | D-002 (G1) |  |  |  | IMPLEMENTED — NOT TESTED | N/A |
+| `CF-002` | Phase 01: ممنوع تغيير Cloudflare أو Cloudways أو DNS | M01-025, M01-026, M01-027, M28, M36 | D-002 (G1) |  |  |  | IMPLEMENTED — NOT TESTED | N/A |
 | `CF-003` | لا تغيير DNS (أو إعدادات Cloudflare Production) بدون موافقة الـOwner | M12-039 | GIO-§A13, D-051 | docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §A13 §A28 |  |  | IMPLEMENTED — NOT TESTED | N/A |
 | `CF-004` | مراجعة إعدادات Cloudflare | M01-194 | AC-06 | docs/phase-01-discovery/08-access-requests.md AC-06 |  |  | NOT STARTED | NO |
-| `CF-005` | مراجعة إعدادات Cloudways | M01-196 | AC-11 | docs/phase-01-discovery/08-access-requests.md AC-11 |  |  | NOT STARTED | NO |
+| `CF-005` | مراجعة إعدادات Cloudways | M01-196, M28, M35 | AC-11 | docs/phase-01-discovery/08-access-requests.md AC-11 |  |  | NOT STARTED | NO |
 | `CF-006` | جاهزية Global CDN | M01-076 | D-010, D-011 |  |  |  | NOT STARTED | NO |
 | `CF-007` | تجهيز قيمة DNS verification (TXT) لـSearch Console مسبقًا | M12-038 | GIO-§A13 | docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §A13 §B |  |  | NOT STARTED | NO |
-| `CF-008` | Cloudflare API للـSite Health: شرح الصلاحيات الدقيقة أولًا | M25-182 |  |  |  |  | PARTIAL | NO |
+| `CF-008` | Cloudflare API للـSite Health: شرح الصلاحيات الدقيقة أولًا | M25-182, M35 |  |  |  |  | PARTIAL | NO |
 | `CF-009` | Cloudflare Token بأقل صلاحية — لا Global API Key | M25-183 | GIO-§A13, D-051 | docs/phase-01-discovery/08-access-requests.md AC-06 · docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §B |  |  | IMPLEMENTED — NOT TESTED | N/A |
 | `TEST-001` | بوابة QA قبل الإطلاق (M01 §92) | M01-225, M01-226, M01-227, M01-228, M01-229 |  |  |  |  | NOT STARTED | NO |
-| `TEST-002` | Definition of Done: لا Requirement منتهية لمجرد كتابة الكود | M01-236, M27-145 |  | docs/FRONTEND-TOOLING.md §5 |  |  | NOT STARTED | N/A |
+| `TEST-002` | Definition of Done: لا Requirement منتهية لمجرد كتابة الكود | M01-236, M27-145, M28, M32, M34, M35, M36 |  | docs/FRONTEND-TOOLING.md §5 |  |  | NOT STARTED | N/A |
 | `TEST-003` | التحقق من التنفيذ الحقيقي — لا افتراض من أسماء الملفات | M27-036 |  |  |  |  | IMPLEMENTED — NOT TESTED | N/A |
-| `TEST-004` | بوابة اكتمال الصفحة: UX Quality Gates + Final Responsive Gate | M24-052, M26-054, M26-058 |  | docs/FRONTEND-TOOLING.md §5 · docs/qa/RESPONSIVE-QA-MATRIX.md | tooling/playwright.config.mjs | tooling/tests/prototype/menu-wireframe.spec.mjs · tooling/tests/prototype/responsive.spec.mjs | PARTIAL | PROTOTYPE |
+| `TEST-004` | بوابة اكتمال الصفحة: UX Quality Gates + Final Responsive Gate | M24-052, M26-054, M26-058, M35 |  | docs/FRONTEND-TOOLING.md §5 · docs/qa/RESPONSIVE-QA-MATRIX.md | tooling/playwright.config.mjs | tooling/tests/prototype/menu-wireframe.spec.mjs · tooling/tests/prototype/responsive.spec.mjs | PARTIAL | PROTOTYPE |
 | `TEST-005` | الإصدارات الكبرى: Unlighthouse وsitespeed.io عند الحاجة | M24-053 |  |  |  |  | NOT STARTED | NO |
-| `TEST-006` | RESPONSIVE-QA-MATRIX.md لكل صفحة رئيسية | M26-050, M26-051, M23-222 |  | docs/qa/RESPONSIVE-QA-MATRIX.md | tooling/scripts/qa-matrix.mjs |  | PARTIAL | PROTOTYPE |
+| `TEST-006` | RESPONSIVE-QA-MATRIX.md لكل صفحة رئيسية | M26-050, M26-051, M23-222, M28 |  | docs/qa/RESPONSIVE-QA-MATRIX.md | tooling/scripts/qa-matrix.mjs |  | PARTIAL | PROTOTYPE |
 | `TEST-007` | تغطية حالات وتدفقات المنيو في الاختبارات | M23-223, M24-022, M24-024 |  | docs/menu-ia/USER-FLOWS.md |  | tooling/tests/app/menu.spec.mjs · tooling/tests/prototype/menu-wireframe.spec.mjs | PARTIAL | PROTOTYPE |
 | `TEST-008` | اختبار browser history وscroll restoration | M23-217, M24-023 | D-146, F-13 |  |  | tooling/tests/app/menu.spec.mjs | NOT STARTED | NO |
 | `TEST-009` | اختبار Campaign banner وContact CTAs | M24-025 |  |  |  |  | NOT STARTED | NO |
-| `TEST-010` | اختبار عبر المتصفحات | M24-026, M26-049 |  |  | tooling/playwright.config.mjs |  | PARTIAL | PROTOTYPE |
-| `TEST-011` | لا اعتماد على المحاكي فقط — فحص سلوك حقيقي | M26-048 |  | docs/qa/RESPONSIVE-QA-MATRIX.md |  |  | NOT STARTED | NO |
-| `TEST-012` | Screenshots للمراجعة البصرية ومقارنتها | M24-027 |  |  | tooling/playwright.config.mjs | tooling/tests/prototype/responsive.spec.mjs | PARTIAL | PROTOTYPE |
+| `TEST-010` | اختبار عبر المتصفحات | M24-026, M26-049, M29, M35 |  |  | tooling/playwright.config.mjs |  | PARTIAL | PROTOTYPE |
+| `TEST-011` | لا اعتماد على المحاكي فقط — فحص سلوك حقيقي | M26-048, M35 |  | docs/qa/RESPONSIVE-QA-MATRIX.md |  |  | NOT STARTED | NO |
+| `TEST-012` | Screenshots للمراجعة البصرية ومقارنتها | M24-027, M32, M34 |  |  | tooling/playwright.config.mjs | tooling/tests/prototype/responsive.spec.mjs | PARTIAL | PROTOTYPE |
 | `TEST-013` | اختبار الأداء في بيئة مخنوقة (throttled) | M23-186 |  | docs/menu-ia/PERFORMANCE-BUDGET.md §4 | tooling/scripts/lighthouse.mjs |  | PARTIAL | PROTOTYPE |
-| `TEST-014` | اختبار User Journeys حقيقية بـPlaywright | M01-230, M12-059, M12-060, M12-061 | GIO-§A24/§A25/§A26 | docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §25 |  |  | NOT STARTED | NO |
+| `TEST-014` | اختبار User Journeys حقيقية بـPlaywright | M01-230, M12-059, M12-060, M12-061, M28 | GIO-§A24/§A25/§A26 | docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §25 |  |  | NOT STARTED | NO |
 | `TEST-015` | Debug Everything: أدوات ومعايير قبول التتبع | M12-057, M12-058, M12-062 | GIO-§A24/§A25/§A26, D-051 | docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §24–§25 |  |  | NOT STARTED | NO |
 | `TEST-016` | Analytics Validation Report | M12-063 | GIO-§A24/§A25/§A26 | docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §26 |  |  | NOT STARTED | NO |
 | `TEST-017` | FINAL GOOGLE ACCEPTANCE TEST | M12-074 | D-051 | docs/google/GOOGLE-ECOSYSTEM-CHECKLIST.md |  |  | NOT STARTED | NO |
 | `TEST-018` | Chrome DevTools لفحص الأداء والمتصفح | M01-231, M01-019 |  |  |  |  | NOT STARTED | N/A |
 | `TEST-019` | Code Review بعد كل Development Milestone | M01-232, M01-021 |  |  |  |  | NOT STARTED | N/A |
-| `TEST-020` | الأدوات كحارس انحدار (regression guard) | M24-074 |  |  | tooling/package.json |  | PARTIAL | PROTOTYPE |
+| `TEST-020` | الأدوات كحارس انحدار (regression guard) | M24-074, M32, M34 |  |  | tooling/package.json |  | PARTIAL | PROTOTYPE |
 | `TEST-021` | اختبارات جاهزية الـDashboard | M25-194 |  |  |  |  | NOT STARTED | NO |
-| `TEST-022` | سيناريوهات فشل الـDashboard | M25-195 |  |  |  |  | NOT STARTED | NO |
+| `TEST-022` | سيناريوهات فشل الـDashboard | M25-195, M28 |  |  |  |  | NOT STARTED | NO |
 | `TEST-023` | إعادة الفحص الحقيقي للموقع الحالي بعد تفعيل AC-01 | M04-051, M04-052, M10-041, M10-042, M10-043 | D-028, D-041 | docs/phase-01-discovery/08-access-requests.md |  |  | NOT STARTED | NO |
 | `TEST-024` | لا Load Testing ولا Crawling عدواني على Production | M10-054, M10-055 | D-044 |  |  |  | IMPLEMENTED — NOT TESTED | N/A |
 | `DEPLOY-001` | لا أي تغيير على Production بدون موافقة الـOwner | M01-028, M01-195, M02-007, M12-014, M12-078 | D-002, D-017, AC-RULE-03, D-051 | docs/phase-01-discovery/08-access-requests.md |  |  | IMPLEMENTED — NOT TESTED | N/A |
 | `DEPLOY-002` | مسموح بلا موافقة مسبقة: Configure · Build · Test · Prepare | M12-066 | GIO-§A28, D-051 | docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §28 |  |  | IMPLEMENTED — NOT TESTED | N/A |
 | `DEPLOY-003` | التغييرات الحساسة: Summary ← موافقة ← تنفيذ | M12-067 | GIO-§A28, D-051 | docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §28 |  |  | IMPLEMENTED — NOT TESTED | N/A |
-| `DEPLOY-004` | مسار Staging → Testing → Owner Approval → Production | M01-197 | AC-RULE-03, D-037 |  |  |  | NOT STARTED | NO |
-| `DEPLOY-005` | Backup قبل Migration وDeployment وPlugin Updates والتغييرات الكبرى | M01-198 | D-037 |  |  |  | NOT STARTED | NO |
+| `DEPLOY-004` | مسار Staging → Testing → Owner Approval → Production | M01-197, M32, M35, M36 | AC-RULE-03, D-037 |  |  |  | NOT STARTED | NO |
+| `DEPLOY-005` | Backup قبل Migration وDeployment وPlugin Updates والتغييرات الكبرى | M01-198, M28, M32, M35 | D-037 |  |  |  | NOT STARTED | NO |
 | `DEPLOY-006` | الموقع القديم: لا Update على Production الآن | M10-028 | D-037 | docs/governance/RISK-REGISTER.md |  |  | IMPLEMENTED — NOT TESTED | N/A |
-| `DEPLOY-007` | المرحلة الحالية: لا Production Deployment ولا تغيير للموقع الحي | M23-228, M23-229 | F-23, D-142 | docs/menu-ia/MENU-DECISION-REGISTER.md F-23 |  |  | IMPLEMENTED — NOT TESTED | N/A |
-| `DEPLOY-008` | المرحلة الحالية: لا irreversible database migrations | M23-233 | F-23 |  |  |  | IMPLEMENTED — NOT TESTED | N/A |
-| `DEPLOY-009` | تغيير Production الخطر يحتاج Gate (Staging·Backup·Test·Approval·Rollback) | M27-124, M27-125 |  |  |  |  | PARTIAL | N/A |
-| `DEPLOY-010` | Before Launch — Google Checklist | M11-112 | D-046 | docs/google/GOOGLE-ECOSYSTEM-CHECKLIST.md · docs/google/GOOGLE-ECOSYSTEM-POLICY.md §53 |  |  | NOT STARTED | NO |
+| `DEPLOY-007` | المرحلة الحالية: لا Production Deployment ولا تغيير للموقع الحي | M23-228, M23-229, M36 | F-23, D-142 | docs/menu-ia/MENU-DECISION-REGISTER.md F-23 |  |  | IMPLEMENTED — NOT TESTED | N/A |
+| `DEPLOY-008` | المرحلة الحالية: لا irreversible database migrations | M23-233, M35, M36 | F-23 |  |  |  | IMPLEMENTED — NOT TESTED | N/A |
+| `DEPLOY-009` | تغيير Production الخطر يحتاج Gate (Staging·Backup·Test·Approval·Rollback) | M27-124, M27-125, M35 |  |  |  |  | PARTIAL | N/A |
+| `DEPLOY-010` | Before Launch — Google Checklist | M11-112, M35 | D-046 | docs/google/GOOGLE-ECOSYSTEM-CHECKLIST.md · docs/google/GOOGLE-ECOSYSTEM-POLICY.md §53 |  |  | NOT STARTED | NO |
 | `DEPLOY-011` | الـCMS: لا تغيير على Production أثناء التحرير — فقط بعد Publish | M25-110 | D-148 | docs/menu-ia/SHELTER-MENU-IA-SPEC.md §18 |  |  | NOT STARTED | NO |
 | `DEPLOY-012` | Confirmation حسب الخطورة للعمليات الحساسة | M25-163, M25-089 |  |  |  |  | NOT STARTED | NO |
-| `DEPLOY-013` | الحذف = أرشفة بدل hard delete | M25-164 | D-148 |  |  |  | NOT STARTED | NO |
+| `DEPLOY-013` | الحذف = أرشفة بدل hard delete | M25-164, M28 | D-148 |  |  |  | NOT STARTED | NO |
 | `DEPLOY-014` | خطأ محرر لا يمسح الموقع | M25-162 |  |  |  |  | NOT STARTED | NO |
-| `MON-001` | Site Health — التوفر: Online · SSL · Domain · DNS · Cloudflare · Response time | M25-071 |  |  |  |  | NOT STARTED | NO |
-| `MON-002` | Site Health — الأخطاء وملفات الزحف | M25-072, M25-073 |  |  |  |  | NOT STARTED | NO |
-| `MON-003` | الـDashboard تجيب عن أسئلة صحة الموقع والتكاملات | M25-009, M25-010 |  |  |  |  | NOT STARTED | NO |
-| `MON-004` | Error Center: JS · API · 404 · 500 · Failed Requests — بدون PII | M25-074 | D-044 |  |  |  | NOT STARTED | NO |
+| `MON-001` | Site Health — التوفر: Online · SSL · Domain · DNS · Cloudflare · Response time | M25-071, M35 |  |  |  |  | NOT STARTED | NO |
+| `MON-002` | Site Health — الأخطاء وملفات الزحف | M25-072, M25-073, M32 |  |  |  |  | NOT STARTED | NO |
+| `MON-003` | الـDashboard تجيب عن أسئلة صحة الموقع والتكاملات | M25-009, M25-010, M32 |  |  |  |  | NOT STARTED | NO |
+| `MON-004` | Error Center: JS · API · 404 · 500 · Failed Requests — بدون PII | M25-074, M28, M35 | D-044 |  |  |  | NOT STARTED | NO |
 | `MON-005` | Periodic checks: Uptime · Broken pages · Performance · Sitemap · Robots | M25-184 |  |  | tooling/scripts/lighthouse.mjs |  | NOT STARTED | NO |
 | `MON-006` | لا Aggressive crawling — جدول فحص منطقي | M25-185 | D-044 |  |  |  | NOT STARTED | N/A |
-| `MON-007` | Alerts / Attention Needed داخل الـDashboard | M25-118 |  |  |  |  | NOT STARTED | NO |
-| `MON-008` | لا noisy alerts ولا notification spam — ترتيب حسب الأولوية | M25-119, M25-188 |  |  |  |  | NOT STARTED | NO |
-| `MON-009` | V1: الإشعارات داخل الـDashboard فقط | M25-186 |  |  |  |  | NOT STARTED | NO |
-| `MON-010` | مستقبلًا: Email / WhatsApp / Push — فقط إذا اعتُمدت | M25-187 |  |  |  |  | NOT STARTED | N/A |
-| `MON-011` | مراقبة ما بعد الإطلاق: Day 1 · 3 · 7 · 14 · 30 — المشروع لا ينتهي عند الـLaunch | M01-237, M01-238, M11-115 | GEP-§45/§54/§55, D-046 | docs/google/GOOGLE-ECOSYSTEM-POLICY.md §54 After Launch · §55 Traffic Drop Alert · docs/google/POST-LAUNCH-GOOGLE-CHECKLIST.md |  |  | NOT STARTED | NO |
+| `MON-007` | Alerts / Attention Needed داخل الـDashboard | M25-118, M32, M33, M35 |  |  |  |  | NOT STARTED | NO |
+| `MON-008` | لا noisy alerts ولا notification spam — ترتيب حسب الأولوية | M25-119, M25-188, M35 |  |  |  |  | NOT STARTED | NO |
+| `MON-009` | V1: الإشعارات داخل الـDashboard فقط | M25-186, M28, M29, M35 |  |  |  |  | NOT STARTED | NO |
+| `MON-010` | مستقبلًا: Email / WhatsApp / Push — فقط إذا اعتُمدت | M25-187, M28 |  |  |  |  | NOT STARTED | N/A |
+| `MON-011` | مراقبة ما بعد الإطلاق: Day 1 · 3 · 7 · 14 · 30 — المشروع لا ينتهي عند الـLaunch | M01-237, M01-238, M11-115, M35 | GEP-§45/§54/§55, D-046 | docs/google/GOOGLE-ECOSYSTEM-POLICY.md §54 After Launch · §55 Traffic Drop Alert · docs/google/POST-LAUNCH-GOOGLE-CHECKLIST.md |  |  | NOT STARTED | NO |
 | `MON-012` | هبوط الزيارات بعد الـMigration: لا افتراض للسبب — فحص منهجي ثم Diagnosis | M11-116 | GEP-§45/§54/§55 | docs/google/GOOGLE-ECOSYSTEM-POLICY.md §54 After Launch · §55 Traffic Drop Alert |  |  | NOT STARTED | N/A |
-| `MON-013` | مستقبلًا: فحص دوري لتطابق GBP مع الموقع | M11-098 | GEP-§45/§54/§55, D-043 | docs/google/GOOGLE-ECOSYSTEM-POLICY.md §45 GBP Monitoring · docs/google/BRANCH-DATA-SYNC.md |  |  | NOT STARTED | N/A |
+| `MON-013` | مستقبلًا: فحص دوري لتطابق GBP مع الموقع | M11-098, M33 | GEP-§45/§54/§55, D-043 | docs/google/GOOGLE-ECOSYSTEM-POLICY.md §45 GBP Monitoring · docs/google/BRANCH-DATA-SYNC.md |  |  | NOT STARTED | N/A |
 | `GOV-001` | الـOwner هو المرجع النهائي (Final Authority / Source of Truth) | M01-038, M11-008, M27-033 | GEP-§2, GEP-GOLDEN, D-047 | docs/google/GOOGLE-ECOSYSTEM-POLICY.md §2, §57 · docs/governance/DECISION-LOG.md (header) |  |  | IMPLEMENTED — NOT TESTED | NO |
-| `GOV-002` | Source Priority وإجراء تعارض المصادر (A · B · Difference · Correction) | M11-009, M11-010, M11-011, M11-120, M11-125, M23-212 | D-047, GEP-§2, GEP-GOLDEN, D-048, D-060 | docs/google/GOOGLE-ECOSYSTEM-POLICY.md §2, §5 · docs/google/BRANCH-DATA-SYNC.md |  |  | IMPLEMENTED — NOT TESTED | NO |
+| `GOV-002` | Source Priority وإجراء تعارض المصادر (A · B · Difference · Correction) | M11-009, M11-010, M11-011, M11-120, M11-125, M23-212, M33, M38 | D-047, GEP-§2, GEP-GOLDEN, D-048, D-060 | docs/google/GOOGLE-ECOSYSTEM-POLICY.md §2, §5 · docs/google/BRANCH-DATA-SYNC.md |  |  | IMPLEMENTED — NOT TESTED | NO |
 | `GOV-003` | أي معلومة من الموقع القديم أو مصدر خارجي = PENDING OWNER VERIFICATION | M01-009, M01-039, M01-040 | D-000, D-003 | docs/phase-01-discovery/00-access-and-method.md §6 · docs/phase-01-discovery/04-content-approval-register.md |  |  | IMPLEMENTED — NOT TESTED | NO |
-| `GOV-004` | OLD WEBSITE = INFORMATION SOURCE ONLY — إعادة بناء من الصفر | M01-005, M01-007 | D-000 | docs/governance/DECISION-LOG.md D-000 |  |  | IMPLEMENTED — NOT TESTED | NO |
-| `GOV-005` | ترتيب السلطة لتحديد الحقيقة (Authority Order — M27 §42) | M27-153, M27-154 |  |  |  |  | PARTIAL | NO |
+| `GOV-004` | OLD WEBSITE = INFORMATION SOURCE ONLY — إعادة بناء من الصفر | M01-005, M01-007, M29 | D-000 | docs/governance/DECISION-LOG.md D-000 |  |  | IMPLEMENTED — NOT TESTED | NO |
+| `GOV-005` | ترتيب السلطة لتحديد الحقيقة (Authority Order — M27 §42) | M27-153, M27-154, M29 |  |  |  |  | PARTIAL | NO |
 | `GOV-006` | المحادثة كاملة = مشروع واحد؛ لا يضيع أي Requirement (One Project Brain) | M27-001, M27-004, M27-005, M27-007, M27-156 |  |  |  |  | PARTIAL | NO |
-| `GOV-007` | آخر قرار صريح يتقدم، والتصحيح اللاحق يلغي القديم (قاعدتا التعارض 1 و3) | M27-008, M27-010 | D-018, D-057, D-058 |  |  |  | PARTIAL | NO |
+| `GOV-007` | آخر قرار صريح يتقدم، والتصحيح اللاحق يلغي القديم (قاعدتا التعارض 1 و3) | M27-008, M27-010, M36 | D-018, D-057, D-058 |  |  |  | PARTIAL | NO |
 | `GOV-008` | قرار الـOwner فوق أي اقتراح؛ اقتراح Claude ليس قرارًا (قاعدتا 2 و5) | M27-009, M27-012 | DL-RULE-01 | docs/governance/DECISION-LOG.md §الحالات |  |  | IMPLEMENTED — NOT TESTED | NO |
-| `GOV-009` | السكوت ليس موافقة (Silence ≠ Approval) | M01-043, M27-013, M14-053 | DL-RULE-01, CAR-RULE-01, D-060 | docs/governance/DECISION-LOG.md (header) · docs/phase-01-discovery/04-content-approval-register.md (header) · docs/phase-01-discovery/14-contact-architecture-and-whatsapp.md (CT-06) · docs/phase-01-discovery/15-root-gateway-wireframe.md (RG-01) |  |  | IMPLEMENTED — NOT TESTED | NO |
+| `GOV-009` | السكوت ليس موافقة (Silence ≠ Approval) | M01-043, M27-013, M14-053, M38 | DL-RULE-01, CAR-RULE-01, D-060 | docs/governance/DECISION-LOG.md (header) · docs/phase-01-discovery/04-content-approval-register.md (header) · docs/phase-01-discovery/14-contact-architecture-and-whatsapp.md (CT-06) · docs/phase-01-discovery/15-root-gateway-wireframe.md (RG-01) |  |  | IMPLEMENTED — NOT TESTED | NO |
 | `GOV-010` | لا تغيير لقرار معتمد ولا إعادة فتح لقرار FROZEN بدون Conflict حقيقي (قاعدة 4) | M01-243, M27-011, M23-003, M25-219 | DL-RULE-02, D-142, F-23, D-030 | docs/menu-ia/MENU-DECISION-REGISTER.md §1 |  |  | IMPLEMENTED — NOT TESTED | NO |
 | `GOV-011` | ممنوع حل التعارض بصمت (No Silent Conflict Resolution) | M27-006, M27-030, M23-237 | MDR-RULE-01 | docs/menu-ia/MENU-DECISION-REGISTER.md §4 |  |  | PARTIAL | NO |
 | `GOV-012` | docs/CONFLICT-REGISTER.md وإجراء حسم التعارض | M27-027, M27-028 |  |  |  |  | NOT STARTED | NO |
-| `GOV-013` | توثيق القرارات المستبدلة بدون حذف التاريخ (OLD → SUPERSEDED BY → Current) | M27-026 | D-045, D-088, D-108, D-123 | docs/governance/DECISION-LOG.md |  |  | NEEDS FIX | NO |
+| `GOV-013` | توثيق القرارات المستبدلة بدون حذف التاريخ (OLD → SUPERSEDED BY → Current) | M27-026, M36 | D-045, D-088, D-108, D-123 | docs/governance/DECISION-LOG.md |  |  | NEEDS FIX | NO |
 | `GOV-014` | Continuous Sync: كل Prompt جديد يُقارن تلقائيًا بالمرجع | M27-150 |  |  |  |  | NOT STARTED | NO |
-| `GOV-015` | تفويض القرارات: التقني/UX لـClaude؛ Business/Content للـOwner | M23-007, M23-247, M25-217, M25-218, M27-014, M27-015 | D-142 | docs/menu-ia/MENU-DECISION-REGISTER.md §5 · docs/menu-ia/UX-VALIDATION.md §3 |  |  | PARTIAL | NO |
+| `GOV-015` | تفويض القرارات: التقني/UX لـClaude؛ Business/Content للـOwner | M23-007, M23-247, M25-217, M25-218, M27-014, M27-015, M29, M36, M38 | D-142 | docs/menu-ia/MENU-DECISION-REGISTER.md §5 · docs/menu-ia/UX-VALIDATION.md §3 |  |  | PARTIAL | NO |
 | `GOV-016` | عرض Options A / B / C مع أثر كل خيار ثم ترك الاختيار للـOwner | M01-082, M01-083 |  | docs/phase-01-discovery/05-decisions-before-design.md |  |  | IMPLEMENTED — NOT TESTED | NO |
 | `GOV-017` | الفكرة الأفضل تُعرض ولا تُنفذ مباشرة (Better Idea Protocol) | M01-244, M14-008 | D-061 |  |  |  | IMPLEMENTED — NOT TESTED | NO |
 | `GOV-018` | ترتيب الأولويات عند التعارض التقني — ولا يُستخدم لتغيير قرار تجاري | M01-245, M01-246 | D-004 |  |  |  | IMPLEMENTED — NOT TESTED | NO |
 | `GOV-019` | معايير كل قرار في مرحلة المنيو + Simplicity wins | M23-256, M23-257 | D-142, D-147 | docs/menu-ia/UX-VALIDATION.md |  |  | IMPLEMENTED — NOT TESTED | PROTOTYPE |
 | `GOV-020` | المشروع ليس Vibe Coding — Architecture أولًا | M01-011 | D-005, D-001 |  |  |  | IMPLEMENTED — NOT TESTED | NO |
-| `GOV-021` | دور Claude: فريق خبراء متكامل وليس راسم شاشات | M01-010, M23-255 |  |  |  |  | IMPLEMENTED — NOT TESTED | N/A |
-| `GOV-022` | ممنوع تخمين أو اختراع أي Business data — الناقص يُعلَّم ولا يُملأ | M02-003, M14-001, M23-005, M25-064, M27-031 | D-003, D-017, D-081, F-23 | docs/phase-01-discovery/04-content-approval-register.md §B · docs/menu-ia/MENU-DECISION-REGISTER.md §3 |  |  | IMPLEMENTED — NOT TESTED | NO |
+| `GOV-021` | دور Claude: فريق خبراء متكامل وليس راسم شاشات | M01-010, M23-255, M36 |  |  |  |  | IMPLEMENTED — NOT TESTED | N/A |
+| `GOV-022` | ممنوع تخمين أو اختراع أي Business data — الناقص يُعلَّم ولا يُملأ | M02-003, M14-001, M23-005, M25-064, M27-031, M38 | D-003, D-017, D-081, F-23 | docs/phase-01-discovery/04-content-approval-register.md §B · docs/menu-ia/MENU-DECISION-REGISTER.md §3 |  |  | IMPLEMENTED — NOT TESTED | NO |
 | `GOV-023` | الوسوم الموحدة: MISSING — OWNER INPUT REQUIRED / NEEDS OWNER VERIFICATION | M01-051, M03-061, M03-062 | D-017 |  |  |  | IMPLEMENTED — NOT TESTED | NO |
-| `GOV-024` | مفردات حالة Business data (M27 §7) وتوحيدها مع حالات السجلات | M27-032 | CAR-RULE-01 |  |  |  | PARTIAL | NO |
+| `GOV-024` | مفردات حالة Business data (M27 §7) وتوحيدها مع حالات السجلات | M27-032, M32 | CAR-RULE-01 |  |  |  | PARTIAL | NO |
 | `GOV-025` | مسار اعتماد أي معلومة تظهر للزوار | M01-041 | D-003 | docs/phase-01-discovery/04-content-approval-register.md · docs/governance/APPROVED-ASSET-LIBRARY.md |  |  | IMPLEMENTED — NOT TESTED | NO |
-| `GOV-026` | بوابة النشر: لا نشر بدون موافقة صريحة؛ فقط APPROVED قابل للنشر | M01-029, M01-042, M01-054 | CAR-RULE-01, F-23, D-003, D-002 | docs/phase-01-discovery/04-content-approval-register.md (header) · docs/menu-ia/MENU-DECISION-REGISTER.md F-23 |  |  | IMPLEMENTED — NOT TESTED | NO |
-| `GOV-027` | Content Approval Register (الأعمدة والحالات) | M01-052, M01-053 | CAR-RULE-01, D-003 | docs/phase-01-discovery/04-content-approval-register.md |  |  | NEEDS FIX | NO |
+| `GOV-026` | بوابة النشر: لا نشر بدون موافقة صريحة؛ فقط APPROVED قابل للنشر | M01-029, M01-042, M01-054, M32 | CAR-RULE-01, F-23, D-003, D-002 | docs/phase-01-discovery/04-content-approval-register.md (header) · docs/menu-ia/MENU-DECISION-REGISTER.md F-23 |  |  | IMPLEMENTED — NOT TESTED | NO |
+| `GOV-027` | Content Approval Register (الأعمدة والحالات) | M01-052, M01-053, M32 | CAR-RULE-01, D-003 | docs/phase-01-discovery/04-content-approval-register.md |  |  | NEEDS FIX | NO |
 | `GOV-028` | قائمة المعلومات التي تحتاج موافقة الـOwner (Phase 01 بند 5) | M01-254 | D-003 | docs/phase-01-discovery/03-verify-with-owner.md |  |  | NEEDS FIX | NO |
-| `GOV-029` | تسلسل المشروع الإلزامي (36 مرحلة) | M01-030 | D-001 | docs/phase-01-discovery/README.md (Exit Criteria) |  |  | PARTIAL | N/A |
-| `GOV-030` | بوابة المراحل: لا قفز قبل اعتماد المرحلة الحالية + إجراء كل مرحلة (10 خطوات) | M01-031, M01-241 | D-001 |  |  |  | IMPLEMENTED — NOT TESTED | NO |
-| `GOV-031` | الأسئلة على مراحل ودفعات قصيرة مرتبة حسب الأثر — لا 50 سؤالًا دفعة واحدة | M01-239, M02-004, M02-009 | D-017 | docs/phase-01-discovery/07-question-backlog.md |  |  | IMPLEMENTED — NOT TESTED | NO |
+| `GOV-029` | تسلسل المشروع الإلزامي (36 مرحلة) | M01-030, M36 | D-001 | docs/phase-01-discovery/README.md (Exit Criteria) |  |  | PARTIAL | N/A |
+| `GOV-030` | بوابة المراحل: لا قفز قبل اعتماد المرحلة الحالية + إجراء كل مرحلة (10 خطوات) | M01-031, M01-241, M36 | D-001 |  |  |  | IMPLEMENTED — NOT TESTED | NO |
+| `GOV-031` | الأسئلة على مراحل ودفعات قصيرة مرتبة حسب الأثر — لا 50 سؤالًا دفعة واحدة | M01-239, M02-004, M02-009, M38 | D-017 | docs/phase-01-discovery/07-question-backlog.md |  |  | IMPLEMENTED — NOT TESTED | NO |
 | `GOV-032` | السؤال الحرج للـArchitecture يُطرح فورًا | M03-060 | D-017 |  |  |  | IMPLEMENTED — NOT TESTED | NO |
 | `GOV-033` | اكتشاف النواقص ذاتيًا وسؤال الـOwner مباشرة (قائمة التغطية 27 مجالًا) | M02-002, M02-005, M02-008 | D-017 | docs/phase-01-discovery/07-question-backlog.md · docs/phase-01-discovery/08-access-requests.md |  |  | IMPLEMENTED — NOT TESTED | NO |
 | `GOV-034` | لا إعادة سؤال عن معلومة معتمدة — البحث في المرجع أولًا | M04-057, M13-044, M27-128 | D-030, D-057 |  |  |  | PARTIAL | NO |
-| `GOV-035` | الناقص/المعلق لا يوقف العمل غير المتأثر؛ السؤال فقط عند المنع | M10-056, M14-049, M15-015, M15-061, M18-011, M21-011, M23-006, M27-029, M27-134 | D-045, D-074, D-077, D-094, D-121, D-137 | docs/menu-ia/MENU-DECISION-REGISTER.md §2 |  |  | IMPLEMENTED — NOT TESTED | NO |
+| `GOV-035` | الناقص/المعلق لا يوقف العمل غير المتأثر؛ السؤال فقط عند المنع | M10-056, M14-049, M15-015, M15-061, M18-011, M21-011, M23-006, M27-029, M27-134, M36, M38 | D-045, D-074, D-077, D-094, D-121, D-137 | docs/menu-ia/MENU-DECISION-REGISTER.md §2 |  |  | IMPLEMENTED — NOT TESTED | NO |
 | `GOV-036` | صيغة مراجعات الـOwner: مجموعات مختصرة وفقط ما لا يمكن استنتاجه | M15-009, M18-009, M18-047, M18-049, M19-039, M21-012, M21-014 | D-108, D-123, D-126, D-132, D-137 | docs/phase-01-discovery/19-menu-p0-owner-review.md · docs/phase-01-discovery/20-menu-pre-v1-review.md |  |  | IMPLEMENTED — NOT TESTED | NO |
 | `GOV-037` | لا يُطلب من الـOwner تعبئة قوالب أو إعادة كتابة معلومات موجودة في ملفاته | M15-003, M15-008, M17-001 | D-075 |  |  |  | IMPLEMENTED — NOT TESTED | NO |
 | `GOV-038` | لا عمل يدوي على الـOwner إذا أمكن التنفيذ (استثناءات محددة) | M12-009, M12-068 | D-051 | docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §A |  |  | NOT STARTED | N/A |
-| `GOV-039` | PHASE 01 — DISCOVERY & OWNER INTERVIEW فقط وقيودها | M01-249, M01-250, M11-121 | D-002, D-017 | docs/phase-01-discovery/README.md · docs/phase-01-discovery/00-access-and-method.md |  |  | IMPLEMENTED — NOT TESTED | NO |
-| `GOV-040` | بوابة كود الموقع: لا Coding/Framework قبل اعتماد الـArchitecture | M01-022, M01-023, M01-258, M03-064 | D-002, D-017, D-015, D-031, D-052 | docs/phase-01-discovery/README.md · docs/phase-01-discovery/10-url-architecture-draft.md · docs/phase-01-discovery/13-root-and-international-seo-plan.md |  |  | IMPLEMENTED — NOT TESTED | NO |
+| `GOV-039` | PHASE 01 — DISCOVERY & OWNER INTERVIEW فقط وقيودها | M01-249, M01-250, M11-121, M36 | D-002, D-017 | docs/phase-01-discovery/README.md · docs/phase-01-discovery/00-access-and-method.md |  |  | IMPLEMENTED — NOT TESTED | NO |
+| `GOV-040` | بوابة كود الموقع: لا Coding/Framework قبل اعتماد الـArchitecture | M01-022, M01-023, M01-258, M03-064, M36 | D-002, D-017, D-015, D-031, D-052 | docs/phase-01-discovery/README.md · docs/phase-01-discovery/10-url-architecture-draft.md · docs/phase-01-discovery/13-root-and-international-seo-plan.md |  |  | IMPLEMENTED — NOT TESTED | NO |
 | `GOV-041` | تسلسل جولات Discovery (R1 → R2 → R2P → R2B → R3 → Menu) | M02-001, M03-063, M10-001, M10-057, M11-131, M14-048, M14-050, M15-001 | D-045, D-074 | docs/phase-01-discovery/07-question-backlog.md · docs/phase-01-discovery/README.md |  |  | IMPLEMENTED — NOT TESTED | N/A |
 | `GOV-042` | تحديد أهم القرارات قبل التصميم (Phase 01 بند 6) | M01-255 | D-001 | docs/phase-01-discovery/05-decisions-before-design.md |  |  | NEEDS FIX | N/A |
 | `GOV-043` | أسئلة Phase 01: Pages · Nav · Homepage · Menu · Locations · Blog · Contact | M01-256 | D-014, D-015, D-020 | docs/phase-01-discovery/07-question-backlog.md |  |  | PARTIAL | N/A |
 | `GOV-044` | تسلسل عمل المنيو (R3 → Inventory → Data Model → Menu IA → اعتماد → Menu UX/UI) | M15-007, M15-059, M15-089, M15-091, M18-001, M18-045, M18-050, M19-040, M20-033, M21-022 | D-088, D-108, D-123, D-134, D-135, D-141, D-142, D-143 | docs/phase-01-discovery/16-menu-intake-and-ssot.md · docs/phase-01-discovery/21-menu-inventory-v1.0-freeze-report.md · docs/menu-ia/README.md |  |  | IMPLEMENTED — NOT TESTED | N/A |
 | `GOV-045` | تطبيق القرارات على الـInventory مع إبقاء Source Data untouched | M19-001, M20-027 | D-092, D-133, D-134 | docs/phase-01-discovery/21-menu-inventory-v1.0-freeze-report.md · docs/phase-01-discovery/17-menu-data-model-draft.md |  |  | IMPLEMENTED — NOT TESTED | NO |
 | `GOV-046` | Menu Data Model كامل قبل أي UI للمنيو | M15-052 | D-086, D-135, D-136 | docs/phase-01-discovery/17-menu-data-model-draft.md · docs/menu-ia/SHELTER-MENU-IA-SPEC.md |  |  | IMPLEMENTED — NOT TESTED | N/A |
-| `GOV-047` | بوابة Menu UI: لا Visual/Production UI قبل اعتماد IA + Wireframes | M15-058, M21-023, M21-043, M23-004, M23-227, M23-263 | D-141, D-142, D-143, F-23 | docs/menu-ia/README.md · docs/menu-ia/MENU-DECISION-REGISTER.md F-23 |  |  | IMPLEMENTED — NOT TESTED | NO |
+| `GOV-047` | بوابة Menu UI: لا Visual/Production UI قبل اعتماد IA + Wireframes | M15-058, M21-023, M21-043, M23-004, M23-227, M23-263, M36 | D-141, D-142, D-143, F-23 | docs/menu-ia/README.md · docs/menu-ia/MENU-DECISION-REGISTER.md F-23 |  |  | IMPLEMENTED — NOT TESTED | NO |
 | `GOV-048` | موجز M23 هو المرجع التنفيذي الأحدث لمرحلة MENU IA / UX / WIREFRAME | M23-001, M23-002 | D-142, MDR-RULE-01 | docs/menu-ia/MENU-DECISION-REGISTER.md |  |  | IMPLEMENTED — NOT TESTED | N/A |
 | `GOV-049` | مراحل عمل المنيو PHASE A → J + Phase A (التحقق) ومخرجها MENU-DECISION-REGISTER | M23-234, M23-235, M23-236, M23-261 | D-142 | docs/menu-ia/MENU-DECISION-REGISTER.md · docs/menu-ia/README.md |  |  | IMPLEMENTED — NOT TESTED | N/A |
 | `GOV-050` | تصحيح كل مشاكل P0 قبل عرض الـWireframes النهائية | M23-245 | D-142 | docs/menu-ia/UX-VALIDATION.md | tooling/viewports.mjs | tooling/tests/prototype/menu-wireframe.spec.mjs · tooling/tests/prototype/responsive.spec.mjs | TESTED | PROTOTYPE |
 | `GOV-051` | صيغة العرض النهائي لمرحلة المنيو (18 بندًا — ليس تقريرًا نصيًا ضخمًا) | M23-252, M23-253 | D-142 | docs/menu-ia/README.md |  |  | IMPLEMENTED — NOT TESTED | N/A |
-| `GOV-052` | بعد عرض المنيو النهائي: توقف + موافقة + مراجعة خارجية قبل التصميم/الكود | M23-254, M23-264 | D-142 | docs/menu-ia/README.md |  |  | PARTIAL | N/A |
+| `GOV-052` | بعد عرض المنيو النهائي: توقف + موافقة + مراجعة خارجية قبل التصميم/الكود | M23-254, M23-264, M36 | D-142 | docs/menu-ia/README.md |  |  | PARTIAL | N/A |
 | `GOV-053` | Dashboard: Audit أولًا (لا بناء Blind) — SHELTER DASHBOARD AUDIT + Inventory | M25-167, M25-168, M25-169, M25-212 |  |  |  |  | NOT STARTED | NO |
-| `GOV-054` | ترتيب تنفيذ الـDashboard الإلزامي PHASE A → N | M25-192, M25-211, M25-213 | D-001 |  |  |  | NOT STARTED | N/A |
-| `GOV-055` | بوابة الـDashboard: لا كود قبل موافقة PHASE H على Architecture + Wireframes | M25-177, M25-193, M25-210, M25-215, M25-216 |  |  |  |  | NOT STARTED | N/A |
-| `GOV-056` | وثائق الـDashboard الست (Architecture · Measurement · CMS · Health · Perms) | M25-197, M25-198, M25-199, M25-200, M25-201, M25-202 |  |  |  |  | NOT STARTED | NO |
+| `GOV-054` | ترتيب تنفيذ الـDashboard الإلزامي PHASE A → N | M25-192, M25-211, M25-213, M36 | D-001 |  |  |  | NOT STARTED | N/A |
+| `GOV-055` | بوابة الـDashboard: لا كود قبل موافقة PHASE H على Architecture + Wireframes | M25-177, M25-193, M25-210, M25-215, M25-216, M36 |  |  |  |  | NOT STARTED | N/A |
+| `GOV-056` | وثائق الـDashboard الست (Architecture · Measurement · CMS · Health · Perms) | M25-197, M25-198, M25-199, M25-200, M25-201, M25-202, M28 |  |  |  |  | NOT STARTED | NO |
 | `GOV-057` | OWNER-DASHBOARD-GUIDE.md بسيط جدًا للـOwner | M25-203, M25-204 |  |  |  |  | NOT STARTED | NO |
-| `GOV-058` | حدود عمل المطوّر: functionality · architecture · integrations · redesign | M25-208 |  |  |  |  | NOT STARTED | N/A |
+| `GOV-058` | حدود عمل المطوّر: functionality · architecture · integrations · redesign | M25-208, M35 |  |  |  |  | NOT STARTED | N/A |
 | `GOV-059` | Google Ecosystem Policy إلزامية طوال المشروع وجزء من البنية من البداية | M11-001, M11-002, M11-003, M11-118, M11-122, M11-132 | D-046, GEP-GOLDEN | docs/google/GOOGLE-ECOSYSTEM-POLICY.md |  |  | IMPLEMENTED — NOT TESTED | N/A |
-| `GOV-060` | DO NOT CHANGE GOOGLE DATA WITHOUT OWNER APPROVAL | M11-119 | GEP-GOLDEN, D-043, D-046, D-051 | docs/google/GOOGLE-ECOSYSTEM-POLICY.md §44, §57 |  |  | IMPLEMENTED — NOT TESTED | NO |
+| `GOV-060` | DO NOT CHANGE GOOGLE DATA WITHOUT OWNER APPROVAL | M11-119, M33 | GEP-GOLDEN, D-043, D-046, D-051 | docs/google/GOOGLE-ECOSYSTEM-POLICY.md §44, §57 |  |  | IMPLEMENTED — NOT TESTED | NO |
 | `GOV-061` | ملكية تنفيذ منظومة Google: Claude يربط ويضبط ويختبر ويوثق (ليس توصيات فقط) | M12-001, M12-002, M12-004, M12-005, M12-008, M12-075, M12-079, M13-017 | D-051, D-055 | docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md |  |  | NOT STARTED | NO |
 | `GOV-062` | بوابة تنفيذ Google: فقط عند مرحلة التنفيذ وبعد منح الصلاحيات | M12-003 | D-051, GIO-§A22/§A23 | docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md (header) |  |  | IMPLEMENTED — NOT TESTED | NO |
 | `GOV-063` | وثائق Google (M11 §56) + Checklist + قائمة الصلاحيات المطلوبة | M11-117, M11-123, M11-130 | D-046, D-049, D-050 | docs/google/GOOGLE-ECOSYSTEM-CHECKLIST.md · docs/google/GOOGLE-INTEGRATION-ARCHITECTURE.md · docs/phase-01-discovery/08-access-requests.md |  |  | PARTIAL | N/A |
@@ -774,22 +900,27 @@
 | `GOV-068` | استخراج المتطلبات بنظام Traceable (IDs ثابتة PREFIX-NNN والحقول) | M27-018, M27-019, M27-020, M27-021 |  |  |  |  | PARTIAL | NO |
 | `GOV-069` | Prompt Audit: تصنيف A–I وعدم تحويل الأسئلة/الأمثلة إلى متطلبات | M27-022, M27-023 |  |  |  |  | PARTIAL | NO |
 | `GOV-070` | Existing Project Audit: WHAT I REQUESTED vs WHAT EXISTS وحالات التنفيذ | M27-034, M27-035 |  |  |  |  | PARTIAL | NO |
-| `GOV-071` | ممنوع ادعاء الإنجاز: DONE / IMPLEMENTED / TESTED / VERIFIED فقط بعد تحقق فعلي | M27-149 |  |  |  |  | PARTIAL | NO |
+| `GOV-071` | ممنوع ادعاء الإنجاز: DONE / IMPLEMENTED / TESTED / VERIFIED فقط بعد تحقق فعلي | M27-149, M36 |  |  |  |  | PARTIAL | NO |
 | `GOV-072` | IMPLEMENTATION-GAP-ANALYSIS.md + قرار KEEP/…/REMOVE لكل Module | M27-037, M27-139, M27-140 |  |  |  |  | NOT STARTED | NO |
-| `GOV-073` | SHELTER-WEBSITE-MASTER-REQUIREMENTS.md = SSOT بلا فقدان تفاصيل | M27-038, M27-039, M27-148 |  |  |  |  | NOT STARTED | NO |
+| `GOV-073` | SHELTER-WEBSITE-MASTER-REQUIREMENTS.md = SSOT بلا فقدان تفاصيل | M27-038, M27-039, M27-148, M32, M35 |  |  |  |  | NOT STARTED | NO |
 | `GOV-074` | docs/PENDING-OWNER-INPUT.md (Pending Register) — فقط ما يحتاج الـOwner | M27-131, M27-132, M27-133, M23-262 |  |  |  |  | NOT STARTED | NO |
 | `GOV-075` | REQUIREMENTS-TRACEABILITY-MATRIX.md (Requirement → … → Test) | M27-135 |  |  |  |  | NOT STARTED | NO |
-| `GOV-076` | Implementation Plan واحدة للمشروع كامل — لا خطط متعارضة | M27-136, M27-137 |  |  |  |  | NOT STARTED | NO |
+| `GOV-076` | Implementation Plan واحدة للمشروع كامل — لا خطط متعارضة | M27-136, M27-137, M36 |  |  |  |  | NOT STARTED | NO |
 | `GOV-077` | تعريف الأولويات P0–P3 (لا استخدام عشوائي) | M27-138 |  |  |  |  | PARTIAL | N/A |
-| `GOV-078` | No Duplicate Architecture — ONE SOURCE OF TRUTH | M27-141 |  | docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §C · docs/FRONTEND-TOOLING.md §3 |  |  | PARTIAL | NO |
+| `GOV-078` | No Duplicate Architecture — ONE SOURCE OF TRUTH | M27-141, M32, M34, M36 |  | docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §C · docs/FRONTEND-TOOLING.md §3 |  |  | PARTIAL | NO |
 | `GOV-079` | CLAUDE.md / تعليمات المشروع: مراجع مختصرة للـSource of Truth + قواعد الـTooling | M27-129, M27-130, M24-070 |  |  |  |  | PARTIAL | NO |
 | `GOV-080` | صيغة تقرير التدقيق: Executive Summary (A–M) + تعارضات + Blocking فقط | M27-146, M27-147, M27-158 |  |  |  |  | NOT STARTED | N/A |
-| `GOV-081` | بوابة M27: لا Feature جديدة قبل اكتمال التدقيق؛ البوابات السابقة تبقى | M27-016, M27-126, M27-127 |  |  |  |  | PARTIAL | N/A |
-| `GOV-082` | بعد الوثائق السبع: تنفيذ العمل الموافق عليه مع احترام البوابات | M27-155 |  |  |  |  | NOT STARTED | N/A |
+| `GOV-081` | بوابة M27: لا Feature جديدة قبل اكتمال التدقيق؛ البوابات السابقة تبقى | M27-016, M27-126, M27-127, M36 |  |  |  |  | PARTIAL | N/A |
+| `GOV-082` | بعد الوثائق السبع: تنفيذ العمل الموافق عليه مع احترام البوابات | M27-155, M36 |  |  |  |  | NOT STARTED | N/A |
 | `GOV-083` | صيانة الموقع القديم مسار منفصل يُسجل في Risk Register ولا يشغل المشروع | M10-031 | D-037, RISK-01, RR-RULE-01 | docs/governance/RISK-REGISTER.md |  |  | IMPLEMENTED — NOT TESTED | N/A |
 | `GOV-084` | نطاق مهمة M24: Tooling + Quality Infrastructure فقط | M24-063 |  |  | tooling/package.json · design-system/tokens/tokens.template.json |  | IMPLEMENTED — NOT TESTED | N/A |
-| `GOV-085` | docs/FRONTEND-TOOLING.md | M24-069 |  | docs/FRONTEND-TOOLING.md | tooling/package.json |  | IMPLEMENTED — NOT TESTED | N/A |
-| `GOV-086` | Definition of Done — الموافقات المطلوبة قبل اعتبار الموقع Finished | M01-233, M01-234 |  | docs/FRONTEND-TOOLING.md §5 |  |  | NOT STARTED | NO |
+| `GOV-085` | docs/FRONTEND-TOOLING.md | M24-069, M37 |  | docs/FRONTEND-TOOLING.md | tooling/package.json |  | IMPLEMENTED — NOT TESTED | N/A |
+| `GOV-086` | Definition of Done — الموافقات المطلوبة قبل اعتبار الموقع Finished | M01-233, M01-234, M35 |  | docs/FRONTEND-TOOLING.md §5 |  |  | NOT STARTED | NO |
+| `GOV-087` | قاعدة التوضيح النهائية — OWNER APPROVED · FROZEN · GLOBAL PROJECT RULE | M38-000, M38-001, M38-002, M38-003, M38-004, M38-005, M38-013, M38-099 |  | CLAUDE.md |  |  | IMPLEMENTED — NOT TESTED | NO |
+| `GOV-088` | التعارض غير المحسوم: A / B / Impact / Recommendation ثم السؤال | M38-006 |  | CLAUDE.md · docs/CONFLICT-REGISTER.md |  |  | IMPLEMENTED — NOT TESTED | NO |
+| `GOV-089` | لا إصلاح صامت لبيانات الأعمال — CONFLICT DETECTED | M38-007 |  | CLAUDE.md · docs/MASTER-DATA-HUB.md §10 |  |  | NOT STARTED | NO |
+| `GOV-090` | طريقة السؤال: واضح، واحد واحد، مرتب بالأولوية، وتسجيل الجواب | M38-011, M38-012, M38-014, M38-015 |  | CLAUDE.md |  |  | IMPLEMENTED — NOT TESTED | NO |
+| `GOV-091` | الخدمات الخارجية والتغييرات الحساسة في Production تحتاج موافقة صريحة | M38-009, M38-010 |  | CLAUDE.md · docs/platform/DEPLOYMENT.md |  |  | NOT STARTED | NO |
 | `CONTENT-001` | جرد محتوى الموقع القديم وتصنيفه KEEP/FIX/REMOVE/MISSING/VERIFY | M01-033, M01-037, M01-252, M01-253 | D-000, D-041 | docs/phase-01-discovery/01-current-website-inventory.md · docs/phase-01-discovery/00-access-and-method.md §1 |  |  | PARTIAL | NO |
 | `CONTENT-002` | تحقق الـOwner قبل نشر Awards/Statistics/Claims/SEO texts/FAQ/Blog | M01-049 | D-003, D-038 | docs/phase-01-discovery/04-content-approval-register.md §B, §C |  |  | IMPLEMENTED — NOT TESTED | NO |
 | `CONTENT-003` | لا يكتب Claude Facts عن SHELTER — الـAI ينظم ويعيد الصياغة ويقترح فقط | M27-117, M27-118 | D-003 |  |  |  | IMPLEMENTED — NOT TESTED | NO |
@@ -814,53 +945,72 @@
 | `CONTENT-022` | تصحيحات التسمية المعتمدة (FRAPPE · TURKISH SINGLE/DOUBLE · آيس شيكن …) | M23-154, M23-155, M23-156, M23-157, M23-158 | D-126, D-127, D-129, D-109, F-22 | docs/phase-01-discovery/21-menu-inventory-v1.0-freeze-report.md · docs/menu-ia/MENU-DECISION-REGISTER.md F-22 |  |  | FROZEN | NO |
 | `CONTENT-023` | الاسم العربي لـICED SHAKEN SALTED CARAMEL بانتظار موافقة الـOwner | M23-159 | D-138 | docs/menu-ia/MENU-DECISION-REGISTER.md P-02 |  |  | NOT STARTED | N/A |
 | `CONTENT-024` | لغة الـDashboard سهلة للمالك (عنوان واضح · Reason · Suggested) | M25-148 |  |  |  |  | NOT STARTED | NO |
-| `I18N-001` | العربية أساسية والإنجليزية نسخة كاملة | M03-030, M03-031, M11-047 | D-014 | docs/phase-01-discovery/10-url-architecture-draft.md §3 |  | tooling/tests/prototype/menu-wireframe.spec.mjs | NOT STARTED | PROTOTYPE |
-| `I18N-002` | جاهزية لغات مستقبلية — لا لغة ثالثة معتمدة | M01-074, M03-035 | D-014, D-031 | docs/phase-01-discovery/10-url-architecture-draft.md |  |  | NOT STARTED | N/A |
-| `I18N-003` | RTL/LTR صحيح بلا hacks أحادية الاتجاه | M01-201, M26-044 | D-144 |  |  | tooling/tests/prototype/menu-wireframe.spec.mjs | NOT STARTED | PROTOTYPE |
+| `I18N-001` | العربية أساسية والإنجليزية نسخة كاملة | M03-030, M03-031, M11-047, M28, M29 | D-014 | docs/phase-01-discovery/10-url-architecture-draft.md §3 |  | tooling/tests/prototype/menu-wireframe.spec.mjs | NOT STARTED | PROTOTYPE |
+| `I18N-002` | جاهزية لغات مستقبلية — لا لغة ثالثة معتمدة | M01-074, M03-035, M35 | D-014, D-031 | docs/phase-01-discovery/10-url-architecture-draft.md |  |  | NOT STARTED | N/A |
+| `I18N-003` | RTL/LTR صحيح بلا hacks أحادية الاتجاه | M01-201, M26-044, M34 | D-144 |  |  | tooling/tests/prototype/menu-wireframe.spec.mjs | NOT STARTED | PROTOTYPE |
 | `I18N-004` | كل Responsive Layout يُختبر مرتين: AR RTL و EN LTR | M01-202, M26-043 |  |  | tooling/viewports.mjs | tooling/tests/prototype/menu-wireframe.spec.mjs · tooling/tests/prototype/responsive.spec.mjs | NOT STARTED | PROTOTYPE |
 | `I18N-005` | المنيو ثنائي اللغة: RTL/LTR، أولوية الأسماء معكوسة بالإنجليزية | M23-009, M21-038, M23-043 | D-143, D-144, F-10, F-15, CF-03 | docs/menu-ia/SHELTER-MENU-IA-SPEC.md · docs/phase-01-discovery/22-menu-information-architecture.md |  | tooling/tests/prototype/menu-wireframe.spec.mjs | NOT STARTED | PROTOTYPE |
 | `I18N-006` | صيغة السعر: 3.50 د.أ (AR) · 3.50 JOD (EN) | M23-067 | R-08, F-01, D-089 | docs/menu-ia/MENU-DECISION-REGISTER.md R-08 |  | tooling/tests/prototype/menu-wireframe.spec.mjs | NOT STARTED | PROTOTYPE |
 | `I18N-007` | RG-03: العربية أولًا بصريًا في الجذر (الأردن، Mobile) | M14-023 | D-067 | docs/phase-01-discovery/15-root-gateway-wireframe.md §2 |  |  | NOT STARTED | N/A |
 | `I18N-008` | Language Switch في الـNavigation — دراسة وتصميم | M01-101 | D-067 | docs/phase-01-discovery/13-root-and-international-seo-plan.md §4 |  |  | NOT STARTED | N/A |
-| `I18N-009` | أسماء المنتجات: لا ترجمة نهائية تلقائية — الاعتماد للـOwner وحده | M15-035, M15-081, M15-037 | D-082 | docs/phase-01-discovery/menu/menu-inventory-v1.0.csv |  |  | IMPLEMENTED — NOT TESTED | N/A |
+| `I18N-009` | أسماء المنتجات: لا ترجمة نهائية تلقائية — الاعتماد للـOwner وحده | M15-035, M15-081, M15-037, M32 | D-082 | docs/phase-01-discovery/menu/menu-inventory-v1.0.csv |  |  | IMPLEMENTED — NOT TESTED | N/A |
 | `I18N-010` | قائمة الأصناف التي تحتاج اسمًا عربيًا (Suggested Arabic Name + Reason) | M15-036, M15-080, M15-082 | D-082, D-132 | docs/phase-01-discovery/18-official-menu-inventory-report.md |  |  | IMPLEMENTED — NOT TESTED | N/A |
 | `I18N-011` | الأسماء العربية من المصدر (152) = SOURCE-PROVIDED · PENDING OWNER REVIEW | M18-003, M18-004, M21-009, M21-010, M21-013, M23-161 | D-091, D-137, P-01, CF-03 | docs/menu-ia/MENU-DECISION-REGISTER.md P-01، CF-03 · docs/phase-01-discovery/menu/menu-inventory-v1.0.csv |  |  | IMPLEMENTED — NOT TESTED | N/A |
 | `I18N-012` | طبقات الاسم العربي: source ثابت · normalized/display = الاسم المعتمد | M20-002, M23-162, M23-163 | D-092, F-04, D-093 | docs/phase-01-discovery/menu/menu-inventory-v1.0.csv · docs/menu-ia/MENU-DECISION-REGISTER.md F-04 |  |  | IMPLEMENTED — NOT TESTED | N/A |
 | `I18N-013` | أسماء عربية معتمدة (M20: G6 · G7 · G8 · G9) | M20-001, M20-019, M20-020, M20-021 | D-127, D-128, D-129, D-132 | docs/phase-01-discovery/menu/menu-inventory-v1.0.csv · docs/phase-01-discovery/18-official-menu-inventory-report.md |  |  | IMPLEMENTED — NOT TESTED | N/A |
 | `I18N-014` | الاسم العربي لـICED SHAKEN SALTED CARAMEL — معلّق | M21-016, M21-044 | D-138, P-02 | docs/menu-ia/MENU-DECISION-REGISTER.md P-02 |  |  | NOT STARTED | N/A |
-| `I18N-015` | Dashboard RTL/LTR + Sidebar حسب الاتجاه (اقتراح) | M25-220, M25-142 |  |  |  |  | NOT STARTED | N/A |
+| `I18N-015` | Dashboard RTL/LTR + Sidebar حسب الاتجاه (اقتراح) | M25-220, M25-142, M34 |  |  |  |  | NOT STARTED | N/A |
 | `TOOL-001` | كل أداة في مكانها — لا استخدام لمجرد التوفر | M01-014, M23-224 |  | docs/FRONTEND-TOOLING.md |  |  | PARTIAL | N/A |
 | `TOOL-002` | خريطة مهارات/أدوات Claude المعتمدة والتحقق من توفرها | M01-013, M01-015, M01-016, M01-017, M01-020, M01-251, M22-001 |  |  |  |  | PARTIAL | N/A |
 | `TOOL-003` | الأدوات المحلية المجانية مسموحة بلا موافقة مسبقة | M10-053, M23-226 | D-044, D-029, GEP-§50/§52 | docs/FRONTEND-TOOLING.md §3, §7 |  |  | IMPLEMENTED — NOT TESTED | N/A |
 | `TOOL-004` | Toolchain صغيرة وقوية — أقل مجموعة أدوات بغرض واضح | M24-001 |  | docs/FRONTEND-TOOLING.md | tooling/package.json |  | IMPLEMENTED — NOT TESTED | N/A |
 | `TOOL-005` | فحص البيئة قبل أي تثبيت | M24-064 |  |  | tooling/package.json |  | IMPLEMENTED — NOT TESTED | N/A |
-| `TOOL-006` | لا أدوات/مكتبات مكررة | M24-065, M27-108 |  | docs/FRONTEND-TOOLING.md §1, §3 | tooling/package.json |  | TESTED | YES |
+| `TOOL-006` | لا أدوات/مكتبات مكررة | M24-065, M27-108, M36 |  | docs/FRONTEND-TOOLING.md §1, §3 | tooling/package.json |  | TESTED | YES |
 | `TOOL-007` | SHELTER FRONTEND TOOLING MATRIX (قبل أي تثبيت) | M24-060, M24-061, M24-066 |  | docs/FRONTEND-TOOLING.md §2 |  |  | TESTED | YES |
-| `TOOL-008` | سياسة التثبيت: فقط المجموعة التقنية التي لا تحتاج قرارًا تجاريًا من الـOwner | M24-059, M24-062 |  | docs/FRONTEND-TOOLING.md §1 |  |  | TESTED | YES |
-| `TOOL-009` | كل dependency لها تكلفة: تفضيل الـplatform وتوثيق كل إضافة | M24-057, M24-058 |  | docs/FRONTEND-TOOLING.md §7 |  |  | PARTIAL | N/A |
-| `TOOL-010` | ضبط الأدوات وبناء بنية الجودة (scripts، a11y، perf، Storybook، tokens، images) | M24-067, M24-068 |  |  | tooling/package.json · tooling/playwright.config.mjs · tooling/scripts/ |  | PARTIAL | PROTOTYPE |
+| `TOOL-008` | سياسة التثبيت: فقط المجموعة التقنية التي لا تحتاج قرارًا تجاريًا من الـOwner | M24-059, M24-062, M34 |  | docs/FRONTEND-TOOLING.md §1 |  |  | TESTED | YES |
+| `TOOL-009` | كل dependency لها تكلفة: تفضيل الـplatform وتوثيق كل إضافة | M24-057, M24-058, M32 |  | docs/FRONTEND-TOOLING.md §7 |  |  | PARTIAL | N/A |
+| `TOOL-010` | ضبط الأدوات وبناء بنية الجودة (scripts، a11y، perf، Storybook، tokens، images) | M24-067, M24-068, M34 |  |  | tooling/package.json · tooling/playwright.config.mjs · tooling/scripts/ |  | PARTIAL | PROTOTYPE |
 | `TOOL-011` | Health check وتقرير الحالة | M24-071 |  | docs/FRONTEND-TOOLING.md |  |  | PARTIAL | PROTOTYPE |
-| `TOOL-012` | Tooling Registry لكل الأدوات المناقشة والمثبتة (ومهارات Claude) | M27-107, M27-109 |  | docs/FRONTEND-TOOLING.md §3 |  |  | PARTIAL | N/A |
+| `TOOL-012` | Tooling Registry لكل الأدوات المناقشة والمثبتة (ومهارات Claude) | M27-107, M27-109, M37 |  | docs/FRONTEND-TOOLING.md §3 |  |  | PARTIAL | N/A |
 | `TOOL-013` | Playwright — أداة الاختبار الأساسية (مثبتة) | M24-019, M01-018 |  |  | tooling/playwright.config.mjs · tooling/viewports.mjs | tooling/tests/prototype/menu-wireframe.spec.mjs · tooling/tests/prototype/responsive.spec.mjs · tooling/tests/app/menu.spec.mjs | TESTED | YES |
 | `TOOL-014` | axe-core — فحص الوصولية الآلي (مثبت) | M24-028 |  |  |  | tooling/tests/prototype/menu-wireframe.spec.mjs | TESTED | YES |
-| `TOOL-015` | Google Lighthouse — مثبت مع بوابات وأسباب جذرية | M24-031 |  |  | tooling/scripts/lighthouse.mjs |  | TESTED | YES |
+| `TOOL-015` | Google Lighthouse — مثبت مع بوابات وأسباب جذرية | M24-031, M37 |  |  | tooling/scripts/lighthouse.mjs |  | TESTED | YES |
 | `TOOL-016` | Sharp — خط معالجة صور المنتجات (مثبت) | M24-040 |  |  | tooling/scripts/images.mjs |  | TESTED | YES |
-| `TOOL-017` | Unlighthouse — قبل الإطلاق وفي مراحل QA الكبرى (بعد فحص التوافق) | M24-034, M24-035 |  | docs/FRONTEND-TOOLING.md §2 |  |  | NOT STARTED | NO |
-| `TOOL-018` | sitespeed.io — مرحلة QA وعند الحاجة، ليس في كل build | M24-036, M24-039 |  | docs/FRONTEND-TOOLING.md §2 |  |  | NOT STARTED | NO |
-| `TOOL-019` | shadcn/ui — أساس هندسي فقط، والشكل الافتراضي ممنوع | M24-002 |  | docs/FRONTEND-TOOLING.md §2 |  |  | NOT STARTED | NO |
-| `TOOL-020` | Radix UI Primitives — الأساس السلوكي والوصولي (بلا تكرار) | M24-003, M24-004, M24-005 |  | docs/FRONTEND-TOOLING.md §2 |  |  | NOT STARTED | NO |
-| `TOOL-021` | Tailwind CSS — إذا دعمه الـstack وبعد tokens العلامة | M24-006 |  | docs/FRONTEND-TOOLING.md §2 |  |  | NOT STARTED | NO |
-| `TOOL-022` | Motion — مكتبة الحركة الأساسية (مشروطة بالـstack) | M24-007 |  | docs/FRONTEND-TOOLING.md §2 |  |  | NOT STARTED | NO |
-| `TOOL-023` | Lenis — اختياري، ليس عامًا، وليس على المنيو إلا بإثبات | M24-011 |  | docs/FRONTEND-TOOLING.md §2 |  |  | NOT STARTED | NO |
-| `TOOL-024` | Storybook — ورشة مكونات SHELTER Design System | M24-014 |  | docs/FRONTEND-TOOLING.md §6 |  |  | NOT STARTED | NO |
-| `TOOL-025` | Lucide — نظام أيقونات واحد موحد | M24-017 |  | docs/FRONTEND-TOOLING.md §2 |  |  | NOT STARTED | NO |
-| `TOOL-026` | React Aria — فقط عند حاجة فعلية | M24-045 |  | docs/FRONTEND-TOOLING.md §2 |  |  | NOT STARTED | N/A |
-| `TOOL-027` | المجموعة النهائية المطلوبة (مشروطة بتوافق الـstack) | M24-072, M24-073 |  | docs/FRONTEND-TOOLING.md | tooling/package.json |  | PARTIAL | YES |
-| `PRIV-001` | صفحة سياسة الخصوصية (Privacy Policy) معتمدة ضمن الصفحات | M03-045 | D-015 | docs/governance/DECISION-LOG.md D-015 · docs/phase-01-discovery/04-content-approval-register.md MI-017 |  |  | NOT STARTED | NO |
+| `TOOL-017` | Unlighthouse — قبل الإطلاق وفي مراحل QA الكبرى (بعد فحص التوافق) | M24-034, M24-035, M37 |  | docs/FRONTEND-TOOLING.md §2 |  |  | NOT STARTED | NO |
+| `TOOL-018` | sitespeed.io — مرحلة QA وعند الحاجة، ليس في كل build | M24-036, M24-039, M37 |  | docs/FRONTEND-TOOLING.md §2 |  |  | NOT STARTED | NO |
+| `TOOL-019` | shadcn/ui — أساس هندسي فقط، والشكل الافتراضي ممنوع | M24-002, M34, ADR-001 |  | docs/FRONTEND-TOOLING.md §2 |  |  | NOT STARTED | NO |
+| `TOOL-020` | Radix UI Primitives — الأساس السلوكي والوصولي (بلا تكرار) | M24-003, M24-004, M24-005, M34, ADR-001 |  | docs/FRONTEND-TOOLING.md §2 |  |  | NOT STARTED | NO |
+| `TOOL-021` | Tailwind CSS — إذا دعمه الـstack وبعد tokens العلامة | M24-006, M34, ADR-001 |  | docs/FRONTEND-TOOLING.md §2 |  |  | NOT STARTED | NO |
+| `TOOL-022` | Motion — مكتبة الحركة الأساسية (مشروطة بالـstack) | M24-007, M34, ADR-001 |  | docs/FRONTEND-TOOLING.md §2 |  |  | NOT STARTED | NO |
+| `TOOL-023` | Lenis — اختياري، ليس عامًا، وليس على المنيو إلا بإثبات | M24-011, ADR-001 |  | docs/FRONTEND-TOOLING.md §2 |  |  | NOT STARTED | NO |
+| `TOOL-024` | Storybook — ورشة مكونات SHELTER Design System | M24-014, M34, M37 |  | docs/FRONTEND-TOOLING.md §6 |  |  | NOT STARTED | NO |
+| `TOOL-025` | Lucide — نظام أيقونات واحد موحد | M24-017, M34, ADR-001 |  | docs/FRONTEND-TOOLING.md §2 |  |  | NOT STARTED | NO |
+| `TOOL-026` | React Aria — فقط عند حاجة فعلية | M24-045, M34, ADR-001 |  | docs/FRONTEND-TOOLING.md §2 |  |  | NOT STARTED | N/A |
+| `TOOL-027` | المجموعة النهائية المطلوبة (مشروطة بتوافق الـstack) | M24-072, M24-073, M34 |  | docs/FRONTEND-TOOLING.md | tooling/package.json |  | PARTIAL | YES |
+| `TOOL-028` | Toolchain audit أولًا ثم تثبيت الناقص المفيد فقط (M37) | M37-000, M37-033, M37-034, M37-035 |  | docs/TOOLCHAIN.md |  |  | IMPLEMENTED — NOT TESTED | NO |
+| `TOOL-029` | Storybook = مرجع الـDesign System بحالات كاملة | M37-001, M37-002 |  | docs/TOOLCHAIN.md |  |  | NOT STARTED | NO |
+| `TOOL-030` | الوصولية: axe آليًا + فحص يدوي إلزامي | M37-003 |  | docs/TOOLCHAIN.md |  |  | PARTIAL | NO |
+| `TOOL-031` | Playwright Core QA للصفحات والتدفقات | M37-004 |  | docs/TOOLCHAIN.md |  |  | PARTIAL | NO |
+| `TOOL-032` | Visual regression ببصمات ثابتة وحدود صارمة | M37-005 |  | docs/TOOLCHAIN.md |  |  | PARTIAL | NO |
+| `TOOL-033` | Chrome DevTools أثناء التطوير (لا الاعتماد على Screenshots) | M37-006, M37-008 |  | docs/TOOLCHAIN.md |  |  | NOT STARTED | NO |
+| `TOOL-034` | Lighthouse CI بميزانيات ومراقبة LCP/INP/CLS | M37-007 |  | docs/TOOLCHAIN.md |  |  | PARTIAL | NO |
+| `TOOL-035` | فحص الأنواع والـLint والتنسيق الصارم | M37-009, M37-010, M37-011 |  | docs/TOOLCHAIN.md |  |  | NOT STARTED | NO |
+| `TOOL-036` | Knip لاكتشاف الكود الميت — بلا حذف تلقائي | M37-012 |  | docs/TOOLCHAIN.md |  |  | NOT STARTED | NO |
+| `TOOL-037` | اختبارات وحدات لمنطق الأعمال المهم فقط | M37-013 |  | docs/TOOLCHAIN.md |  |  | NOT STARTED | NO |
+| `TOOL-038` | Security QA: Semgrep CE + Gitleaks + Dependency/Trivy + ZAP على Staging | M37-014, M37-015, M37-016, M37-017 |  | docs/TOOLCHAIN.md |  |  | NOT STARTED | NO |
+| `TOOL-039` | SEO crawl واحد + Structured data QA من Master Data | M37-019, M37-020 |  | docs/TOOLCHAIN.md |  |  | NOT STARTED | NO |
+| `TOOL-040` | خط جودة GitHub Actions ببوابات حرجة وتقسيم ذكي | M37-021, M37-022 |  | docs/TOOLCHAIN.md |  |  | NOT STARTED | NO |
+| `TOOL-041` | استخدام أدوات Claude فعليًا والتوثيق الرسمي قبل أي API | M37-023, M37-024 |  | docs/TOOLCHAIN.md |  |  | PARTIAL | NO |
+| `TOOL-042` | إعادة استخدام المكونات وتنظيم الكود وحدود الوحدات | M37-025, M37-026, M37-027 |  | docs/TOOLCHAIN.md |  |  | NOT STARTED | NO |
+| `TOOL-043` | Security headers مختبرة | M37-028 |  | docs/TOOLCHAIN.md |  |  | NOT STARTED | NO |
+| `TOOL-044` | سياسة الحزم وضبط حجم الحزمة وأداء الـDashboard | M37-029, M37-030, M37-031 |  | docs/TOOLCHAIN.md |  |  | NOT STARTED | NO |
+| `TOOL-045` | فحص جودة التصميم قبل اعتبار أي صفحة جاهزة | M37-032 |  | docs/TOOLCHAIN.md |  |  | NOT STARTED | NO |
+| `TOOL-046` | خط الصور: Original → Variants → WebP/AVIF مع srcset/sizes | M37-018 |  | docs/TOOLCHAIN.md |  |  | PARTIAL | NO |
+| `PRIV-001` | صفحة سياسة الخصوصية (Privacy Policy) معتمدة ضمن الصفحات | M03-045, M32 | D-015 | docs/governance/DECISION-LOG.md D-015 · docs/phase-01-discovery/04-content-approval-register.md MI-017 |  |  | NOT STARTED | NO |
 | `PRIV-002` | صفحة الشروط / Terms عند الحاجة القانونية | M03-046 | D-015 |  |  |  | NOT STARTED | N/A |
 | `PRIV-003` | التحقق مع الـOwner قبل نشر أي معلومة قانونية أو معلومات خصوصية | M01-050 | D-003 | docs/phase-01-discovery/03-verify-with-owner.md VQ-20 |  |  | IMPLEMENTED — NOT TESTED | NO |
-| `PRIV-004` | نموذج التوظيف: Data minimisation وسياسة خصوصية قبل الإطلاق | M03-050 | D-015, RISK-06 | docs/governance/RISK-REGISTER.md RISK-06 · docs/phase-01-discovery/03-verify-with-owner.md VQ-05 |  |  | NOT STARTED | NO |
-| `PRIV-005` | جاهزية Consent: Cookie Consent · Analytics Consent · Marketing Consent | M01-213, M12-052 | GIO-§A22/§A23, D-061 | docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §A22–§A23 |  |  | NOT STARTED | NO |
+| `PRIV-004` | نموذج التوظيف: Data minimisation وسياسة خصوصية قبل الإطلاق | M03-050, M28 | D-015, RISK-06 | docs/governance/RISK-REGISTER.md RISK-06 · docs/phase-01-discovery/03-verify-with-owner.md VQ-05 |  |  | NOT STARTED | NO |
+| `PRIV-005` | جاهزية Consent: Cookie Consent · Analytics Consent · Marketing Consent | M01-213, M12-052, M28, M29, M32 | GIO-§A22/§A23, D-061 | docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §A22–§A23 |  |  | NOT STARTED | NO |
 | `PRIV-006` | Google Consent Mode عند الحاجة | M12-053 | GIO-§A22/§A23 |  |  |  | NOT STARTED | NO |
 | `PRIV-007` | لا تفعيل لأي Advertising Tracking بدون موافقة الـOwner | M12-054 | GIO-§A22/§A23 | docs/google/GTM-TAG-REGISTER.md |  |  | NOT STARTED | NO |
 | `PRIV-008` | أي Tracking يراعي Privacy Policy · Cookie Policy · Consent | M12-055 | GIO-§A22/§A23 |  |  |  | NOT STARTED | NO |
@@ -868,10 +1018,338 @@
 | `PRIV-010` | التقييمات والشهادات (القديمة وGBP): لا نقل بدون موافقة الـOwner ومراجعة الحقوق | M10-036, M10-037, M11-095 | D-039, GEP-§42 | docs/governance/DECISION-LOG.md D-039 · docs/google/GOOGLE-ECOSYSTEM-POLICY.md §42 |  |  | IMPLEMENTED — NOT TESTED | NO |
 | `PRIV-011` | تسجيل استعلامات البحث بشكل Privacy-conscious بدون PII غير ضروري | M23-199, M23-201 | D-149 | docs/menu-ia/MENU-MEASUREMENT-PLAN.md · docs/menu-ia/MENU-DECISION-REGISTER.md CF-10 |  |  | NOT STARTED | NO |
 | `PRIV-012` | ممنوع تخزين الموقع الدقيق للمستخدم (Location analytics) | M25-049 |  |  |  |  | NOT STARTED | NO |
-| `PRIV-013` | تسجيل الأخطاء بدون تخزين PII | M25-075 |  |  |  |  | NOT STARTED | NO |
-| `PRIV-014` | تقليل البيانات: لا نسخ GA4 raw data كاملة بدون سبب | M25-136 |  |  |  |  | NOT STARTED | NO |
-| `UX-001` | Simplicity wins في كل قرار | M27-104 | D-004 | docs/menu-ia/SHELTER-MENU-IA-SPEC.md (المبادئ) · docs/menu-ia/UX-VALIDATION.md |  |  | PARTIAL | N/A |
+| `PRIV-013` | تسجيل الأخطاء بدون تخزين PII | M25-075, M28, M35 |  |  |  |  | NOT STARTED | NO |
+| `PRIV-014` | تقليل البيانات: لا نسخ GA4 raw data كاملة بدون سبب | M25-136, M28 |  |  |  |  | NOT STARTED | NO |
+| `UX-001` | Simplicity wins في كل قرار | M27-104, M32 | D-004 | docs/menu-ia/SHELTER-MENU-IA-SPEC.md (المبادئ) · docs/menu-ia/UX-VALIDATION.md |  |  | PARTIAL | N/A |
 | `UX-002` | مبادئ UX العالمية — الموقع سهل جدًا | M01-091, M01-092 |  | docs/menu-ia/UX-VALIDATION.md |  | tooling/tests/prototype/menu-wireframe.spec.mjs | PARTIAL | PROTOTYPE |
 | `UX-003` | كل صفحة تجيب بسرعة عن أربعة أسئلة — Do not bore the user | M01-093 |  | docs/phase-01-discovery/12-homepage-screenshots-audit.md §6 |  |  | NOT STARTED | NO |
-| `UX-004` | Friction Audit لكل Flow | M01-095, M27-105 |  | docs/menu-ia/UX-VALIDATION.md · docs/menu-ia/USER-FLOWS.md |  |  | PARTIAL | PROTOTYPE |
+| `UX-004` | Friction Audit لكل Flow | M01-095, M27-105, M28 |  | docs/menu-ia/UX-VALIDATION.md · docs/menu-ia/USER-FLOWS.md |  |  | PARTIAL | PROTOTYPE |
 | `UX-005` | أولويات الـUX: clarity · speed · mobile · discoverability · a11y · consistency | M27-106 | D-004 | docs/menu-ia/UX-VALIDATION.md · docs/governance/DECISION-LOG.md D-004 |  |  | PARTIAL | N/A |
+| `CAREERS-001` | نظام التوظيف جزء أصلي من SHELTER WEBSITE + OWNER DASHBOARD — ليس تكاملًا خارجيًا | M28-§00, M28-§80 | D-228, D-015, D-211 | docs/CAREERS-REQUIREMENTS.md · docs/CLOUDWAYS-RECRUITMENT-ARCHITECTURE.md |  |  | NOT STARTED | N/A |
+| `CAREERS-002` | ممنوع: HubSpot · Google Forms · Airtable · CRM خارجي · Database محلية · Falcon | M28-§01, M28-§72, M28-§79, M28-§80 | D-228, DB-14 | docs/CLOUDWAYS-RECRUITMENT-ARCHITECTURE.md · docs/RECRUITMENT-SECURITY.md |  |  | NOT STARTED | N/A |
+| `CAREERS-003` | المعمارية: Public Website → HTTPS → SHELTER Backend → Private DB on Cloudways → Private Storage → Owner Dashboard | M28-§01, M28-§79, M28-§80 | D-228, DB-08, CF-001 | docs/CLOUDWAYS-RECRUITMENT-ARCHITECTURE.md |  |  | NOT STARTED | N/A |
+| `CAREERS-004` | Cloudways Architecture Audit قبل أي Database أو Storage (17 بندًا) | M28-§02, M28-§18, M28-§77 | D-229, AC-11, AC-RULE-04, D-002 | docs/CLOUDWAYS-RECRUITMENT-ARCHITECTURE.md · docs/phase-01-discovery/08-access-requests.md AC-11 |  |  | NOT STARTED | N/A |
+| `CAREERS-005` | Application/Database معزولة للموقع الجديد — لا استخدام قاعدة WordPress القديمة كمخزن | M28-§02, M28-§72 | D-229, D-037 | docs/CLOUDWAYS-RECRUITMENT-ARCHITECTURE.md |  |  | NOT STARTED | N/A |
+| `CAREERS-006` | روابط التوظيف: /ar/careers/ النموذج الأساسي · /en/careers/ محتوى إنجليزي · Apply → التدفق العربي | M28-§03 | D-231, D-015, D-019, D-031 | docs/phase-01-discovery/10-url-architecture-draft.md §3 (careers/ في Brand Layer) · §6 (/التوظيف-في-شلتر-كافية/ · /hiring → /ar/careers/) · docs/phase-01-discovery/13-root-and-international-seo-plan.md (Brand pages ar↔en) |  |  | NOT STARTED | NO |
+| `CAREERS-007` | واجهة النموذج عربية فقط — والحقول تقبل العربية والإنجليزية والخليط | M28-§04 | D-231 | docs/CAREERS-REQUIREMENTS.md |  |  | NOT STARTED | NO |
+| `CAREERS-008` | SEO تقني للتدفق العربي فقط: noindex لصفحات النموذج الفرعية والنجاح والمتابعة | M28-§03, M28-§23, M28-§78 | D-031, D-176 | docs/phase-01-discovery/10-url-architecture-draft.md §3 (careers/ في Brand Layer) · §6 (/التوظيف-في-شلتر-كافية/ · /hiring → /ar/careers/) · docs/CAREERS-REQUIREMENTS.md |  |  | NOT STARTED | NO |
+| `CAREERS-009` | قاعدة الإلزام: كل الحقول Required — والحقل الشرطي Required بمجرد ظهوره | M28-§05, M28-§15, M28-§16 | D-232 | docs/CAREERS-REQUIREMENTS.md |  |  | NOT STARTED | NO |
+| `CAREERS-010` | حقل 1: الاسم الكامل | M28-§06 | D-232 | docs/CAREERS-REQUIREMENTS.md |  |  | NOT STARTED | NO |
+| `CAREERS-011` | حقل 2: رقم الهاتف — إدخال حر بلا Country Selector ولا فرض +962 | M28-§06 | D-232 | docs/CAREERS-REQUIREMENTS.md · docs/RECRUITMENT-DATA-MODEL.md |  |  | NOT STARTED | NO |
+| `CAREERS-012` | حقل 3: البريد الإلكتروني | M28-§06, M28-§23 | D-232 | docs/CAREERS-REQUIREMENTS.md |  |  | NOT STARTED | NO |
+| `CAREERS-013` | حقل 4: الجنس — ذكر / أنثى | M28-§06 | D-232 | docs/CAREERS-REQUIREMENTS.md |  |  | NOT STARTED | NO |
+| `CAREERS-014` | حقل 5: تاريخ الميلاد — 3 Selects (اليوم/الشهر/السنة) وحساب العمر تلقائيًا | M28-§06 | D-232 | docs/CAREERS-REQUIREMENTS.md · docs/RECRUITMENT-DATA-MODEL.md |  |  | NOT STARTED | NO |
+| `CAREERS-015` | حقل 6: الحالة الاجتماعية — أعزب / متزوج / أخرى | M28-§06 | D-232 | docs/CAREERS-REQUIREMENTS.md |  |  | NOT STARTED | NO |
+| `CAREERS-016` | حقل 7: الجنسية — أردني / غير أردني | M28-§07 | D-232 | docs/CAREERS-REQUIREMENTS.md |  |  | NOT STARTED | NO |
+| `CAREERS-017` | حقل شرطي: الرقم الوطني (للأردني) — Required وحساس | M28-§07, M28-§27 | D-232, D-236 | docs/CAREERS-REQUIREMENTS.md · docs/RECRUITMENT-SECURITY.md |  |  | NOT STARTED | NO |
+| `CAREERS-018` | حقل شرطي: «ما هي جنسيتك؟» (لغير الأردني) — نص حر | M28-§07 | D-232 | docs/CAREERS-REQUIREMENTS.md |  |  | NOT STARTED | NO |
+| `CAREERS-019` | حقل شرطي: رقم جواز السفر أو رقم وثيقة الهوية (لغير الأردني) — حساس | M28-§07, M28-§27 | D-232, D-236 | docs/CAREERS-REQUIREMENTS.md · docs/RECRUITMENT-SECURITY.md |  |  | NOT STARTED | NO |
+| `CAREERS-020` | حقل 8: المدينة — Dropdown لمدن الأردن (ليست كتابة حرة ولا المحافظات فقط) | M28-§08 | D-232 | docs/CAREERS-REQUIREMENTS.md · docs/RECRUITMENT-DATA-MODEL.md |  |  | NOT STARTED | NO |
+| `CAREERS-021` | قائمة مدن الأردن (Dataset موثوق مخزن داخليًا) — PENDING DATA VERIFICATION حتى التحقق | M28-§08 | D-232 | docs/RECRUITMENT-DATA-MODEL.md |  |  | NOT STARTED | NO |
+| `CAREERS-022` | حقل 9: المنطقة — نص حر (لا عنوان كامل) | M28-§08 | D-232 | docs/CAREERS-REQUIREMENTS.md |  |  | NOT STARTED | NO |
+| `CAREERS-023` | حقل 10: الوظيفة المتقدم لها — نص حر بلا Autocorrection | M28-§09 | D-232 | docs/CAREERS-REQUIREMENTS.md |  |  | NOT STARTED | NO |
+| `CAREERS-024` | حقل 11: المؤهل العلمي — 6 خيارات فقط | M28-§10 | D-232 | docs/CAREERS-REQUIREMENTS.md |  |  | NOT STARTED | NO |
+| `CAREERS-025` | حقل 12: سنوات الخبرة — 6 فئات | M28-§11 | D-232 | docs/CAREERS-REQUIREMENTS.md · docs/RECRUITMENT-DATA-MODEL.md |  |  | NOT STARTED | NO |
+| `CAREERS-026` | حقل 13: خبرة سابقة في نفس المجال أو الوظيفة — نعم / لا | M28-§11 | D-232 | docs/CAREERS-REQUIREMENTS.md |  |  | NOT STARTED | NO |
+| `CAREERS-027` | حقل 14: هل تعمل حاليًا؟ — نعم / لا | M28-§11 | D-232 | docs/CAREERS-REQUIREMENTS.md |  |  | NOT STARTED | NO |
+| `CAREERS-028` | حقل 15: الراتب المتوقع — رقمي فقط بالدينار (يُعرض 450 د.أ) | M28-§12 | D-232 | docs/CAREERS-REQUIREMENTS.md |  |  | NOT STARTED | NO |
+| `CAREERS-029` | حقل 16: رخصة القيادة — نعم / لا (بدون نوع الرخصة) | M28-§13 | D-232 | docs/CAREERS-REQUIREMENTS.md |  |  | NOT STARTED | NO |
+| `CAREERS-030` | حقل 17: ملاحظات إضافية — Text Area إلزامي | M28-§15 | D-232 | docs/CAREERS-REQUIREMENTS.md |  |  | NOT STARTED | NO |
+| `CAREERS-031` | قائمة «لا تسأل»: حقول ممنوع إضافتها أو اقتراحها | M28-§14, M28-§06, M28-§07, M28-§08, M28-§10, M28-§11, M28-§13 | D-233 | docs/CAREERS-REQUIREMENTS.md |  |  | NOT STARTED | NO |
+| `CAREERS-032` | المنطق الشرطي: الإظهار/الإخفاء والإلزام والتخزين | M28-§05, M28-§07, M28-§19 | D-232, D-235 | docs/CAREERS-REQUIREMENTS.md |  |  | NOT STARTED | NO |
+| `CAREERS-033` | حقل 18: المرفقات — منطقة رفع واحدة (CV + شهادات + دورات + مستندات) | M28-§16 | D-234 | docs/CAREERS-REQUIREMENTS.md · docs/RECRUITMENT-SECURITY.md |  |  | NOT STARTED | NO |
+| `CAREERS-034` | أنواع الملفات: الواجهة غير محصورة بـPDF/DOC/DOCX — ومنع الأنواع الخطرة بفحص متعدد | M28-§17 | D-234 | docs/RECRUITMENT-SECURITY.md |  |  | NOT STARTED | NO |
+| `CAREERS-035` | حجم الملفات: لا حدود Business مخترعة — حدود تقنية آمنة من فحص البيئة | M28-§18 | D-234 | docs/RECRUITMENT-SECURITY.md · docs/CLOUDWAYS-RECRUITMENT-ARCHITECTURE.md |  |  | NOT STARTED | NO |
+| `CAREERS-036` | CV Auto-Detection محلي/Server-side — وعند عدم الثقة يُسأل المتقدم | M28-§19 | D-235 | docs/CAREERS-REQUIREMENTS.md · docs/RECRUITMENT-SECURITY.md |  |  | NOT STARTED | NO |
+| `CAREERS-037` | تخزين خاص للـCVs والمرفقات — لا Public URL، والوصول بعد Authentication + Owner authorization | M28-§20, M28-§79, M35 | D-236 | docs/RECRUITMENT-SECURITY.md · docs/CLOUDWAYS-RECRUITMENT-ARCHITECTURE.md |  |  | NOT STARTED | NO |
+| `CAREERS-038` | حقل 19: الإقرار والموافقة — Checkbox إلزامي بنص معتمد وسجل مُنسخ (versioned) | M28-§21 | D-237 | docs/CAREERS-REQUIREMENTS.md · docs/RECRUITMENT-DATA-MODEL.md |  |  | NOT STARTED | NO |
+| `CAREERS-039` | Server-side validation إلزامي عند Submit | M28-§22 | D-237 | docs/RECRUITMENT-SECURITY.md |  |  | NOT STARTED | NO |
+| `CAREERS-040` | رقم طلب فريد Server-side (صيغة مقترحة JOB-2026-00125) | M28-§22, M29, M35 | D-237 | docs/RECRUITMENT-DATA-MODEL.md |  |  | NOT STARTED | NO |
+| `CAREERS-041` | صفحة النجاح بالعربي — بلا Email ولا WhatsApp تلقائي | M28-§23 | D-237, MON-009 | docs/CAREERS-REQUIREMENTS.md |  |  | NOT STARTED | NO |
+| `CAREERS-042` | متابعة طلب التوظيف بدون حساب: رقم الطلب + رقم الهاتف فقط | M28-§24, M28-§62 | D-238 | docs/RECRUITMENT-PUBLIC-STATUS-MAPPING.md · docs/RECRUITMENT-SECURITY.md |  |  | NOT STARTED | NO |
+| `CAREERS-043` | لا تعديل للطلب من المتقدم — التصحيح الإداري Owner only + Audit Log | M28-§25 | D-238 | docs/RECRUITMENT-PERMISSIONS.md |  |  | NOT STARTED | NO |
+| `CAREERS-044` | المتقدمون المكررون: التقديم المتعدد مسموح + ربط بلا دمج | M28-§26 | D-239 | docs/RECRUITMENT-DATA-MODEL.md |  |  | NOT STARTED | NO |
+| `CAREERS-045` | حماية الرقم الوطني ورقم جواز السفر/الوثيقة (Sensitive Data) | M28-§27 | D-236, D-166 | docs/RECRUITMENT-SECURITY.md · docs/RECRUITMENT-DATA-MODEL.md |  |  | NOT STARTED | NO |
+| `CAREERS-046` | الحالات الداخلية السبع + سجل كل تغيير حالة | M28-§28, M28-§29 | D-240 | docs/RECRUITMENT-PUBLIC-STATUS-MAPPING.md · docs/RECRUITMENT-DATA-MODEL.md |  |  | NOT STARTED | NO |
+| `CAREERS-047` | Public Status Mapping — المتقدم لا يرى الحالة الداخلية دائمًا | M28-§29 | D-240 | docs/RECRUITMENT-PUBLIC-STATUS-MAPPING.md |  |  | NOT STARTED | NO |
+| `CAREERS-048` | إدارة المقابلات: تاريخ · وقت · مكان (Dropdown: DRIVE / HOUSE) · ملاحظات داخلية | M28-§30, M28-§29 | D-241 | docs/CAREERS-REQUIREMENTS.md · docs/RECRUITMENT-DATA-MODEL.md |  |  | NOT STARTED | NO |
+| `CAREERS-049` | لا نظام تقييم: لا Score ولا نجوم ولا AI ranking | M28-§31 | D-241 | docs/CAREERS-REQUIREMENTS.md |  |  | NOT STARTED | N/A |
+| `CAREERS-050` | وحدة التوظيف OWNER ONLY — Server-side Owner Authorization | M28-§32, M28-§63, M28-§79 | D-242, D-162 | docs/RECRUITMENT-PERMISSIONS.md |  |  | NOT STARTED | NO |
+| `CAREERS-051` | قسم «التوظيف / Careers / Recruitment» داخل SHELTER OWNER DASHBOARD (IA مقترحة) | M28-§33 | D-243, D-198 | docs/CAREERS-REQUIREMENTS.md · docs/IMPLEMENTATION-PLAN.md P04 |  |  | NOT STARTED | NO |
+| `CAREERS-052` | Recruitment Overview: 8 بطاقات قابلة للنقر — تشغيلية أولًا | M28-§34, M28-§75 | D-243 | docs/CAREERS-REQUIREMENTS.md |  |  | NOT STARTED | NO |
+| `CAREERS-053` | الفترة الزمنية: افتراضي «هذا الشهر» — بلا نسب مقارنة | M28-§35 | D-243 | docs/CAREERS-REQUIREMENTS.md |  |  | NOT STARTED | NO |
+| `CAREERS-054` | شارة «جديد»: فصل Application Status عن Read Status | M28-§36 | D-243 | docs/CAREERS-REQUIREMENTS.md |  |  | NOT STARTED | NO |
+| `CAREERS-055` | إشعارات الطلب الجديد: داخل الـDashboard فقط (لا Email ولا WhatsApp) | M28-§37, M35 | D-243, MON-009 | docs/CAREERS-REQUIREMENTS.md |  |  | NOT STARTED | NO |
+| `CAREERS-056` | جدول الطلبات: 7 أعمدة افتراضية والترتيب الأحدث أولًا | M28-§38 | D-243 | docs/CAREERS-REQUIREMENTS.md |  |  | NOT STARTED | NO |
+| `CAREERS-057` | الترتيب المتقدم: 6 خيارات | M28-§39 | D-243 | docs/CAREERS-REQUIREMENTS.md |  |  | NOT STARTED | NO |
+| `CAREERS-058` | Global Quick Search حي أثناء الكتابة (مع Debounce) | M28-§40 | D-243 | docs/CAREERS-REQUIREMENTS.md |  |  | NOT STARTED | NO |
+| `CAREERS-059` | Advanced Filters (10 على الأقل) مع دمج عدة Filters | M28-§41 | D-243 | docs/CAREERS-REQUIREMENTS.md |  |  | NOT STARTED | NO |
+| `CAREERS-060` | Saved Filters بأسماء يحددها الـOwner | M28-§42 | D-243 | docs/CAREERS-REQUIREMENTS.md |  |  | NOT STARTED | NO |
+| `CAREERS-061` | تخصيص الأعمدة: Show/Hide · Drag & Drop · Reset — مع حفظ التفضيل | M28-§43 | D-243 | docs/CAREERS-REQUIREMENTS.md |  |  | NOT STARTED | NO |
+| `CAREERS-062` | كثافة الجدول Comfortable/Compact + عرض مناسب للهاتف | M28-§44 | D-243 | docs/CAREERS-REQUIREMENTS.md |  |  | NOT STARTED | NO |
+| `CAREERS-063` | عدد الصفوف: 25 / 50 / 100 — الافتراضي على Desktop = 50 مع تذكر آخر اختيار | M28-§45 | D-243 | docs/CAREERS-REQUIREMENTS.md |  |  | NOT STARTED | NO |
+| `CAREERS-064` | Traditional Pagination — لا Infinite Scroll لقائمة الإدارة | M28-§46 | D-243 | docs/CAREERS-REQUIREMENTS.md |  |  | NOT STARTED | NO |
+| `CAREERS-065` | Quick View (Side Panel) — الحد الأدنى للمحتوى | M28-§47 | D-243 | docs/CAREERS-REQUIREMENTS.md |  |  | NOT STARTED | NO |
+| `CAREERS-066` | صفحة الطلب الكاملة بترتيب UX واضح (ليست Dump لحقول DB) | M28-§48 | D-243 | docs/CAREERS-REQUIREMENTS.md |  |  | NOT STARTED | NO |
+| `CAREERS-067` | الملاحظات الداخلية: ملاحظات متعددة مستقلة — بلا Overwrite | M28-§49 | D-243 | docs/RECRUITMENT-DATA-MODEL.md |  |  | NOT STARTED | NO |
+| `CAREERS-068` | Bulk Actions: تغيير الحالة · Archive · Export · Download Attachments — بلا Bulk Permanent Delete | M28-§50 | D-243 | docs/CAREERS-REQUIREMENTS.md |  |  | NOT STARTED | NO |
+| `CAREERS-069` | Bulk Status Change: تأكيد واحد واضح + Audit Log | M28-§51 | D-243 | docs/CAREERS-REQUIREMENTS.md |  |  | NOT STARTED | NO |
+| `CAREERS-070` | Archive ثم Permanent Delete (Owner only، تأكيد قوي، Tombstone) — لا حذف تلقائي | M28-§52, M28-§79 | D-244 | docs/RECRUITMENT-SECURITY.md · docs/RECRUITMENT-DATA-MODEL.md |  |  | NOT STARTED | NO |
+| `CAREERS-071` | الطلبات القديمة: Last Updated + تنبيه اختياري — بلا حذف تلقائي | M28-§53, M32 | D-244 | docs/CAREERS-REQUIREMENTS.md |  |  | NOT STARTED | NO |
+| `CAREERS-072` | Export: Excel · CSV · PDF — والهوية Masked افتراضيًا | M28-§54, M35 | D-245 | docs/CAREERS-REQUIREMENTS.md · docs/RECRUITMENT-SECURITY.md |  |  | NOT STARTED | NO |
+| `CAREERS-073` | تنزيل المرفقات: Action منفصل يجمعها في ZIP — Owner only ومسجل | M28-§55 | D-245 | docs/RECRUITMENT-SECURITY.md |  |  | NOT STARTED | NO |
+| `CAREERS-074` | Audit Log للتوظيف: 13 حدثًا × 7 حقول — بلا محتوى ملفات حساس | M28-§56, M28-§25, M28-§49, M28-§51, M28-§55 | D-245, D-164 | docs/RECRUITMENT-DATA-MODEL.md · docs/RECRUITMENT-SECURITY.md |  |  | NOT STARTED | NO |
+| `CAREERS-075` | Settings للتوظيف: قوائم قابلة للإدارة (المدن · أماكن المقابلة) | M28-§08, M28-§30, M28-§33, M28-§58 | D-243 | docs/RECRUITMENT-DATA-MODEL.md |  |  | NOT STARTED | NO |
+| `CAREERS-076` | ممنوع إرسال PII إلى GA4 · GTM · Google Analytics · Search Console · أي Analytics خارجية | M28-§57, M28-§27 | D-246, D-194 | docs/RECRUITMENT-SECURITY.md · docs/google/GA4-MEASUREMENT-PLAN.md |  |  | NOT STARTED | NO |
+| `CAREERS-077` | أحداث Privacy-safe: careers_page_view · application_started · application_submitted · application_error | M28-§57, M29 | D-246, D-185, D-204 | docs/google/GA4-MEASUREMENT-PLAN.md · docs/CAREERS-REQUIREMENTS.md |  |  | NOT STARTED | NO |
+| `CAREERS-078` | نموذج البيانات: Normalized schema (11 كيانًا مفاهيميًا) بلا جداول مكررة | M28-§58 | D-247 | docs/RECRUITMENT-DATA-MODEL.md |  |  | PARTIAL | NO |
+| `CAREERS-079` | مطابقة التكرار: إشارات وثقة فقط — لا دمج أو حذف تلقائي | M28-§59, M28-§26, M28-§27 | D-239 | docs/RECRUITMENT-DATA-MODEL.md · docs/RECRUITMENT-SECURITY.md |  |  | NOT STARTED | NO |
+| `CAREERS-080` | أمان الملفات المرفوعة (Untrusted content) — 13 ضابطًا | M28-§60, M28-§17, M28-§20 | D-234, D-166 | docs/RECRUITMENT-SECURITY.md |  |  | NOT STARTED | NO |
+| `CAREERS-081` | أمان النموذج العام (11 ضابطًا) — لا CAPTCHA خارجي تلقائيًا | M28-§61 | D-230, D-166 | docs/RECRUITMENT-SECURITY.md |  |  | NOT STARTED | NO |
+| `CAREERS-082` | أمان صفحة المتابعة: Rate limits · Progressive cooldown · رسائل عامة · Public Status فقط | M28-§62, M28-§24 | D-238 | docs/RECRUITMENT-SECURITY.md · docs/RECRUITMENT-PUBLIC-STATUS-MAPPING.md |  |  | NOT STARTED | NO |
+| `CAREERS-083` | اختبارات أمان الـDashboard: 6 حالات يجب أن تفشل كلها | M28-§63 | D-242 | docs/RECRUITMENT-PERMISSIONS.md · docs/RECRUITMENT-TEST-PLAN.md |  |  | NOT STARTED | NO |
+| `CAREERS-084` | Responsive: النموذج والـDashboard ممتازان على 14 عرضًا — ومهام الـOwner على الهاتف | M28-§64 | D-243, D-217, D-220 | docs/FRONTEND-TOOLING.md · docs/RECRUITMENT-TEST-PLAN.md |  | tooling/viewports.mjs | NOT STARTED | NO |
+| `CAREERS-085` | Accessibility للنموذج (12 بندًا) — والخطأ لا يعتمد على اللون وحده | M28-§65 | D-232, D-173 | docs/RECRUITMENT-TEST-PLAN.md |  |  | NOT STARTED | NO |
+| `CAREERS-086` | تجربة النموذج: SHELTER Premium Minimal Arabic-first — ليس نموذجًا حكوميًا أو HubSpot | M28-§66, M34 | D-243, D-178 | docs/CAREERS-REQUIREMENTS.md |  |  | NOT STARTED | NO |
+| `CAREERS-087` | هيكل النموذج: مجموعات منطقية — صفحة واحدة مقابل خطوات قصيرة يُحسم بالاختبار (مفوض) | M28-§06, M28-§67 | D-232, D-176 | docs/CAREERS-REQUIREMENTS.md |  |  | NOT STARTED | NO |
+| `CAREERS-088` | الأداء: نموذج خفيف — لا مكتبات Dashboard على الصفحة العامة — رفع غير مجمِّد | M28-§68 | D-234, D-174 | docs/menu-ia/PERFORMANCE-BUDGET.md (نمط) · docs/RECRUITMENT-TEST-PLAN.md |  |  | NOT STARTED | NO |
+| `CAREERS-089` | حالات الفشل (12 حالة) — لا ضياع لكل المدخلات بسبب ملف واحد | M28-§69 | D-234 | docs/CAREERS-REQUIREMENTS.md · docs/RECRUITMENT-TEST-PLAN.md |  |  | NOT STARTED | NO |
+| `CAREERS-090` | Backup Strategy لبيانات التوظيف والمرفقات — تحقق لا افتراض | M28-§70, M28-§79, M32, M35 | D-229, D-172 | docs/CLOUDWAYS-RECRUITMENT-ARCHITECTURE.md |  |  | NOT STARTED | NO |
+| `CAREERS-091` | Self-contained: لا خدمات خارجية تلقائيًا — اعرض الحاجة والبديل المحلي أولًا | M28-§71, M28-§19, M28-§61, M28-§80 | D-230, D-210 | docs/CLOUDWAYS-RECRUITMENT-ARCHITECTURE.md · docs/RECRUITMENT-SECURITY.md |  |  | NOT STARTED | N/A |
+| `CAREERS-092` | سلامة التطوير والإنتاج: لا Falcon · لا DB محلية · لا Migration خطرة بلا Backup · لا حذف · لا عبث بـWordPress | M28-§72, M28-§79, M36 | D-247, D-172, D-037 | docs/CLOUDWAYS-RECRUITMENT-ARCHITECTURE.md |  |  | NOT STARTED | N/A |
+| `CAREERS-093` | الاختبارات المطلوبة قبل اعتبار النظام جاهزًا (M28 §73) | M28-§73 | D-247, D-170 | docs/RECRUITMENT-TEST-PLAN.md |  | tooling/viewports.mjs | NOT STARTED | NO |
+| `CAREERS-094` | Playwright للتدفقات الحرجة (15 تدفقًا) | M28-§74, M28-§79 | D-247 | docs/RECRUITMENT-TEST-PLAN.md |  | tooling/viewports.mjs | NOT STARTED | NO |
+| `CAREERS-095` | UX لوحة التوظيف: SHELTER Design System — لا Admin Template — الإجراءات الحساسة أكثر تحفظًا | M28-§75, M34 | D-243, D-197 | docs/CAREERS-REQUIREMENTS.md |  |  | NOT STARTED | NO |
+| `CAREERS-096` | وثائق التنفيذ السبع + إضافة القرارات إلى Master / Decision Register / Traceability | M28-§76 | D-247, D-222 | docs/CAREERS-REQUIREMENTS.md · docs/RECRUITMENT-DATA-MODEL.md · docs/RECRUITMENT-SECURITY.md · docs/RECRUITMENT-PERMISSIONS.md · docs/RECRUITMENT-PUBLIC-STATUS-MAPPING.md · docs/RECRUITMENT-TEST-PLAN.md · docs/CLOUDWAYS-RECRUITMENT-ARCHITECTURE.md |  |  | PARTIAL | N/A |
+| `CAREERS-097` | ترتيب التنفيذ: 17 مرحلة — وبوابة Phase 8 قبل أي Backend | M28-§77, M28-§80, M28-§72, M36 | D-247, D-213 | docs/IMPLEMENTATION-PLAN.md · docs/CAREERS-REQUIREMENTS.md |  |  | PARTIAL | N/A |
+| `CAREERS-098` | لا إعادة فتح ولا أسئلة مكررة — الاستثناءات الأربعة فقط، والتقني يقرره Claude | M28-§00, M28-§78 | D-247, D-176 | docs/PENDING-OWNER-INPUT.md |  |  | NOT STARTED | N/A |
+| `CAREERS-099` | Definition of Done لنظام التوظيف (23 بندًا) | M28-§79, M35 | D-247, D-170 | docs/RECRUITMENT-TEST-PLAN.md |  |  | NOT STARTED | NO |
+| `DX-001` | طبقة التجربة الديناميكية: الموقع يتفاعل ولا يبقى ثابتًا | M31 §0 / 30 |  | docs/DYNAMIC-EXPERIENCE-ENGINE.md |  |  | NOT STARTED | NO |
+| `DX-002` | صفحة/تجربة SHELTER Family | M31 §1 |  | docs/DYNAMIC-EXPERIENCE-ENGINE.md |  |  | NOT STARTED | NO |
+| `DX-003` | حقول الملف العام للموظف | M31 §1 |  | docs/DYNAMIC-EXPERIENCE-ENGINE.md |  |  | NOT STARTED | NO |
+| `DX-004` | ممنوع عرض بيانات الموظف الخاصة | M31 §1 |  | docs/DYNAMIC-EXPERIENCE-ENGINE.md |  |  | NOT STARTED | NO |
+| `DX-005` | النشر بالاختيار: لا موظف علنيًا إلا بتفعيل الـOwner | M31 §1, M32 |  | docs/DYNAMIC-EXPERIENCE-ENGINE.md |  |  | NOT STARTED | NO |
+| `DX-006` | إدارة SHELTER Family بلا كود | M31 §1 |  | docs/DYNAMIC-EXPERIENCE-ENGINE.md |  |  | NOT STARTED | NO |
+| `DX-007` | الموظف المثالي لهذا الشهر (Employee of the Month) | M31 §2 |  | docs/DYNAMIC-EXPERIENCE-ENGINE.md |  |  | NOT STARTED | NO |
+| `DX-008` | حالات الموظف المثالي + الأرشيف | M31 §2 |  | docs/DYNAMIC-EXPERIENCE-ENGINE.md |  |  | NOT STARTED | NO |
+| `DX-009` | مواضع ظهور الموظف المثالي | M31 §2 |  | docs/DYNAMIC-EXPERIENCE-ENGINE.md |  |  | NOT STARTED | NO |
+| `DX-010` | نظام الإعلانات الديناميكي وأنواع العرض | M31 §3 |  | docs/DYNAMIC-EXPERIENCE-ENGINE.md |  |  | NOT STARTED | NO |
+| `DX-011` | حقول التجربة/الإعلان | M31 §3 |  | docs/DYNAMIC-EXPERIENCE-ENGINE.md |  |  | NOT STARTED | NO |
+| `DX-012` | لا حالة فارغة: لا شيء نشط = لا مكون | M31 §3 / 28, M35 |  | docs/DYNAMIC-EXPERIENCE-ENGINE.md |  |  | NOT STARTED | NO |
+| `DX-013` | بدء وانتهاء تلقائي + تجاوز يدوي + إيقاف طارئ | M31 §4, M35 |  | docs/DYNAMIC-EXPERIENCE-ENGINE.md |  |  | NOT STARTED | NO |
+| `DX-014` | المشاركة في الفعاليات وأسطح الظهور | M31 §5 |  | docs/DYNAMIC-EXPERIENCE-ENGINE.md |  |  | NOT STARTED | NO |
+| `DX-015` | محرك التجارب الموسمية القابل للإعداد | M31 §6, M34 |  | docs/DYNAMIC-EXPERIENCE-ENGINE.md |  |  | NOT STARTED | NO |
+| `DX-016` | مثال عيد الاستقلال الأردني — حدود المعالجة | M31 §7 |  | docs/DYNAMIC-EXPERIENCE-ENGINE.md |  |  | NOT STARTED | NO |
+| `DX-017` | مثال الكريسماس — حدود المعالجة | M31 §8 |  | docs/DYNAMIC-EXPERIENCE-ENGINE.md |  |  | NOT STARTED | NO |
+| `DX-018` | أنواع التجارب وقواعد العرض | M31 §9 |  | docs/DYNAMIC-EXPERIENCE-ENGINE.md |  |  | NOT STARTED | NO |
+| `DX-019` | وحدة Experiences في الـDashboard | M31 §10 |  | docs/DYNAMIC-EXPERIENCE-ENGINE.md |  |  | NOT STARTED | NO |
+| `DX-020` | شاشة ACTIVE NOW + Disable Now | M31 §11, M32 |  | docs/DYNAMIC-EXPERIENCE-ENGINE.md |  |  | NOT STARTED | NO |
+| `DX-021` | محرك الأولوية والتعارض | M31 §12, M32 |  | docs/DYNAMIC-EXPERIENCE-ENGINE.md |  |  | NOT STARTED | NO |
+| `DX-022` | العدّ التنازلي (اختياري) | M31 §13 |  | docs/DYNAMIC-EXPERIENCE-ENGINE.md |  |  | NOT STARTED | NO |
+| `DX-023` | المناطق الزمنية | M31 §14, M35 |  | docs/DYNAMIC-EXPERIENCE-ENGINE.md |  |  | NOT STARTED | NO |
+| `DX-024` | تكامل Media Center: ارفع مرة واستخدم في كل مكان | M31 §15 |  | docs/DYNAMIC-EXPERIENCE-ENGINE.md |  |  | NOT STARTED | NO |
+| `DX-025` | إدارة كاملة بلا كود | M31 §16 |  | docs/DYNAMIC-EXPERIENCE-ENGINE.md |  |  | NOT STARTED | NO |
+| `DX-026` | قواعد الحركة | M31 §17 |  | docs/DYNAMIC-EXPERIENCE-ENGINE.md |  |  | NOT STARTED | NO |
+| `DX-027` | Reduced motion لكل تجربة موسمية | M31 §18 |  | docs/DYNAMIC-EXPERIENCE-ENGINE.md |  |  | NOT STARTED | NO |
+| `DX-028` | معالجة موبايل لكل تجربة | M31 §19 |  | docs/DYNAMIC-EXPERIENCE-ENGINE.md |  |  | NOT STARTED | NO |
+| `DX-029` | ميزانية أداء لكل تجربة + تحميل مشروط | M31 §20 |  | docs/DYNAMIC-EXPERIENCE-ENGINE.md |  |  | NOT STARTED | NO |
+| `DX-030` | سلامة التصميم: العودة للحالة الطبيعية تمامًا | M31 §21, M34 |  | docs/DYNAMIC-EXPERIENCE-ENGINE.md |  |  | NOT STARTED | NO |
+| `DX-031` | المعاينة قبل التفعيل (بتاريخ ووقت محددين) | M31 §22 |  | docs/DYNAMIC-EXPERIENCE-ENGINE.md |  |  | NOT STARTED | NO |
+| `DX-032` | أوامر الجدولة | M31 §23 |  | docs/DYNAMIC-EXPERIENCE-ENGINE.md |  |  | NOT STARTED | NO |
+| `DX-033` | سجل التدقيق للتجارب | M31 §24 |  | docs/DYNAMIC-EXPERIENCE-ENGINE.md |  |  | NOT STARTED | NO |
+| `DX-034` | سجل النسخ للتجارب | M31 §25 |  | docs/DYNAMIC-EXPERIENCE-ENGINE.md |  |  | NOT STARTED | NO |
+| `DX-035` | أحداث القياس للتجارب (بلا PII) | M31 §26 |  | docs/DYNAMIC-EXPERIENCE-ENGINE.md |  |  | NOT STARTED | NO |
+| `DX-036` | خصوصية الموظفين: فصل الملف العام عن سجل HR | M31 §27 |  | docs/DYNAMIC-EXPERIENCE-ENGINE.md |  |  | NOT STARTED | NO |
+| `DX-037` | العزل عند الفشل: الموقع الأساسي مستقل | M31 §29, M32, M33, M35 |  | docs/DYNAMIC-EXPERIENCE-ENGINE.md |  |  | NOT STARTED | NO |
+| `DX-038` | الهدف النهائي: موقع حي وعودة نظيفة | M31 §30 |  | docs/DYNAMIC-EXPERIENCE-ENGINE.md |  |  | NOT STARTED | NO |
+| `OPS-001` | M32 ملحق لإغلاق النواقص — لا يستبدل السابق: صنّف أولًا ثم أكمل النواقص فقط | M32 §00 | D-265 | docs/IMPLEMENTATION-GAP-ANALYSIS.md |  |  | IMPLEMENTED — NOT TESTED | N/A |
+| `OPS-002` | لا تكرار — ONE SOURCE OF TRUTH: بحث إلزامي قبل بناء أي نظام P0/P1 | M32 §47, M32 §00, M33, M36 | D-265 |  |  |  | PARTIAL | N/A |
+| `OPS-003` | Simplicity wins — اختبار قبول أي Feature (7 أسئلة) وإلا لا تُضاف | M32 §57, M35, M36 | D-265 |  |  |  | PARTIAL | N/A |
+| `OPS-004` | نظام يحافظ على نفسه بعد الإطلاق — يُدار من الـOwner Dashboard بلا كود | M32 §01 | D-265 |  |  |  | NOT STARTED | NO |
+| `OPS-005` | الـDashboard تجيب دائمًا عن الأسئلة العشرة — وكل شيء مهم Actionable | M32 §56 | D-265 |  |  |  | NOT STARTED | NO |
+| `OPS-006` | المخرج الأول قبل أي Feature: A–J ثم Wireframes الوحدات الجديدة ثم مراجعة الـOwner | M32 §53, M32 §57, M36 | D-265 | docs/IMPLEMENTATION-PLAN.md |  |  | PARTIAL | N/A |
+| `OPS-007` | معمارية البيانات: ربط الأنظمة الجديدة بالكيانات القائمة — لا Data Silos | M32 §48, M32 §53, M33 | D-265 | docs/phase-01-discovery/17-menu-data-model-draft.md · docs/RECRUITMENT-DATA-MODEL.md · docs/DYNAMIC-EXPERIENCE-ENGINE.md §2 |  |  | NOT STARTED | NO |
+| `OPS-008` | الوثائق التسع عشرة لأنظمة M32 (§51) | M32 §51 | D-265 |  |  |  | NOT STARTED | N/A |
+| `OPS-009` | مزامنة المرجع: أنظمة M32 في MASTER REQUIREMENTS وDECISION REGISTER وTRACEABILITY | M32 §52, M35 | D-265 |  |  |  | PARTIAL | N/A |
+| `OPS-010` | أولوية تنفيذ أنظمة M32: P0 / P1 / P2-FUTURE | M32 §46 | D-265 |  |  |  | IMPLEMENTED — NOT TESTED | N/A |
+| `OPS-011` | SHELTER GLOBAL DATA REGISTRY — مصدر واحد للبيانات المتكررة | M32 §02, M33 | D-266 | docs/GLOBAL-DATA-REGISTRY.md (مطلوب — OPS-008) · docs/phase-01-discovery/14-contact-architecture-and-whatsapp.md · docs/phase-01-discovery/04-content-approval-register.md |  |  | NOT STARTED | NO |
+| `OPS-012` | لا Hardcode للبيانات المركزية + تحديث كل مواضع الاستخدام + فهرس Usage | M32 §02, M32 §04, M33 | D-266 |  |  |  | NOT STARTED | NO |
+| `OPS-013` | SHELTER FACT REGISTRY — الحقول العشرة والحالات | M32 §03, M33 | D-266 | docs/FACT-REGISTRY.md (مطلوب — OPS-008) · docs/phase-01-discovery/04-content-approval-register.md |  |  | NOT STARTED | NO |
+| `OPS-014` | ربط الحقائق المهمة بالـFact Registry — المعلّق لا يُنشر، و04 بذرة ثم مصدر واحد | M32 §03, M33 | D-266 |  |  |  | NOT STARTED | NO |
+| `OPS-015` | CHANGE IMPACT PREVIEW — WHAT WILL CHANGE? قبل نشر أي تغيير مركزي | M32 §04, M33 | D-267 | docs/CHANGE-IMPACT.md (مطلوب — OPS-008) |  |  | NOT STARTED | NO |
+| `OPS-016` | PUBLISH GUARD — الفحوص الآلية الستة عشر قبل النشر حسب نوع المحتوى | M32 §05, M33 | D-267 | docs/PUBLISH-GUARD.md (مطلوب — OPS-008) | tooling/tests/prototype/responsive.spec.mjs (قواعد قابلة لإعادة الاستخدام) |  | NOT STARTED | NO |
+| `OPS-017` | نتائج Publish Guard: PASS · WARNING · BLOCKING — والتجاوز مسجل في Audit Log | M32 §05 | D-267 |  |  |  | NOT STARTED | NO |
+| `OPS-018` | CONTENT HEALTH / FRESHNESS — المراقبات الثلاث عشرة | M32 §06 | D-267 | docs/CONTENT-HEALTH.md (مطلوب — OPS-008) |  |  | NOT STARTED | NO |
+| `OPS-019` | LANGUAGE PARITY CHECKER — مقارنة العربي والإنجليزي | M32 §07 | D-267 | docs/LANGUAGE-PARITY.md (مطلوب — OPS-008) |  | tooling/tests/prototype/menu-wireframe.spec.mjs (lang/dir — prototype) | NOT STARTED | NO |
+| `OPS-020` | لا Auto Translation + Auto Publish — AI يقترح والـOwner يراجع وينشر | M32 §07 | D-267 |  |  |  | PARTIAL | N/A |
+| `OPS-021` | GLOBAL CONTENT CALENDAR — تقويم واحد: LIVE NOW · STARTS NEXT · EXPIRES NEXT | M32 §08, M33, M35 | D-268 | docs/GLOBAL-CONTENT-CALENDAR.md (مطلوب — OPS-008) · docs/DYNAMIC-EXPERIENCE-ENGINE.md §5 |  |  | NOT STARTED | NO |
+| `OPS-022` | EXPERIENCE COLLISION DETECTOR — ربط التقويم بمحرك التجارب ومنع Visual Chaos | M32 §09 | D-268 |  |  |  | NOT STARTED | NO |
+| `OPS-023` | WEBSITE SAFE MODE — إيقاف كل الطبقات الديناميكية مع بقاء الموقع الأساسي | M32 §23 | D-268 | docs/SAFE-MODE.md (مطلوب — OPS-008) · docs/DYNAMIC-EXPERIENCE-ENGINE.md §4 §5 |  |  | NOT STARTED | NO |
+| `OPS-024` | EMERGENCY CONTROLS — أربعة مفاتيح مع Confirmation + Audit | M32 §24 | D-268 |  |  |  | NOT STARTED | NO |
+| `OPS-025` | REAL USER MONITORING — جمع Web Vitals حقيقية Privacy-safe | M32 §11 | D-269 | docs/REAL-USER-MONITORING.md (مطلوب — OPS-008) | tooling/scripts/lighthouse.mjs (lab) |  | NOT STARTED | NO |
+| `OPS-026` | عرض RUM: GOOD · NEEDS IMPROVEMENT · POOR بـp75 لكل صفحة/جهاز/متصفح/لغة | M32 §11 | D-269 |  |  |  | NOT STARTED | NO |
+| `OPS-027` | PERFORMANCE ALERTS — تراجع حقيقي بلا تخمين للسبب | M32 §12 | D-269 |  |  |  | NOT STARTED | NO |
+| `OPS-028` | REPUTATION CENTER — سمعة الفروع عبر Google Business Profile الرسمي | M32 §13 | D-270 | docs/REPUTATION-CENTER.md (مطلوب — OPS-008) · docs/google/GOOGLE-ECOSYSTEM-POLICY.md §42 §44 |  |  | NOT STARTED | NO |
+| `OPS-029` | REVIEW RESPONSE FLOW — لا رد على Google بلا موافقة الـOwner | M32 §14 | D-270 |  |  |  | NOT STARTED | NO |
+| `OPS-030` | VOICE OF CUSTOMER — نظام Feedback داخلي بسيط بلا PII وبلا Review Gating | M32 §15, M35 | D-270 | docs/VOICE-OF-CUSTOMER.md (مطلوب — OPS-008) |  |  | NOT STARTED | NO |
+| `OPS-031` | FEEDBACK DASHBOARD — اتجاهات ومقارنة فروع، وتحليل AI موسوم AI ASSISTED ANALYSIS | M32 §16 | D-270 |  |  |  | NOT STARTED | NO |
+| `OPS-032` | PRESS / MEDIA KIT ضمن Media Center — محتوى معتمد فقط | M32 §17 | D-271 | docs/MEDIA-RIGHTS.md (مطلوب — يشمل Press Kit) |  |  | NOT STARTED | NO |
+| `OPS-033` | MEDIA RIGHTS MANAGER — حقول الحقوق والموافقات لكل Asset في المكتبة الواحدة | M32 §18 | D-271 | docs/MEDIA-RIGHTS.md (مطلوب — OPS-008) · docs/governance/APPROVED-ASSET-LIBRARY.md · media/README.md | tooling/scripts/images.mjs |  | NOT STARTED | NO |
+| `OPS-034` | لا تُنشر صورة شخص بلا موافقة نشر معتمدة — وتُفرض القيود والانتهاء والنطاق | M32 §18 | D-271 |  |  |  | NOT STARTED | NO |
+| `OPS-035` | SECURITY CENTER — لوحة أمان مفهومة للـOwner بلا أي Secrets | M32 §19, M33 | D-272 | docs/SECURITY-CENTER.md (مطلوب — OPS-008) · docs/RECRUITMENT-SECURITY.md |  |  | NOT STARTED | NO |
+| `OPS-036` | مصادقة قوية للـOwner: Passkeys/2FA · جلسات آمنة · Rate limiting · Re-auth للإجراءات الحساسة | M32 §20 | D-272 | docs/RECRUITMENT-PERMISSIONS.md §3 §4 · docs/SECURITY-CENTER.md (مطلوب) |  |  | NOT STARTED | NO |
+| `OPS-037` | PRIVACY & DATA CENTER — الخصوصية نظام مُدار وليست صفحة ثابتة | M32 §21 | D-272 | docs/PRIVACY-CENTER.md (مطلوب — OPS-008) · docs/RECRUITMENT-SECURITY.md §9 |  |  | NOT STARTED | NO |
+| `OPS-038` | DATA RETENTION VISIBILITY — عمر السجلات وآخر وصول بلا حذف تلقائي | M32 §22 | D-272 |  |  |  | NOT STARTED | NO |
+| `OPS-039` | CI/CD QUALITY GATE — 13 مرحلة، وأي P0 = STOP DEPLOY | M32 §25, M34 | D-273 | docs/CI-CD-QUALITY-GATES.md (مطلوب — OPS-008) · docs/FRONTEND-TOOLING.md §5 | tooling/package.json · tooling/playwright.config.mjs · tooling/scripts/lighthouse.mjs · tooling/scripts/qa-matrix.mjs | tooling/tests/prototype/menu-wireframe.spec.mjs · tooling/tests/prototype/responsive.spec.mjs · tooling/tests/prototype/careers.spec.mjs | PARTIAL | PROTOTYPE |
+| `OPS-040` | VISUAL REGRESSION — 10 صفحات حرجة × 3 أجهزة × AR/EN بلا False positives | M32 §26, M34 | D-273 | docs/VISUAL-REGRESSION.md (مطلوب — OPS-008) | tooling/playwright.config.mjs · tooling/viewports.mjs | tooling/tests/prototype/responsive.spec.mjs (@visual) | PARTIAL | NO |
+| `OPS-041` | BACKUP / RESTORE HEALTH داخل Site Health — النسخة لا تُعد حقيقية بلا قابلية استرجاع | M32 §37, M35 | D-273 | docs/CLOUDWAYS-RECRUITMENT-ARCHITECTURE.md §6 · SITE-HEALTH-SPEC.md (مطلوب سابقًا — MON-001) |  |  | NOT STARTED | NO |
+| `OPS-042` | RESTORE TEST دوري على Staging — وتظهر نتيجته في Site Health | M32 §37, M35 | D-273 |  |  |  | NOT STARTED | NO |
+| `OPS-043` | DEPENDENCY HEALTH — ملخص للـOwner ولا Major Update تلقائي على Production | M32 §38 | D-273 | docs/SECURITY-CENTER.md (مطلوب) · docs/FRONTEND-TOOLING.md §7 |  |  | NOT STARTED | NO |
+| `OPS-044` | PUBLIC GLOBAL SEARCH — بحث خفيف للموقع كله بلا أي محتوى خاص | M32 §27, M36 | D-274 | docs/GLOBAL-SEARCH.md (مطلوب — OPS-008) · docs/menu-ia/SHELTER-MENU-IA-SPEC.md §8 |  |  | NOT STARTED | NO |
+| `OPS-045` | SEARCH INTELLIGENCE — Top · Zero Result · Emerging بتسجيل Privacy-safe | M32 §28 | D-274 | docs/GLOBAL-SEARCH.md (مطلوب) · docs/menu-ia/MENU-MEASUREMENT-PLAN.md |  | tooling/tests/app/menu.spec.mjs (F-13 — fixme) | NOT STARTED | NO |
+| `OPS-046` | CONTENT OPPORTUNITY ENGINE — فرص بدليل، والـOwner يقرر | M32 §29 | D-274 | docs/CONTENT-OPPORTUNITIES.md (مطلوب — OPS-008) |  |  | NOT STARTED | NO |
+| `OPS-047` | No SEO content farm — اقتراحات People-first فقط وبموافقة الـOwner | M32 §30 | D-274 |  |  |  | NOT STARTED | N/A |
+| `OPS-048` | محرك Issues واحد لكل المراقبات ← NEEDS ATTENTION — لا Health center ثانٍ | M32 §39, M32 §40, M32 §47, M33, M35 | D-275 |  |  |  | NOT STARTED | NO |
+| `OPS-049` | تجميع IA الـDashboard في 7 مجموعات — لا 40 عنصرًا في الـSidebar | M32 §54, M32 §53 | D-276 |  |  |  | NOT STARTED | NO |
+| `OPS-050` | كل وحدات M32 للـOwner فقط في V1 مع Server-side Authorization | M32 §49, M35 | D-276 |  |  |  | NOT STARTED | NO |
+| `OPS-051` | لا كود للعمليات اليومية في أنظمة M32 — وإلا فهي Architecture Gap | M32 §50 | D-276 |  |  |  | NOT STARTED | NO |
+| `OPS-052` | لا مفاجآت خدمات خارجية في أنظمة M32 — إفصاح بالحقول الخمسة ثم الموافقة | M32 §45 | D-265 |  |  |  | PARTIAL | N/A |
+| `OPS-053` | مسار إلزامي لأي إجراء AI: OWNER REQUEST → AI PLAN → PREVIEW → IMPACT → OWNER APPROVAL → APPLY → AUDIT LOG | M32 §44, M32 §07, M32 §14, M32 §29 | D-265 |  |  |  | NOT STARTED | N/A |
+| `OPS-054` | Definition of Done لأنظمة M32 — 10 شروط | M32 §55, M35 | D-276 | docs/FRONTEND-TOOLING.md §5 · docs/qa/RESPONSIVE-QA-MATRIX.md |  |  | NOT STARTED | NO |
+| `OPS-055` | PWA / Offline — تقييم مستقبلي موثق RECOMMENDED / NOT RECOMMENDED | M32 §42, M35 | D-265 |  |  |  | NOT STARTED | N/A |
+| `OPS-056` | EXPERIMENTATION ENGINE — جاهزية معمارية لـA/B بلا تجارب بلا Traffic وقياس صحيح | M32 §43 | D-265 |  |  |  | NOT STARTED | N/A |
+| `MDH-001` | ONE SOURCE OF TRUTH → MULTIPLE CHANNELS: الـOwner يعدّل المعلومة مرة واحدة فقط | M33 §00, M33 §30 | D-277 | docs/MASTER-DATA-HUB.md §3 · docs/architecture/PLATFORM-ARCHITECTURE.md §3.2 · docs/FINAL-ARCHITECTURE-REVIEW.md §12 |  |  | NOT STARTED | NO |
+| `MDH-002` | سلطة المصدر: SHELTER MASTER DATA > أي نسخة خارجية (إلا Adopt صريح) | M33 §23, M33 §13, M33 §30 | D-278, D-047, D-048, GEP-§3 | docs/MASTER-DATA-HUB.md §3 · docs/FINAL-ARCHITECTURE-REVIEW.md §6 AC-1 · docs/google/GOOGLE-BUSINESS-PROFILE-SOURCE-OF-TRUTH.md |  |  | PARTIAL | N/A |
+| `MDH-003` | SHELTER MASTER DATA HUB في الـDashboard — مخزن واحد يضم Global Data Registry | M33 §01 | D-277, D-283, D-266 | docs/MASTER-DATA-HUB.md §2 · docs/architecture/PLATFORM-ARCHITECTURE.md §3.2 · docs/FINAL-ARCHITECTURE-REVIEW.md §5 · docs/dashboard/wireframes/html/d-global-data.html | docs/dashboard/wireframes/tools/build.py | tooling/tests/prototype/dashboard.spec.mjs | NOT STARTED | NO |
+| `MDH-004` | كيان BRAND: الاسمان · سنة التأسيس · السنوية · الأوصاف الرسمية | M33 §01 | D-007, D-018 | docs/MASTER-DATA-HUB.md §2 |  |  | NOT STARTED | NO |
+| `MDH-005` | كيان BRANCH (BR-DRIVE · BR-HOUSE) بحقوله المركزية | M33 §01, M33 §03 | D-008, D-020, D-057, D-058, D-010 | docs/MASTER-DATA-HUB.md §2 · docs/MASTER-DATA-HUB.md §8 · docs/architecture/PLATFORM-ARCHITECTURE.md §3.2 · docs/dashboard/wireframes/html/d-branch.html |  |  | NOT STARTED | NO |
+| `MDH-006` | كيان HOURS مركزي بخمسة أنواع — مصدر جدول واحد لكل القنوات | M33 §06 | D-280, D-020, D-021, DB-18 | docs/MASTER-DATA-HUB.md §7 · docs/architecture/PLATFORM-ARCHITECTURE.md §3.2 · docs/menu-ia/SHELTER-MENU-IA-SPEC.md §19 · docs/phase-01-discovery/09-architecture-options-after-r1.md AR-07 | docs/menu-ia/evidence/hours_logic_check.py |  | NOT STARTED | NO |
+| `MDH-007` | أولوية Emergency > Temporary > Special/Holiday > Regular + effective_hours واحدة | M33 §07, M33 §06 | D-280, D-021, F-20 | docs/MASTER-DATA-HUB.md §7 · docs/menu-ia/SHELTER-MENU-IA-SPEC.md §9.4 | docs/menu-ia/evidence/hours_logic_check.py |  | NOT STARTED | PROTOTYPE |
+| `MDH-008` | CONTACT + SOCIAL Registry: الأرقام حسب الدور · واتساب · البريد · روابط السوشال | M33 §01 | D-057, D-058, D-065 | docs/MASTER-DATA-HUB.md §2 · docs/phase-01-discovery/14-contact-architecture-and-whatsapp.md |  |  | NOT STARTED | NO |
+| `MDH-009` | MENU Master واحد — الموقع لا يحمل نسخة منفصلة من الأسعار | M33 §01, M33 §04 | D-281, D-085, D-135, D-136, D-107 | docs/MASTER-DATA-HUB.md §6 · docs/architecture/PLATFORM-ARCHITECTURE.md §3.3 · docs/phase-01-discovery/17-menu-data-model-draft.md · docs/menu-ia/SHELTER-MENU-IA-SPEC.md §19 |  |  | NOT STARTED | NO |
+| `MDH-010` | Branch-specific overrides: Inherited / Overridden + Reset to Master | M33 §05 | D-281, D-078, D-079, D-094 | docs/MASTER-DATA-HUB.md §2 · docs/architecture/PLATFORM-ARCHITECTURE.md §3.3 · docs/dashboard/wireframes/html/d-impact.html |  |  | NOT STARTED | NO |
+| `MDH-011` | EVENTS / CAMPAIGNS Registry من محرك التجارب — بلا مخزن ثانٍ | M33 §01, M33 §02 | D-277 | docs/DYNAMIC-EXPERIENCE-ENGINE.md · docs/architecture/PLATFORM-ARCHITECTURE.md §3.3 |  |  | NOT STARTED | NO |
+| `MDH-012` | طبقة الحقائق فوق قيم الـHub: فقط APPROVED / VERIFIED تصل لأي قناة | M33 §01, M33 §23 | D-277, D-266, D-224 | docs/architecture/PLATFORM-ARCHITECTURE.md §3.2 · docs/architecture/PLATFORM-ARCHITECTURE.md §4 · docs/dashboard/wireframes/html/d-facts.html |  |  | NOT STARTED | NO |
+| `MDH-013` | كل Channel يقرأ من Master Data — بما فيها SEO metadata وأسطح الموقع | M33 §02 | D-277, D-284 | docs/MASTER-DATA-HUB.md §4 · docs/FINAL-ARCHITECTURE-REVIEW.md §12 |  |  | NOT STARTED | NO |
+| `MDH-014` | MASTER DATA → CHANNEL ADAPTERS مستقلة — لا Point-to-point spaghetti | M33 §28 | D-277 | docs/MASTER-DATA-HUB.md §3 · docs/FINAL-ARCHITECTURE-REVIEW.md §12 · docs/architecture/PLATFORM-ARCHITECTURE.md §2 |  |  | NOT STARTED | NO |
+| `MDH-015` | Stable IDs + external_references واحد — نفس هوية المنتج/الفرع في كل القنوات | M33 §04, M33 §22 | D-281, D-085, D-121, D-077 | docs/architecture/PLATFORM-ARCHITECTURE.md §3.2 · docs/phase-01-discovery/17-menu-data-model-draft.md |  |  | NOT STARTED | NO |
+| `MDH-016` | Website Adapter: توليد كل أسطح الموقع من الـHub + إبطال Cache انتقائي بعد النشر | M33 §02, M33 §09, M35 | D-279 | docs/architecture/PLATFORM-ARCHITECTURE.md §13 · docs/FINAL-ARCHITECTURE-REVIEW.md §6 |  |  | NOT STARTED | NO |
+| `MDH-017` | Schema Adapter: لا Data Entry مستقل للـStructured Data — مشتق من السجلات | M33 §14 | D-284 | docs/MASTER-DATA-HUB.md §9 |  |  | NOT STARTED | NO |
+| `MDH-018` | اتساق NAP + الساعات عبر Website · Schema · GBP · Contact — بالبناء ثم بالكشف | M33 §15 | D-284, D-060, D-049 | docs/google/BRANCH-DATA-SYNC.md · docs/MASTER-DATA-HUB.md §9 |  |  | NOT STARTED | NO |
+| `MDH-019` | No duplicate editors: نفس الـControl في أكثر من سياق — مصدر بيانات واحد | M33 §21 | D-284 | docs/dashboard/wireframes/html/d-branch.html · docs/FINAL-ARCHITECTURE-REVIEW.md §10 | docs/dashboard/wireframes/tools/build.py | tooling/tests/prototype/dashboard.spec.mjs | PARTIAL | NO |
+| `MDH-020` | Google Business Adapter عبر Official API فقط — لا scraping | M33 §03 | D-279, D-043, D-051, GEP-§44 | docs/MASTER-DATA-HUB.md §5 · docs/FINAL-ARCHITECTURE-REVIEW.md §12 · docs/google/GOOGLE-INTEGRATION-ARCHITECTURE.md |  |  | NOT STARTED | NO |
+| `MDH-021` | GBP Capability Matrix حية لكل فرع × حقل (7 أعمدة) + MANUAL ACTION REQUIRED | M33 §03 | D-279 | docs/MASTER-DATA-HUB.md §4 · docs/MASTER-DATA-HUB.md §5 · https://developers.google.com/my-business/content/businessinformation/change-log · https://developers.google.com/my-business/reference/rest |  |  | NOT STARTED | NO |
+| `MDH-022` | مزامنة الساعات مع Google: العادية · الخاصة · المؤقت · الطارئ · منتصف الليل | M33 §06, M33 §07, M33 §03 | D-280 | docs/MASTER-DATA-HUB.md §7 |  |  | NOT STARTED | NO |
+| `MDH-023` | بوابة تفعيل مزامنة GBP: وصول API + OAuth الـOwner + Verified + P09 | M33 §03, M33 §26 | D-279, D-028, D-051 | docs/MASTER-DATA-HUB.md §5 |  |  | NOT STARTED | N/A |
+| `MDH-024` | EXTERNAL CHANGE DETECTED: Keep Master · Adopt · Review — بلا كتابة فوق الـMaster | M33 §13, M33 §23 | D-278, D-282, D-048 | docs/MASTER-DATA-HUB.md §10 · docs/MASTER-DATA-HUB.md §11 |  |  | NOT STARTED | NO |
+| `MDH-025` | تدفق النشر والمزامنة التسعي — نشر الـOwner بعد معاينة أثر تذكر GBP = موافقته | M33 §09, M33 §08, M35 | D-279 | docs/architecture/PLATFORM-ARCHITECTURE.md §4 · docs/dashboard/wireframes/html/d-impact.html · docs/dashboard/wireframes/html/d-guard.html |  | tooling/tests/prototype/dashboard.spec.mjs | NOT STARTED | NO |
+| `MDH-026` | حالات المزامنة الست لكل Channel + Last Sync · Last Successful · Error · Retry | M33 §10 | D-282 | docs/MASTER-DATA-HUB.md §11 · docs/architecture/PLATFORM-ARCHITECTURE.md §3.2 |  |  | NOT STARTED | NO |
+| `MDH-027` | NO SILENT FAILURE: فشل مزامنة Google = تنبيه بالسبب والإجراء لا نجاح كامل | M33 §11 | D-282 | docs/MASTER-DATA-HUB.md §11 |  |  | NOT STARTED | NO |
+| `MDH-028` | إعادة المحاولة والأخطاء: sync_jobs · 1→5→30 د→6 س · حد 5 · تصنيف الأخطاء | M33 §10, M33 §11 | D-282 | docs/MASTER-DATA-HUB.md §12 · docs/architecture/PLATFORM-ARCHITECTURE.md §3.2 |  |  | NOT STARTED | NO |
+| `MDH-029` | OUT-OF-SYNC DETECTOR: فحص اتساق دوري Master ↔ Website ↔ GBP ↔ Schema | M33 §12, M35 | D-282, D-049 | docs/MASTER-DATA-HUB.md §10 · docs/google/BRANCH-DATA-SYNC.md |  |  | NOT STARTED | NO |
+| `MDH-030` | Channel-specific overrides: موثق · مدقق · قابل للعكس ولا يغيّر الـMaster | M33 §24 | D-281 |  |  |  | NOT STARTED | NO |
+| `MDH-031` | شاشة DATA CONSISTENCY: ✓ أو ⚠ OUT OF SYNC لكل قناة مع Action واضح | M33 §19, M33 §20 | D-282 | docs/MASTER-DATA-HUB.md §11 · docs/FINAL-ARCHITECTURE-REVIEW.md §10 |  |  | NOT STARTED | NO |
+| `MDH-032` | Needs Attention لبيانات الـMaster: ست مراقبات في محرك Issues الواحد | M33 §25 | D-282 | docs/architecture/PLATFORM-ARCHITECTURE.md §14 · docs/MASTER-DATA-HUB.md §12 |  |  | NOT STARTED | NO |
+| `MDH-033` | Failure safety: تعطل أي API خارجي لا يكسر الموقع — الموقع يستمر بالـMaster | M33 §27, M35 | D-282 | docs/MASTER-DATA-HUB.md §12 |  |  | NOT STARTED | NO |
+| `MDH-034` | أمان الرموز: Server-side · Least privilege · تجديد/إعادة ربط/إلغاء آمن | M33 §26, M35 | D-282, AC-RULE-02 | docs/MASTER-DATA-HUB.md §13 · docs/architecture/PLATFORM-ARCHITECTURE.md §4 |  |  | NOT STARTED | NO |
+| `MDH-035` | خطة ترحيل البيانات إلى الـHub (7 خطوات) — من المصادر الحالية بلا تعديل المصدر | M33 §29 | D-277 | docs/MASTER-DATA-HUB.md §14 · docs/MASTER-DATA-HUB.md §1 | docs/menu-ia/evidence/hours_logic_check.py |  | NOT STARTED | N/A |
+| `MDH-036` | المخرج الأول قبل التنفيذ: 14 بندًا (MASTER-DATA-HUB.md) — مُسلَّم مع فجوات | M33 §29 | D-277 | docs/MASTER-DATA-HUB.md · docs/architecture/PLATFORM-ARCHITECTURE.md · docs/FINAL-ARCHITECTURE-REVIEW.md |  |  | PARTIAL | N/A |
+| `DS-001` | ONE DESIGN SYSTEM · ONE VISUAL LANGUAGE · NO PAGE-SPECIFIC CHAOS — الموقع + الـDashboard | M34 §00, M34 §26 | D-285, ADR-001, D-192 | docs/DESIGN-SYSTEM-STANDARD.md · docs/adr/ADR-001-platform.md · docs/FINAL-ARCHITECTURE-REVIEW.md §4 | design-system/tokens/tokens.json · design-system/wireframe-kit.css · tooling/scripts/ds-audit.mjs | tooling/tests/prototype/dashboard.spec.mjs (one design system (M34) — 5 شاشات عينة) | PARTIAL | PROTOTYPE |
+| `DS-002` | Design Tokens مركزية — مصدر واحد للموقع والـDashboard والتطبيق المستقبلي | M34 §20 | D-285, D-286, ADR-001 | docs/DESIGN-SYSTEM-STANDARD.md §1 · design-system/README.md · docs/architecture/PLATFORM-ARCHITECTURE.md §2 | design-system/tokens/tokens.json · tooling/scripts/tokens-css.mjs · design-system/build/tokens.css | tooling/tests/prototype/dashboard.spec.mjs (one design system (M34) — 5 شاشات عينة) | PARTIAL | PROTOTYPE |
+| `DS-003` | Typography System موحد للعربي والإنجليزي — Tokens لا أحجام عشوائية | M34 §01 | D-286, CF-11, M-10 | docs/DESIGN-SYSTEM-STANDARD.md §2 · docs/menu-ia/PERFORMANCE-BUDGET.md | design-system/tokens/tokens.json · design-system/wireframe-kit.css | tooling/tests/prototype/responsive.spec.mjs | PARTIAL | PROTOTYPE |
+| `DS-004` | Color Tokens دلالية — لا Hex خام ولا لون جديد خارج النظام | M34 §04 | D-286, CF-11, M-10 | docs/DESIGN-SYSTEM-STANDARD.md §1 §5 | design-system/tokens/tokens.json · design-system/build/tokens.css |  | PARTIAL | PROTOTYPE |
+| `DS-005` | Spacing Scale موحد — margin/padding/gap من النظام فقط | M34 §05 | D-286 | docs/DESIGN-SYSTEM-STANDARD.md §6 | design-system/tokens/tokens.json · design-system/wireframe-kit.css · tooling/scripts/ds-audit.mjs | tooling/tests/prototype/dashboard.spec.mjs (one design system (M34) — 5 شاشات عينة) | PARTIAL | PROTOTYPE |
+| `DS-006` | Radius Tokens + Primary Radius للعلامة — زوايا مستديرة لا حادة | M34 §03 | D-286, BRAND-005 | docs/DESIGN-SYSTEM-STANDARD.md §4 | design-system/tokens/tokens.json · design-system/wireframe-kit.css | tooling/tests/prototype/dashboard.spec.mjs (one design system (M34) — 5 شاشات عينة) | PARTIAL | PROTOTYPE |
+| `DS-007` | Shadow Tokens محدودة — clean / subtle / premium بلا Glow | M34 §09 | D-286, BRAND-006 | docs/DESIGN-SYSTEM-STANDARD.md §7 | design-system/tokens/tokens.json · design-system/wireframe-kit.css |  | PARTIAL | PROTOTYPE |
+| `DS-008` | Motion Tokens موحدة — لا Duration عشوائي لكل Component | M34 §14 | D-286, ADR-001 | docs/DESIGN-SYSTEM-STANDARD.md §7 · docs/adr/ADR-001-platform.md | design-system/tokens/tokens.json · design-system/build/tokens.css |  | PARTIAL | PROTOTYPE |
+| `DS-009` | Grid / Container — Layout Grammar واحدة لكل الصفحات | M34 §10 | D-286, R-01 | docs/DESIGN-SYSTEM-STANDARD.md §6 | design-system/tokens/tokens.json · design-system/wireframe-kit.css | tooling/tests/prototype/responsive.spec.mjs | PARTIAL | PROTOTYPE |
+| `DS-010` | Responsive Tokens — نقاط تحول من النظام فقط، ولا Breakpoint خاص بصفحة | M34 §16 | D-286, R-01, R-09 | docs/DESIGN-SYSTEM-STANDARD.md §6 | design-system/tokens/tokens.json · tooling/viewports.mjs | tooling/tests/prototype/responsive.spec.mjs | PARTIAL | PROTOTYPE |
+| `DS-011` | RTL/LTR من أساس الـDesign System — لا إصلاحات منفصلة لكل صفحة | M34 §15 | D-285 | docs/DESIGN-SYSTEM-STANDARD.md §9 | design-system/wireframe-kit.css | tooling/tests/prototype/menu-wireframe.spec.mjs · tooling/tests/prototype/dashboard.spec.mjs | PARTIAL | PROTOTYPE |
+| `DS-012` | Icon System — Lucide فقط، أحجام icon-sm/md/lg وStroke ثابت | M34 §06 | D-190, ADR-001, D-286 | docs/DESIGN-SYSTEM-STANDARD.md §1 · docs/adr/ADR-001-platform.md · docs/TOOLCHAIN.md | design-system/tokens/tokens.json |  | PARTIAL | PROTOTYPE |
+| `DS-013` | مكتبة مكونات واحدة مشتركة x-ui.* للموقع والـDashboard — القائمة المعتمدة | M34 §02, M34 §07, M34 §08, M34 §21 | ADR-001, D-285, D-192 | docs/adr/ADR-001-platform.md · docs/architecture/PLATFORM-ARCHITECTURE.md §2 · docs/DESIGN-SYSTEM-STANDARD.md §8 | design-system/wireframe-kit.css |  | NOT STARTED | NO |
+| `DS-014` | Button System — Component واحد بسبعة Variants وثلاثة أحجام وست حالات | M34 §02 | D-285 | docs/DESIGN-SYSTEM-STANDARD.md §3 | design-system/wireframe-kit.css | tooling/tests/prototype/dashboard.spec.mjs (one design system (M34) — 5 شاشات عينة) | PARTIAL | PROTOTYPE |
+| `DS-015` | Form System — نفس المكونات ونفس القياسات والحالات لكل النماذج | M34 §07 | D-285, D-232 | docs/DESIGN-SYSTEM-STANDARD.md §8 | design-system/wireframe-kit.css |  | PARTIAL | PROTOTYPE |
+| `DS-016` | Card System — أساس واحد ومتغيرات بالمحتوى لا بالأسلوب | M34 §08 | D-285 | docs/DESIGN-SYSTEM-STANDARD.md §8 | design-system/wireframe-kit.css |  | PARTIAL | PROTOTYPE |
+| `DS-017` | Section Component موحد — eyebrow · title · description · media · CTA · variants | M34 §11 | D-285, D-196 | docs/DESIGN-SYSTEM-STANDARD.md §8 §11 |  |  | NOT STARTED | NO |
+| `DS-018` | Navigation موحدة — Header / Mobile Navigation / Footer بنفس المكونات | M34 §12 | D-285 | docs/DESIGN-SYSTEM-STANDARD.md §8 |  |  | NOT STARTED | NO |
+| `DS-019` | States موحدة لكل Component — ولا اعتماد على اللون وحده | M34 §13 | D-285 | docs/DESIGN-SYSTEM-STANDARD.md §8 | design-system/wireframe-kit.css | tooling/tests/prototype/responsive.spec.mjs (focus ring visible) | PARTIAL | PROTOTYPE |
+| `DS-020` | الـOwner Dashboard بنفس SHELTER Design Language — أكثر Functional لا Generic SaaS | M34 §17 | D-197, ADR-001 | docs/DESIGN-SYSTEM-STANDARD.md §10 · docs/adr/ADR-001-platform.md | design-system/wireframe-kit.css | tooling/tests/prototype/dashboard.spec.mjs (one design system (M34) — 5 شاشات عينة) | PARTIAL | PROTOTYPE |
+| `DS-021` | تحرير المحتوى ≠ تحرير التصميم — سجل المتغيرات المعتمدة هو كل ما يعرضه الـCMS | M34 §18 | D-196, D-263 | docs/DESIGN-SYSTEM-STANDARD.md §11 · docs/architecture/PLATFORM-ARCHITECTURE.md §2 |  |  | NOT STARTED | NO |
+| `DS-022` | Component Governance — Reuse أولًا، ثم متغير معتمد، ولا Component مكرر | M34 §19 | D-285 | docs/DESIGN-SYSTEM-STANDARD.md §12 |  |  | IMPLEMENTED — NOT TESTED | N/A |
+| `DS-023` | No One-off Styles — ممنوع التنسيق العشوائي إلا بـDesign Exception موثقة + بوابة آلية | M34 §23, M34 §04, M34 §05 | D-285 | docs/DESIGN-SYSTEM-STANDARD.md §12 §13 · docs/TOOLCHAIN.md | tooling/scripts/ds-audit.mjs | tooling/tests/prototype/dashboard.spec.mjs (one design system (M34) — 5 شاشات عينة) | PARTIAL | PROTOTYPE |
+| `DS-024` | Storybook = DESIGN SYSTEM REFERENCE — قصص مولّدة من مكونات Blade نفسها | M34 §21 | ADR-001, D-192 | docs/TOOLCHAIN.md · docs/adr/ADR-001-platform.md · docs/FRONTEND-TOOLING.md §6 (تاريخي) |  |  | NOT STARTED | NO |
+| `DS-025` | Visual Regression للـCore Components — يظهر أثر تغيير Button أو Input قبل Production | M34 §22 | D-285 | docs/TOOLCHAIN.md · docs/FRONTEND-TOOLING.md §4 §5 | tooling/playwright.config.mjs | tooling/tests/prototype/responsive.spec.mjs (@visual) | PARTIAL | NO |
+| `DS-026` | Consistency Audit للمشروع الحالي ثم Consolidation | M34 §24 | D-285 | docs/DESIGN-SYSTEM-HEALTH.md · docs/DESIGN-SYSTEM-STANDARD.md §13 | tooling/scripts/ds-audit.mjs |  | PARTIAL | PROTOTYPE |
+| `DS-027` | Design System Health Report — Approved · Duplicate · Deprecated · Unused Variants · Token Violations | M34 §25 | D-285 | docs/DESIGN-SYSTEM-HEALTH.md | tooling/scripts/ds-audit.mjs |  | PARTIAL | PROTOTYPE |
+| `DS-028` | القاعدة النهائية: ONE SHELTER PRODUCT عبر Home · Menu · Locations · About · Franchise · Careers · Media · Dashboard | M34 §26 | D-285 | docs/DESIGN-SYSTEM-STANDARD.md |  |  | NOT STARTED | NO |
+| `INFRA-001` | M35 ملحق الاكتمال النهائي — صنّف أولًا (5 تصنيفات) ثم نفّذ النواقص الفعلية فقط | M35 §00, M35 §62 | D-287 | docs/FINAL-ARCHITECTURE-REVIEW.md §1–4 |  |  | IMPLEMENTED — NOT TESTED | N/A |
+| `INFRA-002` | ثلاث بيئات منفصلة: DEVELOPMENT · STAGING · PRODUCTION | M35 §01 | D-288, ADR-001, D-172 | docs/platform/ENVIRONMENTS.md · docs/FINAL-ARCHITECTURE-REVIEW.md §13 · docs/architecture/PLATFORM-ARCHITECTURE.md §1 · docs/adr/ADR-001-platform.md · docs/CLOUDWAYS-RECRUITMENT-ARCHITECTURE.md §2 (CW-01, CW-07) |  |  | NOT STARTED | NO |
+| `INFRA-003` | عزل الـStaging: لا فهرسة، لا Analytics Production، ونماذجه لا تختلط بالإنتاج | M35 §01 | D-288 | docs/platform/ENVIRONMENTS.md · docs/FINAL-ARCHITECTURE-REVIEW.md §6 AC-4 · docs/FINAL-ARCHITECTURE-REVIEW.md §13 |  |  | NOT STARTED | NO |
+| `INFRA-004` | سجل الإصدارات (Release Registry) — WHAT CHANGED IN THIS RELEASE? | M35 §02 | D-288 | docs/platform/DEPLOYMENT.md · docs/FINAL-ARCHITECTURE-REVIEW.md §13 · docs/architecture/PLATFORM-ARCHITECTURE.md §3.5 |  |  | NOT STARTED | NO |
+| `INFRA-005` | نظام التراجع (Rollback) — العودة السريعة إلى Previous Stable Release | M35 §03 | D-288 | docs/platform/ROLLBACK.md · docs/FINAL-ARCHITECTURE-REVIEW.md §13 |  |  | NOT STARTED | NO |
+| `INFRA-006` | حوكمة Database Migrations — versioned، لا تعديل يدوي للإنتاج | M35 §51 | D-288 | docs/platform/DEPLOYMENT.md · docs/FINAL-ARCHITECTURE-REVIEW.md §13 · docs/architecture/PLATFORM-ARCHITECTURE.md §2 |  |  | NOT STARTED | NO |
+| `INFRA-007` | Monitoring Center — المصادر الخمسة عشر في محرك إشارات واحد | M35 §04 | D-289 | docs/platform/MONITORING.md · docs/FINAL-ARCHITECTURE-REVIEW.md §14 · docs/MASTER-DATA-HUB.md §12 |  |  | NOT STARTED | NO |
+| `INFRA-008` | صحة المجدول (Scheduled Job Health): Last Run · Next Run · Failures | M35 §49 | D-289 | docs/platform/MONITORING.md · docs/FINAL-ARCHITECTURE-REVIEW.md §14 · docs/architecture/PLATFORM-ARCHITECTURE.md §3.1 |  |  | NOT STARTED | NO |
+| `INFRA-009` | موثوقية الأتمتة الزمنية — server-controlled · timezone-aware · auditable | M35 §50 | D-289 | docs/platform/MONITORING.md · docs/platform/CACHE-CDN.md · docs/architecture/PLATFORM-ARCHITECTURE.md §4 · docs/MASTER-DATA-HUB.md §7 |  |  | NOT STARTED | NO |
+| `INFRA-010` | نموذج الصحة: 9 فئات بحالات فعلية — بلا رقم إجمالي مزيف | M35 §44 | D-296 | docs/platform/MONITORING.md · docs/platform/INCIDENTS.md · docs/FINAL-ARCHITECTURE-REVIEW.md §7–9 · docs/FINAL-ARCHITECTURE-REVIEW.md §10 |  |  | NOT STARTED | NO |
+| `INFRA-011` | SHELTER DIGITAL COMMAND CENTER — الرئيسية للـDashboard بلا Charts تجميلية | M35 §42, M35 §43 | D-296 | docs/platform/INCIDENTS.md · docs/platform/NOTIFICATIONS.md · docs/FINAL-ARCHITECTURE-REVIEW.md §10 |  |  | NOT STARTED | NO |
+| `INFRA-012` | مركز الإشعارات الموحد (NOTIFICATIONS) — لا إشعارات عشوائية داخل الوحدات | M35 §07 | D-289 | docs/platform/NOTIFICATIONS.md · docs/FINAL-ARCHITECTURE-REVIEW.md §5 · docs/FINAL-ARCHITECTURE-REVIEW.md §10 |  |  | NOT STARTED | NO |
+| `INFRA-013` | أولويات الإشعارات وإجراءاتها — لا إخفاء لحادثة حرجة غير محلولة بلا سجل | M35 §08 | D-289 | docs/platform/NOTIFICATIONS.md · docs/platform/INCIDENTS.md · docs/FINAL-ARCHITECTURE-REVIEW.md §5 |  |  | NOT STARTED | NO |
+| `INFRA-014` | مركز الاستفسارات الموحد (INQUIRIES / INBOX) — التوظيف والشراكات مستقلان | M35 §09 | D-290 | docs/platform/INQUIRIES.md · docs/platform/VOICE-OF-CUSTOMER.md · docs/FINAL-ARCHITECTURE-REVIEW.md §6 AC-6 · docs/FINAL-ARCHITECTURE-REVIEW.md §10 · docs/architecture/PLATFORM-ARCHITECTURE.md §3.4 |  |  | NOT STARTED | NO |
+| `INFRA-015` | نموذج بيانات الاستفسار وحالاته (NEW · OPEN · IN PROGRESS · RESOLVED · ARCHIVED) | M35 §10 | D-290 | docs/platform/INQUIRIES.md · docs/architecture/PLATFORM-ARCHITECTURE.md §3.4 |  |  | NOT STARTED | NO |
+| `INFRA-016` | طبقة موثوقية النماذج: لا Success قبل تأكيد الحفظ — لكل النماذج | M35 §11 | D-290 | docs/platform/FORM-RELIABILITY.md · docs/RECRUITMENT-SECURITY.md §6 · docs/FINAL-ARCHITECTURE-REVIEW.md §1–4 |  |  | NOT STARTED | NO |
+| `INFRA-017` | معالجة فشل النماذج: حفظ المدخلات · رسالة واضحة · إعادة محاولة آمنة · سجل بلا بيانات حساسة | M35 §12 | D-290 | docs/platform/FORM-RELIABILITY.md · docs/RECRUITMENT-SECURITY.md §6 |  |  | NOT STARTED | NO |
+| `INFRA-018` | Idempotency — لا طلبين متطابقين بسبب الضغط المزدوج، ولا منع لطلبات مستقلة صحيحة | M35 §13 | D-290 | docs/platform/FORM-RELIABILITY.md · docs/RECRUITMENT-SECURITY.md §6 · docs/architecture/PLATFORM-ARCHITECTURE.md §3.1 |  |  | NOT STARTED | NO |
+| `INFRA-019` | خدمة الأرقام المرجعية المشتركة: JOB · FR · INQ — بلا PII | M35 §14 | D-290 | docs/platform/FORM-RELIABILITY.md · docs/platform/INQUIRIES.md · docs/RECRUITMENT-DATA-MODEL.md §3 |  |  | NOT STARTED | NO |
+| `INFRA-020` | تجربة 500 / الأخطاء المؤقتة — بلا Stack trace وبإجراءات واضحة | M35 §18 | D-291 | docs/platform/SITE-INVENTORY.md · docs/platform/MONITORING.md · docs/FINAL-ARCHITECTURE-REVIEW.md §1–4 (صف 17–20) |  |  | NOT STARTED | NO |
+| `INFRA-021` | تجربة الصيانة (Maintenance) — بهوية SHELTER، والملاذ الأخير فقط | M35 §19 | D-291 | docs/platform/SITE-INVENTORY.md · docs/platform/SAFE-MODE.md · docs/FINAL-ARCHITECTURE-REVIEW.md §6 AC-5 |  |  | NOT STARTED | NO |
+| `INFRA-022` | Empty States محترمة لكل Module (الموقع يُخفي، الـDashboard يشرح) | M35 §20 | D-291 | docs/FINAL-ARCHITECTURE-REVIEW.md §1–4 |  |  | NOT STARTED | NO |
+| `INFRA-023` | فشل الشبكة/الـAPI برفق — بلا Full PWA الآن | M35 §21 | D-291 | docs/platform/MONITORING.md · docs/FINAL-ARCHITECTURE-REVIEW.md §1–4 (صف 21) |  |  | NOT STARTED | NO |
+| `INFRA-024` | معمارية الـCache/CDN — مصدر واستراتيجية إبطال لكل طبقة | M35 §22 | D-292 | docs/platform/CACHE-CDN.md · docs/FINAL-ARCHITECTURE-REVIEW.md §13 |  |  | NOT STARTED | NO |
+| `INFRA-025` | سجل التكاملات الداخلي (Integration Registry) — بلا Secrets، مع Fix Connection | M35 §26, M35 §06, M35 §27 | D-293 | docs/platform/INTEGRATION-REGISTRY.md · docs/FINAL-ARCHITECTURE-REVIEW.md §12 · docs/architecture/PLATFORM-ARCHITECTURE.md §3.2 |  |  | NOT STARTED | NO |
+| `INFRA-026` | سجل ملكية الخدمات (Service Ownership Register) — لا فقدان للملكية | M35 §28 | D-293 | docs/platform/INTEGRATION-REGISTRY.md · docs/FINAL-ARCHITECTURE-REVIEW.md §15 (S-5) |  |  | PARTIAL | NO |
+| `INFRA-027` | خطة التعافي من الكوارث (DISASTER RECOVERY PLAN) | M35 §29 | D-293 | docs/platform/DISASTER-RECOVERY.md · docs/CLOUDWAYS-RECRUITMENT-ARCHITECTURE.md §6 · docs/FINAL-ARCHITECTURE-REVIEW.md §1–4 (صف 29–30) |  |  | PARTIAL | NO |
+| `INFRA-028` | إعداد السوق (Market Configuration) — جاهزية التدويل | M35 §31 | D-294 | docs/platform/INTERNATIONALIZATION.md · docs/FINAL-ARCHITECTURE-REVIEW.md §1–4 (صف 31–33) · docs/architecture/PLATFORM-ARCHITECTURE.md §3.2 |  |  | NOT STARTED | NO |
+| `INFRA-029` | لا تثبيت للدولة في الكود — السوق الحالي JO · ar · en · JOD · Asia/Amman | M35 §32 | D-294 | docs/platform/INTERNATIONALIZATION.md · docs/FINAL-ARCHITECTURE-REVIEW.md §1–4 |  |  | NOT STARTED | NO |
+| `INFRA-030` | SITE-INVENTORY.md — جرد كل Public Route بحقوله العشرة | M35 §34 | D-295 | docs/platform/SITE-INVENTORY.md · docs/phase-01-discovery/10-url-architecture-draft.md · docs/FINAL-ARCHITECTURE-REVIEW.md §1–4 (صف 34) |  |  | IMPLEMENTED — NOT TESTED | NO |
+| `INFRA-031` | خريطة مصدر الحقيقة لكل نوع محتوى (CONTENT-SOURCE-OF-TRUTH) — لا نوع بلا مالك | M35 §35 | D-295 | docs/platform/CONTENT-SOURCE-OF-TRUTH.md · docs/MASTER-DATA-HUB.md §3 |  |  | IMPLEMENTED — NOT TESTED | NO |
+| `INFRA-032` | سجل الروابط القديمة (LEGACY URL INVENTORY) قبل الإطلاق | M35 §15 | D-291 | docs/platform/LEGACY-URL-MIGRATION.md · docs/phase-01-discovery/02-url-inventory-and-migration-seed.md · docs/google/SEO-MIGRATION-MAP.md |  |  | PARTIAL | NO |
+| `INFRA-033` | خريطة التحويل (REDIRECT MAP): أقرب بديل مكافئ — لا تحويل جماعي للرئيسية | M35 §16 | D-291 | docs/platform/LEGACY-URL-MIGRATION.md · docs/FINAL-ARCHITECTURE-REVIEW.md §1–4 |  |  | NOT STARTED | NO |
+| `INFRA-034` | Global Definition of Done — RELEASE-CHECKLIST.md المرجع الوحيد (17 فحصًا) | M35 §36 | D-295 | docs/platform/RELEASE-CHECKLIST.md · docs/FINAL-ARCHITECTURE-REVIEW.md §5 |  |  | IMPLEMENTED — NOT TESTED | NO |
+| `INFRA-035` | قابلية نقل البيانات (Data Portability) — تصدير منظم بصلاحيات الـOwner | M35 §39 | D-295 | docs/platform/DATA-PORTABILITY.md · docs/FINAL-ARCHITECTURE-REVIEW.md §5 · docs/architecture/PLATFORM-ARCHITECTURE.md §3.5 |  |  | NOT STARTED | NO |
+| `INFRA-036` | أمان التصدير: Owner only · تأكيد صريح · Audit · إخفاء حيث يلزم | M35 §40 | D-295 | docs/platform/DATA-PORTABILITY.md · docs/FINAL-ARCHITECTURE-REVIEW.md §15 |  |  | NOT STARTED | NO |
+| `INFRA-037` | قابلية نقل النظام — لا حبس لبيانات SHELTER عند Vendor | M35 §41 | D-295 | docs/platform/DATA-PORTABILITY.md · docs/adr/ADR-001-platform.md |  |  | PARTIAL | NO |
+| `INFRA-038` | حوكمة تخزين الملفات — أربع مناطق، ولا ملفات خاصة في مجلدات الويب العامة | M35 §52 | D-295 | docs/platform/DATA-CLASSIFICATION.md · docs/CLOUDWAYS-RECRUITMENT-ARCHITECTURE.md §2 · docs/architecture/PLATFORM-ARCHITECTURE.md §1 |  |  | NOT STARTED | NO |
+| `INFRA-039` | تصنيف البيانات: PUBLIC · INTERNAL · CONFIDENTIAL · SENSITIVE | M35 §53 | D-295 | docs/platform/DATA-CLASSIFICATION.md · docs/FINAL-ARCHITECTURE-REVIEW.md §11 · docs/RECRUITMENT-DATA-MODEL.md §2.2 |  |  | NOT STARTED | NO |
+| `INFRA-040` | Command palette / إجراءات سريعة للـOwner — اختياري ولا يعقّد V1 | M35 §48 | D-296 | docs/FINAL-ARCHITECTURE-REVIEW.md §7–9 |  |  | NOT STARTED | NO |
+| `INFRA-041` | قائمة جاهزية الإطلاق (LAUNCH READINESS CHECKLIST) — قائمة واحدة | M35 §54 | D-297 | docs/platform/LAUNCH-READINESS.md · docs/google/GOOGLE-ECOSYSTEM-CHECKLIST.md · docs/FINAL-ARCHITECTURE-REVIEW.md §16 |  |  | IMPLEMENTED — NOT TESTED | NO |
+| `INFRA-042` | التحقق بعد الإطلاق: T+1h · T+24h · T+7d (ضمن جدول المراقبة الموحد) | M35 §55 | D-297 | docs/platform/POST-LAUNCH-VERIFICATION.md · docs/google/POST-LAUNCH-GOOGLE-CHECKLIST.md |  |  | PARTIAL | NO |
+| `INFRA-043` | الوثائق العشرون لأنظمة M35 (§56) | M35 §56 | D-287 | docs/platform/ · docs/FINAL-ARCHITECTURE-REVIEW.md |  |  | IMPLEMENTED — NOT TESTED | NO |
+| `INFRA-044` | المعمارية النهائية المستهدفة (M35 §60) | M35 §60 | D-287 | docs/architecture/PLATFORM-ARCHITECTURE.md · docs/FINAL-ARCHITECTURE-REVIEW.md §11–12 |  |  | IMPLEMENTED — NOT TESTED | NO |
+| `INFRA-045` | الاستجابة الأولى لـM35: المراجعة المعمارية ذات البنود الـ17 | M35 §61 | D-287 | docs/FINAL-ARCHITECTURE-REVIEW.md |  |  | NEEDS FIX | N/A |
+| `BUILD-001` | التخطيط مغلق — BUILD MODE، ويبدأ البناء بعد إنهاء كل المهام الحالية | M36 §00, M36 §01, M36 §25, M36 FU-1, M36 FU-2 | D-298 | CLAUDE.md §Build mode · docs/PROGRESS.md |  |  | IMPLEMENTED — NOT TESTED | N/A |
+| `BUILD-002` | تنظيم المشروع داخل المستودع قبل أول Implementation كبير — لا اعتماد على ذاكرة المحادثة | M36 §02 | D-298 | docs/SHELTER-WEBSITE-MASTER-REQUIREMENTS.md · docs/IMPLEMENTATION-PLAN.md · docs/platform/SITE-INVENTORY.md · docs/platform/CONTENT-SOURCE-OF-TRUTH.md · docs/platform/INTEGRATION-REGISTRY.md |  |  | PARTIAL | NO |
+| `BUILD-003` | إزالة التكرار — نظام واحد لكل وظيفة | M36 §03 | D-305 | docs/FINAL-ARCHITECTURE-REVIEW.md §5 · docs/architecture/PLATFORM-ARCHITECTURE.md §3 |  |  | PARTIAL | N/A |
+| `BUILD-004` | حل التعارض: آخر قرار صريح يفوز — لا دمج لقرارين متعارضين، والقديم SUPERSEDED ولا يُستخدم | M36 §04 | D-305 | docs/CONFLICT-REGISTER.md |  |  | PARTIAL | N/A |
+| `BUILD-005` | البيانات الناقصة لا توقف المشروع — والسؤال فقط عند Blocker من الفئات المحددة | M36 §05, M36 §24 | D-303 | docs/PENDING-OWNER-INPUT.md |  |  | PARTIAL | N/A |
+| `BUILD-006` | ترتيب البناء: PHASE 1–7 بقوائم وحداتها | M36 §06 | D-301 | docs/PROGRESS.md · docs/IMPLEMENTATION-PLAN.md |  |  | PARTIAL | N/A |
+| `BUILD-007` | داخل كل Phase: PLAN → BUILD → TEST → FIX → DOCUMENT → COMMIT → VERIFY — لا أنظمة نصف مكتملة | M36 §07 | D-301 | CLAUDE.md §Build mode · docs/platform/RELEASE-CHECKLIST.md |  |  | PARTIAL | N/A |
+| `BUILD-008` | Design System أولًا — قبل تكاثر الصفحات، بلا One-off styling | M36 §08 | D-304 | docs/DESIGN-SYSTEM-STANDARD.md · docs/TOOLCHAIN.md |  |  | PARTIAL | PROTOTYPE |
+| `BUILD-009` | Master Data أولًا — لا ساعات أو أسعار أو بيانات فروع أو تواصل مكتوبة في الصفحات | M36 §09 | D-304 | docs/MASTER-DATA-HUB.md · docs/architecture/PLATFORM-ARCHITECTURE.md §3.2 |  |  | PARTIAL | N/A |
+| `BUILD-010` | الـOwner المستخدم الوحيد للـDashboard — كل عملية يومية بلا Code (معيار قبول الوحدات) | M36 §10 | D-304 | docs/architecture/PLATFORM-ARCHITECTURE.md §2 |  |  | NOT STARTED | NO |
+| `BUILD-011` | لا تلمس Production مبكرًا — Dev → Testing → Staging → Final Verification → Owner Approval → Production | M36 §11 | D-299 | CLAUDE.md §Build mode · docs/platform/DEPLOYMENT.md |  |  | PARTIAL | N/A |
+| `BUILD-012` | اختبر أثناء البناء — لا تأجيل للاختبار | M36 §12 | D-304 | docs/FRONTEND-TOOLING.md · docs/TOOLCHAIN.md |  |  | PARTIAL | PROTOTYPE |
+| `BUILD-013` | Responsive ليس اختياريًا — 14 عرضًا + RTL/LTR + Touch + Keyboard + 200% zoom باستمرار | M36 §13 | D-304 | tooling/viewports.mjs · docs/qa/RESPONSIVE-QA-MATRIX.md |  |  | PARTIAL | PROTOTYPE |
+| `BUILD-014` | الأداء مع كل Phase — لا تأجيل للنهاية | M36 §14 | D-304 | docs/menu-ia/PERFORMANCE-BUDGET.md · docs/TOOLCHAIN.md |  |  | PARTIAL | PROTOTYPE |
+| `BUILD-015` | Security by default — خصوصًا المصادقة وبيانات التوظيف والشراكات والملفات والتصدير والأسرار | M36 §15 | D-304 | docs/RECRUITMENT-SECURITY.md · docs/platform/SECURITY-CENTER.md |  |  | PARTIAL | N/A |
+| `BUILD-016` | قاعدة البيانات: لا DB على جهاز الـOwner، لا تلمس Falcon، والبنية ضمن Cloudways المعتمدة | M36 §16 | D-300 | docs/adr/ADR-001-platform.md |  |  | PARTIAL | N/A |
+| `BUILD-017` | Git discipline — Commits صغيرة ذات معنى، ولا عمليات Git مدمرة بلا داعٍ | M36 §17 | D-304 |  |  |  | PARTIAL | N/A |
+| `BUILD-018` | وثّق أثناء البناء — لا توثيق مؤجل | M36 §18 | D-304 | docs/platform/ |  |  | PARTIAL | N/A |
+| `BUILD-019` | لوحة التقدم (Progress Dashboard) — الحالات الست والأسئلة الخمسة | M36 §19 | D-302 | docs/PROGRESS.md |  |  | IMPLEMENTED — NOT TESTED | N/A |
+| `BUILD-020` | لا ادعاء DONE / COMPLETE / FROZEN بلا Build + Test + Verify — وإلا IMPLEMENTED — NOT YET VERIFIED | M36 §20 | D-302 | CLAUDE.md §Build mode · docs/PROGRESS.md |  |  | IMPLEMENTED — NOT TESTED | N/A |
+| `BUILD-021` | استخدم الأدوات الموجودة — لا framework أو component library أو animation أو testing أو SEO tool مكرر | M36 §21 | D-304 | docs/FRONTEND-TOOLING.md · docs/TOOLCHAIN.md |  |  | PARTIAL | N/A |
+| `BUILD-022` | ليس موقعًا عامًا — SHELTER COFFEE لا قالب قهوة ولا Dashboard SaaS ولا صفحة AI | M36 §22 | D-304 | docs/DESIGN-SYSTEM-STANDARD.md |  |  | NOT STARTED | NO |
+| `BUILD-023` | Keep it simple — أقل تعقيد يحقق السيطرة والتجربة والسرعة والموثوقية والتوسع والأمان والصيانة | M36 §23 | D-304 | docs/adr/ADR-001-platform.md |  |  | PARTIAL | N/A |
+| `BUILD-024` | الدور والمبادئ الختامية: Lead Engineer + System Architect + UX Quality Owner | M36 FINAL, M36 FU-1, M36 FU-2 | D-298 | CLAUDE.md §Build mode |  |  | PARTIAL | N/A |
+| `BUILD-025` | منصة البناء (ADR-001): Laravel 13 + MySQL/MariaDB على تطبيق Cloudways Flexible جديد، Blade | M36 §16, M36 §24 | D-300, ADR-001, DB-08 | docs/adr/ADR-001-platform.md · docs/architecture/PLATFORM-ARCHITECTURE.md |  |  | IMPLEMENTED — NOT TESTED | NO |
+| `BUILD-026` | تحويل البوابات: مراجعات المعمارية التقنية والـWireframes غير مانعة (READY FOR REVIEW)، وبوابات الإنتاج والحقائق تبقى | M36 §01, M36 §05, M36 §11, M36 §24 | D-299 | CLAUDE.md §Build mode · docs/PROGRESS.md |  |  | IMPLEMENTED — NOT TESTED | N/A |

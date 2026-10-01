@@ -23,7 +23,7 @@
 | **الحركة** | CSS transitions بالـTokens. **Motion** (vanilla) فقط حيث قرار M24 (Sheet المنيو)، **وبتحميل كسول** |
 | **الملفات الخاصة** | خارج الجذر العام: `storage/app/private`، وعلى Cloudways داخل `private_html`، **لا رابط عام** |
 | **المهام والجدولة** | Laravel Scheduler + Queue (`database` driver افتراضيًا، Redis إن توفر على السيرفر) |
-| **الـCDN** | Cloudflare أمام التطبيق، مع إبطال انتقائي (`docs/CACHE-CDN.md`) |
+| **الـCDN** | Cloudflare أمام التطبيق، مع إبطال انتقائي (`docs/platform/CACHE-CDN.md`) |
 | **الاختبار والجودة** | السجل الوحيد: [`docs/TOOLCHAIN.md`](../TOOLCHAIN.md) (PHPUnit · Larastan · Pint · TypeScript strict · ESLint · Prettier · Vitest · Storybook · Playwright + axe · Lighthouse CI · Semgrep · Gitleaks · ZAP على Staging) |
 
 ## لماذا (مقابل البدائل)
@@ -40,7 +40,7 @@
 | الأداة | المصير | البديل المعتمد |
 |---|---|---|
 | shadcn/ui · Radix · React Aria | **NOT APPLICABLE** (تفترض React) | عناصر HTML أصلية بسلوك صحيح: `<dialog>`، و`popover`، و`details`. أنماط ARIA APG، **مختبرة بـaxe ولوحة المفاتيح** |
-| Storybook | **مُعتمد (M37)** عبر `@storybook/html-vite` | **القصص تُولّد من مكونات Blade نفسها** (لا نسخة ثانية من المكونات) + addon-a11y + Visual regression بـPlaywright. **يحل محل** معرض `/_ds` المقترح سابقًا — انظر `docs/TOOLCHAIN.md` |
+| Storybook | **مُعتمد (M37)** عبر `@storybook/html-vite` | **القصص تُولّد من مكونات Blade نفسها** (لا نسخة ثانية من المكونات) + addon-a11y + Visual regression بـPlaywright. **يحل محل** معرض المكونات الداخلي (Route في التطبيق) المقترح سابقًا — انظر `docs/TOOLCHAIN.md` |
 | Tailwind | **REJECTED** | CSS مكونات + Tokens (يمنع One-off styling ويحقق "الـCMS لا يكسر التصميم") |
 | Motion (`motion/react`) | **يصبح** `motion` vanilla | للـSheet فقط، بتحميل كسول |
 | Lucide (`lucide-react`) | **يصبح** SVG ثابتة | Sprite/مكوّن Blade واحد |
@@ -50,5 +50,5 @@
 
 - **صورة واحدة للكود** تخدم Website وDashboard وAPI الداخلي.
 - **الانتقال للإنتاج** يكون بتحويل الدومين للتطبيق الجديد عند الإطلاق، بموافقة الـOwner (P11)، مع بقاء التطبيق القديم للتراجع.
-- **قابلية النقل:** Laravel وMySQL يعملان على أي استضافة PHP. البيانات قابلة للتصدير بمخططات موثقة (`docs/DATA-PORTABILITY.md`).
+- **قابلية النقل:** Laravel وMySQL يعملان على أي استضافة PHP. البيانات قابلة للتصدير بمخططات موثقة (`docs/platform/DATA-PORTABILITY.md`).
 - **إن ظهر أثناء الـCloudways audit** أن السيرفر لا يتحمل تطبيقين إضافيين: يُعرض على الـOwner خيار الترقية كقرار مالي، **ولا يُنفذ قبل موافقته**.

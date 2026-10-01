@@ -24,7 +24,7 @@ job_applications ──┬── application_attachments
    │               ├── application_notes             (1:N)
    │               ├── application_interviews ── interview_locations
    │               └── application_links             (إشارات تطابق مع طلبات سابقة — بلا دمج)
-application_number_counters
+reference_sequences
 recruitment_saved_filters · user_preferences · recruitment_settings
 audit_logs (مشترك مع كل الـDashboard) · upload_sessions (مسودات رفع مؤقتة)
 ```
@@ -169,7 +169,7 @@ audit_logs (مشترك مع كل الـDashboard) · upload_sessions (مسودا
 - تُنشأ عند الإرسال بمقارنة الإشارات المطابقة تمامًا.
 - **لا دمج، ولا حذف، ولا تعديل** على الطلبات المرتبطة.
 
-### 2.10 `application_number_counters`
+### 2.10 `reference_sequences`
 `year` (PK) · `last_value` (INT). تفاصيل التوليد في §3.
 
 ### 2.11 تفضيلات الـOwner
@@ -216,10 +216,10 @@ audit_logs (مشترك مع كل الـDashboard) · upload_sessions (مسودا
 ## 3. توليد رقم الطلب (Server-side فقط)
 ```
 BEGIN;
-  INSERT INTO application_number_counters(year,last_value) VALUES (:y,0)
+  INSERT INTO reference_sequences(year,last_value) VALUES (:y,0)
     ON DUPLICATE KEY UPDATE year=year;            -- PG: ON CONFLICT DO NOTHING
-  SELECT last_value FROM application_number_counters WHERE year=:y FOR UPDATE;
-  UPDATE application_number_counters SET last_value=last_value+1 WHERE year=:y;
+  SELECT last_value FROM reference_sequences WHERE year=:y FOR UPDATE;
+  UPDATE reference_sequences SET last_value=last_value+1 WHERE year=:y;
   -- application_number = 'JOB-' || :y || '-' || LPAD(last_value+1, 5, '0')   (يتجاوز 5 خانات تلقائيًا بعد 99999)
   INSERT INTO job_applications(… application_number …);
 COMMIT;
