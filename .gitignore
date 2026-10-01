@@ -1,12 +1,36 @@
-# Tooling (local installs and generated reports)
+# --- Laravel application ---
+/vendor
+/node_modules
+/public/build
+/public/hot
+/public/storage
+/storage/*.key
+/storage/pail
+.env
+.env.backup
+.env.production
+.env.staging
+.phpunit.result.cache
+/.phpunit.cache
+_ide_helper.php
+*.log
+# --- Design system / Storybook ---
+/storybook-static
+/design-system/stories/generated/
+# --- Tooling (QA installs and generated reports) ---
 tooling/node_modules/
 tooling/reports/
-# Media: originals and derived files are managed outside git until a storage decision (DB-08 / CMS) is approved
+tooling/.lighthouseci/
+# --- Media: originals and derived files stay outside git (storage decision: media library on Cloudways) ---
 media/originals/
 media/derived/
-# Python / OS noise
+# --- Editors / OS noise ---
+/.idea
+/.vscode
+/.zed
+/.cursor/
+/.codex
+.DS_Store
+Thumbs.db
 __pycache__/
 *.pyc
-.DS_Store
-# Generated helper data (wireframe tools)
-docs/menu-ia/wireframes/tools/subcats.json

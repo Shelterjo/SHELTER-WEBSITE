@@ -1,0 +1,135 @@
+# SHELTER quality pipeline (M37 §21–22, docs/TOOLCHAIN.md, docs/platform/CI-CD-QUALITY-GATES.md).
+# FAST + CI checks run on every push. FULL runs on manual dispatch (and before every release).
+# Supply-chain hardening: actions pinned by commit SHA; scanners built from source through the Go checksum DB;
+# no third-party scanner actions (trivy-action / gitleaks-action); scanner jobs get no secrets.
+name: Quality
+
+on:
+  push:
+  workflow_dispatch:
+    inputs:
+      full:
+        description: 'Run the FULL pipeline (Trivy, Knip, all browsers)'
+        type: boolean
+        default: true
+
+concurrency:
+  group: quality-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+env:
+  PHP_VERSION: '8.3'
+  NODE_VERSION: '22'
+
+jobs:
+  fast:
+    name: Fast checks (lint · types · unit)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - uses: shivammathur/setup-php@f3e473d116dcccaddc5834248c87452386958240 # v2
+        with:
+          php-version: ${{ env.PHP_VERSION }}
+          extensions: mbstring, intl, pdo_sqlite, sodium, gd
+          coverage: none
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+      - run: composer install --no-interaction --no-progress --prefer-dist
+      - run: npm ci
+      - name: Pint (PHP format)
+        run: vendor/bin/pint --test
+      - name: Larastan (PHP static analysis, level 8)
+        run: vendor/bin/phpstan analyse --memory-limit=1G --no-progress
+      - name: PHPUnit
+        run: |
+          cp .env.example .env
+          php artisan key:generate
+          php artisan test
+      - name: TypeScript strict
+        run: npm run typecheck
+      - name: ESLint + Prettier
+        run: npm run lint
+      - name: Vitest
+        run: npm run test:unit -- --passWithNoTests
+
+  build:
+    name: Build + bundle budget
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+
+  security:
+    name: Security (secrets · SAST · dependencies)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7
+        with:
+          go-version: stable
+          cache: false
+      - name: Gitleaks (full history)
+        run: |
+          go install github.com/zricethezav/gitleaks/v8@v8.30.1
+          "$(go env GOPATH)/bin/gitleaks" git . --redact --no-banner -c .gitleaks.toml
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7
+        with:
+          python-version: '3.12'
+      - name: Semgrep CE (project rules + registry packs, metrics off)
+        run: |
+          pip install --quiet semgrep==1.178.0
+          semgrep scan --metrics=off --error --quiet \
+            --config .semgrep --config p/php --config p/javascript --config p/typescript --config p/owasp-top-ten \
+            app routes config database resources
+      - uses: shivammathur/setup-php@f3e473d116dcccaddc5834248c87452386958240 # v2
+        with:
+          php-version: ${{ env.PHP_VERSION }}
+          coverage: none
+      - name: Composer audit (blocking)
+        run: composer audit --no-interaction --locked --abandoned=report
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - name: npm audit (blocking at high)
+        run: |
+          npm audit --audit-level=high
+          npm --prefix tooling audit --audit-level=high
+
+  full:
+    name: FULL (Trivy · Knip)
+    if: github.event_name == 'workflow_dispatch' && inputs.full
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7
+        with:
+          go-version: stable
+          cache: false
+      - name: Trivy (licenses + misconfiguration + vulnerabilities; built from source, pinned)
+        run: |
+          go install github.com/aquasecurity/trivy/cmd/trivy@v0.75.0
+          "$(go env GOPATH)/bin/trivy" fs --scanners vuln,misconfig,license --severity HIGH,CRITICAL --exit-code 1 \
+            --skip-dirs vendor,node_modules,tooling/node_modules .
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+      - run: npm ci
+      - name: Knip (report only — no automatic deletion)
+        run: npx knip --no-exit-code

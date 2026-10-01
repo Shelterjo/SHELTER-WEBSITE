@@ -1,0 +1,18 @@
+# Prettier formats TS/CSS/JSON/YAML only. PHP → Pint. Blade and docs are not reformatted (tables/RTL text).
+vendor
+node_modules
+public
+storage
+bootstrap/cache
+storybook-static
+tooling
+docs
+media
+design-system/build
+design-system/stories/generated
+design-system/tokens
+design-system/*.css
+*.php
+*.md
+composer.lock
+package-lock.json

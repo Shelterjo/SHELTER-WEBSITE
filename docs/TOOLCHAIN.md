@@ -33,7 +33,7 @@
 | **Vitest** | MISSING | اختبار وحدات TS فقط (منطق الواجهة). **منطق الأعمال في PHPUnit** | لا (لغتان مختلفتان) | ✅ | ✅ | FAST + CI | مجاني · MIT |
 | **Knip** | MISSING | الملفات والتصديرات والاعتماديات غير المستخدمة في جانب JS. **تقرير فقط، بلا حذف تلقائي** | — | ✅ | ✅ | يدوي / FULL | مجاني · ISC |
 | **Vite** | MISSING | بناء CSS/JS بأسماء Hash (افتراضي Laravel) + **فحص ميزانية الحزمة** | — | ✅ مع Laravel | ✅ | CI | مجاني · MIT |
-| **Storybook 10** (`@storybook/html-vite`) | MISSING | **مرجع الـDesign System:** كل مكون بحالاته Default / Hover / Focus / Active / Disabled / Loading / Error / Empty، وبالعربية RTL والإنجليزية LTR، وموبايل وديسكتوب. **القصص تُولّد من مكونات Blade نفسها**، فلا نسخة ثانية من المكونات | يحل محل معرض `/_ds` المقترح في ADR-001 | ✅ | ✅ | محلي + CI (بناء + a11y + Visual) | مجاني · MIT |
+| **Storybook 10** (`@storybook/html-vite`) | MISSING | **مرجع الـDesign System:** كل مكون بحالاته Default / Hover / Focus / Active / Disabled / Loading / Error / Empty، وبالعربية RTL والإنجليزية LTR، وموبايل وديسكتوب. **القصص تُولّد من مكونات Blade نفسها**، فلا نسخة ثانية من المكونات | يحل محل معرض المكونات الداخلي (Route في التطبيق) المقترح سابقًا في ADR-001 | ✅ | ✅ | محلي + CI (بناء + a11y + Visual) | مجاني · MIT |
 | **@storybook/addon-a11y** | MISSING | axe داخل Storybook لكل قصة | يكمل axe في Playwright | ✅ | ✅ | محلي + CI | مجاني · MIT |
 | **storybook-addon-pseudo-states** | MISSING | إظهار Hover/Focus/Active ثابتة لكل مكون (للمرجع والـVisual regression) | — | ✅ | ✅ | محلي + CI | مجاني · MIT |
 | **Lucide** | MISSING (مقرر) | مكتبة أيقونات **واحدة**: SVG ثابتة تُنسخ عند الحاجة فقط، **بلا حزمة أيقونات كاملة في الواجهة** | — | ✅ (`lucide-static`، تطوير فقط) | ✅ | Build | مجاني · ISC |
@@ -122,3 +122,33 @@
 | Context7 / Chrome DevTools MCP | ربط خدمات خارجية. **غير ضروري الآن**؛ البديل موثق أعلاه |
 | تجاوز حصة GitHub Actions المجانية | قرار مالي (إن حصل) |
 | أي SaaS (Percy، Chromatic، Sentry، Snyk…) | **غير مستخدمة.** البدائل المجانية أعلاه تكفي |
+
+## 6. حالة التثبيت الفعلية (2026-10-01)
+| الأداة | الحالة | التحقق |
+|---|---|---|
+| PHPUnit · Pint · Larastan (المستوى 8) | **INSTALLED + CONFIGURED** | `composer qa:fast` ✅ |
+| TypeScript 6 (strict) · ESLint 10 · Prettier · Vitest 5 · Knip | **INSTALLED + CONFIGURED** | `npm run qa:fast` ✅ |
+| Vite 8 + ميزانية الحزمة + حارس الهوية | **INSTALLED + CONFIGURED** | `npm run build` ✅ |
+| Storybook 10 (`html-vite`) + addon-a11y + pseudo-states | **INSTALLED + CONFIGURED** | القصص تُولّد في PHASE 1 مع مكونات Blade |
+| Gitleaks | **INSTALLED + CONFIGURED** (Hook محلي + CI) | تاريخ Git كله: لا تسريبات ✅ |
+| Semgrep CE | **INSTALLED + CONFIGURED** (قواعد المشروع `.semgrep/` + حزم السجل في CI) | لا نتائج ✅ |
+| composer audit · npm audit | **CONFIGURED** (بوابة في CI) | لا ثغرات ✅ |
+| Trivy | **CONFIGURED** (الخط الكامل فقط) | يُبنى من المصدر بنسخة مثبتة |
+| GitHub Actions | **CONFIGURED** (`.github/workflows/quality.yml`) | الـActions مثبتة برقم الـCommit |
+| Lighthouse CI | يُضبط مع أول صفحات حقيقية (نهاية PHASE 1 / PHASE 2) | — |
+| OWASP ZAP | يُضبط مع إنشاء Staging | — |
+
+**قرارات تقنية أثناء التثبيت:**
+- **TypeScript 6.0 وليس 7.0:** `typescript-eslint` يدعم حتى `<6.1`. النسخة 7 (Native) لا تعمل معه بعد.
+- **WebAuthn:** `laragear/webauthn` **متروكة** (Abandoned) ويوصي مطوروها بـ`laravel/passkeys` الرسمية. لذلك أُزيلت. تُضاف `laravel/passkeys` عند تنفيذ مفاتيح الدخول. **الـTOTP إلزامي من البداية** (`pragmarx/google2fa`).
+- **Trivy:** في مارس 2026 تعرّض لهجوم سلسلة توريد (CVE-2026-33634: إصدار خبيث v0.69.4، ووسوم `trivy-action` و`setup-trivy` مُستبدلة).
+  - **الإجراءات المتبعة:**
+    - لا `trivy-action`.
+    - لا Tags متغيرة.
+    - بناء من المصدر بنسخة مثبتة (v0.75.0) عبر Go checksum DB.
+    - يعمل في الخط الكامل فقط، **بلا أي أسرار في تلك الخطوة**.
+  - المصادر: [GHSA-69fq-xp46-6x23](https://github.com/aquasecurity/trivy/security/advisories/GHSA-69fq-xp46-6x23) · [Aqua](https://www.aquasec.com/blog/trivy-supply-chain-attack-what-you-need-to-know/).
+- **Gitleaks وSemgrep في CI:** نسخ مثبتة (`gitleaks@v8.30.1` من المصدر، و`semgrep==1.178.0`)، **بلا Actions خارجية**.
+- **شبكة بيئة التطوير:** `api.github.com` وروابط إصدارات GitHub محجوبة (403)، و`git` يعمل.
+  - الحزم تُثبّت محليًا من المصدر (`--prefer-source`).
+  - في CI تعمل كل الأدوات طبيعيًا.

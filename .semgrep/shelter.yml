@@ -1,0 +1,56 @@
+# Project-specific security rules (M37 §14). Registry packs (p/php, p/javascript, p/typescript, p/owasp-top-ten)
+# run in CI; these encode SHELTER rules. Every finding is verified before it is treated as a vulnerability.
+rules:
+  - id: shelter-blade-unescaped-output
+    languages: [generic]
+    paths: { include: ['*.blade.php'] }
+    pattern: '{!! ... !!}'
+    message: 'Unescaped Blade output. Allowed only for HTML produced by the sanitizer or JSON-LD from SchemaBuilder; add a `{{-- semgrep-ok: reason --}}` review note.'
+    severity: WARNING
+  - id: shelter-raw-sql-interpolation
+    languages: [php]
+    patterns:
+      - pattern-either:
+          - pattern: DB::raw("...$X...")
+          - pattern: $Q->whereRaw("...$X...", ...)
+          - pattern: $Q->orderByRaw("...$X...", ...)
+          - pattern: $Q->selectRaw("...$X...", ...)
+          - pattern: DB::statement("...$X...", ...)
+          - pattern: DB::select("...$X...", ...)
+    message: 'Interpolated value inside raw SQL. Use bindings.'
+    severity: ERROR
+  - id: shelter-mass-assignment-all
+    languages: [php]
+    pattern-either:
+      - pattern: $M::create($REQ->all())
+      - pattern: $M->update($REQ->all())
+      - pattern: $M->fill($REQ->all())
+    message: 'Mass assignment from $request->all(). Use $request->validated() from a FormRequest.'
+    severity: ERROR
+  - id: shelter-private-upload-on-public-disk
+    languages: [php]
+    pattern-either:
+      - pattern: Storage::disk('public')->put($PATH, ...)
+      - pattern: $FILE->store($PATH, 'public')
+      - pattern: $FILE->storePublicly(...)
+    message: 'Uploads go to a private disk first (careers/partnerships/inquiries). Only the media pipeline publishes approved derivatives.'
+    severity: WARNING
+  - id: shelter-dangerous-functions
+    languages: [php]
+    pattern-either:
+      - pattern: eval(...)
+      - pattern: unserialize($X)
+      - pattern: shell_exec(...)
+      - pattern: exec(...)
+      - pattern: system(...)
+      - pattern: passthru(...)
+    message: 'Dangerous function. Not allowed in application code.'
+    severity: ERROR
+  - id: shelter-ts-inner-html
+    languages: [typescript, javascript]
+    pattern-either:
+      - pattern: $E.innerHTML = $X
+      - pattern: $E.outerHTML = $X
+      - pattern: $E.insertAdjacentHTML(...)
+    message: 'HTML injection sink. Use textContent / DOM APIs.'
+    severity: ERROR

@@ -1,0 +1,20 @@
+# Secret scanning (M37 §15). Default gitleaks rules + project allowlist for generated/vendor paths only.
+title = "SHELTER gitleaks config"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Generated, vendored and evidence files (never hand-written secrets)"
+paths = [
+  '''vendor/''',
+  '''node_modules/''',
+  '''tooling/node_modules/''',
+  '''tooling/reports/''',
+  '''public/build/''',
+  '''storage/framework/''',
+  '''bootstrap/cache/''',
+  '''storybook-static/''',
+  '''composer\.lock''',
+  '''package-lock\.json''',
+]

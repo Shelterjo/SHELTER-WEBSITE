@@ -1,0 +1,2 @@
+/* Public site bundle: tokens → base → components → site layout. No raw values: tokens only (M34). */
+@import '../../design-system/build/tokens.css';

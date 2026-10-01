@@ -1,0 +1,12 @@
+#!/bin/sh
+# Local fast gate (M37 §22). Enable once per clone: git config core.hooksPath .githooks
+set -e
+if command -v gitleaks >/dev/null 2>&1; then
+  gitleaks git --pre-commit --staged --redact --no-banner
+else
+  echo "pre-commit: gitleaks not installed — secret scan skipped locally (CI still runs it)." >&2
+fi
+if [ -x vendor/bin/pint ]; then
+  files=$(git diff --cached --name-only --diff-filter=ACM -- '*.php')
+  [ -z "$files" ] || vendor/bin/pint --test $files
+fi

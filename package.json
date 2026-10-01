@@ -1,0 +1,40 @@
+{
+  "$schema": "https://www.schemastore.org/package.json",
+  "name": "shelter-website",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.19"
+  },
+  "scripts": {
+    "build": "npm run tokens && node scripts/brand-guard.mjs && vite build && node scripts/bundle-budget.mjs",
+    "dev": "vite",
+    "tokens": "npm --prefix tooling run tokens:css",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint . && prettier --check .",
+    "format": "prettier --write .",
+    "test:unit": "vitest run",
+    "knip": "knip",
+    "ds:export": "php artisan ds:export",
+    "storybook": "npm run ds:export && storybook dev -p 6006 --no-open",
+    "storybook:build": "npm run ds:export && storybook build -o storybook-static --quiet",
+    "qa:fast": "npm run typecheck && npm run lint && npm run test:unit"
+  },
+  "devDependencies": {
+    "@eslint/js": "10.0.1",
+    "@storybook/addon-a11y": "10.6.1",
+    "@storybook/html-vite": "10.6.1",
+    "eslint": "10.11.0",
+    "globals": "17.13.0",
+    "knip": "6.39.0",
+    "laravel-vite-plugin": "3.2.0",
+    "lucide-static": "1.49.0",
+    "prettier": "3.9.9",
+    "storybook": "10.6.1",
+    "storybook-addon-pseudo-states": "10.6.1",
+    "typescript": "6.0.3",
+    "typescript-eslint": "8.71.0",
+    "vite": "8.3.2",
+    "vitest": "5.0.3"
+  }
+}
