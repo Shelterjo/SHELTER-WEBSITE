@@ -329,6 +329,7 @@
 | D-308 | **تفويض تنفيذ الإعداد:** الـOwner يمنح الوصول إلى Cloudways وCloudflare وGoogle، ويفوّض Claude بتنفيذ الإعداد التقني بنفسه. **الوصول يتم بأقل صلاحية، والقيم السرية في إعدادات البيئة فقط، وليس في المحادثة.** التغييرات الحساسة على Production (DNS، والتحويلات، وتعديل Google Business، والحذف النهائي) تبقى بموافقة صريحة على كل إجراء (M38 §10) | 2026-10-01 | Owner — "انا بعطيك صلاحيات وصول وانت فوت عدل كل اشي" | ✅ Owner | 33 Integrations / 34 Hosting | `APPROVED` |
 | D-309 | الهوية البصرية تؤخذ من الموقع القديم www.shelterjo.com: الألوان والشعار والخطوط — «نفس الثيم». الصور الحقيقية خارج هذا القرار. | 2026-10-01 | Owner — M39 §2 (M39 §2) | ✅ Owner | 01 Brand & Design System | `APPROVED` |
 | D-310 | M40 PREMIUM UI / UX / MOTION MASTER DIRECTIVE — OWNER APPROVED: ui-ux-pro-max للتفكير، 21st للإلهام، shadcn للـPrimitives، Motion للحركة، وSHELTER Design System هو السلطة النهائية؛ الموقع Premium وحي وسريع ومتسق، لا Template ولا AI ولا SaaS. | 2026-10-01 | Owner — M40 FINAL (M40 FINAL) · M40 §00 (M40 §00) | ✅ Owner | 48 Design System & UI Consistency | `APPROVED` |
+| D-311 | PO-070 → A: حذف سجلات DNS المكشوفة (`*.shelterjo.com` · `order` · `sweet`). الـWildcard فورًا، و`order`/`sweet` بعد تأكيد عدم استخدامهما (حديثا الإنشاء). | 2026-10-01 | Owner — M41 §1 (M41 §1) | ✅ Owner | 34 Cloudflare, Hosting & DNS | `APPROVED` |
 
 ## قرارات مفتوحة (PROPOSED — بانتظار الـOwner)
 
