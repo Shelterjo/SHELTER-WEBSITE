@@ -28,6 +28,7 @@ const FORBIDDEN = ['صورة شخصية', 'وسيلة مواصلات', 'مستو
 const PUBLIC = ['index', 'form-a', 'form-a-errors', 'form-a-jo', 'form-a-nonjo', 'form-a-upload', 'form-a-cv-unknown', 'form-a-file-errors', 'form-a-network',
   'form-b', 'form-b-s2', 'form-b-s3', 'form-b-s4', 'form-b-errors', 'success', 'track', 'track-error', 'track-result', 'en-careers'];
 const DASH = ['overview', 'list', 'list-filters', 'list-columns', 'list-bulk', 'bulk-confirm', 'quickview', 'application', 'interviews', 'archived', 'delete-confirm', 'export', 'settings'];
+const UPLOAD = 'اسحب الملفات هنا أو اضغط للرفع'; // the upload control's label (المرفقات + this text)
 const DESKTOP_ONLY = ['list-columns']; // column chooser applies to the desktop table; mobile uses cards
 
 // ---- one in-page audit used by every page × viewport
@@ -156,10 +157,11 @@ test.describe('careers · form behaviour', () => {
     for (const f of ['form-a', 'form-b']) {
       await page.goto(C + f + '.html');
       for (const l of ['الاسم الكامل', 'رقم الهاتف', 'البريد الإلكتروني', 'اليوم', 'الشهر', 'السنة', 'الحالة الاجتماعية', 'المدينة', 'المنطقة',
-        'المؤهل العلمي', 'سنوات الخبرة', 'الوظيفة المتقدم لها', 'الراتب المتوقع', 'ملاحظات إضافية', 'المرفقات', 'الرقم الوطني']) expect(await page.getByLabel(l).count(), l).toBe(1);
+        'المؤهل العلمي', 'سنوات الخبرة', 'الوظيفة المتقدم لها', 'الراتب المتوقع', 'ملاحظات إضافية', UPLOAD, 'الرقم الوطني']) expect(await page.getByLabel(l).count(), l).toBe(1);
+      expect(await page.getByLabel('المرفقات').and(page.locator('input[type=file]')).count()).toBe(1); // the section is also named المرفقات
       expect(await page.getByLabel(CONSENT).count()).toBe(1);
       for (const g of ['الجنس', 'الجنسية', 'هل لديك خبرة سابقة في نفس المجال أو الوظيفة التي تتقدم لها؟', 'هل تعمل حاليًا؟', 'هل لديك رخصة قيادة؟', 'تاريخ الميلاد'])
-        expect(await group(page, g).count(), g).toBe(1);
+        expect(await page.getByRole('group', { name: g, exact: true, includeHidden: true }).count(), g).toBe(1); // B keeps later steps hidden
     }
   });
 });
@@ -230,10 +232,10 @@ test.describe('careers · owner spec contract (public)', () => {
     onlyOn(ti, 'm390');
     await page.goto(C + 'form-a.html');
     const pdf = n => ({ name: n, mimeType: 'application/pdf', buffer: Buffer.from('%PDF-1.4 sample') });
-    await page.getByLabel('المرفقات').setInputFiles([pdf('Sample-CV.pdf'), pdf('certificate.pdf')]);
+    await page.getByLabel(UPLOAD).setInputFiles([pdf('Sample-CV.pdf'), pdf('certificate.pdf')]);
     await expect(page.locator('.files .badge.cv')).toHaveCount(1);
     await expect(page.locator('.cvpick')).toBeHidden();
-    await page.getByLabel('المرفقات').setInputFiles([pdf('document-01.pdf'), pdf('scan-02.pdf')]);
+    await page.getByLabel(UPLOAD).setInputFiles([pdf('document-01.pdf'), pdf('scan-02.pdf')]);
     await expect(page.locator('.cvpick')).toBeVisible();
     expect(await page.locator('.cvpick input[type=radio]').count()).toBe(2);
   });
@@ -380,7 +382,7 @@ const STEPS_FILL = [
   [3, p => p.getByLabel('الراتب المتوقع'), l => l.fill('450')],
   [3, radio('هل لديك رخصة قيادة؟', 'نعم'), l => l.check()],
   [3, p => p.getByLabel('ملاحظات إضافية'), l => l.fill('ملاحظة تجريبية')],
-  [4, p => p.locator('label.drop'), (l, p) => p.getByLabel('المرفقات').setInputFiles([pdf('Sample-CV.pdf'), pdf('certificate.pdf'), pdf('course.pdf')])],
+  [4, p => p.locator('label.drop'), (l, p) => p.getByLabel(UPLOAD).setInputFiles([pdf('Sample-CV.pdf'), pdf('certificate.pdf'), pdf('course.pdf')])],
   [4, p => p.getByLabel(CONSENT), l => l.check()],
 ];
 

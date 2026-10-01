@@ -1,0 +1,202 @@
+{
+ "spec": "M28 §67 — single structured page vs short multi-step; owner delegated the choice to testing",
+ "method": [
+  "Same 19 owner fields, same order, same intro block; Jordanian path (1 conditional field) and 3 uploaded files.",
+  "interactionsToSubmit = Playwright actions on the happy path (fill/select/check/upload = 1 each) + step buttons + submit.",
+  "userScrollScreens = sum of the minimal scrolls needed to bring each control into view (16px margin) ÷ viewport height; programmatic scroll by the page itself is not counted.",
+  "pageScreens = document height ÷ viewport height (A: empty and filled; B: each step on entry).",
+  "Error visibility: empty submit (A) / empty step 1 (B), and a realistic miss (only المنطقة left empty). \"Visible\" = in the viewport with no extra scrolling."
+ ],
+ "results": {
+  "360x800": {
+   "A": {
+    "pageScreensEmpty": 4.18,
+    "pageScreensFilled": 4.54,
+    "interactionsToSubmit": 23,
+    "userScrollScreens": 3.37,
+    "emptySubmit": {
+     "scrollBeforeFirstFeedbackScreens": 3.18,
+     "summaryVisible": true,
+     "summaryFocused": true,
+     "errorsListed": 19,
+     "summaryScreens": 1.17,
+     "firstInlineErrorVisible": false
+    },
+    "realisticMiss": {
+     "caughtAtStep": "submit",
+     "summaryVisible": true,
+     "summaryFocused": true,
+     "errorsListed": 1,
+     "summaryScreens": 0.17,
+     "firstInlineErrorVisible": false
+    }
+   },
+   "B": {
+    "pageScreensEmpty": 1.82,
+    "stepScreens": [
+     1.82,
+     1.8,
+     1.52,
+     1.54
+    ],
+    "maxStepScreens": 1.82,
+    "interactionsToSubmit": 26,
+    "userScrollScreens": 1.02,
+    "emptySubmit": {
+     "scrollBeforeFirstFeedbackScreens": 0.82,
+     "summaryVisible": true,
+     "summaryFocused": true,
+     "errorsListed": 7,
+     "summaryScreens": 0.47,
+     "firstInlineErrorVisible": true
+    },
+    "realisticMiss": {
+     "caughtAtStep": 2,
+     "summaryVisible": true,
+     "summaryFocused": true,
+     "errorsListed": 1,
+     "summaryScreens": 0.14,
+     "firstInlineErrorVisible": true
+    }
+   }
+  },
+  "390x844": {
+   "A": {
+    "pageScreensEmpty": 3.88,
+    "pageScreensFilled": 4.22,
+    "interactionsToSubmit": 23,
+    "userScrollScreens": 3.06,
+    "emptySubmit": {
+     "scrollBeforeFirstFeedbackScreens": 2.88,
+     "summaryVisible": true,
+     "summaryFocused": true,
+     "errorsListed": 19,
+     "summaryScreens": 1.1,
+     "firstInlineErrorVisible": false
+    },
+    "realisticMiss": {
+     "caughtAtStep": "submit",
+     "summaryVisible": true,
+     "summaryFocused": true,
+     "errorsListed": 1,
+     "summaryScreens": 0.16,
+     "firstInlineErrorVisible": false
+    }
+   },
+   "B": {
+    "pageScreensEmpty": 1.66,
+    "stepScreens": [
+     1.66,
+     1.64,
+     1.37,
+     1.36
+    ],
+    "maxStepScreens": 1.66,
+    "interactionsToSubmit": 26,
+    "userScrollScreens": 0.76,
+    "emptySubmit": {
+     "scrollBeforeFirstFeedbackScreens": 0.66,
+     "summaryVisible": true,
+     "summaryFocused": true,
+     "errorsListed": 7,
+     "summaryScreens": 0.44,
+     "firstInlineErrorVisible": true
+    },
+    "realisticMiss": {
+     "caughtAtStep": 2,
+     "summaryVisible": true,
+     "summaryFocused": true,
+     "errorsListed": 1,
+     "summaryScreens": 0.13,
+     "firstInlineErrorVisible": true
+    }
+   }
+  },
+  "430x932": {
+   "A": {
+    "pageScreensEmpty": 3.5,
+    "pageScreensFilled": 3.8,
+    "interactionsToSubmit": 23,
+    "userScrollScreens": 2.67,
+    "emptySubmit": {
+     "scrollBeforeFirstFeedbackScreens": 2.5,
+     "summaryVisible": true,
+     "summaryFocused": true,
+     "errorsListed": 19,
+     "summaryScreens": 0.99,
+     "firstInlineErrorVisible": false
+    },
+    "realisticMiss": {
+     "caughtAtStep": "submit",
+     "summaryVisible": true,
+     "summaryFocused": true,
+     "errorsListed": 1,
+     "summaryScreens": 0.14,
+     "firstInlineErrorVisible": false
+    }
+   },
+   "B": {
+    "pageScreensEmpty": 1.5,
+    "stepScreens": [
+     1.5,
+     1.48,
+     1.24,
+     1.23
+    ],
+    "maxStepScreens": 1.5,
+    "interactionsToSubmit": 26,
+    "userScrollScreens": 0.51,
+    "emptySubmit": {
+     "scrollBeforeFirstFeedbackScreens": 0.5,
+     "summaryVisible": true,
+     "summaryFocused": true,
+     "errorsListed": 7,
+     "summaryScreens": 0.4,
+     "firstInlineErrorVisible": true
+    },
+    "realisticMiss": {
+     "caughtAtStep": 2,
+     "summaryVisible": true,
+     "summaryFocused": true,
+     "errorsListed": 1,
+     "summaryScreens": 0.12,
+     "firstInlineErrorVisible": true
+    }
+   }
+  }
+ },
+ "summary": {
+  "interactions": {
+   "A": 23,
+   "B": 26
+  },
+  "userScrollScreens": {
+   "360x800": {
+    "A": 3.37,
+    "B": 1.02
+   },
+   "390x844": {
+    "A": 3.06,
+    "B": 0.76
+   },
+   "430x932": {
+    "A": 2.67,
+    "B": 0.51
+   }
+  },
+  "firstErrorVisibleWithoutScroll": {
+   "360x800": {
+    "A": true,
+    "B": true
+   },
+   "390x844": {
+    "A": true,
+    "B": true
+   },
+   "430x932": {
+    "A": true,
+    "B": true
+   }
+  }
+ }
+}
