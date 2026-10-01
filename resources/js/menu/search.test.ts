@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import examples from '../../../tests/fixtures/search-normalization.json';
 import { matches, normalize, withinOneEdit } from './search';
 
 describe('normalize (Menu IA §8)', () => {
@@ -46,5 +47,19 @@ describe('matches', () => {
     it('needs every query word to match', () => {
         expect(matches('spanish mocha', terms)).toBe(false);
         expect(matches('', terms)).toBe(true);
+    });
+});
+
+// GS-T1: the same examples file as the PHP normaliser (tests/Unit/SearchNormalizerTest.php).
+describe('shared examples (tests/fixtures/search-normalization.json)', () => {
+    const normalizeCases = examples.normalize as [string, string][];
+    const matchCases = examples.matches as [string, string[], boolean][];
+
+    it.each(normalizeCases)('normalize(%j) = %j', (input, expected) => {
+        expect(normalize(input)).toBe(expected);
+    });
+
+    it.each(matchCases)('matches(%j, %j) = %j', (query, terms, expected) => {
+        expect(matches(query, terms)).toBe(expected);
     });
 });

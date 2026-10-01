@@ -6,6 +6,8 @@
     gateway, RG-02 / D-066). Items: [['label', 'href', 'current' => 'page'|'true'|null]]; languages: [['locale',
     'label', 'href', 'current' => bool]]. The drawer opens and closes with Motion when it is loaded
     (resources/js/ui/site-nav.ts); without JavaScript it is a native dialog (Invoker Commands) or the links stay inline.
+    `search` = URL of the results page: a search field at the top of the drawer, and a search link in the bar from
+    1024px where the drawer button is gone (GLOBAL-SEARCH §4) — the bar itself keeps Menu + Locations (D-027).
 --}}
 @props([
     'home',
@@ -13,6 +15,7 @@
     'languages' => [],
     'minimal' => false,
     'drawerId' => 'site-nav',
+    'search' => null,
 ])
 @php
     $locale = app()->getLocale();
@@ -46,6 +49,9 @@
                         <span class="ui-site-header__lang-short" aria-hidden="true">{{ $other['locale'] === 'ar' ? 'ع' : 'EN' }}</span>
                     </a>
                 @endif
+                @if (filled($search) && ! $minimal)
+                    <x-ui.button variant="ghost" icon="search" icon-only :label="__('site.search.open')" :href="$search" class="ui-site-header__search" />
+                @endif
                 @if ($hasNav)
                     <x-ui.button variant="ghost" icon="menu" icon-only :label="__('ui.navigation.open')" :opens="$drawerId"
                         class="ui-site-header__menu" aria-controls="{{ $drawerId }}" aria-expanded="false" data-ui-nav-open />
@@ -55,6 +61,9 @@
     </div>
     @if ($hasNav)
         <x-ui.drawer :id="$drawerId" side="end" :title="__('ui.navigation.title')" class="ui-nav-drawer" data-ui-nav-drawer>
+            @if (filled($search))
+                <x-ui.search-form :action="$search" :id="$drawerId.'-search'" :label="__('site.search.label')" compact class="ui-nav-drawer__search" />
+            @endif
             <nav aria-label="{{ __('ui.main_navigation') }}">
                 <ul class="ui-nav-drawer__list" role="list">
                     @foreach ($nav as $item)

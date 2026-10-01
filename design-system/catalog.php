@@ -531,6 +531,11 @@ return [
             ['story' => 'Panel', 'props' => ['branch' => $both(fn (string $l) => $branchCard($l, 'closing')), 'variant' => 'panel', 'details-label' => $t('التفاصيل والساعات', 'Details and hours')]],
             ['story' => 'Closed', 'props' => ['branch' => $both(fn (string $l) => $branchCard($l, 'closed')), 'variant' => 'panel']],
         ]],
+        'search-form' => ['stories' => [
+            ['story' => 'Default', 'props' => ['action' => '#search', 'id' => 'ds-search-form', 'label' => $t('ابحث في الموقع', 'Search the site'), 'submit-label' => $t('بحث', 'Search')]],
+            ['story' => 'WithQuery', 'props' => ['action' => '#search', 'id' => 'ds-search-form-q', 'label' => $t('ابحث في الموقع', 'Search the site'), 'value' => $t('لاتيه', 'latte'), 'submit-label' => $t('بحث', 'Search')]],
+            ['story' => 'Compact', 'props' => ['action' => '#search', 'id' => 'ds-search-form-c', 'label' => $t('ابحث في الموقع', 'Search the site'), 'submit-label' => $t('بحث', 'Search'), 'compact' => true]],
+        ]],
         'contact-card' => ['stories' => [
             ['story' => 'Intent', 'props' => [
                 'icon' => 'message-square-text',

@@ -8,6 +8,7 @@ use App\Http\Controllers\Site\HomeController;
 use App\Http\Controllers\Site\LocationsController;
 use App\Http\Controllers\Site\MenuController;
 use App\Http\Controllers\Site\RobotsController;
+use App\Http\Controllers\Site\SearchController;
 use App\Http\Controllers\Site\SitemapController;
 use Illuminate\Support\Facades\Route;
 
@@ -30,6 +31,8 @@ Route::prefix('{locale}')->where(['locale' => 'ar|en'])->middleware('locale')->g
     foreach (['about', 'faq', 'privacy', 'terms'] as $page) {
         Route::get($page.'/', ContentPageController::class)->defaults('key', $page)->name($page);
     }
+    // Site search (SI-B08): noindex, rate-limited (SEC-007 — the address only counts toward the limit, hashed).
+    Route::get('search/', SearchController::class)->middleware('throttle:search')->name('search');
 
     // Market layer: locations and branch pages (SI-M03, SI-M05/M06). Branch slugs are fixed (D-053); the city and
     // market pages themselves stay reserved (URL-07), so /ar/jo/ and /ar/jo/locations/irbid/ have no route (404).

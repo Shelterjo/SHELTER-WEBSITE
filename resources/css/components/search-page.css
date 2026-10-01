@@ -1,0 +1,144 @@
+/* Search form (GET, works without JavaScript) and the results page (SI-B08): one reading column, results grouped by
+   kind, each result one full-width link row (44px+) with the title, its context line and a direction arrow. */
+
+.ui-search-form {
+    display: grid;
+    gap: var(--space-1);
+    min-inline-size: 0;
+}
+
+.ui-search-form__row {
+    display: flex;
+    align-items: stretch;
+    gap: var(--space-2);
+}
+
+.ui-search-form__box {
+    flex: 1 1 auto;
+    min-inline-size: 0;
+}
+
+/* No clear button inside this field: only the icon needs room at the inline start. */
+.ui-search-form__input {
+    padding-inline-end: var(--space-3);
+}
+
+.ui-search-form__row .ui-button {
+    flex: none;
+    min-block-size: var(--control-lg);
+}
+
+/* Compact (navigation drawer): a quieter label above the field; the submit is an icon button. */
+.ui-search-form--compact .ui-field__label {
+    color: var(--color-muted);
+    font-size: var(--text-sm);
+}
+
+.ui-search-page__form {
+    max-inline-size: var(--measure-reading);
+}
+
+.ui-search-page__count {
+    margin-block: var(--space-6) 0;
+    color: var(--color-muted);
+    font-size: var(--text-sm);
+}
+
+.ui-search-page__groups {
+    display: grid;
+    gap: var(--space-10);
+    max-inline-size: var(--measure-reading);
+    margin-block-start: var(--space-6);
+}
+
+.ui-search-page__group {
+    display: grid;
+    gap: var(--space-3);
+}
+
+.ui-search-page__group-title {
+    margin: 0;
+    color: var(--color-muted);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-bold);
+}
+
+.ui-search-page__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-block-start: var(--border-default) solid var(--color-border);
+}
+
+.ui-search-page__item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    border-block-end: var(--border-default) solid var(--color-border);
+}
+
+.ui-search-page__link {
+    display: grid;
+    flex: 1 1 auto;
+    gap: var(--space-1);
+    min-inline-size: 0;
+    min-block-size: var(--touch-target);
+    padding-block: var(--space-3);
+    color: var(--color-text);
+    text-decoration: none;
+}
+
+/* The whole row is the link's hit area. */
+.ui-search-page__link::after {
+    position: absolute;
+    inset: 0;
+    content: '';
+}
+
+.ui-search-page__title {
+    font-weight: var(--weight-medium);
+    overflow-wrap: anywhere;
+}
+
+.ui-search-page__meta {
+    color: var(--color-muted);
+    font-size: var(--text-sm);
+}
+
+.ui-search-page__go {
+    flex: none;
+    color: var(--color-muted);
+    transition:
+        color var(--motion-fast) var(--easing-standard),
+        translate var(--motion-fast) var(--easing-standard);
+}
+
+.ui-search-page__item:hover .ui-search-page__title {
+    text-decoration-line: underline;
+    text-underline-offset: var(--space-1);
+}
+
+.ui-search-page__item:hover .ui-search-page__go {
+    color: var(--color-text);
+    translate: var(--space-1) 0;
+}
+
+[dir='rtl'] .ui-search-page__item:hover .ui-search-page__go {
+    translate: calc(var(--space-1) * -1) 0;
+}
+
+.ui-search-page__link:focus-visible {
+    outline: none;
+}
+
+.ui-search-page__item:has(.ui-search-page__link:focus-visible) {
+    outline: var(--ui-focus-ring-width) solid var(--color-focus);
+    outline-offset: var(--ui-focus-ring-offset);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .ui-search-page__item:hover .ui-search-page__go {
+        translate: none;
+    }
+}

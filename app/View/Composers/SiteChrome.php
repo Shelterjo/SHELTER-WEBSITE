@@ -70,6 +70,7 @@ final class SiteChrome
             'phone' => $this->contacts->phone($locale),
             'whatsapp' => $this->contacts->whatsapp($locale),
             'contact' => SiteLinks::to('contact', $parameters),
+            'search' => SiteLinks::to('search', $parameters),
         ]);
     }
 

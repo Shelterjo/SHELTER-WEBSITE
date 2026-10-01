@@ -17,7 +17,7 @@
 |---|---|
 | **التخطيط** | CLOSED (M36) |
 | **المرحلة الحالية** | **PHASE 2 — Core Website** (IN PROGRESS). PHASE 1 **COMPLETE**، والـStaging الفعلي ينتظر Cloudways (PO-064) |
-| **اختبارات التطبيق** | **164 PHPUnit** · Vitest 19 · Storybook: آخر تشغيل كامل 521 ناجحًا + الإصلاح الوحيد مختبر (Header عند 360) + قصص بطاقة التواصل · Larastan المستوى 8 بلا أخطاء · Pint · Semgrep · Gitleaks |
+| **اختبارات التطبيق** | **175 PHPUnit** · Vitest 43 · Storybook: آخر تشغيل كامل 521 ناجحًا + الإصلاح الوحيد مختبر (Header عند 360) + قصص بطاقة التواصل · Larastan المستوى 8 بلا أخطاء · Pint · Semgrep · Gitleaks |
 | **CI** | `.github/workflows/quality.yml` يعمل على GitHub (سرعة + أمان + بناء) |
 | **Blockers للعمل المحلي** | لا يوجد |
 | **Blockers للـStaging والإطلاق** | - تطبيق Cloudways للـStaging (PO-064).<br>- ملفات الهوية (M-10).<br>- الوصول إلى Google وCloudflare (PO-011…013). |
@@ -52,7 +52,8 @@
 | المنيو: بحث عربي/إنجليزي، اختيار الفرع، التفاصيل (Bottom sheet / Modal) مع زر Back | **TESTED** | `MenuPageTest` (8) · `search.test.ts` (7) · مسار المتصفح |
 | التواصل حسب النية `/ar/contact/` (D-059، D-065، D-071، CT-06) | **TESTED** | `ContactPageTest` (5) · صور 390/1440 · البريد مخفي حتى D-035 |
 | صفحات المحتوى: من نحن · الأسئلة الشائعة · الخصوصية · الشروط (نموذج `pages` · `page_sections`) | **TESTED** (القالب والقواعد) · المحتوى **PENDING OWNER INPUT** (PO-017 · PO-034 · PO-019) | `ContentPagesTest` (5): 404 حتى النشر باللغتين، لا نص AI غير مؤكد، لا جدولة مستقبلية، FAQPage من المنشور فقط، الروابط في الـFooter تظهر فقط بعد النشر. الصور بنص تجريبي محلي حُذف بعدها |
-| البحث · الفعاليات | NOT STARTED | — |
+| البحث `/ar/search/` (GLOBAL-SEARCH): فهرس مشتق `search_index` + `search:rebuild` · نتائج مجمعة بلا JS · noindex · مدخل في الـDrawer والـHeader (1024+) وصفحة 404 · سجل مجهول الهوية مطفأ حتى PO-019 | **TESTED** | `SearchPageTest` (8) · `SearchNormalizerTest` + Vitest على ملف أمثلة واحد (GS-T1) · Storybook 30/30 · بلا تمدد 320…1920 |
+| الفعاليات | NOT STARTED | — |
 
 ## إغلاق المهام السابقة
 | المهمة | الحالة |

@@ -23,6 +23,10 @@ return [
     'pages' => ['class' => 'PUBLIC', 'per_row' => 'status'],
     'page_sections' => ['class' => 'PUBLIC'],
 
+    // Search (GLOBAL-SEARCH): the index is derived from published data; the daily log is anonymous counters only.
+    'search_index' => ['class' => 'PUBLIC', 'per_row' => 'scope'],
+    'search_query_daily' => ['class' => 'INTERNAL'],
+
     // Master data (public once approved; unapproved values are NULL + a pending fact)
     'markets' => ['class' => 'PUBLIC'],
     'countries' => ['class' => 'PUBLIC'],

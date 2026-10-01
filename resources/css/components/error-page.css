@@ -35,3 +35,8 @@
     padding: 0;
     list-style: none;
 }
+
+.ui-error__search {
+    max-inline-size: calc(var(--measure-reading) / 1.5);
+    margin-block-start: var(--space-6);
+}

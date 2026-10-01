@@ -4,7 +4,7 @@
 
 @section('content')
     {{-- SI-S01: language from the URL prefix (ErrorPageLocale), bilingual on any other path. Links: home · menu (when
-         the page exists) · locations. --}}
+         the page exists) · locations, then a search box (SEO-019, GLOBAL-SEARCH §4). --}}
     @php
         $market = app(\App\Services\Site\Markets::class)->current();
         $blocks = $bilingual ? ['ar', 'en'] : [$errorLocale];
@@ -28,6 +28,7 @@
                         <h2 class="ui-error__title" id="error-{{ $blockLocale }}">{{ __('site.errors.404_title', [], $blockLocale) }}</h2>
                     @endif
                     <p class="ui-error__text">{{ __('site.errors.404_text', [], $blockLocale) }}</p>
+                    @php($searchUrl = \App\Support\SiteLinks::to('search', ['locale' => $blockLocale]))
                     <nav aria-label="{{ __('site.errors.links', [], $blockLocale) }}">
                         <ul class="ui-error__links" role="list">
                             @foreach ($links as $label => $href)
@@ -35,6 +36,10 @@
                             @endforeach
                         </ul>
                     </nav>
+                    @if ($searchUrl !== null)
+                        <x-ui.search-form :action="$searchUrl" :id="'error-search-'.$blockLocale" :label="__('site.search.label', [], $blockLocale)"
+                            :submit-label="__('site.search.submit', [], $blockLocale)" class="ui-error__search" />
+                    @endif
                 </section>
             @endforeach
         </div>

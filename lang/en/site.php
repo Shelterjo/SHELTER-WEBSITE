@@ -99,6 +99,32 @@ return [
         'status_note' => 'Branch status updates automatically from the opening hours.',
     ],
 
+    // Site search (SI-B08, GLOBAL-SEARCH §4). results follows CLDR plural categories (App\Support\PluralCategory).
+    'search' => [
+        'title' => 'Search',
+        'lead' => 'Search the menu, the branches and the pages of the site.',
+        'label' => 'Search the site',
+        'submit' => 'Search',
+        'open' => 'Search',
+        'results' => [
+            'zero' => 'No results',
+            'one' => 'One result',
+            'two' => ':count results',
+            'few' => ':count results',
+            'many' => ':count results',
+            'other' => ':count results',
+        ],
+        'for' => 'Results for “:query”',
+        'none_title' => 'No results for “:query”',
+        'none_text' => 'Try another word, or start here:',
+        'groups' => [
+            'menu' => 'Menu',
+            'branch' => 'Locations',
+            'page' => 'Pages',
+            'faq' => 'Questions',
+        ],
+    ],
+
     'page' => [
         'updated' => 'Last updated: :date',
     ],

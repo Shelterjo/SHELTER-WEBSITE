@@ -4,9 +4,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('title', __('site.brand'))</title>
-    @unless (\App\Http\Middleware\Indexing::siteIndexable() && empty($noindex))
+    @if (! \App\Http\Middleware\Indexing::siteIndexable() || ! empty($noindex))
         <meta name="robots" content="noindex, nofollow">
-    @endunless
+    @elseif (! empty($noindexFollow))
+        {{-- Search results: kept out of the index, links still followed (SEO-023). --}}
+        <meta name="robots" content="noindex, follow">
+    @endif
     @if (filled($description ?? null))
         <meta name="description" content="{{ $description }}">
     @endif
@@ -26,7 +29,7 @@
 </head>
 <body>
     <x-ui.skip-link :label="__('site.skip_to_content')" />
-    <x-ui.site-header :home="$siteChrome['home']" :nav="$siteChrome['nav']" :languages="$siteChrome['languages']" :minimal="$minimalHeader ?? false" />
+    <x-ui.site-header :home="$siteChrome['home']" :nav="$siteChrome['nav']" :languages="$siteChrome['languages']" :minimal="$minimalHeader ?? false" :search="$siteChrome['search']" />
     <main id="main" class="ui-main" tabindex="-1">
         @yield('content')
     </main>

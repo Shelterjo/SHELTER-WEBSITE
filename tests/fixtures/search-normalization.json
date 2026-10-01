@@ -1,0 +1,31 @@
+{
+  "_comment": "GLOBAL-SEARCH §3 (GS-T1): one examples file for the PHP normaliser (App\\Services\\Content\\Search\\Normalizer) and the JS one (resources/js/menu/search.ts). Both must produce exactly these outputs.",
+  "normalize": [
+    ["قَهْوَة", "قهوه"],
+    ["إسبريسـو", "اسبريسو"],
+    ["آيس", "ايس"],
+    ["ٱلقهوة", "القهوه"],
+    ["شاي مصطفى", "شاي مصطفي"],
+    ["٢ SCOOPS", "2 scoops"],
+    ["۳ shots", "3 shots"],
+    ["STRAWBERRY + MANGO (SUGAR-FREE)", "strawberry mango sugar free"],
+    ["  V60   «Ethiopia»  ", "v60 ethiopia"],
+    ["Café Latte", "café latte"],
+    ["", ""]
+  ],
+  "matches": [
+    ["span", ["ICED SPANISH LATTE", "آيس سبانيش لاتيه"], true],
+    ["ايس لات", ["ICED SPANISH LATTE", "آيس سبانيش لاتيه"], true],
+    ["سبانش", ["ICED SPANISH LATTE", "آيس سبانيش لاتيه"], true],
+    ["spanich", ["ICED SPANISH LATTE", "آيس سبانيش لاتيه"], true],
+    ["lote", ["ICED SPANISH LATTE", "آيس سبانيش لاتيه"], false],
+    ["spanish mocha", ["ICED SPANISH LATTE", "آيس سبانيش لاتيه"], false],
+    ["v6", ["V60"], true],
+    ["drive", ["SHELTER COFFEE DRIVE", "drive"], true],
+    ["فرنشايز", ["استفسارات الفرنشايز"], true],
+    ["فروع", ["الفروع وساعات الدوام"], true],
+    ["ال", ["الفروع"], true],
+    ["لفروع", ["الفروع"], true],
+    ["روع", ["الفروع"], false]
+  ]
+}

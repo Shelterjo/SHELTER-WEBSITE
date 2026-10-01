@@ -106,6 +106,32 @@ return [
         'status_note' => 'حالة الفروع تتحدث تلقائيًا بحسب ساعات الدوام.',
     ],
 
+    // Site search (SI-B08, GLOBAL-SEARCH §4). results follows CLDR plural categories (App\Support\PluralCategory).
+    'search' => [
+        'title' => 'البحث',
+        'lead' => 'ابحث في المنيو والفروع وصفحات الموقع.',
+        'label' => 'ابحث في الموقع',
+        'submit' => 'بحث',
+        'open' => 'البحث',
+        'results' => [
+            'zero' => 'لا توجد نتائج',
+            'one' => 'نتيجة واحدة',
+            'two' => 'نتيجتان',
+            'few' => ':count نتائج',
+            'many' => ':count نتيجة',
+            'other' => ':count نتيجة',
+        ],
+        'for' => 'نتائج البحث عن «:query»',
+        'none_title' => 'لا توجد نتائج لـ «:query»',
+        'none_text' => 'جرّب كلمة أخرى، أو ابدأ من هنا:',
+        'groups' => [
+            'menu' => 'المنيو',
+            'branch' => 'الفروع',
+            'page' => 'الصفحات',
+            'faq' => 'الأسئلة الشائعة',
+        ],
+    ],
+
     'page' => [
         'updated' => 'آخر تحديث: :date',
     ],

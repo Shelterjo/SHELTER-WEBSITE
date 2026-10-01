@@ -1,5 +1,7 @@
-// Menu search matching (Menu IA spec §8): Arabic + English normalisation, word-prefix matching, then one-letter
-// tolerance for words of 5+ letters ("سبانش" / "سبانيش"). No invented synonyms. Pure functions — unit tested.
+// Menu search matching (Menu IA spec §8): Arabic + English normalisation, word-prefix matching (an Arabic word is also
+// tried without its definite article: "فرنشايز" finds "الفرنشايز"), then one-letter tolerance for words of 5+ letters
+// ("سبانش" / "سبانيش"). No invented synonyms. Pure functions — unit tested against the same examples file as the PHP
+// twin (App\Services\Content\Search\Normalizer, tests/fixtures/search-normalization.json).
 
 const ARABIC_DIACRITICS = /[ً-ٰٟۖ-ۭ]/g;
 const TATWEEL = /ـ/g;
@@ -58,10 +60,15 @@ function tokenMatches(token: string, candidates: string[]): boolean {
     return candidates.some((word) => withinOneEdit(token, word) || withinOneEdit(token, word.slice(0, token.length)));
 }
 
+/** Each word, plus the same word without a leading "ال" when something is left after it. */
+function withoutArticle(list: string[]): string[] {
+    return [...list, ...list.filter((word) => word.startsWith('ال') && word.length > 3).map((word) => word.slice(2))];
+}
+
 /** Every query word must match the start of some word of the item (any of its names / search terms). */
 export function matches(query: string, terms: string[]): boolean {
     const tokens = words(query);
     if (tokens.length === 0) return true;
-    const candidates = terms.flatMap(words);
+    const candidates = withoutArticle(terms.flatMap(words));
     return tokens.every((token) => tokenMatches(token, candidates));
 }
