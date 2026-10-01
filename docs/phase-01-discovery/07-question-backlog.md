@@ -14,7 +14,7 @@
 | PG | متابعة الصفحات بعد اعتماد الأرقام | 4 | ✅ أُجيبت (D-069 → D-072) — الرعايات MISSING |
 | R2B | تطبيقات التوصيل وقنوات الطلب | 5 | ✅ موثقة (D-073) — R2B-01/03/04 MISSING حتى يسلّمها الـOwner |
 | R3 | المنيو الرسمي (Menu) — الاستلام + المصدر الوحيد | 10 | ✅ أُجيبت (D-075 → D-089) · ✅ الملف استُلم ← التقرير `18` |
-| R3M | أسئلة ملف المنيو (MQ) | 16 | ⏳ **الحالية:** P0 = MQ-01 → MQ-09 · P1 = MQ-10 → MQ-14 · P2 = MQ-15 → MQ-16 (مع الـIA) |
+| R3M | أسئلة ملف المنيو (MQ) | 17 | ⏳ **الحالية: P0 في `19` (8 أسئلة)** · الأسماء P1 دفعة واحدة لاحقًا · P2 مع الـIA |
 | R4 | الصفحة الرئيسية، الـNavigation، الفعاليات والحملات | 10 | |
 | R5 | الـCMS / Dashboard، الفريق، مصدر البيانات الموحد | 9 | |
 | R6 | Google Integrations، Analytics، Search Console، Google Business Profile | 9 | |
@@ -113,26 +113,27 @@
 
 ## R3M — أسئلة ملف المنيو الرسمي (من التقرير `18`)
 
-> التفاصيل والخيارات في [`18-official-menu-inventory-report.md`](18-official-menu-inventory-report.md) §9، وفي ورقة `Questions` في [`menu/SHELTER-MENU-INVENTORY-v0.1.xlsx`](menu/SHELTER-MENU-INVENTORY-v0.1.xlsx).
+> **الأسئلة الحالية المختصرة:** [`19-menu-p0-owner-review.md`](19-menu-p0-owner-review.md) §1. الخلفية في [`18-official-menu-inventory-report.md`](18-official-menu-inventory-report.md) §9، وفي ورقة `P0_Owner_Review` في [`menu/SHELTER-MENU-INVENTORY-v0.2.xlsx`](menu/SHELTER-MENU-INVENTORY-v0.2.xlsx).
 
 | ID | الأولوية | السؤال باختصار | الحالة |
 |---|---|---|---|
-| MQ-01 | P0 | الملف لفرع واحد أم للفرعين؟ استثناءات DRIVE/HOUSE | `OPEN` |
-| MQ-02 | P0 | TURKISH COFFEE S/D: حجم أم درجة سكر؟ | `OPEN` |
-| MQ-03 | P0 | الأصناف المتشابهة DUP-01 → DUP-04 | `OPEN` |
-| MQ-04 | P0 | #129: موز (BA) أم مانجو؟ | `OPEN` |
-| MQ-05 | P0 | هل الملف كامل؟ أصناف قديمة غير موجودة + أرقام ناقصة في عمود # | `OPEN` |
-| MQ-06 | P0 | SPRING: موسمي؟ متاح الآن؟ تواريخ؟ | `OPEN` |
-| MQ-07 | P0 | أحجام وإضافات مدفوعة؟ | `OPEN` |
-| MQ-08 | P0 | تجميع "بدون سكر" وRED BULL كخيارات؟ | `OPEN` |
-| MQ-09 | P0 | هل عمود # هو رقم الكاشير؟ اسم نظام الكاشير؟ | `OPEN` |
-| MQ-10 | P1 | اعتماد تصحيحات الأسماء الإنجليزية NR-01 → NR-20 | `OPEN` |
+| MQ-01 | لاحقًا | استثناءات DRIVE/HOUSE | `OPEN` — كل الأصناف UNKNOWN، لا يوقف الـData Model (D-094) |
+| MQ-02 | P0 | TURKISH COFFEE S/D: ما المعنى؟ | `OPEN` — NEEDS OWNER VERIFICATION (D-095) |
+| MQ-03 | P0 | الأصناف المتشابهة DUP-01 → DUP-04: نفس الصنف أم مختلف؟ | `OPEN` — لا دمج (D-096) |
+| MQ-04 | P0 | #129: الفاكهة الثالثة | `OPEN` — MISSING (D-098) |
+| MQ-05 | P0 | الأصناف NOT PRESENT IN CURRENT OWNER FILE: متوقفة أم تُباع؟ | `OPEN` (D-099) |
+| MQ-06 | P0 | SPRING: متاح الآن؟ التواريخ؟ | `OPEN` — SEASONAL CATEGORY (D-100) |
+| MQ-07 | P0 | أحجام وإضافات مدفوعة؟ | `OPEN` — MISSING (D-101) |
+| MQ-08 | — | تجميع "بدون سكر" وRED BULL | `DEFERRED` — DO NOT MERGE YET؛ مقترح Product Families بعد المراجعة (D-097) |
+| MQ-09 | P0 | معنى عمود # + اسم نظام الكاشير | `OPEN` — UNKNOWN BUSINESS MEANING (D-102) |
+| MQ-10 | P1 | اعتماد التصحيحات المقترحة (دفعة واحدة) | `OPEN` (D-093) |
 | MQ-11 | P1 | الأسماء العربية في الملف + ملاحظات AR-01 → AR-08 | `OPEN` |
 | MQ-12 | P1 | 7 أسماء غير واضحة | `OPEN` |
 | MQ-13 | P1 | الأسماء العربية المقترحة للكيك والكوكيز (26 + فئتان) | `OPEN` |
 | MQ-14 | P1 | SPECIALITY أم SPECIALTY؟ ALL CAPS أم Title Case؟ | `OPEN` |
 | MQ-15 | P2 | مكان بعض الأصناف في الفئات (مع الـIA) | `DEFERRED` |
 | MQ-16 | P2 | سعر الكيك/الكوكيز للقطعة أم للشريحة؟ | `DEFERRED` |
+| MQ-17 | P0 | تاريخ سريان أسعار الملف (Menu Version الأولى) | `OPEN` (D-107) |
 
 ## R4 — الصفحة الرئيسية، الـNavigation، الفعاليات والحملات
 

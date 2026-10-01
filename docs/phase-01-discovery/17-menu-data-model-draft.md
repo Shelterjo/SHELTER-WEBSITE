@@ -1,193 +1,260 @@
-# 17 — Menu Data Model (v0.2 — بعد قراءة ملف المنيو الرسمي)
+# 17 — Menu Data Model (v0.3)
 
-> **الحالة:** `DRAFT v0.2 — PENDING OWNER APPROVAL` · **آخر تحديث:** 2026-10-01
-> - v0.1: مسودة قبل الملف، مبنية على D-075 → D-089.
-> - v0.2: محدّثة بعد قراءة الملف الرسمي (192 صنفًا، 11 فئة). التقرير: [`18-official-menu-inventory-report.md`](18-official-menu-inventory-report.md).
+> **الحالة:** `DRAFT v0.3 — PENDING OWNER APPROVAL` · **المعرّفات PROVISIONAL** · **آخر تحديث:** 2026-10-01
 >
-> **المبدأ:** الـData Model قوي (D-086)، والـUX بسيط (D-087). وجود حقل في النموذج **لا يعني** عرضه للزبون.
-> **المنصة لم تُختر بعد (DB-08):** هذا نموذج منطقي يصلح لأي CMS أو قاعدة بيانات.
+> **السجل:**
+> - **v0.1:** قبل الملف (D-075 → D-089).
+> - **v0.2:** بعد قراءة الملف.
+> - **v0.3:** بعد قرارات الـOwner D-090 → D-108، وهي الأساس الآن.
+>
+> **المراجع:** التقرير [`18`](18-official-menu-inventory-report.md) · أسئلة P0 [`19`](19-menu-p0-owner-review.md) · البيانات [`menu/SHELTER-MENU-INVENTORY-v0.2.xlsx`](menu/SHELTER-MENU-INVENTORY-v0.2.xlsx)
+>
+> **المنصة لم تُختر بعد (DB-08).** هذا نموذج منطقي يصلح لأي CMS أو قاعدة بيانات (مثل Supabase/Postgres).
 
-## ما تغيّر في v0.2 (للاعتماد)
+## 0. المبادئ (قرارات الـOwner)
 
-| # | التغيير | السبب |
+| # | المبدأ | القرار |
 |---|---|---|
-| DM-01 | **Variant = وحدة البيع دائمًا.** كل Product له Variant واحد على الأقل (`V01`). السعر والتوفر ورقم الكاشير على الـVariant | مكان واحد للسعر. يسمح بتجميع "بدون سكر" وRED BULL وTURKISH S/D بدون تغيير البنية (MQ-02، MQ-08) |
-| DM-02 | **حقول مصدر غير قابلة للتعديل** + كيان `import_batch` | تتبع كل قيمة إلى ملف الـOwner، وإثبات أن السعر لم يُعدَّل |
-| DM-03 | **اسم المصدر منفصل عن اسم العرض** + حالة الاسم | أسماء الملف مختصرة بأسلوب الكاشير، ولا تصحيح تلقائي (D-089) |
-| DM-04 | السعر بالفلس كعدد صحيح + `price_includes_tax = true` + **لا Net / Tax fields** | D-089 |
-| DM-05 | التوفر لكل Variant × فرع، والقيمة الافتراضية `UNKNOWN` | D-079، MQ-01 |
-| DM-06 | الفئة: الاسم العربي من المصدر + الحقول الموسمية | فئة SPRING (MQ-06) |
-| DM-07 | سمات اختيارية `temperature` و`is_sugar_free`، **لا تُملأ إلا بتأكيد الـOwner** | البحث والتصفية لاحقًا |
-| DM-08 | كيان `content_review` لكل اقتراح وقرار | سجل قرارات قابل للتدقيق (D-084) |
+| 1 | **SOURCE → NORMALIZED → DISPLAY.** بيانات المصدر لا تُعدّل أبدًا. التصحيح المعتمد يُكتب في `normalized_*`، وما يظهر للزبون في `display_*` | D-092 |
+| 2 | **لا تصحيح تلقائي**، حتى الواضح منه. كل تصحيح = Suggested Correction يُعتمد كدفعة واحدة | D-093 |
+| 3 | **كل صف في المصدر = صنف مستقل بمعرّف مستقل.** لا دمج ولا تحويل إلى Variants بسبب الـUX | D-096، D-097 |
+| 4 | **هوية البيانات ≠ التجميع في العرض.** التجميع البصري (Product Family) طبقة منفصلة، ولا يُفعّل إلا بقرارك | D-097 |
+| 5 | **Preserve first, merge later.** أي دمج لاحق يحفظ: Source row · Source name · Price · POS reference · Historical identity | D-096 |
+| 6 | **لا اختراع:** أحجام، إضافات، أسماء عربية نهائية، أوصاف، صور، توفر، فروق أسعار | D-081، D-101 |
+| 7 | **غائب عن الملف ≠ متوقف:** الحالة `NOT PRESENT IN CURRENT OWNER FILE` | D-099 |
+| 8 | **السعر بالفلس** كعدد صحيح، شامل الضريبة، والوحدة موثقة صراحة. لا Net Price ولا Tax data الآن | D-103، D-104 |
+| 9 | **Menu Versioning:** أي استيراد لا يمسح التاريخ | D-107 |
+| 10 | **المعرّفات PROVISIONAL** حتى إغلاق P0 وإصدار v1.0 | D-090 |
 
 ---
 
-## 1. الكيانات (Entities)
+## 1. الكيانات
 
 ```
-import_batch (IMP-0001 = ملف 2026-10-01)
+menu_version (MV-YYYY-MM-DD) ── import_batch (IMP-####: الملف + SHA-256)
 market (jo) ── branch (drive · house)
-category (CAT-###) ── [subcategory — اختياري، غير مستخدم الآن]
-   └── product (PRD-#####)                 ← المحتوى: الاسم، الوصف، الصور، الـSEO
-         ├── variant (PRD-#####-V##)       ← وحدة البيع
-         │     ├── price          (base · branch_override · مستقبلًا: temporary / promotional)
-         │     ├── availability   (variant × branch: UNKNOWN / AVAILABLE / UNAVAILABLE)
-         │     └── pos mapping    (pos_item_id · external_item_id)
-         ├── media (MED-######)
-         └── modifier_group (MGR-###) ── modifier (MOD-####)    ← فارغ حتى MQ-07
-content_review · audit_log · version            ← الحوكمة لكل الكيانات
+
+category (CAT-###)
+product (PRD-#####)                      ← صف واحد من المصدر = صنف واحد. لا يُحذف ولا يُدمج تلقائيًا
+  ├── product_size (PRD-#####-SZ##)      ← فقط من مصدر رسمي — لا يوجد الآن
+  ├── price (PRC-######)                 ← price_fils · tax_inclusive · branch · size · menu_version · valid_from/to
+  │     └── price_tax_detail             ← محجوز وفارغ (تكامل ERP/POS مستقبلًا)
+  ├── availability                       ← product [× size] × branch
+  ├── media (MED-######)
+  └── modifier_link → modifier_group (MGR-###) → modifier (MOD-####)   ← لا يوجد الآن
+
+product_family (FAM-###)   ← تجميع بصري للعرض فقط — فارغ حتى قرارك
+variant_group  (VGR-###)   ← أصناف أكّدت أنها "نفس الصنف بخيار مختلف" — فارغ حتى قرارك
+content_review (REV-#####) · menu_change (CHG-#####) · audit_log
 ```
+
+**الفرق بين Product Family وVariant Group:**
+
+| | Product Family (`FAM-`) | Variant Group (`VGR-`) |
+|---|---|---|
+| ماذا يعني | **عرض:** عدة أصناف تظهر تحت بطاقة واحدة على الموبايل | **علاقة:** الأصناف خيارات لنفس الصنف الأساسي (مثل: عادي / بدون سكر) |
+| يغيّر الهوية؟ | لا | لا |
+| ID وسعر وPOS مستقل لكل صنف؟ | نعم | نعم |
+| متى يُنشأ | بعد مراجعة المنيو: نقترح، ثم تقرر (MQ-08) | فقط بتأكيدك |
+
+---
 
 ## 2. الحقول
 
-### import_batch (جديد — DM-02)
+### menu_version (جديد — D-107)
+| الحقل | ملاحظات |
+|---|---|
+| `menu_version_id` | `MV-2026-10-01` |
+| `status` | `DRAFT` → `APPROVED` → `SUPERSEDED` |
+| `received_at` | 2026-10-01 |
+| `effective_from` | **`OWNER VERIFICATION REQUIRED`** (MQ-17) |
+| `import_batch_ids` · `previous_version_id` | — |
+| `approved_by` · `approved_at` · `notes` | — |
+
+### import_batch
 | الحقل | ملاحظات |
 |---|---|
 | `import_batch_id` | `IMP-0001` |
-| `source_file_name` · `source_sha256` · `received_at` · `received_from` | الملف الأول: `OWNER-OFFICIAL-MENU-2026-10-01.xlsx` · `dfde223f…8d97` · 2026-10-01 · Owner |
-| `notes` | ملاحظات على شكل الملف (ورقتان بترتيب أعمدة مختلف) |
+| `source_file` | `OWNER-OFFICIAL-MENU-2026-10-01.xlsx` |
+| `source_hash` | SHA-256: `dfde223f…8d97` |
+| `received_from` · `received_at` · `sheets` · `notes` | ملاحظات الشكل محفوظة في `19` §2 |
 
-### category
-| الحقل | النوع | ملاحظات |
+### category (D-105)
+| الحقل | ملاحظات |
+|---|---|
+| `category_id` · `id_status` | `CAT-###` · `PROVISIONAL` / `FROZEN` |
+| `source_category_name` | كما في الملف، مثل `SPECIALITY COFFEE`. **لا يُعدّل** |
+| `source_category_name_ar` + `_status` | من عنوان القسم، مثل "قهوة مختصة" · `SOURCE-PROVIDED — PENDING OWNER REVIEW` (D-091) |
+| `source_header_raw` · `source_sheet` · `source_row` | النص الأصلي للعنوان بمسافاته |
+| `normalized_category_name_en/ar` | بعد اعتماد التصحيحات |
+| `display_category_name_en` · `display_category_name_ar` | **فارغ حتى اعتمادك** |
+| `slug` · `sort_order` | الـSlug بعد اعتماد اسم العرض |
+| `category_type` | `SEASONAL` لفئة SPRING (D-100) · غيرها `UNSPECIFIED` |
+| `current_availability` | SPRING: `OWNER VERIFICATION REQUIRED` |
+| `season_start` · `season_end` · `historical_context` | `MISSING`. لا يوجد لدينا دليل تاريخي على موسم محدد |
+| `approval_status` · `created_at` · `updated_at` | — |
+
+### product
+| المجموعة | الحقل | القيمة الحالية / القاعدة |
 |---|---|---|
-| `category_id` | `CAT-###` | ثابت، لا يعتمد على الاسم (D-089) |
-| `parent_category_id` | مرجع (اختياري) | للفئات الفرعية إن اعتمدت في الـIA |
-| `name_en_source` · `name_ar_source` | نص — **لا يُعدّل** | من الملف كما هو. الاسم العربي موجود لـ9 فئات |
-| `name_en` · `name_ar` | نص | **اسم العرض.** يبدأ مساويًا للمصدر، ويتغير بموافقة |
-| `name_status` | `SOURCE_UNREVIEWED` · `SUGGESTED` · `APPROVED` | — |
-| `slug` | لاتيني | يُنشأ بعد اعتماد اسم العرض. تغييره يتطلب 301 |
-| `sort_order` | رقم | الافتراضي: ترتيب الملف |
-| `is_seasonal` · `season_start` · `season_end` | (جديد — DM-06) | لـSPRING إذا أكدت (MQ-06) |
-| `status` | Active / Hidden / Archived | — |
-| `seo_title_*` · `seo_description_*` | اختياري | فقط عند الحاجة |
+| **الهوية** | `product_id` · `id_status` | `PRD-#####` · `PROVISIONAL` |
+| | `category_id` | — |
+| **المصدر** (لا يُعدّل أبدًا) | `source_file` · `source_sheet` · `source_row` · `source_hash` · `menu_version` | مثال: `Sheet1` · `60` · `MV-2026-10-01` |
+| | `source_row_number` | قيمة عمود #: **`SOURCE ROW NUMBER / UNKNOWN BUSINESS MEANING`** (D-102). لا إعادة ترقيم (D-099) |
+| | `source_category_name` · `source_name_en` · `source_name_ar` · `source_price` | كما في الملف حرفيًا. `source_price` نص مثل `"2.75"` |
+| | `source_name_ar_status` | `SOURCE-PROVIDED — PENDING OWNER REVIEW` (166 صنفًا) · `MISSING — OWNER INPUT REQUIRED` (26 صنفًا) |
+| **المعالجة** | `normalized_name_en` · `normalized_name_ar` | **فارغ.** يُملأ فقط بالتصحيحات المعتمدة |
+| **العرض** | `display_name_en` · `display_name_ar` | **فارغ حتى اعتمادك.** الموقع لا يعرض إلا `display_*` المعتمد |
+| | `slug` | بعد اعتماد `display_name_en` |
+| **التجميع** | `product_family_id` · `variant_group_id` | **فارغان** (D-097) |
+| | `merged_into_product_id` | فارغ. يُستخدم فقط إذا اعتمدت دمجًا لاحقًا، والصنف المدموج يبقى بكل تاريخه |
+| **الحالة** | `approval_status` | `PENDING OWNER REVIEW` · `APPROVED` · `REJECTED` |
+| | `data_quality_status` + `data_quality_flags` | `SOURCE_CONFLICT` · `POSSIBLE_DUPLICATE` · `MEANING_UNVERIFIED` · `UNCLEAR_NAME` · `SEASONAL_AVAILABILITY_UNVERIFIED` · `ARABIC_NAME_MISSING` · `SUGGESTED_CORRECTION` · `NO_SOURCE_ISSUE_FOUND` |
+| | `presence_status` | `PRESENT IN CURRENT OWNER FILE` · `NOT PRESENT IN CURRENT OWNER FILE` · `DISCONTINUED` (بتأكيدك فقط) |
+| | `publish_status` | `Draft` · `Published` · `Hidden` · `Archived` |
+| **التشغيل** | `availability_drive` · `availability_house` | `UNKNOWN` (D-094). ملخص من جدول `availability` |
+| | `size_info_status` · `modifiers_status` | `MISSING — OWNER INPUT REQUIRED` (D-101). **لا نفترض حجمًا واحدًا** |
+| | `pos_item_id` · `external_item_id` | **فارغان** (D-102) |
+| **المحتوى** | `description_*` · `ingredients_*` · `allergens` · `calories` | `DESCRIPTION MISSING` / `MISSING` (D-081) |
+| | `image_status` | `MISSING` · `PENDING` · `APPROVED` (D-083) |
+| | `temperature` · `is_sugar_free` (اختياري) | فارغ. **لا يُستنتج من الاسم** |
+| | `is_featured` · `is_new` · `is_seasonal` | فارغ |
+| **الزمن** | `valid_from` · `valid_to` | فترة وجود الصنف في المنيو. `valid_from` ينتظر MQ-17 |
+| | `created_at` · `updated_at` | — |
 
-### product (المحتوى)
-| الحقل | النوع | ملاحظات |
-|---|---|---|
-| `product_id` | `PRD-#####` | **عالمي للعلامة:** نفس الصنف في أي سوق مستقبلي يحمل نفس المعرّف. لا يحتوي الاسم ولا الفئة |
-| `category_id` | مرجع | — |
-| `import_batch_id` · `source_sheet` · `source_row` · `source_no` | **لا يُعدّل** (DM-02) | مثال: `IMP-0001` · `Sheet1` · `60` · `58` |
-| `name_en_source` · `name_ar_source` | **لا يُعدّل** (DM-03) | كما في الملف حرفيًا. `name_ar_source` فارغ للـ26 صنفًا في الورقة الثانية |
-| `name_en` · `name_ar` | نص | **اسم العرض.** يبدأ مساويًا للمصدر، ويتغير فقط عبر `content_review` (D-082، D-089) |
-| `name_status` | `SOURCE_UNREVIEWED` · `SUGGESTED` · `APPROVED` | `name_ar` الناقص = `MISSING — OWNER INPUT REQUIRED` |
-| `name_ar_display_rule` | اختيار | هل يظهر الاسم الإنجليزي داخل النسخة العربية؟ (D-082) |
-| `slug` | لاتيني | يُنشأ **بعد** اعتماد `name_en` |
-| `description_en` / `description_ar` | نص | `DESCRIPTION MISSING` (D-081) |
-| `ingredients_*` / `allergens` / `calories` / `nutrition` | اختياري | `MISSING` — لا اختراع (D-081) |
-| `temperature` | `hot` · `iced` · `n/a` · فارغ | (DM-07) **لا تُستنتج تلقائيًا** — تُملأ بعد تأكيدك |
-| `is_sugar_free` | Y / N / فارغ | (DM-07) نفس القاعدة |
-| `is_featured` / `is_new` / `is_seasonal` + `season_start` / `season_end` | — | `MISSING` الآن |
-| `status` | Active / Hidden / Archived | — |
-| `sort_order` | رقم | الافتراضي: ترتيب الملف داخل الفئة |
-| `seo_*` | اختياري | فقط للأصناف التي لها صفحة مستقلة (DB-06 Hybrid) |
-
-### variant (وحدة البيع — DM-01)
+### product_size (D-101)
 | الحقل | ملاحظات |
 |---|---|
-| `variant_id` | `{product_id}-V##`. كل صنف يبدأ بـ`V01` |
-| `variant_name_en` / `variant_name_ar` | فارغ لـ`V01` إذا كان للصنف خيار واحد. يُملأ فقط من مصدر رسمي (مثل Single / Double بعد MQ-02) |
-| `is_default` | Y لـ`V01` |
-| `pos_item_id` | رقم الصنف في الكاشير (MQ-09) — `MISSING` الآن (D-077) |
-| `external_item_id` | ERP أو SHELTER COFFEE DRIVE SYSTEM مستقبلًا (D-077) |
-| `sort_order` · `status` | — |
+| `size_id` | `{product_id}-SZ##` |
+| `source_*` · `name_en/ar` · `sort_order` · `pos_item_id` | **يُنشأ فقط من مصدر رسمي.** الملف الحالي لا يحتوي أحجامًا، فلا توجد سجلات |
 
-**مثال تجميع (فقط إذا اعتمدت MQ-08):**
-- `PRD-00021` VANILLA LATTE:
-  - `V01` عادي، 2.75.
-  - `V02` بدون سكر، 2.75. هذا هو الصف المصدر `S1 #28`.
-- رقم `PRD-00028` يصبح `VOID` قبل التجميد، ولا يُعاد استخدامه.
+النموذج يدعم:
+- **حجم واحد:** السعر بلا `size_id`.
+- **أحجام متعددة:** سعر لكل `size_id`.
+- **إضافات وModifiers:** عبر `modifier_link`.
 
-### price (DM-04، D-078، D-089)
+### price (D-103، D-104، D-107)
 | الحقل | ملاحظات |
 |---|---|
-| `price_id` | `PRC-######` داخلي |
-| `variant_id` | السعر دائمًا على الـVariant |
-| `market` · `currency` | `jo` · `JOD` |
-| `branch_id` | **فارغ = السعر الأساسي** · `drive` أو `house` = **Branch Price Override** لنفس الـVariant (ليس صنفًا جديدًا) |
-| `amount_minor` | **عدد صحيح بالفلس:** 2.75 د.أ = 2750. يُعرض بالصيغة المعتمدة لاحقًا |
-| `price_source` | السعر كما في الملف (مثل 2.75) — **لا يُعدّل** |
-| `price_includes_tax` | **true** — السعر النهائي للزبون كما في الملف. لا تُضاف ضريبة ولا يُعدَّل |
-| `price_type` | `base` · `branch_override` — مستقبلًا (غير مفعّل): `temporary` · `promotional` |
-| `valid_from` / `valid_to` | للأنواع المستقبلية فقط |
-| `price_before_tax` · `tax_rate` · `tax_amount` | **غير موجودة.** لا نحسب Net Price. إذا احتاجها النظام داخليًا مستقبلًا تُناقش أولًا (D-089) |
+| `price_id` | `PRC-######` |
+| `product_id` · `size_id` | `size_id` فارغ = "حسب المصدر، الحجم غير محدد" |
+| `branch_id` | فارغ = السعر الأساسي · `drive` / `house` = Branch override لنفس الصنف |
+| `market` · `currency` | `jo` · **`JOD`** |
+| **`price_fils`** | **عدد صحيح بالفلس. 1 د.أ = 1000 فلس.** مثال: 2.750 د.أ = `2750` |
+| `source_price` | النص كما في الملف (`"2.75"`). **لا يُعدّل** |
+| **`tax_inclusive`** | **`true`.** السعر النهائي للزبون كما في الملف |
+| `price_type` | `base` · `branch_override`. مستقبلًا (غير مفعّل): `temporary` · `promotional` |
+| `menu_version_id` · `valid_from` · `valid_to` | السعر الحالي: `valid_to` فارغ. عند التغيير يُغلق القديم بـ`valid_to` ويُضاف سجل جديد. **لا overwrite ولا حذف** |
+| `created_at` · `updated_at` | — |
 
-**الحالة بعد الاستيراد:**
-- 192 سعرًا أساسيًا (`branch_id` فارغ).
-- 0 Branch override، حتى جوابك على MQ-01.
-
-### availability (DM-05، D-079)
+### price_tax_detail (محجوز — D-104)
 | الحقل | ملاحظات |
 |---|---|
-| `variant_id` × `branch_id` | 192 × 2 = **384 سجلًا** |
-| `state` | `UNKNOWN` (الافتراضي) · `AVAILABLE` · `UNAVAILABLE`. **لا نفترض تطابق DRIVE وHOUSE** |
-| `note` | سبب الاستثناء إن وُجد |
+| `price_id` (1:1) · `price_before_tax_fils` · `tax_rate_basis_points` · `tax_amount_fils` · `tax_source` · `rounding_rule` | **الجدول موجود في التصميم وفارغ.** لا يُملأ من عندنا. يُفعّل فقط بقرار ومن مصدر رسمي (ERP/POS)، فيمكن إضافة الضريبة لاحقًا بدون إعادة بناء |
 
-### modifier_group / modifier (D-080)
+### availability (D-094)
 | الحقل | ملاحظات |
 |---|---|
-| `modifier_group_id` (`MGR-###`) · `selection_rule` | مثل: "الحليب"، "الإضافات" |
-| `modifier_id` (`MOD-####`) · `name_en/ar` · `price_delta_minor` | **من مصدر رسمي فقط.** الملف لا يحتوي إضافات ← **فارغ** حتى MQ-07 |
-| `applies_to` | فئات أو أصناف |
-| **العرض للزبون** | معلومات مختصرة فقط، **لا شاشة تشبه الكاشير** |
+| `product_id` · `size_id` (اختياري) · `branch_id` | 192 × 2 = 384 سجلًا |
+| `state` | `UNKNOWN` (الحالي) · `AVAILABLE` · `UNAVAILABLE` |
+| `note` · `updated_at` | — |
+
+### product_family / variant_group (D-097)
+| الحقل | ملاحظات |
+|---|---|
+| `family_id` (`FAM-###`) · `display_name_en/ar` · `sort_order` · `approval_status` | تجميع بصري فقط |
+| `variant_group_id` (`VGR-###`) · `base_label` · `option_label` لكل صنف · `approval_status` | علاقة "خيار لنفس الصنف" |
+
+**لا سجلات الآن.** المقترح يُعرض عليك بعد المراجعة، ويوضح:
+- ما الأصناف المقترح جمعها، ولماذا.
+- كيف تظهر على الموبايل.
+- تأكيد أن كل خيار يبقى بمعرّفه وسعره.
 
 ### media (D-083)
 | الحقل | ملاحظات |
 |---|---|
-| `media_id` (`MED-######`) · `product_id` · `role` (`main` / `additional`) | اسم الملف: `PRD-00058_main.webp` |
-| `file` · `alt_ar` · `alt_en` · `focal_point` (x, y) | — |
-| `formats` | WebP / AVIF + نسخ متجاوبة تُولّد آليًا |
+| `media_id` (`MED-######`) · `product_id` · `role` | اسم الملف: `PRD-00058_main.webp` |
+| `alt_ar` · `alt_en` · `focal_point` · `formats` (WebP/AVIF) · `source` · `rights` | — |
 | `approval_status` | `Pending` · `Approved` · `Rejected` · `Archived`. **لا عرض قبل Approved** |
-| `source` / `rights` | — |
 
-### content_review (جديد — DM-08)
+### modifier_group / modifier (D-080، D-101)
+| الحقل | ملاحظات |
+|---|---|
+| `MGR-###` · `MOD-####` · `name_en/ar` · `price_delta_fils` · `selection_rule` · `applies_to` | **من مصدر رسمي فقط. لا توجد سجلات الآن** |
+
+### content_review (D-093)
 | الحقل | ملاحظات |
 |---|---|
 | `review_id` · `entity` · `entity_id` · `field` | مثال: `product` · `PRD-00064` · `name_en` |
-| `current_value` · `suggested_value` · `reason` · `rule` | مثال: `ICE IRSH LATTE` · `ICED IRISH LATTE` · خطأ إملائي · `NR-05` |
-| `decision` · `decided_by` · `decided_at` | `Approve` · `Modify` · `Reject` — **لا يُطبّق شيء قبل القرار** |
+| `source_value` · `suggested_value` · `reason` · `rule` | مثال: `ICE IRSH LATTE` → `ICED IRISH LATTE` · `NR-05` |
+| `review_type` | `SUGGESTED_CORRECTION` · `ARABIC_NAME` · `POSSIBLE_DUPLICATE` · `MISSING_INFO` |
+| `decision` · `decided_by` · `decided_at` · `batch_id` | التصحيحات تُعتمد **كدفعة واحدة**. عند `Approve` تُكتب في `normalized_*` |
 
-### الحوكمة — لكل الكيانات (D-084)
-- سير النشر: Draft → Review → Published.
-- سجل الإصدارات (Version History).
-- سجل التعديل (Audit Log): من، متى، القيمة القديمة والجديدة. **إلزامي للأسعار والتوفر والأسماء.**
-- موافقة الـOwner حيث يلزم.
+### menu_change (جديد — D-107)
+| الحقل | ملاحظات |
+|---|---|
+| `change_id` · `menu_version_id` · `product_id` · `change_type` | `ADDED` · `PRICE_CHANGED` · `NAME_CHANGED` · `CATEGORY_CHANGED` · `NOT_PRESENT` · `RESTORED` · `ARCHIVED` · `MERGED` |
+| `field` · `previous_value` · `new_value` · `effective_date` | مثال: `price_fils` · `2750` → `3000` · 2027-04-01 |
+| `source_ref` · `approved_by` · `approved_at` | — |
 
-## 3. بنية المعرّفات (D-089)
+### audit_log (D-084)
+- **ماذا يسجل:** من، متى، الكيان، الحقل، القيمة القديمة والجديدة.
+- **إلزامي لـ:** الأسعار والتوفر والأسماء والدمج.
 
-| الكيان | الصيغة | في الملف الحالي | القاعدة |
-|---|---|---|---|
-| Category | `CAT-###` | `CAT-001` → `CAT-011` | ترتيب ظهور الفئة في الملف |
-| Product | `PRD-#####` | `PRD-00001` → `PRD-00192` | ترتيب الصفوف: الورقة الأولى ثم الثانية |
-| Variant | `{product_id}-V##` | `PRD-00001-V01` → `PRD-00192-V01` | `V01` افتراضي |
-| Price | `PRC-######` | داخلي | — |
-| Import batch | `IMP-####` | `IMP-0001` | — |
-| Modifier Group / Modifier | `MGR-###` · `MOD-####` | — | — |
-| Media | `MED-######` | — | — |
+---
 
-**قواعد الثبات:**
-- المعرّفات **مسودة** حتى اعتماد التقرير `18`، ثم تُجمّد.
-- لا يُعاد استخدام أي رقم:
-  - ما يُلغى قبل التجميد = `VOID`.
-  - ما يتوقف بعده = `Archived`.
-- الأصناف الجديدة تبدأ من `PRD-00193`.
+## 3. المعرّفات (PROVISIONAL — D-090)
 
-**الفصل الثلاثي:**
-- **Display Name:** يتغير بموافقتك.
+| الكيان | الصيغة | الحالي |
+|---|---|---|
+| Category | `CAT-###` | `CAT-001` → `CAT-011` |
+| Product | `PRD-#####` | `PRD-00001` → `PRD-00192` (ترتيب الصفوف: الورقة الأولى ثم الثانية) |
+| Size | `{product_id}-SZ##` | لا يوجد |
+| Price | `PRC-######` | داخلي |
+| Product Family / Variant Group | `FAM-###` / `VGR-###` | لا يوجد |
+| Menu Version / Import | `MV-YYYY-MM-DD` / `IMP-####` | `MV-2026-10-01` / `IMP-0001` |
+| Review / Change | `REV-#####` / `CHG-#####` | — |
+| Media · Modifier | `MED-######` · `MGR-###` / `MOD-####` | — |
+
+**القواعد:**
+- المعرّف **لا يحتوي** الاسم ولا الفئة ولا رقم الكاشير.
+- **الآن:** المعرّفات PROVISIONAL. تُجمّد عند إصدار v1.0 بعد إغلاق P0.
+- **بعد التجميد:**
+  - لا يتغير أي معرّف، ولا يُعاد استخدام أي رقم.
+  - الصنف المدموج يحتفظ بمعرّفه وتاريخه (`merged_into_product_id`).
+  - الأصناف الجديدة تبدأ من `PRD-00193`.
+
+**الفصل:**
+- **Internal ID:** ثابت لا يتغير.
+- **Source:** كما في الملف، ولا يُعدّل أبدًا.
+- **Normalized:** بعد اعتماد التصحيحات.
+- **Display:** ما يراه الزبون.
 - **Slug:** يتغير فقط مع 301.
-- **Internal ID:** لا يتغير أبدًا.
 
-## 4. سير معالجة ملفات المنيو (D-075، D-088)
+## 4. Menu Versioning — سير الاستيراد القادم (D-107)
 
-1. **قراءة كاملة** لكل الأوراق، وحفظ نسخة مطابقة للأصل مع SHA-256.
-2. **استخراج:** الفئات، والأصناف (الأسماء كما هي)، والسعر شامل الضريبة كما هو.
-3. **فحوص:**
-   - التكرار.
-   - الأسعار الناقصة.
-   - الصفوف الفارغة.
-   - القيم المشبوهة.
-   - تطابق عمود الفئة مع عنوان القسم.
-   - التسمية والإملاء: **عرض فقط** بصيغة Current / Suggested / Reason.
-4. **مقارنة مع المنيو القديم** لاكتشاف الفروقات فقط (D-076).
-5. **تقرير من 11 بندًا** + قائمة الأسماء العربية المقترحة (غير معتمدة).
-6. **انتظار اعتمادك** ← Inventory v1.0 ← Menu IA ← Menu UX/UI.
-7. **التحديثات اللاحقة على الملف:** كل ملف جديد = `import_batch` جديد ومقارنة (Diff) مع النسخة المعتمدة: أصناف جديدة، أسعار تغيرت، أصناف اختفت. **لا شيء يُنشر قبل موافقتك.**
+1. ملف جديد من الـOwner ← `import_batch` جديد + `menu_version` جديد بحالة `DRAFT`.
+2. مطابقة الصفوف مع الأصناف الحالية:
+   - مطابقة تلقائية بالقيمة المصدرية والموقع.
+   - **أي مطابقة غير مؤكدة تُعرض عليك.**
+3. **تقرير تغييرات (Diff):**
+   - أصناف مضافة.
+   - أسعار تغيرت (السابق ← الجديد).
+   - أسماء تغيرت.
+   - أصناف `NOT PRESENT` في الملف الجديد.
+4. موافقتك ← تُكتب سجلات `menu_change`:
+   - السعر القديم يُغلق بـ`valid_to`، ويُضاف السعر الجديد بـ`valid_from`.
+   - **لا حذف ولا overwrite.**
+5. الصنف الغائب عن الملف الجديد لا يُؤرشف تلقائيًا. يبقى `NOT PRESENT IN CURRENT OWNER FILE` حتى تقرر.
+6. النسخة السابقة تصبح `SUPERSEDED`، ويبقى تاريخها كاملًا. هذا يفيد لاحقًا في الربط مع POS/ERP وSHELTER COFFEE DRIVE SYSTEM.
+
+## 5. ما تغيّر من v0.2
+
+| v0.2 | v0.3 |
+|---|---|
+| DM-01: Variant `V01` لكل صنف، والتجميع كـVariants | **مسحوب.** الصنف هو الوحدة، والأحجام فقط من المصدر الرسمي. التجميع = `product_family` / `variant_group` منفصلان وبقرارك |
+| `name_en_source` + `name_en` (عرض) | ثلاث طبقات: `source_*` · `normalized_*` · `display_*` |
+| `amount_minor` | `price_fils` + `currency` + `tax_inclusive` |
+| `price_before_tax / tax_rate / tax_amount` "غير موجودة" | جدول `price_tax_detail` **محجوز وفارغ** |
+| — | `menu_version` · `menu_change` · `presence_status` · `data_quality_status` · `approval_status` · `image_status` · `valid_from/to` · `created_at/updated_at` |
+| المعرّفات "تُجمّد عند اعتماد التقرير" | `PROVISIONAL` حتى إغلاق P0 + v1.0 |

@@ -1,6 +1,6 @@
 # 16 — R3 Official Menu: Intake + Single Source of Truth
 
-> **الحالة:** ✅ قرارات R3 معتمدة (D-075 → D-089) · ✅ **استُلم ملف المنيو الرسمي (2026-10-01)** ← التقرير: [`18-official-menu-inventory-report.md`](18-official-menu-inventory-report.md) · ⏳ بانتظار اعتمادك · **آخر تحديث:** 2026-10-01
+> **الحالة:** ✅ قرارات R3 معتمدة (D-075 → D-089) · ✅ **استُلم ملف المنيو الرسمي (2026-10-01)** ← التقرير: [`18`](18-official-menu-inventory-report.md) · Data Model v0.3: [`17`](17-menu-data-model-draft.md) · ⏳ أسئلة P0: [`19`](19-menu-p0-owner-review.md) · **آخر تحديث:** 2026-10-01
 > **تحديث:** الـOwner لن يعبئ القالب يدويًا (D-075). القالب أصبح **صيغة عملنا الداخلية**: نحن نستخرج من ملفه ونملأ القالب ونعيده للمراجعة. الـData Model: [`17-menu-data-model-draft.md`](17-menu-data-model-draft.md).
 > **القواعد:**
 > - المنيو الذي يسلّمه الـOwner هو المرجع الرسمي الوحيد. المنيو القديم للمقارنة فقط (D-006).

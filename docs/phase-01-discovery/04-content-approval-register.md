@@ -184,8 +184,10 @@
 
 ## F. المنيو الرسمي (ملف الـOwner — 2026-10-01)
 
-- **المرجع الوحيد للمنيو** هو ملف الـOwner (D-006، D-076، D-089). سجل الاعتماد لكل صنف موجود في النسخة المنظمة: [`menu/SHELTER-MENU-INVENTORY-v0.1.xlsx`](menu/SHELTER-MENU-INVENTORY-v0.1.xlsx)، عمود `owner_decision`.
-- **كل الأصناف (192) حالتها** `DRAFT — PENDING OWNER APPROVAL`.
+- **المرجع الوحيد للمنيو** هو ملف الـOwner (D-006، D-076، D-089). سجل الاعتماد لكل صنف موجود في النسخة المنظمة: [`menu/SHELTER-MENU-INVENTORY-v0.2.xlsx`](menu/SHELTER-MENU-INVENTORY-v0.2.xlsx)، عمود `owner_decision`.
+- **كل الأصناف (192) حالتها** `PENDING OWNER REVIEW`، ومعرّفاتها `PROVISIONAL` (D-090).
+- **الأسماء العربية الموجودة في الملف (166 + 9 فئات)** = `SOURCE-PROVIDED ARABIC NAME — PENDING OWNER REVIEW`، ولا تُستخدم في الموقع قبل الاعتماد (D-091).
+- **الأصناف القديمة الغائبة عن الملف** = `NOT PRESENT IN CURRENT OWNER FILE`، وليس `DISCONTINUED` (D-099).
   - الأسعار من الملف كما هي، شاملة الضريبة.
   - الأوصاف والمكونات والصور والأحجام والإضافات: `MISSING`.
   - التوفر في الفرعين: `UNKNOWN`.
