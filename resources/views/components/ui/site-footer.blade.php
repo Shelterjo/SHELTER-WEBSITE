@@ -2,7 +2,8 @@
     Site footer (DS-018, CONTACT-015: not crowded): the logo, the same navigation as the header, ONE public number and
     WhatsApp (D-057, D-062, D-065) — only when approved — the language links and the copyright with the brand name.
     No address, social links or claims until each is approved (PO-010, D-025/D-036). `phone` / `whatsapp` =
-    App\Services\Site\ContactAction|null; `contact` = URL of the contact page when it exists.
+    App\Services\Site\ContactAction|null; `contact` = URL of the contact page when it exists; `legal` = links to the
+    published legal pages (privacy, terms) next to the copyright: [['label', 'href', 'current' => 'page'|null]].
 --}}
 @props([
     'home',
@@ -11,6 +12,7 @@
     'phone' => null,
     'whatsapp' => null,
     'contact' => null,
+    'legal' => [],
 ])
 <footer {{ $attributes->class('ui-site-footer') }}>
     <div class="ui-container">
@@ -71,6 +73,15 @@
                 </div>
             @endif
         </div>
-        <p class="ui-site-footer__legal"><span lang="en" dir="ltr">© {{ now()->year }} {{ __('site.brand') }}</span></p>
+        <div class="ui-site-footer__bottom">
+            <p class="ui-site-footer__legal"><span lang="en" dir="ltr">© {{ now()->year }} {{ __('site.brand') }}</span></p>
+            @if (count($legal) > 0)
+                <ul class="ui-site-footer__legal-links" role="list" aria-label="{{ __('ui.footer.legal') }}">
+                    @foreach ($legal as $item)
+                        <li><a class="ui-site-footer__link" href="{{ $item['href'] }}" @if ($item['current'] ?? null) aria-current="{{ $item['current'] }}" @endif>{{ $item['label'] }}</a></li>
+                    @endforeach
+                </ul>
+            @endif
+        </div>
     </div>
 </footer>

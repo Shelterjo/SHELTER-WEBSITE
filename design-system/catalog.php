@@ -510,6 +510,8 @@ return [
         ]],
         'site-footer' => ['stories' => [
             ['story' => 'Default', 'props' => ['home' => '#home', 'nav' => $both($nav), 'languages' => $both($languages), 'phone' => $phone, 'whatsapp' => $whatsapp, 'contact' => '#contact']],
+            ['story' => 'WithLegal', 'props' => ['home' => '#home', 'nav' => $both($nav), 'languages' => $both($languages), 'phone' => $phone, 'whatsapp' => $whatsapp, 'contact' => '#contact',
+                'legal' => $t([['label' => 'سياسة الخصوصية', 'href' => '#privacy'], ['label' => 'الشروط', 'href' => '#terms']], [['label' => 'Privacy policy', 'href' => '#privacy'], ['label' => 'Terms', 'href' => '#terms']])]],
         ]],
         'hero' => ['stories' => [
             ['story' => 'Brand', 'props' => [

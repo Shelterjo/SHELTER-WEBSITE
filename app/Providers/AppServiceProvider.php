@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Services\Content\Pages;
 use App\Services\Site\Markets;
 use App\View\Composers\ErrorPageLocale;
 use App\View\Composers\SiteChrome;
@@ -17,6 +18,7 @@ class AppServiceProvider extends ServiceProvider
     {
         // One market lookup per request for every component that needs it (header, footer, branches).
         $this->app->scoped(Markets::class);
+        $this->app->scoped(Pages::class);
     }
 
     /**

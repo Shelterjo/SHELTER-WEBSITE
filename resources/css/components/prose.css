@@ -1,0 +1,50 @@
+/* Long-form content (About, FAQ, Privacy, Terms — SI-B03…B07): one reading column (--measure-reading), comfortable
+   line height, paragraphs kept as written (single line breaks shown), FAQ answers in native disclosures. */
+
+.ui-prose {
+    display: grid;
+    gap: var(--space-10);
+    max-inline-size: var(--measure-reading);
+}
+
+.ui-prose p {
+    margin: 0;
+    line-height: var(--leading-normal);
+    white-space: pre-line;
+}
+
+.ui-prose__section {
+    display: grid;
+    gap: var(--space-4);
+}
+
+.ui-prose__heading {
+    margin: 0;
+    font-size: var(--text-2xl);
+    font-weight: var(--weight-bold);
+    line-height: var(--leading-tight);
+}
+
+/* FAQ: the disclosures sit as one list, separated by hairlines rather than gaps. */
+.ui-prose:has(> .ui-prose__faq) {
+    gap: 0;
+}
+
+.ui-prose:has(> .ui-prose__faq) > .ui-prose__section {
+    margin-block-end: var(--space-10);
+}
+
+.ui-prose__faq {
+    border-block-end: var(--border-default) solid var(--color-border);
+}
+
+.ui-prose__faq:first-child,
+.ui-prose__section + .ui-prose__faq {
+    border-block-start: var(--border-default) solid var(--color-border);
+}
+
+.ui-prose__faq .ui-disclosure__body {
+    display: grid;
+    gap: var(--space-3);
+    color: var(--color-muted);
+}

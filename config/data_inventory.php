@@ -19,6 +19,10 @@ return [
     'reference_sequences' => ['class' => 'INTERNAL'],
     'scheduled_job_runs' => ['class' => 'INTERNAL'],
 
+    // Content (CONTENT-SOURCE-OF-TRUTH): public once published; drafts and AI-origin text stay internal.
+    'pages' => ['class' => 'PUBLIC', 'per_row' => 'status'],
+    'page_sections' => ['class' => 'PUBLIC'],
+
     // Master data (public once approved; unapproved values are NULL + a pending fact)
     'markets' => ['class' => 'PUBLIC'],
     'countries' => ['class' => 'PUBLIC'],

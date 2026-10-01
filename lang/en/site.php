@@ -99,6 +99,10 @@ return [
         'status_note' => 'Branch status updates automatically from the opening hours.',
     ],
 
+    'page' => [
+        'updated' => 'Last updated: :date',
+    ],
+
     'errors' => [
         '404_title' => 'Page not found',
         '404_text' => 'The link may have changed or the page was removed. Here are some good places to start:',

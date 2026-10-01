@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Site\BranchController;
 use App\Http\Controllers\Site\ContactController;
+use App\Http\Controllers\Site\ContentPageController;
 use App\Http\Controllers\Site\GatewayController;
 use App\Http\Controllers\Site\HomeController;
 use App\Http\Controllers\Site\LocationsController;
@@ -25,6 +26,10 @@ Route::get('/', GatewayController::class)->name('gateway');
 Route::prefix('{locale}')->where(['locale' => 'ar|en'])->middleware('locale')->group(function (): void {
     Route::get('/', HomeController::class)->name('home');
     Route::get('contact/', ContactController::class)->name('contact');
+    // Brand content pages (SI-B03, B05, B06, B07): 404 until their text is published in both languages.
+    foreach (['about', 'faq', 'privacy', 'terms'] as $page) {
+        Route::get($page.'/', ContentPageController::class)->defaults('key', $page)->name($page);
+    }
 
     // Market layer: locations and branch pages (SI-M03, SI-M05/M06). Branch slugs are fixed (D-053); the city and
     // market pages themselves stay reserved (URL-07), so /ar/jo/ and /ar/jo/locations/irbid/ have no route (404).

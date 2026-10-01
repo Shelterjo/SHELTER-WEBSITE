@@ -72,5 +72,6 @@ return [
         'explore' => 'Explore',
         'contact' => 'Contact',
         'all_contact' => 'All contact channels',
+        'legal' => 'Legal',
     ],
 ];

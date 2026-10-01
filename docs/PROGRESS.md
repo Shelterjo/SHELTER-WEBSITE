@@ -17,7 +17,7 @@
 |---|---|
 | **التخطيط** | CLOSED (M36) |
 | **المرحلة الحالية** | **PHASE 2 — Core Website** (IN PROGRESS). PHASE 1 **COMPLETE**، والـStaging الفعلي ينتظر Cloudways (PO-064) |
-| **اختبارات التطبيق** | **159 PHPUnit** · Vitest 19 · Storybook: آخر تشغيل كامل 521 ناجحًا + الإصلاح الوحيد مختبر (Header عند 360) + قصص بطاقة التواصل · Larastan المستوى 8 بلا أخطاء · Pint · Semgrep · Gitleaks |
+| **اختبارات التطبيق** | **164 PHPUnit** · Vitest 19 · Storybook: آخر تشغيل كامل 521 ناجحًا + الإصلاح الوحيد مختبر (Header عند 360) + قصص بطاقة التواصل · Larastan المستوى 8 بلا أخطاء · Pint · Semgrep · Gitleaks |
 | **CI** | `.github/workflows/quality.yml` يعمل على GitHub (سرعة + أمان + بناء) |
 | **Blockers للعمل المحلي** | لا يوجد |
 | **Blockers للـStaging والإطلاق** | - تطبيق Cloudways للـStaging (PO-064).<br>- ملفات الهوية (M-10).<br>- الوصول إلى Google وCloudflare (PO-011…013). |
@@ -51,7 +51,7 @@
 | الفروع + صفحة كل فرع (الساعات، الحالة الآن، JSON-LD بالمعتمد فقط) | **TESTED** | `LocationsPagesTest` (8 اختبارات) |
 | المنيو: بحث عربي/إنجليزي، اختيار الفرع، التفاصيل (Bottom sheet / Modal) مع زر Back | **TESTED** | `MenuPageTest` (8) · `search.test.ts` (7) · مسار المتصفح |
 | التواصل حسب النية `/ar/contact/` (D-059، D-065، D-071، CT-06) | **TESTED** | `ContactPageTest` (5) · صور 390/1440 · البريد مخفي حتى D-035 |
-| صفحات المحتوى: من نحن · الأسئلة الشائعة · الخصوصية · الشروط (نموذج `pages`) | IN PROGRESS | تبقى 404 حتى يُنشر محتوى معتمد (لا نصوص مخترعة) |
+| صفحات المحتوى: من نحن · الأسئلة الشائعة · الخصوصية · الشروط (نموذج `pages` · `page_sections`) | **TESTED** (القالب والقواعد) · المحتوى **PENDING OWNER INPUT** (PO-017 · PO-034 · PO-019) | `ContentPagesTest` (5): 404 حتى النشر باللغتين، لا نص AI غير مؤكد، لا جدولة مستقبلية، FAQPage من المنشور فقط، الروابط في الـFooter تظهر فقط بعد النشر. الصور بنص تجريبي محلي حُذف بعدها |
 | البحث · الفعاليات | NOT STARTED | — |
 
 ## إغلاق المهام السابقة

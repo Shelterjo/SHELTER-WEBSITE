@@ -6,3 +6,4 @@ const meta: Meta = { title: 'Site/Footer' };
 export default meta;
 
 export const Default = story('site-footer', 'Default');
+export const WithLegal = story('site-footer', 'WithLegal');

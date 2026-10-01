@@ -7,6 +7,9 @@
     @unless (\App\Http\Middleware\Indexing::siteIndexable() && empty($noindex))
         <meta name="robots" content="noindex, nofollow">
     @endunless
+    @if (filled($description ?? null))
+        <meta name="description" content="{{ $description }}">
+    @endif
     @isset($canonical)
         <link rel="canonical" href="{{ $canonical }}">
     @endisset
@@ -27,7 +30,7 @@
     <main id="main" class="ui-main" tabindex="-1">
         @yield('content')
     </main>
-    <x-ui.site-footer :home="$siteChrome['home']" :nav="$siteChrome['nav']" :languages="$siteChrome['languages']"
-        :phone="$siteChrome['phone']" :whatsapp="$siteChrome['whatsapp']" :contact="$siteChrome['contact']" />
+    <x-ui.site-footer :home="$siteChrome['home']" :nav="$siteChrome['footerNav']" :languages="$siteChrome['languages']"
+        :phone="$siteChrome['phone']" :whatsapp="$siteChrome['whatsapp']" :contact="$siteChrome['contact']" :legal="$siteChrome['legal']" />
 </body>
 </html>
