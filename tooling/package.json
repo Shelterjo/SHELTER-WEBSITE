@@ -16,7 +16,9 @@
     "images:build": "node scripts/images.mjs",
     "images:selftest": "node scripts/images.mjs --selftest",
     "qa": "npm run test:e2e; npm run qa:matrix && npm run lighthouse && npm run images:selftest",
-    "qa:matrix": "node scripts/qa-matrix.mjs"
+    "qa:matrix": "node scripts/qa-matrix.mjs",
+    "tokens:css": "node scripts/tokens-css.mjs",
+    "ds:audit": "node scripts/ds-audit.mjs"
   },
   "devDependencies": {
     "@axe-core/playwright": "4.13.0",

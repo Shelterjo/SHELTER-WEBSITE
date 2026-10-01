@@ -1,6 +1,6 @@
 # SHELTER Design System — structure (no visual values yet)
 
-> **Status:** `STRUCTURE ONLY` — every visual value is `MISSING — OWNER INPUT REQUIRED` until the Brand Identity files arrive (M-10 / MI-021 logo vector, MI-022 colors, fonts, guide).
+> **Status:** `TOKENS v0.1` — structural values (spacing, radius, type scale, motion, shadows, z-index, breakpoints, sizes) are decided in [`tokens/tokens.json`](tokens/tokens.json); **brand fonts and colour values are `MISSING`** until the Brand Identity files arrive (M-10 / PO-002). Standard and governance: [`../docs/DESIGN-SYSTEM-STANDARD.md`](../docs/DESIGN-SYSTEM-STANDARD.md) (owner rule M34 — FROZEN P0). Generated CSS: `build/tokens.css` (`cd tooling && npm run tokens:css`). Shared prototype primitives: [`wireframe-kit.css`](wireframe-kit.css). Health: `npm run ds:audit` → `docs/DESIGN-SYSTEM-HEALTH.md`.
 > Visual Design has not started (gate: Owner approval of IA + Wireframes). Nothing here is a design decision.
 
 ## Layers
@@ -8,7 +8,7 @@
 
 | Layer | What | Examples (from the approved Menu IA spec) |
 |---|---|---|
-| Tokens | Named design decisions (`tokens/`) in W3C DTCG JSON | color, typography, spacing, radius, elevation, motion, breakpoints |
+| Tokens | Named design decisions in `tokens/tokens.json` (W3C DTCG JSON) — the ONLY place values live | color, typography, spacing, radius, elevation, motion, breakpoints |
 | Primitives | Unstyled, accessible behaviour (Radix / React Aria **only if** the platform decision DB-08 confirms React) | Dialog, Popover, Tabs, ToggleGroup, ScrollArea |
 | Components | SHELTER-styled building blocks | Button, Chip, SegmentedControl, SearchField, ProductCard, Badge, Sheet, Modal |
 | Patterns | Components combined for one job | Category bar + subcategory bar, search + suggestions, branch selector + status line |
