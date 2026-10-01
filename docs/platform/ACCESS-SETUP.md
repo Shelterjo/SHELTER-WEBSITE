@@ -58,6 +58,8 @@
 4. **Zone Resources:** Include ← Specific zone ← `shelterjo.com`.
 5. **TTL:** تاريخ انتهاء بعد 90 يومًا.
 6. **Continue to summary ← Create Token**، ثم **Copy**. القيمة تظهر مرة واحدة فقط.
+   - **لا تصوّر نافذة الـToken ولا ترسلها في المحادثة.** أي Token ظهر في المحادثة يُعتبر مكشوفًا، فيُعمل له **Roll** (من قائمة `…` بجانبه) قبل الاستخدام.
+   - **Account API token** (Manage account ← Account API tokens) مقبول ومفضّل للأتمتة لأنه غير مرتبط بمستخدم. التحقق منه عبر `/accounts/{account_id}/tokens/verify`
 
 **ب. إضافته إلى البيئة** (في Claude):
 1. **Edit cloud environment ← API credentials ← Add credential**.
