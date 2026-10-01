@@ -9,7 +9,7 @@
     'label' => null,
 ])
 @php
-    $directional = ['chevron-left', 'chevron-right', 'log-out'];
+    $directional = ['arrow-right', 'chevron-left', 'chevron-right', 'log-out'];
     if (! in_array($size, ['sm', 'md', 'lg'], true)) {
         throw new InvalidArgumentException("x-ui.icon: unknown size [{$size}] (sm · md · lg).");
     }

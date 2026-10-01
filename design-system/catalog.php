@@ -74,7 +74,7 @@ return [
         'icon' => ['stories' => [
             ['story' => 'Library', 'blade' => '<ul class="ui-cluster" role="list">'.implode('', array_map(
                 fn (string $name): string => '<li><x-ui.icon name="'.$name.'" label="'.$name.'" /></li>',
-                ['ban', 'calendar', 'check', 'chevron-down', 'chevron-left', 'chevron-right', 'circle-alert', 'circle-check', 'circle-x', 'clock', 'hand', 'house', 'image', 'inbox', 'info', 'loader-circle', 'log-out', 'map-pin', 'refresh-cw-off', 'trending-down', 'trending-up', 'triangle-alert', 'x'],
+                ['arrow-right', 'ban', 'calendar', 'check', 'chevron-down', 'chevron-left', 'chevron-right', 'circle-alert', 'circle-check', 'circle-x', 'clock', 'hand', 'house', 'image', 'inbox', 'info', 'loader-circle', 'log-out', 'map-pin', 'menu', 'message-circle', 'phone', 'refresh-cw-off', 'rotate-cw', 'trending-down', 'trending-up', 'triangle-alert', 'x'],
             )).'</ul>'],
             ['story' => 'Sizes', 'blade' => '<p class="ui-cluster"><x-ui.icon name="house" size="sm" label="16" /><x-ui.icon name="house" label="20" /><x-ui.icon name="house" size="lg" label="24" /></p>'],
             ['story' => 'Directional', 'blade' => $t(

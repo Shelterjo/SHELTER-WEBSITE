@@ -23,6 +23,8 @@ add('touch-target', v(t.size.touchTarget)); walk(t.size.control, 'control'); wal
 add('sticky-stack', v(t.size.stickyStack)); walk(t.z, 'z');
 add('border-default', v(t.border.width.default)); add('border-strong', v(t.border.width.strong));
 const structural = [...lines];
+// Reduced motion: every duration token becomes 0ms (static alternative, DS §7).
+const reduced = Object.keys(t.motion.duration).filter(k => !k.startsWith('$')).map(k => `--motion-${k}: 0ms;`).join(' ');
 const emit = async (file, header, fonts, colourOf) => {
   const out = [...structural];
   out.push(`  --font-ar: ${fonts.ar.map(f => (/\s/.test(f) ? `"${f}"` : f)).join(', ')};`);
@@ -33,7 +35,7 @@ const emit = async (file, header, fonts, colourOf) => {
 :root {
 ${out.join('\n')}
 }
-@media (prefers-reduced-motion: reduce) { :root { --motion-fast: 0ms; --motion-normal: 0ms; --motion-slow: 0ms; } }
+@media (prefers-reduced-motion: reduce) { :root { ${reduced} } }
 `;
   await writeFile(`../design-system/build/${file}`, css);
   console.log(`${file}: ${out.length} custom properties`);

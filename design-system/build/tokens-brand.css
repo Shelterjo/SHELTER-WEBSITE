@@ -10,14 +10,19 @@
   --text-3xl: clamp(1.625rem, 1.3rem + 1.2vw, 1.875rem);
   --text-4xl: clamp(1.75rem, 1.3rem + 2vw, 2.25rem);
   --text-5xl: clamp(2rem, 1.4rem + 3vw, 3rem);
+  --text-display: clamp(3rem, 1.25rem + 7.5vw, 7.5rem);
   --weight-regular: 400;
   --weight-medium: 500;
   --weight-bold: 700;
   --leading-tight: 1.25;
   --leading-normal-en: 1.5;
   --leading-normal-ar: 1.7;
+  --leading-display-en: 0.92;
+  --leading-display-ar: 1.2;
   --tracking-en-caps: 0.02em;
   --tracking-ar: 0;
+  --tracking-en-display: -0.02em;
+  --tracking-en-eyebrow: 0.14em;
   --measure-reading: 68ch;
   --space-0: 0;
   --space-1: 4px;
@@ -31,6 +36,8 @@
   --space-12: 48px;
   --space-16: 64px;
   --space-20: 80px;
+  --space-24: 96px;
+  --space-32: 128px;
   --radius-sm: 6px;
   --radius-md: 8px;
   --radius-lg: 14px;
@@ -43,6 +50,7 @@
   --motion-fast: 120ms;
   --motion-normal: 200ms;
   --motion-slow: 320ms;
+  --motion-reveal: 640ms;
   --easing-standard: cubic-bezier(0.2, 0, 0, 1);
   --easing-enter: cubic-bezier(0, 0, 0.2, 1);
   --easing-exit: cubic-bezier(0.4, 0, 1, 1);
@@ -91,4 +99,4 @@
   --color-info: #7DB8FF;
   --color-scrim: rgb(0 0 0 / 0.7);
 }
-@media (prefers-reduced-motion: reduce) { :root { --motion-fast: 0ms; --motion-normal: 0ms; --motion-slow: 0ms; } }
+@media (prefers-reduced-motion: reduce) { :root { --motion-fast: 0ms; --motion-normal: 0ms; --motion-slow: 0ms; --motion-reveal: 0ms; } }

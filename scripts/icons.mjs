@@ -12,6 +12,7 @@ const STROKE = JSON.parse(readFileSync('design-system/tokens/tokens.json', 'utf8
 
 // Only icons a component or an approved pattern uses. Add here first, then use it (TOOLCHAIN §4: no full icon set).
 const ICONS = [
+    'arrow-right', // site: branch link, CTA nudge (directional)
     'ban', // status-pill NOT SUPPORTED
     'calendar', // event-card date
     'check', // pressed chip (state not shown by colour alone)
@@ -30,7 +31,11 @@ const ICONS = [
     'loader-circle', // loading
     'log-out', // dashboard sign out (directional)
     'map-pin', // event-card place
+    'menu', // site header: open the navigation drawer
+    'message-circle', // site: WhatsApp action (no brand logos — Lucide only, D-062)
+    'phone', // site: call action (tel:)
     'refresh-cw-off', // status-pill OUT OF SYNC
+    'rotate-cw', // 500 page: try again
     'trending-down', // stat-tile trend
     'trending-up', // stat-tile trend
     'triangle-alert', // warning alert
