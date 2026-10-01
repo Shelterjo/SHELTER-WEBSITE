@@ -3,6 +3,7 @@
 > كل بند هنا وُجد له أكثر من قيمة عبر الموقع القديم والمصادر الخارجية، أو يحتاج قرارًا تجاريًا.
 > **لا شيء منها معتمد.** أنت المرجع الوحيد. القيم المنقولة من فهرس البحث ملخّصة وليست حرفية.
 > رقم كل بند (VQ-xx) يُستخدم في الردود وفي سجل القرارات.
+> **تحديث 2026-10-01:** تم تطبيق ردود الجولة 1 — ✅ حُسم: VQ-01، VQ-02، VQ-08، VQ-10 · 🟡 جزئيًا: VQ-03، VQ-04، VQ-05 · ⏸ مؤجل بقرارك: VQ-06، VQ-07، VQ-19، VQ-26. الباقي مفتوح ويُسأل في الجولات R2–R12.
 
 
 ## P0 — يعطّل الـInformation Architecture (نحسمه أولًا)
@@ -25,7 +26,7 @@
 
 **لماذا يهم:** The logo text, the site name in title tags, the schema.org name, the URL slugs and the Google Business Profile names all depend on this choice. The old site uses at least 4 spellings, and the name is also used by unrelated cafés in Riyadh and Mecca.
 
-**قرار الـOwner:** ⬜ لم يُحسم
+**قرار الـOwner:** ✅ **حُسم (R1-01 → D-007):** الإنجليزية `SHELTER COFFEE` · العربية `شلتر كوفي` · "كوفي" مفضلة؛ "كافيه/كافية" فقط في محتوى SEO أو الوصف بعد موافقة.
 
 ### VQ-02 — Branch names, and which brand name (DRIVE / HOUSE) goes with which branch
 
@@ -41,7 +42,7 @@
 
 **لماذا يهم:** This decides the branch-page structure and URLs, the navigation labels, the LocalBusiness schema for each branch, and how each page is matched to its own Google Maps listing.
 
-**قرار الـOwner:** ⬜ لم يُحسم
+**قرار الـOwner:** ✅ **حُسم (R1-02 → D-008):** `SHELTER COFFEE DRIVE` = الرئيسي بجانب صالة قصر النخيل / أرابيلا (Drive Thru) · `SHELTER COFFEE HOUSE` = Irbid City Center، الطابق الأول. مشغل الحلويات ليس فرعًا. الأسماء العربية للفروع → R2-01.
 
 ### VQ-03 — Online ordering, the shop subdomain and delivery apps
 
@@ -57,7 +58,7 @@
 
 **لماذا يهم:** This decides whether the new site needs an ordering or e-commerce section and product pages, what the main call-to-action is, and whether the shop subdomain has to be migrated or redirected.
 
-**قرار الـOwner:** ⬜ لم يُحسم
+**قرار الـOwner:** 🟡 **جزئيًا (R1-10 → D-016):** ليس E-Commerce الآن، مع جاهزية مستقبلية. `shop.shelterjo.com` يُفحص عند توفر الوصول. تطبيقات التوصيل → جولة مستقلة R2B.
 
 ### VQ-04 — Whether a franchise is really offered
 
@@ -71,7 +72,7 @@
 
 **لماذا يهم:** This decides whether a franchise section exists in the IA. The current page makes financial and support promises ('نموذج ربحي واضح بأرقام وإحصائيات') that carry legal exposure.
 
-**قرار الـOwner:** ⬜ لم يُحسم
+**قرار الـOwner:** 🟡 **جزئيًا (R1-09 → D-015):** Franchise قدرة مستقبلية في الموقع؛ لا رسوم ولا شروط ولا "التقديم مفتوح" قبل اعتماد المحتوى النهائي.
 
 ### VQ-05 — Careers section and the personal data collected by the application form
 
@@ -86,7 +87,7 @@
 
 **لماذا يهم:** This decides whether a careers section exists in the IA. It also sets the rules for handling sensitive personal data: privacy policy, consent and retention.
 
-**قرار الـOwner:** ⬜ لم يُحسم
+**قرار الـOwner:** 🟡 **جزئيًا (R1-09 → D-015):** صفحة التوظيف معتمدة، وتُعاد بالكامل مع مراجعة البيانات المطلوبة والخصوصية (تفاصيل → R11-03).
 
 ### VQ-06 — Table, party and birthday booking (owner profile) has no counterpart on the old site
 
@@ -99,7 +100,7 @@
 
 **لماذا يهم:** This decides whether the IA includes a booking page or flow, and which branch pages show a booking call-to-action.
 
-**قرار الـOwner:** ⬜ لم يُحسم
+**قرار الـOwner:** ⏸ **مؤجل بقرار الـOwner (D-015):** لا صفحة حجز قبل سؤاله عن الخدمات الفعلية.
 
 ### VQ-07 — Events, sponsorship and the 'cultural events' claim
 
@@ -114,7 +115,7 @@
 
 **لماذا يهم:** This decides whether the IA has an events/sponsorship section, and whether an About-page claim that may come from a template gets published again.
 
-**قرار الـOwner:** ⬜ لم يُحسم
+**قرار الـOwner:** ⏸ **مؤجل بقرار الـOwner (D-015):** الرعايات تُناقش لاحقًا. عبارة "الفعاليات الثقافية" القديمة لا تُستخدم بدون اعتماد.
 
 
 ## P1 — قبل كتابة المحتوى
@@ -134,7 +135,7 @@
 
 **لماذا يهم:** The year appears on the About page, the homepage, the franchise page, the schema foundingDate and every 'X years of experience' claim. Three different years are live on the site today.
 
-**قرار الـOwner:** ⬜ لم يُحسم
+**قرار الـOwner:** ✅ **حُسم (R1-03 → D-009):** 2018. "2019" و"منذ 2022" = OLD OR INCORRECT ولا تُستخدم. تاريخ السنوية 20/04 بانتظار توضيح (R1-03a).
 
 ### VQ-09 — Main (drive-thru) branch street address and district
 
@@ -164,7 +165,7 @@
 
 **لماذا يهم:** Customers inside the mall need the right floor, and the branch page title and schema both state it.
 
-**قرار الـOwner:** ⬜ لم يُحسم
+**قرار الـOwner:** ✅ **حُسم (R1-02 → D-008):** الطابق الأول. المعلم داخل المول (البنك الإسلامي الأردني) → R2-01.
 
 ### VQ-11 — Main branch / drive-thru opening hours
 
@@ -307,7 +308,7 @@
 
 **لماذا يهم:** Names of private individuals are personal data. The staff list is probably out of date, and the ownership statement on the About page has to be correct.
 
-**قرار الـOwner:** ⬜ لم يُحسم
+**قرار الـOwner:** ⏸ **مؤجل بقرار الـOwner (D-015):** صفحة الفريق تُناقش لاحقًا قبل اعتمادها.
 
 ### VQ-20 — Legal pages and the legal entity
 
@@ -405,7 +406,7 @@
 
 **لماذا يهم:** Existing subscriber data or a CRM may need to be migrated, and the privacy policy has to disclose it.
 
-**قرار الـOwner:** ⬜ لم يُحسم
+**قرار الـOwner:** ⏸ **النشرة مؤجلة (D-015):** مقترح الفائدة/الكلفة في `09` AR-05. سؤال HubSpot يبقى (R6-08).
 
 ### VQ-27 — How to spell the city name
 
