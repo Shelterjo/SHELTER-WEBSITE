@@ -53,8 +53,8 @@
 ## السجل (Component Health)
 | الفئة | الحالة اليوم |
 |---|---|
-| **Approved Components** | لا يوجد بعد. المكونات تُعتمد في مرحلة الـDesign System (P05) وStorybook (بعد DB-08). القائمة المستهدفة في `docs/DESIGN-SYSTEM-STANDARD.md` §8 |
-| **Duplicate Components** | كل مجموعة Wireframes تعرّف أزرارها وبطاقاتها وحقولها بنفسها (أعلاه). **مقبول مؤقتًا للنماذج منخفضة الدقة، ويُوحّد عبر `design-system/build/tokens.css` + `wireframe-kit.css`** |
+| **Approved Components** | مكتبة Blade الموحدة `resources/views/components/ui/` (`x-ui.*`) + مرجعها في Storybook (`@storybook/html-vite`) — قيد البناء في PHASE 1 (ADR-001، TOOLCHAIN). القائمة في `docs/DESIGN-SYSTEM-STANDARD.md` §8 |
+| **Duplicate Components** | **لا يوجد.** المجموعات الأربع (المنيو، والتوظيف، والشراكات، والـDashboard) تستخدم الطقم نفسه `design-system/wireframe-kit.css` + `tokens.css`، وأصناف الأزرار العشرة نفسها |
 | **Deprecated Components** | — |
 | **Unused Variants** | — |
-| **Token Violations** | الأعمدة أعلاه |
+| **Token Violations** | **0** في أحجام الخط والـRadius والمسافات. "الألوان" الأربعة المعدودة هي قيم تعريف الظلال والـScrim داخل `tokens.css` نفسه (تُحسب مرة لكل صفحة)، **وليست ألوانًا في الصفحات** (G16-TF-01). فحص الكود الحقيقي = `scripts/ds-gate.mjs` |
