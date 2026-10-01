@@ -5,6 +5,7 @@ namespace App\Services\Content\Search;
 use App\Models\Market;
 use App\Models\SearchEntry;
 use App\Services\Content\Pages;
+use App\Services\Experiences\Events;
 use App\Services\Menu\Page\MenuItem;
 use App\Services\Menu\Page\MenuPage;
 use App\Services\Menu\Page\MenuSection;
@@ -15,8 +16,8 @@ use Illuminate\Support\Facades\DB;
 /**
  * Builds the PUBLIC search index from what visitors can already see (GLOBAL-SEARCH §2): menu items by their approved
  * display names (English leads where no Arabic name is approved — CF-03; unapproved source names stay out — PO-042),
- * menu categories, active branches, the published content pages and their FAQ answers, and the fixed pages (menu,
- * locations, contact). Deterministic: empty then rebuild gives the same rows. Run by `php artisan search:rebuild`.
+ * menu categories, active branches, events on now or coming up, the published content pages and their FAQ answers,
+ * and the fixed pages (menu, locations, contact). Ended events drop out at the next rebuild (nightly — PHASE 6). Deterministic: empty then rebuild gives the same rows. Run by `php artisan search:rebuild`.
  */
 final class SearchIndexer
 {
@@ -27,6 +28,7 @@ final class SearchIndexer
         private readonly MenuPage $menu,
         private readonly BranchDirectory $branches,
         private readonly Pages $pages,
+        private readonly Events $events,
     ) {}
 
     public function rebuild(): int
@@ -34,6 +36,7 @@ final class SearchIndexer
         $this->rows = [];
         foreach (Market::query()->where('is_active', true)->orderBy('id')->get() as $market) {
             $this->indexMarket($market);
+            $this->indexEvents($market);
         }
         $this->indexPages();
 
@@ -89,6 +92,19 @@ final class SearchIndexer
                 $this->add('branch', (string) $branch->branch->code, $branch->name, $other?->name, null, null, $branch->url, $other?->url,
                     [(string) $branch->altName, (string) $branch->branch->slug], 2);
             }
+        }
+    }
+
+    private function indexEvents(Market $market): void
+    {
+        $en = [];
+        foreach ($this->events->listed($market, 'en') as $event) {
+            $en[$event->slug] = $event;
+        }
+        foreach ($this->events->listed($market, 'ar') as $event) {
+            $other = $en[$event->slug] ?? null;
+            $this->add('event', $market->code.':'.$event->slug, $event->title, $other?->title, $event->dateText, $other?->dateText,
+                $event->url, $other?->url, [...$event->paragraphs, ...($other->paragraphs ?? []), (string) $event->place, (string) $other?->place], 1);
         }
     }
 

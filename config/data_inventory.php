@@ -22,6 +22,7 @@ return [
     // Content (CONTENT-SOURCE-OF-TRUTH): public once published; drafts and AI-origin text stay internal.
     'pages' => ['class' => 'PUBLIC', 'per_row' => 'status'],
     'page_sections' => ['class' => 'PUBLIC'],
+    'experiences' => ['class' => 'PUBLIC', 'per_row' => 'status'],
 
     // Search (GLOBAL-SEARCH): the index is derived from published data; the daily log is anonymous counters only.
     'search_index' => ['class' => 'PUBLIC', 'per_row' => 'scope'],

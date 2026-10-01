@@ -1,0 +1,39 @@
+<?php
+
+namespace App\Services\Experiences;
+
+use Carbon\CarbonImmutable;
+
+/**
+ * A public event in one language, with its dates already in the event's time zone (DX-014, SI-M07/M08). One-evening
+ * events have `timeText` (start – end); events over several days have `startText` / `endText` (day + time) instead.
+ */
+final readonly class EventView
+{
+    /**
+     * @param  list<string>  $paragraphs
+     * @param  list<string>  $terms
+     */
+    public function __construct(
+        public string $slug,
+        public string $title,
+        public array $paragraphs,
+        public array $terms,
+        public CarbonImmutable $startsAt,
+        public CarbonImmutable $endsAt,
+        public string $dateText,
+        public ?string $timeText,
+        public ?string $startText,
+        public ?string $endText,
+        public string $state,
+        public ?string $place,
+        public ?string $ctaLabel,
+        public ?string $ctaUrl,
+        public string $url,
+    ) {}
+
+    public function isEnded(): bool
+    {
+        return $this->state === 'ended';
+    }
+}

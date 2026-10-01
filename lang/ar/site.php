@@ -128,8 +128,29 @@ return [
             'menu' => 'المنيو',
             'branch' => 'الفروع',
             'page' => 'الصفحات',
+            'event' => 'الفعاليات',
             'faq' => 'الأسئلة الشائعة',
         ],
+    ],
+
+    // Events and campaigns (SI-M07 / SI-M08 — DX-014). The event text itself comes from the Owner (experiences).
+    'events' => [
+        'title' => 'الفعاليات',
+        'lead' => 'الفعاليات والحملات الجارية والقادمة.',
+        'empty_title' => 'لا توجد فعاليات حاليًا',
+        'empty_text' => 'عند الإعلان عن فعالية جديدة ستظهر هنا.',
+        'state' => [
+            'now' => 'جارية الآن',
+            'upcoming' => 'قريبًا',
+            'ended' => 'انتهت',
+        ],
+        'when' => 'الموعد',
+        'where' => 'المكان',
+        'terms' => 'الشروط',
+        'starts' => 'يبدأ: :when',
+        'ends' => 'ينتهي: :when',
+        'ended_notice' => 'انتهت هذه الفعالية.',
+        'back' => 'كل الفعاليات',
     ],
 
     'page' => [

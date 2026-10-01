@@ -24,6 +24,7 @@ final class Search
         'menu' => ['product', 'category'],
         'branch' => ['branch'],
         'page' => ['page'],
+        'event' => ['event'],
         'faq' => ['faq'],
     ];
 

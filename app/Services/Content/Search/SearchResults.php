@@ -2,7 +2,7 @@
 
 namespace App\Services\Content\Search;
 
-/** Results grouped by kind in the fixed order of GLOBAL-SEARCH §4 (menu · branches · pages · questions). */
+/** Results grouped by kind in the fixed order of GLOBAL-SEARCH §4 (menu · branches · pages · events · questions). */
 final readonly class SearchResults
 {
     /** @param  array<string, list<SearchHit>>  $groups */

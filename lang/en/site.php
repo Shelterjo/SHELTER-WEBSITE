@@ -121,8 +121,29 @@ return [
             'menu' => 'Menu',
             'branch' => 'Locations',
             'page' => 'Pages',
+            'event' => 'Events',
             'faq' => 'Questions',
         ],
+    ],
+
+    // Events and campaigns (SI-M07 / SI-M08 — DX-014). The event text itself comes from the Owner (experiences).
+    'events' => [
+        'title' => 'Events',
+        'lead' => 'Events and campaigns, on now and coming up.',
+        'empty_title' => 'No events right now',
+        'empty_text' => 'New events will appear here as soon as they are announced.',
+        'state' => [
+            'now' => 'On now',
+            'upcoming' => 'Coming up',
+            'ended' => 'Ended',
+        ],
+        'when' => 'When',
+        'where' => 'Where',
+        'terms' => 'Terms',
+        'starts' => 'Starts: :when',
+        'ends' => 'Ends: :when',
+        'ended_notice' => 'This event has ended.',
+        'back' => 'All events',
     ],
 
     'page' => [

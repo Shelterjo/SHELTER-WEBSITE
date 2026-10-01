@@ -3,6 +3,7 @@
 use App\Http\Controllers\Site\BranchController;
 use App\Http\Controllers\Site\ContactController;
 use App\Http\Controllers\Site\ContentPageController;
+use App\Http\Controllers\Site\EventsController;
 use App\Http\Controllers\Site\GatewayController;
 use App\Http\Controllers\Site\HomeController;
 use App\Http\Controllers\Site\LocationsController;
@@ -42,6 +43,9 @@ Route::prefix('{locale}')->where(['locale' => 'ar|en'])->middleware('locale')->g
         Route::get('locations/{city}/{branch}/', BranchController::class)
             ->where(['city' => '[a-z0-9-]+', 'branch' => '[a-z0-9-]+'])
             ->name('locations.branch');
+        // Events and campaigns (SI-M07, SI-M08 — DX-014).
+        Route::get('events/', [EventsController::class, 'index'])->name('events');
+        Route::get('events/{slug}/', [EventsController::class, 'show'])->where('slug', '[a-z0-9-]+')->name('events.show');
     });
 });
 

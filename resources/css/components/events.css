@@ -1,0 +1,87 @@
+/* Events (SI-M07 listing, SI-M08 detail): cards in the panel grid (3 columns from 1024px); the detail page reads in
+   one column — the facts (when / where) first, then the text, the call to action and the terms. */
+
+@media (min-width: 1024px) {
+    .ui-events-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+.ui-event-detail {
+    display: grid;
+    gap: var(--space-8);
+    max-inline-size: var(--measure-reading);
+}
+
+.ui-event-detail__facts {
+    display: grid;
+    gap: var(--space-4);
+    margin: 0;
+    padding: var(--space-6);
+    border: var(--border-default) solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-surface);
+}
+
+.ui-event-detail__fact {
+    display: grid;
+    gap: var(--space-1);
+}
+
+.ui-event-detail__fact dt {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    color: var(--color-muted);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+}
+
+.ui-event-detail__fact dd {
+    margin: 0;
+    font-size: var(--text-lg);
+    font-weight: var(--weight-bold);
+}
+
+.ui-event-detail__span {
+    display: block;
+    color: var(--color-muted);
+    font-size: var(--text-base);
+    font-weight: var(--weight-regular);
+}
+
+.ui-event-detail__cta {
+    margin: 0;
+}
+
+.ui-event-detail__terms {
+    border-block: var(--border-default) solid var(--color-border);
+}
+
+.ui-event-detail__terms .ui-disclosure__body {
+    display: grid;
+    gap: var(--space-3);
+    color: var(--color-muted);
+}
+
+.ui-event-detail__back {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    min-block-size: var(--touch-target);
+    color: var(--color-muted);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+    text-decoration: none;
+    transition: color var(--motion-fast) var(--easing-standard);
+}
+
+.ui-event-detail__back:hover {
+    color: var(--color-text);
+}
+
+@media (min-width: 768px) {
+    .ui-event-detail__facts {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}

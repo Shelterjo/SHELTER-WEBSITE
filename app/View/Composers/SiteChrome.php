@@ -3,6 +3,7 @@
 namespace App\View\Composers;
 
 use App\Services\Content\Pages;
+use App\Services\Experiences\Events;
 use App\Services\Site\ContactActions;
 use App\Services\Site\Markets;
 use App\Support\PageUrl;
@@ -14,8 +15,8 @@ use Illuminate\View\View;
  * Data for the public site chrome (layouts.site → x-ui.site-header / x-ui.site-footer, DS-018): navigation to the
  * pages that exist, the language switch, and the approved footer contacts (CONTACT-015: one number + WhatsApp).
  * A navigation item appears only when its route exists, so pages join the header as they ship. Content pages (About,
- * FAQ, Privacy, Terms) are linked from the footer only while they are published (App\Services\Content\Pages);
- * the header stays Menu + Locations (D-027).
+ * FAQ, Privacy, Terms) are linked from the footer only while they are published (App\Services\Content\Pages), and
+ * Events only while there is an event to show; the header stays Menu + Locations (D-027).
  */
 final class SiteChrome
 {
@@ -29,6 +30,7 @@ final class SiteChrome
         private readonly Markets $markets,
         private readonly ContactActions $contacts,
         private readonly Pages $pages,
+        private readonly Events $events,
         private readonly Request $request,
     ) {}
 
@@ -60,11 +62,16 @@ final class SiteChrome
         }
 
         $withCurrent = fn (array $link): array => ['label' => $link['label'], 'href' => $link['href'], 'current' => $this->current($link['key'])];
+        $market = $this->markets->current();
+        $eventsHref = $market !== null ? SiteLinks::to('events', $parameters) : null;
+        $events = $market !== null && $eventsHref !== null && $this->events->listed($market, $locale) !== []
+            ? [['label' => (string) __('site.events.title'), 'href' => $eventsHref, 'key' => 'events']]
+            : [];
 
         $view->with('siteChrome', [
             'home' => PageUrl::route('home', ['locale' => $locale]),
             'nav' => $nav,
-            'footerNav' => [...$nav, ...array_map($withCurrent, $this->pages->links(Pages::EXPLORE, $locale))],
+            'footerNav' => [...$nav, ...array_map($withCurrent, [...$events, ...$this->pages->links(Pages::EXPLORE, $locale)])],
             'legal' => array_map($withCurrent, $this->pages->links(Pages::LEGAL, $locale)),
             'languages' => $languages,
             'phone' => $this->contacts->phone($locale),
