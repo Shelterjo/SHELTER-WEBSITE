@@ -1,0 +1,12 @@
+# Tooling (local installs and generated reports)
+tooling/node_modules/
+tooling/reports/
+# Media: originals and derived files are managed outside git until a storage decision (DB-08 / CMS) is approved
+media/originals/
+media/derived/
+# Python / OS noise
+__pycache__/
+*.pyc
+.DS_Store
+# Generated helper data (wireframe tools)
+docs/menu-ia/wireframes/tools/subcats.json
