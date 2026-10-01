@@ -37,3 +37,6 @@ __pycache__/
 
 # Brand fonts whose web licence is not confirmed (D-309, PO-071): never committed, never deployed to production.
 /public/fonts/licensed/
+
+# Agent worktrees (local only)
+/.claude/worktrees/

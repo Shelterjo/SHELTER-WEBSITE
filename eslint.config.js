@@ -15,6 +15,7 @@ export default tseslint.config(
             'tooling/**',
             'docs/**',
             'design-system/stories/generated/**',
+            '.claude/**',
         ],
     },
     js.configs.recommended,

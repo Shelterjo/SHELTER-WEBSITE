@@ -1,4 +1,10 @@
 {
   "preset": "laravel",
-  "exclude": ["tooling", "docs", "design-system", "media"]
+  "exclude": [
+    "tooling",
+    "docs",
+    "design-system",
+    "media",
+    ".claude"
+  ]
 }
