@@ -1,35 +1,230 @@
-/* Site header (PHASE 2 chrome, D-309 old-site theme): white logo on the dark brand background, language switch at the
-   inline end. Tokens only. Navigation items join when their pages exist (SITE-INVENTORY). */
+/* Site header (DS-018, D-309 old-site theme): white logo on the dark brand background. Phones: Menu + Locations stay
+   in the bar from 360px (NAV-004), the language switch is a compact toggle and the menu button opens the drawer.
+   From 1024px: everything inline, no menu button. Tokens only, logical properties only. */
 
 .ui-site-header {
+    position: relative;
+    z-index: var(--z-header);
     border-block-end: var(--border-default) solid var(--color-border);
     background: var(--color-bg);
+    /* The header stays put while the page content cross-fades (M40 §31). */
+    view-transition-name: site-header;
 }
 
 .ui-site-header__inner {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: var(--space-4);
-    min-block-size: var(--control-lg);
-    padding-block: var(--space-3);
+    gap: var(--space-2);
+    min-block-size: calc(var(--control-lg) + var(--space-4));
 }
 
 .ui-site-header__brand {
     display: inline-flex;
+    flex: none;
     align-items: center;
     min-block-size: var(--touch-target);
+    margin-inline-end: auto;
     border-radius: var(--radius-md);
 }
 
 .ui-site-header__logo {
     display: block;
     inline-size: auto;
-    block-size: var(--control-sm);
+    block-size: var(--space-8);
+}
+
+.ui-site-header__nav {
+    display: none;
+}
+
+.ui-site-header__list {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.ui-site-header__list .ui-nav-link {
+    padding-inline: var(--space-2);
+}
+
+.ui-site-header__end {
+    display: flex;
+    flex: none;
+    align-items: center;
+    gap: var(--space-1);
+}
+
+/* Language switch: the other language's name ("English" / "العربية"); a 44px "EN" / "ع" toggle on small phones. */
+.ui-site-header__lang {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-block-size: var(--touch-target);
+    min-inline-size: var(--touch-target);
+    padding-inline: var(--space-2);
+    border-radius: var(--radius-md);
+    color: var(--color-muted);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+    text-decoration: none;
+    transition:
+        color var(--motion-fast) var(--easing-standard),
+        background-color var(--motion-fast) var(--easing-standard);
+}
+
+.ui-site-header__lang:hover {
+    background: var(--color-surface);
+    color: var(--color-text);
+}
+
+.ui-site-header__lang-long {
+    display: none;
+}
+
+.ui-site-header__lang-short {
+    font-weight: var(--weight-bold);
+}
+
+@media (min-width: 360px) {
+    .ui-site-header__nav {
+        display: block;
+    }
+
+    /* Phones keep the first two items in the bar (Menu, Locations — NAV-006); the rest live in the drawer. */
+    .ui-site-header__list > li:nth-child(n + 3) {
+        display: none;
+    }
+}
+
+@media (min-width: 600px) {
+    .ui-site-header__inner {
+        gap: var(--space-4);
+    }
+
+    .ui-site-header__lang-long {
+        display: inline;
+    }
+
+    .ui-site-header__lang-short {
+        display: none;
+    }
+
+    .ui-site-header__list .ui-nav-link {
+        padding-inline: var(--space-3);
+    }
 }
 
 @media (min-width: 1024px) {
-    .ui-site-header__logo {
-        block-size: var(--control-md);
+    .ui-site-header__inner {
+        min-block-size: calc(var(--control-lg) + var(--space-8));
     }
+
+    .ui-site-header__logo {
+        block-size: var(--space-10);
+    }
+
+    .ui-site-header__list {
+        gap: var(--space-2);
+    }
+
+    .ui-site-header__list > li:nth-child(n + 3) {
+        display: list-item;
+    }
+
+    .ui-site-header__menu {
+        display: none;
+    }
+
+    .ui-site-header__end {
+        padding-inline-start: var(--space-4);
+        border-inline-start: var(--border-default) solid var(--color-border);
+    }
+}
+
+/* Navigation drawer: large, calm links; current page marked by weight + underline (never colour alone). The arrow
+   nudges toward the reading direction on hover. */
+.ui-nav-drawer__list {
+    display: grid;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.ui-nav-drawer__item {
+    border-block-end: var(--border-default) solid var(--color-border);
+}
+
+.ui-nav-drawer__link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    min-block-size: calc(var(--touch-target) + var(--space-4));
+    color: var(--color-text);
+    font-size: var(--text-2xl);
+    font-weight: var(--weight-bold);
+    line-height: var(--leading-tight);
+    text-decoration: none;
+}
+
+.ui-nav-drawer__link .ui-icon {
+    color: var(--color-muted);
+    transition:
+        translate var(--motion-fast) var(--easing-standard),
+        color var(--motion-fast) var(--easing-standard);
+}
+
+.ui-nav-drawer__link:hover .ui-icon {
+    color: var(--color-text);
+    translate: var(--ui-nudge) 0;
+}
+
+.ui-nav-drawer__link[aria-current] span {
+    text-decoration: underline;
+    text-decoration-thickness: var(--border-strong);
+    text-underline-offset: var(--space-2);
+}
+
+.ui-nav-drawer__languages {
+    display: flex;
+    gap: var(--space-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.ui-nav-drawer__language {
+    display: inline-flex;
+    align-items: center;
+    min-block-size: var(--touch-target);
+    padding-inline: var(--space-4);
+    border: var(--border-default) solid var(--color-border);
+    border-radius: var(--radius-pill);
+    color: var(--color-muted);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+    text-decoration: none;
+}
+
+.ui-nav-drawer__language[aria-current] {
+    border-color: var(--color-text);
+    color: var(--color-text);
+    font-weight: var(--weight-bold);
+}
+
+/* Root gateway (RG-02 / D-066) and the static 500 page: the logo alone, centred. */
+.ui-site-header--minimal .ui-site-header__inner {
+    justify-content: center;
+}
+
+.ui-site-header--minimal .ui-site-header__brand {
+    margin-inline-end: 0;
+}
+
+/* The navigation drawer: a compact panel sized to its content, never a near-empty full-height sheet. */
+.ui-nav-drawer {
+    max-inline-size: var(--container-drawer);
 }

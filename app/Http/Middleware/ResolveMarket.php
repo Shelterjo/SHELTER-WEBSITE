@@ -15,7 +15,9 @@ final class ResolveMarket
 {
     public function handle(Request $request, Closure $next): Response
     {
-        $code = $request->route('market');
+        // Implicit binding may already have turned the {market} segment into a model (Market binds by code).
+        $parameter = $request->route('market');
+        $code = $parameter instanceof Market ? $parameter->code : $parameter;
         $market = is_string($code) ? Market::query()->where('code', $code)->where('is_active', true)->first() : null;
         if ($market === null) {
             abort(404);

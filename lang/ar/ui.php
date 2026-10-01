@@ -45,4 +45,29 @@ return [
         'up' => 'ارتفاع:',
         'down' => 'انخفاض:',
     ],
+    // Site chrome and branch components (PHASE 2).
+    'navigation' => [
+        'open' => 'فتح التنقل',
+        'title' => 'التنقل',
+        'language' => 'اللغة',
+    ],
+    'hours' => [
+        'day' => 'اليوم',
+        'time' => 'الساعات',
+        'today' => 'اليوم',
+        'closed' => 'مغلق',
+        'next_day' => 'اليوم التالي',
+    ],
+    'contact' => [
+        'call' => 'اتصال',
+        'whatsapp' => 'راسلنا على واتساب', // D-063 (provisional)
+        'call_label' => 'اتصل بـ SHELTER COFFEE',
+        'whatsapp_label' => 'واتساب SHELTER COFFEE', // CONTACT-016: name of the icon-only link
+    ],
+    'footer' => [
+        'label' => 'تذييل الموقع',
+        'explore' => 'تصفّح',
+        'contact' => 'تواصل',
+        'all_contact' => 'كل قنوات التواصل',
+    ],
 ];

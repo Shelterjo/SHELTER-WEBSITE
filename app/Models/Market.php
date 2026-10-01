@@ -38,4 +38,10 @@ class Market extends Model
     {
         return ($locale ?? app()->getLocale()) === 'en' ? $this->name_en : $this->name_ar;
     }
+
+    /** URLs carry the market code (/ar/jo/…), never the numeric id; ResolveMarket still rejects inactive markets. */
+    public function getRouteKeyName(): string
+    {
+        return 'code';
+    }
 }

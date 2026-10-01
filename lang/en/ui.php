@@ -44,4 +44,29 @@ return [
         'up' => 'Up:',
         'down' => 'Down:',
     ],
+    // Site chrome and branch components (PHASE 2).
+    'navigation' => [
+        'open' => 'Open navigation',
+        'title' => 'Navigation',
+        'language' => 'Language',
+    ],
+    'hours' => [
+        'day' => 'Day',
+        'time' => 'Hours',
+        'today' => 'Today',
+        'closed' => 'Closed',
+        'next_day' => 'next day',
+    ],
+    'contact' => [
+        'call' => 'Call',
+        'whatsapp' => 'Message us on WhatsApp', // D-063 (provisional)
+        'call_label' => 'Call SHELTER COFFEE',
+        'whatsapp_label' => 'SHELTER COFFEE on WhatsApp', // CONTACT-016: name of the icon-only link
+    ],
+    'footer' => [
+        'label' => 'Site footer',
+        'explore' => 'Explore',
+        'contact' => 'Contact',
+        'all_contact' => 'All contact channels',
+    ],
 ];

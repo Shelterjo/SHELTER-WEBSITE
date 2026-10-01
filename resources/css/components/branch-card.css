@@ -1,0 +1,130 @@
+/* Branch card (DS §8, BRANCH-016). `row`: an editorial list row on the home page — the whole row links to the branch
+   page, the call/WhatsApp buttons sit above that link. `panel`: a framed panel on the locations page. */
+
+.ui-branch-list {
+    display: grid;
+    margin: 0;
+    padding: 0;
+    border-block-start: var(--border-default) solid var(--color-border);
+    list-style: none;
+}
+
+.ui-branch {
+    position: relative;
+    display: grid;
+    gap: var(--space-3);
+}
+
+.ui-branch__head {
+    display: grid;
+    gap: var(--space-1);
+}
+
+.ui-branch__name {
+    margin: 0;
+    font-size: var(--text-2xl);
+    font-weight: var(--weight-bold);
+    line-height: var(--leading-tight);
+}
+
+.ui-branch__alt {
+    margin: 0;
+    color: var(--color-muted);
+    font-size: var(--text-sm);
+}
+
+.ui-branch__info {
+    display: grid;
+    gap: var(--space-2);
+}
+
+.ui-branch__today {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin: 0;
+    color: var(--color-muted);
+}
+
+.ui-branch__today-label {
+    color: var(--color-text);
+    font-weight: var(--weight-medium);
+}
+
+.ui-branch__actions {
+    position: relative;
+    z-index: var(--z-sticky);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.ui-branch__go {
+    display: inline-flex;
+    margin-inline-start: auto;
+    color: var(--color-muted);
+    transition:
+        translate var(--motion-fast) var(--easing-standard),
+        color var(--motion-fast) var(--easing-standard);
+}
+
+.ui-branch--row {
+    padding-block: var(--space-6);
+    border-block-end: var(--border-default) solid var(--color-border);
+}
+
+.ui-branch--row:hover .ui-branch__go {
+    color: var(--color-text);
+    translate: var(--space-1) 0;
+}
+
+[dir='rtl'] .ui-branch--row:hover .ui-branch__go {
+    translate: calc(var(--space-1) * -1) 0;
+}
+
+.ui-branch--panel {
+    block-size: 100%;
+    align-content: start;
+    padding: var(--space-6);
+    border: var(--border-default) solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-surface);
+    transition: border-color var(--motion-fast) var(--easing-standard);
+}
+
+.ui-branch--panel:hover {
+    border-color: var(--color-muted);
+}
+
+.ui-branch__more {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin: 0;
+    color: var(--color-muted);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+}
+
+.ui-branch--panel:hover .ui-branch__more {
+    color: var(--color-text);
+}
+
+.ui-branch .ui-stretched:focus-visible {
+    outline: none;
+}
+
+.ui-branch:has(.ui-stretched:focus-visible) {
+    outline: var(--border-strong) solid var(--color-focus);
+    outline-offset: var(--space-1);
+    border-radius: var(--radius-md);
+}
+
+@media (min-width: 768px) {
+    .ui-branch--row {
+        grid-template-columns: minmax(0, 2fr) minmax(0, 3fr) auto;
+        align-items: center;
+        gap: var(--space-6);
+    }
+}

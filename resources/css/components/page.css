@@ -1,0 +1,180 @@
+/* Page grammar (DS §6 / DS-017): main column, page and band rhythm, page intro, section heading, eyebrow, notes,
+   split and panel grid. Every vertical gap comes from the spacing scale, so sections never touch (M40 §37). */
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+.ui-main {
+    display: flex;
+    flex: 1 0 auto;
+    flex-direction: column;
+}
+
+.ui-main:focus {
+    outline: none;
+}
+
+.ui-page {
+    padding-block: var(--space-6) var(--space-16);
+}
+
+.ui-page--with-bar {
+    padding-block-end: 0;
+}
+
+.ui-band {
+    padding-block: var(--space-12);
+    border-block-start: var(--border-default) solid var(--color-border);
+}
+
+.ui-eyebrow {
+    margin: 0;
+    color: var(--color-muted);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+}
+
+.ui-eyebrow :lang(en),
+.ui-eyebrow:lang(en) {
+    letter-spacing: var(--tracking-en-eyebrow);
+    text-transform: uppercase;
+}
+
+.ui-page-intro {
+    display: grid;
+    gap: var(--space-3);
+    margin-block: var(--space-6) var(--space-10);
+}
+
+.ui-page-intro__title {
+    margin: 0;
+    font-size: var(--text-4xl);
+    font-weight: var(--weight-bold);
+    line-height: var(--leading-tight);
+}
+
+.ui-page-intro__lead {
+    max-inline-size: var(--measure-reading);
+    margin: 0;
+    color: var(--color-muted);
+    font-size: var(--text-lg);
+}
+
+.ui-section-heading {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--space-3) var(--space-6);
+    margin-block-end: var(--space-8);
+}
+
+.ui-section-heading__text {
+    display: grid;
+    gap: var(--space-2);
+    max-inline-size: var(--measure-reading);
+}
+
+.ui-section-heading__title {
+    margin: 0;
+    font-size: var(--text-3xl);
+    font-weight: var(--weight-bold);
+    line-height: var(--leading-tight);
+}
+
+.ui-section-heading__lead {
+    margin: 0;
+    color: var(--color-muted);
+}
+
+.ui-section-heading__link {
+    flex: none;
+}
+
+.ui-note {
+    max-inline-size: var(--measure-reading);
+    margin-block: var(--space-4) 0;
+    color: var(--color-muted);
+    font-size: var(--text-sm);
+}
+
+.ui-split {
+    display: grid;
+    gap: var(--space-10);
+}
+
+.ui-split__main,
+.ui-split__aside {
+    min-inline-size: 0;
+}
+
+.ui-split__title {
+    margin-block: 0 var(--space-4);
+    font-size: var(--text-xl);
+    font-weight: var(--weight-bold);
+}
+
+.ui-panel-grid {
+    display: grid;
+    gap: var(--space-6);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+/* Contact block on the branch page: the number reads large and left-to-right in both languages. */
+.ui-contact-number {
+    margin-block: 0 var(--space-4);
+    font-size: var(--text-2xl);
+    font-weight: var(--weight-bold);
+}
+
+.ui-contact-number a {
+    color: var(--color-text);
+    text-decoration: none;
+    unicode-bidi: isolate;
+}
+
+.ui-contact-number a:hover {
+    text-decoration: underline;
+    text-underline-offset: var(--space-1);
+}
+
+.ui-contact-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-3);
+}
+
+@media (min-width: 768px) {
+    .ui-panel-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (min-width: 1024px) {
+    .ui-page {
+        padding-block: var(--space-10) var(--space-24);
+    }
+
+    .ui-page--with-bar {
+        padding-block-end: var(--space-24);
+    }
+
+    .ui-band {
+        padding-block: var(--space-20);
+    }
+
+    .ui-page-intro__title {
+        font-size: var(--text-5xl);
+    }
+
+    .ui-split {
+        grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+        align-items: start;
+        gap: var(--space-16);
+    }
+}

@@ -1,5 +1,12 @@
 <?php
 
+use App\Models\Branch;
+use App\Services\Site\BranchSummary;
+use App\Services\Site\ContactAction;
+use App\Services\Site\StatusSegment;
+use App\Services\Site\StatusTimeline;
+use Carbon\CarbonImmutable;
+
 /*
 | SHELTER design-system catalog — the stories Storybook shows for every x-ui component (DS-024).
 | `php artisan ds:export` renders each story through the real Blade component in Arabic (RTL) and English (LTR) and
@@ -61,6 +68,58 @@ $hint = $t('نص مساعد تجريبي', 'Sample hint text');
 $emailError = $t('أدخل بريدًا إلكترونيًا صحيحًا، مثل name@example.com', 'Enter a valid email address, like name@example.com');
 
 $dialogBody = fn (string $locale): string => $product($locale, 'PRD-00001');
+
+// Site chrome and branch samples (PHASE 2). Branch names, hours and the public number are the APPROVED values
+// (D-020, D-057); the open/closed states are labelled samples (the live state is computed per request).
+$sampleNow = CarbonImmutable::parse('2026-10-01 12:00', 'Asia/Amman');
+$status = fn (string $state, string $l): StatusTimeline => new StatusTimeline([
+    new StatusSegment(
+        $state,
+        match ($state) {
+            'open' => $l === 'ar' ? 'مفتوح الآن (مثال)' : 'Open now (sample)',
+            'closing' => $l === 'ar' ? 'يغلق قريبًا (مثال)' : 'Closing soon (sample)',
+            default => $l === 'ar' ? 'مغلق الآن (مثال)' : 'Closed now (sample)',
+        },
+        null,
+    ),
+], $sampleNow, $l);
+$week = fn (string $l): array => array_map(
+    fn (array $d): array => [
+        'day' => $l === 'ar' ? $d[0] : $d[1],
+        'today' => $d[2],
+        'intervals' => [['opens' => $l === 'ar' ? $d[3] : $d[4], 'closes' => $l === 'ar' ? '2:00 ص' : '2:00 AM', 'overnight' => true]],
+    ],
+    [
+        ['السبت', 'Saturday', false, '7:00 ص', '7:00 AM'], ['الأحد', 'Sunday', false, '7:00 ص', '7:00 AM'],
+        ['الاثنين', 'Monday', false, '7:00 ص', '7:00 AM'], ['الثلاثاء', 'Tuesday', false, '7:00 ص', '7:00 AM'],
+        ['الأربعاء', 'Wednesday', false, '7:00 ص', '7:00 AM'], ['الخميس', 'Thursday', true, '7:00 ص', '7:00 AM'],
+        ['الجمعة', 'Friday', false, '8:00 ص', '8:00 AM'],
+    ],
+);
+$phone = new ContactAction('tel:+962799009436', '0799009436');
+$whatsapp = new ContactAction('https://wa.me/962799009436', 'WhatsApp');
+$branchCard = fn (string $l, string $state) => new BranchSummary(
+    new Branch,
+    $l === 'ar' ? 'شلتر كوفي درايف' : 'SHELTER COFFEE DRIVE',
+    $l,
+    $l === 'ar' ? 'SHELTER COFFEE DRIVE' : 'شلتر كوفي درايف',
+    $l === 'ar' ? 'en' : 'ar',
+    '#branch',
+    'irbid',
+    $week($l),
+    [['opens' => $l === 'ar' ? '7:00 ص' : '7:00 AM', 'closes' => $l === 'ar' ? '2:00 ص' : '2:00 AM']],
+    $status($state, $l),
+    $phone,
+    $whatsapp,
+);
+$nav = fn (string $l): array => [
+    ['label' => $l === 'ar' ? 'المنيو' : 'Menu', 'href' => '#menu', 'current' => null],
+    ['label' => $l === 'ar' ? 'الفروع' : 'Locations', 'href' => '#locations', 'current' => 'page'],
+];
+$languages = fn (string $l): array => [
+    ['locale' => 'ar', 'label' => 'العربية', 'href' => '#ar', 'current' => $l === 'ar'],
+    ['locale' => 'en', 'label' => 'English', 'href' => '#en', 'current' => $l === 'en'],
+];
 
 return [
     // Components whose stories live under another entry.
@@ -394,6 +453,45 @@ return [
 
         'toolbar' => ['stories' => [
             ['story' => 'Default', 'blade' => $both(fn (string $l): string => '<x-ui.toolbar label="'.($l === 'ar' ? 'أدوات تجريبية' : 'Sample tools').'"><x-ui.field label="'.($l === 'ar' ? 'بحث' : 'Search').'" for="ds-search"><x-ui.input type="search" name="q" /></x-ui.field><x-ui.button variant="secondary">'.($l === 'ar' ? 'تصفية' : 'Filter').'</x-ui.button><x-ui.button variant="ghost">'.($l === 'ar' ? 'مسح' : 'Clear').'</x-ui.button></x-ui.toolbar>')],
+        ]],
+
+        // ───────────────────────────── Site (PHASE 2) ─────────────────────────────
+        'site-header' => ['stories' => [
+            ['story' => 'Default', 'props' => ['home' => '#home', 'nav' => $both($nav), 'languages' => $both($languages), 'drawer-id' => 'ds-site-nav']],
+            ['story' => 'Minimal', 'props' => ['home' => '#home', 'minimal' => true]],
+        ]],
+        'site-footer' => ['stories' => [
+            ['story' => 'Default', 'props' => ['home' => '#home', 'nav' => $both($nav), 'languages' => $both($languages), 'phone' => $phone, 'whatsapp' => $whatsapp, 'contact' => '#contact']],
+        ]],
+        'hero' => ['stories' => [
+            ['story' => 'Brand', 'props' => [
+                'lines' => $t(['شلتر', 'كوفي'], ['SHELTER', 'COFFEE']),
+                'eyebrow' => $t('SHELTER COFFEE', 'شلتر كوفي'),
+                'eyebrow-lang' => $t('en', 'ar'),
+                'lead' => $t('نص تمهيدي تجريبي للواجهة.', 'Sample lead text for the hero.'),
+                'title-id' => 'ds-hero',
+            ], 'slot' => $t('<x-ui.button size="lg" href="#locations" icon-end="arrow-right">الفروع والمواعيد</x-ui.button>', '<x-ui.button size="lg" href="#locations" icon-end="arrow-right">Locations and hours</x-ui.button>')],
+        ]],
+        'section-heading' => ['stories' => [
+            ['story' => 'Default', 'props' => ['title' => $t('عنوان قسم تجريبي', 'Sample section title'), 'lead' => $t('وصف قصير تجريبي للقسم.', 'A short sample description of the section.'), 'id' => 'ds-section']],
+            ['story' => 'WithLink', 'props' => ['title' => $t('الفروع', 'Locations'), 'lead' => $t('وصف قصير تجريبي.', 'A short sample description.'), 'href' => '#locations', 'link-label' => $t('كل التفاصيل', 'All details'), 'id' => 'ds-section-link']],
+        ]],
+        'branch-card' => ['stories' => [
+            ['story' => 'Row', 'props' => ['branch' => $both(fn (string $l) => $branchCard($l, 'open'))]],
+            ['story' => 'Panel', 'props' => ['branch' => $both(fn (string $l) => $branchCard($l, 'closing')), 'variant' => 'panel', 'details-label' => $t('التفاصيل والساعات', 'Details and hours')]],
+            ['story' => 'Closed', 'props' => ['branch' => $both(fn (string $l) => $branchCard($l, 'closed')), 'variant' => 'panel']],
+        ]],
+        'open-status' => ['stories' => [
+            ['story' => 'Open', 'props' => ['timeline' => $both(fn (string $l) => $status('open', $l))]],
+            ['story' => 'Closing', 'props' => ['timeline' => $both(fn (string $l) => $status('closing', $l))]],
+            ['story' => 'Closed', 'props' => ['timeline' => $both(fn (string $l) => $status('closed', $l))]],
+            ['story' => 'Large', 'props' => ['timeline' => $both(fn (string $l) => $status('open', $l)), 'size' => 'lg']],
+        ]],
+        'hours-table' => ['stories' => [
+            ['story' => 'Week', 'props' => ['rows' => $both($week), 'caption' => $t('ساعات الدوام', 'Opening hours')]],
+        ]],
+        'action-bar' => ['stories' => [
+            ['story' => 'Default', 'props' => ['label' => $t('إجراءات الفرع', 'Branch actions')], 'slot' => $t('<x-ui.button icon="phone" href="#call">اتصال</x-ui.button><x-ui.button variant="secondary" icon="message-circle" href="#wa">واتساب</x-ui.button>', '<x-ui.button icon="phone" href="#call">Call</x-ui.button><x-ui.button variant="secondary" icon="message-circle" href="#wa">WhatsApp</x-ui.button>')],
         ]],
     ],
 ];

@@ -3,6 +3,7 @@
 namespace Tests\Feature\DesignSystem;
 
 use App\Models\User;
+use Database\Seeders\MasterDataSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use PragmaRX\Google2FA\Google2FA;
 use Tests\TestCase;
@@ -24,11 +25,17 @@ class PagesTest extends TestCase
 
     public function test_site_pages_use_the_skip_link_and_nav_links(): void
     {
+        // The header navigation lists the market pages, so it needs the approved master data.
+        $this->seed(MasterDataSeeder::class);
+
         foreach (['/', '/ar/', '/en/'] as $url) {
             $html = (string) $this->get($url)->assertOk()->getContent();
             $this->assertOnlyLibraryClasses($html);
             $this->assertMatchesRegularExpression('/<body>\s*<a href="#main" class="ui-skip-link">/', $html, "{$url}: skip link first");
-            $this->assertStringContainsString('class="ui-nav-link"', $html);
+            $this->assertStringContainsString('class="ui-site-header', $html, "{$url}: library site header");
+            if ($url !== '/') {
+                $this->assertStringContainsString('class="ui-nav-link"', $html, "{$url}: header navigation uses x-ui.nav-link");
+            }
         }
     }
 

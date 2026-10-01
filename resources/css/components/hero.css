@@ -1,0 +1,116 @@
+/* Brand hero (DS-029, MOTION-014): typography-led — no photo until media is approved. The hexagon mark (from the
+   emblem) sits behind the text as a quiet frame and never pushes the headline or the CTA below the fold. The lines
+   rise out of a mask: Motion drives it when loaded, CSS does it alone otherwise, nothing moves with reduced motion. */
+
+.ui-hero {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    padding-block: var(--space-16) var(--space-12);
+}
+
+.ui-hero__mark {
+    position: absolute;
+    inset-block-start: 50%;
+    inset-inline-end: calc(var(--space-16) * -1);
+    inline-size: min(70%, var(--container-narrow));
+    block-size: auto;
+    color: var(--color-border);
+    translate: 0 -50%;
+}
+
+.ui-hero__inner {
+    /* Positioned after the mark in the source, so it paints above it without a z-index. */
+    position: relative;
+    display: grid;
+    justify-items: start;
+    gap: var(--space-4);
+}
+
+.ui-hero__eyebrow {
+    margin-block-end: var(--space-1);
+}
+
+.ui-hero__title {
+    display: grid;
+    margin: 0;
+    font-size: var(--text-display);
+    font-weight: var(--weight-bold);
+    line-height: var(--leading-display-ar);
+}
+
+.ui-hero__title:lang(en) {
+    letter-spacing: var(--tracking-en-display);
+    line-height: var(--leading-display-en);
+}
+
+.ui-hero__line {
+    display: block;
+    overflow: hidden;
+    padding-block-end: var(--space-1);
+}
+
+.ui-hero__line--quiet {
+    color: var(--color-muted);
+}
+
+.ui-hero__line-text {
+    display: inline-block;
+}
+
+.ui-hero__lead {
+    max-inline-size: var(--measure-reading);
+    margin: 0;
+    color: var(--color-muted);
+    font-size: var(--text-lg);
+}
+
+.ui-hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-block-start: var(--space-4);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .ui-hero__line-text {
+        animation: ui-hero-rise var(--motion-reveal) var(--easing-enter) both;
+    }
+
+    .ui-hero__line + .ui-hero__line .ui-hero__line-text {
+        animation-delay: var(--motion-fast);
+    }
+
+    .ui-hero [data-ui-hero-item] {
+        animation: ui-hero-fade var(--motion-reveal) var(--easing-enter) var(--motion-normal) both;
+    }
+
+    /* Motion (resources/js/ui/reveal.ts) takes over when it loads. */
+    .ui-hero[data-motion] .ui-hero__line-text,
+    .ui-hero[data-motion] [data-ui-hero-item] {
+        animation: none;
+    }
+}
+
+@keyframes ui-hero-rise {
+    from {
+        translate: 0 100%;
+    }
+}
+
+@keyframes ui-hero-fade {
+    from {
+        opacity: 0;
+    }
+}
+
+@media (min-width: 1024px) {
+    .ui-hero {
+        padding-block: var(--space-24) var(--space-20);
+    }
+
+    .ui-hero__mark {
+        inset-inline-end: 0;
+        inline-size: var(--container-narrow);
+    }
+}

@@ -1,0 +1,99 @@
+/* Site footer (DS-018, CONTACT-015): quiet, not crowded — logo, the same navigation, one number + WhatsApp,
+   language links, copyright. One column on phones, two from 600px, four from 1024px. */
+
+.ui-site-footer {
+    margin-block-start: auto;
+    padding-block: var(--space-12) var(--space-8);
+    border-block-start: var(--border-default) solid var(--color-border);
+    color: var(--color-muted);
+    font-size: var(--text-sm);
+}
+
+.ui-site-footer__grid {
+    display: grid;
+    gap: var(--space-8);
+}
+
+.ui-site-footer__logo-link {
+    display: inline-flex;
+    min-block-size: var(--touch-target);
+    align-items: center;
+    border-radius: var(--radius-md);
+}
+
+.ui-site-footer__logo {
+    inline-size: auto;
+    block-size: var(--space-10);
+}
+
+.ui-site-footer__group {
+    display: grid;
+    align-content: start;
+    gap: var(--space-1);
+}
+
+.ui-site-footer__title {
+    margin-block: 0 var(--space-2);
+    color: var(--color-text);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-bold);
+}
+
+.ui-site-footer__list {
+    display: grid;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.ui-site-footer__link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    min-block-size: var(--touch-target);
+    color: var(--color-muted);
+    text-decoration: none;
+    transition: color var(--motion-fast) var(--easing-standard);
+}
+
+.ui-site-footer__link:hover {
+    color: var(--color-text);
+    text-decoration: underline;
+    text-underline-offset: var(--space-1);
+}
+
+.ui-site-footer__link[aria-current] {
+    color: var(--color-text);
+    font-weight: var(--weight-bold);
+}
+
+.ui-site-footer__legal {
+    margin-block: var(--space-10) 0;
+    padding-block-start: var(--space-6);
+    border-block-start: var(--border-default) solid var(--color-border);
+    font-size: var(--text-xs);
+}
+
+@media (min-width: 600px) {
+    .ui-site-footer__grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .ui-site-footer__brand {
+        grid-column: 1 / -1;
+    }
+}
+
+@media (min-width: 1024px) {
+    .ui-site-footer {
+        padding-block: var(--space-16) var(--space-10);
+    }
+
+    .ui-site-footer__grid {
+        grid-template-columns: minmax(0, 2fr) repeat(3, minmax(0, 1fr));
+    }
+
+    .ui-site-footer__brand {
+        grid-column: auto;
+    }
+}

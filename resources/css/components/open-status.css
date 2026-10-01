@@ -1,0 +1,53 @@
+/* Open state (HOURS-009…012): shape + text, never colour alone — filled dot = open, half dot = closing soon,
+   ring = closed. */
+
+.ui-open-status {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin: 0;
+    font-weight: var(--weight-medium);
+}
+
+.ui-open-status__mark {
+    flex: none;
+    inline-size: var(--space-3);
+    block-size: var(--space-3);
+    border: var(--border-strong) solid var(--color-muted);
+    border-radius: var(--radius-pill);
+}
+
+.ui-open-status[data-state='open'] .ui-open-status__mark {
+    border-color: var(--color-success);
+    background: var(--color-success);
+}
+
+.ui-open-status[data-state='closing'] .ui-open-status__mark {
+    border-color: var(--color-warning);
+    background: linear-gradient(to right, var(--color-warning) 50%, transparent 50%);
+}
+
+.ui-open-status__text {
+    min-inline-size: 0;
+}
+
+.ui-open-status--lg {
+    font-size: var(--text-lg);
+}
+
+.ui-open-status--lg .ui-open-status__mark {
+    inline-size: var(--space-4);
+    block-size: var(--space-4);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .ui-open-status[data-state='open'] .ui-open-status__mark {
+        animation: ui-open-pulse calc(var(--motion-slow) * 6) var(--easing-standard) infinite;
+    }
+}
+
+@keyframes ui-open-pulse {
+    50% {
+        opacity: 0.55;
+    }
+}

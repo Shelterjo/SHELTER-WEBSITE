@@ -1,0 +1,61 @@
+/* Weekly hours (BRANCH-008): today is marked by a badge and weight, not colour alone; overnight intervals say so. */
+
+.ui-hours {
+    inline-size: 100%;
+    border-collapse: collapse;
+}
+
+.ui-hours__row {
+    border-block-end: var(--border-default) solid var(--color-border);
+}
+
+.ui-hours__day,
+.ui-hours__time {
+    padding-block: var(--space-3);
+    vertical-align: top;
+}
+
+.ui-hours__day {
+    padding-inline-end: var(--space-4);
+    font-weight: var(--weight-regular);
+    text-align: start;
+}
+
+.ui-hours__time {
+    text-align: end;
+}
+
+.ui-hours__row--today .ui-hours__day,
+.ui-hours__row--today .ui-hours__time {
+    font-weight: var(--weight-bold);
+}
+
+.ui-hours__today {
+    display: inline-block;
+    margin-inline-start: var(--space-2);
+    padding-inline: var(--space-2);
+    border-radius: var(--radius-pill);
+    background: var(--color-accent);
+    color: var(--color-on-accent);
+    font-size: var(--text-xs);
+    font-weight: var(--weight-bold);
+}
+
+.ui-hours__interval {
+    display: block;
+}
+
+.ui-hours__range {
+    unicode-bidi: isolate;
+}
+
+.ui-hours__next {
+    display: block;
+    color: var(--color-muted);
+    font-size: var(--text-xs);
+    font-weight: var(--weight-regular);
+}
+
+.ui-hours__closed {
+    color: var(--color-muted);
+}

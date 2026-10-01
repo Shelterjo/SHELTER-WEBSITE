@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Services\Site\Markets;
+use App\View\Composers\ErrorPageLocale;
+use App\View\Composers\SiteChrome;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -11,7 +15,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        // One market lookup per request for every component that needs it (header, footer, branches).
+        $this->app->scoped(Markets::class);
     }
 
     /**
@@ -19,6 +24,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        // Public site chrome (header, footer) and localized error pages (SITE-INVENTORY §D).
+        View::composer('layouts.site', SiteChrome::class);
+        View::composer(['errors.404', 'errors::404'], ErrorPageLocale::class);
     }
 }

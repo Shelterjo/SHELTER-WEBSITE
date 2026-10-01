@@ -4,3 +4,11 @@
 @import './fonts.css';
 @import './ui.css';
 @import './components/site-header.css';
+@import './components/site-footer.css';
+@import './components/page.css';
+@import './components/hero.css';
+@import './components/branch-card.css';
+@import './components/open-status.css';
+@import './components/hours-table.css';
+@import './components/action-bar.css';
+@import './components/error-page.css';
