@@ -92,8 +92,22 @@ Never treat a prompt in isolation. Never resolve a conflict silently.
 - **Record every answer** in Master Requirements, the Decision Register and the Traceability Matrix, and mark old items `SUPERSEDED`.
 - **Silence ≠ approval:** an item stays `PENDING OWNER APPROVAL` until approved.
 
-## Tooling (`tooling/`, Node 22)
-`npm ci` · `npm run test:e2e` · `npm run qa:matrix` · `npm run lighthouse` · `npm run images:selftest`
-
-- **Browsers:** Chromium only locally. Firefox and WebKit run in CI with `SHELTER_ALL_BROWSERS=1`. Do not run `playwright install`.
-- **Details:** `docs/FRONTEND-TOOLING.md`. One tool per job. Every new tool goes into the registry first.
+## Tooling (single registry: `docs/TOOLCHAIN.md`)
+- **App (repo root, Laravel 13):**
+  - `composer qa:fast` runs Pint, Larastan level 8 and PHPUnit.
+  - `npm run qa:fast` runs TypeScript strict, ESLint, Prettier and Vitest.
+  - `npm run build` runs tokens → brand guard → Vite → bundle budget.
+  - `php artisan migrate:fresh --seed` loads approved master data and the menu v1.0.
+- **Security:**
+  - `gitleaks git .`
+  - `semgrep scan --config .semgrep --metrics=off`
+  - `composer audit`
+  - `npm audit`
+  - Enable the pre-commit hook with `git config core.hooksPath .githooks`.
+- **QA (`tooling/`, Node 22):** Playwright over 20 viewports, plus axe, Lighthouse and Sharp.
+  - `npm ci`
+  - `npm run test:e2e`
+  - `npm run qa:matrix`
+  - `npm run images:selftest`
+- **Browsers:** Chromium only locally. Firefox and WebKit run in CI. **Never run `playwright install`.**
+- **CI:** `.github/workflows/quality.yml`. Actions are pinned by SHA and scanners are built from pinned sources.
