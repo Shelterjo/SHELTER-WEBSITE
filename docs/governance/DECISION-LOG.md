@@ -332,6 +332,7 @@
 | D-311 | PO-070 → A: حذف سجلات DNS المكشوفة (`*.shelterjo.com` · `order` · `sweet`). الـWildcard فورًا، و`order`/`sweet` بعد تأكيد عدم استخدامهما (حديثا الإنشاء). | 2026-10-01 | Owner — M41 §1 (M41 §1) | ✅ Owner | 34 Cloudflare, Hosting & DNS | `APPROVED` |
 | D-312 | PO-072 → C: حماية بريد @shelterjo.com تبدأ بـSPF (Google) وDKIM (Google Workspace) وDMARC بوضع المراقبة p=none والتقارير إلى info@shelterjo.com؛ لا رفض لأي بريد في هذه المرحلة. | 2026-10-01 | Owner — M42 §1 (M42 §1) | ✅ Owner | 34 Cloudflare, Hosting & DNS | `APPROVED` |
 | D-313 | PO-073 → B: Minimum TLS 1.2 وSSL Full (strict) الآن (Strict بعد التحقق من شهادة الـOrigin)، وDNSSEC مؤجل حتى معرفة مسجّل الدومين. | 2026-10-01 | Owner — M43 §1 (M43 §1) | ✅ Owner | 34 Cloudflare, Hosting & DNS | `APPROVED` |
+| D-314 | ترتيب العمل: إكمال بناء كل صفحات الموقع أولًا، وما تبقى من Cloudways وCloudflare (شهادة www وFull strict وDNSSEC والـStaging) في النهاية. | 2026-10-01 | Owner — M44 §1 (M44 §1) | ✅ Owner | 50 Build Mode & Delivery Governance | `APPROVED` |
 
 ## قرارات مفتوحة (PROPOSED — بانتظار الـOwner)
 
