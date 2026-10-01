@@ -105,7 +105,17 @@
   6. `toast` (70)
   7. `safeMode` (80)
 
-## 8. المكونات المعتمدة (المكتبة المستهدفة — Storybook بعد DB-08)
+## 8. المكونات المعتمدة
+> **حالة البناء (PHASE 1، 2026-10-01):**
+> - المكتبة الحقيقية `x-ui.*` مبنية: 36 مكونًا في `resources/views/components/ui/` و143 قصة Storybook.
+> - الدليل في [`design-system/README.md`](../design-system/README.md).
+> - المكونات غير المبنية بعد **(تُبنى عند أول صفحة تحتاجها في PHASE 2/3):**
+>   - Section، وHeader، وFooter، وMobile/Bottom nav، وCategory bar.
+>   - Segmented control، وDate picker، وFile upload، وSearch/Combobox.
+>   - Dropdown، وTooltip، وToast، وSpinner مستقل، وDivider، وChart، وTimeline.
+>
+> الجدول أدناه هو المكتبة المستهدفة كاملة.
+
 | الفئة | المكونات |
 |---|---|
 | أساسيات | Button · Icon Button · Link · Badge · Chip · Tag · Divider · Skeleton · Spinner |
@@ -162,8 +172,8 @@
 ## 13. الضمانات الآلية
 | الضمانة | الآن | عند البناء (بعد DB-08) |
 |---|---|---|
-| تدقيق الـTokens | `npm run ds:audit` على كل الـWireframes ← `DESIGN-SYSTEM-HEALTH.md` | + قاعدة Lint (Stylelint أو ما يناسب المنصة) تمنع Hex وpx خارج الـTokens في الـCI. **أداة جديدة تُسجّل في Tooling Registry قبل التثبيت** |
-| الاتساق البصري | مصفوفة الاستجابة (20 عرضًا، AR/EN) + axe | **Visual Regression للمكونات الأساسية** في Storybook + للصفحات الحرجة (M32). عتبة معقولة بلا آلاف الإنذارات الكاذبة |
+| تدقيق الـTokens | `npm run ds:audit` على الـWireframes ← `DESIGN-SYSTEM-HEALTH.md` | ✅ **`scripts/ds-gate.mjs` داخل `npm run lint` وفي الـCI:**<br>- يمنع Hex وpx وz-index وletter-spacing ومدد الحركة خارج الـTokens.<br>- يكشف أي فئة `ui-*` غير معرّفة.<br>- فيه 29 اختبارًا ذاتيًا في كل تشغيل.<br><br>بديل Stylelint (D-306) |
+| الاتساق البصري | مصفوفة الاستجابة (20 عرضًا، AR/EN) + axe | ✅ **`npm run test:storybook`:** كل قصة × 360/768/1280 × AR/EN.<br>- axe بلا مخالفات serious/critical.<br>- لا تمدد أفقي.<br>- `lang` و`dir` صحيحان.<br><br>**Visual Regression (DS-025) مؤجل** حتى اعتماد الشكل البصري (M-10) |
 | تقرير الصحة | Approved · Duplicate · Deprecated · Unused variants · Token violations | نفس التقرير من الكود |
 
 ## 14. المرحلة الحالية
@@ -171,4 +181,4 @@
 |---|---|
 | **الآن (قبل الهوية والمنصة)** | Tokens بنيوية + طقم Wireframes مشترك (`design-system/wireframe-kit.css`) **تستخدمه كل النماذج.** الترحيل جارٍ للمنيو والتوظيف، والشراكات والـDashboard تبنى عليه |
 | **عند وصول ملفات الهوية (M-10)** | تُملأ قيم الألوان والخطوط في `tokens.json`. **لا تغيير في أي صفحة**، فالكل يقرأ الـTokens |
-| **عند DB-08** | المكتبة الحقيقية + Storybook + Lint + Visual regression |
+| **PHASE 1 (الآن)** | ✅ المكتبة الحقيقية `x-ui.*` + Storybook (قصص مولّدة من Blade بـ`php artisan ds:export`) + بوابة `ds-gate` + اختبار Storybook الآلي. الواجهات الحالية (البوابة، والرئيسية، والدخول، والـDashboard) محوّلة إليها. Visual regression بعد M-10 |

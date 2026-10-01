@@ -17,11 +17,11 @@
 |---|---|
 | **التخطيط** | CLOSED (M36) |
 | **المرحلة الحالية** | **PHASE 1 — Foundation** (IN PROGRESS) |
-| **اختبارات التطبيق** | **87 PHPUnit** ناجحة · Larastan المستوى 8 بلا أخطاء · Pint · Semgrep · Gitleaks |
+| **اختبارات التطبيق** | **138 PHPUnit** (1,801 تحققًا) · Vitest 9 · Storybook 432 · Larastan المستوى 8 بلا أخطاء · Pint · Semgrep · Gitleaks |
 | **CI** | `.github/workflows/quality.yml` يعمل على GitHub (سرعة + أمان + بناء) |
 | **Blockers للعمل المحلي** | لا يوجد |
 | **Blockers للـStaging والإطلاق** | - تطبيق Cloudways للـStaging (PO-064).<br>- ملفات الهوية (M-10).<br>- الوصول إلى Google وCloudflare (PO-011…013). |
-| **الصلاحيات (D-308)** | خطوات [`ACCESS-SETUP`](platform/ACCESS-SETUP.md):<br>1. ✅ **الشبكة:** متحقق منها، وأول جرد مباشر للموقع القديم في [`24-live-site-crawl`](phase-01-discovery/24-live-site-crawl-2026-10-01.md).<br>2. ⏳ **Cloudflare:** Token قراءة كـAPI credential (**الخطوة التالية**).<br>3. ⏳ **Google:** حساب خدمة للقراءة عبر GitHub Secrets.<br>4. ⏳ **Cloudways Staging** |
+| **الصلاحيات (D-308)** | خطوات [`ACCESS-SETUP`](platform/ACCESS-SETUP.md):<br>1. ✅ **الشبكة:** متحقق منها، وأول جرد مباشر للموقع القديم في [`24-live-site-crawl`](phase-01-discovery/24-live-site-crawl-2026-10-01.md).<br>2. ✅ **Cloudflare:** Token قراءة كـAPI credential، متحقق منه 2026-10-01.<br>3. ⏳ **Google:** حساب خدمة للقراءة عبر GitHub Secrets.<br>4. ⏳ **Cloudways Staging** |
 | **قرار مطلوب منك الآن** | **PO-066:** ملف "Menu List" الذي أرسلته (التفاصيل في [`23-menu-list-reconciliation`](phase-01-discovery/23-menu-list-reconciliation.md)) |
 
 ## PHASE 1 — Foundation
@@ -39,7 +39,7 @@
 | أولوية الساعات: Emergency > Temporary > Special/Holiday > Regular، مع الدوام بعد منتصف الليل | **TESTED** | `HoursResolverTest` |
 | بيانات المنيو الرئيسية (v1.0: 191 صنفًا) | **TESTED** | `MenuMasterDataTest`: الوراثة، والتجاوز لكل فرع، وReset to Master، وتاريخ الأسعار |
 | التوجيه + AR/EN + Canonical + hreflang + الـHeaders الأمنية + robots | **TESTED** | `tests/Feature/Http/*` |
-| الـDesign System: Tokens + مكونات Blade + Storybook | **IN PROGRESS** | CSS والأيقونات جاهزة، والمكونات والقصص قيد البناء. **القيم البصرية النهائية BLOCKED** (M-10) |
+| الـDesign System: Tokens + مكونات Blade + Storybook | **TESTED** | - 36 مكونًا `x-ui.*` و143 قصة Storybook.<br>- 51 اختبار PHP.<br>- `ds-gate`: 0 مخالفات.<br>- اختبار Storybook: **432/432** (axe + التمدد + AR/EN × 360/768/1280).<br>- الحزم: site.css 5.8 KB وdashboard.css 6.4 KB.<br><br>**القيم البصرية النهائية BLOCKED** (M-10) |
 
 ## إغلاق المهام السابقة
 | المهمة | الحالة |

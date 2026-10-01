@@ -74,7 +74,7 @@
 | حدود الوحدات | اختبار معماري PHPUnit |
 | الكود الميت | **Knip** (JS) · Larastan (PHP) |
 | مرجع الـDesign System | **Storybook** (قصص مولّدة من Blade) + addon-a11y + pseudo-states |
-| فرض الـTokens | `ds-audit` (الموجود) **كبوابة** على CSS التطبيق (يغني عن Stylelint) |
+| فرض الـTokens | **`scripts/ds-gate.mjs`** داخل `npm run lint` على CSS وBlade التطبيق (يغني عن Stylelint). `ds-audit` يبقى للـWireframes |
 | E2E والوصولية والـVisual | **Playwright** + axe + screenshots |
 | الأداء في المختبر | **Lighthouse CI** + Playwright CDP traces |
 | الأداء الحقيقي | `web-vitals` ذاتي (بعد الإطلاق) |
@@ -129,7 +129,7 @@
 | PHPUnit · Pint · Larastan (المستوى 8) | **INSTALLED + CONFIGURED** | `composer qa:fast` ✅ |
 | TypeScript 6 (strict) · ESLint 10 · Prettier · Vitest 5 · Knip | **INSTALLED + CONFIGURED** | `npm run qa:fast` ✅ |
 | Vite 8 + ميزانية الحزمة + حارس الهوية | **INSTALLED + CONFIGURED** | `npm run build` ✅ |
-| Storybook 10 (`html-vite`) + addon-a11y + pseudo-states | **INSTALLED + CONFIGURED** | القصص تُولّد في PHASE 1 مع مكونات Blade |
+| Storybook 10 (`html-vite`) + addon-a11y + pseudo-states | **TESTED** | 143 قصة مولّدة من Blade (`npm run storybook:build`)، و`npm run test:storybook` يفحص axe والتمدد واتجاه اللغة |
 | Gitleaks | **INSTALLED + CONFIGURED** (Hook محلي + CI) | تاريخ Git كله: لا تسريبات ✅ |
 | Semgrep CE | **INSTALLED + CONFIGURED** (قواعد المشروع `.semgrep/` + حزم السجل في CI) | لا نتائج ✅ |
 | composer audit · npm audit | **CONFIGURED** (بوابة في CI) | لا ثغرات ✅ |
