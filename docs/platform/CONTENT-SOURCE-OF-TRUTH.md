@@ -39,7 +39,7 @@
 | الفعاليات | `experiences` (نوع event) | المحتوى ← الفعاليات | الأسطح المختارة · صفحة الفعالية · Schema Event · التقويم · Media Center | تنتهي آليًا (تُحسب عند الطلب) |
 | الحملات والعروض والإعلانات وإشعارات الطوارئ | `experiences` | التجارب ← الحملات | المواضع · التقويم | تنتهي آليًا |
 | المواسم | `experiences` (نوع seasonal) + حزمة الثيم | التجارب ← المواسم | طبقة الموقع | لكل موسم |
-| الموظف المثالي | `experiences` (نوع employee_of_month) | التجارب ← SHELTER Family | الرئيسية · SHELTER Family · Media Center | شهريًا |
+| الموظف المثالي | `experiences` (نوع `recognition` يشير إلى `team_members`) | التجارب ← SHELTER Family | الرئيسية · SHELTER Family · Media Center | شهريًا |
 | ملفات SHELTER Family العامة | `experiences` (ملف عام **بموافقة الموظف**، بلا أي ربط HR — DX-036) | التجارب ← SHELTER Family | صفحة SHELTER Family | عند التغيير |
 | الجوائز | `awards` (مع وسائطها من `media`)، والتحقق في `facts` (PO-032) — **ضمن Media Center** (M35 §35) | المحتوى ← الجوائز | صفحة الجوائز · Press Kit · من نحن | سنويًا (PO-032) |
 | Press Kit | **اختيار** من `facts` + `media` (لا نسخ) | المحتوى ← مركز الوسائط ← Press Kit | صفحة الوسائط | عند التغيير (G14-PO-01) |

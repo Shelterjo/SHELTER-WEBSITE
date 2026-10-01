@@ -25,7 +25,7 @@
 | **Analytics** | لا شيء | لا شيء افتراضيًا. لاختبار التتبع: GA4 Property أو Data stream **اختباري** + DebugView. **لا معرّف Production أبدًا** (AC-4) | معرّفات Production فقط |
 | **البريد والنماذج** | `log` | `log`: لا يخرج أي بريد، والطلبات تُحفظ في قاعدة Staging فقط | V1 لا يرسل بريدًا؛ الإشعارات داخل الـDashboard (MON-009) |
 | **التكاملات الخارجية** | معطلة | قراءة فقط أو `DEMO DATA`. **لا كتابة** على GBP أو GSC أو GA4 الحقيقية | حسب سجل `integrations` وبموافقتك |
-| **`/_ds`** (معرض المكونات) | ✅ | ✅ | ❌ يعيد 404 |
+| **Storybook** (مرجع المكونات، ملفات ثابتة خارج التطبيق) | ✅ | ✅ (عند الحاجة) | ❌ لا يُنشر |
 | **شريط تعريف** | — | شريط ثابت "STAGING — بيانات اختبار" في الموقع والـDashboard | — |
 
 ## 2. مصفوفة الإعدادات (`.env` لكل بيئة)
@@ -97,7 +97,7 @@
 | ENV-T3 | البحث في HTML وJS المبنيين لـStaging عن معرّف GA4 أو GTM الخاص بالإنتاج | لا وجود له |
 | ENV-T4 | إرسال نموذج في Staging | سجل في قاعدة Staging فقط، ولا بريد صادر (`MAIL_MAILER=log`) |
 | ENV-T5 | محاولة مزامنة GBP من Staging | مرفوضة لأن `CHANNEL_WRITE_ENABLED=false`، وتُسجَّل |
-| ENV-T6 | `/_ds` على Production | `404` |
+| ENV-T6 | بناء Production لا يحتوي `storybook-static` ولا أي مسار معرض | لا ملفات Storybook في الإصدار |
 | ENV-T7 | `.env` على Production فيه `APP_DEBUG=true` | سكربت النشر يرفض النشر |
 | ENV-T8 | خطأ 500 مقصود في Staging | صفحة الخطأ بالـDesign System، **بلا Stack trace** |
 | ENV-T9 | فحص الأصول المبنية (`public/build`) عن أنماط أسرار | لا شيء |

@@ -2,7 +2,7 @@
 
 > **الحالة:** المتطلبات `OWNER APPROVED · HIGH PRIORITY` (M31، 2026-10-01). المعمارية أدناه `DRAFT — PENDING OWNER REVIEW (P04)`.
 > **المتطلبات القانونية:** `DX-001…DX-038` في [`SHELTER-WEBSITE-MASTER-REQUIREMENTS.md`](SHELTER-WEBSITE-MASTER-REQUIREMENTS.md) (المجال 45).
-> **لا تنفيذ قبل:** بوابات المشروع، ومعمارية الـDashboard (P04)، وقرار المنصة DB-08.
+> **لا تنفيذ قبل:** بوابات المشروع، ومعمارية الـDashboard (P04). **المنصة محسومة:** [`ADR-001`](adr/ADR-001-platform.md) (حسم DB-08). أسماء الجداول ملزمة من [`PLATFORM-ARCHITECTURE`](architecture/PLATFORM-ARCHITECTURE.md) §3.3.
 
 ## 1. المبدأ
 - **حالتان للموقع:**
@@ -13,22 +13,24 @@
   - الوصولية، وبنية العلامة.
 - **الإدارة:** كله من الـDashboard **بلا كود** (Owner فقط في V1).
 
-## 2. نموذج البيانات (محايد للمنصة)
+## 2. نموذج البيانات (أسماء ملزمة — PLATFORM-ARCHITECTURE §3.3)
+> **جدول واحد للتجارب** بدل جداول منفصلة. الجداول السابقة في هذه الوثيقة (`events` · `seasonal_themes` · `experience_versions` · `public_employee_profiles` · `employee_of_month`) **مستبدلة** بالجداول أدناه (سجل الوثيقة في Git).
+
 | الجدول | أهم الحقول |
 |---|---|
-| `experiences` | `id` · `type` · `title_ar/en` · `body_ar/en` · `cta_label_ar/en` · `cta_url` · `presentation` · `placements[]` · `priority` (افتراضي من النوع، قابل للتعديل) · `branch_ids[]` · `campaign_id` / `event_id` · `media_ids[]` (من Media Center) · `starts_at` · `ends_at` (UTC) · `timezone` (IANA، الافتراضي `Asia/Amman`) · `status` · `manual_state` · `emergency_disabled` · `countdown_enabled` · `theme_id` · `motion_enabled` · `terms_ar/en` · `version` · `created_at` · `updated_at` |
-| `experience_versions` | لقطة كاملة لكل حفظ: النص، ونسبة الخصم، والتواريخ، والـCTA، والشروط. يعرض "ماذا تغيّر، من ماذا، إلى ماذا، متى" |
-| `seasonal_themes` | `id` · `name` · `accent_tokens` (طبقة لمسات محدودة فوق الـTokens الأساسية، **لا تستبدلها**) · `asset_bundle` (مسار حزمة تُحمّل عند الطلب) · `motion_preset` · `mobile_preset` · `reduced_motion_static` · `budget_kb` |
-| `events` | الحدث نفسه (معرض، جامعة، مؤتمر، مجتمعي، رعاية، تعاون) + أسطح الظهور (الرئيسية، Media Center، صفحة حدث، Banner، صفحة الفرنشايز، Gallery بعد الانتهاء) + `media_ids[]` |
-| `public_employee_profiles` | `id` · `display_name_ar/en` · `photo_media_id` · `job_title_ar/en` · `department` · `branch_id` · `join_date` + `show_join_date` · `bio_ar/en` + `show_bio` · `is_published` (افتراضي `false`) · `sort_order` · `publish_consent_at` · `publish_consent_version` |
-| `employee_of_month` | `profile_id` · `month` · `year` · `photo_media_id` · `title_ar/en` · `recognition_ar/en` · `placements[]` · `status` (Draft · Scheduled · Active · Expired · Archived) |
+| `experiences` | **جدول واحد** لكل التجارب الديناميكية بـ`type`: `campaign` · `seasonal_theme` · `event` · `announcement` · `recognition`.<br>**حقول مشتركة:** `id` · `type` · `title_ar/en` · `body_ar/en` · `cta_label_ar/en` · `cta_url` · `presentation` · `placements[]` · `priority` (افتراضي من النوع، قابل للتعديل) · `branch_ids[]` · `media_ids[]` (من `media`) · `starts_at` · `ends_at` (UTC) · `timezone` (IANA، الافتراضي `Asia/Amman`) · `status` · `manual_state` · `emergency_disabled` · `countdown_enabled` · `motion_enabled` · `terms_ar/en` · `created_at` · `updated_at`.<br>**حقول خاصة بالنوع** (أعمدة اختيارية أو حقل JSON يُتحقق منه حسب النوع — تفصيل تقني):<br>- `seasonal_theme`: `accent_tokens` (طبقة لمسات محدودة فوق الـTokens الأساسية، **لا تستبدلها**) · `asset_bundle` (حزمة تُحمّل عند الطلب) · `motion_preset` · `mobile_preset` · `reduced_motion_static` · `budget_kb`.<br>- `event`: نوع الحدث (معرض، جامعة، مؤتمر، مجتمعي، رعاية، تعاون) + أسطح الظهور (الرئيسية، Media Center، صفحة حدث، Banner، صفحة الفرنشايز، Gallery بعد الانتهاء).<br>- `recognition` (**موظف الشهر**): `team_member_id` · الشهر والسنة · `recognition_ar/en`. الصورة من `media_ids[]`.<br>- ربط تجربة بأخرى (مثل بانر إعلان لحملة): مرجع اختياري لتجربة أخرى في نفس الجدول |
+| `team_members` | ملفات **SHELTER Family** العامة، **بموافقة الموظف**: `id` · `display_name_ar/en` · `photo_media_id` · `job_title_ar/en` · `department` · `branch_id` · `join_date` + `show_join_date` · `bio_ar/en` + `show_bio` · `is_published` (افتراضي `false`) · `sort_order` · `publish_consent_at` · `publish_consent_version` |
+| `content_versions` | **النسخ الموحدة** لكل كيان قابل للنشر، ومنها التجارب: لقطة كاملة لكل حفظ (النص، ونسبة الخصم، والتواريخ، والـCTA، والشروط) + الكاتب + السبب. يعرض "ماذا تغيّر، من ماذا، إلى ماذا، متى" |
+| _(عرض)_ **التقويم العام** | **عرض قراءة فقط**، لا جدول خاص به: `experiences` + `hours_exceptions` (الساعات الخاصة والإغلاقات) + `content_versions` المجدولة + المناسبات من `facts` (مثل الذكرى السنوية) |
 
 **قواعد ثابتة:**
-- **`public_employee_profiles` جدول مستقل تمامًا.**
+- **`team_members` جدول مستقل تمامًا.**
   - لا يحتوي ولا يرتبط بأي بيانات HR: الراتب، والهاتف، والهوية، والحضور، والمستندات.
   - **لا علاقة له بطلبات التوظيف** (`job_applications`).
   - أي ربط داخلي مستقبلي بسجل HR يكون **من جهة HR فقط**، والموقع العام لا يقرؤه.
 - **زر النشر لا يعمل** بلا موافقة الموظف المسجلة (G13-TF-01).
+- **موظف الشهر = تجربة من نوع `recognition`** تشير إلى `team_member_id`. لا تُنشر إذا كان الموظف غير منشور أو بلا موافقة.
+- **لا جدول نسخ خاص بالتجارب:** النسخ في `content_versions`، والتدقيق في `audit_logs`.
 
 ## 3. محرك الحل: ماذا يُعرض الآن؟
 **الحساب:** على الخادم عند الطلب، بتخزين مؤقت قصير (60 ثانية) يُبطل فورًا عند أي تعديل أو "Disable Now".
@@ -42,10 +44,11 @@
 2. **التجاوز اليدوي:**
    - `manual_state = on` يفعّل.
    - `off` يعطّل، بغض النظر عن الوقت.
-3. **الترتيب:** حسب `priority`. الافتراضي: Critical/Emergency Notice > Major Event > Campaign > Seasonal Experience > Normal Announcement.
+3. **الترتيب:** حسب `priority`. الافتراضي (M32 §10، DX-021): Critical/Emergency Notice > Major Event > Campaign > Seasonal Experience > **Recognition** > Normal Announcement. **الـOwner يستطيع Override.**
 4. **التخصيص لكل موضع:**
    - تجربة **واحدة فقط** لكل Placement (شريط علوي، Hero، Feature، Strip، Modal).
    - **ثيم موسمي واحد فقط** نشط في نفس الوقت.
+   - **Hero takeover واحد فقط** في نفس اللحظة (M32 §10).
    - **لا تكديس.**
 5. **التعارض:**
    - إذا تنافست تجربتان على نفس الموضع، أو ثيمان موسميان، يظهر **Warning** في الـDashboard (Active Now + عند الحفظ).

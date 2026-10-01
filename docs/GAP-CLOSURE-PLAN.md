@@ -1,7 +1,11 @@
 # GAP-CLOSURE PLAN — Platform Quality & Operations (M32)
 
 > **المرجع:** "MASTER GAP-CLOSURE ADDENDUM" (M32، 2026-10-01) — `OWNER APPROVED`. **ملحق لا يستبدل** ما سبق.
-> **الحالة:** `DRAFT — PENDING OWNER REVIEW` · **لا Production، ولا بناء** قبل بوابات المشروع، ومعمارية الـDashboard (P04)، وقرار المنصة (DB-08).
+> **الحالة:** `DRAFT — PENDING OWNER REVIEW` · **لا Production، ولا بناء** قبل بوابات المشروع، ومعمارية الـDashboard (P04). قرار المنصة (DB-08) **حُسم** بـ[`ADR-001`](adr/ADR-001-platform.md).
+> **تحديث الحالة (2026-10-01):**
+> - **وثائق M32 §51 الـ19 موجودة الآن في [`docs/platform/`](platform/)** (الجدول §E). هذه الخطة تبقى الخريطة، والتفاصيل الملزمة في تلك الوثائق.
+> - **أسماء الجداول** في §B و§D حُدّثت إلى الأسماء الملزمة في [`PLATFORM-ARCHITECTURE`](architecture/PLATFORM-ARCHITECTURE.md) §3.
+> - **معرض المكونات = Storybook** (M37، `@storybook/html-vite`، **القصص تُولّد من مكونات Blade نفسها**). يحل محل أي معرض مقترح سابقًا (ADR-001، [`TOOLCHAIN`](TOOLCHAIN.md)).
 >
 > **الفلتر الحاكم (M32 §57):** كل نظام هنا يجب أن يحسّن بشكل ملموس واحدًا على الأقل من:
 > - تجربة العميل.
@@ -63,15 +67,15 @@
 | Publish Guard | **مجموعة فحوص** في خط النشر. **تستخدم نفس فحوص** Health Engine | ليس نظام فحص ثانيًا |
 | Global Content Calendar | **عرض واحد** لكل كيان له جدولة: الأحداث، الحملات، المواسم، الموظف المثالي، المقالات المجدولة، الساعات الخاصة، الذكرى 20/04 | ليس تقويمًا ثانيًا ولا جدولة ثانية |
 | Collision Detector + Priority | **نفس محرك الأولوية** في Dynamic Experience Engine (DX-021). يُشغّل على نوافذ زمنية للتحذير مسبقًا | ليس محركًا ثانيًا |
-| Content Freshness · Parity · Broken Links · Schema · Sitemap · Indexation · Accessibility · Performance Alerts · Security · Backup · Dependencies | **Health Engine واحد** وجدول `issues` واحد. كل مجال "فحص" بإعداداته | ليست مراكز صحة متعددة |
-| Owner Command Center | يعرض `issues` المفتوحة + "النشط الآن" + ما يبدأ أو ينتهي قريبًا (يمتد من DASH-017) | |
+| Content Freshness · Parity · Broken Links · Schema · Sitemap · Indexation · Accessibility · Performance Alerts · Security · Backup · Dependencies | **Health Engine واحد** وجدول `signals` واحد (`kind` = ISSUE). كل مجال "فحص" بإعداداته | ليست مراكز صحة متعددة |
+| Owner Command Center | يعرض `signals` المفتوحة (`kind` = ISSUE) + "النشط الآن" + ما يبدأ أو ينتهي قريبًا (يمتد من DASH-017) | |
 | RUM | جامع أول طرف خفيف (Web Vitals) **لقياس الأداء فقط**. التحليل السلوكي يبقى في GA4 (قاعدة "لا نظام تحليلات ثانٍ") | ليس بديلًا عن GA4 |
 | Public Global Search | **فهرس بحث واحد** مبني من Content Graph. بحث المنيو = نفس الفهرس مقيّدًا بالمنتجات | ليس محرك بحث ثانيًا |
 | Search Intelligence | سجل استعلامات مجمع منظّف (بلا هوية) من نفس البحث. يغذي Content Opportunities مع Search Console | |
 | Media Rights + Press Kit | **حقول إضافية** في Media Center الواحد. Press Kit = **مجموعة منتقاة** من Media Center + Fact Registry | ليس مكتبة ثانية |
 | Safe Mode + Emergency | **Feature Flags** في النواة. تعطيل طبقة التجارب والتكاملات الاختيارية، **والنواة تعمل** | |
 | Security Center + Privacy Center | **شاشات قراءة** فوق: سجلات المصادقة، فحوص الـHealth Engine، نسخ الموافقات، أعمار السجلات | |
-| CI/CD + Visual Regression | **خارج الموقع:** `tooling/` الموجودة (Playwright، axe، Lighthouse، Sharp) + Pipeline في GitHub Actions | لا أدوات مكررة |
+| CI/CD + Visual Regression | **خارج الموقع:** `tooling/` الموجودة (Playwright، axe، Lighthouse، Sharp) + **Storybook** (M37، `@storybook/html-vite` مغذّى من مكونات Blade) لمرجع المكونات + Pipeline في GitHub Actions | لا أدوات مكررة |
 
 ## C. تحديث IA الـDashboard (7 مجموعات، لا 40 بندًا)
 | المجموعة | البنود | ملاحظات |
@@ -104,42 +108,42 @@
 | Versions (`experience_versions`، نسخ المنيو) | **تعميمه** إلى `content_versions` لكل الكيانات |
 | `consent_versions` (التوظيف) | **تعميمه** لكل الموافقات: التوظيف، الشراكات، الكوكيز، آراء العملاء، نشر الموظفين |
 | `user_preferences` · `saved_filters` | كل القوائم |
-| Media assets (`media/manifest.json` ← جدول) | + حقول الحقوق |
+| Media assets (`media/manifest.json` ← جدول `media` + `media_usages`) | + حقول الحقوق |
 | Applications Core (التوظيف والشراكات) | — |
-| `experiences` · `seasonal_themes` · `events` (DX) | التقويم والتعارض |
+| `experiences` (DX — جدول واحد بـ`type`) | التقويم (عرض قراءة فقط) والتعارض |
 
-**جديد:**
+**جديد** (بالأسماء الملزمة — PLATFORM-ARCHITECTURE §3؛ الاقتراح الأصلي في تاريخ Git):
 
 | الكيان | الغرض | الأولوية |
 |---|---|---|
-| `global_values` (مفتاح ← قيمة AR/EN + `fact_id`) | Global Data Registry | P0 |
-| `facts` (ID، الحقل، القيمة، المصدر، الحالة، اعتمد من، تاريخ التحقق، آخر مراجعة، ملاحظات) | Fact Registry. "Used In" محسوب من `usage_edges` | P0 |
-| `usage_edges` (المصدر: كيان/حقل ← الهدف: كيان/قيمة/وسيط) | الأثر قبل النشر، واستخدامات الوسائط، والحقائق، والمراجع المكسورة | P0 |
-| `publish_checks` (محاولة نشر ← نتائج PASS/WARNING/BLOCKING + من تجاوز ولماذا) | Publish Guard | P0 |
-| `issues` (الفئة، الشدة، الكيان، السبب، الدليل، أول اكتشاف، آخر رؤية، الحالة، رابط الإجراء) | Health Engine + Command Center | P0 |
+| `settings` (مجموعتا `brand.*` و`website.*`، كل قيمة مربوطة بـ`facts`) | Global Data Registry ([`GLOBAL-DATA-REGISTRY`](platform/GLOBAL-DATA-REGISTRY.md) §1) | P0 |
+| `facts` (`FACT-0001`، الحقل، القيمة، المصدر، الحالة، اعتمد من، تاريخ التحقق، آخر مراجعة، ملاحظات) | Fact Registry. "Used In" محسوب من محلّل الأثر | P0 |
+| **لا جدول جديد:** خريطة الأثر `config/impact.php` + `media_usages` + مراجع `page_sections` | الأثر قبل النشر، واستخدامات الوسائط، والحقائق، والمراجع المكسورة ([`CHANGE-IMPACT`](platform/CHANGE-IMPACT.md)) | P0 |
+| `content_versions` (حقل `guard_result`: نتائج PASS/WARNING/BLOCKING + من تجاوز ولماذا) | Publish Guard ([`PUBLISH-GUARD`](platform/PUBLISH-GUARD.md)) | P0 |
+| `signals` بـ`kind` = ISSUE (الفئة، الشدة، الكيان، السبب، الدليل، أول اكتشاف، آخر رؤية، الحالة، رابط الإجراء) | Health Engine + Command Center | P0 |
 | `feature_flags` | Safe Mode، والإيقاف الطارئ، والتجارب المستقبلية | P0 |
-| `rum_daily` (اليوم، الصفحة، الجهاز، المتصفح، اللغة، المقياس، العدد، p75، توزيع جيد/يحتاج تحسين/ضعيف) | RUM **مجمع فقط**، بلا أحداث فردية دائمة | P0 |
-| `auth_events` (نجاح/فشل/مشبوه/إعادة تأكيد، **بلا كلمات مرور**) · `passkeys` · `totp_secrets` (مشفر) · `recovery_codes` (Hash) | Security Center + المصادقة | P0 |
-| `backup_runs` · `restore_tests` · `dependency_status` | صحة النسخ والاعتماديات | P0 |
-| `privacy_requests` (تصدير/حذف/تصحيح يدوي بمتابعة) · `data_inventory` (إعداد) | Privacy Center | P0 |
+| `rum_metrics` (اليوم، مجموعة المسار، الجهاز، المتصفح، اللغة، المقياس، العدد، p75، توزيع جيد/يحتاج تحسين/ضعيف) | RUM **مجمع فقط**، بلا أحداث فردية دائمة | P0 |
+| `audit_logs` بأحداث `auth.*` (نجاح/فشل/مشبوه/إعادة تأكيد، **بلا كلمات مرور**) · `webauthn_credentials` (Passkeys) · `users` (سر TOTP مشفر + رموز استرداد Hash) | Security Center + المصادقة | P0 |
+| `scheduled_job_runs` (المهام `ops:backup-db` · `ops:backup-files` · `ops:restore-test`) · `signals` + `releases` (حالة الاعتماديات) | صحة النسخ والاعتماديات | P0 |
+| استفسار `INQ` بـ`type = privacy_request` (تصدير/حذف/تصحيح يدوي بمتابعة — لا جدول منفصل) · `config/data_inventory.php` (إعداد) | Privacy Center | P0 |
 | `search_query_daily` (الاستعلام المطبّع المنظّف، العدد، النتائج، صفر نتائج، النتيجة المختارة) | Search Intelligence | P1 |
-| `feedback_submissions` (الفرع، التقييمات، التعليق، الوقت — **بلا PII**) · `feedback_tags` (`AI ASSISTED`) | Voice of Customer | P1 |
-| `gbp_reviews_cache` · `review_reply_drafts` (مسودة ← تعديل ← اعتماد ← نشر) | Reputation | P1 (بعد صلاحيات GBP) |
-| `media_assets` + المصور، والمصدر، والحقوق، وموافقة الأشخاص، وصالح للموقع، وصالح للإعلانات، والقيود، والانتهاء | Media Rights | P1 |
+| `feedback` (الفرع، التقييمات، التعليق، الوقت — **بلا PII**؛ الوسوم في `topics` JSON بمصدرها، و`AI ASSISTED` موسوم) | Voice of Customer | P1 |
+| `reviews` (نسخة محلية من مراجعات GBP + الرد) + `content_versions` (نسخ مسودة الرد: مسودة ← تعديل ← اعتماد ← نشر) | Reputation | P1 (بعد صلاحيات GBP) |
+| `media` + المصور، والمصدر، والحقوق، وموافقة الأشخاص، وصالح للموقع، وصالح للإعلانات، والقيود، والانتهاء | Media Rights | P1 |
 
 ## E. خطة P0 (بالترتيب، **تصميمًا الآن** في P04 ثم بناء في P08)
 | # | البند | لماذا بهذا الترتيب | المخرج الآن (P04) |
 |---|---|---|---|
-| 1 | **Platform Core:** Content Graph · Versions · Audit · Usage Graph · Feature Flags | كل ما بعده يعتمد عليه | `docs/PLATFORM-CORE.md` (يُكتب مع معمارية الـDashboard) |
-| 2 | Global Data Registry + Fact Registry (مع ترحيل `04` المعتمد) | يمنع النصوص المكتوبة في الكود والحقائق القديمة | `GLOBAL-DATA-REGISTRY.md` · `FACT-REGISTRY.md` |
-| 3 | Publish Guard + Change Impact Preview + Language Parity (فحص نشر) | لا تغيير صامت ولا نشر لـPENDING | `PUBLISH-GUARD.md` · `CHANGE-IMPACT.md` · `LANGUAGE-PARITY.md` |
-| 4 | Global Content Calendar + Collision Detector (محرك DX) | لا فوضى بصرية | `GLOBAL-CONTENT-CALENDAR.md` |
-| 5 | Safe Mode + Emergency Controls | شبكة أمان قبل أي تجربة ديناميكية | `SAFE-MODE.md` |
-| 6 | Health Engine + Command Center + Backup/Restore Health | يعرف الـOwner ما الخطأ دائمًا | `CONTENT-HEALTH.md` · قسم النسخ في `SECURITY-CENTER.md` |
-| 7 | Security Center + مصادقة الـOwner القوية | البيانات حساسة (السير، الهويات، الشراكات) | `SECURITY-CENTER.md` |
-| 8 | Privacy Center + رؤية الاحتفاظ | التزام وثقة | `PRIVACY-CENTER.md` |
-| 9 | RUM + تنبيهات الأداء | الأداء الحقيقي لا المختبر فقط | `REAL-USER-MONITORING.md` |
-| 10 | CI/CD Quality Gate + Visual Regression | لا يصل كود للإنتاج بلا بوابة. **يمكن تفعيل جزء منه الآن على الـWireframes بعد موافقتك على دقائق CI** (I-07) | `CI-CD-QUALITY-GATES.md` · `VISUAL-REGRESSION.md` |
+| 1 | **Platform Core:** Content Graph · Versions · Audit · Usage Graph · Feature Flags | كل ما بعده يعتمد عليه | `docs/PLATFORM-CORE.md` (يُكتب مع معمارية الـDashboard) — النواة الآن في [`PLATFORM-ARCHITECTURE`](architecture/PLATFORM-ARCHITECTURE.md) §3.1 |
+| 2 | Global Data Registry + Fact Registry (مع ترحيل `04` المعتمد) | يمنع النصوص المكتوبة في الكود والحقائق القديمة | [`GLOBAL-DATA-REGISTRY.md`](platform/GLOBAL-DATA-REGISTRY.md) · [`FACT-REGISTRY.md`](platform/FACT-REGISTRY.md) |
+| 3 | Publish Guard + Change Impact Preview + Language Parity (فحص نشر) | لا تغيير صامت ولا نشر لـPENDING | [`PUBLISH-GUARD.md`](platform/PUBLISH-GUARD.md) · [`CHANGE-IMPACT.md`](platform/CHANGE-IMPACT.md) · [`LANGUAGE-PARITY.md`](platform/LANGUAGE-PARITY.md) |
+| 4 | Global Content Calendar + Collision Detector (محرك DX) | لا فوضى بصرية | [`GLOBAL-CONTENT-CALENDAR.md`](platform/GLOBAL-CONTENT-CALENDAR.md) |
+| 5 | Safe Mode + Emergency Controls | شبكة أمان قبل أي تجربة ديناميكية | [`SAFE-MODE.md`](platform/SAFE-MODE.md) |
+| 6 | Health Engine + Command Center + Backup/Restore Health | يعرف الـOwner ما الخطأ دائمًا | [`CONTENT-HEALTH.md`](platform/CONTENT-HEALTH.md) · قسم النسخ في [`SECURITY-CENTER.md`](platform/SECURITY-CENTER.md) |
+| 7 | Security Center + مصادقة الـOwner القوية | البيانات حساسة (السير، الهويات، الشراكات) | [`SECURITY-CENTER.md`](platform/SECURITY-CENTER.md) |
+| 8 | Privacy Center + رؤية الاحتفاظ | التزام وثقة | [`PRIVACY-CENTER.md`](platform/PRIVACY-CENTER.md) |
+| 9 | RUM + تنبيهات الأداء | الأداء الحقيقي لا المختبر فقط | [`REAL-USER-MONITORING.md`](platform/REAL-USER-MONITORING.md) |
+| 10 | CI/CD Quality Gate + Visual Regression | لا يصل كود للإنتاج بلا بوابة. **يمكن تفعيل جزء منه الآن على الـWireframes بعد موافقتك على دقائق CI** (I-07) | [`CI-CD-QUALITY-GATES.md`](platform/CI-CD-QUALITY-GATES.md) · [`VISUAL-REGRESSION.md`](platform/VISUAL-REGRESSION.md) |
 
 ## F. خطة P1
 بعد اكتمال P0 في البناء، أو بالتوازي إذا لم تعتمد على نفس الأجزاء:
@@ -168,7 +172,7 @@
 | H-06 | لوحة الـOwner هدف عالي القيمة | تسريب سير وهويات | Passkeys/2FA · إعادة تأكيد · Rate limit · سجلات المصادقة · لا أسرار في الواجهة |
 | H-07 | النسخ الاحتياطي غير قابل للاسترجاع | فقدان بيانات | **اختبار استعادة دوري على Staging** (لا يُعتبر النسخ حقيقيًا بلا ذلك) |
 | H-08 | عبء الاعتماد على الـOwner وحده | تأخر النشر | اعتماد على دفعات · تحذيرات قابلة للتجاوز الموثق · Calendar يوضح القادم |
-| H-09 | اعتماد كل شيء على قرار المنصة (DB-08) | تأخر البناء | التصميم محايد للمنصة. القرار بعد P04 |
+| H-09 | اعتماد كل شيء على قرار المنصة (DB-08) | تأخر البناء | التصميم محايد للمنصة. القرار بعد P04. **أُغلق:** DB-08 حُسم بـADR-001 |
 
 ## I. التكلفة والـAPIs (لا شيء يُفعّل بلا موافقة — M32 §45)
 | # | الميزة | الخدمة | لماذا | البديل المجاني / الذاتي | التكلفة / الحصة | يحتاج موافقة؟ |
@@ -192,7 +196,7 @@
 |---|---|---|---|
 | J-1 | **هذه الخطة (A–J)** | الأنظمة والترتيب والدمج | كتابة وثائق التصميم التفصيلية للـP0 وWireframes الوحدات |
 | J-2 | **Wireframes الوحدات الجديدة + معمارية الـDashboard (P04 Gate H)** | الشاشات والـIA | أي بناء للـDashboard |
-| J-3 | **قرار المنصة DB-08 + Cloudways Audit** | التقنية | أي Backend |
+| J-3 | **قرار المنصة DB-08 + Cloudways Audit** | التقنية | أي Backend. **DB-08 حُسم بـADR-001**؛ يبقى الـCloudways Audit |
 | J-4 | **I-07 دقائق CI** | تفعيل GitHub Actions | الـPipeline الآلي (التشغيل المحلي متاح) |
 | J-5 | **Google APIs** (I-02…I-05) | الصلاحيات | البيانات الحية في الـDashboard (تُعرض `DEMO DATA` أو `PENDING INTEGRATION`) |
 | J-6 | **تصنيف خصوصية RUM والـFeedback** (ضمن PO-019) | الإطار القانوني | تشغيل الجمع على Production |

@@ -69,7 +69,7 @@
 | SI-S04 | `/robots.txt` | مولّد | PH2 | Staging: منع + مصادقة (SEO-028) |
 | SI-S05 | `/sitemap.xml` (فهرس + لكل لغة) | مولّد | PH2 | Canonical · عام · مفهرس · معتمد فقط (SEO-029) |
 | SI-S06 | `/llms.txt` | مولّد من الحقائق المعتمدة | PH2 | KEEP بمحتوى جديد (`02-url-inventory`) |
-| SI-S07 | `/_ds` | معرض المكونات | PH1 | Dev وStaging فقط، 404 على Production (ADR-001) |
+| SI-S07 | — (Storybook) | مرجع المكونات: Storybook يُبنى كملفات ثابتة (`storybook-static`)، **ليس مسارًا في التطبيق** | PH1 | لا يُنشر على Production (M37، ADR-001) |
 
 ## E. تحويلات فقط (ليست صفحات — جدول `redirects`)
 | المصدر | الوجهة | متى |
