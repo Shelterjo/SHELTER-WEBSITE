@@ -27,3 +27,20 @@
 ## قرارات مفتوحة (PROPOSED — بانتظار الـOwner)
 
 القائمة التفصيلية في [`../phase-01-discovery/05-decisions-before-design.md`](../phase-01-discovery/05-decisions-before-design.md).
+
+| # | Decision | Recommendation | Status |
+|---|---|---|---|
+| DB-01 | الحقائق التأسيسية (الاسم، سنة التأسيس، الفروع) | — (معلومات من الـOwner) | `PROPOSED` |
+| DB-02 | اللغة الافتراضية واستراتيجية الـURL اللغوية | العربية على الجذر + `/en/` | `PROPOSED` |
+| DB-03 | لغة الـSlugs | لاتينية + 301 من العربية | `PROPOSED` |
+| DB-04 | الصفحات القديمة ذات القرار التجاري | حسب ردود Q7/Q8 | `PROPOSED` |
+| DB-05 | نموذج الـNavigation على الموبايل | Top Sticky Header + Contextual Actions | `PROPOSED` |
+| DB-06 | بنية المنيو | Hybrid | `PROPOSED` |
+| DB-07 | بنية الفروع | Hierarchical + Progressive Activation | `PROPOSED` |
+| DB-08 | المنصة / الـCMS | يُدرس بعد الـIA | `PROPOSED` |
+| DB-09 | اسم ومسار قسم المعرفة | Stage 6 | `PROPOSED` |
+| DB-10 | عرض الأسعار | — | `PROPOSED` |
+| DB-11 | الـHost الرسمي | `www.shelterjo.com` | `PROPOSED` |
+| DB-12 | `shop.shelterjo.com` | — | `PROPOSED` |
+| DB-13 | الروابط الخارجية السبام | لا إجراء قبل Search Console | `PROPOSED` |
+| DB-14 | HubSpot و Newsletter | — | `PROPOSED` |

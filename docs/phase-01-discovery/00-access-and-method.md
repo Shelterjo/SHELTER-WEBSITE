@@ -44,6 +44,22 @@ DNS الخاص بـ`www.shelterjo.com` يحل إلى عناوين Cloudflare (IP
 | Code Review | متاحة (`/code-review`) | بعد كل Milestone تطوير |
 | Firecrawl | غير متاحة | Semrush Site Audit + بعد فتح الوصول: Crawl مباشر |
 
-## 4. قاعدة الحقيقة
+## 4. استهلاك الموارد خلال الفحص (للشفافية)
+
+| المورد | ما حدث |
+|---|---|
+| **Semrush API units (حسابك)** | استُهلك الرصيد المتاح حتى **وصل إلى صفر** أثناء الفحص (تقديريًا ~8–10 آلاف Unit عبر تقارير Site Audit والـOrganic والـBacklinks). نتيجة ذلك لم نحصل على: Site Health Score، قائمة النطاقات المرتبطة، تحليل المنافسين العضوي. **لم يتم تشغيل أي Audit جديد ولم يُعدّل أي إعداد في Semrush.** |
+| **WebSearch** | استُهلكت حصة الجلسة (200 بحث). بعض الفحوصات (منافسون: BKLEN، بن معروف، عصير تاين؛ TikTok) لم تكتمل. |
+| **PageSpeed Insights API** | الحصة المجانية المشتركة = 0 → لا بيانات Core Web Vitals. |
+
+## 5. ما يفتح بقية الفحص (مرتب حسب الأثر)
+
+1. **فتح الوصول للموقع** من إعدادات بيئة العمل (Allowed domains: `shelterjo.com`, `www.shelterjo.com`, `shop.shelterjo.com`) — يغلق ~28 بندًا من قائمة الفحص (Navigation، Footer، النصوص، الصور، Alt، Headings، Canonicals، Schema، Redirects، 404، Mobile/Desktop UX، Accessibility، Tracking).
+2. **WordPress Export** (Tools → Export → All content) أو نسخة Cloudways Backup — للنصوص الكاملة والصفحات غير المنشورة والصور.
+3. **صلاحيات قراءة فقط:** Google Search Console، GA4، GTM، Google Business Profile للفرعين، HubSpot، Cloudflare (DNS + Redirect Rules).
+4. **ورقة الحقائق من الـOwner** (الفروع، العناوين، الساعات، الأرقام، المنيو، الحسابات الرسمية، سنة التأسيس، الادعاءات المعتمدة).
+5. اختياري: شحن رصيد Semrush API إذا أردت تحليل المنافسين والنطاقات المرتبطة، أو تشغيل Site Audit جديد بنفسك من واجهة Semrush.
+
+## 6. قاعدة الحقيقة
 
 كل معلومة في ملفات هذه المرحلة حالتها **`PENDING OWNER VERIFICATION`** حتى لو جاءت من الموقع الحالي. لم تُعتمد أي معلومة ولم تُعتمد أي صورة.
