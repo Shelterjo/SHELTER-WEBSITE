@@ -15,7 +15,7 @@
 | R2B | تطبيقات التوصيل وقنوات الطلب | 5 | ✅ موثقة (D-073) — R2B-01/03/04 MISSING حتى يسلّمها الـOwner |
 | R3 | المنيو الرسمي (Menu) — الاستلام + المصدر الوحيد | 10 | ✅ أُجيبت (D-075 → D-089) · ✅ الملف استُلم ← التقرير `18` |
 | R3M | أسئلة ملف المنيو (MQ) | 22 | ✅ مغلقة ← **MENU INVENTORY v1.0 = APPROVED BASELINE** (D-135) · باقٍ: OV-1 → OV-5 (ليست موانع) |
-| IA | Menu Information Architecture | 8 | ⏳ **الحالية:** IA-01 → IA-08 في [`22`](22-menu-information-architecture.md) |
+| IA | Menu Information Architecture | 8 | ✅ حُسمت (D-143) · ⏳ مراجعة [`../menu-ia/`](../menu-ia/README.md): P-01 → P-10 و M-01 → M-11 |
 | R4 | الصفحة الرئيسية، الـNavigation، الفعاليات والحملات | 10 | |
 | R5 | الـCMS / Dashboard، الفريق، مصدر البيانات الموحد | 9 | |
 | R6 | Google Integrations، Analytics، Search Console، Google Business Profile | 9 | |

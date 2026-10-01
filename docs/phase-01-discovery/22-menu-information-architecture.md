@@ -1,6 +1,6 @@
 # 22 — Menu Information Architecture (دراسة)
 
-> **الحالة:** `PROPOSED — WAITING FOR OWNER CHOICE` · فحص جودة UX مضاف في §4b · **آخر تحديث:** 2026-10-01
+> **الحالة:** ✅ **حُسمت بالموجز الموحّد (D-142، D-143)** — المرحلة التالية في [`../menu-ia/`](../menu-ia/README.md). بعض توصيات هذا الملف تغيرت بقرار الـOwner (مثل صفوف مضغوطة ← شبكة صور 1:1، ومحدد فرع مطلوب) وموثقة كتعارضات في `MENU-DECISION-REGISTER` §4 · **آخر تحديث:** 2026-10-01
 > - **دراسة بنية فقط** (D-141). لا Visual UI ولا Components ولا Wireframes قبل اختيارك.
 > - **الأساس:** MENU INVENTORY v1.0 — APPROVED BASELINE (D-135)، أي 191 صنفًا و11 فئة.
 > - **كل ما هنا طبقة عرض (Presentation).** لا يغيّر أي Product ID ولا Category ID ولا بيانات المصدر.

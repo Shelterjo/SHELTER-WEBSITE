@@ -1,7 +1,7 @@
 # PHASE 01 — DISCOVERY & OWNER INTERVIEW
 
 **المشروع:** SHELTER COFFEE — Global Website Rebuild From Zero
-**الحالة:** 🟡 In progress — R1 ✅ · R2 ✅ · R2P ✅ · PG ✅ · R2B موثقة (MISSING) · R3 قرارات ✅ · R3 ✅ · **MENU INVENTORY v1.0 = APPROVED BASELINE** (D-135) · **⏳ Menu IA: اختيار الـArchitecture (`22`)**
+**الحالة:** 🟡 In progress — R1 ✅ · R2 ✅ · R2P ✅ · PG ✅ · R2B موثقة (MISSING) · R3 قرارات ✅ · R3 ✅ · **MENU INVENTORY v1.0 = APPROVED BASELINE** (D-135) · Menu IA ✅ (D-143) · **⏳ مراجعة IA Spec + Wireframes في [`../menu-ia/`](../menu-ia/README.md)**
 **آخر تحديث:** 2026-10-01
 
 > لا Coding · لا Framework · لا Plugins · لا تغييرات Cloudflare/Cloudways/DNS · لا نشر.

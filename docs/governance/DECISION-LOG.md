@@ -158,6 +158,14 @@
 | D-139 | **الأسماء غير الواضحة** (MESTEKH · ICED CROCCONATE · MILKSHAKE BAJ · MILKSHAKE ASH BERRY · V60 HONDURAS LAS · ROZY BASIL) تبقى كما هي، ولا تُصحح من عندنا. تُجمع لاحقًا في Owner Review منفصل | 2026-10-01 | MENU INVENTORY v1.0 — Owner Acceptance | ✅ Owner | الأسماء | `APPROVED` |
 | D-140 | **Cold Brew · Lotus Cheesecake · Ice Cream · Single Espresso** = `ACTIVE — DATA INCOMPLETE`. لا سعر ولا فئة ولا ID نهائي من عندنا حتى تصل بياناتها. **Snacks · Pastries** = `OWNER VERIFICATION REQUIRED` | 2026-10-01 | MENU INVENTORY v1.0 — Owner Acceptance | ✅ Owner | المنيو | `APPROVED` |
 | D-141 | **المرحلة التالية: MENU INFORMATION ARCHITECTURE** — دراسة بنية فقط، **لا Visual UI**. تحليل 191 صنفًا و11 فئة، والإجابة على 15 سؤالًا، وعرض Options A / B / C مع مقارنة (Mobile UX · Taps · Scroll · Discoverability · Speed · SEO · Accessibility · Maintainability · Scalability) وتوصية. لا UI ولا Components قبل اختيار الـArchitecture | 2026-10-01 | MENU INVENTORY v1.0 — Owner Acceptance | ✅ Owner | سير العمل | `APPROVED` |
+| D-142 | **الموجز الموحّد لمرحلة MENU IA / UX / WIREFRAME** هو المرجع التنفيذي الأحدث لهذه المرحلة. كل بنوده مسجلة في [`../menu-ia/MENU-DECISION-REGISTER.md`](../menu-ia/MENU-DECISION-REGISTER.md) كـFROZEN / PENDING / MISSING / CONFLICT. لا Production Code قبل اعتماد الـIA والـWireframes | 2026-10-01 | Owner — Menu IA / UX / Wireframe brief | ✅ Owner | سير العمل | `APPROVED` |
+| D-143 | **اعتماد IA-01 → IA-08:** Hybrid بصفحة واحدة · ترتيب الفئات · SWEETS / حلويات (CAKE + COOKIES بصريًا) · أقسام فرعية في HOT وCOLD وFIZZY · SPRING قسم موسمي عمودي أعلى المنيو · لا صفحات أصناف في V1 · بحث بلغتين بقاموس Aliases من الـCMS | 2026-10-01 | Owner — Menu IA / UX / Wireframe brief | ✅ Owner | الـIA | `APPROVED` |
+| D-144 | **بطاقة الصنف والشبكة:** صورة 1:1 ← الاسم الأساسي ← الثانوي (`lang` الصحيح) ← السعر (`3.50 د.أ`). لا وصف في البطاقة. عمودان موبايل، و4 أعمدة ديسكتوب (أو 3 عند الحاجة). الشارات العامة NEW وSEASONAL فقط، وFEATURED داخلي | 2026-10-01 | Owner — Menu IA / UX / Wireframe brief | ✅ Owner | الـUX | `APPROVED` |
+| D-145 | **الفروع:** `كل الفروع / DRIVE / HOUSE` (Segmented Control قابل للتحول لقائمة) · الافتراضي كل الفروع · حفظ آخر اختيار · `?branch=` بـCanonical واحد · مفتوح/مغلق ديناميكي · "يغلق قريبًا" في آخر 60 دقيقة · التصفح متاح عند الإغلاق · التوفر: Available / Unavailable+Show / Unavailable+Hide | 2026-10-01 | Owner — Menu IA / UX / Wireframe brief | ✅ Owner | الـUX، الـData Model | `APPROVED` |
+| D-146 | **تفاصيل الصنف:** Bottom Sheet موبايل · Modal أو Side Panel ديسكتوب · الحقول المعتمدة فقط · Back يغلق أولًا ويعيد موضع التمرير · `Esc` · إدارة التركيز | 2026-10-01 | Owner — Menu IA / UX / Wireframe brief | ✅ Owner | الـUX | `APPROVED` |
+| D-147 | **خارج V1:** لا Favorites · لا زر مشاركة · لا Add-ons (`show_on_website = false`) · لا صفحات أصناف · لا Virtualization ولا Infinite Scroll ولا Pagination ولا Load More | 2026-10-01 | Owner — Menu IA / UX / Wireframe brief | ✅ Owner | الـScope | `APPROVED` |
+| D-148 | **الـCMS:** Draft / Review / Scheduled / Published / Archived + Preview + Version History + Audit Log + Roles · `sort_order` يدوي · نشر موسمي بتواريخ وانتهاء تلقائي وتجاوز يدوي | 2026-10-01 | Owner — Menu IA / UX / Wireframe brief | ✅ Owner | الـCMS | `APPROVED` |
+| D-149 | **أحداث المنيو:** `menu_view` · `menu_search` · `zero_result_search` · `menu_category_click` · `product_view` · `branch_filter_change` — بلا Key Events · تسجيل البحث بشكل Privacy-conscious · لا تنفيذ Google الآن | 2026-10-01 | Owner — Menu IA / UX / Wireframe brief | ✅ Owner | القياس | `APPROVED` |
 
 ## قرارات مفتوحة (PROPOSED — بانتظار الـOwner)
 
@@ -172,7 +180,7 @@
 | DB-03 | لغة الـSlugs | لاتينية + 301 من العربية | المبدأ ✅ (D-014) · التفاصيل مع DB-02 |
 | DB-04 | الصفحات القديمة ذات القرار التجاري | — | ✅ جزئيًا (D-015)؛ المؤجل: الحجز، الرعايات، الفريق، النشرة، دليل كافيهات إربد (R7-03) |
 | DB-05 | نموذج الـNavigation على الموبايل | Top Sticky Header + Contextual Actions | `PROPOSED` |
-| DB-06 | بنية المنيو | **Option C — Hybrid** (دراسة كاملة في `22`) | `PROPOSED` — ⏳ IA-01 → IA-08 |
+| DB-06 | بنية المنيو | **Hybrid** (D-143) · المواصفات والـWireframes في `docs/menu-ia/` | ✅ البنية معتمدة · ⏳ اعتماد الـIA Spec والـWireframes |
 | DB-07 | بنية الفروع | Hierarchical + Progressive Activation | `PROPOSED` |
 | DB-08 | المنصة / الـCMS | يُدرس بعد الـIA | `PROPOSED` |
 | DB-09 | اسم ومسار قسم المعرفة | Stage 6 | `PROPOSED` |
