@@ -13,8 +13,8 @@
 | `product_view` | فتح تفاصيل صنف (Drawer أو صفحة صنف) | `item_id`, `category_id` | الأصناف الأكثر اهتمامًا | المنيو | GA4 | متوسطة | يعتمد على DB-06 |
 | `branch_view` | فتح صفحة فرع | `branch_id` (`drive`/`house`) | الاهتمام بكل فرع | صفحة الفرع | GA4 | عالية | — |
 | `directions_click` | ضغط "الاتجاهات" | `branch_id`, `location` (header / card / branch_page) | **أقرب مؤشر لزيارة الفرع** (الفعل رقم 2) | كل مكان | GA4 | **أعلى** | بدون معاملات تكسر رابط Maps (§33) |
-| `phone_click` | ضغط رقم هاتف | `branch_id`, `phone_purpose` | الاتصال | الفروع، التواصل | GA4 | عالية | ⏸ لا رقم منشور بعد (D-022) |
-| `whatsapp_click` | ضغط واتساب | `purpose` | — | — | GA4 | — | ⏸ **معطّل** — واتساب غير معتمد (D-023) |
+| `phone_click` | ضغط رقم هاتف | `branch_id`, `phone_purpose` (`general` · `complaints_feedback_franchise` · `catering_b2b_events`), `placement` | الاتصال حسب النية (D-059) | الفروع، التواصل، Franchise، B2B | GA4 | عالية | ✅ الأرقام معتمدة (D-057) |
+| `whatsapp_click` | ضغط زر واتساب | `branch_id` (إن وُجد), `placement` — **بدون نص الرسالة** | قناة تواصل رئيسية | حسب مقترح `14` | GA4 | عالية | ✅ الرقم معتمد (D-058) · ⏳ مكان/نص الزر |
 | `social_click` | ضغط حساب سوشال | `platform` | — | الـFooter | GA4 | منخفضة | ⏸ الحسابات غير مؤكدة (D-036) |
 | `campaign_view` | ظهور حملة في منطقة الحملات | `campaign_id` | فعالية الحملات | الرئيسية، الحملات | GA4 | متوسطة | — |
 | `campaign_click` | ضغط CTA حملة | `campaign_id`, `cta` | — | — | GA4 | متوسطة | — |

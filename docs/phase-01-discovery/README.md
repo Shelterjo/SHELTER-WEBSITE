@@ -1,7 +1,7 @@
 # PHASE 01 — DISCOVERY & OWNER INTERVIEW
 
 **المشروع:** SHELTER COFFEE — Global Website Rebuild From Zero
-**الحالة:** 🟡 In progress — R1 ✅ · R2 ✅ (الخدمات/الدفع/البريد/الحسابات MISSING/PENDING) · P3 ✅ مبدئيًا مشروط · سياسة Google ✅ موثقة · **الآن: R2P (الأرقام)** · بانتظار: ROOT-01، URL-02، MENU-01، تفعيل الوصول، بيانات GBP
+**الحالة:** 🟡 In progress — R1 ✅ · R2 ✅ · R2P ✅ · P3 + ROOT-01 (D) + URL-02 + MENU-01 ✅ · بانتظار: موافقتك على `14` و`15` · **الآن: PG + R2B** · ثم R3 (المنيو)
 **آخر تحديث:** 2026-10-01
 
 > لا Coding · لا Framework · لا Plugins · لا تغييرات Cloudflare/Cloudways/DNS · لا نشر.
@@ -24,6 +24,8 @@
 | 11 | [`11-social-accounts-verification.md`](11-social-accounts-verification.md) | الحسابات التي نعتقد أنها رسمية — تُؤكد حسابًا حسابًا |
 | 12 | [`12-homepage-screenshots-audit.md`](12-homepage-screenshots-audit.md) | جرد الرئيسية الحالية من لقطات الـOwner: الـHeader، الأقسام، الـFooter، الادعاءات، الصور، ملاحظات UX/Accessibility، إضافات WordPress، ملاحظة أمنية |
 | 13 | [`13-root-and-international-seo-plan.md`](13-root-and-international-seo-plan.md) | دراسة الجذر `/` (A/B/C/D) + خطة canonical وhreflang وx-default + تحويلات النقل + `/menu` + نقل الدومين العالمي + أثر Slugs الفروع |
+| 14 | [`14-contact-architecture-and-whatsapp.md`](14-contact-architecture-and-whatsapp.md) | بنية التواصل حسب النية + مقترح زر واتساب (مكان، نص، رسالة مسبقة) |
+| 15 | [`15-root-gateway-wireframe.md`](15-root-gateway-wireframe.md) | Wireframe ومحتوى مقترح للجذر `/` (Global Brand Gateway / x-default) |
 | 09 | [`09-architecture-options-after-r1.md`](09-architecture-options-after-r1.md) | مقترحات بعد الجولة 1: اللغة/السوق/الدومين (AR-01)، نموذج المواقع، ترتيب الـCTA، أثر الجمهور، النشرة، جاهزية الطلب أونلاين |
 
 ## الحوكمة

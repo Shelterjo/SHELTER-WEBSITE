@@ -75,7 +75,7 @@
 ```
 shelterjo.com
 │
-├── /                                   ⏳ ROOT-01 غير محسوم (D-031) — انظر `13` §2 (التوصية: بوابة علامة خفيفة بلا تحويل)
+├── /                                   ✅ D مبدئيًا (D-052): Global Brand Gateway / x-default — بلا تحويل — Wireframe للموافقة في `15`
 │
 ├── /ar/                                الرئيسية (عربي)                         [Brand]
 │   ├── about/                          من نحن / قصة SHELTER                   [Brand]
@@ -94,8 +94,8 @@ shelterjo.com
 │       │   └── {item-slug}/            صنف مميز فقط (DB-06 Hybrid) — بدون الفئة في الرابط
 │       ├── locations/                  فروع الأردن                             [Market]
 │       │   └── irbid/                  صفحة إربد (🔒 Progressive Activation)
-│       │       ├── {drive}/            SHELTER COFFEE DRIVE
-│       │       └── {house}/            SHELTER COFFEE HOUSE
+│       │       ├── drive/            SHELTER COFFEE DRIVE
+│       │       └── house/            SHELTER COFFEE HOUSE
 │       └── events/                     الفعاليات والحملات في الأردن             [Market]
 │           └── {event-slug}/           فعالية / حملة
 │
@@ -103,7 +103,7 @@ shelterjo.com
 │   ├── about/ · {coffee}/ · franchise/ · careers/ · contact/ · faq/ · privacy/ · terms/
 │   └── jo/
 │       ├── menu/ · menu/{item-slug}/
-│       ├── locations/ · locations/irbid/ · locations/irbid/{drive}/ · locations/irbid/{house}/
+│       ├── locations/ · locations/irbid/ · locations/irbid/drive/ · locations/irbid/house/
 │       └── events/ · events/{event-slug}/
 │
 ├── /ar/xx/ · /en/xx/                   🔒 مثال دولة مستقبلية (xx رمز افتراضي — ليست خطة)
@@ -138,7 +138,7 @@ shelterjo.com
 | مقال | `/coffee/{slug}/` · `/en/coffee/{slug}/` | `/ar/coffee/{slug}/` · `/en/coffee/{slug}/` |
 | Franchise | `/franchise/` · `/en/franchise/` | `/ar/franchise/` · `/en/franchise/` |
 | المنيو | `/jo/menu/` · `/en/jo/menu/` | `/ar/jo/menu/` · `/en/jo/menu/` |
-| فرع الدرايف | `/jo/locations/irbid/{drive}/` · `/en/jo/locations/irbid/{drive}/` | `/ar/jo/locations/irbid/{drive}/` · `/en/jo/locations/irbid/{drive}/` |
+| فرع الدرايف | `/jo/locations/irbid/drive/` · `/en/jo/locations/irbid/drive/` | `/ar/jo/locations/irbid/drive/` · `/en/jo/locations/irbid/drive/` |
 | فعالية | `/jo/events/{slug}/` · `/en/jo/events/{slug}/` | `/ar/jo/events/{slug}/` · `/en/jo/events/{slug}/` |
 
 ---
@@ -152,8 +152,8 @@ shelterjo.com
 | `/` | حسب ROOT-01 (`13` §2) |
 | `/menu` · `/القائمة-شلتر-كافية-محافظة-اربد/` | `/ar/jo/menu/` |
 | `/موقع-شلتر-كافية-محافظة-اربد/` · `/موقعنا` | `/ar/jo/locations/` |
-| `/city-centre-branch/` | `/ar/jo/locations/irbid/{house}/` |
-| `/drive-thru/` · `/drive-thru-shelter-irbid-how-it-works/` | `/ar/jo/locations/irbid/{drive}/` |
+| `/city-centre-branch/` | `/ar/jo/locations/irbid/house/` |
+| `/drive-thru/` · `/drive-thru-shelter-irbid-how-it-works/` | `/ar/jo/locations/irbid/drive/` |
 | `/من-هو-شلتر-كافية-في-اربد/` | `/ar/about/` |
 | `/blog/` · `/category/uncategorized/` | `/ar/{coffee}/` |
 | `/coffee-house-vs-cafe/` | `/ar/{coffee}/{slug}/` |
@@ -188,7 +188,7 @@ shelterjo.com/{مسار}     →  {global-domain}/ar/{مسار}
 | # | القرار | الخيارات | توصيتنا |
 |---|---|---|---|
 | URL-01 | نمط اللغة/الدولة | P1 / P2 / P3 / P4 | ✅ **P3** مبدئيًا (D-031) |
-| URL-02 | Slug الفروع (تفضيل الـOwner: `drive`/`house` — D-032؛ الأثر في `13` §8) | `drive` و`house` (قصير) · `shelter-coffee-drive` و`shelter-coffee-house` (الاسم الكامل) · `{format}-{area}` (مثل `drive-{منطقة}`) | نقرر بعد تأكيد العناوين من Google. الشرط: Slug لا يتغير أبدًا بعد النشر |
+| URL-02 ✅ D-053 | Slug الفروع: `drive` / `house` + `{format}-{area}` لفرع ثانٍ من نفس النوع في نفس المدينة | `drive` و`house` (قصير) · `shelter-coffee-drive` و`shelter-coffee-house` (الاسم الكامل) · `{format}-{area}` (مثل `drive-{منطقة}`) | نقرر بعد تأكيد العناوين من Google. الشرط: Slug لا يتغير أبدًا بعد النشر |
 | URL-03 | اسم مسار الـKnowledge Hub | `coffee` · `blog` · `journal` · `learn` | DB-09 — جولة R8 |
 | URL-04 | موضع الفعاليات | تحت السوق دائمًا · أو تحت السوق + إمكانية فعالية عامة للعلامة | تحت السوق، والأخبار العامة للعلامة في الـHub ("SHELTER Stories") |
 | URL-05 | الصفحات القانونية | على مستوى العلامة الآن، مع قابلية صفحة قانونية لكل سوق لاحقًا (كيان قانوني مختلف لكل دولة أو Franchise) | نعم بهذا الشكل |

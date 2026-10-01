@@ -14,7 +14,7 @@
 | Google Maps URL | MISSING (D-020) | MISSING | `share.google/Cko3RPFoBGY21bco4` (غير مؤكد) | — | ⏳ |
 | Opening hours | السبت–الخميس 07:00 ص – 02:00 ص · الجمعة 08:00 ص – 02:00 ص (D-020) | MISSING | "7:00 ص – 2:00 ل" | غير مكشوف | ⏳ مقارنة |
 | Special hours | نظام D-021 | MISSING | — | — | ⏳ |
-| Phone shown publicly | لا يُنشر أي رقم قبل التأكيد (D-022) | MISSING | 0799009436 | غير مكشوف | ⏳ R2P |
+| Phone shown publicly | **0799009436** (D-057، D-060) | MISSING | 0799009436 | غير مكشوف | ⏳ مقارنة مع GBP — أي اختلاف = CONFLICT |
 | Website URL | — | MISSING (ملاحظة: الـKnowledge Panel يشير لـ`shelterjo.com/` بدون www) | — | — | ⏳ |
 | Business category | — | MISSING | — | — | ⏳ |
 | Business status | فرع عام نشط (D-008) | MISSING | — | — | ⏳ |
@@ -29,7 +29,7 @@
 | Google Maps URL | MISSING | MISSING | `share.google/d7T2jt7BKhidMHG4A` (غير مؤكد) | — | ⏳ |
 | Opening hours | السبت–الأربعاء 09:00 ص – 10:00 م · الخميس–الجمعة 09:00 ص – 11:00 م (D-020) | MISSING | متعارض (الجمعة 9 ص أو 2 ظ) | — | ⏳ مقارنة |
 | Special hours (بما فيها ساعات المول) | نظام D-021 — أي تعارض مع المول يُعرض | MISSING | — | — | ⏳ |
-| Phone shown publicly | لا يُنشر أي رقم قبل التأكيد (D-022) | MISSING | — | — | ⏳ R2P |
+| Phone shown publicly | **0799009436** (D-057، D-060) | MISSING | — | — | ⏳ مقارنة مع GBP — أي اختلاف = CONFLICT |
 | Website URL | — | MISSING | — | — | ⏳ |
 | Business category | — | MISSING | — | — | ⏳ |
 | Business status | فرع عام نشط (D-008) | MISSING | — | — | ⏳ |

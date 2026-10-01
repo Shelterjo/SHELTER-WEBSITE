@@ -214,7 +214,7 @@
 
 **لماذا يهم:** The contact-page routing, the click-to-call buttons, the schema telephone for each branch and the Google Business Profile phone all need to agree. Right now every directory sends all calls to the booking line.
 
-**قرار الـOwner:** ⏸ **قرار الـOwner (D-022، D-023):** كل الأرقام PENDING ولا يُنشر أي رقم. تُسأل كل وظيفة بشكل مستقل (Main، DRIVE، HOUSE، Reservations، Complaints، Franchise، WhatsApp).
+**قرار الـOwner:** ✅ **حُسم (D-057 → D-060):** 0799009436 = العام لكل الفروع + WhatsApp · 0799338445 = الشكاوى والاقتراحات والفرنشايز · 0799530383 = الكيترنج والأعمال والفعاليات · لا رقم حجز منفصل.
 
 ### VQ-14 — Official social media accounts
 
