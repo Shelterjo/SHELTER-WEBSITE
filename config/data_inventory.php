@@ -17,6 +17,7 @@ return [
     'feature_flags' => ['class' => 'INTERNAL'],
     'signals' => ['class' => 'INTERNAL'],
     'reference_sequences' => ['class' => 'INTERNAL'],
+    'scheduled_job_runs' => ['class' => 'INTERNAL'],
 
     // Master data (public once approved; unapproved values are NULL + a pending fact)
     'markets' => ['class' => 'PUBLIC'],
