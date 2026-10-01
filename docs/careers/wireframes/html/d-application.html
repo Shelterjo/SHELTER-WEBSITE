@@ -1,0 +1,163 @@
+<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>التوظيف — الطلب الكامل</title><style>
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:"DejaVu Sans",system-ui,sans-serif;color:#111;background:#fff;font-size:16px;line-height:1.5}
+:focus-visible{outline:3px solid #111;outline-offset:2px}
+a{color:#111}p{margin:0 0 8px}
+.lnk,.rows a:not(.btn){display:inline-flex;align-items:center;min-height:44px}h1,h2,h3{line-height:1.35}
+.wf-tag{background:#222;color:#fff;font-size:12px;padding:4px 12px}
+.sample{display:inline-block;font-size:12px;font-weight:700;background:#ffe9a8;color:#000;border-radius:4px;padding:0 6px;vertical-align:middle}
+.vh{position:absolute!important;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.site{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:56px;padding:0 16px;border-bottom:1px solid #ddd}
+.logo{font-weight:700;letter-spacing:.06em;font-size:15px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;min-width:44px;padding:0 16px;border:1.5px solid #111;border-radius:10px;background:#fff;color:#111;font:inherit;font-size:15px;text-decoration:none;cursor:pointer;text-align:center}
+.btn.pri{background:#111;color:#fff}.btn.icon{padding:0;width:44px}.btn.ghost{border-color:#999}
+.btn.danger{border-width:2.5px;border-style:double;font-weight:700}.btn[disabled],.btn[aria-disabled=true]{border-color:#999;color:#555;background:#f2f2f2;cursor:not-allowed}
+.btn.block{display:flex;width:100%}
+.legend{margin:24px 16px 16px;font-size:12px;color:#555;border-top:1px solid #e5e5e5;padding-top:8px}
+.note{font-size:13px;color:#444}
+/* public form */
+.wrap{max-width:680px;margin:0 auto;padding:0 16px 32px}
+.intro h1{font-size:26px;margin:20px 0 6px}.intro p{color:#444;font-size:14px}
+.ph{display:block;border:1.5px dashed #999;border-radius:10px;padding:8px 12px;color:#444;font-size:14px;margin:6px 0 10px}
+.group{border:1px solid #d6d6d6;border-radius:14px;padding:16px;margin:0 0 18px}
+.group>h2{font-size:19px;margin:0 0 14px}
+.f{margin:0 0 18px;min-width:0}.f:last-child{margin-bottom:0}
+fieldset{border:0;margin:0;padding:0;min-width:0}
+.f>label,.lbl,.f>legend{display:block;font-weight:700;font-size:15px;margin:0 0 6px;padding:0}
+.req{margin-inline-start:4px;font-weight:700}
+.hint{display:block;font-size:13px;color:#555;margin:-2px 0 6px}
+input[type=text],input[type=tel],input[type=email],input[type=search],input[type=date],input[type=time],select,textarea{display:block;width:100%;min-height:48px;border:1.5px solid #767676;border-radius:10px;padding:10px 12px;font:inherit;font-size:16px;background:#fff;color:#111}
+::placeholder{color:#666;opacity:1}
+textarea{min-height:104px;resize:vertical}
+input[type=radio],input[type=checkbox]{width:24px;height:24px;margin:0;flex:none;accent-color:#111}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.tap{display:inline-flex;align-items:center;gap:10px;min-height:44px;min-width:44px;padding:4px 14px;border:1.5px solid #999;border-radius:10px;cursor:pointer;font-size:15px}
+.tap:has(input:checked){border-color:#111;background:#f2f2f2;font-weight:700}
+.tap.consent{align-items:flex-start;padding:12px 14px;font-size:15px;line-height:1.6}.tap.consent input{margin-top:2px}
+.dob{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr) minmax(0,1.4fr);gap:8px}
+.dob label{display:block;font-size:13px;color:#444;margin-bottom:4px}
+.ig{display:flex;align-items:stretch}.ig input{border-start-end-radius:0;border-end-end-radius:0;min-width:0}
+.ig .sfx{display:flex;align-items:center;padding:0 14px;border:1.5px solid #767676;border-inline-start:0;border-radius:0 10px 10px 0;background:#f2f2f2;font-weight:700;white-space:nowrap}
+html[dir=rtl] .ig .sfx{border-radius:10px 0 0 10px}
+.cond{border-inline-start:4px solid #bbb;padding-inline-start:12px;margin-top:12px}
+.cond .f{margin-bottom:14px}
+.f>.drop,.drop{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;min-height:120px;border:2px dashed #767676;border-radius:14px;padding:16px;text-align:center;cursor:pointer;background:#fafafa;font-weight:700}
+.drop span{display:block}.drop small{display:block;font-weight:400;font-size:13px;color:#555}
+.vh:focus-visible+.drop{outline:3px solid #111;outline-offset:2px}
+.files{list-style:none;margin:10px 0 0;padding:0;display:grid;gap:8px}
+.file{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;border:1px solid #ccc;border-radius:10px;padding:8px 10px;min-height:56px}
+.file .fname{flex:1 1 160px;min-width:0;overflow-wrap:anywhere;font-size:14px}
+.fmeta{font-size:13px;color:#555}
+.badge{display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:700;border:1.5px solid #111;border-radius:6px;padding:1px 8px;background:#fff}
+.badge.cv{background:#111;color:#fff}
+.bar{flex-basis:100%;height:8px;border-radius:4px;background:#e5e5e5;overflow:hidden}.bar i{display:block;height:100%;width:60%;background:#444}
+.file.bad{border:2px solid #111;border-inline-start-width:6px}
+.alert{border:2px solid #111;border-inline-start-width:8px;border-radius:10px;padding:12px 14px;margin:0 0 16px;background:#fff}
+.alert h2,.alert h3{font-size:17px;margin:0 0 6px}.alert p{font-size:14px}
+.esum{border:3px solid #111;border-radius:12px;padding:14px 16px;margin:0 0 18px;background:#fff}
+.esum:focus{outline:3px solid #111;outline-offset:3px}
+.esum-h{font-size:18px;margin:0 0 6px;display:flex;gap:8px;align-items:center}
+.esum ul{margin:0;padding:0;list-style:none}.esum li a{display:flex;align-items:center;min-height:44px;font-weight:700;text-underline-offset:3px}
+.err{display:flex;gap:6px;align-items:flex-start;font-weight:700;font-size:14px;margin:0 0 6px}
+.err svg{flex:none;margin-top:2px}
+.has-err{border-inline-start:6px solid #111;padding-inline-start:10px}
+.has-err input,.has-err select,.has-err textarea{border-width:3px;border-color:#111}
+.submit{margin-top:8px}
+.prog{margin:0 0 16px}.prog-t{font-weight:700;font-size:15px;margin:0 0 8px}
+.bars{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;list-style:none;margin:0;padding:0}.bars li{height:8px;border-radius:4px;background:#ddd}.bars li.on{background:#111}
+.nav{display:flex;gap:10px;justify-content:space-between;margin-top:8px}.nav .btn{flex:1}
+.center{text-align:center}.appno{font-size:26px;font-weight:700;letter-spacing:.04em;margin:4px 0}
+.card{border:1px solid #d6d6d6;border-radius:14px;padding:18px 16px;margin:16px 0}
+.stack{display:flex;flex-direction:column;gap:10px;margin-top:14px}
+/* dashboard */
+.dtop{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:60px;padding:0 20px;border-bottom:1px solid #ddd}
+.dtop-r{display:flex;align-items:center;gap:10px;font-size:14px}
+.dshell{display:grid;grid-template-columns:200px minmax(0,1fr)}
+.dside{border-inline-end:1px solid #e2e2e2;padding:14px 10px}
+.dside-h{font-weight:700;font-size:13px;color:#444;margin:4px 10px 8px}
+.dside a,.mtabs a{display:flex;align-items:center;justify-content:space-between;gap:6px;min-height:44px;padding:0 12px;border-radius:10px;color:#111;text-decoration:none;font-size:15px}
+.dside a[aria-current=page],.mtabs a[aria-current=page]{background:#111;color:#fff;font-weight:700}
+.dmain{padding:18px 22px 40px;min-width:0;max-width:1320px}
+.mtop{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:56px;padding:0 12px;border-bottom:1px solid #ddd}
+.mtabs{display:flex;gap:6px;overflow-x:auto;padding:8px 12px;border-bottom:1px solid #eee;scrollbar-width:none}
+.mtabs a{flex:none;border:1.5px solid #bbb;border-radius:22px;font-size:14px;white-space:nowrap}
+.mmain{padding:12px 16px 32px}
+.count{display:inline-flex;align-items:center;justify-content:center;min-width:24px;height:24px;padding:0 7px;border-radius:12px;background:#111;color:#fff;font-size:12px;font-weight:700;white-space:nowrap}
+[aria-current=page] .count{background:#fff;color:#111}
+.ptitle{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;margin:0 0 14px}
+.ptitle h1{font-size:24px;margin:0}
+.sub{font-size:13px;color:#555}
+.kpis{list-style:none;margin:0 0 20px;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.kpi{display:flex;flex-direction:column;justify-content:space-between;gap:4px;min-height:88px;border:1.5px solid #bbb;border-radius:14px;padding:12px 14px;text-decoration:none;color:#111}
+.kpi-l{font-size:14px}.kpi-n{font-size:28px;font-weight:700;font-variant-numeric:tabular-nums}
+.panel{border:1px solid #d6d6d6;border-radius:14px;padding:14px 16px;margin:0 0 16px}
+.panel>h2{font-size:18px;margin:0 0 10px}
+.rows{list-style:none;margin:0;padding:0}.rows li{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:4px 10px;border-top:1px solid #eee;padding:8px 0;min-height:56px}.rows li:first-child{border-top:0}
+.new{display:inline-flex;align-items:center;font-size:12px;font-weight:700;background:#111;color:#fff;border-radius:6px;padding:1px 8px;white-space:nowrap}
+.prev{display:inline-flex;align-items:center;font-size:12px;font-weight:700;border:1.5px dashed #111;border-radius:6px;padding:1px 8px}
+.st{display:inline-block;border:1.5px solid #555;border-radius:999px;padding:1px 10px;font-size:13px;white-space:nowrap}
+.toolbar{display:flex;flex-wrap:wrap;align-items:flex-end;gap:10px 12px;margin:0 0 12px}
+.toolbar .f{margin:0}.toolbar .grow{flex:1 1 260px}
+.toolbar label,.toolbar legend{font-size:13px;font-weight:700;margin-bottom:4px;display:block}
+.seg{display:flex;gap:6px}
+.chips{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:0 0 12px;font-size:14px}
+.chip{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 14px;border:1.5px solid #999;border-radius:22px;text-decoration:none;color:#111;font-size:14px;background:#fff}
+.tbl-wrap{overflow-x:auto;border:1px solid #ddd;border-radius:12px}
+.tbl{width:100%;border-collapse:collapse;font-size:14px}
+.tbl caption{text-align:start;padding:10px 12px;font-size:13px;color:#555}
+.tbl th,.tbl td{padding:6px 8px;text-align:start;vertical-align:middle;border-top:1px solid #e6e6e6}
+.tbl thead th{font-size:13px;color:#222;background:#f4f4f4}
+.tbl tbody tr{height:60px}.compact .tbl tbody tr{height:44px}.compact .tbl td,.compact .tbl th{padding-block:0}
+.tbl th[scope=row]{font-weight:400}.tbl .nm{display:inline-flex;align-items:center;min-height:44px}
+tr.unread .nm,.unread .acard-n a{font-weight:700}
+.tbl .cb{width:52px}
+.cbx{border:0;padding:0;justify-content:center}
+.nowrap{white-space:nowrap}
+.pager{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:14px 0 0}
+.pager .pg{padding:0;width:44px}.pager [aria-current=page]{background:#111;color:#fff}
+.pager .sep{padding:0 4px}
+.jump{display:flex;align-items:center;gap:6px;margin-inline-start:auto;font-size:14px}.jump input{width:72px;min-height:44px}
+.bulk{display:flex;flex-wrap:wrap;align-items:flex-end;gap:10px;border:2px solid #111;border-radius:12px;padding:10px 12px;margin:0 0 12px;background:#f6f6f6}
+.bulk .f{margin:0}.bulk label{font-size:13px;font-weight:700;display:block;margin-bottom:4px}
+.bulk-n{font-weight:700;margin-inline-end:auto;align-self:center}
+.acards{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+@media (min-width:700px){.acards{grid-template-columns:repeat(2,minmax(0,1fr))}.kpis{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.acard{display:grid;grid-template-columns:44px minmax(0,1fr) 44px;gap:8px;align-items:start;border:1px solid #d0d0d0;border-radius:14px;padding:10px}
+.acard-n{margin:0;display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px}.acard-n a{display:inline-flex;align-items:center;min-height:44px}
+.acard p{font-size:14px;margin:0 0 4px}
+.mbar{position:fixed;inset-inline:0;bottom:0;z-index:30;background:#fff;border-top:2px solid #111;padding:8px 12px;display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px}
+.mbar .bulk-n{grid-column:1/-1;margin:0;font-size:14px}
+.has-mbar{padding-bottom:180px}
+.kv{display:grid;grid-template-columns:minmax(0,1fr);gap:0;margin:0}
+.kv>div{display:grid;grid-template-columns:minmax(110px,40%) minmax(0,1fr);gap:8px;border-top:1px solid #eee;padding:8px 0}.kv>div:first-child{border-top:0}
+.kv dt{color:#444;font-size:14px}.kv dd{margin:0;font-weight:700;overflow-wrap:anywhere}
+.masked{font-family:"DejaVu Sans Mono",monospace;letter-spacing:.06em}
+.inline{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.appgrid{display:grid;grid-template-columns:minmax(0,1fr);gap:16px}
+.toc{display:none}
+.notes{list-style:none;margin:0 0 12px;padding:0}.notes li{border:1px solid #ddd;border-radius:10px;padding:10px 12px;margin:0 0 8px}.notes .by{font-size:13px;color:#555;margin:0}
+.ovl{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:50}
+.dlg{position:fixed;z-index:60;background:#fff;display:flex;flex-direction:column;max-height:calc(100dvh - 24px)}
+.dlg.modal{top:50%;left:50%;transform:translate(-50%,-50%);width:min(560px,calc(100vw - 24px));border-radius:16px}
+.dlg.drawer{top:0;bottom:0;inset-inline-end:0;width:min(460px,100vw);max-height:none;border-radius:0}
+html[dir=rtl] .dlg.drawer{border-radius:0 16px 16px 0}
+.dlg.sheet{inset-inline:0;bottom:0;max-height:calc(100dvh - 40px);border-radius:18px 18px 0 0}
+.dhead{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 12px 10px 16px;border-bottom:1px solid #e5e5e5}
+html[dir=rtl] .dhead{padding:10px 16px 10px 12px}
+.dhead h2{font-size:19px;margin:0}
+.dbody{overflow:auto;padding:14px 16px;flex:1 1 auto;min-height:0}
+.dfoot{display:flex;flex-wrap:wrap;gap:8px;padding:10px 16px;border-top:1px solid #e5e5e5}
+.dfoot .btn{flex:1 1 140px}
+.colrow{display:grid;grid-template-columns:44px minmax(0,1fr) 44px 44px;gap:6px;align-items:center;border-top:1px solid #eee;padding:4px 0}
+.colrow .tap{border:0;padding:0 6px}
+.checks{display:flex;flex-wrap:wrap;gap:6px}.checks .tap{font-size:14px;padding:2px 10px}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
+.warn{border:2px dashed #111;border-radius:10px;padding:10px 12px;font-size:14px;margin:8px 0}
+@media (min-width:1024px){
+ .kpis{grid-template-columns:repeat(4,minmax(0,1fr))}
+ .appgrid{grid-template-columns:190px minmax(0,1fr)}
+ .toc{display:block;position:sticky;top:12px;align-self:start}.toc a{display:flex;align-items:center;min-height:44px;padding:0 10px;border-radius:8px;font-size:14px;text-decoration:none;color:#111}
+ .appmain section{scroll-margin-top:12px}
+ .wrap.wide{max-width:760px}
+}
+</style></head><body class=""><div class="wf-tag">LOW-FI WIREFRAME · AR · OWNER DASHBOARD · DESKTOP · الطلب الكامل · بيانات تجريبية</div><header class="dtop"><span class="logo">SHELTER OWNER DASHBOARD</span><span class="dtop-r"><span class="sample">بيانات تجريبية</span><a class="btn ghost" href="d-list.html?read=unread"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 16V11a6 6 0 1 1 12 0v5l2 2H4z"/><path d="M10 20a2 2 0 0 0 4 0"/></svg> طلبات جديدة <span class="count">5</span></a><span>المالك (Owner)</span></span></header><div class="dshell"><nav class="dside" aria-label="أقسام التوظيف"><p class="dside-h">التوظيف</p><a href="d-overview.html">نظرة عامة</a><a href="d-list.html" aria-current="page">الطلبات<span class="count">5 جديد</span></a><a href="d-interviews.html">المقابلات</a><a href="d-archived.html">المؤرشفة</a><a href="d-list.html#saved">الفلاتر المحفوظة</a><a href="d-settings.html">الإعدادات</a></nav><main class="dmain"><div class="ptitle"><h1>متقدم تجريبي 1</h1><span class="inline"><span class="prev">متقدم سابق — لديه 3 طلبات</span><span class="sample">بيانات تجريبية</span></span></div><p class="sub">رقم الطلب <b dir="ltr">JOB-2026-00125</b> · تاريخ التقديم <span dir="ltr">2026-09-30 10:42</span> · آخر تحديث <span dir="ltr">2026-10-01 09:12</span> · المشاهدة: فُتح لأول مرة <span dir="ltr">2026-09-30 11:05</span></p><section class="panel" aria-labelledby="stbox-h"><h2 id="stbox-h">الحالة الحالية: قيد المراجعة</h2><div class="toolbar"><div class="f"><label for="app-st">تغيير الحالة إلى</label><select id="app-st"><option>تم الاستلام</option><option selected>قيد المراجعة</option><option>مرشح للمقابلة</option><option>تمت المقابلة</option><option>مقبول</option><option>مرفوض</option><option>مؤرشف</option></select></div><div class="f grow"><label for="app-stn">ملاحظة داخلية (اختيارية)</label><input type="text" id="app-stn" dir="auto"></div><button type="button" class="btn pri">حفظ الحالة</button></div><div class="inline"><a class="btn" href="d-archived.html">أرشفة</a><button type="button" class="btn">تنزيل المرفقات (ZIP)</button><a class="btn ghost" href="d-list.html">العودة إلى القائمة</a></div></section><div class="appgrid"><nav class="toc" aria-label="أقسام الطلب"><a href="#s-sum">الملخص</a><a href="#s-per">البيانات الشخصية</a><a href="#s-home">السكن</a><a href="#s-edu">المؤهل والخبرة</a><a href="#s-work">معلومات العمل</a><a href="#s-files">المرفقات</a><a href="#s-consent">الإقرار والموافقة</a><a href="#s-notes">الملاحظات الداخلية (3)</a><a href="#s-iv">المقابلة</a><a href="#s-hist">سجل الحالات</a><a href="#s-prev">الطلبات السابقة</a><a href="#s-audit">سجل التدقيق</a></nav><div class="appmain"><section class="panel" id="s-sum" aria-labelledby="s-sum-h"><h2 id="s-sum-h">الملخص</h2><dl class="kv"><div><dt>الوظيفة المتقدم لها</dt><dd>باريستا</dd></div><div><dt>الراتب المتوقع</dt><dd>450 د.أ</dd></div><div><dt>المدينة</dt><dd>مدينة تجريبية 1</dd></div><div><dt>سنوات الخبرة</dt><dd>3–5 سنوات</dd></div><div><dt>الحالة</dt><dd><span class="st">قيد المراجعة</span></dd></div></dl></section><section class="panel" id="s-per" aria-labelledby="s-per-h"><h2 id="s-per-h">البيانات الشخصية</h2><dl class="kv"><div><dt>الاسم الكامل</dt><dd>متقدم تجريبي 1</dd></div><div><dt>رقم الهاتف</dt><dd><span dir="ltr">0700000001</span></dd></div><div><dt>البريد الإلكتروني</dt><dd><span dir="ltr">applicant1@example.com</span></dd></div><div><dt>الجنس</dt><dd>ذكر</dd></div><div><dt>تاريخ الميلاد</dt><dd><span dir="ltr">1998-04-12</span> · العمر 28 (محسوب)</dd></div><div><dt>الحالة الاجتماعية</dt><dd>أعزب</dd></div><div><dt>الجنسية</dt><dd>أردني</dd></div><div><dt>الرقم الوطني</dt><dd><span class="inline"><span class="masked" dir="ltr">********1234</span><button type="button" class="btn ghost">إظهار</button><span class="sub">للمالك فقط · يُسجَّل في سجل التدقيق</span></span></dd></div></dl></section><section class="panel" id="s-home" aria-labelledby="s-home-h"><h2 id="s-home-h">السكن</h2><dl class="kv"><div><dt>المدينة</dt><dd>مدينة تجريبية 1</dd></div><div><dt>المنطقة</dt><dd>منطقة تجريبية</dd></div></dl></section><section class="panel" id="s-edu" aria-labelledby="s-edu-h"><h2 id="s-edu-h">المؤهل والخبرة</h2><dl class="kv"><div><dt>المؤهل العلمي</dt><dd>بكالوريوس</dd></div><div><dt>سنوات الخبرة</dt><dd>3–5 سنوات</dd></div><div><dt>خبرة سابقة في نفس المجال</dt><dd>نعم</dd></div><div><dt>يعمل حاليًا</dt><dd>لا</dd></div></dl></section><section class="panel" id="s-work" aria-labelledby="s-work-h"><h2 id="s-work-h">معلومات العمل</h2><dl class="kv"><div><dt>الوظيفة المتقدم لها</dt><dd>باريستا</dd></div><div><dt>الراتب المتوقع</dt><dd>450 د.أ</dd></div><div><dt>رخصة قيادة</dt><dd>نعم</dd></div><div><dt>ملاحظات المتقدم</dt><dd>نص تجريبي للملاحظات الإضافية.</dd></div></dl></section><section class="panel" id="s-files" aria-labelledby="s-files-h"><h2 id="s-files-h">المرفقات</h2><ul class="rows"><li><span><span dir="auto">سيرة-ذاتية-تجريبية.pdf</span> <span class="sub">PDF · 240 KB</span> <span class="badge cv">السيرة الذاتية الأساسية</span></span><span class="inline"><a class="btn ghost" href="#">عرض</a><a class="btn ghost" href="#">تنزيل</a></span></li><li><span><span dir="auto">شهادة-تجريبية.jpg</span> <span class="sub">JPG · 1.2 MB</span> </span><span class="inline"><a class="btn ghost" href="#">عرض</a><a class="btn ghost" href="#">تنزيل</a></span></li><li><span><span dir="auto">دورة-تدريبية-تجريبية.pdf</span> <span class="sub">PDF · 380 KB</span> </span><span class="inline"><a class="btn ghost" href="#">عرض</a><a class="btn ghost" href="#">تنزيل</a></span></li></ul></section><section class="panel" id="s-consent" aria-labelledby="s-consent-h"><h2 id="s-consent-h">الإقرار والموافقة</h2><dl class="kv"><div><dt>الموافقة</dt><dd>تمت الموافقة</dd></div><div><dt>الوقت</dt><dd><span dir="ltr">2026-09-30 10:42</span></dd></div><div><dt>نسخة النص</dt><dd>v1</dd></div></dl><p class="sub">أقر بأن جميع المعلومات المدخلة في طلب التوظيف صحيحة، وأوافق على قيام SHELTER COFFEE بجمع واستخدام بياناتي لغرض دراسة طلب التوظيف والتواصل معي بشأنه.</p></section><section class="panel" id="s-notes" aria-labelledby="s-notes-h"><h2 id="s-notes-h">الملاحظات الداخلية (3)</h2><ul class="notes"><li><p>ملاحظة تجريبية 3: مرشح مناسب لمقابلة أولى.</p><p class="by">المالك (Owner) · <span dir="ltr">2026-10-01 09:10</span></p></li><li><p>ملاحظة تجريبية 2: تم الاتصال، طلب موعدًا صباحيًا.</p><p class="by">المالك (Owner) · <span dir="ltr">2026-09-30 16:45</span></p></li><li><p>ملاحظة تجريبية 1: السيرة الذاتية واضحة.</p><p class="by">المالك (Owner) · <span dir="ltr">2026-09-30 11:20</span></p></li></ul><div class="f"><label for="note-new">ملاحظة جديدة</label><textarea id="note-new" dir="auto"></textarea></div><button type="button" class="btn pri">إضافة ملاحظة</button><p class="sub">كل ملاحظة مستقلة ولا تُستبدل؛ أي تعديل أو حذف يُسجَّل.</p></section><section class="panel" id="s-iv" aria-labelledby="s-iv-h"><h2 id="s-iv-h">المقابلة</h2><div class="two"><div class="f"><label for="iv-d">تاريخ المقابلة</label><input type="date" id="iv-d" value="2026-10-03"></div><div class="f"><label for="iv-t">وقت المقابلة</label><input type="time" id="iv-t" value="10:00"></div></div><div class="f"><label for="iv-loc">مكان المقابلة</label><select id="iv-loc"><option value="">اختر المكان</option><option selected>SHELTER COFFEE DRIVE</option><option>SHELTER COFFEE HOUSE</option></select></div><div class="f"><label for="iv-n">ملاحظات داخلية</label><textarea id="iv-n" dir="auto"></textarea></div><button type="button" class="btn pri">حفظ المقابلة</button><p class="sub">لا تقييم ولا نجوم. موعد المقابلة ومكانها لا يظهران في صفحة المتابعة.</p></section><section class="panel" id="s-hist" aria-labelledby="s-hist-h"><h2 id="s-hist-h">سجل الحالات</h2><ul class="rows"><li><span>— ← <b>تم الاستلام</b></span><span class="sub">النظام · <span dir="ltr">2026-09-30 10:42</span></span></li><li><span>تم الاستلام ← <b>قيد المراجعة</b></span><span class="sub">المالك (Owner) · <span dir="ltr">2026-10-01 09:12</span> · ملاحظة داخلية اختيارية</span></li></ul></section><section class="panel" id="s-prev" aria-labelledby="s-prev-h"><h2 id="s-prev-h">الطلبات السابقة</h2><p>متقدم سابق — لديه 3 طلبات (هذا الطلب + 2). التطابق: رقم الهاتف · البريد الإلكتروني. لا دمج تلقائي.</p><ul class="rows"><li><span><a href="#">JOB-2026-00031</a> · كاشير</span><span class="sub"><span dir="ltr">2026-03-12</span> · <span class="st">مرفوض</span></span></li><li><span><a href="#">JOB-2025-00410</a> · باريستا</span><span class="sub"><span dir="ltr">2025-11-02</span> · <span class="st">مؤرشف</span></span></li></ul></section><section class="panel" id="s-audit" aria-labelledby="s-audit-h"><h2 id="s-audit-h">سجل التدقيق</h2><ul class="rows"><li><span>إنشاء الطلب</span><span class="sub">النظام · <span dir="ltr">2026-09-30 10:42</span></span></li><li><span>أول فتح للطلب (تعليم كمقروء)</span><span class="sub">المالك (Owner) · <span dir="ltr">2026-09-30 11:05</span></span></li><li><span>تغيير الحالة: تم الاستلام ← قيد المراجعة</span><span class="sub">المالك (Owner) · <span dir="ltr">2026-10-01 09:12</span></span></li><li><span>إضافة ملاحظة</span><span class="sub">المالك (Owner) · <span dir="ltr">2026-10-01 09:10</span></span></li></ul></section></div></div></main></div><p class="legend">LOW-FI WIREFRAME — تخطيط وسلوك فقط، بلا هوية بصرية (ملفات الهوية غير متوفرة). "بيانات تجريبية" و"عيّنة" = قيم توضيحية وليست بيانات حقيقية. نطاق سنوات الميلاد تقني مؤقت ولا يمثل شرط عمر. الـDashboard للمالك فقط (Owner only) — التحقق من الصلاحية في الخادم، وليس بإخفاء الواجهة.</p></body></html>

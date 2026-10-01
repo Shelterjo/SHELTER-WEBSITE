@@ -1,0 +1,194 @@
+<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>طلب توظيف — نموذج A</title><style>
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:"DejaVu Sans",system-ui,sans-serif;color:#111;background:#fff;font-size:16px;line-height:1.5}
+:focus-visible{outline:3px solid #111;outline-offset:2px}
+a{color:#111}p{margin:0 0 8px}
+.lnk,.rows a:not(.btn){display:inline-flex;align-items:center;min-height:44px}h1,h2,h3{line-height:1.35}
+.wf-tag{background:#222;color:#fff;font-size:12px;padding:4px 12px}
+.sample{display:inline-block;font-size:12px;font-weight:700;background:#ffe9a8;color:#000;border-radius:4px;padding:0 6px;vertical-align:middle}
+.vh{position:absolute!important;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.site{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:56px;padding:0 16px;border-bottom:1px solid #ddd}
+.logo{font-weight:700;letter-spacing:.06em;font-size:15px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;min-width:44px;padding:0 16px;border:1.5px solid #111;border-radius:10px;background:#fff;color:#111;font:inherit;font-size:15px;text-decoration:none;cursor:pointer;text-align:center}
+.btn.pri{background:#111;color:#fff}.btn.icon{padding:0;width:44px}.btn.ghost{border-color:#999}
+.btn.danger{border-width:2.5px;border-style:double;font-weight:700}.btn[disabled],.btn[aria-disabled=true]{border-color:#999;color:#555;background:#f2f2f2;cursor:not-allowed}
+.btn.block{display:flex;width:100%}
+.legend{margin:24px 16px 16px;font-size:12px;color:#555;border-top:1px solid #e5e5e5;padding-top:8px}
+.note{font-size:13px;color:#444}
+/* public form */
+.wrap{max-width:680px;margin:0 auto;padding:0 16px 32px}
+.intro h1{font-size:26px;margin:20px 0 6px}.intro p{color:#444;font-size:14px}
+.ph{display:block;border:1.5px dashed #999;border-radius:10px;padding:8px 12px;color:#444;font-size:14px;margin:6px 0 10px}
+.group{border:1px solid #d6d6d6;border-radius:14px;padding:16px;margin:0 0 18px}
+.group>h2{font-size:19px;margin:0 0 14px}
+.f{margin:0 0 18px;min-width:0}.f:last-child{margin-bottom:0}
+fieldset{border:0;margin:0;padding:0;min-width:0}
+.f>label,.lbl,.f>legend{display:block;font-weight:700;font-size:15px;margin:0 0 6px;padding:0}
+.req{margin-inline-start:4px;font-weight:700}
+.hint{display:block;font-size:13px;color:#555;margin:-2px 0 6px}
+input[type=text],input[type=tel],input[type=email],input[type=search],input[type=date],input[type=time],select,textarea{display:block;width:100%;min-height:48px;border:1.5px solid #767676;border-radius:10px;padding:10px 12px;font:inherit;font-size:16px;background:#fff;color:#111}
+::placeholder{color:#666;opacity:1}
+textarea{min-height:104px;resize:vertical}
+input[type=radio],input[type=checkbox]{width:24px;height:24px;margin:0;flex:none;accent-color:#111}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.tap{display:inline-flex;align-items:center;gap:10px;min-height:44px;min-width:44px;padding:4px 14px;border:1.5px solid #999;border-radius:10px;cursor:pointer;font-size:15px}
+.tap:has(input:checked){border-color:#111;background:#f2f2f2;font-weight:700}
+.tap.consent{align-items:flex-start;padding:12px 14px;font-size:15px;line-height:1.6}.tap.consent input{margin-top:2px}
+.dob{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr) minmax(0,1.4fr);gap:8px}
+.dob label{display:block;font-size:13px;color:#444;margin-bottom:4px}
+.ig{display:flex;align-items:stretch}.ig input{border-start-end-radius:0;border-end-end-radius:0;min-width:0}
+.ig .sfx{display:flex;align-items:center;padding:0 14px;border:1.5px solid #767676;border-inline-start:0;border-radius:0 10px 10px 0;background:#f2f2f2;font-weight:700;white-space:nowrap}
+html[dir=rtl] .ig .sfx{border-radius:10px 0 0 10px}
+.cond{border-inline-start:4px solid #bbb;padding-inline-start:12px;margin-top:12px}
+.cond .f{margin-bottom:14px}
+.f>.drop,.drop{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;min-height:120px;border:2px dashed #767676;border-radius:14px;padding:16px;text-align:center;cursor:pointer;background:#fafafa;font-weight:700}
+.drop span{display:block}.drop small{display:block;font-weight:400;font-size:13px;color:#555}
+.vh:focus-visible+.drop{outline:3px solid #111;outline-offset:2px}
+.files{list-style:none;margin:10px 0 0;padding:0;display:grid;gap:8px}
+.file{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;border:1px solid #ccc;border-radius:10px;padding:8px 10px;min-height:56px}
+.file .fname{flex:1 1 160px;min-width:0;overflow-wrap:anywhere;font-size:14px}
+.fmeta{font-size:13px;color:#555}
+.badge{display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:700;border:1.5px solid #111;border-radius:6px;padding:1px 8px;background:#fff}
+.badge.cv{background:#111;color:#fff}
+.bar{flex-basis:100%;height:8px;border-radius:4px;background:#e5e5e5;overflow:hidden}.bar i{display:block;height:100%;width:60%;background:#444}
+.file.bad{border:2px solid #111;border-inline-start-width:6px}
+.alert{border:2px solid #111;border-inline-start-width:8px;border-radius:10px;padding:12px 14px;margin:0 0 16px;background:#fff}
+.alert h2,.alert h3{font-size:17px;margin:0 0 6px}.alert p{font-size:14px}
+.esum{border:3px solid #111;border-radius:12px;padding:14px 16px;margin:0 0 18px;background:#fff}
+.esum:focus{outline:3px solid #111;outline-offset:3px}
+.esum-h{font-size:18px;margin:0 0 6px;display:flex;gap:8px;align-items:center}
+.esum ul{margin:0;padding:0;list-style:none}.esum li a{display:flex;align-items:center;min-height:44px;font-weight:700;text-underline-offset:3px}
+.err{display:flex;gap:6px;align-items:flex-start;font-weight:700;font-size:14px;margin:0 0 6px}
+.err svg{flex:none;margin-top:2px}
+.has-err{border-inline-start:6px solid #111;padding-inline-start:10px}
+.has-err input,.has-err select,.has-err textarea{border-width:3px;border-color:#111}
+.submit{margin-top:8px}
+.prog{margin:0 0 16px}.prog-t{font-weight:700;font-size:15px;margin:0 0 8px}
+.bars{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;list-style:none;margin:0;padding:0}.bars li{height:8px;border-radius:4px;background:#ddd}.bars li.on{background:#111}
+.nav{display:flex;gap:10px;justify-content:space-between;margin-top:8px}.nav .btn{flex:1}
+.center{text-align:center}.appno{font-size:26px;font-weight:700;letter-spacing:.04em;margin:4px 0}
+.card{border:1px solid #d6d6d6;border-radius:14px;padding:18px 16px;margin:16px 0}
+.stack{display:flex;flex-direction:column;gap:10px;margin-top:14px}
+/* dashboard */
+.dtop{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:60px;padding:0 20px;border-bottom:1px solid #ddd}
+.dtop-r{display:flex;align-items:center;gap:10px;font-size:14px}
+.dshell{display:grid;grid-template-columns:200px minmax(0,1fr)}
+.dside{border-inline-end:1px solid #e2e2e2;padding:14px 10px}
+.dside-h{font-weight:700;font-size:13px;color:#444;margin:4px 10px 8px}
+.dside a,.mtabs a{display:flex;align-items:center;justify-content:space-between;gap:6px;min-height:44px;padding:0 12px;border-radius:10px;color:#111;text-decoration:none;font-size:15px}
+.dside a[aria-current=page],.mtabs a[aria-current=page]{background:#111;color:#fff;font-weight:700}
+.dmain{padding:18px 22px 40px;min-width:0;max-width:1320px}
+.mtop{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:56px;padding:0 12px;border-bottom:1px solid #ddd}
+.mtabs{display:flex;gap:6px;overflow-x:auto;padding:8px 12px;border-bottom:1px solid #eee;scrollbar-width:none}
+.mtabs a{flex:none;border:1.5px solid #bbb;border-radius:22px;font-size:14px;white-space:nowrap}
+.mmain{padding:12px 16px 32px}
+.count{display:inline-flex;align-items:center;justify-content:center;min-width:24px;height:24px;padding:0 7px;border-radius:12px;background:#111;color:#fff;font-size:12px;font-weight:700;white-space:nowrap}
+[aria-current=page] .count{background:#fff;color:#111}
+.ptitle{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;margin:0 0 14px}
+.ptitle h1{font-size:24px;margin:0}
+.sub{font-size:13px;color:#555}
+.kpis{list-style:none;margin:0 0 20px;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.kpi{display:flex;flex-direction:column;justify-content:space-between;gap:4px;min-height:88px;border:1.5px solid #bbb;border-radius:14px;padding:12px 14px;text-decoration:none;color:#111}
+.kpi-l{font-size:14px}.kpi-n{font-size:28px;font-weight:700;font-variant-numeric:tabular-nums}
+.panel{border:1px solid #d6d6d6;border-radius:14px;padding:14px 16px;margin:0 0 16px}
+.panel>h2{font-size:18px;margin:0 0 10px}
+.rows{list-style:none;margin:0;padding:0}.rows li{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:4px 10px;border-top:1px solid #eee;padding:8px 0;min-height:56px}.rows li:first-child{border-top:0}
+.new{display:inline-flex;align-items:center;font-size:12px;font-weight:700;background:#111;color:#fff;border-radius:6px;padding:1px 8px;white-space:nowrap}
+.prev{display:inline-flex;align-items:center;font-size:12px;font-weight:700;border:1.5px dashed #111;border-radius:6px;padding:1px 8px}
+.st{display:inline-block;border:1.5px solid #555;border-radius:999px;padding:1px 10px;font-size:13px;white-space:nowrap}
+.toolbar{display:flex;flex-wrap:wrap;align-items:flex-end;gap:10px 12px;margin:0 0 12px}
+.toolbar .f{margin:0}.toolbar .grow{flex:1 1 260px}
+.toolbar label,.toolbar legend{font-size:13px;font-weight:700;margin-bottom:4px;display:block}
+.seg{display:flex;gap:6px}
+.chips{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:0 0 12px;font-size:14px}
+.chip{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 14px;border:1.5px solid #999;border-radius:22px;text-decoration:none;color:#111;font-size:14px;background:#fff}
+.tbl-wrap{overflow-x:auto;border:1px solid #ddd;border-radius:12px}
+.tbl{width:100%;border-collapse:collapse;font-size:14px}
+.tbl caption{text-align:start;padding:10px 12px;font-size:13px;color:#555}
+.tbl th,.tbl td{padding:6px 8px;text-align:start;vertical-align:middle;border-top:1px solid #e6e6e6}
+.tbl thead th{font-size:13px;color:#222;background:#f4f4f4}
+.tbl tbody tr{height:60px}.compact .tbl tbody tr{height:44px}.compact .tbl td,.compact .tbl th{padding-block:0}
+.tbl th[scope=row]{font-weight:400}.tbl .nm{display:inline-flex;align-items:center;min-height:44px}
+tr.unread .nm,.unread .acard-n a{font-weight:700}
+.tbl .cb{width:52px}
+.cbx{border:0;padding:0;justify-content:center}
+.nowrap{white-space:nowrap}
+.pager{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:14px 0 0}
+.pager .pg{padding:0;width:44px}.pager [aria-current=page]{background:#111;color:#fff}
+.pager .sep{padding:0 4px}
+.jump{display:flex;align-items:center;gap:6px;margin-inline-start:auto;font-size:14px}.jump input{width:72px;min-height:44px}
+.bulk{display:flex;flex-wrap:wrap;align-items:flex-end;gap:10px;border:2px solid #111;border-radius:12px;padding:10px 12px;margin:0 0 12px;background:#f6f6f6}
+.bulk .f{margin:0}.bulk label{font-size:13px;font-weight:700;display:block;margin-bottom:4px}
+.bulk-n{font-weight:700;margin-inline-end:auto;align-self:center}
+.acards{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+@media (min-width:700px){.acards{grid-template-columns:repeat(2,minmax(0,1fr))}.kpis{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.acard{display:grid;grid-template-columns:44px minmax(0,1fr) 44px;gap:8px;align-items:start;border:1px solid #d0d0d0;border-radius:14px;padding:10px}
+.acard-n{margin:0;display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px}.acard-n a{display:inline-flex;align-items:center;min-height:44px}
+.acard p{font-size:14px;margin:0 0 4px}
+.mbar{position:fixed;inset-inline:0;bottom:0;z-index:30;background:#fff;border-top:2px solid #111;padding:8px 12px;display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px}
+.mbar .bulk-n{grid-column:1/-1;margin:0;font-size:14px}
+.has-mbar{padding-bottom:180px}
+.kv{display:grid;grid-template-columns:minmax(0,1fr);gap:0;margin:0}
+.kv>div{display:grid;grid-template-columns:minmax(110px,40%) minmax(0,1fr);gap:8px;border-top:1px solid #eee;padding:8px 0}.kv>div:first-child{border-top:0}
+.kv dt{color:#444;font-size:14px}.kv dd{margin:0;font-weight:700;overflow-wrap:anywhere}
+.masked{font-family:"DejaVu Sans Mono",monospace;letter-spacing:.06em}
+.inline{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.appgrid{display:grid;grid-template-columns:minmax(0,1fr);gap:16px}
+.toc{display:none}
+.notes{list-style:none;margin:0 0 12px;padding:0}.notes li{border:1px solid #ddd;border-radius:10px;padding:10px 12px;margin:0 0 8px}.notes .by{font-size:13px;color:#555;margin:0}
+.ovl{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:50}
+.dlg{position:fixed;z-index:60;background:#fff;display:flex;flex-direction:column;max-height:calc(100dvh - 24px)}
+.dlg.modal{top:50%;left:50%;transform:translate(-50%,-50%);width:min(560px,calc(100vw - 24px));border-radius:16px}
+.dlg.drawer{top:0;bottom:0;inset-inline-end:0;width:min(460px,100vw);max-height:none;border-radius:0}
+html[dir=rtl] .dlg.drawer{border-radius:0 16px 16px 0}
+.dlg.sheet{inset-inline:0;bottom:0;max-height:calc(100dvh - 40px);border-radius:18px 18px 0 0}
+.dhead{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 12px 10px 16px;border-bottom:1px solid #e5e5e5}
+html[dir=rtl] .dhead{padding:10px 16px 10px 12px}
+.dhead h2{font-size:19px;margin:0}
+.dbody{overflow:auto;padding:14px 16px;flex:1 1 auto;min-height:0}
+.dfoot{display:flex;flex-wrap:wrap;gap:8px;padding:10px 16px;border-top:1px solid #e5e5e5}
+.dfoot .btn{flex:1 1 140px}
+.colrow{display:grid;grid-template-columns:44px minmax(0,1fr) 44px 44px;gap:6px;align-items:center;border-top:1px solid #eee;padding:4px 0}
+.colrow .tap{border:0;padding:0 6px}
+.checks{display:flex;flex-wrap:wrap;gap:6px}.checks .tap{font-size:14px;padding:2px 10px}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
+.warn{border:2px dashed #111;border-radius:10px;padding:10px 12px;font-size:14px;margin:8px 0}
+@media (min-width:1024px){
+ .kpis{grid-template-columns:repeat(4,minmax(0,1fr))}
+ .appgrid{grid-template-columns:190px minmax(0,1fr)}
+ .toc{display:block;position:sticky;top:12px;align-self:start}.toc a{display:flex;align-items:center;min-height:44px;padding:0 10px;border-radius:8px;font-size:14px;text-decoration:none;color:#111}
+ .appmain section{scroll-margin-top:12px}
+ .wrap.wide{max-width:760px}
+}
+</style></head><body class=""><div class="wf-tag">LOW-FI WIREFRAME · AR · CAREERS FORM · A (صفحة واحدة) · الجنسية: أردني ← الرقم الوطني</div><header class="site"><span class="logo">SHELTER COFFEE</span><a class="btn ghost" href="en-careers.html" lang="en" hreflang="en">EN</a></header><main class="wrap"><div class="intro"><h1>التوظيف — طلب توظيف</h1><span class="ph">نص تعريفي قصير عن العمل في SHELTER COFFEE — MISSING — OWNER INPUT REQUIRED</span><p>جميع الحقول مطلوبة ومُعلَّمة بـ <b aria-hidden="true">*</b><span class="vh">نجمة</span>. الملفات الإضافية بعد السيرة الذاتية اختيارية. يمكنك الكتابة بالعربية أو الإنجليزية.</p><p><a class="lnk" href="track.html">لديك طلب سابق؟ تابع حالة طلبك</a></p></div><form class="app" action="success.html" method="post" novalidate><section class="group" aria-labelledby="g-personal"><h2 id="g-personal">البيانات الشخصية</h2><div class="f" data-f="name" data-kind="text" data-first="name" data-msg="أدخل الاسم الكامل"><label for="name">الاسم الكامل<span class="req" aria-hidden="true">*</span></label><span class="hint" id="h-name">بالعربية أو الإنجليزية</span><input type="text" id="name" name="name" dir="auto" required autocomplete="name" data-d="h-name" aria-describedby="h-name"></div><div class="f" data-f="phone" data-kind="tel" data-first="phone" data-msg="أدخل رقم الهاتف"><label for="phone">رقم الهاتف<span class="req" aria-hidden="true">*</span></label><span class="hint" id="h-phone">مثل 079… أو ‎+962…</span><input type="tel" id="phone" name="phone" dir="auto" required inputmode="tel" autocomplete="tel" data-d="h-phone" aria-describedby="h-phone"></div><div class="f" data-f="email" data-kind="email" data-first="email" data-msg="أدخل البريد الإلكتروني"><label for="email">البريد الإلكتروني<span class="req" aria-hidden="true">*</span></label><input type="email" id="email" name="email" dir="auto" required autocomplete="email"></div><fieldset class="f" data-f="gender" data-kind="radio" data-first="gender-1" data-msg="اختر الجنس"><legend>الجنس<span class="req" aria-hidden="true">*</span></legend><div class="opts"><label class="tap"><input type="radio" id="gender-1" name="gender" value="ذكر" required> ذكر</label><label class="tap"><input type="radio" id="gender-2" name="gender" value="أنثى" required> أنثى</label></div></fieldset><fieldset class="f" data-f="dob" data-kind="dob" data-first="dob-d" data-msg="اختر تاريخ الميلاد: اليوم والشهر والسنة"><legend>تاريخ الميلاد<span class="req" aria-hidden="true">*</span></legend><div class="dob"><div><label for="dob-d">اليوم</label><select id="dob-d" name="dob-d" required><option value="">اختر</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option></select></div><div><label for="dob-m">الشهر</label><select id="dob-m" name="dob-m" required><option value="">اختر</option><option value="1">1 — كانون الثاني</option><option value="2">2 — شباط</option><option value="3">3 — آذار</option><option value="4">4 — نيسان</option><option value="5">5 — أيار</option><option value="6">6 — حزيران</option><option value="7">7 — تموز</option><option value="8">8 — آب</option><option value="9">9 — أيلول</option><option value="10">10 — تشرين الأول</option><option value="11">11 — تشرين الثاني</option><option value="12">12 — كانون الأول</option></select></div><div><label for="dob-y">السنة</label><select id="dob-y" name="dob-y" required><option value="">اختر</option><option value="2010">2010</option><option value="2009">2009</option><option value="2008">2008</option><option value="2007">2007</option><option value="2006">2006</option><option value="2005">2005</option><option value="2004">2004</option><option value="2003">2003</option><option value="2002">2002</option><option value="2001">2001</option><option value="2000">2000</option><option value="1999">1999</option><option value="1998">1998</option><option value="1997">1997</option><option value="1996">1996</option><option value="1995">1995</option><option value="1994">1994</option><option value="1993">1993</option><option value="1992">1992</option><option value="1991">1991</option><option value="1990">1990</option><option value="1989">1989</option><option value="1988">1988</option><option value="1987">1987</option><option value="1986">1986</option><option value="1985">1985</option><option value="1984">1984</option><option value="1983">1983</option><option value="1982">1982</option><option value="1981">1981</option><option value="1980">1980</option><option value="1979">1979</option><option value="1978">1978</option><option value="1977">1977</option><option value="1976">1976</option><option value="1975">1975</option><option value="1974">1974</option><option value="1973">1973</option><option value="1972">1972</option><option value="1971">1971</option><option value="1970">1970</option><option value="1969">1969</option><option value="1968">1968</option><option value="1967">1967</option><option value="1966">1966</option><option value="1965">1965</option><option value="1964">1964</option><option value="1963">1963</option><option value="1962">1962</option><option value="1961">1961</option><option value="1960">1960</option><option value="1959">1959</option><option value="1958">1958</option><option value="1957">1957</option><option value="1956">1956</option><option value="1955">1955</option><option value="1954">1954</option><option value="1953">1953</option><option value="1952">1952</option><option value="1951">1951</option><option value="1950">1950</option><option value="1949">1949</option><option value="1948">1948</option><option value="1947">1947</option><option value="1946">1946</option></select></div></div></fieldset><div class="f" data-f="marital" data-kind="select" data-first="marital" data-msg="اختر الحالة الاجتماعية"><label for="marital">الحالة الاجتماعية<span class="req" aria-hidden="true">*</span></label><select id="marital" name="marital" required><option value="">اختر</option><option>أعزب</option><option>متزوج</option><option>أخرى</option></select></div><fieldset class="f" data-f="nat" data-kind="radio" data-first="nat-1" data-msg="اختر الجنسية"><legend>الجنسية<span class="req" aria-hidden="true">*</span></legend><div class="opts"><label class="tap"><input type="radio" id="nat-1" name="nat" value="أردني" required checked> أردني</label><label class="tap"><input type="radio" id="nat-2" name="nat" value="غير أردني" required> غير أردني</label></div></fieldset><div class="cond" data-when="أردني"><div class="f" data-f="nid" data-kind="text" data-first="nid" data-msg="أدخل الرقم الوطني"><label for="nid">الرقم الوطني<span class="req" aria-hidden="true">*</span></label><input type="text" id="nid" name="nid" dir="auto" required></div></div><div class="cond" data-when="غير أردني" hidden><div class="f" data-f="natx" data-kind="text" data-first="natx" data-msg="اكتب جنسيتك"><label for="natx">ما هي جنسيتك؟<span class="req" aria-hidden="true">*</span></label><span class="hint" id="h-natx">بالعربية أو الإنجليزية</span><input type="text" id="natx" name="natx" dir="auto" required data-d="h-natx" aria-describedby="h-natx"></div><div class="f" data-f="doc" data-kind="text" data-first="doc" data-msg="أدخل رقم جواز السفر أو رقم وثيقة الهوية"><label for="doc">رقم جواز السفر أو رقم وثيقة الهوية<span class="req" aria-hidden="true">*</span></label><input type="text" id="doc" name="doc" dir="auto" required></div></div></section><section class="group" aria-labelledby="g-home"><h2 id="g-home">السكن</h2><div class="f" data-f="city" data-kind="select" data-first="city" data-msg="اختر المدينة"><label for="city">المدينة<span class="req" aria-hidden="true">*</span></label><span class="hint" id="h-city">القائمة الكاملة لمدن الأردن: PENDING DATA VERIFICATION — الخيارات الظاهرة عيّنة فقط</span><select id="city" name="city" required data-d="h-city" aria-describedby="h-city"><option value="">اختر</option><optgroup label="عيّنة — القائمة قيد التحقق"><option>مدينة تجريبية 1</option><option>مدينة تجريبية 2</option><option>مدينة تجريبية 3</option></optgroup></select></div><div class="f" data-f="area" data-kind="text" data-first="area" data-msg="أدخل المنطقة"><label for="area">المنطقة<span class="req" aria-hidden="true">*</span></label><span class="hint" id="h-area">بالعربية أو الإنجليزية — لا نطلب العنوان الكامل</span><input type="text" id="area" name="area" dir="auto" required data-d="h-area" aria-describedby="h-area"></div></section><section class="group" aria-labelledby="g-edu"><h2 id="g-edu">المؤهل والخبرة</h2><div class="f" data-f="edu" data-kind="select" data-first="edu" data-msg="اختر المؤهل العلمي"><label for="edu">المؤهل العلمي<span class="req" aria-hidden="true">*</span></label><select id="edu" name="edu" required><option value="">اختر</option><option>توجيهي ناجح</option><option>توجيهي راسب</option><option>بكالوريوس</option><option>ماستر</option><option>دكتوراه</option><option>على مقاعد الدراسة</option></select></div><div class="f" data-f="years" data-kind="select" data-first="years" data-msg="اختر سنوات الخبرة"><label for="years">سنوات الخبرة<span class="req" aria-hidden="true">*</span></label><select id="years" name="years" required><option value="">اختر</option><option>بدون خبرة</option><option>أقل من سنة</option><option>1–2 سنة</option><option>3–5 سنوات</option><option>6–10 سنوات</option><option>أكثر من 10 سنوات</option></select></div><fieldset class="f" data-f="same" data-kind="radio" data-first="same-1" data-msg="أجب عن سؤال الخبرة السابقة"><legend>هل لديك خبرة سابقة في نفس المجال أو الوظيفة التي تتقدم لها؟<span class="req" aria-hidden="true">*</span></legend><div class="opts"><label class="tap"><input type="radio" id="same-1" name="same" value="نعم" required> نعم</label><label class="tap"><input type="radio" id="same-2" name="same" value="لا" required> لا</label></div></fieldset><fieldset class="f" data-f="working" data-kind="radio" data-first="working-1" data-msg="أجب عن سؤال: هل تعمل حاليًا؟"><legend>هل تعمل حاليًا؟<span class="req" aria-hidden="true">*</span></legend><div class="opts"><label class="tap"><input type="radio" id="working-1" name="working" value="نعم" required> نعم</label><label class="tap"><input type="radio" id="working-2" name="working" value="لا" required> لا</label></div></fieldset></section><section class="group" aria-labelledby="g-work"><h2 id="g-work">معلومات العمل</h2><div class="f" data-f="job" data-kind="text" data-first="job" data-msg="اكتب الوظيفة المتقدم لها"><label for="job">الوظيفة المتقدم لها<span class="req" aria-hidden="true">*</span></label><span class="hint" id="h-job">اكتبها كما تريد، مثل: باريستا أو Cost Accountant</span><input type="text" id="job" name="job" dir="auto" required autocomplete="off" spellcheck="false" data-d="h-job" aria-describedby="h-job"></div><div class="f" data-f="salary" data-kind="salary" data-first="salary" data-msg="أدخل الراتب المتوقع بالأرقام"><label for="salary">الراتب المتوقع<span class="req" aria-hidden="true">*</span></label><span class="hint" id="h-salary">بالدينار الأردني، أرقام فقط</span><div class="ig"><input type="text" id="salary" name="salary" dir="auto" required inputmode="numeric" data-d="h-salary" aria-describedby="h-salary"><span class="sfx" aria-hidden="true">د.أ</span></div></div><fieldset class="f" data-f="license" data-kind="radio" data-first="license-1" data-msg="أجب عن سؤال رخصة القيادة"><legend>هل لديك رخصة قيادة؟<span class="req" aria-hidden="true">*</span></legend><div class="opts"><label class="tap"><input type="radio" id="license-1" name="license" value="نعم" required> نعم</label><label class="tap"><input type="radio" id="license-2" name="license" value="لا" required> لا</label></div></fieldset><div class="f" data-f="notes" data-kind="textarea" data-first="notes" data-msg="أدخل الملاحظات الإضافية"><label for="notes">ملاحظات إضافية<span class="req" aria-hidden="true">*</span></label><span class="hint" id="h-notes">بالعربية أو الإنجليزية</span><textarea id="notes" name="notes" dir="auto" required data-d="h-notes" aria-describedby="h-notes"></textarea></div></section><section class="group" aria-labelledby="g-files"><h2 id="g-files">المرفقات</h2><div class="f" data-f="files" data-kind="upload" data-first="files" data-msg="أرفق السيرة الذاتية" id="files-wrap"><span class="lbl" id="files-l">المرفقات<span class="req" aria-hidden="true">*</span></span><span class="hint" id="h-files">السيرة الذاتية مطلوبة. يمكنك إضافة شهادات أو دورات أو مستندات داعمة (إضافية واختيارية).</span><input class="vh" type="file" id="files" name="files" multiple required aria-labelledby="files-l files-d" data-d="h-files" aria-describedby="h-files"><label class="drop" for="files"><svg aria-hidden="true" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 16V4M6 10l6-6 6 6M4 20h16"/></svg><span id="files-d">اسحب الملفات هنا أو اضغط للرفع</span><small>CV والشهادات والدورات والمستندات الداعمة · تُرفض الملفات التنفيذية والخطرة</small></label><ul class="files" aria-label="الملفات المرفوعة"></ul><fieldset class="f cvpick" data-f="cvpick" data-kind="radio" data-first="cvpick-0" data-msg="اختر أي ملف هو السيرة الذاتية" hidden><legend>اختر أي ملف هو السيرة الذاتية<span class="req" aria-hidden="true">*</span></legend><div class="opts"></div></fieldset></div></section><section class="group" aria-labelledby="g-consent"><h2 id="g-consent">الإقرار</h2><div class="f" data-f="consent" data-kind="checkbox" data-first="consent" data-msg="يجب الموافقة على الإقرار لإرسال الطلب"><label class="tap consent"><input type="checkbox" id="consent" name="consent" required> <span>أقر بأن جميع المعلومات المدخلة في طلب التوظيف صحيحة، وأوافق على قيام SHELTER COFFEE بجمع واستخدام بياناتي لغرض دراسة طلب التوظيف والتواصل معي بشأنه.<span class="req" aria-hidden="true">*</span></span></label></div></section><div class="submit"><button type="submit" class="btn pri block">إرسال الطلب</button></div></form></main><p class="legend">LOW-FI WIREFRAME — تخطيط وسلوك فقط، بلا هوية بصرية (ملفات الهوية غير متوفرة). "بيانات تجريبية" و"عيّنة" = قيم توضيحية وليست بيانات حقيقية. نطاق سنوات الميلاد تقني مؤقت ولا يمثل شرط عمر. </p><script>(()=>{const f=document.querySelector('form.app');if(!f)return;
+const B=f.classList.contains('steps'),$=(s,r=f)=>r.querySelector(s),$$=(s,r=f)=>[...r.querySelectorAll(s)];
+const IC='<svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18v.5"/></svg>';
+const N=n=>n==1?'خطأ واحد':n==2?'خطأين':n<=10?n+' أخطاء':n+' خطأً';
+function nat(){const v=($('input[name=nat]:checked')||{}).value;$$('[data-when]').forEach(w=>{const on=w.dataset.when===v;w.hidden=!on;$$('input,select,textarea',w).forEach(i=>i.disabled=!on)})}
+const CV=/(^|[^a-z])(cv|resume|curriculum)([^a-z]|$)|سيرة/i;
+function files(inp){const ul=$('.files'),fs=[...inp.files];ul.innerHTML='';const cv=fs.findIndex(x=>CV.test(x.name));
+ fs.forEach((x,i)=>{const li=document.createElement('li');li.className='file';li.innerHTML='<span class="fname" dir="auto"></span><span class="fmeta">تم الرفع</span>'+(i===cv?'<span class="badge cv">السيرة الذاتية</span><span class="fmeta">تم التعرف تلقائيًا</span>':'');$('.fname',li).textContent=x.name;ul.append(li)});
+ const p=$('.cvpick');if(p){p.hidden=!(fs.length&&cv<0);p.querySelector('.opts').innerHTML=fs.map((x,i)=>'<label class="tap"><input type="radio" name="cvpick" id="cvpick-'+i+'" required> <span dir="auto"></span></label>').join('');$$('.cvpick .opts span').forEach((s,i)=>s.textContent=fs[i].name)}}
+function empty(w){const k=w.dataset.kind,c=$$('input,select,textarea',w);
+ if(k==='radio')return!c.some(i=>i.checked);if(k==='checkbox')return!c[0].checked;if(k==='dob')return c.some(s=>!s.value);
+ if(k==='upload')return!(c[0].files.length||$('.file',w));return!c[0].value.trim()}
+function check(w){if(empty(w))return w.dataset.msg;const k=w.dataset.kind,v=(($('input,textarea',w)||{}).value||'').trim();
+ if(k==='email'&&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v))return'أدخل بريدًا إلكترونيًا صحيحًا، مثل name@example.com';
+ if(k==='salary'&&!/^[0-9٠-٩]{1,6}$/.test(v))return'أدخل الراتب بالأرقام فقط، مثل 450';
+ if(k==='dob'){const[d,m,y]=$$('select',w).map(s=>+s.value);if(new Date(y,m-1,d).getMonth()!==m-1)return'تاريخ الميلاد غير صحيح: هذا الشهر لا يحتوي '+d+' يومًا'}return''}
+function clear(){$$('.esum,.err').forEach(e=>e.remove());$$('[aria-invalid]').forEach(i=>{i.removeAttribute('aria-invalid');i.dataset.d?i.setAttribute('aria-describedby',i.dataset.d):i.removeAttribute('aria-describedby')});$$('.has-err').forEach(w=>w.classList.remove('has-err'))}
+function validate(scope){clear();const bad=[];
+ $$('[data-f]',scope).filter(w=>!w.closest('[hidden]')).forEach(w=>{const m=check(w);if(!m)return;const p=document.createElement('p');p.className='err';p.id='e-'+w.dataset.f;p.innerHTML=IC+'<span>خطأ: '+m+'</span>';
+  const a=w.querySelector(':scope>.hint')||w.querySelector(':scope>legend,:scope>label,:scope>.lbl');a?a.after(p):w.prepend(p);w.classList.add('has-err');
+  $$('input,select,textarea',w).forEach(i=>{i.setAttribute('aria-invalid','true');i.setAttribute('aria-describedby',(p.id+' '+(i.dataset.d||'')).trim())});bad.push([w.dataset.first,m])});
+ if(!bad.length)return true;const s=document.createElement('div');s.className='esum';s.setAttribute('role','alert');s.tabIndex=-1;s.setAttribute('aria-labelledby','esum-h');
+ s.innerHTML='<h2 class="esum-h" id="esum-h">'+IC+(B?'يرجى تصحيح ':'تعذّر إرسال الطلب: يرجى تصحيح ')+N(bad.length)+'</h2><ul></ul>';
+ bad.forEach(([id,m])=>{const li=document.createElement('li'),a=document.createElement('a');a.href='#'+id;a.textContent=m;li.append(a);$('ul',s).append(li)});
+ (B?scope:f).prepend(s);s.scrollIntoView({block:'start'});s.focus({preventScroll:true});return false}
+const steps=$$('.step');let cur=Math.max(0,steps.findIndex(s=>!s.hidden));
+function show(i){steps.forEach((s,j)=>s.hidden=j!==i);cur=i;const n=JSON.parse(f.dataset.steps);$('.prog-t').textContent='الخطوة '+(i+1)+' من '+n.length+': '+n[i];
+ $$('.bars li').forEach((b,j)=>b.classList.toggle('on',j<=i));window.scrollTo(0,f.getBoundingClientRect().top+scrollY-8);$('.prog-t').focus({preventScroll:true})}
+f.addEventListener('change',e=>{if(e.target.name==='nat')nat();if(e.target.type==='file')files(e.target)});
+f.addEventListener('click',e=>{const a=e.target.closest('.esum a');if(a){e.preventDefault();const t=document.getElementById(a.hash.slice(1));t.closest('[data-f]').scrollIntoView({block:'start'});t.focus({preventScroll:true});return}
+ const n=e.target.closest('[data-nav]');if(n){if(n.dataset.nav==='next'){if(validate(steps[cur]))show(cur+1)}else{clear();show(cur-1)}}});
+f.addEventListener('submit',e=>{e.preventDefault();if(validate(B?steps[cur]:f))location.href='success.html'});nat()})();</script></body></html>

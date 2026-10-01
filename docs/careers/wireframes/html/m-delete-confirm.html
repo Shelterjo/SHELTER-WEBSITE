@@ -1,0 +1,163 @@
+<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>التوظيف — تأكيد الحذف النهائي</title><style>
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:"DejaVu Sans",system-ui,sans-serif;color:#111;background:#fff;font-size:16px;line-height:1.5}
+:focus-visible{outline:3px solid #111;outline-offset:2px}
+a{color:#111}p{margin:0 0 8px}
+.lnk,.rows a:not(.btn){display:inline-flex;align-items:center;min-height:44px}h1,h2,h3{line-height:1.35}
+.wf-tag{background:#222;color:#fff;font-size:12px;padding:4px 12px}
+.sample{display:inline-block;font-size:12px;font-weight:700;background:#ffe9a8;color:#000;border-radius:4px;padding:0 6px;vertical-align:middle}
+.vh{position:absolute!important;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.site{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:56px;padding:0 16px;border-bottom:1px solid #ddd}
+.logo{font-weight:700;letter-spacing:.06em;font-size:15px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;min-width:44px;padding:0 16px;border:1.5px solid #111;border-radius:10px;background:#fff;color:#111;font:inherit;font-size:15px;text-decoration:none;cursor:pointer;text-align:center}
+.btn.pri{background:#111;color:#fff}.btn.icon{padding:0;width:44px}.btn.ghost{border-color:#999}
+.btn.danger{border-width:2.5px;border-style:double;font-weight:700}.btn[disabled],.btn[aria-disabled=true]{border-color:#999;color:#555;background:#f2f2f2;cursor:not-allowed}
+.btn.block{display:flex;width:100%}
+.legend{margin:24px 16px 16px;font-size:12px;color:#555;border-top:1px solid #e5e5e5;padding-top:8px}
+.note{font-size:13px;color:#444}
+/* public form */
+.wrap{max-width:680px;margin:0 auto;padding:0 16px 32px}
+.intro h1{font-size:26px;margin:20px 0 6px}.intro p{color:#444;font-size:14px}
+.ph{display:block;border:1.5px dashed #999;border-radius:10px;padding:8px 12px;color:#444;font-size:14px;margin:6px 0 10px}
+.group{border:1px solid #d6d6d6;border-radius:14px;padding:16px;margin:0 0 18px}
+.group>h2{font-size:19px;margin:0 0 14px}
+.f{margin:0 0 18px;min-width:0}.f:last-child{margin-bottom:0}
+fieldset{border:0;margin:0;padding:0;min-width:0}
+.f>label,.lbl,.f>legend{display:block;font-weight:700;font-size:15px;margin:0 0 6px;padding:0}
+.req{margin-inline-start:4px;font-weight:700}
+.hint{display:block;font-size:13px;color:#555;margin:-2px 0 6px}
+input[type=text],input[type=tel],input[type=email],input[type=search],input[type=date],input[type=time],select,textarea{display:block;width:100%;min-height:48px;border:1.5px solid #767676;border-radius:10px;padding:10px 12px;font:inherit;font-size:16px;background:#fff;color:#111}
+::placeholder{color:#666;opacity:1}
+textarea{min-height:104px;resize:vertical}
+input[type=radio],input[type=checkbox]{width:24px;height:24px;margin:0;flex:none;accent-color:#111}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.tap{display:inline-flex;align-items:center;gap:10px;min-height:44px;min-width:44px;padding:4px 14px;border:1.5px solid #999;border-radius:10px;cursor:pointer;font-size:15px}
+.tap:has(input:checked){border-color:#111;background:#f2f2f2;font-weight:700}
+.tap.consent{align-items:flex-start;padding:12px 14px;font-size:15px;line-height:1.6}.tap.consent input{margin-top:2px}
+.dob{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr) minmax(0,1.4fr);gap:8px}
+.dob label{display:block;font-size:13px;color:#444;margin-bottom:4px}
+.ig{display:flex;align-items:stretch}.ig input{border-start-end-radius:0;border-end-end-radius:0;min-width:0}
+.ig .sfx{display:flex;align-items:center;padding:0 14px;border:1.5px solid #767676;border-inline-start:0;border-radius:0 10px 10px 0;background:#f2f2f2;font-weight:700;white-space:nowrap}
+html[dir=rtl] .ig .sfx{border-radius:10px 0 0 10px}
+.cond{border-inline-start:4px solid #bbb;padding-inline-start:12px;margin-top:12px}
+.cond .f{margin-bottom:14px}
+.f>.drop,.drop{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;min-height:120px;border:2px dashed #767676;border-radius:14px;padding:16px;text-align:center;cursor:pointer;background:#fafafa;font-weight:700}
+.drop span{display:block}.drop small{display:block;font-weight:400;font-size:13px;color:#555}
+.vh:focus-visible+.drop{outline:3px solid #111;outline-offset:2px}
+.files{list-style:none;margin:10px 0 0;padding:0;display:grid;gap:8px}
+.file{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;border:1px solid #ccc;border-radius:10px;padding:8px 10px;min-height:56px}
+.file .fname{flex:1 1 160px;min-width:0;overflow-wrap:anywhere;font-size:14px}
+.fmeta{font-size:13px;color:#555}
+.badge{display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:700;border:1.5px solid #111;border-radius:6px;padding:1px 8px;background:#fff}
+.badge.cv{background:#111;color:#fff}
+.bar{flex-basis:100%;height:8px;border-radius:4px;background:#e5e5e5;overflow:hidden}.bar i{display:block;height:100%;width:60%;background:#444}
+.file.bad{border:2px solid #111;border-inline-start-width:6px}
+.alert{border:2px solid #111;border-inline-start-width:8px;border-radius:10px;padding:12px 14px;margin:0 0 16px;background:#fff}
+.alert h2,.alert h3{font-size:17px;margin:0 0 6px}.alert p{font-size:14px}
+.esum{border:3px solid #111;border-radius:12px;padding:14px 16px;margin:0 0 18px;background:#fff}
+.esum:focus{outline:3px solid #111;outline-offset:3px}
+.esum-h{font-size:18px;margin:0 0 6px;display:flex;gap:8px;align-items:center}
+.esum ul{margin:0;padding:0;list-style:none}.esum li a{display:flex;align-items:center;min-height:44px;font-weight:700;text-underline-offset:3px}
+.err{display:flex;gap:6px;align-items:flex-start;font-weight:700;font-size:14px;margin:0 0 6px}
+.err svg{flex:none;margin-top:2px}
+.has-err{border-inline-start:6px solid #111;padding-inline-start:10px}
+.has-err input,.has-err select,.has-err textarea{border-width:3px;border-color:#111}
+.submit{margin-top:8px}
+.prog{margin:0 0 16px}.prog-t{font-weight:700;font-size:15px;margin:0 0 8px}
+.bars{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;list-style:none;margin:0;padding:0}.bars li{height:8px;border-radius:4px;background:#ddd}.bars li.on{background:#111}
+.nav{display:flex;gap:10px;justify-content:space-between;margin-top:8px}.nav .btn{flex:1}
+.center{text-align:center}.appno{font-size:26px;font-weight:700;letter-spacing:.04em;margin:4px 0}
+.card{border:1px solid #d6d6d6;border-radius:14px;padding:18px 16px;margin:16px 0}
+.stack{display:flex;flex-direction:column;gap:10px;margin-top:14px}
+/* dashboard */
+.dtop{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:60px;padding:0 20px;border-bottom:1px solid #ddd}
+.dtop-r{display:flex;align-items:center;gap:10px;font-size:14px}
+.dshell{display:grid;grid-template-columns:200px minmax(0,1fr)}
+.dside{border-inline-end:1px solid #e2e2e2;padding:14px 10px}
+.dside-h{font-weight:700;font-size:13px;color:#444;margin:4px 10px 8px}
+.dside a,.mtabs a{display:flex;align-items:center;justify-content:space-between;gap:6px;min-height:44px;padding:0 12px;border-radius:10px;color:#111;text-decoration:none;font-size:15px}
+.dside a[aria-current=page],.mtabs a[aria-current=page]{background:#111;color:#fff;font-weight:700}
+.dmain{padding:18px 22px 40px;min-width:0;max-width:1320px}
+.mtop{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:56px;padding:0 12px;border-bottom:1px solid #ddd}
+.mtabs{display:flex;gap:6px;overflow-x:auto;padding:8px 12px;border-bottom:1px solid #eee;scrollbar-width:none}
+.mtabs a{flex:none;border:1.5px solid #bbb;border-radius:22px;font-size:14px;white-space:nowrap}
+.mmain{padding:12px 16px 32px}
+.count{display:inline-flex;align-items:center;justify-content:center;min-width:24px;height:24px;padding:0 7px;border-radius:12px;background:#111;color:#fff;font-size:12px;font-weight:700;white-space:nowrap}
+[aria-current=page] .count{background:#fff;color:#111}
+.ptitle{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;margin:0 0 14px}
+.ptitle h1{font-size:24px;margin:0}
+.sub{font-size:13px;color:#555}
+.kpis{list-style:none;margin:0 0 20px;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.kpi{display:flex;flex-direction:column;justify-content:space-between;gap:4px;min-height:88px;border:1.5px solid #bbb;border-radius:14px;padding:12px 14px;text-decoration:none;color:#111}
+.kpi-l{font-size:14px}.kpi-n{font-size:28px;font-weight:700;font-variant-numeric:tabular-nums}
+.panel{border:1px solid #d6d6d6;border-radius:14px;padding:14px 16px;margin:0 0 16px}
+.panel>h2{font-size:18px;margin:0 0 10px}
+.rows{list-style:none;margin:0;padding:0}.rows li{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:4px 10px;border-top:1px solid #eee;padding:8px 0;min-height:56px}.rows li:first-child{border-top:0}
+.new{display:inline-flex;align-items:center;font-size:12px;font-weight:700;background:#111;color:#fff;border-radius:6px;padding:1px 8px;white-space:nowrap}
+.prev{display:inline-flex;align-items:center;font-size:12px;font-weight:700;border:1.5px dashed #111;border-radius:6px;padding:1px 8px}
+.st{display:inline-block;border:1.5px solid #555;border-radius:999px;padding:1px 10px;font-size:13px;white-space:nowrap}
+.toolbar{display:flex;flex-wrap:wrap;align-items:flex-end;gap:10px 12px;margin:0 0 12px}
+.toolbar .f{margin:0}.toolbar .grow{flex:1 1 260px}
+.toolbar label,.toolbar legend{font-size:13px;font-weight:700;margin-bottom:4px;display:block}
+.seg{display:flex;gap:6px}
+.chips{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:0 0 12px;font-size:14px}
+.chip{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 14px;border:1.5px solid #999;border-radius:22px;text-decoration:none;color:#111;font-size:14px;background:#fff}
+.tbl-wrap{overflow-x:auto;border:1px solid #ddd;border-radius:12px}
+.tbl{width:100%;border-collapse:collapse;font-size:14px}
+.tbl caption{text-align:start;padding:10px 12px;font-size:13px;color:#555}
+.tbl th,.tbl td{padding:6px 8px;text-align:start;vertical-align:middle;border-top:1px solid #e6e6e6}
+.tbl thead th{font-size:13px;color:#222;background:#f4f4f4}
+.tbl tbody tr{height:60px}.compact .tbl tbody tr{height:44px}.compact .tbl td,.compact .tbl th{padding-block:0}
+.tbl th[scope=row]{font-weight:400}.tbl .nm{display:inline-flex;align-items:center;min-height:44px}
+tr.unread .nm,.unread .acard-n a{font-weight:700}
+.tbl .cb{width:52px}
+.cbx{border:0;padding:0;justify-content:center}
+.nowrap{white-space:nowrap}
+.pager{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:14px 0 0}
+.pager .pg{padding:0;width:44px}.pager [aria-current=page]{background:#111;color:#fff}
+.pager .sep{padding:0 4px}
+.jump{display:flex;align-items:center;gap:6px;margin-inline-start:auto;font-size:14px}.jump input{width:72px;min-height:44px}
+.bulk{display:flex;flex-wrap:wrap;align-items:flex-end;gap:10px;border:2px solid #111;border-radius:12px;padding:10px 12px;margin:0 0 12px;background:#f6f6f6}
+.bulk .f{margin:0}.bulk label{font-size:13px;font-weight:700;display:block;margin-bottom:4px}
+.bulk-n{font-weight:700;margin-inline-end:auto;align-self:center}
+.acards{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+@media (min-width:700px){.acards{grid-template-columns:repeat(2,minmax(0,1fr))}.kpis{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.acard{display:grid;grid-template-columns:44px minmax(0,1fr) 44px;gap:8px;align-items:start;border:1px solid #d0d0d0;border-radius:14px;padding:10px}
+.acard-n{margin:0;display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px}.acard-n a{display:inline-flex;align-items:center;min-height:44px}
+.acard p{font-size:14px;margin:0 0 4px}
+.mbar{position:fixed;inset-inline:0;bottom:0;z-index:30;background:#fff;border-top:2px solid #111;padding:8px 12px;display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px}
+.mbar .bulk-n{grid-column:1/-1;margin:0;font-size:14px}
+.has-mbar{padding-bottom:180px}
+.kv{display:grid;grid-template-columns:minmax(0,1fr);gap:0;margin:0}
+.kv>div{display:grid;grid-template-columns:minmax(110px,40%) minmax(0,1fr);gap:8px;border-top:1px solid #eee;padding:8px 0}.kv>div:first-child{border-top:0}
+.kv dt{color:#444;font-size:14px}.kv dd{margin:0;font-weight:700;overflow-wrap:anywhere}
+.masked{font-family:"DejaVu Sans Mono",monospace;letter-spacing:.06em}
+.inline{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.appgrid{display:grid;grid-template-columns:minmax(0,1fr);gap:16px}
+.toc{display:none}
+.notes{list-style:none;margin:0 0 12px;padding:0}.notes li{border:1px solid #ddd;border-radius:10px;padding:10px 12px;margin:0 0 8px}.notes .by{font-size:13px;color:#555;margin:0}
+.ovl{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:50}
+.dlg{position:fixed;z-index:60;background:#fff;display:flex;flex-direction:column;max-height:calc(100dvh - 24px)}
+.dlg.modal{top:50%;left:50%;transform:translate(-50%,-50%);width:min(560px,calc(100vw - 24px));border-radius:16px}
+.dlg.drawer{top:0;bottom:0;inset-inline-end:0;width:min(460px,100vw);max-height:none;border-radius:0}
+html[dir=rtl] .dlg.drawer{border-radius:0 16px 16px 0}
+.dlg.sheet{inset-inline:0;bottom:0;max-height:calc(100dvh - 40px);border-radius:18px 18px 0 0}
+.dhead{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 12px 10px 16px;border-bottom:1px solid #e5e5e5}
+html[dir=rtl] .dhead{padding:10px 16px 10px 12px}
+.dhead h2{font-size:19px;margin:0}
+.dbody{overflow:auto;padding:14px 16px;flex:1 1 auto;min-height:0}
+.dfoot{display:flex;flex-wrap:wrap;gap:8px;padding:10px 16px;border-top:1px solid #e5e5e5}
+.dfoot .btn{flex:1 1 140px}
+.colrow{display:grid;grid-template-columns:44px minmax(0,1fr) 44px 44px;gap:6px;align-items:center;border-top:1px solid #eee;padding:4px 0}
+.colrow .tap{border:0;padding:0 6px}
+.checks{display:flex;flex-wrap:wrap;gap:6px}.checks .tap{font-size:14px;padding:2px 10px}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
+.warn{border:2px dashed #111;border-radius:10px;padding:10px 12px;font-size:14px;margin:8px 0}
+@media (min-width:1024px){
+ .kpis{grid-template-columns:repeat(4,minmax(0,1fr))}
+ .appgrid{grid-template-columns:190px minmax(0,1fr)}
+ .toc{display:block;position:sticky;top:12px;align-self:start}.toc a{display:flex;align-items:center;min-height:44px;padding:0 10px;border-radius:8px;font-size:14px;text-decoration:none;color:#111}
+ .appmain section{scroll-margin-top:12px}
+ .wrap.wide{max-width:760px}
+}
+</style></head><body class=""><div class="wf-tag">LOW-FI WIREFRAME · AR · OWNER DASHBOARD · MOBILE · تأكيد الحذف النهائي · بيانات تجريبية</div><header class="mtop"><button type="button" class="btn icon ghost" aria-label="قائمة الـDashboard"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button><span class="logo">التوظيف</span><a class="btn ghost" href="m-list.html?read=unread" aria-label="5 طلبات جديدة"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 16V11a6 6 0 1 1 12 0v5l2 2H4z"/><path d="M10 20a2 2 0 0 0 4 0"/></svg><span class="count" aria-hidden="true">5</span></a></header><nav class="mtabs" aria-label="أقسام التوظيف"><a href="m-overview.html">نظرة عامة</a><a href="m-list.html">الطلبات<span class="count">5 جديد</span></a><a href="m-interviews.html">المقابلات</a><a href="m-archived.html" aria-current="page">المؤرشفة</a><a href="m-list.html#saved">الفلاتر المحفوظة</a><a href="m-settings.html">الإعدادات</a></nav><main class="mmain"><div class="ptitle"><h1>الطلبات المؤرشفة</h1><span class="sample">بيانات تجريبية</span></div><p class="sub">المسار: نشط ← مؤرشف ← حذف نهائي. الحذف النهائي من هنا فقط، للمالك فقط، ولكل طلب على حدة. لا حذف تلقائي.</p><ul class="acards"><li class="acard" style="grid-template-columns:minmax(0,1fr)"><div><p class="acard-n"><b>متقدم تجريبي 30</b></p><p dir="ltr" style="text-align:right">JOB-2026-00087</p><p dir="auto">باريستا · أُرشف <span dir="ltr">2026-09-20</span></p><p>قبل الأرشفة: <span class="st">مرفوض</span></p><span class="inline"><button type="button" class="btn">استعادة</button><a class="btn danger" href="m-delete-confirm.html">حذف نهائي</a></span></div></li><li class="acard" style="grid-template-columns:minmax(0,1fr)"><div><p class="acard-n"><b>متقدم تجريبي 31</b></p><p dir="ltr" style="text-align:right">JOB-2026-00086</p><p dir="auto">محاسب تكاليف · أُرشف <span dir="ltr">2026-09-19</span></p><p>قبل الأرشفة: <span class="st">مقبول</span></p><span class="inline"><button type="button" class="btn">استعادة</button><a class="btn danger" href="m-delete-confirm.html">حذف نهائي</a></span></div></li><li class="acard" style="grid-template-columns:minmax(0,1fr)"><div><p class="acard-n"><b>متقدم تجريبي 32</b></p><p dir="ltr" style="text-align:right">JOB-2026-00085</p><p dir="auto">كاشير · أُرشف <span dir="ltr">2026-09-18</span></p><p>قبل الأرشفة: <span class="st">مرفوض</span></p><span class="inline"><button type="button" class="btn">استعادة</button><a class="btn danger" href="m-delete-confirm.html">حذف نهائي</a></span></div></li><li class="acard" style="grid-template-columns:minmax(0,1fr)"><div><p class="acard-n"><b>متقدم تجريبي 33</b></p><p dir="ltr" style="text-align:right">JOB-2026-00084</p><p dir="auto">مشرف · أُرشف <span dir="ltr">2026-09-17</span></p><p>قبل الأرشفة: <span class="st">تمت المقابلة</span></p><span class="inline"><button type="button" class="btn">استعادة</button><a class="btn danger" href="m-delete-confirm.html">حذف نهائي</a></span></div></li><li class="acard" style="grid-template-columns:minmax(0,1fr)"><div><p class="acard-n"><b>متقدم تجريبي 34</b></p><p dir="ltr" style="text-align:right">JOB-2026-00083</p><p dir="auto">Warehouse · أُرشف <span dir="ltr">2026-09-16</span></p><p>قبل الأرشفة: <span class="st">مرفوض</span></p><span class="inline"><button type="button" class="btn">استعادة</button><a class="btn danger" href="m-delete-confirm.html">حذف نهائي</a></span></div></li><li class="acard" style="grid-template-columns:minmax(0,1fr)"><div><p class="acard-n"><b>متقدم تجريبي 35</b></p><p dir="ltr" style="text-align:right">JOB-2026-00082</p><p dir="auto">Cost Accountant · أُرشف <span dir="ltr">2026-09-15</span></p><p>قبل الأرشفة: <span class="st">قيد المراجعة</span></p><span class="inline"><button type="button" class="btn">استعادة</button><a class="btn danger" href="m-delete-confirm.html">حذف نهائي</a></span></div></li></ul></main><div class="ovl" aria-hidden="true"></div><div class="dlg modal" role="dialog" aria-modal="true" aria-labelledby="del-h"><div class="dhead"><h2 id="del-h">حذف نهائي — للمالك فقط</h2><a class="btn icon ghost x" href="m-archived.html" aria-label="إغلاق"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></a></div><div class="dbody"><p><b>سيتم حذف الطلب <span dir="ltr">JOB-2026-00087</span> (متقدم تجريبي 30) نهائيًا، بما في ذلك:</b></p><ul><li>بيانات الطلب</li><li>بيانات الهوية الحساسة</li><li>المرفقات</li><li>الملاحظات الداخلية</li><li>بيانات المقابلة</li></ul><p class="warn">لا يمكن التراجع عن هذا الإجراء. يبقى في سجل التدقيق سجل مختصر بأن الحذف تم (Tombstone) دون أي بيانات شخصية.</p><div class="f"><label for="del-id">للتأكيد اكتب رقم الطلب: <span dir="ltr">JOB-2026-00087</span></label><input type="text" id="del-id" dir="auto" autocomplete="off"></div><label class="tap"><input type="checkbox" id="del-ok"> أفهم أن هذا الحذف نهائي ولا يمكن استرجاعه</label></div><div class=dfoot><button type="button" class="btn danger" disabled>حذف نهائي</button><a class="btn" href="m-archived.html">إلغاء</a></div></div><p class="legend">LOW-FI WIREFRAME — تخطيط وسلوك فقط، بلا هوية بصرية (ملفات الهوية غير متوفرة). "بيانات تجريبية" و"عيّنة" = قيم توضيحية وليست بيانات حقيقية. نطاق سنوات الميلاد تقني مؤقت ولا يمثل شرط عمر. الـDashboard للمالك فقط (Owner only) — التحقق من الصلاحية في الخادم، وليس بإخفاء الواجهة.</p></body></html>
