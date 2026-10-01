@@ -1,6 +1,6 @@
 # 09 — Architecture Options After Round 1 (مقترحات بانتظار قرارك)
 
-> **آخر تحديث:** 2026-10-01 · **كل البنود هنا `PROPOSED` — لا شيء معتمد.**
+> **آخر تحديث:** 2026-10-01 · كُتبت كمقترحات (`PROPOSED`). **الحالة الحالية لكل بند في [`../MASTER-DECISION-REGISTER.md`](../MASTER-DECISION-REGISTER.md):** AR-01 ✅ مبدئي (D-019) · AR-03 ✅ مبدئي (D-027) · AR-02 / AR-07 ما زالت `PROPOSED` (DB-15، DB-18).
 > مبنية على ردودك في الجولة 1 (D-007 → D-016 في [`../governance/DECISION-LOG.md`](../governance/DECISION-LOG.md)).
 > لا توجد هنا أي معلومة عن دول أو مدن أو فروع مستقبلية — الأمثلة تستخدم الأردن/إربد فقط لأنها المعتمدة.
 
