@@ -1,7 +1,7 @@
 # PHASE 01 — DISCOVERY & OWNER INTERVIEW
 
 **المشروع:** SHELTER COFFEE — Global Website Rebuild From Zero
-**الحالة:** 🟡 In progress — الجولة 1 ✅ · بانتظار: AR-01 + الجولة 2 (الفروع والتواصل)
+**الحالة:** 🟡 In progress — الجولة 1 ✅ · الجولة 2 ✅ جزئيًا · AR-01 ✅ مبدئيًا (Option C) · بانتظار: اعتماد شجرة الروابط + R2-08 → R2-11 + تفعيل الوصول
 **آخر تحديث:** 2026-10-01
 
 > لا Coding · لا Framework · لا Plugins · لا تغييرات Cloudflare/Cloudways/DNS · لا نشر.
@@ -20,6 +20,9 @@
 | 06 | [`06-owner-interview-round-1.md`](06-owner-interview-round-1.md) | الجولة الأولى (محدّثة): أساس العلامة، النطاق العالمي، الجمهور، الصفحات — 10 أسئلة |
 | 07 | [`07-question-backlog.md`](07-question-backlog.md) | كل الجولات R2–R12 + R2B (التوصيل) مرتبة حسب الأثر على الـArchitecture، والمواضيع المؤجلة بقرارك |
 | 08 | [`08-access-requests.md`](08-access-requests.md) | طلبات الصلاحيات (13 خدمة) — لكل خدمة: لماذا، المستوى، ماذا نفحص، المخاطرة |
+| 10 | [`10-url-architecture-draft.md`](10-url-architecture-draft.md) | مسودة الـURL Architecture: شجرة الروابط الكاملة + مقارنة ترتيب اللغة/الدولة (P1–P4) + محاكاة النقل للدومين العالمي |
+| 11 | [`11-social-accounts-verification.md`](11-social-accounts-verification.md) | الحسابات التي نعتقد أنها رسمية — تُؤكد حسابًا حسابًا |
+| 12 | [`12-homepage-screenshots-audit.md`](12-homepage-screenshots-audit.md) | جرد الرئيسية الحالية من لقطات الـOwner: الـHeader، الأقسام، الـFooter، الادعاءات، الصور، ملاحظات UX/Accessibility، إضافات WordPress، ملاحظة أمنية |
 | 09 | [`09-architecture-options-after-r1.md`](09-architecture-options-after-r1.md) | مقترحات بعد الجولة 1: اللغة/السوق/الدومين (AR-01)، نموذج المواقع، ترتيب الـCTA، أثر الجمهور، النشرة، جاهزية الطلب أونلاين |
 
 ## الحوكمة
@@ -32,7 +35,8 @@
 ## بوابة الخروج من Phase 01 (Exit Criteria)
 
 - [x] ردود الـOwner على الجولة الأولى (R1-01 → R1-10) — توضيح R1-03a مفتوح
-- [ ] اختيار الـOwner لبنية اللغة/السوق/الدومين (AR-01 / DB-02)
+- [x] اختيار مبدئي لبنية اللغة/السوق/الدومين: Option C (D-019)
+- [ ] اعتماد شجرة الروابط النهائية وترتيب اللغة/الدولة (`10`)
 - [ ] ردود الجولات R2 (الفروع والتواصل) و R2B (التوصيل) و R3 (المنيو)
 - [ ] قرار الـOwner على طلبات الصلاحيات AC-01 → AC-04
 - [ ] حسم بنود P0 في `03-verify-with-owner.md`

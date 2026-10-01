@@ -135,7 +135,7 @@
 
 **لماذا يهم:** The year appears on the About page, the homepage, the franchise page, the schema foundingDate and every 'X years of experience' claim. Three different years are live on the site today.
 
-**قرار الـOwner:** ✅ **حُسم (R1-03 → D-009):** 2018. "2019" و"منذ 2022" = OLD OR INCORRECT ولا تُستخدم. تاريخ السنوية 20/04 بانتظار توضيح (R1-03a).
+**قرار الـOwner:** ✅ **حُسم (تصحيح الـOwner → D-018):** **2019** + السنوية **20/04**. "2018" و"منذ 2022" = OLD OR INCORRECT ولا تُستخدم في الموقع ولا SEO ولا Schema ولا من نحن.
 
 ### VQ-09 — Main (drive-thru) branch street address and district
 
@@ -153,7 +153,7 @@
 
 **لماذا يهم:** The address is needed for the location page, the footer and the LocalBusiness schema, which currently has NO address (Semrush issue #45). It must also match the Google Business Profile for local SEO.
 
-**قرار الـOwner:** ⬜ لم يُحسم
+**قرار الـOwner:** 🟡 **جزئيًا (D-020):** الوصف المعتمد "إربد — بجانب صالة قصر النخيل / منطقة أرابيلا". صياغة الشارع والحي والعنوان الإنجليزي: تُتحقق من Google Business Profile ثم تُعرض على الـOwner.
 
 ### VQ-10 — City Centre branch floor
 
@@ -165,7 +165,7 @@
 
 **لماذا يهم:** Customers inside the mall need the right floor, and the branch page title and schema both state it.
 
-**قرار الـOwner:** ✅ **حُسم (R1-02 → D-008):** الطابق الأول. المعلم داخل المول (البنك الإسلامي الأردني) → R2-01.
+**قرار الـOwner:** ✅ **حُسم (D-008، D-020):** الطابق الأول، بجانب البنك الإسلامي الأردني.
 
 ### VQ-11 — Main branch / drive-thru opening hours
 
@@ -183,7 +183,7 @@
 
 **لماذا يهم:** The hours on the site, in the openingHoursSpecification schema and on the Google Business Profile must match. Directories currently show 5 different schedules.
 
-**قرار الـOwner:** ⬜ لم يُحسم
+**قرار الـOwner:** ✅ **حُسم (D-020):** السبت–الخميس 07:00 ص – 02:00 ص · الجمعة 08:00 ص – 02:00 ص. لا فرق معتمد للدرايف. الساعات الخاصة → نظام D-021.
 
 ### VQ-12 — City Centre branch opening hours (Friday especially)
 
@@ -198,7 +198,7 @@
 
 **لماذا يهم:** The Friday opening time differs by 5 hours between versions, and Friday closing differs too. Wrong hours lead customers to a closed branch.
 
-**قرار الـOwner:** ⬜ لم يُحسم
+**قرار الـOwner:** ✅ **حُسم (D-020):** السبت–الأربعاء 09:00 ص – 10:00 م · الخميس–الجمعة 09:00 ص – 11:00 م. ساعات المول الخاصة تُعرض كتعارض.
 
 ### VQ-13 — Phone numbers and what each one is for
 
@@ -214,7 +214,7 @@
 
 **لماذا يهم:** The contact-page routing, the click-to-call buttons, the schema telephone for each branch and the Google Business Profile phone all need to agree. Right now every directory sends all calls to the booking line.
 
-**قرار الـOwner:** ⬜ لم يُحسم
+**قرار الـOwner:** ⏸ **قرار الـOwner (D-022، D-023):** كل الأرقام PENDING ولا يُنشر أي رقم. تُسأل كل وظيفة بشكل مستقل (Main، DRIVE، HOUSE، Reservations، Complaints، Franchise، WhatsApp).
 
 ### VQ-14 — Official social media accounts
 
@@ -232,7 +232,7 @@
 
 **لماذا يهم:** These feed the footer and social links and the schema sameAs. Linking to a same-name account would send customers to a different business.
 
-**قرار الـOwner:** ⬜ لم يُحسم
+**قرار الـOwner:** 🟡 **قرار الـOwner (D-025):** لا اعتماد تلقائي — الجدول في `11-social-accounts-verification.md`، حسابًا حسابًا.
 
 ### VQ-15 — Google Maps listings, other place listings and the website URL they link to
 
@@ -248,7 +248,7 @@
 
 **لماذا يهم:** Name, address and phone must be consistent everywhere, and branch pages need map embeds and directions. The Google Business Profile is the main live source for hours and ratings, and we cannot see it from here.
 
-**قرار الـOwner:** ⬜ لم يُحسم
+**قرار الـOwner:** ⏳ **بانتظار الوصول (D-020، D-028):** الروابط والأسماء تُتحقق من Google Business Profile (AC-03).
 
 ### VQ-16 — Menu prices, price range and which menu is current
 
@@ -393,7 +393,7 @@
 
 **لماذا يهم:** This decides contact routing and the spelling shown on the site.
 
-**قرار الـOwner:** ⬜ لم يُحسم
+**قرار الـOwner:** 🟡 **جزئيًا (D-024):** `info@shelterjo.com` مرشح للبريد العام — يُتحقق قبل النشر.
 
 ### VQ-26 — Newsletter, loyalty list and HubSpot
 
