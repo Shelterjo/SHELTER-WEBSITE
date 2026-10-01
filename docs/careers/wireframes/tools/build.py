@@ -20,7 +20,7 @@ MONTHS = ['كانون الثاني', 'شباط', 'آذار', 'نيسان', 'أي
 YEARS = list(range(2010, 1945, -1))  # technical placeholder range (descending) — not an age rule
 CITY_SAMPLE = ['مدينة تجريبية 1', 'مدينة تجريبية 2', 'مدينة تجريبية 3']
 STATUSES = ['تم الاستلام', 'قيد المراجعة', 'مرشح للمقابلة', 'تمت المقابلة', 'مقبول', 'مرفوض', 'مؤرشف']
-SORTS = ['الأحدث أولًا', 'الأقدم أولًا', 'الراتب الأعلى ← الأقل', 'الراتب الأقل ← الأعلى', 'سنوات الخبرة الأعلى ← الأقل', 'سنوات الخبرة الأقل ← الأعلى']
+SORTS = ['الأحدث أولًا', 'الأقدم أولًا', 'الراتب الأعلى → الأقل', 'الراتب الأقل → الأعلى', 'سنوات الخبرة الأعلى → الأقل', 'سنوات الخبرة الأقل → الأعلى']  # verbatim M28 §39
 RANGES = ['اليوم', 'آخر 7 أيام', 'آخر 30 يوم', 'هذا الشهر', 'كل الوقت']
 LOCS = ['SHELTER COFFEE DRIVE', 'SHELTER COFFEE HOUSE']
 COLS = ['الاسم', 'الوظيفة المتقدم لها', 'المدينة', 'سنوات الخبرة', 'الراتب المتوقع', 'تاريخ التقديم', 'حالة الطلب']
@@ -150,8 +150,8 @@ html[dir=rtl] .ig .sfx{border-radius:10px 0 0 10px}
 .dside a[aria-current=page],.mtabs a[aria-current=page]{background:#111;color:#fff;font-weight:700}
 .dmain{padding:18px 22px 40px;min-width:0;max-width:1320px}
 .mtop{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:56px;padding:0 12px;border-bottom:1px solid #ddd}
-.mtabs{display:flex;gap:6px;overflow-x:auto;padding:8px 12px;border-bottom:1px solid #eee;scrollbar-width:none}
-.mtabs a{flex:none;border:1.5px solid #bbb;border-radius:22px;font-size:14px;white-space:nowrap}
+.mtabs{display:grid;grid-template-columns:repeat(auto-fit,minmax(88px,1fr));gap:6px;padding:8px 12px;border-bottom:1px solid #eee}
+.mtabs a{justify-content:center;flex-wrap:wrap;text-align:center;padding:2px 8px;border:1.5px solid #bbb;border-radius:12px;font-size:14px;line-height:1.3}
 .mmain{padding:12px 16px 32px}
 .count{display:inline-flex;align-items:center;justify-content:center;min-width:24px;height:24px;padding:0 7px;border-radius:12px;background:#111;color:#fff;font-size:12px;font-weight:700;white-space:nowrap}
 [aria-current=page] .count{background:#fff;color:#111}
@@ -200,7 +200,7 @@ tr.unread .nm,.unread .acard-n a{font-weight:700}
 .mbar .bulk-n{grid-column:1/-1;margin:0;font-size:14px}
 .has-mbar{padding-bottom:180px}
 .kv{display:grid;grid-template-columns:minmax(0,1fr);gap:0;margin:0}
-.kv>div{display:grid;grid-template-columns:minmax(110px,40%) minmax(0,1fr);gap:8px;border-top:1px solid #eee;padding:8px 0}.kv>div:first-child{border-top:0}
+.kv>div{display:grid;grid-template-columns:minmax(96px,34%) minmax(0,1fr);gap:8px;border-top:1px solid #eee;padding:8px 0}.kv>div:first-child{border-top:0}
 .kv dt{color:#444;font-size:14px}.kv dd{margin:0;font-weight:700;overflow-wrap:anywhere}
 .masked{font-family:"DejaVu Sans Mono",monospace;letter-spacing:.06em}
 .inline{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
@@ -219,7 +219,7 @@ html[dir=rtl] .dhead{padding:10px 16px 10px 12px}
 .dbody{overflow:auto;padding:14px 16px;flex:1 1 auto;min-height:0}
 .dfoot{display:flex;flex-wrap:wrap;gap:8px;padding:10px 16px;border-top:1px solid #e5e5e5}
 .dfoot .btn{flex:1 1 140px}
-.colrow{display:grid;grid-template-columns:44px minmax(0,1fr) 44px 44px;gap:6px;align-items:center;border-top:1px solid #eee;padding:4px 0}
+.cols{list-style:none;margin:0;padding:0}.colrow{display:grid;grid-template-columns:44px minmax(0,1fr) 44px 44px;gap:6px;align-items:center;border-top:1px solid #eee;padding:4px 0}
 .colrow .tap{border:0;padding:0 6px}
 .checks{display:flex;flex-wrap:wrap;gap:6px}.checks .tap{font-size:14px;padding:2px 10px}
 .two{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
@@ -548,7 +548,7 @@ def href(k, key):
     return f'{k}-list.html#saved' if key == 'saved' else f'{k}-{key}.html'
 
 def dpage(k, name, active, state, main, after='', cls=''):
-    cnt = '<span class="count">5 جديد</span>'
+    cnt = '<span class="count">5 جديد</span>' if k == 'd' else '<span class="count">5<span class="vh"> جديد</span></span>'
     links = ''.join(f'<a href="{href(k, key)}"{CUR if key == active else ""}>{esc(t)}{cnt if key == "list" else ""}</a>' for key, t in NAV)
     if k == 'd':
         top = (f'<header class="dtop"><span class="logo">SHELTER OWNER DASHBOARD</span><span class="dtop-r"><span class="sample">{SAMPLE}</span>'
@@ -771,7 +771,7 @@ def build_dashboard():
             rows = ''.join(f'<li class="colrow"><button type="button" class="btn icon ghost" aria-label="اسحب لإعادة ترتيب «{c}»">{I_DRAG}</button>'
                            f'<label class="tap"><input type="checkbox"{" checked" if c in COLS else ""}> {c}</label>'
                            f'<button type="button" class="btn icon ghost" aria-label="نقل «{c}» للأعلى">{I_U}</button><button type="button" class="btn icon ghost" aria-label="نقل «{c}» للأسفل">{I_D}</button></li>' for c in COLS + COLS_OPT)
-            body = f'<p class="sub">إظهار / إخفاء · سحب وإفلات لإعادة الترتيب (أو الأسهم بالكيبورد). يُحفظ التفضيل للمالك.</p><ul class="rows" style="list-style:none;padding:0">{rows}</ul>'
+            body = f'<p class="sub">إظهار / إخفاء · سحب وإفلات لإعادة الترتيب (أو الأسهم بالكيبورد). يُحفظ التفضيل للمالك.</p><ul class="cols">{rows}</ul>'
             dpage(k, 'd-list-columns.html', 'list', 'تخصيص الأعمدة', list_main(k),
                   dialog('modal', 'col-h', 'تخصيص الأعمدة', body, '<button type="button" class="btn pri">حفظ</button><button type="button" class="btn">استعادة الافتراضي</button>', 'd-list.html'))
         else:

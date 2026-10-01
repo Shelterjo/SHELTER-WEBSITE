@@ -19,6 +19,7 @@ const EDU = ['توجيهي ناجح', 'توجيهي راسب', 'بكالوريو
 const EXP = ['بدون خبرة', 'أقل من سنة', '1–2 سنة', '3–5 سنوات', '6–10 سنوات', 'أكثر من 10 سنوات'];
 const MARITAL = ['أعزب', 'متزوج', 'أخرى'];
 const STATUSES = ['تم الاستلام', 'قيد المراجعة', 'مرشح للمقابلة', 'تمت المقابلة', 'مقبول', 'مرفوض', 'مؤرشف'];
+const SORTS = ['الأحدث أولًا', 'الأقدم أولًا', 'الراتب الأعلى → الأقل', 'الراتب الأقل → الأعلى', 'سنوات الخبرة الأعلى → الأقل', 'سنوات الخبرة الأقل → الأعلى'];
 const RANGES = ['اليوم', 'آخر 7 أيام', 'آخر 30 يوم', 'هذا الشهر', 'كل الوقت'];
 const COLS = ['الاسم', 'الوظيفة المتقدم لها', 'المدينة', 'سنوات الخبرة', 'الراتب المتوقع', 'تاريخ التقديم', 'حالة الطلب'];
 const FILTERS = ['الاسم', 'رقم الهاتف', 'الوظيفة', 'المدينة', 'المؤهل العلمي', 'سنوات الخبرة', 'الحالة', 'الجنس', 'الجنسية', 'تاريخ التقديم'];
@@ -161,7 +162,7 @@ test.describe('careers · form behaviour', () => {
       expect(await page.getByLabel('المرفقات').and(page.locator('input[type=file]')).count()).toBe(1); // the section is also named المرفقات
       expect(await page.getByLabel(CONSENT).count()).toBe(1);
       for (const g of ['الجنس', 'الجنسية', 'هل لديك خبرة سابقة في نفس المجال أو الوظيفة التي تتقدم لها؟', 'هل تعمل حاليًا؟', 'هل لديك رخصة قيادة؟', 'تاريخ الميلاد'])
-        expect(await page.getByRole('group', { name: g, exact: true, includeHidden: true }).count(), g).toBe(1); // B keeps later steps hidden
+        expect(await page.getByRole('group', { name: new RegExp(`^${g.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\*?$`), includeHidden: true }).count(), g).toBe(1); // B keeps later steps hidden
     }
   });
 });
@@ -282,7 +283,8 @@ test.describe('careers · owner spec contract (dashboard)', () => {
       await expect(page.locator('#range')).toHaveValue('هذا الشهر');
       expect(await page.locator('main').textContent()).not.toMatch(/[%٪]/);
       await go('list');
-      expect(await page.locator('#sort option').count()).toBe(6);
+      expect(await page.locator('#sort option').allTextContents()).toEqual(SORTS);
+      await expect(page.locator('#sort')).toHaveValue(SORTS[0]); // newest first by default
       expect(await page.locator('#ps option').allTextContents()).toEqual(['25', '50', '100']);
       await expect(page.locator('#ps')).toHaveValue('50');
       await expect(page.getByLabel('بحث سريع')).toHaveAttribute('type', 'search');
