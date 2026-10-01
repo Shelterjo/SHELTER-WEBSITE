@@ -9,7 +9,7 @@
     'count' => null,
 ])
 <li {{ $attributes->class('ui-sidebar__item') }}>
-    <a class="ui-nav-link ui-sidebar__link" href="{{ $href }}" @if ($current) aria-current="page" @endif>
+    <a {{ (new \Illuminate\View\ComponentAttributeBag)->merge(array_filter(['class' => 'ui-nav-link ui-sidebar__link', 'href' => $href, 'aria-current' => $current ? 'page' : null])) }}>
         @if ($icon)
             <x-ui.icon :name="$icon" />
         @endif

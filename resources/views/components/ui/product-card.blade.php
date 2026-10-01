@@ -31,6 +31,7 @@
         throw new InvalidArgumentException('x-ui.product-card: the image needs explicit width and height (no layout shift).');
     }
     $level = max(2, min(6, (int) $level));
+    $nameAttributes = (new \Illuminate\View\ComponentAttributeBag)->merge(array_filter(['lang' => $nameLang]));
     $describedBy = implode(' ', array_filter([
         filled($secondary) ? $cardId.'-secondary' : null,
         filled($badge) ? $cardId.'-badge' : null,
@@ -64,15 +65,15 @@
     <div class="ui-product-card__body">
         <h{{ $level }} class="ui-product-card__name">
             @if ($href !== null)
-                <a {{ $actionAttributes }}><span @if ($nameLang) lang="{{ $nameLang }}" @endif>{{ $name }}</span></a>
+                <a {{ $actionAttributes }}><span {{ $nameAttributes }}>{{ $name }}</span></a>
             @elseif ($opens !== null)
-                <button {{ $actionAttributes }}><span @if ($nameLang) lang="{{ $nameLang }}" @endif>{{ $name }}</span></button>
+                <button {{ $actionAttributes }}><span {{ $nameAttributes }}>{{ $name }}</span></button>
             @else
-                <span @if ($nameLang) lang="{{ $nameLang }}" @endif>{{ $name }}</span>
+                <span {{ $nameAttributes }}>{{ $name }}</span>
             @endif
         </h{{ $level }}>
         @if (filled($secondary))
-            <p class="ui-product-card__secondary" id="{{ $cardId }}-secondary" @if ($secondaryLang) lang="{{ $secondaryLang }}" @endif>{{ $secondary }}</p>
+            <p {{ (new \Illuminate\View\ComponentAttributeBag)->merge(array_filter(['class' => 'ui-product-card__secondary', 'id' => $cardId.'-secondary', 'lang' => $secondaryLang])) }}>{{ $secondary }}</p>
         @endif
         @if (filled($badge))
             <p class="ui-product-card__badge" id="{{ $cardId }}-badge"><x-ui.badge>{{ $badge }}</x-ui.badge></p>

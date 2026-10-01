@@ -86,7 +86,8 @@
     border-style: dashed;
 }
 
-.ui-product-card--unavailable .ui-card__media {
+/* Only the picture fades: any text in the card (including an internal media placeholder) keeps full contrast. */
+.ui-product-card--unavailable .ui-card__media > :is(img, picture) {
     opacity: var(--ui-disabled-opacity);
 }
 
