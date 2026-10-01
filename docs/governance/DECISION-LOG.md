@@ -326,6 +326,7 @@
 | D-305 | التوحيد وحل التعارض: نظام واحد لكل وظيفة (One Media Library · Global Calendar · Master Data Hub · Design System · Audit Log · Notification Center · Owner Dashboard · Source of Truth per data type)؛ التعارض: آخر قرار صريح يفوز، لا دمج لقرارين متعارضين، والقديم SUPERSEDED لا يُستخدم | 2026-10-01 | Owner — M36 §04 (M36 §04) · M36 §03 (M36 §03) | ✅ Owner | 50 Build Mode & Delivery Governance | `APPROVED` |
 | D-306 | docs/TOOLCHAIN.md هو سجل الأدوات الوحيد (M37)؛ الـToolchain النهائي: PHPUnit, Larastan, Pint, TS strict, ESLint, Prettier, Vitest, Knip, Storybook(html-vite)+a11y, Playwright+axe+visual, Lighthouse CI, shelter:seo-audit, Sharp, Gitleaks, Semgrep CE, composer/npm audit, Trivy (FULL), ZAP (Staging), GitHub Actions. | 2026-10-01 | Owner — M37 (Development toolchain) | ✅ Owner | 41 Tooling | `APPROVED` |
 | D-307 | قاعدة التوضيح النهائية M38 = OWNER APPROVED · FROZEN · GLOBAL PROJECT RULE (مسجلة في CLAUDE.md). | 2026-10-01 | Owner — M38 (Owner clarification rule (global)) | ✅ Owner | 38 Governance | `APPROVED` (FROZEN) |
+| D-308 | **تفويض تنفيذ الإعداد:** الـOwner يمنح الوصول إلى Cloudways وCloudflare وGoogle، ويفوّض Claude بتنفيذ الإعداد التقني بنفسه. **الوصول يتم بأقل صلاحية، والقيم السرية في إعدادات البيئة فقط، وليس في المحادثة.** التغييرات الحساسة على Production (DNS، والتحويلات، وتعديل Google Business، والحذف النهائي) تبقى بموافقة صريحة على كل إجراء (M38 §10) | 2026-10-01 | Owner — "انا بعطيك صلاحيات وصول وانت فوت عدل كل اشي" | ✅ Owner | 33 Integrations / 34 Hosting | `APPROVED` |
 
 ## قرارات مفتوحة (PROPOSED — بانتظار الـOwner)
 
