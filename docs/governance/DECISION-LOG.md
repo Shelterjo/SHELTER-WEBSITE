@@ -140,6 +140,17 @@
 | D-121 | **نظام الكاشير (POS)** = LATER / MISSING. لا يوقف المشروع. `pos_item_id` و`external_item_id` فارغان | 2026-10-01 | R3 — P0 Owner Decisions | ✅ Owner | الـData Model | `APPROVED` |
 | D-122 | **تاريخ السريان:** أسعار الملف الرسمي سارية من **2026-10-01**. `Menu Version = MV-2026-10-01` · `valid_from = 2026-10-01` · VAT INCLUSIVE · JOD · `price_fils` (1 JOD = 1000 fils). لا Net Price ولا VAT Amount من عندنا | 2026-10-01 | R3 — P0 Owner Decisions | ✅ Owner | المنيو | `APPROVED` |
 | D-123 | **قبل إصدار v1.0** تُعرض فقط: العدد النهائي بعد DUP-01 · الأصناف التي تُباع وليست في الملف · Missing Data لها · جدول DUP-04 · Blockers التجميد · تصحيحات الأسماء كمجموعات. إغلاق Data Quality أولًا ثم اعتماد **MENU INVENTORY v1.0**. لا Menu IA ولا UX/UI | 2026-10-01 | R3 — P0 Owner Decisions | ✅ Owner | سير العمل | `APPROVED` |
+| D-124 | **DUP-04:** الأزواج الخمسة كلها **DIFFERENT PRODUCTS**: SHAKEN CARAMEL/CARAMEL LATTE · SHAKEN WHITE MOCHA/WHITE MOCHA · SHAKEN VANILLA/VANILLA LATTE · SHAKEN HAZELNUT/HAZELNUT LATTE · SHAKEN SALTED CARAMEL/SALTED CARAMEL LATTE. الاسم الكامل لـ#67 = **ICED SHAKEN SALTED CARAMEL** (normalized/display فقط) | 2026-10-01 | Final Owner Decisions — Naming & Duplicates | ✅ Owner | المنيو | `APPROVED` |
+| D-125 | **DUP-01 APPROVED:** #115 و#120 نفس الصنف. `PRD-00115` المعرّف الأساسي، مع حفظ كامل الـSource Lineage للسطرين. `PRD-00120` لا يُعاد استخدامه | 2026-10-01 | Final Owner Decisions — Naming & Duplicates | ✅ Owner | المعرّفات | `APPROVED` |
+| D-126 | **مجموعات الأسماء الإنجليزية G1 → G5 APPROVED:** G1 الأخطاء الإملائية · G2 FRAPE → FRAPPE · G3 أسماء SMOOTHIES بأسماء فواكه كاملة بدون تغيير المكونات · G4 RED BULL و(SUGAR-FREE) موحدان بلا دمج · G5 7UP / ESPRESSO DOUBLE / CROCCANTE / CHEESECAKE / AFFOGATO وحالات المجموعة المعروضة | 2026-10-01 | Final Owner Decisions — Naming & Duplicates | ✅ Owner | الأسماء | `APPROVED` |
+| D-127 | **G6 APPROVED:** TURKISH COFFEE S → TURKISH COFFEE SINGLE · D → TURKISH COFFEE DOUBLE · بالعربي: "قهوة تركية سينجل" · "قهوة تركية دوبل" | 2026-10-01 | Final Owner Decisions — Naming & Duplicates | ✅ Owner | الأسماء | `APPROVED` |
+| D-128 | **G7 APPROVED:** تصحيح الأخطاء العربية الواضحة ضمن المجموعة: شيلتر → شلتر · توحيد (بدون سكر) · مياه معدنية · سموذي — بدون تغيير معنى المنتج | 2026-10-01 | Final Owner Decisions — Naming & Duplicates | ✅ Owner | الأسماء | `APPROVED` |
+| D-129 | **G8 APPROVED:** بالإنجليزي `ICED SHAKEN` · بالعربي `آيس شيكن` — لا ترجمة حرفية مختلفة | 2026-10-01 | Final Owner Decisions — Naming & Duplicates | ✅ Owner | الأسماء | `APPROVED` |
+| D-130 | **C1:** اسم الفئة يبقى **SPECIALITY COFFEE** (لا يتغير إلى SPECIALTY) | 2026-10-01 | Final Owner Decisions — Naming & Duplicates | ✅ Owner | الفئات | `APPROVED` |
+| D-131 | **C2:** أسماء المنتجات الإنجليزية في العرض **ALL CAPS**. أسلوب عرض فقط، وليس جزءًا من Product Identity أو Product ID | 2026-10-01 | Final Owner Decisions — Naming & Duplicates | ✅ Owner | الـUX | `APPROVED` |
+| D-132 | **G9 APPROVED:** CAKE → كيك · COOKIES → كوكيز · والأسماء العربية الـ26 المقترحة للكيك والكوكيز كما هي | 2026-10-01 | Final Owner Decisions — Naming & Duplicates | ✅ Owner | الأسماء | `APPROVED` |
+| D-133 | **Source Preservation:** لا تغيير لـ`source_name_en` و`source_name_ar` و`source_category_name`. source = القيمة الأصلية · normalized = القيمة المصححة المعتمدة · display = القيمة المعروضة المعتمدة. تعديل الاسم لا يغيّر Product ID | 2026-10-01 | Final Owner Decisions — Naming & Duplicates | ✅ Owner | الـData Model | `APPROVED` |
+| D-134 | **إصدار MENU INVENTORY v1.0:** تطبيق كل القرارات · تنفيذ دمج DUP-01 فقط · لا دمج لـDUP-04 · تجميد Product IDs وCategory IDs · Menu Version `MV-2026-10-01` · تقرير Freeze مختصر · **انتظار موافقة الـOwner قبل Menu IA** | 2026-10-01 | Final Owner Decisions — Naming & Duplicates | ✅ Owner | سير العمل | `APPROVED` |
 
 ## قرارات مفتوحة (PROPOSED — بانتظار الـOwner)
 
@@ -160,7 +171,7 @@
 | DB-09 | اسم ومسار قسم المعرفة | Stage 6 | `PROPOSED` |
 | DB-10 | عرض الأسعار | — | ✅ البنية تدعم العرض الكامل (D-078) |
 | DB-21 | المصدر الوحيد للمنيو (SSOT) | ✅ A الآن + جاهزية C (D-085) | `APPROVED` |
-| DB-22 | Menu Data Model النهائي + بنية المعرّفات | **v0.4** في `17` · P0 مغلقة (D-109 → D-123) · 181 معرّفًا FREEZE-READY · 10 HOLD (DUP-04) | ⏳ أزواج DUP-04 + خطة دمج DUP-01 + اعتماد v1.0 (`20`) |
+| DB-22 | Menu Data Model النهائي + بنية المعرّفات | `17` v0.4 · **MENU INVENTORY v1.0** (`21`) · `CAT-001→011` · `PRD-00001→00192` مجمّدة | ✅ مجمّدة (D-134) · ⏳ موافقة الـOwner قبل Menu IA |
 | DB-11 | الـHost الرسمي | `www.shelterjo.com` | `PROPOSED` |
 | DB-12 | `shop.shelterjo.com` | يُفحص عند توفر الوصول (D-016) | `PENDING ACCESS` |
 | DB-15 | نموذج بيانات المواقع (Country → City → Location بأنواع وحالات ورؤية) | `09` AR-02 | `PROPOSED` |

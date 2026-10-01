@@ -16,7 +16,7 @@
 >
 > ما يلي هو النسخة الأصلية من الأسئلة والتصنيف، محفوظة للمرجع.
 > - **المعرّفات PROVISIONAL**، وغير مجمّدة حتى تُغلق أسئلة P0 ويصدر **Menu Inventory v1.0** المعتمد (D-090).
-> - الملف المنظم: [`menu/SHELTER-MENU-INVENTORY-v0.3.xlsx`](menu/SHELTER-MENU-INVENTORY-v0.3.xlsx). ورقة `P0_Owner_Review` فيها عمود للإجابة.
+> - الملف المنظم: [`menu/SHELTER-MENU-INVENTORY-v1.0.xlsx`](menu/SHELTER-MENU-INVENTORY-v1.0.xlsx). ورقة `P0_Owner_Review` فيها عمود للإجابة.
 > - الـData Model: [`17`](17-menu-data-model-draft.md) **v0.3**.
 > - التقرير الأصلي (11 بندًا): [`18`](18-official-menu-inventory-report.md).
 > - **لا Menu IA ولا UX/UI قبل إغلاق P0 (D-108).**

@@ -1,7 +1,7 @@
 # PHASE 01 — DISCOVERY & OWNER INTERVIEW
 
 **المشروع:** SHELTER COFFEE — Global Website Rebuild From Zero
-**الحالة:** 🟡 In progress — R1 ✅ · R2 ✅ · R2P ✅ · PG ✅ · R2B موثقة (MISSING) · R3 قرارات ✅ · R3 الملف ✅ · P0 ✅ (D-109 → D-123) · Data Model v0.4 · **⏳ مراجعة ما قبل v1.0 (`20`): أزواج DUP-04 + خطة دمج DUP-01 + مجموعات الأسماء**
+**الحالة:** 🟡 In progress — R1 ✅ · R2 ✅ · R2P ✅ · PG ✅ · R2B موثقة (MISSING) · R3 قرارات ✅ · R3 ✅ · **MENU INVENTORY v1.0 صادرة والمعرّفات مجمّدة** (`21`) · **⏳ موافقتك قبل Menu IA**
 **آخر تحديث:** 2026-10-01
 
 > لا Coding · لا Framework · لا Plugins · لا تغييرات Cloudflare/Cloudways/DNS · لا نشر.
@@ -28,9 +28,10 @@
 | 15 | [`15-root-gateway-wireframe.md`](15-root-gateway-wireframe.md) | Wireframe ومحتوى مقترح للجذر `/` (Global Brand Gateway / x-default) |
 | 16 | [`16-menu-intake-and-ssot.md`](16-menu-intake-and-ssot.md) + [`templates/SHELTER-MENU-INTAKE-TEMPLATE.xlsx`](templates/SHELTER-MENU-INTAKE-TEMPLATE.xlsx) | R3: ما نحتاجه لاستلام المنيو الرسمي، القالب، خيارات المصدر الوحيد (SSOT) |
 | 17 | [`17-menu-data-model-draft.md`](17-menu-data-model-draft.md) | Menu Data Model **v0.4**: Source / Normalized / Display · Source Lineage · إجراء الدمج · Pending Products · price_fils · Menu Versioning |
-| 18 | [`18-official-menu-inventory-report.md`](18-official-menu-inventory-report.md) + [`menu/`](menu/) | تقرير ملف المنيو الرسمي (11 بندًا): 11 فئة · 192 صنفًا · المكرر · التسمية · الأسماء العربية · الأسئلة · المعرّفات. النسخة المنظمة `SHELTER-MENU-INVENTORY-v0.3.xlsx` (v0.3 — معرّفات PROVISIONAL) + CSV + نسخة مطابقة من الملف الأصلي |
+| 18 | [`18-official-menu-inventory-report.md`](18-official-menu-inventory-report.md) + [`menu/`](menu/) | تقرير ملف المنيو الرسمي (11 بندًا): 11 فئة · 192 صنفًا · المكرر · التسمية · الأسماء العربية · الأسئلة · المعرّفات. النسخة المنظمة `SHELTER-MENU-INVENTORY-v1.0.xlsx` (v1.0 — FROZEN) + CSV + نسخة مطابقة من الملف الأصلي |
 | 19 | [`19-menu-p0-owner-review.md`](19-menu-p0-owner-review.md) | أسئلة P0 للمنيو (✅ أُجيبت) + فصل: Source errors · Possible corrections · Possible duplicates · Missing business information |
-| 20 | [`20-menu-pre-v1-review.md`](20-menu-pre-v1-review.md) | **مراجعة ما قبل Menu Inventory v1.0:** العدد المتوقع · الأصناف التي تُباع وليست في الملف · جدول DUP-04 · Blockers · مجموعات الأسماء |
+| 20 | [`20-menu-pre-v1-review.md`](20-menu-pre-v1-review.md) | مراجعة ما قبل v1.0 (✅ مغلقة) |
+| 21 | [`21-menu-inventory-v1.0-freeze-report.md`](21-menu-inventory-v1.0-freeze-report.md) + `menu/SHELTER-MENU-INVENTORY-v1.0.xlsx` | **تقرير التجميد:** 11 فئة · 191 صنفًا · `PRD-00001→00192` مجمّدة · ما بقي MISSING أو بانتظار التحقق |
 | 09 | [`09-architecture-options-after-r1.md`](09-architecture-options-after-r1.md) | مقترحات بعد الجولة 1: اللغة/السوق/الدومين (AR-01)، نموذج المواقع، ترتيب الـCTA، أثر الجمهور، النشرة، جاهزية الطلب أونلاين |
 
 ## الحوكمة
@@ -55,7 +56,9 @@
 - [ ] (موصى به) فتح الوصول للموقع لإكمال جرد Navigation/Footer/النصوص/الصور/الأداء
 - [x] استلام ملف المنيو الرسمي ← تقرير الـ11 بندًا (`18`)
 - [x] أجوبة P0 (D-109 → D-123)
-- [ ] أزواج DUP-04 + خطة دمج DUP-01 ← Menu Inventory v1.0 + تجميد المعرّفات + اعتماد الـData Model v0.4 (`20`)
-- [ ] اعتماد التصحيحات والأسماء العربية كدفعة واحدة (D-093)
+- [x] Menu Inventory v1.0 + تجميد المعرّفات (D-134، `21`)
+- [ ] موافقتك على تقرير التجميد ← Menu IA
+- [x] اعتماد مجموعات الأسماء G1 → G9 وC1 وC2 (D-126 → D-132)
+- [ ] الأسماء العربية الـ152 من الملف (OV-1) — ليست مانعًا لـIA
 
 بعدها ننتقل إلى: **Business Requirements → Content Discovery → Information Architecture**.

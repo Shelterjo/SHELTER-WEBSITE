@@ -16,8 +16,8 @@
 > - SHA-256: `dfde223f219443454872e81ae64a1e8d4c55e486fe52a29f87ca1682979c8d97`
 >
 > **النسخة المنظمة (للمراجعة والاعتماد):**
-> - [`menu/SHELTER-MENU-INVENTORY-v0.3.xlsx`](menu/SHELTER-MENU-INVENTORY-v0.3.xlsx) — فيها عمود `owner_decision` لكل صف.
-> - [`menu/menu-inventory-v0.3.csv`](menu/menu-inventory-v0.3.csv)
+> - [`menu/SHELTER-MENU-INVENTORY-v1.0.xlsx`](menu/SHELTER-MENU-INVENTORY-v1.0.xlsx) — فيها عمود `owner_decision` لكل صف.
+> - [`menu/menu-inventory-v1.0.csv`](menu/menu-inventory-v1.0.csv)
 >
 > **القواعد المطبقة (D-076، D-079، D-081، D-082، D-089):**
 > - الملف = **PRIMARY OFFICIAL MENU SOURCE** للحقول الموجودة فيه فقط.

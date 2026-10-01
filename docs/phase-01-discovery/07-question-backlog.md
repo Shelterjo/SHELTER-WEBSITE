@@ -14,7 +14,7 @@
 | PG | متابعة الصفحات بعد اعتماد الأرقام | 4 | ✅ أُجيبت (D-069 → D-072) — الرعايات MISSING |
 | R2B | تطبيقات التوصيل وقنوات الطلب | 5 | ✅ موثقة (D-073) — R2B-01/03/04 MISSING حتى يسلّمها الـOwner |
 | R3 | المنيو الرسمي (Menu) — الاستلام + المصدر الوحيد | 10 | ✅ أُجيبت (D-075 → D-089) · ✅ الملف استُلم ← التقرير `18` |
-| R3M | أسئلة ملف المنيو (MQ) | 17 | ✅ P0 أُجيبت (D-109 → D-123) · ⏳ **الحالية في `20`:** DUP-04 (5 أزواج) + خطة دمج DUP-01 + مجموعات الأسماء G1 → G9 |
+| R3M | أسئلة ملف المنيو (MQ) | 22 | ✅ مغلقة ← **MENU INVENTORY v1.0** (`21`) · باقٍ: OV-1 → OV-5 (ليست موانع) |
 | R4 | الصفحة الرئيسية، الـNavigation، الفعاليات والحملات | 10 | |
 | R5 | الـCMS / Dashboard، الفريق، مصدر البيانات الموحد | 9 | |
 | R6 | Google Integrations، Analytics، Search Console، Google Business Profile | 9 | |
@@ -113,7 +113,7 @@
 
 ## R3M — أسئلة ملف المنيو الرسمي (من التقرير `18`)
 
-> **الأسئلة الحالية المختصرة:** [`19-menu-p0-owner-review.md`](19-menu-p0-owner-review.md) §1. الخلفية في [`18-official-menu-inventory-report.md`](18-official-menu-inventory-report.md) §9، وفي ورقة `P0_Owner_Review` في [`menu/SHELTER-MENU-INVENTORY-v0.3.xlsx`](menu/SHELTER-MENU-INVENTORY-v0.3.xlsx).
+> **الأسئلة الحالية المختصرة:** [`19-menu-p0-owner-review.md`](19-menu-p0-owner-review.md) §1. الخلفية في [`18-official-menu-inventory-report.md`](18-official-menu-inventory-report.md) §9، وفي ورقة `P0_Owner_Review` في [`menu/SHELTER-MENU-INVENTORY-v1.0.xlsx`](menu/SHELTER-MENU-INVENTORY-v1.0.xlsx).
 
 | ID | الأولوية | السؤال باختصار | الحالة |
 |---|---|---|---|
@@ -126,7 +126,7 @@
 | MQ-07 | P0 | الأحجام والإضافات | ✅ حجم واحد · الإضافات لا تظهر على الموقع (D-118، D-119) |
 | MQ-08 | — | تجميع "بدون سكر" وRED BULL | `DEFERRED` — DO NOT MERGE YET؛ مقترح Product Families بعد المراجعة (D-097) |
 | MQ-09 | P0 | عمود # + الكاشير | ✅ تسلسلي فقط · POS لاحقًا (D-120، D-121) |
-| MQ-10 | P1 | اعتماد التصحيحات المقترحة (دفعة واحدة) | `OPEN` (D-093) |
+| MQ-10 | P1 | التصحيحات المقترحة | ✅ G1 → G9، C1، C2 (D-126 → D-132) |
 | MQ-11 | P1 | الأسماء العربية في الملف + ملاحظات AR-01 → AR-08 | `OPEN` |
 | MQ-12 | P1 | 7 أسماء غير واضحة | `OPEN` |
 | MQ-13 | P1 | الأسماء العربية المقترحة للكيك والكوكيز (26 + فئتان) | `OPEN` |
@@ -134,8 +134,10 @@
 | MQ-15 | P2 | مكان بعض الأصناف في الفئات (مع الـIA) | `DEFERRED` |
 | MQ-16 | P2 | سعر الكيك/الكوكيز للقطعة أم للشريحة؟ | `DEFERRED` |
 | MQ-17 | P0 | تاريخ السريان | ✅ 2026-10-01 (D-122) |
-| MQ-18 | Pre-v1 | DUP-04: 5 أزواج، قرار لكل زوج + الاسم الكامل لـICED SHAKEN SALTED | `OPEN` (`20` §4) |
-| MQ-19 | Pre-v1 | اعتماد خطة دمج DUP-01 (يبقى PRD-00115) | `OPEN` (`20` §5) |
+| MQ-18 | Pre-v1 | DUP-04 | ✅ كلها مختلفة · ICED SHAKEN SALTED CARAMEL (D-124) |
+| MQ-19 | Pre-v1 | خطة دمج DUP-01 | ✅ نُفّذت (D-125) |
+| MQ-21 | OV-1 | اعتماد الأسماء العربية الـ152 + 9 فئات من الملف كما هي | `OPEN` — ورقة `Arabic_Names_Pending` |
+| MQ-22 | OV-2 | الاسم العربي لـICED SHAKEN SALTED CARAMEL | `OPEN` |
 | MQ-20 | Pre-v1 | بيانات PND-001 → PND-004 (الاسم الرسمي، السعر، الفئة) | `OPEN` — ليست Blocker (`20` §3) |
 
 ## R4 — الصفحة الرئيسية، الـNavigation، الفعاليات والحملات

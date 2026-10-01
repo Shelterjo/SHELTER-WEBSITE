@@ -1,6 +1,6 @@
 # 17 — Menu Data Model (v0.4)
 
-> **الحالة:** `DRAFT v0.4 — PENDING OWNER APPROVAL` · **المعرّفات PROVISIONAL** (181 جاهزة للتجميد · 10 معلقة لـDUP-04) · **آخر تحديث:** 2026-10-01
+> **الحالة:** `v0.4` — **مطبّق في MENU INVENTORY v1.0** ([`21`](21-menu-inventory-v1.0-freeze-report.md)) · **المعرّفات مجمّدة** (`CAT-001→011` · `PRD-00001→00192`، D-134) · **آخر تحديث:** 2026-10-01
 >
 > **السجل:**
 > - **v0.1:** قبل الملف (D-075 → D-089).
@@ -8,7 +8,7 @@
 > - **v0.3:** بعد قرارات الـOwner D-090 → D-108.
 > - **v0.4:** بعد أجوبة P0 (D-109 → D-123): سجل الأصل، خطة الدمج، الأصناف المعلقة، حجم واحد، الإضافات خارج الموقع، تاريخ السريان. انظر §6.
 >
-> **المراجع:** التقرير [`18`](18-official-menu-inventory-report.md) · P0 [`19`](19-menu-p0-owner-review.md) · مراجعة ما قبل v1.0 [`20`](20-menu-pre-v1-review.md) · البيانات [`menu/SHELTER-MENU-INVENTORY-v0.3.xlsx`](menu/SHELTER-MENU-INVENTORY-v0.3.xlsx)
+> **المراجع:** التقرير [`18`](18-official-menu-inventory-report.md) · P0 [`19`](19-menu-p0-owner-review.md) · مراجعة ما قبل v1.0 [`20`](20-menu-pre-v1-review.md) · البيانات [`menu/SHELTER-MENU-INVENTORY-v1.0.xlsx`](menu/SHELTER-MENU-INVENTORY-v1.0.xlsx)
 >
 > **المنصة لم تُختر بعد (DB-08).** هذا نموذج منطقي يصلح لأي CMS أو قاعدة بيانات (مثل Supabase/Postgres).
 
@@ -109,7 +109,9 @@ content_review (REV-#####) · menu_change (CHG-#####) · audit_log
 | | `source_category_name` · `source_name_en` · `source_name_ar` · `source_price` | كما في الملف حرفيًا. `source_price` نص مثل `"2.75"` |
 | | `source_name_ar_status` | `SOURCE-PROVIDED — PENDING OWNER REVIEW` (166 صنفًا) · `MISSING — OWNER INPUT REQUIRED` (26 صنفًا) |
 | **المعالجة** | `normalized_name_en` · `normalized_name_ar` | **فارغ.** يُملأ فقط بالتصحيحات المعتمدة |
-| **العرض** | `display_name_en` · `display_name_ar` | **فارغ حتى اعتمادك.** الموقع لا يعرض إلا `display_*` المعتمد |
+| **العرض** | `display_name_en` · `display_name_ar` | فقط القيم المعتمدة. الموقع لا يعرض إلا `display_*`. v1.0: الإنجليزي 191/191 · العربي 39 معتمدة و152 بانتظار المراجعة |
+| | `display_style_en` | `ALL_CAPS` — أسلوب عرض فقط، ليس جزءًا من الهوية (D-131) |
+| | `name_en_status` / `name_ar_status` + القرار | مثل `APPROVED — CORRECTED` + `G1 D-126` · `SOURCE-PROVIDED — PENDING OWNER REVIEW` |
 | | `slug` | بعد اعتماد `display_name_en` |
 | **التجميع** | `product_family_id` · `variant_group_id` | **فارغان** (D-097) |
 | | `merge_status` · `merged_into_product_id` | `NONE` · `SURVIVOR` · `PLANNED` · `MERGED`. الصنف المدموج يبقى بكل تاريخه ومعرّفه (D-110). الحالي: `PRD-00120` → `PRD-00115` (PLANNED) |

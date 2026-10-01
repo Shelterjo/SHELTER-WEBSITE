@@ -184,9 +184,10 @@
 
 ## F. المنيو الرسمي (ملف الـOwner — 2026-10-01)
 
-- **المرجع الوحيد للمنيو** هو ملف الـOwner (D-006، D-076، D-089). سجل الاعتماد لكل صنف موجود في النسخة المنظمة: [`menu/SHELTER-MENU-INVENTORY-v0.3.xlsx`](menu/SHELTER-MENU-INVENTORY-v0.3.xlsx)، عمود `owner_decision`.
-- **كل الأصناف (192) حالتها** `PENDING OWNER REVIEW`، ومعرّفاتها `PROVISIONAL` (D-090).
-- **الأسماء العربية الموجودة في الملف (166 + 9 فئات)** = `SOURCE-PROVIDED ARABIC NAME — PENDING OWNER REVIEW`، ولا تُستخدم في الموقع قبل الاعتماد (D-091).
+- **المرجع الوحيد للمنيو** هو ملف الـOwner (D-006، D-076، D-089). سجل الاعتماد لكل صنف موجود في النسخة المنظمة: [`menu/SHELTER-MENU-INVENTORY-v1.0.xlsx`](menu/SHELTER-MENU-INVENTORY-v1.0.xlsx)، عمود `owner_decision`.
+- **MENU INVENTORY v1.0 (D-134):** 191 صنفًا فعالًا `APPROVED — v1.0`، والمعرّفات مجمّدة. التفاصيل في [`21`](21-menu-inventory-v1.0-freeze-report.md).
+- **أسماء العرض:** الإنجليزية 191/191 معتمدة · العربية 39 معتمدة و152 بانتظار المراجعة (OV-1).
+- **الأسماء العربية الموجودة في الملف** = `SOURCE-PROVIDED ARABIC NAME — PENDING OWNER REVIEW`، ولا تُستخدم في الموقع قبل الاعتماد (D-091). المتبقي منها: 152 صنفًا + 9 فئات.
 - **الأصناف القديمة الغائبة عن الملف** = `NOT PRESENT IN CURRENT OWNER FILE`، وليس `DISCONTINUED` (D-099).
 - **Cold Brew · Lotus Cheesecake · Ice Cream · Single Espresso** = `ACTIVE PRODUCT — MISSING CURRENT MENU DATA` (D-115). **Snacks · Pastries** = `STATUS UNKNOWN — OWNER VERIFICATION REQUIRED` (D-116). القائمة في [`20`](20-menu-pre-v1-review.md) §2–3.
   - الأسعار من الملف كما هي، شاملة الضريبة.

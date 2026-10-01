@@ -1,8 +1,8 @@
 # 20 — Menu: مراجعة ما قبل Menu Inventory v1.0
 
-> **الحالة:** `PRE-v1.0 — WAITING FOR OWNER` · **آخر تحديث:** 2026-10-01
+> **الحالة:** ✅ **مغلق** — قراراتك D-124 → D-134 طُبّقت و**MENU INVENTORY v1.0** صدرت: [`21-menu-inventory-v1.0-freeze-report.md`](21-menu-inventory-v1.0-freeze-report.md). هذا الملف محفوظ للمرجع؛ نسخة v0.3 في سجل git · **آخر تحديث:** 2026-10-01
 > - **P0 أُغلقت** بقراراتك D-109 → D-123.
-> - **Inventory v0.3:** [`menu/SHELTER-MENU-INVENTORY-v0.3.xlsx`](menu/SHELTER-MENU-INVENTORY-v0.3.xlsx) · CSV: [`menu/menu-inventory-v0.3.csv`](menu/menu-inventory-v0.3.csv)
+> - **Inventory v0.3:** [`menu/SHELTER-MENU-INVENTORY-v1.0.xlsx`](menu/SHELTER-MENU-INVENTORY-v1.0.xlsx) · CSV: [`menu/menu-inventory-v1.0.csv`](menu/menu-inventory-v1.0.csv)
 > - **Data Model:** [`17`](17-menu-data-model-draft.md) **v0.4**.
 > - **لم يُجمّد أي معرّف بعد.** لا Menu IA ولا UX/UI.
 
