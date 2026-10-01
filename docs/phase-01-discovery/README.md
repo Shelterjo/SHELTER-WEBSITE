@@ -1,7 +1,7 @@
 # PHASE 01 — DISCOVERY & OWNER INTERVIEW
 
 **المشروع:** SHELTER COFFEE — Global Website Rebuild From Zero
-**الحالة:** 🟡 In progress — R1 ✅ · R2 ✅ · R2P ✅ · PG ✅ · R2B موثقة (MISSING) · R3 قرارات ✅ · **⏳ بانتظار ملف المنيو الرسمي** ← تقرير المنيو
+**الحالة:** 🟡 In progress — R1 ✅ · R2 ✅ · R2P ✅ · PG ✅ · R2B موثقة (MISSING) · R3 قرارات ✅ · R3 الملف ✅ استُلم ← **⏳ اعتماد تقرير المنيو (`18`) وأسئلة MQ-01 → MQ-09**
 **آخر تحديث:** 2026-10-01
 
 > لا Coding · لا Framework · لا Plugins · لا تغييرات Cloudflare/Cloudways/DNS · لا نشر.
@@ -27,7 +27,8 @@
 | 14 | [`14-contact-architecture-and-whatsapp.md`](14-contact-architecture-and-whatsapp.md) | بنية التواصل حسب النية + مقترح زر واتساب (مكان، نص، رسالة مسبقة) |
 | 15 | [`15-root-gateway-wireframe.md`](15-root-gateway-wireframe.md) | Wireframe ومحتوى مقترح للجذر `/` (Global Brand Gateway / x-default) |
 | 16 | [`16-menu-intake-and-ssot.md`](16-menu-intake-and-ssot.md) + [`templates/SHELTER-MENU-INTAKE-TEMPLATE.xlsx`](templates/SHELTER-MENU-INTAKE-TEMPLATE.xlsx) | R3: ما نحتاجه لاستلام المنيو الرسمي، القالب، خيارات المصدر الوحيد (SSOT) |
-| 17 | [`17-menu-data-model-draft.md`](17-menu-data-model-draft.md) | مسودة Menu Data Model + بنية المعرّفات + سير معالجة ملف المنيو |
+| 17 | [`17-menu-data-model-draft.md`](17-menu-data-model-draft.md) | Menu Data Model **v0.2** (بعد الملف) + بنية المعرّفات + سير معالجة ملفات المنيو |
+| 18 | [`18-official-menu-inventory-report.md`](18-official-menu-inventory-report.md) + [`menu/`](menu/) | تقرير ملف المنيو الرسمي (11 بندًا): 11 فئة · 192 صنفًا · المكرر · التسمية · الأسماء العربية · الأسئلة · المعرّفات. النسخة المنظمة `SHELTER-MENU-INVENTORY-v0.1.xlsx` + CSV + نسخة مطابقة من الملف الأصلي |
 | 09 | [`09-architecture-options-after-r1.md`](09-architecture-options-after-r1.md) | مقترحات بعد الجولة 1: اللغة/السوق/الدومين (AR-01)، نموذج المواقع، ترتيب الـCTA، أثر الجمهور، النشرة، جاهزية الطلب أونلاين |
 
 ## الحوكمة
@@ -50,6 +51,7 @@
 - [x] اعتماد قائمة الصفحات الأساسية (R1-09 → D-015) — المؤجل: الحجز، الرعايات، الفريق، النشرة
 - [ ] اعتماد استراتيجية اللغة والروابط (DB-02، DB-03) — المبدأ ✅ D-014
 - [ ] (موصى به) فتح الوصول للموقع لإكمال جرد Navigation/Footer/النصوص/الصور/الأداء
-- [ ] استلام ملف المنيو الرسمي ← تقرير الـ11 بندًا ← اعتماد الـData Model (D-088)
+- [x] استلام ملف المنيو الرسمي ← تقرير الـ11 بندًا (`18`)
+- [ ] أجوبة MQ-01 → MQ-09 + قرارات الأسماء ← Inventory v1.0 + اعتماد الـData Model v0.2 (D-088)
 
 بعدها ننتقل إلى: **Business Requirements → Content Discovery → Information Architecture**.
