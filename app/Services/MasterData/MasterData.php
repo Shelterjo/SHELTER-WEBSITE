@@ -69,12 +69,15 @@ final class MasterData
     /** Open / closed now, computed server-side in the market timezone. Null when hours are not publishable. */
     public function openState(Branch $branch, Market $market, ?CarbonImmutable $at = null): ?OpenState
     {
-        $regular = $this->regularHours($branch);
-        if ($regular === null) {
-            return null;
-        }
+        return $this->hoursResolver($branch, $market)?->stateAt($at ?? CarbonImmutable::now());
+    }
 
-        return (new HoursResolver($branch, $market->timezone, $regular))->stateAt($at ?? CarbonImmutable::now());
+    /** Effective-hours resolver in the market timezone, or null when the regular hours are not publishable. */
+    public function hoursResolver(Branch $branch, Market $market): ?HoursResolver
+    {
+        $regular = $this->regularHours($branch);
+
+        return $regular === null ? null : new HoursResolver($branch, $market->timezone, $regular);
     }
 
     /**

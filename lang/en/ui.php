@@ -25,6 +25,10 @@ return [
         'page' => 'Page :page',
         'page_of' => 'Page :page of :total',
     ],
+    'search' => [
+        'clear' => 'Clear search',
+        'suggestions' => 'Search suggestions',
+    ],
     'event' => [
         'date' => 'Date:',
         'place' => 'Place:',

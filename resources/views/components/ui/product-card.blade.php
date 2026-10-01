@@ -7,6 +7,9 @@
     - Long names wrap, never truncate. ALL CAPS is a display style: pass `label` (normal case) if a screen reader
       spells a name letter by letter (D-131).
     - Unavailable: the frame and image fade, text and price stay fully readable.
+    - `level`: heading level of the name (2–6), or 0 for a plain paragraph when the cards are list items under a
+      section heading (Menu IA §3: product names are list items, not headings).
+    - `compact`: one row — names at the inline start, price at the inline end (seasonal list, spec §10).
 --}}
 @props([
     'name',
@@ -23,6 +26,7 @@
     'label' => null,
     'level' => 3,
     'reserveMedia' => false,
+    'compact' => false,
 ])
 @php
     $cardId = $attributes->get('id', 'product-'.substr(sha1($name.'|'.$secondary.'|'.$price), 0, 10));
@@ -30,7 +34,7 @@
     if ($hasMedia && str_contains((string) $media, '<img') && preg_match('/<img(?=[^>]*\swidth=)(?=[^>]*\sheight=)/', (string) $media) !== 1) {
         throw new InvalidArgumentException('x-ui.product-card: the image needs explicit width and height (no layout shift).');
     }
-    $level = max(2, min(6, (int) $level));
+    $nameTag = (int) $level === 0 ? 'p' : 'h'.max(2, min(6, (int) $level));
     $nameAttributes = (new \Illuminate\View\ComponentAttributeBag)->merge(array_filter(['lang' => $nameLang]));
     $describedBy = implode(' ', array_filter([
         filled($secondary) ? $cardId.'-secondary' : null,
@@ -56,6 +60,7 @@
     'ui-product-card',
     'ui-product-card--has-media' => $hasMedia || $reserveMedia,
     'ui-product-card--unavailable' => $unavailable,
+    'ui-product-card--compact' => $compact,
 ])->merge(['id' => $cardId]) }}>
     @if ($hasMedia)
         <div class="ui-card__media">{{ $media }}</div>
@@ -63,7 +68,7 @@
         <div class="ui-card__media ui-card__media--reserved" aria-hidden="true"></div>
     @endif
     <div class="ui-product-card__body">
-        <h{{ $level }} class="ui-product-card__name">
+        <{{ $nameTag }} class="ui-product-card__name">
             @if ($href !== null)
                 <a {{ $actionAttributes }}><span {{ $nameAttributes }}>{{ $name }}</span></a>
             @elseif ($opens !== null)
@@ -71,7 +76,7 @@
             @else
                 <span {{ $nameAttributes }}>{{ $name }}</span>
             @endif
-        </h{{ $level }}>
+        </{{ $nameTag }}>
         @if (filled($secondary))
             <p {{ (new \Illuminate\View\ComponentAttributeBag)->merge(array_filter(['class' => 'ui-product-card__secondary', 'id' => $cardId.'-secondary', 'lang' => $secondaryLang])) }}>{{ $secondary }}</p>
         @endif

@@ -55,6 +55,30 @@ $product = function (string $locale, string $id, string $extra = '', string $inn
 };
 $sampleItem = $t('صنف تجريبي (مثال حالة)', 'SAMPLE ITEM (STATE DEMO)');
 
+// Branch selector options: labels approved in F-18 (كل الفروع / DRIVE / HOUSE).
+$branchOptions = $both(fn (string $l): string => "['all' => '".($l === 'ar' ? 'كل الفروع' : 'All branches')."', 'drive' => ['label' => 'DRIVE', 'lang' => 'en'], 'house' => ['label' => 'HOUSE', 'lang' => 'en']]");
+$segmented = fn (string $selected, string $state = 'default'): array => ['story' => '', 'state' => $state, 'blade' => $both(fn (string $l): string => '<x-ui.segmented label="'.($l === 'ar' ? 'الفرع' : 'Branch').'" :options="'.$branchOptions['@'.$l].'" selected="'.$selected.'" />')];
+
+// Category bar: the approved display order (F-06) with the official English category names; Arabic names are still
+// pending (P-01) except SWEETS / حلويات (F-07), so the Arabic page shows the English names with lang="en".
+$categoryItems = function (string $locale): string {
+    $items = [
+        ['speciality-coffee', 'SPECIALITY COFFEE', null], ['hot-drinks', 'HOT DRINKS', null], ['cold-drinks', 'COLD DRINKS', null],
+        ['frappe', 'FRAPPE', null], ['milkshake', 'MILKSHAKE', null], ['smoothies', 'SMOOTHIES', null],
+        ['fizzy-drinks', 'FIZZY DRINKS', null], ['tea', 'TEA', null], ['sweets', 'SWEETS', 'حلويات'],
+    ];
+    $out = [];
+    foreach ($items as $i => [$slug, $en, $ar]) {
+        $label = $locale === 'ar' && $ar !== null ? $ar : $en;
+        $lang = $locale === 'ar' && $ar === null ? ", 'lang' => 'en'" : '';
+        $out[] = "['href' => '#{$slug}', 'label' => '".$label."'{$lang}".($i === 0 ? ", 'current' => true" : '').']';
+    }
+
+    return '['.implode(', ', $out).']';
+};
+$categoryNav = fn (string $extra = '', string $slots = ''): array => $both(fn (string $l): string => '<x-ui.category-nav label="'.($l === 'ar' ? 'فئات المنيو' : 'Menu categories').'" :items="'.$categoryItems($l).'" '.$extra.'>'.$slots.'</x-ui.category-nav>');
+$categoryActions = fn (string $l): string => '<x-slot:start><x-ui.button variant="ghost" icon="search" icon-only label="'.($l === 'ar' ? 'بحث' : 'Search').'" /></x-slot:start><x-slot:end><x-ui.button variant="ghost" icon="menu" icon-only label="'.($l === 'ar' ? 'كل الفئات' : 'All categories').'" /></x-slot:end>';
+
 $field = fn (string $control, array $field = []): array => $both(function (string $locale) use ($control, $field): string {
     $label = $locale === 'ar' ? 'البريد الإلكتروني' : 'Email';
     $attributes = 'label="'.$label.'" for="ds-email"';
@@ -173,6 +197,21 @@ return [
             ['story' => 'Disabled', 'state' => 'disabled', 'props' => ['disabled' => true], 'slot' => $t('خيار تجريبي', 'Sample option')],
         ]],
 
+        'segmented' => ['stories' => [
+            ['story' => 'Default'] + $segmented('all'),
+            ['story' => 'SecondSelected'] + $segmented('drive'),
+            ['story' => 'ThirdSelected'] + $segmented('house'),
+            ['story' => 'Hover', 'state' => 'hover'] + $segmented('all', 'hover'),
+            ['story' => 'Focus', 'state' => 'focus'] + $segmented('all', 'focus'),
+        ]],
+
+        'category-nav' => ['stories' => [
+            ['story' => 'Default', 'blade' => $categoryNav()],
+            ['story' => 'WithActions', 'blade' => $both(fn (string $l): string => $categoryNav('', $categoryActions($l))['@'.$l])],
+            ['story' => 'Sidebar', 'blade' => $both(fn (string $l): string => $categoryNav('sidebar', $categoryActions($l))['@'.$l])],
+            ['story' => 'Focus', 'state' => 'focus', 'blade' => $categoryNav()],
+        ]],
+
         // ───────────────────────────── Forms ─────────────────────────────
         'field' => ['stories' => [
             ['story' => 'Default', 'blade' => $field('<x-ui.input type="email" name="email" dir="ltr" autocomplete="email" />')],
@@ -189,6 +228,12 @@ return [
             ['story' => 'Focus', 'state' => 'focus', 'blade' => $field('<x-ui.input type="email" name="email" dir="ltr" />')],
             ['story' => 'Disabled', 'state' => 'disabled', 'blade' => $field('<x-ui.input type="email" name="email" dir="ltr" value="name@example.com" disabled />')],
             ['story' => 'Error', 'state' => 'error', 'blade' => $field('<x-ui.input type="email" name="email" dir="ltr" value="name@" />', ['error' => $emailError])],
+        ]],
+
+        'search-field' => ['stories' => [
+            ['story' => 'Default', 'props' => ['id' => 'ds-search', 'label' => $t('بحث', 'Search'), 'placeholder' => $t('ابحث في المنيو', 'Search the menu')]],
+            ['story' => 'Hover', 'state' => 'hover', 'props' => ['id' => 'ds-search', 'label' => $t('بحث', 'Search'), 'placeholder' => $t('ابحث في المنيو', 'Search the menu')]],
+            ['story' => 'Focus', 'state' => 'focus', 'props' => ['id' => 'ds-search', 'label' => $t('بحث', 'Search'), 'placeholder' => $t('ابحث في المنيو', 'Search the menu')]],
         ]],
 
         'textarea' => ['stories' => [
@@ -257,6 +302,8 @@ return [
             ['story' => 'Focus', 'state' => 'focus', 'blade' => $both(fn (string $l): string => $product($l, 'PRD-00001', 'opens="ds-detail"'))],
             ['story' => 'Unavailable', 'state' => 'disabled', 'props' => ['name' => $sampleItem, 'unavailable' => true, 'status' => $t('غير متوفر حاليًا', 'Currently unavailable')], 'slots' => ['media' => '<x-ui.media-placeholder />']],
             ['story' => 'WithBadge', 'props' => ['name' => $sampleItem, 'badge' => $t('جديد', 'NEW')]],
+            ['story' => 'ListItem', 'blade' => $both(fn (string $l): string => '<ul class="ui-grid" role="list"><li>'.$product($l, 'PRD-00001', 'href="#p-turkish-coffee-single" :level="0"').'</li><li>'.$product($l, 'PRD-00014', 'href="#p-cappuccino" :level="0"').'</li></ul>')],
+            ['story' => 'Compact', 'blade' => $both(fn (string $l): string => '<ul class="ui-stack ui-stack--sm" role="list"><li>'.$product($l, 'PRD-00001', 'compact :level="0" href="#p-turkish-coffee-single"').'</li><li>'.$product($l, 'PRD-00014', 'compact :level="0" href="#p-cappuccino"').'</li></ul>')],
         ]],
 
         'price' => ['stories' => [
@@ -405,6 +452,7 @@ return [
 
         'bottom-sheet' => ['stories' => [
             ['story' => 'Open', 'state' => 'open', 'blade' => $both(fn (string $l): string => '<x-ui.bottom-sheet id="ds-sheet" title="'.($l === 'ar' ? 'تفاصيل الصنف' : 'Item details').'">'.$product($l, 'PRD-00014').'</x-ui.bottom-sheet>')],
+            ['story' => 'AdaptiveOpen', 'state' => 'open', 'blade' => $both(fn (string $l): string => '<x-ui.bottom-sheet adaptive id="ds-sheet" title="'.($l === 'ar' ? 'تفاصيل الصنف' : 'Item details').'">'.$product($l, 'PRD-00001').'</x-ui.bottom-sheet>')],
         ]],
 
         // ───────────────────────────── Dashboard ─────────────────────────────

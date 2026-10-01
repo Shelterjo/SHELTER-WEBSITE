@@ -1,0 +1,78 @@
+/* Category bar (DS §8, Menu IA F-16 / R-06): chips in one row that scrolls horizontally (no wrap, no page overflow).
+   Room is kept around the chips so focus rings are never clipped by the scroller; the far edge fades in the reading
+   direction to show there is more. `--sidebar` becomes a vertical list from 1024px (the page makes it sticky). */
+
+.ui-category-nav {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+    min-inline-size: 0;
+}
+
+.ui-category-nav__start,
+.ui-category-nav__end {
+    display: flex;
+    flex: none;
+    align-items: center;
+}
+
+.ui-category-nav__list {
+    display: flex;
+    flex: 1;
+    gap: var(--space-2);
+    min-inline-size: 0;
+    margin: 0;
+    padding: var(--space-2);
+    list-style: none;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    scroll-padding-inline: var(--space-8);
+    scrollbar-width: none;
+    mask-image: linear-gradient(to right, var(--color-text) calc(100% - var(--space-8)), transparent);
+}
+
+.ui-category-nav__list:dir(rtl) {
+    mask-image: linear-gradient(to left, var(--color-text) calc(100% - var(--space-8)), transparent);
+}
+
+.ui-category-nav__list::-webkit-scrollbar {
+    display: none;
+}
+
+.ui-category-nav__list > li {
+    display: flex;
+    flex: none;
+}
+
+.ui-category-nav .ui-chip:lang(en) {
+    letter-spacing: var(--tracking-en-caps);
+}
+
+@media (min-width: 1024px) {
+    .ui-category-nav--sidebar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .ui-category-nav--sidebar .ui-category-nav__start,
+    .ui-category-nav--sidebar .ui-category-nav__end {
+        display: none;
+    }
+
+    .ui-category-nav--sidebar .ui-category-nav__list {
+        flex-direction: column;
+        gap: var(--space-1);
+        padding: var(--space-1);
+        overflow: visible;
+        mask-image: none;
+    }
+
+    .ui-category-nav--sidebar .ui-chip {
+        flex: 1;
+        justify-content: flex-start;
+        border-color: transparent;
+        border-radius: var(--radius-md);
+        white-space: normal;
+        text-align: start;
+    }
+}

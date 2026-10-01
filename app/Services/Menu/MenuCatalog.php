@@ -35,6 +35,14 @@ final class MenuCatalog
     {
         $day = ($on ?? CarbonImmutable::now())->toDateString();
 
+        // Eager-loaded prices (the menu page loads all products at once) are filtered in memory: same rule, no N+1.
+        if ($product->relationLoaded('prices')) {
+            return $product->prices
+                ->filter(fn (ProductPrice $p): bool => $p->valid_from->toDateString() <= $day && ($p->valid_to === null || $p->valid_to->toDateString() >= $day))
+                ->sortByDesc(fn (ProductPrice $p): string => $p->valid_from->toDateString())
+                ->first();
+        }
+
         return $product->prices()
             ->whereDate('valid_from', '<=', $day)
             ->where(fn ($q) => $q->whereNull('valid_to')->orWhereDate('valid_to', '>=', $day))
@@ -56,14 +64,24 @@ final class MenuCatalog
         return new ResolvedPrice($base->price_fils, $base->currency, false);
     }
 
-    public function availability(Product $product, Branch $branch): Availability
+    /**
+     * @param  bool|null  $confirmed  whether the branch's availability data is approved, when the caller already knows
+     *                                (one fact lookup per branch instead of one per product); null = look it up
+     */
+    public function availability(Product $product, Branch $branch, ?bool $confirmed = null): Availability
     {
         $override = $this->override($product, $branch);
         if ($override !== null && $override->availability !== null) {
             return $override->availability;
         }
 
-        return $this->masterData->value(self::availabilityFactKey($branch)) === true ? $product->availability : Availability::Unknown;
+        return ($confirmed ?? $this->availabilityConfirmed($branch)) ? $product->availability : Availability::Unknown;
+    }
+
+    /** True only when the owner approved this branch's availability data (fact menu.availability_confirmed.{code}). */
+    public function availabilityConfirmed(Branch $branch): bool
+    {
+        return $this->masterData->value(self::availabilityFactKey($branch)) === true;
     }
 
     public static function availabilityFactKey(Branch $branch): string

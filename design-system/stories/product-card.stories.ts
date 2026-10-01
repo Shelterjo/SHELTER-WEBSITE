@@ -14,3 +14,5 @@ export const Hover = story('product-card', 'Hover');
 export const Focus = story('product-card', 'Focus');
 export const Unavailable = story('product-card', 'Unavailable');
 export const WithBadge = story('product-card', 'WithBadge');
+export const ListItem = story('product-card', 'ListItem');
+export const Compact = story('product-card', 'Compact');

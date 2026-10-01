@@ -31,11 +31,12 @@ const ICONS = [
     'loader-circle', // loading
     'log-out', // dashboard sign out (directional)
     'map-pin', // event-card place
-    'menu', // site header: open the navigation drawer
+    'menu', // site header drawer + menu page "all categories"
     'message-circle', // site: WhatsApp action (no brand logos — Lucide only, D-062)
     'phone', // site: call action (tel:)
     'refresh-cw-off', // status-pill OUT OF SYNC
     'rotate-cw', // 500 page: try again
+    'search', // search field, compact search in the menu category bar (never mirrors)
     'trending-down', // stat-tile trend
     'trending-up', // stat-tile trend
     'triangle-alert', // warning alert

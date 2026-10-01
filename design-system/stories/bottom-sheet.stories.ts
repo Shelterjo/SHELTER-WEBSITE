@@ -6,3 +6,4 @@ const meta: Meta = { title: 'Overlays/Bottom sheet' };
 export default meta;
 
 export const Open = story('bottom-sheet', 'Open');
+export const AdaptiveOpen = story('bottom-sheet', 'AdaptiveOpen');

@@ -41,7 +41,7 @@
         @if ($other !== null || $hasNav)
             <div class="ui-site-header__end">
                 @if ($other !== null && ! $minimal)
-                    <a class="ui-site-header__lang" href="{{ $other['href'] }}" lang="{{ $other['locale'] }}" hreflang="{{ $other['locale'] }}">
+                    <a class="ui-site-header__lang" href="{{ $other['href'] }}" lang="{{ $other['locale'] }}" hreflang="{{ $other['locale'] }}" aria-label="{{ $other['label'] }}">
                         <span class="ui-site-header__lang-long">{{ $other['label'] }}</span>
                         <span class="ui-site-header__lang-short" aria-hidden="true">{{ $other['locale'] === 'ar' ? 'ع' : 'EN' }}</span>
                     </a>

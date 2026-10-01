@@ -4,6 +4,7 @@ use App\Http\Controllers\Site\BranchController;
 use App\Http\Controllers\Site\GatewayController;
 use App\Http\Controllers\Site\HomeController;
 use App\Http\Controllers\Site\LocationsController;
+use App\Http\Controllers\Site\MenuController;
 use App\Http\Controllers\Site\RobotsController;
 use App\Http\Controllers\Site\SitemapController;
 use Illuminate\Support\Facades\Route;
@@ -26,6 +27,7 @@ Route::prefix('{locale}')->where(['locale' => 'ar|en'])->middleware('locale')->g
     // Market layer: locations and branch pages (SI-M03, SI-M05/M06). Branch slugs are fixed (D-053); the city and
     // market pages themselves stay reserved (URL-07), so /ar/jo/ and /ar/jo/locations/irbid/ have no route (404).
     Route::prefix('{market}')->where(['market' => '[a-z]{2}'])->middleware('market')->group(function (): void {
+        Route::get('menu/', MenuController::class)->name('menu');
         Route::get('locations/', LocationsController::class)->name('locations');
         Route::get('locations/{city}/{branch}/', BranchController::class)
             ->where(['city' => '[a-z0-9-]+', 'branch' => '[a-z0-9-]+'])

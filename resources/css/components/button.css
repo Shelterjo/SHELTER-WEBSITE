@@ -31,7 +31,8 @@
     transition:
         background-color var(--motion-fast) var(--easing-standard),
         border-color var(--motion-fast) var(--easing-standard),
-        color var(--motion-fast) var(--easing-standard);
+        color var(--motion-fast) var(--easing-standard),
+        scale var(--motion-fast) var(--easing-standard);
 }
 
 .ui-button--primary {
@@ -69,8 +70,11 @@
     background: color-mix(in srgb, var(--ui-button-fg) var(--ui-mix-hover), var(--ui-button-bg));
 }
 
+/* Pressed (M40 §06): a subtle press-in scale; the surface stays at the hover tint so the label keeps ≥4.5:1 on light
+   buttons too (a deeper tint drops the old-site grey text under AA). */
 .ui-button:active:not([aria-disabled='true'], :disabled) {
-    background: color-mix(in srgb, var(--ui-button-fg) var(--ui-mix-active), var(--ui-button-bg));
+    background: color-mix(in srgb, var(--ui-button-fg) var(--ui-mix-hover), var(--ui-button-bg));
+    scale: 0.97;
 }
 
 .ui-button--ghost:hover:not([aria-disabled='true'], :disabled),

@@ -1,0 +1,96 @@
+/* Segmented control (DS §8, Menu IA §9.1): equal-width toggle buttons in one framed row. The selected option is shown
+   by a filled indicator + bold text (never colour alone). The indicator slides to the pressed option with transform
+   only (motion token → 0ms with reduced motion); its position comes from :has(), so the server-rendered state needs
+   no script and no inline style. Radius md = the branch selector radius (DS §4). */
+
+.ui-segmented {
+    --ui-segmented-count: 2;
+    --ui-segmented-index: 0;
+
+    position: relative;
+    display: grid;
+    grid-auto-columns: minmax(0, 1fr);
+    grid-auto-flow: column;
+    min-inline-size: 0;
+    padding: var(--space-1);
+    border: var(--border-default) solid var(--color-muted);
+    border-radius: var(--radius-md);
+    background: var(--color-bg);
+}
+
+.ui-segmented--3 {
+    --ui-segmented-count: 3;
+}
+
+.ui-segmented:has(> [aria-pressed='true']:nth-child(2)) {
+    --ui-segmented-index: 1;
+}
+
+.ui-segmented:has(> [aria-pressed='true']:nth-child(3)) {
+    --ui-segmented-index: 2;
+}
+
+/* Indicator: one slot wide; translate percentages are its own width, so index × 100% lands on the option. */
+.ui-segmented::before {
+    content: '';
+    position: absolute;
+    inset-block: var(--space-1);
+    inset-inline-start: var(--space-1);
+    inline-size: calc((100% - var(--space-2)) / var(--ui-segmented-count));
+    border-radius: var(--radius-sm);
+    background: var(--color-accent);
+    translate: calc(var(--ui-segmented-index) * 100%) 0;
+    transition: translate var(--motion-normal) var(--easing-standard);
+}
+
+.ui-segmented:dir(rtl)::before {
+    translate: calc(var(--ui-segmented-index) * -100%) 0;
+}
+
+.ui-segmented:not(:has(> [aria-pressed='true']))::before {
+    opacity: 0;
+}
+
+/* Positioned so each option paints above the indicator (later in the stacking order, no z-index needed). */
+.ui-segmented__option {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-inline-size: 0;
+    min-block-size: var(--touch-target);
+    margin: 0;
+    padding-inline: var(--space-2);
+    border: 0;
+    border-radius: var(--radius-sm);
+    background: transparent;
+    color: var(--color-text);
+    font-family: inherit;
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+    line-height: var(--leading-tight);
+    text-align: center;
+    cursor: pointer;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    transition:
+        color var(--motion-normal) var(--easing-standard),
+        background-color var(--motion-fast) var(--easing-standard);
+}
+
+.ui-segmented__option:lang(en) {
+    letter-spacing: var(--tracking-en-caps);
+}
+
+.ui-segmented__option:hover:not([aria-pressed='true']) {
+    background: var(--color-surface);
+}
+
+.ui-segmented__option:active:not([aria-pressed='true']) {
+    background: color-mix(in srgb, var(--color-text) var(--ui-mix-hover), var(--color-surface));
+}
+
+.ui-segmented__option[aria-pressed='true'] {
+    color: var(--color-on-accent);
+    font-weight: var(--weight-bold);
+}

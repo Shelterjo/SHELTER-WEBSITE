@@ -10,7 +10,7 @@
     'variant' => 'modal',
 ])
 @php
-    $variants = ['modal' => 'ui-modal', 'drawer' => 'ui-drawer', 'drawer-start' => 'ui-drawer ui-drawer--start', 'sheet' => 'ui-sheet'];
+    $variants = ['modal' => 'ui-modal', 'drawer' => 'ui-drawer', 'drawer-start' => 'ui-drawer ui-drawer--start', 'sheet' => 'ui-sheet', 'sheet-adaptive' => 'ui-sheet ui-sheet--adaptive'];
     if (! array_key_exists($variant, $variants)) {
         throw new InvalidArgumentException("x-ui.dialog: unknown variant [{$variant}].");
     }
@@ -21,7 +21,7 @@
     'closedby' => 'any',
     'data-ui-dialog' => true,
 ]) }}>
-    @if ($variant === 'sheet')
+    @if (str_starts_with($variant, 'sheet'))
         <div class="ui-sheet__handle" aria-hidden="true"></div>
     @endif
     <div class="ui-dialog__header">

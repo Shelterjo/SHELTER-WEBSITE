@@ -94,3 +94,36 @@
 .ui-product-card__badge {
     margin: 0;
 }
+
+/* Compact row (seasonal list, Menu IA §10): names (and badge / status) at the inline start, the price at the inline
+   end across the first two rows. Same card base, same tokens. */
+.ui-product-card--compact {
+    padding-block: var(--space-3);
+}
+
+.ui-product-card--compact .ui-product-card__body {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    column-gap: var(--space-4);
+    row-gap: var(--space-1);
+}
+
+.ui-product-card--compact .ui-product-card__body > * {
+    grid-column: 1;
+}
+
+.ui-product-card--compact .ui-product-card__price {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    margin: 0;
+    padding: 0;
+}
+
+/* Highlight after "jump to product" from search (Menu IA §8.3): a ring that fades out, not the only signal — focus
+   also moves to the card. Reduced motion: the ring shows and goes without animation (durations are 0ms). */
+.ui-product-card--highlight {
+    outline: var(--ui-focus-ring-width) solid var(--color-accent);
+    outline-offset: var(--ui-focus-ring-offset);
+    transition: outline-color var(--motion-slow) var(--easing-standard);
+}

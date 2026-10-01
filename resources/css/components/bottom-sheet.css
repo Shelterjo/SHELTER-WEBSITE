@@ -39,3 +39,27 @@
 .ui-sheet .ui-dialog__footer {
     padding-block-end: max(var(--space-3), env(safe-area-inset-bottom));
 }
+
+/* Adaptive sheet: a centred modal from 1024px (narrow: the detail has no image yet), rising slightly as it fades in. */
+@media (min-width: 1024px) {
+    .ui-sheet--adaptive {
+        inline-size: min(calc(100% - var(--space-8)), var(--container-narrow));
+        max-block-size: calc(100dvh - var(--space-8));
+        margin: auto;
+        border-radius: var(--radius-xl);
+    }
+
+    .ui-sheet--adaptive:not([open]) {
+        translate: 0 var(--space-4);
+    }
+
+    @starting-style {
+        .ui-sheet--adaptive[open] {
+            translate: 0 var(--space-4);
+        }
+    }
+
+    .ui-sheet--adaptive .ui-sheet__handle {
+        display: none;
+    }
+}

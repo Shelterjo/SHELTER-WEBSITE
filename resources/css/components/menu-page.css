@@ -1,0 +1,198 @@
+/* Menu page (SI-M02, Menu IA spec §2–§11, M40 §12 — very fast, very easy, touch friendly). Mobile: search, branch,
+   a sticky category bar, then the sections. From 1024px the same category list becomes a sticky sidebar (one list,
+   never two copies). Grid: 1 column under 360, 2 from 360, 3 from 600, 4 from 1200 (shared .ui-grid). */
+
+.ui-menu {
+    /* The page scrolls to anchored sections smoothly unless reduced motion is requested. */
+    scroll-behavior: auto;
+}
+
+.ui-menu__empty:not([hidden]) {
+    display: grid;
+}
+
+.ui-menu__tools {
+    display: grid;
+    gap: var(--space-6);
+    margin-block-end: var(--space-6);
+}
+
+.ui-menu__branch {
+    display: grid;
+    gap: var(--space-3);
+}
+
+.ui-menu__statuses {
+    display: grid;
+    gap: var(--space-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.ui-menu__status {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-1) var(--space-3);
+}
+
+.ui-menu__status-label {
+    min-inline-size: var(--space-16);
+    color: var(--color-muted);
+    font-family: var(--font-en);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-bold);
+    letter-spacing: var(--tracking-en-caps);
+}
+
+.ui-menu__layout {
+    display: grid;
+    gap: var(--space-6);
+}
+
+/* Phones and tablets: the category bar sticks under the top of the screen while the sections scroll. */
+.ui-menu__nav {
+    /* A grid item may not grow to its chips' width: the chip row scrolls inside it instead. */
+    min-inline-size: 0;
+    position: sticky;
+    z-index: var(--z-sticky);
+    inset-block-start: 0;
+    margin-inline: calc(var(--container-gutter-mobile) * -1);
+    padding-inline: var(--container-gutter-mobile);
+    border-block-end: var(--border-default) solid var(--color-border);
+    background: var(--color-bg);
+}
+
+.ui-menu__content {
+    display: grid;
+    gap: var(--space-12);
+    min-inline-size: 0;
+}
+
+.ui-menu__count {
+    margin: 0;
+    color: var(--color-muted);
+    font-size: var(--text-sm);
+}
+
+.ui-menu__section {
+    display: grid;
+    gap: var(--space-4);
+    /* Anchored sections land below the sticky category bar. */
+    scroll-margin-block-start: calc(var(--control-lg) + var(--space-6));
+}
+
+.ui-menu__section-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-2) var(--space-4);
+}
+
+.ui-menu__section-title {
+    margin: 0;
+    font-size: var(--text-2xl);
+    font-weight: var(--weight-bold);
+    line-height: var(--leading-tight);
+}
+
+.ui-menu__section-title :lang(en) {
+    letter-spacing: var(--tracking-en-caps);
+}
+
+.ui-menu__section-count {
+    margin: 0;
+    color: var(--color-muted);
+    font-size: var(--text-sm);
+}
+
+.ui-menu__group-title {
+    margin-block: var(--space-4) 0;
+    color: var(--color-muted);
+    font-size: var(--text-lg);
+    font-weight: var(--weight-bold);
+}
+
+/* Seasonal section: a compact vertical list, never a carousel (spec §10). */
+.ui-menu__grid--list {
+    grid-template-columns: minmax(0, 1fr);
+}
+
+.ui-menu__section--season {
+    padding: var(--space-4);
+    border: var(--border-default) dashed var(--color-muted);
+    border-radius: var(--radius-lg);
+}
+
+/* Search: a jumped-to product is outlined for a moment (spec §8 — 1.5 s, set by the script). */
+[data-ui-menu-item].is-located .ui-product-card {
+    outline: var(--border-strong) solid var(--color-focus);
+    outline-offset: var(--space-1);
+}
+
+.ui-menu-detail {
+    display: grid;
+    gap: var(--space-3);
+}
+
+.ui-menu-detail p {
+    margin: 0;
+}
+
+.ui-menu-detail__location,
+.ui-menu-detail__secondary {
+    color: var(--color-muted);
+}
+
+.ui-menu-detail__price {
+    font-size: var(--text-2xl);
+    font-weight: var(--weight-bold);
+}
+
+@media (min-width: 600px) {
+    .ui-menu__nav {
+        margin-inline: calc(var(--container-gutter-tablet) * -1);
+        padding-inline: var(--container-gutter-tablet);
+    }
+
+    .ui-menu__grid--list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (min-width: 1024px) {
+    .ui-menu__tools {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        align-items: start;
+    }
+
+    .ui-menu__layout {
+        grid-template-columns: var(--container-sidebar) minmax(0, 1fr);
+        align-items: start;
+        gap: var(--space-10);
+    }
+
+    .ui-menu__nav {
+        inset-block-start: var(--space-6);
+        margin-inline: 0;
+        padding-inline: 0;
+        border-block-end: 0;
+        background: none;
+    }
+
+    .ui-menu__section {
+        scroll-margin-block-start: var(--space-6);
+    }
+
+    .ui-menu__grid:not(.ui-menu__grid--list) {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+@media (min-width: 1200px) {
+    .ui-menu__grid:not(.ui-menu__grid--list) {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+}

@@ -8,3 +8,9 @@ import { installReveal } from './ui/reveal';
 installAriaDisabledGuard();
 installDialogs();
 void installReveal();
+
+// The menu page script loads only on the menu page (its own chunk).
+const menu = document.querySelector<HTMLElement>('[data-ui-menu]');
+if (menu !== null) {
+    void import('./menu/page').then(({ installMenuPage }) => installMenuPage(menu));
+}

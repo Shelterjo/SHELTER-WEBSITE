@@ -26,6 +26,10 @@ return [
         'page' => 'الصفحة :page',
         'page_of' => 'الصفحة :page من :total',
     ],
+    'search' => [
+        'clear' => 'مسح البحث',
+        'suggestions' => 'اقتراحات البحث',
+    ],
     'event' => [
         'date' => 'التاريخ:',
         'place' => 'المكان:',

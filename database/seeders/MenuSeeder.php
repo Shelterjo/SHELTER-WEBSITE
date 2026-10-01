@@ -68,7 +68,8 @@ class MenuSeeder extends Seeder
                     'menu_group_id' => isset($c['group']) ? $groups[$c['group']]->id : null,
                     'type' => $c['type'] ?? 'standard',
                     'sort' => $c['sort'],
-                    'status' => PublishStatus::Draft->value,
+                    // F-17: the SPRING seasonal section is currently Active (manual override; dates MISSING, M-04).
+                    'status' => ($c['type'] ?? 'standard') === 'seasonal' ? PublishStatus::Published->value : PublishStatus::Draft->value,
                 ]);
             }
 
