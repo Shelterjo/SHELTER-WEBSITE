@@ -330,6 +330,7 @@
 | D-309 | الهوية البصرية تؤخذ من الموقع القديم www.shelterjo.com: الألوان والشعار والخطوط — «نفس الثيم». الصور الحقيقية خارج هذا القرار. | 2026-10-01 | Owner — M39 §2 (M39 §2) | ✅ Owner | 01 Brand & Design System | `APPROVED` |
 | D-310 | M40 PREMIUM UI / UX / MOTION MASTER DIRECTIVE — OWNER APPROVED: ui-ux-pro-max للتفكير، 21st للإلهام، shadcn للـPrimitives، Motion للحركة، وSHELTER Design System هو السلطة النهائية؛ الموقع Premium وحي وسريع ومتسق، لا Template ولا AI ولا SaaS. | 2026-10-01 | Owner — M40 FINAL (M40 FINAL) · M40 §00 (M40 §00) | ✅ Owner | 48 Design System & UI Consistency | `APPROVED` |
 | D-311 | PO-070 → A: حذف سجلات DNS المكشوفة (`*.shelterjo.com` · `order` · `sweet`). الـWildcard فورًا، و`order`/`sweet` بعد تأكيد عدم استخدامهما (حديثا الإنشاء). | 2026-10-01 | Owner — M41 §1 (M41 §1) | ✅ Owner | 34 Cloudflare, Hosting & DNS | `APPROVED` |
+| D-312 | PO-072 → C: حماية بريد @shelterjo.com تبدأ بـSPF (Google) وDKIM (Google Workspace) وDMARC بوضع المراقبة p=none والتقارير إلى info@shelterjo.com؛ لا رفض لأي بريد في هذه المرحلة. | 2026-10-01 | Owner — M42 §1 (M42 §1) | ✅ Owner | 34 Cloudflare, Hosting & DNS | `APPROVED` |
 
 ## قرارات مفتوحة (PROPOSED — بانتظار الـOwner)
 
