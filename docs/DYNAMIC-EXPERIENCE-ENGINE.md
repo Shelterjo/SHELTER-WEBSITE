@@ -2,7 +2,7 @@
 
 > **الحالة:** المتطلبات `OWNER APPROVED · HIGH PRIORITY` (M31، 2026-10-01). المعمارية أدناه `DRAFT — PENDING OWNER REVIEW (P04)`.
 > **المتطلبات القانونية:** `DX-001…DX-038` في [`SHELTER-WEBSITE-MASTER-REQUIREMENTS.md`](SHELTER-WEBSITE-MASTER-REQUIREMENTS.md) (المجال 45).
-> **لا تنفيذ قبل:** بوابات المشروع، ومعمارية الـDashboard (P04). **المنصة محسومة:** [`ADR-001`](adr/ADR-001-platform.md) (حسم DB-08). أسماء الجداول ملزمة من [`PLATFORM-ARCHITECTURE`](architecture/PLATFORM-ARCHITECTURE.md) §3.3.
+> **التنفيذ (M36):** يُبنى في PHASE 3 (التجارب والتقويم) وPHASE 4 (SHELTER Family وموظف الشهر). مراجعة المعمارية غير مانعة. **المنصة محسومة:** [`ADR-001`](adr/ADR-001-platform.md) (حسم DB-08). أسماء الجداول ملزمة من [`PLATFORM-ARCHITECTURE`](architecture/PLATFORM-ARCHITECTURE.md) §3.3.
 
 ## 1. المبدأ
 - **حالتان للموقع:**

@@ -1,7 +1,7 @@
 # GAP-CLOSURE PLAN — Platform Quality & Operations (M32)
 
 > **المرجع:** "MASTER GAP-CLOSURE ADDENDUM" (M32، 2026-10-01) — `OWNER APPROVED`. **ملحق لا يستبدل** ما سبق.
-> **الحالة:** `DRAFT — PENDING OWNER REVIEW` · **لا Production، ولا بناء** قبل بوابات المشروع، ومعمارية الـDashboard (P04). قرار المنصة (DB-08) **حُسم** بـ[`ADR-001`](adr/ADR-001-platform.md).
+> **الحالة:** `DRAFT — PENDING OWNER REVIEW` · **لا Production** قبل بوابة الإنتاج. البناء يسير بمراحل M36 (PLANNING CLOSED)، ومراجعة معمارية الـDashboard غير مانعة. قرار المنصة (DB-08) **حُسم** بـ[`ADR-001`](adr/ADR-001-platform.md).
 > **تحديث الحالة (2026-10-01):**
 > - **وثائق M32 §51 الـ19 موجودة الآن في [`docs/platform/`](platform/)** (الجدول §E). هذه الخطة تبقى الخريطة، والتفاصيل الملزمة في تلك الوثائق.
 > - **أسماء الجداول** في §B و§D حُدّثت إلى الأسماء الملزمة في [`PLATFORM-ARCHITECTURE`](architecture/PLATFORM-ARCHITECTURE.md) §3.
@@ -195,7 +195,7 @@
 | # | البوابة | ماذا يُعتمد | ما الذي تمنعه |
 |---|---|---|---|
 | J-1 | **هذه الخطة (A–J)** | الأنظمة والترتيب والدمج | كتابة وثائق التصميم التفصيلية للـP0 وWireframes الوحدات |
-| J-2 | **Wireframes الوحدات الجديدة + معمارية الـDashboard (P04 Gate H)** | الشاشات والـIA | أي بناء للـDashboard |
+| J-2 | **Wireframes الوحدات الجديدة + معمارية الـDashboard (P04 Gate H)** | الشاشات والـIA | ~~أي بناء للـDashboard~~ لا شيء (M36: مراجعة غير مانعة) |
 | J-3 | **قرار المنصة DB-08 + Cloudways Audit** | التقنية | أي Backend. **DB-08 حُسم بـADR-001**؛ يبقى الـCloudways Audit |
 | J-4 | **I-07 دقائق CI** | تفعيل GitHub Actions | الـPipeline الآلي (التشغيل المحلي متاح) |
 | J-5 | **Google APIs** (I-02…I-05) | الصلاحيات | البيانات الحية في الـDashboard (تُعرض `DEMO DATA` أو `PENDING INTEGRATION`) |
