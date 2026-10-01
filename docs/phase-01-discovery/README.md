@@ -1,7 +1,7 @@
 # PHASE 01 — DISCOVERY & OWNER INTERVIEW
 
 **المشروع:** SHELTER COFFEE — Global Website Rebuild From Zero
-**الحالة:** 🟡 In progress — الجولة 1 ✅ · الجولة 2 ✅ جزئيًا · AR-01 ✅ مبدئيًا (Option C) · بانتظار: اعتماد شجرة الروابط + R2-08 → R2-11 + تفعيل الوصول
+**الحالة:** 🟡 In progress — R1 ✅ · R2 ✅ (الخدمات/الدفع/البريد/الحسابات MISSING/PENDING) · P3 ✅ مبدئيًا مشروط · سياسة Google ✅ موثقة · **الآن: R2P (الأرقام)** · بانتظار: ROOT-01، URL-02، MENU-01، تفعيل الوصول، بيانات GBP
 **آخر تحديث:** 2026-10-01
 
 > لا Coding · لا Framework · لا Plugins · لا تغييرات Cloudflare/Cloudways/DNS · لا نشر.
@@ -23,6 +23,7 @@
 | 10 | [`10-url-architecture-draft.md`](10-url-architecture-draft.md) | مسودة الـURL Architecture: شجرة الروابط الكاملة + مقارنة ترتيب اللغة/الدولة (P1–P4) + محاكاة النقل للدومين العالمي |
 | 11 | [`11-social-accounts-verification.md`](11-social-accounts-verification.md) | الحسابات التي نعتقد أنها رسمية — تُؤكد حسابًا حسابًا |
 | 12 | [`12-homepage-screenshots-audit.md`](12-homepage-screenshots-audit.md) | جرد الرئيسية الحالية من لقطات الـOwner: الـHeader، الأقسام، الـFooter، الادعاءات، الصور، ملاحظات UX/Accessibility، إضافات WordPress، ملاحظة أمنية |
+| 13 | [`13-root-and-international-seo-plan.md`](13-root-and-international-seo-plan.md) | دراسة الجذر `/` (A/B/C/D) + خطة canonical وhreflang وx-default + تحويلات النقل + `/menu` + نقل الدومين العالمي + أثر Slugs الفروع |
 | 09 | [`09-architecture-options-after-r1.md`](09-architecture-options-after-r1.md) | مقترحات بعد الجولة 1: اللغة/السوق/الدومين (AR-01)، نموذج المواقع، ترتيب الـCTA، أثر الجمهور، النشرة، جاهزية الطلب أونلاين |
 
 ## الحوكمة
@@ -31,6 +32,8 @@
 |---|---|
 | [`../governance/DECISION-LOG.md`](../governance/DECISION-LOG.md) | سجل القرارات المعتمدة والمقترحة |
 | [`../governance/APPROVED-ASSET-LIBRARY.md`](../governance/APPROVED-ASSET-LIBRARY.md) | مكتبة الأصول المعتمدة (فارغة — لا أصول معتمدة بعد) |
+| [`../governance/RISK-REGISTER.md`](../governance/RISK-REGISTER.md) | سجل المخاطر (الموقع القديم، الروابط السبام، الزيارات، NAP…) |
+| [`../google/`](../google/GOOGLE-ECOSYSTEM-POLICY.md) | منظومة Google: السياسة، ملكية التنفيذ، الـChecklist، مصدر الحقيقة للفروع، Branch Data Sync، Search Console Baseline، GA4، GTM، خريطة النقل، ما بعد الإطلاق |
 
 ## بوابة الخروج من Phase 01 (Exit Criteria)
 
