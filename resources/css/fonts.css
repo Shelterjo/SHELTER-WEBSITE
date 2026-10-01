@@ -8,6 +8,9 @@
     font-weight: 400;
     font-display: swap;
     src: url('/fonts/licensed/ge-ss-two-light.ttf') format('truetype');
+    /* Arabic script + spaces only: digits and Latin come from Poppins, so numbers read 0799009436 / 3.50 as approved
+       (D-065, Menu IA §6) — GE SS maps the ASCII digits to Arabic-Indic shapes. */
+    unicode-range: U+0020, U+00A0, U+0600-06FF, U+0750-077F, U+08A0-08FF, U+FB50-FDFF, U+FE70-FEFF, U+200C-200F;
 }
 @font-face {
     font-family: 'GE SS Two';
@@ -15,6 +18,9 @@
     font-weight: 700;
     font-display: swap;
     src: url('/fonts/licensed/ge-ss-two-bold.ttf') format('truetype');
+    /* Arabic script + spaces only: digits and Latin come from Poppins, so numbers read 0799009436 / 3.50 as approved
+       (D-065, Menu IA §6) — GE SS maps the ASCII digits to Arabic-Indic shapes. */
+    unicode-range: U+0020, U+00A0, U+0600-06FF, U+0750-077F, U+08A0-08FF, U+FB50-FDFF, U+FE70-FEFF, U+200C-200F;
 }
 @font-face {
     font-family: Poppins;
