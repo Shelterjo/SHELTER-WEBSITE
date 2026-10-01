@@ -37,5 +37,19 @@ export default defineConfig({
       env: { PORT: '4175' },
       reuseExistingServer: true,
     },
+    // Franchise / partnership wireframes (absolute URLs in tests/prototype/franchise.spec.mjs).
+    {
+      command: 'node scripts/serve-static.mjs ../docs/franchise/wireframes/html',
+      url: 'http://127.0.0.1:4176/index.html',
+      env: { PORT: '4176' },
+      reuseExistingServer: true,
+    },
+    // Owner Dashboard wireframes (absolute URLs in tests/prototype/dashboard.spec.mjs).
+    {
+      command: 'node scripts/serve-static.mjs ../docs/dashboard/wireframes/html',
+      url: 'http://127.0.0.1:4177/index.html',
+      env: { PORT: '4177' },
+      reuseExistingServer: true,
+    },
   ],
 });
