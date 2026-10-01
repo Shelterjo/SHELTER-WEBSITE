@@ -54,6 +54,8 @@ DNS الخاص بـ`www.shelterjo.com` يحل إلى عناوين Cloudflare (IP
 
 ## 5. ما يفتح بقية الفحص (مرتب حسب الأثر)
 
+> التفاصيل الكاملة لكل صلاحية (لماذا، المستوى، ماذا نفحص، المخاطرة) في [`08-access-requests.md`](08-access-requests.md).
+
 1. **فتح الوصول للموقع** من إعدادات بيئة العمل (Allowed domains: `shelterjo.com`, `www.shelterjo.com`, `shop.shelterjo.com`) — يغلق ~28 بندًا من قائمة الفحص (Navigation، Footer، النصوص، الصور، Alt، Headings، Canonicals، Schema، Redirects، 404، Mobile/Desktop UX، Accessibility، Tracking).
 2. **WordPress Export** (Tools → Export → All content) أو نسخة Cloudways Backup — للنصوص الكاملة والصفحات غير المنشورة والصور.
 3. **صلاحيات قراءة فقط:** Google Search Console، GA4، GTM، Google Business Profile للفرعين، HubSpot، Cloudflare (DNS + Redirect Rules).
