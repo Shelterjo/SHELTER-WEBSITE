@@ -1,5 +1,8 @@
 # FRONTEND TOOLING — Matrix · Registry · Rules
 
+> ⚠️ **تحديث (M37):** سجل الأدوات الوحيد الآن هو [`docs/TOOLCHAIN.md`](TOOLCHAIN.md) بعد قرار المنصة [`ADR-001`](adr/ADR-001-platform.md). هذه الوثيقة **سجل تاريخي** للقرارات السابقة. أي تعارض: `TOOLCHAIN.md` هو المرجع.
+
+
 > **الحالة:** `IMPLEMENTED — PARTIAL` (أدوات الجودة المستقلة عن إطار العمل فقط) · **آخر تحديث:** 2026-10-01
 > **المصدر:** طلب الـOwner (Tooling Audit) + قاعدة الاستجابة الإلزامية (Responsive mandatory) + قاعدة الدمج (Tooling Registry).
 > **النطاق:** هذه أدوات جودة وبنية تحتية، **وليست تصميمًا ولا كود موقع.** لا Visual Design قبل اعتماد الـIA والـWireframes، ولا أدوات تعتمد على React قبل قرار المنصة **DB-08**.
