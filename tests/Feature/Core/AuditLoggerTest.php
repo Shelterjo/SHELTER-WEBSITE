@@ -18,9 +18,9 @@ class AuditLoggerTest extends TestCase
             'after' => ['password' => 'secret', 'nested' => ['two_factor_secret' => 'abc', 'name' => 'Visible']],
         ]);
 
-        $this->assertSame('[MASKED]', $log->changes['after']['password']);
-        $this->assertSame('[MASKED]', $log->changes['after']['nested']['two_factor_secret']);
-        $this->assertSame('Visible', $log->changes['after']['nested']['name']);
+        $this->assertSame([
+            'after' => ['password' => '[MASKED]', 'nested' => ['two_factor_secret' => '[MASKED]', 'name' => 'Visible']],
+        ], $log->changes);
     }
 
     public function test_ip_is_stored_only_for_security_events(): void

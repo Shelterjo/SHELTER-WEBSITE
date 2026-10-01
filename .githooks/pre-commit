@@ -9,4 +9,5 @@ fi
 if [ -x vendor/bin/pint ]; then
   files=$(git diff --cached --name-only --diff-filter=ACM -- '*.php')
   [ -z "$files" ] || vendor/bin/pint --test $files
+  [ -z "$files" ] || php -d memory_limit=1G vendor/bin/phpstan analyse --no-progress
 fi

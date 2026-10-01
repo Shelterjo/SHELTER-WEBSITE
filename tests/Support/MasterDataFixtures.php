@@ -26,7 +26,10 @@ trait MasterDataFixtures
         return City::query()->firstOrCreate(['country_id' => $country->id, 'slug' => 'test-city'], ['name_ar' => 'مدينة', 'name_en' => 'City']);
     }
 
-    /** @param array<int, array{0: int, 1: string, 2: string}> $hours weekday, opens, closes */
+    /**
+     * @param  array<int, array{0: int, 1: string, 2: string}>  $hours  weekday, opens, closes
+     * @param  array<string, mixed>  $attributes
+     */
     protected function branch(string $code = 'BR-TEST', array $hours = [], array $attributes = []): Branch
     {
         $branch = Branch::query()->create(array_merge([
