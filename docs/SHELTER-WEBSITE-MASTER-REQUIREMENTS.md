@@ -28,8 +28,8 @@
 |---|---|
 | [`MASTER-DECISION-REGISTER.md`](MASTER-DECISION-REGISTER.md) | الحالة الحالية لكل قرار (430 قرارًا) |
 | [`governance/DECISION-LOG.md`](governance/DECISION-LOG.md) | السجل الزمني (D-000 ← D-307) |
-| [`CONFLICT-REGISTER.md`](CONFLICT-REGISTER.md) | 208 تعارضًا وطريقة حسمها |
-| [`PENDING-OWNER-INPUT.md`](PENDING-OWNER-INPUT.md) | 63 بندًا فقط تحتاجك |
+| [`CONFLICT-REGISTER.md`](CONFLICT-REGISTER.md) | 209 تعارضًا وطريقة حسمها |
+| [`PENDING-OWNER-INPUT.md`](PENDING-OWNER-INPUT.md) | 67 بندًا فقط تحتاجك |
 | [`REQUIREMENTS-TRACEABILITY-MATRIX.md`](REQUIREMENTS-TRACEABILITY-MATRIX.md) | متطلب ← قرار ← تصميم ← كود ← اختبار |
 | [`IMPLEMENTATION-GAP-ANALYSIS.md`](IMPLEMENTATION-GAP-ANALYSIS.md) | ما الموجود وما الناقص |
 | [`IMPLEMENTATION-PLAN.md`](IMPLEMENTATION-PLAN.md) | الخطة الموحدة P00 ← P12 والبوابات |

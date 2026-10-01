@@ -14,15 +14,15 @@
 
 | الحالة | العدد |
 |---|---|
-| `OWNER DECISION REQUIRED` | 19 |
+| `OWNER DECISION REQUIRED` | 20 |
 | `RESOLVED` (حُسم من المحادثة بقاعدة موثقة) | 156 |
 | `DOC FIX NEEDED` (وثيقة متأخرة عن قرار لاحق) | 33 |
-| **المجموع** | **208** |
+| **المجموع** | **209** |
 
 > **عمود Refs:** يربط كل تعارض بمجموعة التدقيق التي وجدته (G1…G8)، لأن التعارض الواحد قد يظهر في أكثر من مجال.
 > **معرّفات المنيو القديمة** (CF-01…CF-11 في `menu-ia/MENU-DECISION-REGISTER.md`) و**VQ / OBS** مربوطة في الملاحظات.
 
-## OWNER DECISION REQUIRED (19)
+## OWNER DECISION REQUIRED (20)
 
 | Conflict ID | Topic | Old instruction | New instruction | Which one wins | Why | Impact | Files/code affected | Status |
 |---|---|---|---|---|---|---|---|---|
@@ -45,6 +45,7 @@
 | `CF-M-110` | Consent Mode v2 مفترض كإعداد عام غير موجود | M01 §82: جهز الموقع لدعم Cookie/Analytics/Marketing Consent؛ M12 §22: ادرس Google Consent Mode عندما يكون مطلوبًا؛ R11-04 (بانر الكوكيز؟) مفتوح<br>_(M01-213، M12-053 (G1)؛ GIO §A22؛ 07-question-backlog R11-04)_ | MENU-MEASUREMENT-PLAN §3.4/§5 وPERFORMANCE-BUDGET: «Consent Mode v2: قبل الموافقة إشارات بلا Cookies حسب الإعداد العام (docs/google)» + Tags تتطلب analytics_storage<br>_(docs/menu-ia/MENU-MEASUREMENT-PLAN.md؛ docs/menu-ia/PERFORMANCE-BUDGET.md)_ | — | لا قرار Owner/قانوني بعد بشأن الـConsent. المسودات تفترضه ← **PO-019** · لا إعداد Consent عام في docs/google ولا قرار Owner/قانوني بعد؛ المسودة تفترض قرارًا غير متخذ. | Trigger menu_view «بعد تهيئة الموافقة»، اكتمال البيانات، بانر الكوكيز، صفحات الخصوصية. | docs/menu-ia/MENU-MEASUREMENT-PLAN.md §3 §5 · docs/menu-ia/PERFORMANCE-BUDGET.md · docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §A22 | **OWNER DECISION REQUIRED** |
 | `CF-M-132` | وجهة 301 للرابط القديم /franchise-shelter-coffee/ إذا لم تُنشر الصفحة الجديدة عند الإطلاق | 10-url-architecture-draft §5: → /ar/franchise/ «(إذا بقيت مخفية: مؤقتًا إلى /ar/about/ — قرار لاحق)»؛ 02-url-inventory: «/franchise إن بقي، وإلا /contact» (DB-04 UNDECIDED)<br>_(10 §5 · 02-url-inventory-and-migration-seed (Claude drafts))_ | لا Redirect الآن؛ 10 فحوص قبل الإطلاق؛ ثم 301 old → appropriate new canonical URL بعد Owner Approval<br>_(M29 §71)_ | — (قرار الـOwner عند P11) | M29 يحسم المبدأ والوجهة الطبيعية (/ar/franchise/) لكنه لا يحدد البديل إن بقيت الصفحة غير منشورة عند إطلاق الموقع، والمسودتان متعارضتان؛ قرار الـRedirect للـOwner صراحة. التوصية التقنية: /ar/contact/ (فيها «استفسارات الفرنشايز» — مطابقة للنية) بدل /ar/about/ | SEO-MIGRATION-MAP وخريطة 301 في P11 فقط؛ لا يمنع Phase 1 | docs/phase-01-discovery/10-url-architecture-draft.md §5 · docs/phase-01-discovery/02-url-inventory-and-migration-seed.md · docs/google/SEO-MIGRATION-MAP.md | **OWNER DECISION REQUIRED** |
 | `CF-M-147` | Real User Monitoring مقابل قواعد الخصوصية والموافقة | أي Tracking يراعي Privacy Policy · Cookie Policy · Consent (PRIV-008)؛ لا تتبع يحتاج إفصاحًا قبل تحديث صفحات الخصوصية (PRIV-009)؛ قرار الـConsent مفتوح (GOOGLE-022، PO-019)<br>_(M01 §82 · M12 §22–§23)_ | اجمع Privacy-safe Web Vitals من الزوار بلا PII (RUM)<br>_(M32 §11)_ | الجزء التقني محسوم: RUM First-party بلا Cookies ولا معرفات ولا IP مخزن ومجمّع، ويُذكر في سياسة الخصوصية قبل تفعيله على Production (PRIV-009). هل يحتاج موافقة Cookie/Analytics أم يكفي الإفصاح؟ = قرار الـOwner/القانوني (PO-019) | لا تعارض في الهدف، لكن متطلب الموافقة قانوني ولم يُحسم؛ البناء غير متوقف (التفعيل فقط) | OPS-025 · PRIV-008/009 · PO-019 | docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §A22 §A23 | **OWNER DECISION REQUIRED** |
+| `CF-M-209` | 6 أسماء عربية للكيك والكوكيز: المعتمد (D-132) مقابل ملف Menu List الجديد | D-132: الأسماء العربية الـ26 المقترحة معتمدة كما هي — كيكة الجزر · جيرمان شوكليت · ريد فيلفيت كيك · تشيز كيك مانجو · تشيز كيك باشن فروت · كوكيز فستق<br>_(D-132)_ | ملف Menu List: كاروت كيك · جيرمن شوكليت · ريد فلفيت كيك · مانجو تشيز كيك · باشن فروت تشيز كيك · كوكيز فستق حلبي<br>_(OWNER-MENU-LIST-RECEIVED-2026-10-01.xlsx)_ |  | لا يتضح هل الملف قرار تسمية صريح أم قائمة تشغيلية (POS) — M38 §6: عرض A/B والسؤال | الاسم العربي لستة أصناف في المنيو والـSchema | docs/phase-01-discovery/23-menu-list-reconciliation.md | **OWNER DECISION REQUIRED** |
 
 ## RESOLVED (156)
 
