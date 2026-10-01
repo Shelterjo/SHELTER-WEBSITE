@@ -57,6 +57,10 @@
   --container-page: 1280px;
   --container-dashboard: 1440px;
   --container-reading: 720px;
+  --container-modal: 760px;
+  --container-drawer: 400px;
+  --container-sidebar: 240px;
+  --container-narrow: 480px;
   --container-gutter-mobile: 16px;
   --container-gutter-tablet: 24px;
   --container-gutter-desktop: 32px;
@@ -85,5 +89,6 @@
   --color-warning: #7a5200;
   --color-danger: #a1271e;
   --color-info: #1f4f8a;
+  --color-scrim: rgb(0 0 0 / 0.5);
 }
 @media (prefers-reduced-motion: reduce) { :root { --motion-fast: 0ms; --motion-normal: 0ms; --motion-slow: 0ms; } }

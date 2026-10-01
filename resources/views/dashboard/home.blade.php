@@ -3,6 +3,6 @@
 @section('title', __('dashboard.command_center'))
 
 @section('content')
-    <h1>{{ __('dashboard.command_center') }}</h1>
+    <x-ui.page-header :title="__('dashboard.command_center')" />
     {{-- PHASE 3: status tiles, active campaign, new counts, needs-attention queue (FINAL-ARCHITECTURE-REVIEW §10). --}}
 @endsection

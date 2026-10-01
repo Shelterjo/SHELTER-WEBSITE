@@ -1,0 +1,84 @@
+/* Dashboard shell (DS-020): top bar · navigation · main. Mobile: navigation is a scrollable row under the bar.
+   From 1024px: a side column (--container-sidebar) next to the content, content up to --container-dashboard. */
+
+.ui-shell {
+    display: grid;
+    grid-template-rows: auto auto 1fr;
+    min-block-size: 100dvh;
+}
+
+.ui-shell__topbar {
+    position: sticky;
+    inset-block-start: 0;
+    z-index: var(--z-header);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+    min-block-size: var(--control-lg);
+    padding-block: var(--space-1);
+    padding-inline: var(--container-gutter-mobile);
+    border-block-end: var(--border-default) solid var(--color-border);
+    background: var(--color-bg);
+}
+
+.ui-shell__brand {
+    margin: 0;
+    font-size: var(--text-sm);
+    font-weight: var(--weight-bold);
+    letter-spacing: var(--tracking-en-caps);
+}
+
+.ui-shell__topbar form {
+    margin: 0;
+}
+
+.ui-shell__nav {
+    min-inline-size: 0;
+    padding-block: var(--space-2);
+    padding-inline: var(--container-gutter-mobile);
+    border-block-end: var(--border-default) solid var(--color-border);
+    background: var(--color-bg);
+}
+
+.ui-shell__main {
+    min-inline-size: 0;
+    padding-block: var(--space-6);
+    padding-inline: var(--container-gutter-mobile);
+}
+
+.ui-shell__content {
+    max-inline-size: var(--container-dashboard);
+}
+
+@media (min-width: 600px) {
+    .ui-shell__topbar,
+    .ui-shell__nav,
+    .ui-shell__main {
+        padding-inline: var(--container-gutter-tablet);
+    }
+}
+
+@media (min-width: 1024px) {
+    .ui-shell {
+        grid-template-columns: var(--container-sidebar) minmax(0, 1fr);
+        grid-template-rows: auto 1fr;
+    }
+
+    .ui-shell__topbar {
+        grid-column: 1 / -1;
+        padding-inline: var(--container-gutter-desktop);
+    }
+
+    .ui-shell__nav {
+        padding-block: var(--space-4);
+        padding-inline: var(--space-3);
+        border-block-end: 0;
+        border-inline-end: var(--border-default) solid var(--color-border);
+    }
+
+    .ui-shell__main {
+        padding-block: var(--space-8);
+        padding-inline: var(--container-gutter-desktop);
+    }
+}

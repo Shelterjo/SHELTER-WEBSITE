@@ -1,0 +1,31 @@
+/* SHELTER component library (x-ui.*): base → layout → components. Shared by the site and the dashboard bundles
+   (M34: one design language). Tokens come first from each bundle. Dashboard-only parts live in components/dashboard. */
+@import './base.css';
+@import './layout.css';
+@import './components/icon.css';
+@import './components/button.css';
+@import './components/field.css';
+@import './components/input.css';
+@import './components/checkbox.css';
+@import './components/switch.css';
+@import './components/error-summary.css';
+@import './components/badge.css';
+@import './components/chip.css';
+@import './components/alert.css';
+@import './components/card.css';
+@import './components/price.css';
+@import './components/product-card.css';
+@import './components/event-card.css';
+@import './components/media-placeholder.css';
+@import './components/empty-state.css';
+@import './components/skeleton.css';
+@import './components/table.css';
+@import './components/pagination.css';
+@import './components/breadcrumb.css';
+@import './components/nav-link.css';
+@import './components/tabs.css';
+@import './components/disclosure.css';
+@import './components/dialog.css';
+@import './components/modal.css';
+@import './components/drawer.css';
+@import './components/bottom-sheet.css';

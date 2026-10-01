@@ -1,0 +1,38 @@
+/* Page header (dashboard): breadcrumb · H1 · description · actions. Actions wrap under the title on narrow screens. */
+
+.ui-page-header {
+    display: grid;
+    gap: var(--space-3);
+    margin-block-end: var(--space-6);
+}
+
+.ui-page-header__main {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--space-4);
+}
+
+.ui-page-header__text {
+    flex: 1 1 auto;
+    min-inline-size: 0;
+}
+
+.ui-page-header__title {
+    margin: 0;
+    font-size: var(--text-3xl);
+    overflow-wrap: anywhere;
+}
+
+.ui-page-header__description {
+    max-inline-size: var(--measure-reading);
+    margin-block: var(--space-1) 0;
+    color: var(--color-muted);
+}
+
+.ui-page-header__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+}

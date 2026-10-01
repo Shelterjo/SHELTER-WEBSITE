@@ -1,0 +1,40 @@
+/* Checkbox and radio: native inputs (keyboard and screen-reader behaviour for free), token sizes, and the whole
+   label row as the touch target (≥ 44px). */
+
+.ui-check {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+    min-block-size: var(--touch-target);
+    padding-block: var(--space-2);
+    cursor: pointer;
+}
+
+.ui-check__input {
+    flex: none;
+    inline-size: var(--icon-md);
+    block-size: var(--icon-md);
+    margin: 0;
+    margin-block-start: calc((1lh - var(--icon-md)) / 2);
+    accent-color: var(--color-accent);
+    cursor: inherit;
+}
+
+.ui-check__text {
+    min-inline-size: 0;
+}
+
+.ui-check:has(.ui-check__input:disabled) {
+    opacity: var(--ui-disabled-opacity);
+    cursor: not-allowed;
+}
+
+.ui-check__input[aria-invalid='true'] {
+    outline: var(--border-strong) solid var(--color-danger);
+    outline-offset: var(--border-strong);
+}
+
+.ui-check__input[aria-invalid='true']:focus-visible {
+    outline: var(--ui-focus-ring-width) solid var(--color-focus);
+    outline-offset: var(--ui-focus-ring-offset);
+}

@@ -1,0 +1,33 @@
+/* Badge: short status text (always text, never colour alone). Variants: neutral · success · warning · danger · info. */
+
+.ui-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    max-inline-size: 100%;
+    padding-inline: var(--space-2);
+    border: var(--border-strong) solid currentColor;
+    border-radius: var(--radius-sm);
+    background: var(--color-bg);
+    color: var(--color-muted);
+    font-size: var(--text-xs);
+    font-weight: var(--weight-bold);
+    line-height: var(--leading-normal-en);
+    white-space: nowrap;
+}
+
+.ui-badge--success {
+    color: var(--color-success);
+}
+
+.ui-badge--warning {
+    color: var(--color-warning);
+}
+
+.ui-badge--danger {
+    color: var(--color-danger);
+}
+
+.ui-badge--info {
+    color: var(--color-info);
+}

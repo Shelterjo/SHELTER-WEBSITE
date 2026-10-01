@@ -1,0 +1,156 @@
+/* Button — one component (DS §3 / DS-014): 6 variants + icon-only, 3 sizes, states hover · pressed · focus ·
+   disabled · loading. Same radius, type, height logic, padding, focus and motion for every button. */
+
+.ui-button {
+    --ui-button-bg: transparent;
+    --ui-button-fg: var(--color-text);
+    --ui-button-border: transparent;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    min-block-size: var(--control-md);
+    min-inline-size: var(--touch-target);
+    margin: 0;
+    padding-block: 0;
+    padding-inline: var(--space-4);
+    border: var(--border-strong) solid var(--ui-button-border);
+    border-radius: var(--radius-md);
+    background: var(--ui-button-bg);
+    color: var(--ui-button-fg);
+    font-family: inherit;
+    font-size: var(--text-sm);
+    font-weight: var(--weight-bold);
+    line-height: var(--leading-tight);
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    transition:
+        background-color var(--motion-fast) var(--easing-standard),
+        border-color var(--motion-fast) var(--easing-standard),
+        color var(--motion-fast) var(--easing-standard);
+}
+
+.ui-button--primary {
+    --ui-button-bg: var(--color-accent);
+    --ui-button-fg: var(--color-on-accent);
+    --ui-button-border: var(--color-accent);
+}
+
+.ui-button--secondary {
+    --ui-button-bg: var(--color-surface);
+    --ui-button-border: var(--color-muted);
+}
+
+.ui-button--outline {
+    --ui-button-border: var(--color-text);
+}
+
+.ui-button--danger {
+    --ui-button-bg: var(--color-danger);
+    --ui-button-fg: var(--color-on-accent);
+    --ui-button-border: var(--color-danger);
+}
+
+.ui-button--link {
+    min-inline-size: 0;
+    padding-inline: 0;
+    border-color: transparent;
+    font-weight: var(--weight-medium);
+    text-decoration: underline;
+}
+
+/* Hover / pressed: the surface moves toward its foreground colour (derived from tokens, no new colour). */
+.ui-button:hover:not([aria-disabled='true'], :disabled) {
+    background: color-mix(in srgb, var(--ui-button-fg) var(--ui-mix-hover), var(--ui-button-bg));
+}
+
+.ui-button:active:not([aria-disabled='true'], :disabled) {
+    background: color-mix(in srgb, var(--ui-button-fg) var(--ui-mix-active), var(--ui-button-bg));
+}
+
+.ui-button--ghost:hover:not([aria-disabled='true'], :disabled),
+.ui-button--outline:hover:not([aria-disabled='true'], :disabled) {
+    background: var(--color-surface);
+}
+
+.ui-button--ghost:active:not([aria-disabled='true'], :disabled),
+.ui-button--outline:active:not([aria-disabled='true'], :disabled) {
+    background: color-mix(in srgb, var(--color-text) var(--ui-mix-hover), var(--color-surface));
+}
+
+.ui-button--link:hover:not([aria-disabled='true'], :disabled),
+.ui-button--link:active:not([aria-disabled='true'], :disabled) {
+    background: transparent;
+    text-decoration-thickness: var(--border-strong);
+}
+
+.ui-button--sm {
+    min-block-size: var(--control-sm);
+    padding-inline: var(--space-3);
+    font-size: var(--text-xs);
+}
+
+.ui-button--lg {
+    min-block-size: var(--control-lg);
+    padding-inline: var(--space-6);
+    font-size: var(--text-base);
+}
+
+/* Small (36) is for dense desktop tables with a fine pointer only (A11Y standard §3): touch keeps 44. */
+@media (pointer: coarse) {
+    .ui-button--sm {
+        min-block-size: var(--control-md);
+    }
+}
+
+.ui-button--icon-only {
+    inline-size: var(--control-md);
+    padding-inline: 0;
+}
+
+.ui-button--icon-only.ui-button--sm {
+    inline-size: var(--control-sm);
+    min-inline-size: var(--control-sm);
+}
+
+.ui-button--icon-only.ui-button--lg {
+    inline-size: var(--control-lg);
+}
+
+@media (pointer: coarse) {
+    .ui-button--icon-only.ui-button--sm {
+        inline-size: var(--control-md);
+        min-inline-size: var(--control-md);
+    }
+}
+
+.ui-button[aria-disabled='true'],
+.ui-button:disabled {
+    opacity: var(--ui-disabled-opacity);
+    cursor: not-allowed;
+}
+
+/* Loading keeps its label (DS §3): the spinner is added, nothing is hidden. */
+.ui-button--loading {
+    cursor: progress;
+}
+
+.ui-button__spinner {
+    animation: ui-spin calc(var(--motion-slow) * 3) linear infinite;
+}
+
+@keyframes ui-spin {
+    to {
+        rotate: 1turn;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .ui-button__spinner {
+        animation: none;
+    }
+}

@@ -1,0 +1,64 @@
+// Copies the ALLOW-LIST of Lucide icons (DS-012: one icon library) from lucide-static into resources/icons/
+// and normalises them for <x-ui.icon>: stroke-width = 1.75 (tokens.json size.icon.stroke), no license comment,
+// no class/width/height (the component sets size and accessibility attributes). Icons not on the list are removed,
+// so the folder always equals the list. The ISC licence text is kept next to the icons (resources/icons/LICENSE).
+// Usage: npm run icons
+import { readFileSync, readdirSync, writeFileSync, mkdirSync, rmSync, copyFileSync } from 'node:fs';
+import { join } from 'node:path';
+
+const SOURCE = 'node_modules/lucide-static/icons';
+const TARGET = 'resources/icons';
+const STROKE = JSON.parse(readFileSync('design-system/tokens/tokens.json', 'utf8')).size.icon.stroke.$value;
+
+// Only icons a component or an approved pattern uses. Add here first, then use it (TOOLCHAIN §4: no full icon set).
+const ICONS = [
+    'ban', // status-pill NOT SUPPORTED
+    'calendar', // event-card date
+    'check', // pressed chip (state not shown by colour alone)
+    'chevron-down', // select
+    'chevron-left', // pagination previous (directional)
+    'chevron-right', // pagination next, breadcrumb separator (directional)
+    'circle-alert', // field error, danger alert
+    'circle-check', // success alert, status-pill SYNCED
+    'circle-x', // status-pill FAILED
+    'clock', // status-pill PENDING
+    'hand', // status-pill MANUAL ACTION REQUIRED
+    'house', // navigation (home)
+    'image', // media placeholder
+    'inbox', // empty state
+    'info', // info alert
+    'loader-circle', // loading
+    'log-out', // dashboard sign out (directional)
+    'map-pin', // event-card place
+    'refresh-cw-off', // status-pill OUT OF SYNC
+    'trending-down', // stat-tile trend
+    'trending-up', // stat-tile trend
+    'triangle-alert', // warning alert
+    'x', // close
+];
+
+function normalise(svg, stroke = STROKE) {
+    return svg
+        .replace(/<!--[\s\S]*?-->/g, '')
+        .replace(/\s(class|width|height)="[^"]*"/g, '')
+        .replace(/stroke-width="[^"]*"/g, `stroke-width="${stroke}"`)
+        .replace(/\s+/g, ' ')
+        .replace(/>\s+</g, '><')
+        .replace(/\s+(\/?)>/g, '$1>')
+        .replace(/<svg\s+/, '<svg ')
+        .trim();
+}
+
+mkdirSync(TARGET, { recursive: true });
+const wanted = new Set(ICONS.map((name) => `${name}.svg`));
+for (const file of readdirSync(TARGET)) {
+    if (file.endsWith('.svg') && !wanted.has(file)) rmSync(join(TARGET, file));
+}
+for (const name of ICONS) {
+    const svg = normalise(readFileSync(join(SOURCE, `${name}.svg`), 'utf8'));
+    if (!svg.includes(`stroke-width="${STROKE}"`))
+        throw new Error(`icons: ${name} has no stroke-width after normalising`);
+    writeFileSync(join(TARGET, `${name}.svg`), `${svg}\n`);
+}
+copyFileSync('node_modules/lucide-static/LICENSE', join(TARGET, 'LICENSE'));
+console.log(`icons: ${ICONS.length} Lucide icons → ${TARGET} (stroke ${STROKE})`);

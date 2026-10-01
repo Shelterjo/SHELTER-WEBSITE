@@ -1,0 +1,24 @@
+/* Event card: same card base; title · date · place · optional badge and media. */
+
+.ui-event-card__title {
+    margin: 0;
+    font-size: var(--text-lg);
+    line-height: var(--leading-tight);
+    overflow-wrap: anywhere;
+}
+
+.ui-event-card__meta {
+    display: grid;
+    gap: var(--space-1);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.ui-event-card__badge {
+    margin: 0;
+}
+
+.ui-event-card {
+    gap: var(--space-2);
+}

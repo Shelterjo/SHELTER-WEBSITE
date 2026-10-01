@@ -1,0 +1,29 @@
+/* Error summary: top of a form after a failed submit; each item links to its field (WCAG 3.3.1). */
+
+.ui-error-summary {
+    padding: var(--space-4);
+    border: var(--border-strong) solid var(--color-danger);
+    border-radius: var(--radius-md);
+    background: var(--color-bg);
+}
+
+.ui-error-summary__title {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-block: 0 var(--space-2);
+    color: var(--color-danger);
+    font-size: var(--text-base);
+}
+
+.ui-error-summary__list {
+    margin: 0;
+    padding-inline-start: var(--space-6);
+}
+
+.ui-error-summary__list a {
+    display: inline-block;
+    padding-block: var(--space-1);
+    color: var(--color-danger);
+    font-weight: var(--weight-bold);
+}

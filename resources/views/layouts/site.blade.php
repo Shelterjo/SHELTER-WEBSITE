@@ -16,7 +16,7 @@
     @vite(['resources/css/site.css', 'resources/js/site.ts'])
 </head>
 <body>
-    <a class="ui-skip-link" href="#main">{{ __('site.skip_to_content') }}</a>
+    <x-ui.skip-link :label="__('site.skip_to_content')" />
     <main id="main" tabindex="-1">
         @yield('content')
     </main>

@@ -7,18 +7,20 @@
     "node": ">=22.19"
   },
   "scripts": {
+    "icons": "node scripts/icons.mjs",
     "build": "npm run tokens && node scripts/brand-guard.mjs && vite build && node scripts/bundle-budget.mjs",
     "dev": "vite",
     "tokens": "npm --prefix tooling run tokens:css",
     "typecheck": "tsc --noEmit",
-    "lint": "eslint . && prettier --check .",
+    "lint": "eslint . && prettier --check . && node scripts/ds-gate.mjs",
     "format": "prettier --write .",
     "test:unit": "vitest run",
     "knip": "knip",
     "ds:export": "php artisan ds:export",
     "storybook": "npm run ds:export && storybook dev -p 6006 --no-open",
     "storybook:build": "npm run ds:export && storybook build -o storybook-static --quiet",
-    "qa:fast": "npm run typecheck && npm run lint && npm run test:unit"
+    "qa:fast": "npm run typecheck && npm run lint && npm run test:unit",
+    "test:storybook": "node tooling/node_modules/@playwright/test/cli.js test -c playwright.ds.config.mjs"
   },
   "devDependencies": {
     "@eslint/js": "10.0.1",

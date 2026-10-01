@@ -1,0 +1,41 @@
+/* Bottom sheet: mobile detail view (Menu IA §7): up to 86% of the viewport height, rounded top, safe-area aware.
+   The handle is decorative: a visible close button, Esc and the backdrop always close it (WCAG 2.5.7). */
+
+.ui-sheet {
+    inline-size: 100%;
+    max-inline-size: 100%;
+    max-block-size: 86dvh;
+    margin: 0;
+    margin-block-start: auto;
+    border-start-start-radius: var(--radius-xl);
+    border-start-end-radius: var(--radius-xl);
+    translate: 0 0;
+}
+
+@starting-style {
+    .ui-sheet[open] {
+        translate: 0 100%;
+    }
+}
+
+.ui-sheet:not([open]) {
+    translate: 0 100%;
+}
+
+.ui-sheet__handle {
+    align-self: center;
+    flex: none;
+    inline-size: var(--space-10);
+    block-size: var(--space-1);
+    margin-block-start: var(--space-2);
+    border-radius: var(--radius-pill);
+    background: var(--color-border);
+}
+
+.ui-sheet .ui-dialog__body {
+    padding-block-end: max(var(--space-4), env(safe-area-inset-bottom));
+}
+
+.ui-sheet .ui-dialog__footer {
+    padding-block-end: max(var(--space-3), env(safe-area-inset-bottom));
+}

@@ -1,0 +1,16 @@
+/* Toolbar (dashboard): labelled group of filters / actions above a list or table; wraps, never scrolls the page. */
+
+.ui-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: var(--space-3);
+    padding: var(--space-3);
+    border: var(--border-default) solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-surface);
+}
+
+.ui-toolbar > .ui-field {
+    flex: 1 1 calc(var(--space-16) * 3);
+}

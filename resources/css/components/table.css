@@ -1,0 +1,112 @@
+/* Table: caption + scoped headers in a keyboard-scrollable region. The page never scrolls sideways.
+   "stack" variant: rows become cards below 600px (DS §8 "Table → cards on mobile"). */
+
+.ui-table-wrap {
+    max-inline-size: 100%;
+    overflow-x: auto;
+    border: var(--border-default) solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-bg);
+}
+
+.ui-table {
+    inline-size: 100%;
+    border-collapse: collapse;
+    font-size: var(--text-sm);
+}
+
+.ui-table__caption {
+    padding: var(--space-3);
+    font-size: var(--text-base);
+    font-weight: var(--weight-bold);
+    text-align: start;
+}
+
+.ui-table th,
+.ui-table td {
+    padding-block: var(--space-2);
+    padding-inline: var(--space-3);
+    border-block-start: var(--border-default) solid var(--color-border);
+    text-align: start;
+    vertical-align: top;
+}
+
+.ui-table thead th {
+    background: var(--color-surface);
+    font-weight: var(--weight-bold);
+    white-space: nowrap;
+}
+
+.ui-table tbody th {
+    font-weight: var(--weight-medium);
+}
+
+.ui-table__numeric {
+    font-variant-numeric: tabular-nums;
+    text-align: end;
+}
+
+.ui-table th.ui-table__numeric,
+.ui-table td.ui-table__numeric {
+    text-align: end;
+}
+
+.ui-table--stack thead {
+    display: none;
+}
+
+.ui-table--stack tr {
+    display: grid;
+    gap: var(--space-1);
+    padding: var(--space-3);
+    border-block-start: var(--border-default) solid var(--color-border);
+}
+
+.ui-table--stack th,
+.ui-table--stack td {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+    gap: var(--space-3);
+    padding: 0;
+    border: 0;
+}
+
+.ui-table--stack th::before,
+.ui-table--stack td::before {
+    content: attr(data-label);
+    color: var(--color-muted);
+    font-weight: var(--weight-medium);
+}
+
+.ui-table--stack .ui-table__numeric {
+    text-align: start;
+}
+
+@media (min-width: 600px) {
+    .ui-table--stack thead {
+        display: table-header-group;
+    }
+
+    .ui-table--stack tr {
+        display: table-row;
+        padding: 0;
+        border: 0;
+    }
+
+    .ui-table--stack th,
+    .ui-table--stack td {
+        display: table-cell;
+        padding-block: var(--space-2);
+        padding-inline: var(--space-3);
+        border-block-start: var(--border-default) solid var(--color-border);
+    }
+
+    .ui-table--stack th::before,
+    .ui-table--stack td::before {
+        content: none;
+    }
+
+    .ui-table--stack .ui-table__numeric {
+        text-align: end;
+    }
+}

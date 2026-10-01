@@ -1,0 +1,59 @@
+/* Chip: filter / category choice. Link (aria-current) or toggle button (aria-pressed). Selected = filled + bold
+   + check icon for toggles, so the state is not shown by colour alone. Pill radius is for chips only (DS §4). */
+
+.ui-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    min-block-size: var(--touch-target);
+    margin: 0;
+    padding-inline: var(--space-4);
+    border: var(--border-strong) solid var(--color-muted);
+    border-radius: var(--radius-pill);
+    background: var(--color-bg);
+    color: var(--color-text);
+    font-family: inherit;
+    font-size: var(--text-sm);
+    line-height: var(--leading-tight);
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer;
+    transition:
+        background-color var(--motion-fast) var(--easing-standard),
+        border-color var(--motion-fast) var(--easing-standard);
+}
+
+.ui-chip:hover:not([aria-disabled='true'], :disabled) {
+    border-color: var(--color-text);
+    background: var(--color-surface);
+}
+
+.ui-chip:active:not([aria-disabled='true'], :disabled) {
+    background: color-mix(in srgb, var(--color-text) var(--ui-mix-hover), var(--color-surface));
+}
+
+.ui-chip[aria-pressed='true'],
+.ui-chip[aria-current='true'],
+.ui-chip[aria-current='page'] {
+    border-color: var(--color-accent);
+    background: var(--color-accent);
+    color: var(--color-on-accent);
+    font-weight: var(--weight-bold);
+}
+
+.ui-chip[aria-pressed='true']:hover:not(:disabled),
+.ui-chip[aria-current='true']:hover,
+.ui-chip[aria-current='page']:hover {
+    border-color: var(--color-accent);
+    background: color-mix(in srgb, var(--color-on-accent) var(--ui-mix-hover), var(--color-accent));
+}
+
+.ui-chip[aria-disabled='true'],
+.ui-chip:disabled {
+    opacity: var(--ui-disabled-opacity);
+    cursor: not-allowed;
+}
+
+.ui-chip:not([aria-pressed='true']) .ui-chip__check {
+    display: none;
+}

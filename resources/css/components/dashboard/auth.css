@@ -1,0 +1,94 @@
+/* Owner sign-in screens (login, two-step verification, recovery codes, confirm identity): one narrow panel. */
+
+.ui-auth {
+    display: grid;
+    place-items: start center;
+    padding-block: var(--space-8);
+    padding-inline: var(--container-gutter-mobile);
+    background: var(--color-surface);
+}
+
+.ui-auth__panel {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    inline-size: 100%;
+    max-inline-size: var(--container-narrow);
+    padding-block: var(--space-6);
+    padding-inline: var(--space-4);
+    border: var(--border-default) solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-bg);
+    box-shadow: var(--shadow-sm);
+}
+
+.ui-auth__panel > * {
+    margin-block: 0;
+}
+
+@media (min-width: 600px) {
+    .ui-auth {
+        place-items: center;
+    }
+
+    .ui-auth__panel {
+        padding: var(--space-8);
+    }
+}
+
+.ui-auth__brand {
+    color: var(--color-muted);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-bold);
+    letter-spacing: var(--tracking-en-caps);
+}
+
+.ui-auth__title {
+    font-size: var(--text-2xl);
+}
+
+.ui-auth__steps {
+    display: grid;
+    gap: var(--space-2);
+    padding-inline-start: var(--space-6);
+}
+
+/* QR code for the authenticator app: kept at a scannable size, never wider than the panel. */
+.ui-auth__qr {
+    display: grid;
+    justify-items: center;
+    gap: var(--space-3);
+}
+
+.ui-auth__qr svg {
+    inline-size: 100%;
+    max-inline-size: calc(var(--space-16) * 3);
+    block-size: auto;
+}
+
+.ui-auth__qr figcaption {
+    font-size: var(--text-sm);
+    text-align: center;
+    overflow-wrap: anywhere;
+}
+
+/* Recovery codes: two columns of monospaced-width figures. */
+.ui-code-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-2);
+    padding: 0;
+    list-style: none;
+}
+
+.ui-code-list code {
+    display: block;
+    padding: var(--space-2);
+    border: var(--border-default) solid var(--color-border);
+    border-radius: var(--radius-sm);
+    background: var(--color-surface);
+    font-size: var(--text-sm);
+    font-variant-numeric: tabular-nums;
+    text-align: center;
+    overflow-wrap: anywhere;
+}

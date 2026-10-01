@@ -1,0 +1,40 @@
+/* Disclosure: native <details>/<summary>. The chevron turns when open; the whole summary row is the touch target. */
+
+.ui-disclosure {
+    border-block-end: var(--border-default) solid var(--color-border);
+}
+
+.ui-disclosure__summary {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    min-block-size: var(--touch-target);
+    font-weight: var(--weight-medium);
+    list-style: none;
+    cursor: pointer;
+}
+
+.ui-disclosure__summary::-webkit-details-marker {
+    display: none;
+}
+
+.ui-disclosure__summary:hover {
+    text-decoration: underline;
+    text-decoration-thickness: var(--border-strong);
+}
+
+.ui-disclosure__icon {
+    transition: rotate var(--motion-fast) var(--easing-standard);
+}
+
+.ui-disclosure[open] > .ui-disclosure__summary .ui-disclosure__icon {
+    rotate: 0.5turn;
+}
+
+.ui-disclosure__body {
+    padding-block: 0 var(--space-4);
+}
+
+.ui-disclosure__body > :last-child {
+    margin-block-end: 0;
+}

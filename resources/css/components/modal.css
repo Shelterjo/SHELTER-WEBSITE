@@ -1,0 +1,8 @@
+/* Modal: centred, max 760px (Menu IA §7), radius xl. Product detail on desktop (R-05). */
+
+.ui-modal {
+    inline-size: min(calc(100% - var(--space-8)), var(--container-modal));
+    max-block-size: calc(100dvh - var(--space-8));
+    margin: auto;
+    border-radius: var(--radius-xl);
+}

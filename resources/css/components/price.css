@@ -1,0 +1,6 @@
+/* Price: one figure with two decimals, isolated with <bdi>, read in full by screen readers (Menu IA spec §6). */
+
+.ui-price {
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+}

@@ -1,0 +1,101 @@
+/* SHELTER layout grammar (DS §6 / DS-009): containers, stack, cluster and the card grid. Tokens only.
+   Breakpoints are the token values (360 · 600 · 1024 · 1200); CSS cannot read custom properties in @media. */
+
+.ui-container {
+    inline-size: 100%;
+    max-inline-size: var(--container-page);
+    margin-inline: auto;
+    padding-inline: var(--container-gutter-mobile);
+}
+
+.ui-container--dashboard {
+    max-inline-size: var(--container-dashboard);
+}
+
+.ui-container--reading {
+    max-inline-size: var(--container-reading);
+}
+
+@media (min-width: 600px) {
+    .ui-container {
+        padding-inline: var(--container-gutter-tablet);
+    }
+}
+
+@media (min-width: 1024px) {
+    .ui-container {
+        padding-inline: var(--container-gutter-desktop);
+    }
+}
+
+.ui-reading {
+    max-inline-size: var(--measure-reading);
+}
+
+/* Vertical rhythm: children separated by one gap from the spacing scale. */
+.ui-stack {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+}
+
+.ui-stack > * {
+    margin-block: 0;
+}
+
+.ui-stack--sm {
+    gap: var(--space-2);
+}
+
+.ui-stack--lg {
+    gap: var(--space-8);
+}
+
+/* Inline group that wraps (buttons, chips, meta). */
+.ui-cluster {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+/* A cluster that is a list (language switch, tags) drops the list indent and markers. */
+:where(ul, ol).ui-cluster {
+    margin-block: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.ui-cluster--between {
+    justify-content: space-between;
+}
+
+/* Card grid (Menu IA R-02 / R-03): 1 column < 360, 2 from 360, 3 from 600, 4 from 1200. */
+.ui-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-4);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+@media (min-width: 360px) {
+    .ui-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: var(--space-3);
+    }
+}
+
+@media (min-width: 600px) {
+    .ui-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: var(--space-4);
+    }
+}
+
+@media (min-width: 1200px) {
+    .ui-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+}

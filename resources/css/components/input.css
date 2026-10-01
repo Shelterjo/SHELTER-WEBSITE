@@ -1,0 +1,81 @@
+/* Text input, select and textarea share one control box: height 44, radius md, border, focus ring, error.
+   Control boundaries use the muted token: decorative --color-border is below the 3:1 WCAG 1.4.11 minimum. */
+
+.ui-input,
+.ui-select__control,
+.ui-textarea {
+    display: block;
+    inline-size: 100%;
+    min-block-size: var(--control-md);
+    margin: 0;
+    padding-block: var(--space-2);
+    padding-inline: var(--space-3);
+    border: var(--border-default) solid var(--color-muted);
+    border-radius: var(--radius-md);
+    background: var(--color-bg);
+    color: var(--color-text);
+    font-family: inherit;
+    /* 16px: the browser never zooms the page on focus (iOS). */
+    font-size: var(--text-base);
+    line-height: var(--leading-tight);
+    transition: border-color var(--motion-fast) var(--easing-standard);
+}
+
+.ui-input::placeholder,
+.ui-textarea::placeholder {
+    color: var(--color-muted);
+    opacity: 1;
+}
+
+.ui-input:hover:not(:disabled),
+.ui-select__control:hover:not(:disabled),
+.ui-textarea:hover:not(:disabled) {
+    border-color: var(--color-text);
+}
+
+.ui-input:focus-visible,
+.ui-select__control:focus-visible,
+.ui-textarea:focus-visible {
+    border-color: var(--color-text);
+}
+
+.ui-input[aria-invalid='true'],
+.ui-select__control[aria-invalid='true'],
+.ui-textarea[aria-invalid='true'] {
+    border-width: var(--border-strong);
+    border-color: var(--color-danger);
+}
+
+.ui-input:disabled,
+.ui-select__control:disabled,
+.ui-textarea:disabled {
+    background: var(--color-surface);
+    opacity: var(--ui-disabled-opacity);
+    cursor: not-allowed;
+}
+
+.ui-textarea {
+    min-block-size: calc(var(--control-lg) * 2);
+    line-height: inherit;
+    resize: vertical;
+}
+
+/* Select: native element (keyboard, screen readers, mobile pickers) with a token-sized chevron. */
+.ui-select {
+    position: relative;
+    display: block;
+}
+
+.ui-select__control {
+    appearance: none;
+    padding-inline-end: calc(var(--space-3) * 2 + var(--icon-md));
+    cursor: pointer;
+}
+
+.ui-select__icon {
+    position: absolute;
+    inset-block-start: 50%;
+    inset-inline-end: var(--space-3);
+    translate: 0 -50%;
+    pointer-events: none;
+}

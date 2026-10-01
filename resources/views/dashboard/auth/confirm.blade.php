@@ -7,14 +7,12 @@
     @include('dashboard.auth._errors')
     <form method="post" action="{{ route('dashboard.confirm.store') }}" class="ui-stack" novalidate>
         @csrf
-        <div class="ui-field">
-            <label class="ui-label" for="password">{{ __('dashboard.auth.password') }}</label>
-            <input class="ui-input" id="password" name="password" type="password" dir="ltr" autocomplete="current-password" required>
-        </div>
-        <div class="ui-field">
-            <label class="ui-label" for="code">{{ __('dashboard.auth.code') }}</label>
-            <input class="ui-input" id="code" name="code" type="text" inputmode="numeric" autocomplete="one-time-code" dir="ltr" maxlength="12" required>
-        </div>
-        <button type="submit" class="ui-btn ui-btn--primary">{{ __('dashboard.auth.confirm') }}</button>
+        <x-ui.field :label="__('dashboard.auth.password')" for="password" :error="$errors->first('password')" required>
+            <x-ui.input type="password" name="password" dir="ltr" autocomplete="current-password" />
+        </x-ui.field>
+        <x-ui.field :label="__('dashboard.auth.code')" for="code" :error="$errors->first('code')" required>
+            <x-ui.input name="code" inputmode="numeric" autocomplete="one-time-code" dir="ltr" maxlength="12" />
+        </x-ui.field>
+        <x-ui.button type="submit">{{ __('dashboard.auth.confirm') }}</x-ui.button>
     </form>
 @endsection

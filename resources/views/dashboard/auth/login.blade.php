@@ -4,20 +4,17 @@
 
 @section('content')
     @if (session('status') === 'session_expired')
-        <div class="ui-alert ui-alert--info" role="status">{{ __('dashboard.auth.session_expired') }}</div>
+        <x-ui.alert variant="info">{{ __('dashboard.auth.session_expired') }}</x-ui.alert>
     @endif
     @include('dashboard.auth._errors')
     <form method="post" action="{{ route('login.store') }}" class="ui-stack" novalidate>
         @csrf
-        <div class="ui-field">
-            <label class="ui-label" for="email">{{ __('dashboard.auth.email') }}</label>
-            <input class="ui-input" id="email" name="email" type="email" dir="ltr" autocomplete="username" required
-                   value="{{ old('email') }}" @error('email') aria-invalid="true" aria-describedby="form-errors" @enderror>
-        </div>
-        <div class="ui-field">
-            <label class="ui-label" for="password">{{ __('dashboard.auth.password') }}</label>
-            <input class="ui-input" id="password" name="password" type="password" dir="ltr" autocomplete="current-password" required>
-        </div>
-        <button type="submit" class="ui-btn ui-btn--primary">{{ __('dashboard.auth.continue') }}</button>
+        <x-ui.field :label="__('dashboard.auth.email')" for="email" :error="$errors->first('email')" required>
+            <x-ui.input type="email" name="email" dir="ltr" autocomplete="username" :value="old('email')" />
+        </x-ui.field>
+        <x-ui.field :label="__('dashboard.auth.password')" for="password" required>
+            <x-ui.input type="password" name="password" dir="ltr" autocomplete="current-password" />
+        </x-ui.field>
+        <x-ui.button type="submit">{{ __('dashboard.auth.continue') }}</x-ui.button>
     </form>
 @endsection

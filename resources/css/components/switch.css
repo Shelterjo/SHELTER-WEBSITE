@@ -1,0 +1,59 @@
+/* Switch: a native checkbox with role="switch" — submits with the form and works without JavaScript.
+   On/off is shown by the thumb position and the filled track, not by colour alone. */
+
+.ui-switch {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3);
+    min-block-size: var(--touch-target);
+    cursor: pointer;
+}
+
+.ui-switch__input {
+    --ui-switch-gap: calc((var(--icon-lg) - var(--border-strong) * 2 - var(--icon-sm)) / 2);
+
+    position: relative;
+    flex: none;
+    inline-size: var(--control-md);
+    block-size: var(--icon-lg);
+    margin: 0;
+    border: var(--border-strong) solid var(--color-muted);
+    border-radius: var(--radius-pill);
+    background: var(--color-bg);
+    appearance: none;
+    cursor: inherit;
+    transition:
+        background-color var(--motion-fast) var(--easing-standard),
+        border-color var(--motion-fast) var(--easing-standard);
+}
+
+.ui-switch__input::before {
+    content: '';
+    position: absolute;
+    inset-block-start: var(--ui-switch-gap);
+    inset-inline-start: var(--ui-switch-gap);
+    inline-size: var(--icon-sm);
+    block-size: var(--icon-sm);
+    border-radius: var(--radius-pill);
+    background: var(--color-muted);
+    transition: inset-inline-start var(--motion-fast) var(--easing-standard);
+}
+
+.ui-switch__input:checked {
+    border-color: var(--color-accent);
+    background: var(--color-accent);
+}
+
+.ui-switch__input:checked::before {
+    inset-inline-start: calc(100% - var(--icon-sm) - var(--ui-switch-gap));
+    background: var(--color-on-accent);
+}
+
+.ui-switch:has(.ui-switch__input:disabled) {
+    opacity: var(--ui-disabled-opacity);
+    cursor: not-allowed;
+}
+
+.ui-switch__text {
+    min-inline-size: 0;
+}

@@ -1,0 +1,61 @@
+/* Tabs (ARIA APG, automatic activation, roving tabindex). Selected = indicator bar + bold, not colour alone. */
+
+.ui-tabs {
+    min-inline-size: 0;
+}
+
+.ui-tabs__list {
+    display: flex;
+    gap: var(--space-1);
+    overflow-x: auto;
+    border-block-end: var(--border-default) solid var(--color-border);
+    scrollbar-width: thin;
+}
+
+.ui-tabs__tab {
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    min-block-size: var(--touch-target);
+    margin: 0;
+    margin-block-end: calc(var(--border-default) * -1);
+    padding-inline: var(--space-4);
+    border: 0;
+    border-block-end: var(--border-strong) solid transparent;
+    border-start-start-radius: var(--radius-sm);
+    border-start-end-radius: var(--radius-sm);
+    background: transparent;
+    color: var(--color-muted);
+    font-family: inherit;
+    font-size: var(--text-sm);
+    line-height: var(--leading-tight);
+    white-space: nowrap;
+    cursor: pointer;
+    transition:
+        color var(--motion-fast) var(--easing-standard),
+        background-color var(--motion-fast) var(--easing-standard);
+}
+
+.ui-tabs__tab:hover {
+    background: var(--color-surface);
+    color: var(--color-text);
+}
+
+.ui-tabs__tab:active {
+    background: color-mix(in srgb, var(--color-text) var(--ui-mix-hover), var(--color-surface));
+}
+
+.ui-tabs__tab:focus-visible {
+    outline-offset: calc(var(--ui-focus-ring-width) * -1);
+}
+
+.ui-tabs__tab[aria-selected='true'] {
+    border-block-end-color: var(--color-accent);
+    color: var(--color-text);
+    font-weight: var(--weight-bold);
+}
+
+.ui-tabs__panel {
+    padding-block: var(--space-4);
+}

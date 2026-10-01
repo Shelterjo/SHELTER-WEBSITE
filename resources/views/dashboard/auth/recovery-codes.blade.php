@@ -3,11 +3,11 @@
 @section('title', __('dashboard.auth.recovery_title'))
 
 @section('content')
-    <div class="ui-alert ui-alert--warning" role="status">{{ __('dashboard.auth.recovery_warning') }}</div>
-    <ul class="ui-codes" role="list" dir="ltr">
+    <x-ui.alert variant="warning">{{ __('dashboard.auth.recovery_warning') }}</x-ui.alert>
+    <ul class="ui-code-list" role="list" dir="ltr">
         @foreach ($codes as $code)
             <li><code>{{ $code }}</code></li>
         @endforeach
     </ul>
-    <a class="ui-btn ui-btn--primary" href="{{ route('dashboard.home') }}">{{ __('dashboard.auth.recovery_done') }}</a>
+    <x-ui.button :href="route('dashboard.home')">{{ __('dashboard.auth.recovery_done') }}</x-ui.button>
 @endsection

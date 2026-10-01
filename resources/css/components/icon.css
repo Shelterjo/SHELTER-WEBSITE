@@ -1,0 +1,24 @@
+/* Icon — Lucide only (DS-012). Sizes 16 / 20 / 24 from tokens, stroke 1.75 baked into the SVG files.
+   Directional icons (arrows, previous/next, breadcrumb) mirror in RTL; search, close, play and logos never do. */
+
+.ui-icon {
+    display: inline-block;
+    flex: none;
+    inline-size: var(--icon-md);
+    block-size: var(--icon-md);
+    vertical-align: middle;
+}
+
+.ui-icon--sm {
+    inline-size: var(--icon-sm);
+    block-size: var(--icon-sm);
+}
+
+.ui-icon--lg {
+    inline-size: var(--icon-lg);
+    block-size: var(--icon-lg);
+}
+
+.ui-icon--directional:dir(rtl) {
+    scale: -1 1;
+}

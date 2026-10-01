@@ -1,0 +1,43 @@
+/* Breadcrumb: ordered list, separators mirror in RTL, current page is plain text with aria-current. */
+
+.ui-breadcrumb {
+    font-size: var(--text-sm);
+}
+
+.ui-breadcrumb__list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-1);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.ui-breadcrumb__item {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    min-inline-size: 0;
+}
+
+.ui-breadcrumb__item .ui-icon {
+    color: var(--color-muted);
+}
+
+.ui-breadcrumb__link {
+    display: inline-flex;
+    align-items: center;
+    min-block-size: var(--touch-target);
+    color: var(--color-text);
+}
+
+.ui-breadcrumb__link:hover {
+    text-decoration-thickness: var(--border-strong);
+}
+
+.ui-breadcrumb__current {
+    color: var(--color-muted);
+    font-weight: var(--weight-bold);
+    overflow-wrap: anywhere;
+}

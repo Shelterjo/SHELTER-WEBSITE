@@ -1,0 +1,39 @@
+/* Skeleton: loading placeholder for content (DS-019). Decorative; the busy region announces loading. */
+
+.ui-skeleton {
+    display: grid;
+    gap: var(--space-2);
+}
+
+.ui-skeleton__line,
+.ui-skeleton__block {
+    border-radius: var(--radius-sm);
+    background: var(--color-border);
+    animation: ui-pulse calc(var(--motion-slow) * 4) var(--easing-standard) infinite alternate;
+}
+
+.ui-skeleton__line {
+    block-size: var(--space-4);
+}
+
+.ui-skeleton__line:last-child:not(:first-child) {
+    inline-size: 60%;
+}
+
+.ui-skeleton__block {
+    aspect-ratio: 1 / 1;
+    border-radius: var(--radius-md);
+}
+
+@keyframes ui-pulse {
+    to {
+        opacity: 0.45;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .ui-skeleton__line,
+    .ui-skeleton__block {
+        animation: none;
+    }
+}

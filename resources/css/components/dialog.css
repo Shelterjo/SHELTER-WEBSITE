@@ -1,0 +1,97 @@
+/* Dialog base for modal, drawer and bottom sheet: native <dialog> + showModal() → focus trap, Esc, inert page,
+   top layer. Opening / closing animates with motion tokens (0ms with reduced motion). */
+
+.ui-dialog {
+    display: none;
+    flex-direction: column;
+    max-inline-size: 100%;
+    max-block-size: 100%;
+    padding: 0;
+    border: 0;
+    background: var(--color-bg);
+    color: var(--color-text);
+    box-shadow: var(--shadow-lg);
+    opacity: 0;
+    overflow: hidden;
+    transition:
+        opacity var(--motion-normal) var(--easing-exit),
+        translate var(--motion-normal) var(--easing-exit),
+        overlay var(--motion-normal) allow-discrete,
+        display var(--motion-normal) allow-discrete;
+}
+
+.ui-dialog[open] {
+    display: flex;
+    opacity: 1;
+    transition-timing-function: var(--easing-enter);
+}
+
+@starting-style {
+    .ui-dialog[open] {
+        opacity: 0;
+    }
+}
+
+.ui-dialog::backdrop {
+    background: var(--color-scrim);
+    opacity: 0;
+    transition:
+        opacity var(--motion-normal) var(--easing-standard),
+        overlay var(--motion-normal) allow-discrete,
+        display var(--motion-normal) allow-discrete;
+}
+
+.ui-dialog[open]::backdrop {
+    opacity: 1;
+}
+
+@starting-style {
+    .ui-dialog[open]::backdrop {
+        opacity: 0;
+    }
+}
+
+.ui-dialog__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+    padding-block: var(--space-3) 0;
+    padding-inline: var(--space-4) var(--space-2);
+}
+
+.ui-dialog__title {
+    margin: 0;
+    font-size: var(--text-lg);
+    overflow-wrap: anywhere;
+}
+
+.ui-dialog__title:focus {
+    outline: none;
+}
+
+.ui-dialog__body {
+    flex: 1;
+    min-block-size: 0;
+    padding: var(--space-4);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+}
+
+.ui-dialog__body > :last-child {
+    margin-block-end: 0;
+}
+
+.ui-dialog__footer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-4);
+    border-block-start: var(--border-default) solid var(--color-border);
+}
+
+.ui-dialog__close {
+    flex: none;
+    margin: 0;
+}

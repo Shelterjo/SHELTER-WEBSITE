@@ -6,8 +6,8 @@
         <h1 lang="en" dir="ltr">{{ __('site.brand') }}</h1>
         <nav aria-label="{{ __('site.choose_language') }}">
             <ul class="ui-cluster" role="list">
-                <li><a href="{{ \App\Support\PageUrl::route('home', ['locale' => 'ar']) }}" lang="ar" hreflang="ar">العربية</a></li>
-                <li><a href="{{ \App\Support\PageUrl::route('home', ['locale' => 'en']) }}" lang="en" hreflang="en" dir="ltr">English</a></li>
+                <li><x-ui.nav-link :href="\App\Support\PageUrl::route('home', ['locale' => 'ar'])" lang="ar" hreflang="ar">العربية</x-ui.nav-link></li>
+                <li><x-ui.nav-link :href="\App\Support\PageUrl::route('home', ['locale' => 'en'])" lang="en" hreflang="en" dir="ltr">English</x-ui.nav-link></li>
             </ul>
         </nav>
     </div>
