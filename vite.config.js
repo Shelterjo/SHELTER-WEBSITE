@@ -21,8 +21,4 @@ export default defineConfig({
     server: {
         watch: { ignored: ['**/storage/framework/views/**'] },
     },
-    test: {
-        include: ['resources/js/**/*.test.ts'],
-        environment: 'node',
-    },
 });
