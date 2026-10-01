@@ -62,10 +62,10 @@
 | P02 | Menu IA & Wireframes | 52 | 16 | 34 | 2 | 2 |
 | P03 | Site-wide IA, Sitemap, URL & SEO architecture | 112 | 31 | 74 | 7 | 12 |
 | P04 | Owner Dashboard & CMS architecture | 122 | 68 | 48 | 6 | 2 |
-| P05 | Brand, Design System & Visual Design | 67 | 30 | 30 | 7 | 1 |
+| P05 | Brand, Design System & Visual Design | 68 | 31 | 30 | 7 | 0 |
 | P06 | Platform & technical architecture (DB-08) | 61 | 43 | 13 | 5 | 1 |
 | P07 | Content & media approval | 78 | 44 | 28 | 6 | 12 |
-| P08 | Build on staging (website + CMS + Dashboard V1) | 447 | 252 | 181 | 14 | 0 |
+| P08 | Build on staging (website + CMS + Dashboard V1) | 451 | 256 | 181 | 14 | 0 |
 | P09 | Google ecosystem implementation | 88 | 26 | 59 | 3 | 2 |
 | P10 | QA gate | 56 | 25 | 29 | 2 | 0 |
 | P11 | SEO migration & launch | 22 | 20 | 2 | 0 | 0 |

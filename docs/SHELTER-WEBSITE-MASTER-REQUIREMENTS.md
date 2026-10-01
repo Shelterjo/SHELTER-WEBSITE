@@ -8,7 +8,7 @@
 1. **الاستخراج:** كل رسائل الـOwner قُرئت كاملة بالترتيب M01 ← M38.
    - M01–M27: استُخرج منها **1797 بندًا خامًا** بمصدره ونصه الحرفي.
    - M28 (التوظيف) وM29 (الشراكات) وM30 (لوحة التحكم للـOwner فقط): مواصفات مُهيكلة، دُمجت مباشرة بمتطلبات قانونية مع مصادرها بالأقسام.
-2. **الدمج:** دُمجت البنود في **1345 متطلبًا قانونيًا** بمعرفات ثابتة `PREFIX-NNN`.
+2. **الدمج:** دُمجت البنود في **1350 متطلبًا قانونيًا** بمعرفات ثابتة `PREFIX-NNN`.
 3. **التغطية:**
    - 1789 بندًا خامًا مربوطة بمتطلب.
    - 8 مستبعدة لأنها مثال أو مرجع فقط، والسبب موثق.
@@ -26,10 +26,10 @@
 ## الملفات المرتبطة
 | الملف | الدور |
 |---|---|
-| [`MASTER-DECISION-REGISTER.md`](MASTER-DECISION-REGISTER.md) | الحالة الحالية لكل قرار (431 قرارًا) |
-| [`governance/DECISION-LOG.md`](governance/DECISION-LOG.md) | السجل الزمني (D-000 ← D-308) |
-| [`CONFLICT-REGISTER.md`](CONFLICT-REGISTER.md) | 209 تعارضًا وطريقة حسمها |
-| [`PENDING-OWNER-INPUT.md`](PENDING-OWNER-INPUT.md) | 67 بندًا فقط تحتاجك |
+| [`MASTER-DECISION-REGISTER.md`](MASTER-DECISION-REGISTER.md) | الحالة الحالية لكل قرار (433 قرارًا) |
+| [`governance/DECISION-LOG.md`](governance/DECISION-LOG.md) | السجل الزمني (D-000 ← D-310) |
+| [`CONFLICT-REGISTER.md`](CONFLICT-REGISTER.md) | 211 تعارضًا وطريقة حسمها |
+| [`PENDING-OWNER-INPUT.md`](PENDING-OWNER-INPUT.md) | 69 بندًا فقط تحتاجك |
 | [`REQUIREMENTS-TRACEABILITY-MATRIX.md`](REQUIREMENTS-TRACEABILITY-MATRIX.md) | متطلب ← قرار ← تصميم ← كود ← اختبار |
 | [`IMPLEMENTATION-GAP-ANALYSIS.md`](IMPLEMENTATION-GAP-ANALYSIS.md) | ما الموجود وما الناقص |
 | [`IMPLEMENTATION-PLAN.md`](IMPLEMENTATION-PLAN.md) | الخطة الموحدة P00 ← P12 والبوابات |
@@ -70,16 +70,16 @@
 ## لقطة الحالة
 | المقياس | العدد |
 |---|---|
-| متطلبات | **1345**: REQUIREMENT 490, RULE 440, DECISION 208, DELIVERABLE 109, GATE 98 |
-| حسب الحالة | APPROVED 895, FROZEN 294, APPROVED WITH CONDITIONS 73, PENDING OWNER INPUT 35, DEFERRED 22, SUPERSEDED 17, PENDING VERIFICATION 9 |
-| حسب الأولوية | P0 686, P1 572, P2 69, P3 18 |
-| حسب التنفيذ | NOT STARTED 965, PARTIAL 189, IMPLEMENTED — NOT TESTED 126, FROZEN 43, TESTED 12, NEEDS FIX 8, CONFLICT 1, IMPLEMENTED — NOT YET VERIFIED 1 |
-| مُختبر | NO 809, N/A 347, PROTOTYPE 135, YES 54 |
+| متطلبات | **1350**: REQUIREMENT 491, RULE 442, DECISION 209, DELIVERABLE 109, GATE 99 |
+| حسب الحالة | APPROVED 900, FROZEN 294, APPROVED WITH CONDITIONS 73, PENDING OWNER INPUT 34, DEFERRED 22, SUPERSEDED 18, PENDING VERIFICATION 9 |
+| حسب الأولوية | P0 691, P1 572, P2 69, P3 18 |
+| حسب التنفيذ | NOT STARTED 969, PARTIAL 189, IMPLEMENTED — NOT TESTED 126, FROZEN 43, TESTED 12, NEEDS FIX 8, IMPLEMENTED — NOT YET VERIFIED 2, CONFLICT 1 |
+| مُختبر | NO 814, N/A 347, PROTOTYPE 135, YES 54 |
 
 ## فهرس المجالات
 | # | المجال | متطلبات | P0 | معتمد/مجمّد | معلّق | تنفيذ (منفذ أو مجمّد) |
 |---|---|---|---|---|---|---|
-| 01 | [Brand & Design System](master-requirements/01-brand-design-system.md) | 20 | 9 | 19 | 1 | 1 |
+| 01 | [Brand & Design System](master-requirements/01-brand-design-system.md) | 21 | 10 | 20 | 0 | 2 |
 | 02 | [Information Architecture](master-requirements/02-information-architecture.md) | 22 | 7 | 17 | 2 | 4 |
 | 03 | [Global Website Architecture](master-requirements/03-global-website-architecture.md) | 24 | 15 | 21 | 1 | 5 |
 | 04 | [Responsive Design](master-requirements/04-responsive-design.md) | 29 | 7 | 29 | 0 | 1 |
@@ -106,7 +106,7 @@
 | 25 | [Schema](master-requirements/25-schema.md) | 10 | 3 | 10 | 0 | 0 |
 | 26 | [Performance](master-requirements/26-performance.md) | 23 | 4 | 23 | 0 | 1 |
 | 27 | [Accessibility](master-requirements/27-accessibility.md) | 20 | 0 | 20 | 0 | 1 |
-| 28 | [Motion](master-requirements/28-motion.md) | 13 | 1 | 13 | 0 | 0 |
+| 28 | [Motion](master-requirements/28-motion.md) | 14 | 2 | 14 | 0 | 0 |
 | 29 | [Media & Images](master-requirements/29-media-images.md) | 16 | 7 | 15 | 1 | 3 |
 | 30 | [Security](master-requirements/30-security.md) | 11 | 8 | 11 | 0 | 0 |
 | 31 | [Permissions & Auth](master-requirements/31-permissions-auth.md) | 11 | 6 | 10 | 0 | 1 |
@@ -119,14 +119,14 @@
 | 38 | [Documentation & Governance](master-requirements/38-documentation-governance.md) | 91 | 64 | 84 | 0 | 44 |
 | 39 | [Content & Copy](master-requirements/39-content-copy.md) | 24 | 8 | 19 | 3 | 11 |
 | 40 | [Internationalization (AR/EN · RTL/LTR · Global)](master-requirements/40-internationalization-ar-en-rtl-ltr-global.md) | 15 | 6 | 12 | 3 | 5 |
-| 41 | [Tooling](master-requirements/41-tooling.md) | 46 | 18 | 39 | 1 | 11 |
+| 41 | [Tooling](master-requirements/41-tooling.md) | 47 | 19 | 40 | 1 | 11 |
 | 42 | [Privacy & Legal](master-requirements/42-privacy-legal.md) | 14 | 9 | 14 | 0 | 2 |
-| 43 | [UX Principles](master-requirements/43-ux-principles.md) | 5 | 0 | 5 | 0 | 0 |
+| 43 | [UX Principles](master-requirements/43-ux-principles.md) | 6 | 1 | 6 | 0 | 0 |
 | 44 | [Careers & Recruitment](master-requirements/44-careers-recruitment.md) | 99 | 60 | 98 | 1 | 0 |
 | 45 | [Dynamic Experience Engine](master-requirements/45-dynamic-experience-engine.md) | 38 | 14 | 38 | 0 | 0 |
 | 46 | [Platform Quality & Operations](master-requirements/46-platform-quality-operations.md) | 56 | 39 | 56 | 0 | 2 |
 | 47 | [Master Data & Channel Sync](master-requirements/47-master-data-channel-sync.md) | 36 | 34 | 36 | 0 | 0 |
-| 48 | [Design System & UI Consistency](master-requirements/48-design-system-ui-consistency.md) | 28 | 28 | 28 | 0 | 1 |
+| 48 | [Design System & UI Consistency](master-requirements/48-design-system-ui-consistency.md) | 29 | 29 | 29 | 0 | 1 |
 | 49 | [Infrastructure, Release & Operations](master-requirements/49-infrastructure-release-operations.md) | 46 | 38 | 46 | 0 | 8 |
 | 50 | [Build Mode & Delivery Governance](master-requirements/50-build-mode-delivery-governance.md) | 26 | 19 | 26 | 0 | 5 |
 
@@ -139,7 +139,7 @@
 | ID | المتطلب | الحالة | P | التنفيذ |
 |---|---|---|---|---|
 | `BRAND-001` | الاسم الرسمي للعلامة: SHELTER COFFEE / شلتر كوفي | APPROVED | P0 | NOT STARTED |
-| `BRAND-002` | الهوية البصرية المعتمدة فقط — ملفاتها مفقودة وتمنع Visual Design (M-10) | PENDING OWNER INPUT | P0 | NOT STARTED |
+| `BRAND-002` | الهوية البصرية المعتمدة فقط — ملفاتها مفقودة وتمنع Visual Design (M-10) | SUPERSEDED | P0 | NOT STARTED |
 | `BRAND-003` | الموقع الحالي ليس مرجعًا للتصميم أو الـUI أو الـUX أو الحركة | APPROVED | P1 | IMPLEMENTED — NOT TESTED |
 | `BRAND-004` | تصميم Bespoke لعلامة قهوة مختصة عالمية — ليس قالبًا | APPROVED | P1 | NOT STARTED |
 | `BRAND-005` | مبادئ التصميم المثبتة (Design Principles) | APPROVED | P1 | PARTIAL |
@@ -158,6 +158,7 @@
 | `BRAND-018` | الشكل البصري النهائي للـCTA وBranch Card في مرحلة UX/UI فقط | APPROVED | P1 | NOT STARTED |
 | `BRAND-019` | أسلوب تصميم الـOwner Dashboard | APPROVED | P1 | NOT STARTED |
 | `BRAND-020` | أنماط ممنوعة في الـDashboard | APPROVED | P1 | NOT STARTED |
+| `BRAND-021` | الهوية البصرية من الموقع القديم: الألوان والشعار والخطوط — نفس الثيم | APPROVED | P0 | IMPLEMENTED — NOT YET VERIFIED |
 
 ## 02 · Information Architecture — [التفاصيل](master-requirements/02-information-architecture.md)
 
@@ -970,6 +971,7 @@
 | `MOTION-011` | دعم prefers-reduced-motion | APPROVED | P1 | NOT STARTED |
 | `MOTION-012` | حركة المنيو: High Motion للموقع لكن المنيو سريعة | APPROVED | P1 | NOT STARTED |
 | `MOTION-013` | نطاق حركة الواجهة المسموح | APPROVED | P2 | NOT STARTED |
+| `MOTION-014` | حركة Premium هادفة: الأزرار والتنقل والأقسام والـSheets والصفحات — مع بدائل reduced-motion | APPROVED | P0 | NOT STARTED |
 
 ## 29 · Media & Images — [التفاصيل](master-requirements/29-media-images.md)
 
@@ -1335,6 +1337,7 @@
 | `TOOL-044` | سياسة الحزم وضبط حجم الحزمة وأداء الـDashboard | APPROVED | P0 | NOT STARTED |
 | `TOOL-045` | فحص جودة التصميم قبل اعتبار أي صفحة جاهزة | APPROVED | P0 | NOT STARTED |
 | `TOOL-046` | خط الصور: Original → Variants → WebP/AVIF مع srcset/sizes | APPROVED | P0 | PARTIAL |
+| `TOOL-047` | أدوار أدوات التصميم: THINK · DISCOVER · PRIMITIVES · ANIMATE — والـDesign System هو المرجع النهائي | APPROVED | P0 | NOT STARTED |
 
 ## 42 · Privacy & Legal — [التفاصيل](master-requirements/42-privacy-legal.md)
 
@@ -1364,6 +1367,7 @@
 | `UX-003` | كل صفحة تجيب بسرعة عن أربعة أسئلة — Do not bore the user | APPROVED | P1 | NOT STARTED |
 | `UX-004` | Friction Audit لكل Flow | APPROVED | P1 | PARTIAL |
 | `UX-005` | أولويات الـUX: clarity · speed · mobile · discoverability · a11y · consistency | APPROVED | P1 | PARTIAL |
+| `UX-006` | مراجعة تصميم قبل اعتبار أي صفحة مكتملة (ui-ux-pro-max) | APPROVED | P0 | NOT STARTED |
 
 ## 44 · Careers & Recruitment — [التفاصيل](master-requirements/44-careers-recruitment.md)
 
@@ -1646,6 +1650,7 @@
 | `DS-026` | Consistency Audit للمشروع الحالي ثم Consolidation | FROZEN | P0 | PARTIAL |
 | `DS-027` | Design System Health Report — Approved · Duplicate · Deprecated · Unused Variants · Token Violations | FROZEN | P0 | PARTIAL |
 | `DS-028` | القاعدة النهائية: ONE SHELTER PRODUCT عبر Home · Menu · Locations · About · Franchise · Careers · Media · Dashboard | FROZEN | P0 | NOT STARTED |
+| `DS-029` | الموقع يجب ألا يبدو Template أو AI أو SaaS — Premium = الوضوح والطباعة والتكوين والتفاصيل | APPROVED | P0 | NOT STARTED |
 
 ## 49 · Infrastructure, Release & Operations — [التفاصيل](master-requirements/49-infrastructure-release-operations.md)
 

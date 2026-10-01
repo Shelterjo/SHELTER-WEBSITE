@@ -1,6 +1,7 @@
 /* Owner dashboard bundle: the same tokens and components as the site (M34 — one design language) + the dashboard
    parts (shell, navigation, metrics, sync status). Denser, never a different style. */
-@import '../../design-system/build/tokens.css';
+@import '../../design-system/build/tokens-brand.css';
+@import './fonts.css';
 @import './ui.css';
 @import './components/dashboard/shell.css';
 @import './components/dashboard/sidebar.css';

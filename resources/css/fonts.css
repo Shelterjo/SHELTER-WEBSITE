@@ -1,0 +1,40 @@
+/* Brand fonts (D-309 — taken from the old site by Owner decision).
+   GE SS Two: Arabic text. © Boutros International. Web licence PENDING (PO-071): the files live in public/fonts/licensed/,
+   which is git-ignored and never deployed; without them the stack falls back (Poppins → Noto Sans Arabic → system).
+   Poppins: Latin text and buttons, SIL OFL 1.1 (resources/fonts/poppins/OFL.txt), self-hosted. */
+@font-face {
+    font-family: 'GE SS Two';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('/fonts/licensed/ge-ss-two-light.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'GE SS Two';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url('/fonts/licensed/ge-ss-two-bold.ttf') format('truetype');
+}
+@font-face {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('../fonts/poppins/poppins-latin-400-normal.woff2') format('woff2');
+}
+/* Medium (500) maps to SemiBold, matching the old site's 600-weight buttons. */
+@font-face {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 500 600;
+    font-display: swap;
+    src: url('../fonts/poppins/poppins-latin-600-normal.woff2') format('woff2');
+}
+@font-face {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url('../fonts/poppins/poppins-latin-700-normal.woff2') format('woff2');
+}

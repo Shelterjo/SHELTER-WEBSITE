@@ -327,6 +327,8 @@
 | D-306 | docs/TOOLCHAIN.md هو سجل الأدوات الوحيد (M37)؛ الـToolchain النهائي: PHPUnit, Larastan, Pint, TS strict, ESLint, Prettier, Vitest, Knip, Storybook(html-vite)+a11y, Playwright+axe+visual, Lighthouse CI, shelter:seo-audit, Sharp, Gitleaks, Semgrep CE, composer/npm audit, Trivy (FULL), ZAP (Staging), GitHub Actions. | 2026-10-01 | Owner — M37 (Development toolchain) | ✅ Owner | 41 Tooling | `APPROVED` |
 | D-307 | قاعدة التوضيح النهائية M38 = OWNER APPROVED · FROZEN · GLOBAL PROJECT RULE (مسجلة في CLAUDE.md). | 2026-10-01 | Owner — M38 (Owner clarification rule (global)) | ✅ Owner | 38 Governance | `APPROVED` (FROZEN) |
 | D-308 | **تفويض تنفيذ الإعداد:** الـOwner يمنح الوصول إلى Cloudways وCloudflare وGoogle، ويفوّض Claude بتنفيذ الإعداد التقني بنفسه. **الوصول يتم بأقل صلاحية، والقيم السرية في إعدادات البيئة فقط، وليس في المحادثة.** التغييرات الحساسة على Production (DNS، والتحويلات، وتعديل Google Business، والحذف النهائي) تبقى بموافقة صريحة على كل إجراء (M38 §10) | 2026-10-01 | Owner — "انا بعطيك صلاحيات وصول وانت فوت عدل كل اشي" | ✅ Owner | 33 Integrations / 34 Hosting | `APPROVED` |
+| D-309 | الهوية البصرية تؤخذ من الموقع القديم www.shelterjo.com: الألوان والشعار والخطوط — «نفس الثيم». الصور الحقيقية خارج هذا القرار. | 2026-10-01 | Owner — M39 §2 (M39 §2) | ✅ Owner | 01 Brand & Design System | `APPROVED` |
+| D-310 | M40 PREMIUM UI / UX / MOTION MASTER DIRECTIVE — OWNER APPROVED: ui-ux-pro-max للتفكير، 21st للإلهام، shadcn للـPrimitives، Motion للحركة، وSHELTER Design System هو السلطة النهائية؛ الموقع Premium وحي وسريع ومتسق، لا Template ولا AI ولا SaaS. | 2026-10-01 | Owner — M40 FINAL (M40 FINAL) · M40 §00 (M40 §00) | ✅ Owner | 48 Design System & UI Consistency | `APPROVED` |
 
 ## قرارات مفتوحة (PROPOSED — بانتظار الـOwner)
 

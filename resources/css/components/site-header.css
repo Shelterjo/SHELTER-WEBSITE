@@ -1,0 +1,35 @@
+/* Site header (PHASE 2 chrome, D-309 old-site theme): white logo on the dark brand background, language switch at the
+   inline end. Tokens only. Navigation items join when their pages exist (SITE-INVENTORY). */
+
+.ui-site-header {
+    border-block-end: var(--border-default) solid var(--color-border);
+    background: var(--color-bg);
+}
+
+.ui-site-header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    min-block-size: var(--control-lg);
+    padding-block: var(--space-3);
+}
+
+.ui-site-header__brand {
+    display: inline-flex;
+    align-items: center;
+    min-block-size: var(--touch-target);
+    border-radius: var(--radius-md);
+}
+
+.ui-site-header__logo {
+    display: block;
+    inline-size: auto;
+    block-size: var(--control-sm);
+}
+
+@media (min-width: 1024px) {
+    .ui-site-header__logo {
+        block-size: var(--control-md);
+    }
+}

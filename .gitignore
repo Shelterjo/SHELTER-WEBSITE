@@ -34,3 +34,6 @@ media/derived/
 Thumbs.db
 __pycache__/
 *.pyc
+
+# Brand fonts whose web licence is not confirmed (D-309, PO-071): never committed, never deployed to production.
+/public/fonts/licensed/

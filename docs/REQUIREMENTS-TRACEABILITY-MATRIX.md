@@ -1,6 +1,6 @@
 # REQUIREMENTS TRACEABILITY MATRIX
 
-> **Requirement → Decision → Design → Code → Test.** لكل متطلب من **1345**: من أين جاء، وبأي قرار، وأين صُمم، وأين نُفذ، وكيف يُختبر. · **آخر تحديث:** 2026-10-01
+> **Requirement → Decision → Design → Code → Test.** لكل متطلب من **1350**: من أين جاء، وبأي قرار، وأين صُمم، وأين نُفذ، وكيف يُختبر. · **آخر تحديث:** 2026-10-01
 > **المصادر:** مفاتيح البنود الخام (مثل `M23-045`)، وأرشيفها في التدقيق.
 >
 > **قراءة الأعمدة:**
@@ -10,7 +10,7 @@
 | ID | Title | Source (raw items) | Decision | Design | Code | Test | Impl | Tested |
 |---|---|---|---|---|---|---|---|---|
 | `BRAND-001` | الاسم الرسمي للعلامة: SHELTER COFFEE / شلتر كوفي | M03-001, M03-002, M03-003, M03-004, M33 | D-007, DB-01 | docs/governance/DECISION-LOG.md D-007 · docs/phase-01-discovery/12-homepage-screenshots-audit.md §6 · docs/phase-01-discovery/15-root-gateway-wireframe.md §3 |  |  | NOT STARTED | N/A |
-| `BRAND-002` | الهوية البصرية المعتمدة فقط — ملفاتها مفقودة وتمنع Visual Design (M-10) | M23-260, M29 | M-10, CF-11, MI-021, MI-022 | docs/menu-ia/MENU-DECISION-REGISTER.md M-10, CF-11 · docs/phase-01-discovery/04-content-approval-register.md MI-021, MI-022 · design-system/README.md · design-system/tokens/tokens.template.json · docs/menu-ia/PERFORMANCE-BUDGET.md |  |  | NOT STARTED | N/A |
+| `BRAND-002` | الهوية البصرية المعتمدة فقط — ملفاتها مفقودة وتمنع Visual Design (M-10) | M23-260, M29, M39 | M-10, CF-11, MI-021, MI-022 | docs/menu-ia/MENU-DECISION-REGISTER.md M-10, CF-11 · docs/phase-01-discovery/04-content-approval-register.md MI-021, MI-022 · design-system/README.md · design-system/tokens/tokens.template.json · docs/menu-ia/PERFORMANCE-BUDGET.md |  |  | NOT STARTED | N/A |
 | `BRAND-003` | الموقع الحالي ليس مرجعًا للتصميم أو الـUI أو الـUX أو الحركة | M01-006 | D-000 | docs/governance/DECISION-LOG.md D-000 · docs/phase-01-discovery/12-homepage-screenshots-audit.md |  |  | IMPLEMENTED — NOT TESTED | N/A |
 | `BRAND-004` | تصميم Bespoke لعلامة قهوة مختصة عالمية — ليس قالبًا | M01-207, M01-247, M01-248 | D-005, D-004 | design-system/README.md |  |  | NOT STARTED | NO |
 | `BRAND-005` | مبادئ التصميم المثبتة (Design Principles) | M23-259, M27-093, M27-094, M27-095, M14-011, M27-101, M29, M34 | D-005, D-062 | design-system/README.md §Rules · design-system/tokens/tokens.template.json |  |  | PARTIAL | N/A |
@@ -29,6 +29,7 @@
 | `BRAND-018` | الشكل البصري النهائي للـCTA وBranch Card في مرحلة UX/UI فقط | M04-049 | D-027, D-061 | docs/governance/DECISION-LOG.md D-027 · docs/phase-01-discovery/09-architecture-options-after-r1.md AR-03 |  |  | NOT STARTED | NO |
 | `BRAND-019` | أسلوب تصميم الـOwner Dashboard | M25-023, M25-024, M25-140, M34 |  | design-system/README.md |  |  | NOT STARTED | NO |
 | `BRAND-020` | أنماط ممنوعة في الـDashboard | M25-141, M27-097, M34 | D-005 |  |  |  | NOT STARTED | NO |
+| `BRAND-021` | الهوية البصرية من الموقع القديم: الألوان والشعار والخطوط — نفس الثيم | M39 §2 | D-309 | docs/DESIGN-SYSTEM-STANDARD.md |  |  | IMPLEMENTED — NOT YET VERIFIED | NO |
 | `IA-001` | غرض الموقع ونطاقه الحالي | M01-066, M03-057 | D-016 | docs/governance/DECISION-LOG.md D-016 · docs/phase-01-discovery/10-url-architecture-draft.md §1, §3 |  |  | NOT STARTED | NO |
 | `IA-002` | الموقع ليس E-Commerce حاليًا — جاهز للطلب أونلاين لاحقًا | M01-067 | D-016, D-073 | docs/phase-01-discovery/09-architecture-options-after-r1.md AR-06 |  |  | NOT STARTED | NO |
 | `IA-003` | مهام الزائر السريعة | M01-068, M01-069, M01-070 |  | docs/phase-01-discovery/09-architecture-options-after-r1.md AR-04 |  |  | NOT STARTED | NO |
@@ -699,13 +700,14 @@
 | `MOTION-004` | Motion Design System | M01-166, M01-167, M01-168, M34 |  | design-system/tokens/tokens.template.json · docs/menu-ia/SHELTER-MENU-IA-SPEC.md §17 |  |  | PARTIAL | N/A |
 | `MOTION-005` | دراسة تقنيات الحركة الممكنة (ليست كلها معتمدة) | M01-169 |  |  |  |  | NOT STARTED | NO |
 | `MOTION-006` | ممنوعات الحركة (Do not over-animate) | M01-171, M01-172, M24-056 |  | docs/menu-ia/SHELTER-MENU-IA-SPEC.md §17 |  |  | NOT STARTED | NO |
-| `MOTION-007` | تقنية الحركة: Motion كخيار أساسي (يحل محل دراسة GSAP / Motion.page) | M01-174, M01-175, M01-176, M29, M34 | DB-08 | docs/FRONTEND-TOOLING.md §1, §2 |  |  | NOT STARTED | NO |
+| `MOTION-007` | تقنية الحركة: Motion كخيار أساسي (يحل محل دراسة GSAP / Motion.page) | M01-174, M01-175, M01-176, M29, M34, M40 | DB-08 | docs/FRONTEND-TOOLING.md §1, §2 |  |  | NOT STARTED | NO |
 | `MOTION-008` | Lenis: اختياري ومشروط — ليس عامًا، وليس على المنيو افتراضيًا | M01-177, M01-178, M24-012 |  | docs/FRONTEND-TOOLING.md §1, §2 |  |  | NOT STARTED | NO |
 | `MOTION-009` | مكتبات مشروطة: Lottie · Swiper · Three.js | M01-179, M01-180, M01-181 |  | docs/governance/APPROVED-ASSET-LIBRARY.md · docs/FRONTEND-TOOLING.md §7 |  |  | NOT STARTED | NO |
 | `MOTION-010` | Progressive Enhancement: المحتوى لا يعتمد على الحركة | M01-192, M23-177 |  | docs/menu-ia/SHELTER-MENU-IA-SPEC.md §16, §20 |  | tooling/tests/app/menu.spec.mjs | NOT STARTED | NO |
 | `MOTION-011` | دعم prefers-reduced-motion | M23-178, M34 |  | docs/menu-ia/SHELTER-MENU-IA-SPEC.md §17 · docs/menu-ia/ACCESSIBILITY-CHECKLIST.md |  |  | NOT STARTED | NO |
 | `MOTION-012` | حركة المنيو: High Motion للموقع لكن المنيو سريعة | M23-174, M23-175, M23-176 |  | docs/menu-ia/SHELTER-MENU-IA-SPEC.md §17 · docs/menu-ia/PERFORMANCE-BUDGET.md |  |  | NOT STARTED | NO |
 | `MOTION-013` | نطاق حركة الواجهة المسموح | M24-008 |  |  |  |  | NOT STARTED | NO |
+| `MOTION-014` | حركة Premium هادفة: الأزرار والتنقل والأقسام والـSheets والصفحات — مع بدائل reduced-motion | M40 §06, M40 §09, M40 §15, M40 §18, M40 §20, M40 §25–§33, M40 §41–§44, M40 §50 | D-310 |  |  |  | NOT STARTED | NO |
 | `MEDIA-001` | قاعدة صارمة: لا صورة أو Asset بدون موافقة الـOwner (كل صورة بموافقة منفصلة) | M01-055, M01-056, M13-020, M23-049, M27-114, M27-113 | D-003, D-056, D-083, F-11, AAL-RULE-01 | docs/governance/APPROVED-ASSET-LIBRARY.md · media/README.md | tooling/scripts/images.mjs |  | PARTIAL | YES |
 | `MEDIA-002` | حزمة عرض الصورة المقترحة | M01-057 | AAL-RULE-01 | docs/governance/APPROVED-ASSET-LIBRARY.md · media/README.md |  |  | PARTIAL | N/A |
 | `MEDIA-003` | كل صورة مقترحة أو مطلوبة تبدأ PENDING OWNER APPROVAL | M01-058, M15-042, M27-116 | D-083, AAL-RULE-01 | media/README.md | tooling/scripts/images.mjs |  | PARTIAL | YES |
@@ -1006,6 +1008,7 @@
 | `TOOL-044` | سياسة الحزم وضبط حجم الحزمة وأداء الـDashboard | M37-029, M37-030, M37-031 |  | docs/TOOLCHAIN.md |  |  | NOT STARTED | NO |
 | `TOOL-045` | فحص جودة التصميم قبل اعتبار أي صفحة جاهزة | M37-032 |  | docs/TOOLCHAIN.md |  |  | NOT STARTED | NO |
 | `TOOL-046` | خط الصور: Original → Variants → WebP/AVIF مع srcset/sizes | M37-018 |  | docs/TOOLCHAIN.md |  |  | PARTIAL | NO |
+| `TOOL-047` | أدوار أدوات التصميم: THINK · DISCOVER · PRIMITIVES · ANIMATE — والـDesign System هو المرجع النهائي | M40 §01, M40 §02, M40 §03, M40 §45, M40 §58 | D-310 | docs/TOOLCHAIN.md |  |  | NOT STARTED | NO |
 | `PRIV-001` | صفحة سياسة الخصوصية (Privacy Policy) معتمدة ضمن الصفحات | M03-045, M32 | D-015 | docs/governance/DECISION-LOG.md D-015 · docs/phase-01-discovery/04-content-approval-register.md MI-017 |  |  | NOT STARTED | NO |
 | `PRIV-002` | صفحة الشروط / Terms عند الحاجة القانونية | M03-046 | D-015 |  |  |  | NOT STARTED | N/A |
 | `PRIV-003` | التحقق مع الـOwner قبل نشر أي معلومة قانونية أو معلومات خصوصية | M01-050 | D-003 | docs/phase-01-discovery/03-verify-with-owner.md VQ-20 |  |  | IMPLEMENTED — NOT TESTED | NO |
@@ -1025,6 +1028,7 @@
 | `UX-003` | كل صفحة تجيب بسرعة عن أربعة أسئلة — Do not bore the user | M01-093 |  | docs/phase-01-discovery/12-homepage-screenshots-audit.md §6 |  |  | NOT STARTED | NO |
 | `UX-004` | Friction Audit لكل Flow | M01-095, M27-105, M28 |  | docs/menu-ia/UX-VALIDATION.md · docs/menu-ia/USER-FLOWS.md |  |  | PARTIAL | PROTOTYPE |
 | `UX-005` | أولويات الـUX: clarity · speed · mobile · discoverability · a11y · consistency | M27-106 | D-004 | docs/menu-ia/UX-VALIDATION.md · docs/governance/DECISION-LOG.md D-004 |  |  | PARTIAL | N/A |
+| `UX-006` | مراجعة تصميم قبل اعتبار أي صفحة مكتملة (ui-ux-pro-max) | M40 §47, M40 §57 | D-310 |  |  |  | NOT STARTED | NO |
 | `CAREERS-001` | نظام التوظيف جزء أصلي من SHELTER WEBSITE + OWNER DASHBOARD — ليس تكاملًا خارجيًا | M28-§00, M28-§80 | D-228, D-015, D-211 | docs/CAREERS-REQUIREMENTS.md · docs/CLOUDWAYS-RECRUITMENT-ARCHITECTURE.md |  |  | NOT STARTED | N/A |
 | `CAREERS-002` | ممنوع: HubSpot · Google Forms · Airtable · CRM خارجي · Database محلية · Falcon | M28-§01, M28-§72, M28-§79, M28-§80 | D-228, DB-14 | docs/CLOUDWAYS-RECRUITMENT-ARCHITECTURE.md · docs/RECRUITMENT-SECURITY.md |  |  | NOT STARTED | N/A |
 | `CAREERS-003` | المعمارية: Public Website → HTTPS → SHELTER Backend → Private DB on Cloudways → Private Storage → Owner Dashboard | M28-§01, M28-§79, M28-§80 | D-228, DB-08, CF-001 | docs/CLOUDWAYS-RECRUITMENT-ARCHITECTURE.md |  |  | NOT STARTED | N/A |
@@ -1265,9 +1269,9 @@
 | `DS-009` | Grid / Container — Layout Grammar واحدة لكل الصفحات | M34 §10 | D-286, R-01 | docs/DESIGN-SYSTEM-STANDARD.md §6 | design-system/tokens/tokens.json · design-system/wireframe-kit.css | tooling/tests/prototype/responsive.spec.mjs | PARTIAL | PROTOTYPE |
 | `DS-010` | Responsive Tokens — نقاط تحول من النظام فقط، ولا Breakpoint خاص بصفحة | M34 §16 | D-286, R-01, R-09 | docs/DESIGN-SYSTEM-STANDARD.md §6 | design-system/tokens/tokens.json · tooling/viewports.mjs | tooling/tests/prototype/responsive.spec.mjs | PARTIAL | PROTOTYPE |
 | `DS-011` | RTL/LTR من أساس الـDesign System — لا إصلاحات منفصلة لكل صفحة | M34 §15 | D-285 | docs/DESIGN-SYSTEM-STANDARD.md §9 | design-system/wireframe-kit.css | tooling/tests/prototype/menu-wireframe.spec.mjs · tooling/tests/prototype/dashboard.spec.mjs | PARTIAL | PROTOTYPE |
-| `DS-012` | Icon System — Lucide فقط، أحجام icon-sm/md/lg وStroke ثابت | M34 §06 | D-190, ADR-001, D-286 | docs/DESIGN-SYSTEM-STANDARD.md §1 · docs/adr/ADR-001-platform.md · docs/TOOLCHAIN.md | design-system/tokens/tokens.json |  | PARTIAL | PROTOTYPE |
+| `DS-012` | Icon System — Lucide فقط، أحجام icon-sm/md/lg وStroke ثابت | M34 §06, M40 | D-190, ADR-001, D-286 | docs/DESIGN-SYSTEM-STANDARD.md §1 · docs/adr/ADR-001-platform.md · docs/TOOLCHAIN.md | design-system/tokens/tokens.json |  | PARTIAL | PROTOTYPE |
 | `DS-013` | مكتبة مكونات واحدة مشتركة x-ui.* للموقع والـDashboard — القائمة المعتمدة | M34 §02, M34 §07, M34 §08, M34 §21 | ADR-001, D-285, D-192 | docs/adr/ADR-001-platform.md · docs/architecture/PLATFORM-ARCHITECTURE.md §2 · docs/DESIGN-SYSTEM-STANDARD.md §8 | design-system/wireframe-kit.css |  | NOT STARTED | NO |
-| `DS-014` | Button System — Component واحد بسبعة Variants وثلاثة أحجام وست حالات | M34 §02 | D-285 | docs/DESIGN-SYSTEM-STANDARD.md §3 | design-system/wireframe-kit.css | tooling/tests/prototype/dashboard.spec.mjs (one design system (M34) — 5 شاشات عينة) | PARTIAL | PROTOTYPE |
+| `DS-014` | Button System — Component واحد بسبعة Variants وثلاثة أحجام وست حالات | M34 §02, M40 | D-285 | docs/DESIGN-SYSTEM-STANDARD.md §3 | design-system/wireframe-kit.css | tooling/tests/prototype/dashboard.spec.mjs (one design system (M34) — 5 شاشات عينة) | PARTIAL | PROTOTYPE |
 | `DS-015` | Form System — نفس المكونات ونفس القياسات والحالات لكل النماذج | M34 §07 | D-285, D-232 | docs/DESIGN-SYSTEM-STANDARD.md §8 | design-system/wireframe-kit.css |  | PARTIAL | PROTOTYPE |
 | `DS-016` | Card System — أساس واحد ومتغيرات بالمحتوى لا بالأسلوب | M34 §08 | D-285 | docs/DESIGN-SYSTEM-STANDARD.md §8 | design-system/wireframe-kit.css |  | PARTIAL | PROTOTYPE |
 | `DS-017` | Section Component موحد — eyebrow · title · description · media · CTA · variants | M34 §11 | D-285, D-196 | docs/DESIGN-SYSTEM-STANDARD.md §8 §11 |  |  | NOT STARTED | NO |
@@ -1282,6 +1286,7 @@
 | `DS-026` | Consistency Audit للمشروع الحالي ثم Consolidation | M34 §24 | D-285 | docs/DESIGN-SYSTEM-HEALTH.md · docs/DESIGN-SYSTEM-STANDARD.md §13 | tooling/scripts/ds-audit.mjs |  | PARTIAL | PROTOTYPE |
 | `DS-027` | Design System Health Report — Approved · Duplicate · Deprecated · Unused Variants · Token Violations | M34 §25 | D-285 | docs/DESIGN-SYSTEM-HEALTH.md | tooling/scripts/ds-audit.mjs |  | PARTIAL | PROTOTYPE |
 | `DS-028` | القاعدة النهائية: ONE SHELTER PRODUCT عبر Home · Menu · Locations · About · Franchise · Careers · Media · Dashboard | M34 §26 | D-285 | docs/DESIGN-SYSTEM-STANDARD.md |  |  | NOT STARTED | NO |
+| `DS-029` | الموقع يجب ألا يبدو Template أو AI أو SaaS — Premium = الوضوح والطباعة والتكوين والتفاصيل | M40 §00, M40 §08, M40 §10, M40 §11, M40 §16, M40 §23, M40 §38, M40 §40, M40 §53, M40 §54 | D-310 |  |  |  | NOT STARTED | NO |
 | `INFRA-001` | M35 ملحق الاكتمال النهائي — صنّف أولًا (5 تصنيفات) ثم نفّذ النواقص الفعلية فقط | M35 §00, M35 §62 | D-287 | docs/FINAL-ARCHITECTURE-REVIEW.md §1–4 |  |  | IMPLEMENTED — NOT TESTED | N/A |
 | `INFRA-002` | ثلاث بيئات منفصلة: DEVELOPMENT · STAGING · PRODUCTION | M35 §01 | D-288, ADR-001, D-172 | docs/platform/ENVIRONMENTS.md · docs/FINAL-ARCHITECTURE-REVIEW.md §13 · docs/architecture/PLATFORM-ARCHITECTURE.md §1 · docs/adr/ADR-001-platform.md · docs/CLOUDWAYS-RECRUITMENT-ARCHITECTURE.md §2 (CW-01, CW-07) |  |  | NOT STARTED | NO |
 | `INFRA-003` | عزل الـStaging: لا فهرسة، لا Analytics Production، ونماذجه لا تختلط بالإنتاج | M35 §01 | D-288 | docs/platform/ENVIRONMENTS.md · docs/FINAL-ARCHITECTURE-REVIEW.md §6 AC-4 · docs/FINAL-ARCHITECTURE-REVIEW.md §13 |  |  | NOT STARTED | NO |

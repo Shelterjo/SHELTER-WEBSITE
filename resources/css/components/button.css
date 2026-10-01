@@ -51,7 +51,8 @@
 
 .ui-button--danger {
     --ui-button-bg: var(--color-danger);
-    --ui-button-fg: var(--color-on-accent);
+    /* Page-background text on danger: 7.4:1 on the dark brand, 7:1 on a light theme. */
+    --ui-button-fg: var(--color-bg);
     --ui-button-border: var(--color-danger);
 }
 

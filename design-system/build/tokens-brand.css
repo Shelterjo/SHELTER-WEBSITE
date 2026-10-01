@@ -1,5 +1,5 @@
 /* GENERATED from design-system/tokens/tokens.json by tooling/scripts/tokens-css.mjs — do not edit by hand.
-   Fonts and colours are neutral WIREFRAME PLACEHOLDERS for the low-fi prototypes only. */
+   SHELTER brand colours and fonts (old site, D-309) for the Laravel app. */
 :root {
   --text-xs: 0.75rem;
   --text-sm: 0.875rem;
@@ -75,20 +75,20 @@
   --z-safeMode: 80;
   --border-default: 1px;
   --border-strong: 1.5px;
-  --font-ar: "DejaVu Sans", system-ui, sans-serif;
-  --font-en: "DejaVu Sans", system-ui, sans-serif;
-  --color-bg: #ffffff;
-  --color-surface: #f7f7f7;
-  --color-text: #1a1a1a;
-  --color-muted: #595959;
-  --color-border: #cccccc;
-  --color-accent: #111111;
-  --color-on-accent: #ffffff;
-  --color-focus: #111111;
-  --color-success: #1d6b35;
-  --color-warning: #7a5200;
-  --color-danger: #a1271e;
-  --color-info: #1f4f8a;
-  --color-scrim: rgb(0 0 0 / 0.5);
+  --font-ar: "GE SS Two", Poppins, "Noto Sans Arabic", "Segoe UI", Tahoma, system-ui, sans-serif;
+  --font-en: Poppins, "GE SS Two", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --color-bg: #131313;
+  --color-surface: #1C1C1C;
+  --color-text: #FFFFFF;
+  --color-muted: #9A9B9C;
+  --color-border: #272727;
+  --color-accent: #DDDDDE;
+  --color-on-accent: #58595B;
+  --color-focus: #FFFFFF;
+  --color-success: #5BD18B;
+  --color-warning: #F2C14E;
+  --color-danger: #FF7A7A;
+  --color-info: #7DB8FF;
+  --color-scrim: rgb(0 0 0 / 0.7);
 }
 @media (prefers-reduced-motion: reduce) { :root { --motion-fast: 0ms; --motion-normal: 0ms; --motion-slow: 0ms; } }

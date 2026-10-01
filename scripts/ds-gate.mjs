@@ -75,7 +75,7 @@ export function checkCss(source, file = 'inline.css') {
             // Selector or at-rule prelude: px allowed only in @media / @container conditions.
             if (
                 /^\s*@/.test(chunk) &&
-                !/^\s*@(media|container|supports|keyframes|starting-style|layer)\b/.test(chunk)
+                !/^\s*@(media|container|supports|keyframes|starting-style|layer|font-face)\b/.test(chunk)
             ) {
                 flag(at, 'unknown at-rule', chunk);
             }
@@ -170,6 +170,8 @@ function selfTest() {
         [checkCss('.a{color:var(--color-text);background:transparent}').length, 0],
         [checkCss('.a{padding:17px}').length, 1],
         [checkCss('@media (min-width: 600px){.a{padding:var(--space-4)}}').length, 0],
+        [checkCss("@font-face{font-family:'X';font-display:swap;src:url('/a.woff2') format('woff2')}").length, 0],
+        [checkCss('@property --x{syntax:"*"}').length, 1],
         [checkCss('.a{border-block-end:1px solid var(--color-border)}').length, 0],
         [checkCss('.a{border-radius:12px}').length, 2],
         [checkCss('.a{border-start-start-radius:var(--radius-xl)}').length, 0],

@@ -24,7 +24,11 @@
 
 | Asset ID | Name | Type | Category | Source | Rights | Alt Text | Focal Point | Suggested Placement | Approval Status |
 |---|---|---|---|---|---|---|---|---|---|
-| — | لا توجد أصول مقدَّمة بعد | — | — | — | — | — | — | — | — |
+| AST-001 | شعار SHELTER الأبيض (الرأس) | Logo | Brand | الموقع القديم `wp-content/uploads/2024/01/shelter-offee-drive-logo-2024-13.png` ← `resources/brand/source/old-site-logo-white.png` ← `public/brand/logo-white-{240,480}.{webp,png}` | علامة الـOwner التجارية | AR/EN: `SHELTER COFFEE` (الاسم الرسمي، BRAND-001) | — | رأس الموقع على الخلفية الداكنة | **Approved** (D-309، 2026-10-01) |
+| AST-002 | أيقونة الموقع (Favicon) | Icon | Brand | الموقع القديم `Favicon-shelter-Logo-14.png` ← `public/brand/favicon-{32,180}.png` | علامة الـOwner | — (زخرفية) | — | تبويب المتصفح وأيقونة الهاتف | **Approved** (D-309) |
+| AST-003 | شعار SHELTER COFFEE DRIVE (أسود على أبيض) | Logo | Brand | أرسله الـOwner في المحادثة 2026-10-01 ← `resources/brand/source/owner-upload-drive-emblem.jpg` | علامة الـOwner | AR/EN: `SHELTER COFFEE DRIVE` | المركز | مرجع للفرع DRIVE ونسخة الطباعة الفاتحة (لم يُستخدم بعد) | **Approved** (D-309) |
+| AST-004 | خط GE SS Two (Light/Bold) | Font | Brand | الموقع القديم `ARBFONTS-GE-SS-TWO-*.ttf` ← `public/fonts/licensed/` (**غير مرفوع إلى Git**) | © Boutros International — **ترخيص Web غير مؤكد** | — | — | النص العربي | **Pending** (PO-071): التطوير فقط، الإنتاج ممنوع آليًا (brand-guard) |
+| AST-005 | خط Poppins (400/600/700) | Font | Brand | `@fontsource/poppins` 5.3.0 ← `resources/fonts/poppins/` | SIL OFL 1.1 (`OFL.txt`) | — | — | النص اللاتيني والأزرار | **Approved** (D-309) |
 
 ## ملاحظات Phase 01
 

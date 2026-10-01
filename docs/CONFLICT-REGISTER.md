@@ -15,9 +15,9 @@
 | الحالة | العدد |
 |---|---|
 | `OWNER DECISION REQUIRED` | 20 |
-| `RESOLVED` (حُسم من المحادثة بقاعدة موثقة) | 156 |
+| `RESOLVED` (حُسم من المحادثة بقاعدة موثقة) | 158 |
 | `DOC FIX NEEDED` (وثيقة متأخرة عن قرار لاحق) | 33 |
-| **المجموع** | **209** |
+| **المجموع** | **211** |
 
 > **عمود Refs:** يربط كل تعارض بمجموعة التدقيق التي وجدته (G1…G8)، لأن التعارض الواحد قد يظهر في أكثر من مجال.
 > **معرّفات المنيو القديمة** (CF-01…CF-11 في `menu-ia/MENU-DECISION-REGISTER.md`) و**VQ / OBS** مربوطة في الملاحظات.
@@ -47,7 +47,7 @@
 | `CF-M-147` | Real User Monitoring مقابل قواعد الخصوصية والموافقة | أي Tracking يراعي Privacy Policy · Cookie Policy · Consent (PRIV-008)؛ لا تتبع يحتاج إفصاحًا قبل تحديث صفحات الخصوصية (PRIV-009)؛ قرار الـConsent مفتوح (GOOGLE-022، PO-019)<br>_(M01 §82 · M12 §22–§23)_ | اجمع Privacy-safe Web Vitals من الزوار بلا PII (RUM)<br>_(M32 §11)_ | الجزء التقني محسوم: RUM First-party بلا Cookies ولا معرفات ولا IP مخزن ومجمّع، ويُذكر في سياسة الخصوصية قبل تفعيله على Production (PRIV-009). هل يحتاج موافقة Cookie/Analytics أم يكفي الإفصاح؟ = قرار الـOwner/القانوني (PO-019) | لا تعارض في الهدف، لكن متطلب الموافقة قانوني ولم يُحسم؛ البناء غير متوقف (التفعيل فقط) | OPS-025 · PRIV-008/009 · PO-019 | docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §A22 §A23 | **OWNER DECISION REQUIRED** |
 | `CF-M-209` | 6 أسماء عربية للكيك والكوكيز: المعتمد (D-132) مقابل ملف Menu List الجديد | D-132: الأسماء العربية الـ26 المقترحة معتمدة كما هي — كيكة الجزر · جيرمان شوكليت · ريد فيلفيت كيك · تشيز كيك مانجو · تشيز كيك باشن فروت · كوكيز فستق<br>_(D-132)_ | ملف Menu List: كاروت كيك · جيرمن شوكليت · ريد فلفيت كيك · مانجو تشيز كيك · باشن فروت تشيز كيك · كوكيز فستق حلبي<br>_(OWNER-MENU-LIST-RECEIVED-2026-10-01.xlsx)_ |  | لا يتضح هل الملف قرار تسمية صريح أم قائمة تشغيلية (POS) — M38 §6: عرض A/B والسؤال | الاسم العربي لستة أصناف في المنيو والـSchema | docs/phase-01-discovery/23-menu-list-reconciliation.md | **OWNER DECISION REQUIRED** |
 
-## RESOLVED (156)
+## RESOLVED (158)
 
 | Conflict ID | Topic | Old instruction | New instruction | Which one wins | Why | Impact | Files/code affected | Status |
 |---|---|---|---|---|---|---|---|---|
@@ -207,6 +207,8 @@
 | `CF-M-206` | Lighthouse مخصص مقابل Lighthouse CI | tooling/scripts/lighthouse.mjs ببوابات<br>_(M24)_ | ثبت Lighthouse CI<br>_(M37 §7)_ | Lighthouse CI | الأحدث + لا تكرار | استبدال السكربت | tooling/ | **RESOLVED** |
 | `CF-M-207` | Unlighthouse (موافقة مشروطة سابقة) مقابل زاحف واحد | TOOL-017 Unlighthouse قبل الإطلاق<br>_(M24)_ | لا تثبت 3 SEO crawlers؛ Unlighthouse إذا مناسب وموجود<br>_(M37 §19)_ | زاحف واحد: shelter:seo-audit + LHCI | M37 أحدث ويشترط الملاءمة | TOOL-017 DEFERRED | docs/TOOLCHAIN.md | **RESOLVED** |
 | `CF-M-208` | gitleaks-action يحتاج ترخيصًا للمؤسسات | Gitleaks في CI<br>_(M37 §15)_ | —<br>_(تحقق تقني)_ | تشغيل ملف gitleaks التنفيذي مباشرة (MIT) بدل الـAction | تجنب ترخيص/حساب | لا تكلفة | .github/workflows/ | **RESOLVED** |
+| `CF-M-210` | shadcn و21st (React) مقابل منصة Blade (ADR-001) | ADR-001: Laravel + Blade، وTailwind/shadcn/Radix مرفوضة لأنها React-only<br>_(ADR-001 · D-300)_ | M40: استخدم shadcn كـprimitive factory و21st كمصدر إلهام ومكونات<br>_(M40 §01–§02)_ | كلاهما: M40 نفسه يقول shadcn «primitive factory لا final design» و21st «لا Copy/Paste». يُستخدمان كمرجع بنية وسلوك ووصولية ويُعاد البناء كمكونات Blade x-ui | لا تعارض في القصد؛ إدخال React يكسر ADR-001 والأداء (M40 §44–§45) | لا React في الحزمة العامة | docs/adr/ADR-001-platform.md · docs/TOOLCHAIN.md | **RESOLVED** |
+| `CF-M-211` | «لا صور من الموقع القديم» (F-11) مقابل «خذ الشعارات من الموقع القديم» (D-309) | F-11: فقط OWNER APPROVED · لا Stock/Google/AI/صور الموقع القديم<br>_(F-11)_ | خذ الالوان والشعارات والخطوط من الموقع القديم<br>_(M39 §2)_ | D-309 للشعار والألوان والخطوط فقط (آخر قرار صريح)؛ F-11 يبقى لكل الصور الأخرى | القرار الجديد محدد بعناصر الهوية | الشعار معتمد؛ الصور الحقيقية ما زالت MEDIA PENDING OWNER APPROVAL | docs/governance/APPROVED-ASSET-LIBRARY.md | **RESOLVED** |
 
 ## DOC FIX NEEDED (33)
 
@@ -246,7 +248,7 @@
 | `CF-M-074` | 03 VQ-16 / VQ-22 / VQ-23 ⬜ رغم قرارات المنيو | VQ-16 '⬜ لم يُحسم'؛ VQ-22 وVQ-23 بلا تحديث<br>_(03)_ | D-076، D-089، D-117، D-122، D-135، D-140<br>_(DECISION-LOG)_ | القرارات المعتمدة | لم يُحدّث 03 | تحديث الحالات (VQ-23 يبقى جزئيًا لـSnacks/Pastries) | docs/phase-01-discovery/03-verify-with-owner.md | **DOC FIX NEEDED** |
 | `CF-M-141` | مسودة إجابة FAQ «التقديم من خارج الأردن» تقرر سياسة سوق | مسودة Claude (docs/franchise/02 §4 س2): «نعم، يمكن إرسال الطلب من أي دولة، وتتم مراجعته وفق نفس الأسس.» — موسومة «✅ محايدة»<br>_(docs/franchise/02-PAGE-IA-AND-CONTENT.md §4 (DRAFT))_ | لا تخترع Answers تجارية؛ Approved Market سؤال تجاري للـOwner؛ لا إعلان توفر أسواق<br>_(M29 §04, §25, §95)_ | M29 | إمكانية الإرسال من أي دولة مقبولة تقنيًا (حقل Country دولي)، لكن «وفق نفس الأسس» التزام سياسة؛ الصياغة يجب أن تكون محايدة مثل س1 («لا يعني استلام الطلب توفر فرصة في سوق محدد») حتى قرار الأسواق | تعديل المسودة + PO-054 | docs/franchise/02-PAGE-IA-AND-CONTENT.md §4 | **DOC FIX NEEDED** |
 
-## Technical flags من المواصفات الجديدة (M28–M30) — 111
+## Technical flags من المواصفات الجديدة (M28–M30) — 113
 
 > قيود تقنية أو أمنية أو قانونية **تُبلَّغ ولا تعيد فتح القرارات المجمّدة**. ما يحتاج الـOwner منها مربوط ببند في `PENDING-OWNER-INPUT.md`.
 
@@ -363,6 +365,8 @@
 |  |  |  |  | — |
 | G21-TF-01 | شبكة بيئة التطوير: HTTPS فقط | الـProxy يقبل HTTPS CONNECT فقط: لا SSH ولا http:// صريح. النشر إلى Cloudways يتم من GitHub Actions؛ تحويل http→https يُتحقق منه من قواعد Cloudflare. | Deploy workflow في GitHub Actions بأسرار المستودع | — |
 | G21-TF-02 | روابط يستخدمها تطبيق Meta على الأرجح | /privacy/ و/terms/ و/data-deletion/ موجودة في الموقع القديم ومرجّح أنها Privacy Policy URL وData Deletion URL لتطبيق Meta. | KEEP أو 301 عند الإطلاق، والتحقق من إعدادات تطبيق Meta قبل الإطلاق (LEGACY-URL-MIGRATION) | — |
+| G22-TF-01 | أدوات M40 غير المتصلة بهذه الجلسة | shadcn MCP و21st MCP وMotion AI Kit غير متصلة؛ skill ui-ux-pro-max متاح بقواعده فقط (بلا قاعدة بحثه scripts/search.py). حسب M40 §58: لا توقف، تُطبق القواعد والمعرفة الرسمية. | ربطها لاحقًا إن رغب الـOwner (شرح التكلفة والصلاحيات أولًا) | — |
+| G22-TF-02 | Page Rules في Cloudflare غير مقروءة بـAccount token | خطأ 1011: Page Rules endpoint does not support account owned tokens. | لقطة شاشة من Rules ← Page Rules عند جرد التحويلات (PHASE 7) | — |
 
 ## ملاحظات الربط (المعرفات القديمة ← الجديدة)
 

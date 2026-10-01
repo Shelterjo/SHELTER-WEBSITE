@@ -1,5 +1,7 @@
 // Generates CSS custom properties from design-system/tokens/tokens.json (single source).
-// Output: design-system/build/tokens.css (structural tokens + wireframe placeholder colours/fonts until brand files arrive).
+// Output:
+//   design-system/build/tokens.css       — structural tokens + neutral WIREFRAME colours/fonts (low-fi prototypes in docs/).
+//   design-system/build/tokens-brand.css — the same structural tokens + SHELTER BRAND colours/fonts (the Laravel app, D-309).
 // Usage: node scripts/tokens-css.mjs
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
 
@@ -20,16 +22,29 @@ walk(t.motion.duration, 'motion'); walk(t.motion.easing, 'easing');
 add('touch-target', v(t.size.touchTarget)); walk(t.size.control, 'control'); walk(t.size.icon, 'icon'); walk(t.size.container, 'container');
 add('sticky-stack', v(t.size.stickyStack)); walk(t.z, 'z');
 add('border-default', v(t.border.width.default)); add('border-strong', v(t.border.width.strong));
-// Fonts + colours: brand values are MISSING → emit wireframe placeholders (clearly marked).
-add('font-ar', v(t.font.family.wireframe)); add('font-en', v(t.font.family.wireframe));
-for (const [k, x] of Object.entries(t.color)) if (!k.startsWith('$')) add(`color-${k}`, v(x.wireframe));
-const css = `/* GENERATED from design-system/tokens/tokens.json by tooling/scripts/tokens-css.mjs — do not edit by hand.
-   Fonts and colours are WIREFRAME PLACEHOLDERS until the brand identity files arrive (M-10). */
+const structural = [...lines];
+const emit = async (file, header, fonts, colourOf) => {
+  const out = [...structural];
+  out.push(`  --font-ar: ${fonts.ar.map(f => (/\s/.test(f) ? `"${f}"` : f)).join(', ')};`);
+  out.push(`  --font-en: ${fonts.en.map(f => (/\s/.test(f) ? `"${f}"` : f)).join(', ')};`);
+  for (const [k, x] of Object.entries(t.color)) if (!k.startsWith('$')) out.push(`  --color-${k}: ${colourOf(x)};`);
+  const css = `/* GENERATED from design-system/tokens/tokens.json by tooling/scripts/tokens-css.mjs — do not edit by hand.
+   ${header} */
 :root {
-${lines.join('\n')}
+${out.join('\n')}
 }
 @media (prefers-reduced-motion: reduce) { :root { --motion-fast: 0ms; --motion-normal: 0ms; --motion-slow: 0ms; } }
 `;
+  await writeFile(`../design-system/build/${file}`, css);
+  console.log(`${file}: ${out.length} custom properties`);
+};
+const brandValue = x => {
+  const val = v(x.brand);
+  if (val === 'MISSING') throw new Error('brand colour MISSING — fill design-system/tokens/tokens.json');
+  return val;
+};
 await mkdir('../design-system/build', { recursive: true });
-await writeFile('../design-system/build/tokens.css', css);
-console.log(`tokens.css: ${lines.length} custom properties`);
+await emit('tokens.css', 'Fonts and colours are neutral WIREFRAME PLACEHOLDERS for the low-fi prototypes only.',
+  { ar: v(t.font.family.wireframe), en: v(t.font.family.wireframe) }, x => v(x.wireframe));
+await emit('tokens-brand.css', 'SHELTER brand colours and fonts (old site, D-309) for the Laravel app.',
+  { ar: v(t.font.family.ar), en: v(t.font.family.en) }, brandValue);

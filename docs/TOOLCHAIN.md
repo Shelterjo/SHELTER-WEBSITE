@@ -37,7 +37,10 @@
 | **@storybook/addon-a11y** | MISSING | axe داخل Storybook لكل قصة | يكمل axe في Playwright | ✅ | ✅ | محلي + CI | مجاني · MIT |
 | **storybook-addon-pseudo-states** | MISSING | إظهار Hover/Focus/Active ثابتة لكل مكون (للمرجع والـVisual regression) | — | ✅ | ✅ | محلي + CI | مجاني · MIT |
 | **Lucide** | MISSING (مقرر) | مكتبة أيقونات **واحدة**: SVG ثابتة تُنسخ عند الحاجة فقط، **بلا حزمة أيقونات كاملة في الواجهة** | — | ✅ (`lucide-static`، تطوير فقط) | ✅ | Build | مجاني · ISC |
-| **shadcn/ui** | NOT NEEDED | — | — | ❌ | — | — | **تعمل مع React فقط.** هدفها (مكونات متسقة يسهل الوصول إليها) تحققه مكونات Blade الموحدة |
+| **shadcn/ui** | REFERENCE ONLY (M40) | **مصدر أنماط الـPrimitives** (البنية والسلوك والوصولية) يُعاد بناؤه كمكونات Blade `x-ui` | — | ❌ لا تثبيت | — | — | تعمل مع React فقط (ADR-001). M40 §49: «primitive factory لا final design» (G22-CF-01). shadcn MCP غير متصل (G22-TF-01) |
+| **21st (catalog)** | REFERENCE ONLY (M40) | إلهام واكتشاف أنماط (Hero، تنقل، أقسام تفاعلية)، **بلا نسخ** | — | ❌ لا تثبيت | — | — | MCP غير متصل (G22-TF-01) |
+| **motion** (JS العادية، motion.dev) | PLANNED (M40) | حركة Premium: Reveal، Stagger، فتح الـSheets/Drawers، Micro-interactions عند الحاجة | CSS transitions تغطي الأبسط | ✅ استيراد الدوال المطلوبة فقط (`animate` · `inView` · `stagger`) | ✅ | Build | مجاني · MIT |
+| **View Transitions (CSS)** | PLANNED (M40) | انتقالات خفيفة بين الصفحات **بلا JavaScript وبلا انتظار للتنقل** (`@view-transition`) | — | ✅ (ميزة متصفح، تحسين تدريجي) | ✅ | — | بلا حزمة |
 | **Radix primitives** | NOT NEEDED | — | — | ❌ | — | — | **React فقط.** البديل عناصر HTML الأصلية (`<dialog>`، و`popover`، و`details`) بأنماط ARIA APG، **مختبرة بـaxe ولوحة المفاتيح** |
 | **Tailwind CSS** | REDUNDANT | — | **يكرر** Tokens + CSS المكونات | ❌ | — | — | وجود نظامي تنسيق = One-off styling. القرار: **Tokens فقط** (M34) |
 | **Playwright** | CONFIGURED (20 عرضًا، للنماذج) | أداة الـQA الأساسية: التنقل، والنماذج، والتحقق، والإرسال، والدخول، والصلاحيات، وتبديل اللغة، وRTL/LTR، والموبايل | — | ✔ موجود | ✅ يُوسَّع للتطبيق | CI (Chromium) + FULL (Firefox/WebKit) | مجاني · Apache-2.0 |
@@ -61,7 +64,7 @@
 | **GitHub Actions** | MISSING | خط الجودة (§3 أدناه). **إصدار لا يمر إذا فشلت بوابة حرجة** | — | ✅ `.github/workflows/` | ✅ | CI | **حصة مجانية** من دقائق GitHub لكل شهر. الخطوات الثقيلة يدوية لتوفير الحصة. **أي تجاوز للحصة = قرار مالي لك** |
 | **Context7** | غير متصل بهذه الجلسة | توثيق رسمي محدث للأطر | — | ❌ (يحتاج ربط خدمة خارجية) | — | — | **البديل المستخدم:** قراءة التوثيق الرسمي مباشرة (laravel.com، storybook.js.org…) قبل استخدام أي API |
 | **Chrome DevTools MCP** | غير متصل | — | Playwright CDP يغطيه | ❌ | — | — | — |
-| **مهارات التصميم** (`frontend-design` · `ui-ux-pro-max`) | متوفرة | مراجعة جودة التصميم (M37 §32) قبل اعتبار أي صفحة جاهزة | — | — | — | أثناء البناء | — |
+| **مهارات التصميم** (`frontend-design` · `ui-ux-pro-max`) | متوفرة | مراجعة جودة التصميم (M37 §32) قبل اعتبار أي صفحة جاهزة | — | — | — | أثناء البناء | — · M40: عقل التصميم لكل صفحة (UX-006)؛ قاعدة بحثه غير موجودة هنا فتُطبق قواعده مباشرة (G22-TF-01) |
 | **مراجعة الكود** | متوفرة (وكيل مراجعة مستقل) | مراجعة عدائية قبل كل Milestone | — | — | — | قبل كل Commit كبير | — |
 
 ## 2. الـToolchain النهائي (بعد إزالة التكرار)
