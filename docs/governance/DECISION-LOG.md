@@ -334,6 +334,7 @@
 | D-313 | PO-073 → B: Minimum TLS 1.2 وSSL Full (strict) الآن (Strict بعد التحقق من شهادة الـOrigin)، وDNSSEC مؤجل حتى معرفة مسجّل الدومين. | 2026-10-01 | Owner — M43 §1 (M43 §1) | ✅ Owner | 34 Cloudflare, Hosting & DNS | `APPROVED` |
 | D-314 | ترتيب العمل: إكمال بناء كل صفحات الموقع أولًا، وما تبقى من Cloudways وCloudflare (شهادة www وFull strict وDNSSEC والـStaging) في النهاية. | 2026-10-01 | Owner — M44 §1 (M44 §1) | ✅ Owner | 50 Build Mode & Delivery Governance | `APPROVED` |
 | D-315 | PO-074 → قائمة «المدينة» في نموذج التوظيف = 12 بندًا أرسلها الـOwner بالترتيب: عمان · إربد · الزرقاء · البلقاء · المفرق · جرش · عجلون · مادبا · الكرك · الطفيلة · معان · العقبة. | 2026-10-01 | Owner — M45 §1 (M45 §1) | ✅ Owner | 44 Careers & Recruitment | `APPROVED` |
+| D-316 | ترقيم طلبات الشراكة يبدأ من FR-2026-00100: أول طلب FR-2026-00101، الثاني FR-2026-00102، وهكذا (الصيغة FR-YYYY-NNNNN من الخادم بلا تغيير). لا يشمل ترقيم التوظيف JOB. | 2026-10-02 | Owner — M46 §1 (M46 §1) | ✅ Owner | 16 Franchise | `APPROVED` |
 
 ## قرارات مفتوحة (PROPOSED — بانتظار الـOwner)
 

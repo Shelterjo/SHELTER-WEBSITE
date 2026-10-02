@@ -1,6 +1,6 @@
 # PENDING OWNER INPUT
 
-> **فقط ما لا يمكن حسمه بدونك.** دُمجت 416 بندًا معلقًا في الوثائق القديمة، وأسئلة المحادثة، في **74 بندًا.**
+> **فقط ما لا يمكن حسمه بدونك.** دُمجت 416 بندًا معلقًا في الوثائق القديمة، وأسئلة المحادثة، في **75 بندًا.**
 > **الباقي:**
 > - **أُجيب سابقًا:** 67 بندًا (أُصلحت وثائقها).
 > - **تقني يقرره Claude:** 30 بندًا (القاعدة 8).
@@ -16,7 +16,7 @@
 | | BUSINESS DECISION | CONTENT NEEDED | VERIFICATION NEEDED | ACCESS | المجموع |
 |---|---|---|---|---|---|
 | **BLOCKING** | 7 | 6 | 4 | 6 | 23 |
-| **NON-BLOCKING** | 26 | 12 | 3 | 2 | 43 |
+| **NON-BLOCKING** | 27 | 12 | 3 | 2 | 44 |
 
 ## BLOCKING · BUSINESS DECISION (7)
 
@@ -61,7 +61,7 @@
 | **PO-046** | وصول قراءة بأقل صلاحية لتنفيذ Cloudways Architecture Audit (M28 §02 — 17 بندًا): أحد الخيارات (أ) لقطات/تصدير: Server → Settings & Packages (نسخ PHP وMySQL/MariaDB)، Application Settings (حدود الرفع/الذاكرة)، Monitoring (القرص)، Backups (التكرار والاحتفاظ والـOffsite)، قائمة التطبيقات والـStaging؛ أو (ب) بيانات SFTP/SSH على مستوى التطبيق توضع في إعدادات البيئة (ليس في المحادثة) مع السماح بالـhost في Allowed domains؛ أو (ج) عضو فريق Cloudways مؤقت بصلاحيات محدودة. لا Cloudways API Key (AC-RULE-04). القراءة فقط — لا تغيير.<br>_(1 بيئة Cloudways)_<br>ℹ️ تحديث لـAC-11/PO-037 وليس سؤالًا عن قرار؛ الـOwner قال إن Cloudways هي الاستضافة الحالية. | Phase 2 (Cloudways audit) ثم تثبيت Phase 4–5 (DB/Storage/حدود الرفع/الـBackups) لوحدة التوظيف؛ لا يمنع Phase 1/3 والوثائق | M28 §02, M28 §18, M28 §70, AC-11, AC-RULE-04, PO-037, CF-005, CAREERS-004 |
 | **PO-064** | ↻ M36/ADR-001: لبدء الـStaging: إنشاء تطبيق Cloudways جديد للـStaging الآن (وتطبيق Production قبل الإطلاق) على السيرفر Flexible الحالي، أو منح عضوية فريق Cloudways بصلاحية على التطبيقات الجديدة فقط — مع صلاحية القراءة للـAudit (A-01…A-13). WordPress القديم لا يُلمس<br>ℹ️ إضافة على PO-064 (External authorization) | PHASE 1 (environments: Staging) و PHASE 7 (staging/release) — التطوير المحلي لا يتوقف | BUILD-025, INFRA-002, INFRA-027, CF-002, M36 §11, M36 §16 |
 
-## NON-BLOCKING · BUSINESS DECISION (26)
+## NON-BLOCKING · BUSINESS DECISION (27)
 
 | ID | المطلوب منك | ماذا يمنع | المراجع |
 |---|---|---|---|
@@ -91,6 +91,7 @@
 | **PO-067** | آيس كريم (ICE CREAM 1 SCOOP 1.50 · 2 SCOOPS 2.25، مجموعة ICECREAM / آيس كريم): إضافة صنفين جديدين (PRD-00193/00194) في فئة جديدة CAT-012؟<br>ℹ️ الأسماء العربية من الملف تُحفظ PENDING OWNER REVIEW (D-091) | ظهور الآيس كريم في المنيو | D-140, docs/phase-01-discovery/23-menu-list-reconciliation.md |
 | **PO-068** | 16 منتج تجزئة بلا مجموعة (قهوة بالوزن، قهوة مختصة بالوزن، ماتشا 100 غ، زجاجة نكهة، 8 أكياس شاي): هل تظهر في منيو الموقع؟ وفي أي قسم؟<br>_(16)_<br>ℹ️ إملاء كما ورد: SPECIALTY COFE · FALVOR BTL · EARLY GRAY (لا تصحيح تلقائي D-093) | قسم منتجات التجزئة | docs/phase-01-discovery/23-menu-list-reconciliation.md |
 | **PO-071** | ترخيص خط GE SS Two (© Boutros International — كل الحقوق محفوظة) للاستخدام على الموقع: نسخة الموقع القديم مصدرها موقع تحميل خطوط مجاني (ARBFONTS). A: لديكم ترخيص Web (أرسل الإثبات) · B: شراء ترخيص Web · C: خط عربي مجاني قريب الشكل (OFL)<br>ℹ️ الملفات غير مرفوعة إلى Git | إطلاق Production فقط (brand-guard)؛ التطوير يستمر بالخط | BRAND-021, D-309 |
+| **PO-075** | ترقيم طلبات الشراكة مع بداية سنة جديدة: A — كل سنة تبدأ من 00101 (FR-2027-00101) · B — العدّاد يكمل من آخر رقم في السنة السابقة (FR-2027-00(آخر رقم + 1)). مؤقتًا حتى الرد: A (كل سنة تبدأ بعد 00100)<br>ℹ️ التوصية A: متسقة مع السنة الظاهرة في الرقم | لا شيء الآن — يلزم قبل 2027-01-01 فقط | D-316, FRAN-046 |
 
 ## NON-BLOCKING · CONTENT NEEDED (12)
 

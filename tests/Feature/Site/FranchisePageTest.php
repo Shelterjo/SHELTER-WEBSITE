@@ -166,7 +166,7 @@ class FranchisePageTest extends TestCase
         $application = Application::query()->sole();
         $partner = PartnershipApplication::query()->sole();
         $this->assertSame('FR', $application->type);
-        $this->assertMatchesRegularExpression('/^FR-\d{4}-00001$/', $application->reference_number);
+        $this->assertMatchesRegularExpression('/^FR-\d{4}-00101$/', $application->reference_number, 'D-316');
         $this->assertSame('+962791234567', $partner->phone_normalized);
         $this->assertSame('partner.test@example.com', $partner->email_normalized);
         $this->assertSame('JO', $partner->country_code);

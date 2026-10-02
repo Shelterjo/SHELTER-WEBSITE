@@ -368,7 +368,7 @@
 | `FRAN-043` | حقول مستقبلية (5) — أي حقل مالي/استثماري لا يُنشر بلا موافقة | M29-§31 | D-255 | docs/franchise/03-APPLICATION-FIELD-MATRIX.md |  |  | NOT STARTED | NO |
 | `FRAN-044` | FRANCHISE APPLICATION FIELD MATRIX قبل التنفيذ النهائي للنموذج | M29-§32 | D-255 | docs/franchise/03-APPLICATION-FIELD-MATRIX.md |  |  | PARTIAL | N/A |
 | `FRAN-045` | Single Structured Form مقابل Short Multi-step — يُختار الأقل Friction بالاختبار | M29-§33 | D-255, D-176 | docs/franchise/03-APPLICATION-FIELD-MATRIX.md |  |  | NOT STARTED | NO |
-| `FRAN-046` | رقم طلب فريد FR-YYYY-NNNNN — يُولد في الخادم، قابل للبحث، بلا PII | M29-§34, M35 | D-254, CAREERS-040 | docs/franchise/03-APPLICATION-FIELD-MATRIX.md · docs/RECRUITMENT-DATA-MODEL.md §3 |  |  | NOT STARTED | NO |
+| `FRAN-046` | رقم طلب فريد FR-YYYY-NNNNN — يُولد في الخادم، قابل للبحث، بلا PII | M29-§34, M35, M46 | D-254, CAREERS-040 | docs/franchise/03-APPLICATION-FIELD-MATRIX.md · docs/RECRUITMENT-DATA-MODEL.md §3 |  |  | NOT STARTED | NO |
 | `FRAN-047` | صفحة النجاح: شكر + رقم الطلب + المراجعة — بلا أي وعد | M29-§35 | D-254 | docs/franchise/03-APPLICATION-FIELD-MATRIX.md |  |  | NOT STARTED | NO |
 | `FRAN-048` | Disclaimer قانوني: الإرسال ليس موافقة ولا التزامًا تعاقديًا — الصياغة النهائية معلقة | M29-§36 | D-254 | docs/franchise/03-APPLICATION-FIELD-MATRIX.md |  |  | NOT STARTED | NO |
 | `FRAN-049` | أمان النموذج العام (8 ضوابط) — بلا CAPTCHA خارجي تلقائيًا | M29-§74 | D-254, D-166 | docs/franchise/03-APPLICATION-FIELD-MATRIX.md · docs/RECRUITMENT-SECURITY.md |  |  | NOT STARTED | NO |
