@@ -37,6 +37,9 @@
             @if (session('status'))
                 <x-ui.alert variant="success" class="ui-shell__flash">{{ session('status') }}</x-ui.alert>
             @endif
+            @if (session('warning'))
+                <x-ui.alert variant="warning" class="ui-shell__flash">{{ session('warning') }}</x-ui.alert>
+            @endif
             @yield('content')
         </div>
     </main>

@@ -24,6 +24,7 @@ const ICONS = [
     'circle-check', // success alert, status-pill SYNCED
     'circle-x', // status-pill FAILED
     'clock', // status-pill PENDING
+    'external-link', // dashboard: open the live page on the site
     'file-text', // careers: an uploaded file in the list
     'hand', // status-pill MANUAL ACTION REQUIRED
     'handshake', // contact page: franchise inquiries intent
@@ -38,7 +39,9 @@ const ICONS = [
     'menu', // site header drawer + menu page "all categories"
     'message-circle', // site: WhatsApp action (no brand logos — Lucide only, D-062)
     'message-square-text', // contact page: complaints & feedback intent
+    'pause', // dashboard: pause an event
     'phone', // site: call action (tel:)
+    'play', // dashboard: resume an event
     'refresh-cw-off', // status-pill OUT OF SYNC
     'rotate-cw', // 500 page: try again
     'search', // search field, compact search in the menu category bar (never mirrors)

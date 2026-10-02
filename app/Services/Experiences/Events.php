@@ -52,6 +52,15 @@ final class Events
         return $event === null ? null : $this->view($event, $market, $locale, $now ?? CarbonImmutable::now());
     }
 
+    /**
+     * What visitors would see for this event — whatever its status (the dashboard preview). Null when it could not be
+     * shown at all (dates, one language only, no title): the same rules as the public pages.
+     */
+    public function preview(Experience $event, Market $market, string $locale, ?CarbonImmutable $now = null): ?EventView
+    {
+        return $event->slug === null ? null : $this->view($event, $market, $locale, $now ?? CarbonImmutable::now());
+    }
+
     /** @return Builder<Experience> */
     private function query(Market $market): Builder
     {
@@ -89,6 +98,8 @@ final class Events
         $oneDay = $this->isOneDay($starts, $ends);
         $ctaLabel = $event->text('cta_label', $locale);
         $ctaUrl = $event->cta_url !== null && preg_match('#^(https://|/)#', $event->cta_url) === 1 ? $event->cta_url : null; // G-08
+        // A page of this site opens in the page's language (/ar/jo/menu/ on the English page → /en/jo/menu/).
+        $ctaUrl = $ctaUrl === null ? null : (preg_replace('#^/(ar|en)/#', '/'.$locale.'/', $ctaUrl) ?? $ctaUrl);
 
         return new EventView(
             slug: (string) $event->slug,

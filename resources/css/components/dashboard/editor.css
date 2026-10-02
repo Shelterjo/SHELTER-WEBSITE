@@ -70,6 +70,8 @@
 }
 
 /* A refused save: room between the error summary (and its focus ring) and the form. */
+.ui-record__status + .ui-error-summary,
+.ui-record__status + .ui-editor,
 .ui-error-summary + .ui-editor {
     margin-block-start: var(--space-8);
 }

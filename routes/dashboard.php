@@ -5,6 +5,7 @@ use App\Http\Controllers\Dashboard\Auth\LoginController;
 use App\Http\Controllers\Dashboard\Auth\TwoFactorChallengeController;
 use App\Http\Controllers\Dashboard\Auth\TwoFactorSetupController;
 use App\Http\Controllers\Dashboard\Content\AwardsController;
+use App\Http\Controllers\Dashboard\Content\EventsController;
 use App\Http\Controllers\Dashboard\Content\MediaController;
 use App\Http\Controllers\Dashboard\Content\PagesController;
 use App\Http\Controllers\Dashboard\Content\TeamController;
@@ -16,6 +17,7 @@ use App\Http\Controllers\Dashboard\Requests\CareersController;
 use App\Http\Controllers\Dashboard\Requests\FeedbackController;
 use App\Http\Controllers\Dashboard\Requests\PartnershipsController;
 use App\Http\Middleware\DashboardLocale;
+use App\Services\Dashboard\EventEditor;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -68,6 +70,14 @@ Route::prefix('dashboard')->middleware(DashboardLocale::class)->group(function (
             Route::put('content/team/{member}', [TeamController::class, 'update'])->name('team.update');
             Route::post('content/team/{member}/archive', [TeamController::class, 'archive'])->name('team.archive');
             Route::post('content/team/{member}/restore', [TeamController::class, 'restore'])->name('team.restore');
+        });
+        Route::get('content/events', [EventsController::class, 'index'])->name('events.index');
+        Route::get('content/events/new', [EventsController::class, 'create'])->name('events.create');
+        Route::post('content/events', [EventsController::class, 'store'])->name('events.store');
+        Route::whereNumber('event')->group(function (): void {
+            Route::get('content/events/{event}', [EventsController::class, 'edit'])->name('events.edit');
+            Route::put('content/events/{event}', [EventsController::class, 'update'])->name('events.update');
+            Route::post('content/events/{event}/{command}', [EventsController::class, 'command'])->whereIn('command', EventEditor::COMMANDS)->name('events.command');
         });
 
         // Requests — job applications (CAREERS-052…073). Identity numbers and permanent deletion need a fresh re-confirmation.
