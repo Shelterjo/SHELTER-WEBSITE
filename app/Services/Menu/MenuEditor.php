@@ -254,6 +254,25 @@ final class MenuEditor
         });
     }
 
+    /** Shows or hides an item on the menu and in the search (hidden = archived publish state; nothing is deleted). */
+    public function setVisible(Product $product, User $owner, bool $visible): bool
+    {
+        $this->assertOwner($owner);
+        $hidden = $product->publish_status === PublishStatus::Archived;
+        if ($visible !== $hidden) {
+            return false; // already as asked
+        }
+
+        return DB::transaction(function () use ($product, $owner, $visible): bool {
+            $before = $product->publish_status->value;
+            $product->forceFill(['publish_status' => $visible ? PublishStatus::Published : PublishStatus::Archived])->save();
+            $this->versions->record($product, 'published', ['code' => $product->code, 'publish_status' => $product->publish_status->value], null, $owner);
+            $this->audit->record('menu.details_saved', $product, ['before' => ['publish_status' => $before], 'after' => ['publish_status' => $product->publish_status->value]], [], self::CHANNELS, $owner);
+
+            return true;
+        });
+    }
+
     /** Moves an item to another section (the season included — MENU-060 "Set Seasonal"); it goes to the end there. */
     public function moveProduct(Product $product, MenuCategory $category, User $owner): void
     {

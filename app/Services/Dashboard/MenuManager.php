@@ -16,6 +16,7 @@ use App\Services\Menu\MenuCatalog;
 use App\Services\Menu\MenuEditor;
 use App\Services\Menu\MenuSeason;
 use Carbon\CarbonImmutable;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
 use InvalidArgumentException;
 
@@ -413,6 +414,66 @@ final class MenuManager
         ], $reason);
 
         return [];
+    }
+
+    /**
+     * Several items at once (MENU-062): show or hide them, move them to a section (the season included), or set their
+     * availability at one branch (with a reason; each keeps its own branch price). No bulk price change. Every item
+     * keeps its own version and audit entry; one summary entry records the whole action.
+     *
+     * @param  array<string, mixed>  $input  action, ids[], category | branch + state + reason
+     * @return array{changed: int, errors: array<string, string>}
+     */
+    public function bulk(array $input, User $owner): array
+    {
+        $products = self::bulkProducts($input);
+        $action = is_string($input['action'] ?? null) ? $input['action'] : '';
+        $errors = [];
+        if ($products->isEmpty()) {
+            $errors['ids'] = (string) __('dashboard.menu.bulk.none');
+        }
+        $category = $action === 'move' && is_numeric($input['category'] ?? null) ? MenuCategory::query()->find((int) $input['category']) : null;
+        $branch = $action === 'branch' && is_numeric($input['branch'] ?? null) ? Branch::query()->whereNull('archived_at')->find((int) $input['branch']) : null;
+        $state = is_string($input['state'] ?? null) && in_array($input['state'], self::BRANCH_STATES, true) ? $input['state'] : null;
+        match ($action) {
+            'show', 'hide' => null,
+            'move' => $category === null ? $errors['category'] = (string) __('dashboard.menu.errors.category') : null,
+            'branch' => $branch === null || $state === null ? $errors['state'] = (string) __('dashboard.menu.errors.state') : null,
+            default => $errors['action'] = (string) __('dashboard.menu.bulk.choose'),
+        };
+        $reason = $action === 'branch' ? self::reason($input, $errors) : '';
+        if ($errors !== []) {
+            return ['changed' => 0, 'errors' => $errors];
+        }
+        $changed = 0;
+        DB::transaction(function () use ($products, $action, $category, $branch, $state, $reason, $owner, &$changed): void {
+            foreach ($products as $product) {
+                if ($action === 'show' || $action === 'hide') {
+                    $changed += $this->editor->setVisible($product, $owner, $action === 'show') ? 1 : 0;
+                } elseif ($action === 'move' && $category !== null) {
+                    $changed += $product->menu_category_id === $category->id ? 0 : 1;
+                    $this->editor->moveProduct($product, $category, $owner);
+                } elseif ($branch !== null && $state !== null) {
+                    $price = $product->branchOverrides()->where('branch_id', $branch->id)->value('price_fils');
+                    $this->editor->setBranchValues($product, $branch, $owner, $reason, is_numeric($price) ? (int) $price : null, $state === 'inherit' ? null : Availability::from($state));
+                    $changed++;
+                }
+            }
+        });
+
+        return ['changed' => $changed, 'errors' => []];
+    }
+
+    /**
+     * @param  array<string, mixed>  $input
+     * @return Collection<int, Product> the selected items that exist and are active (at most 200)
+     */
+    public static function bulkProducts(array $input): Collection
+    {
+        $ids = array_values(array_unique(array_map('intval', array_filter(is_array($input['ids'] ?? null) ? $input['ids'] : [], 'is_numeric'))));
+
+        return Product::query()->whereIn('id', array_slice($ids, 0, 200))->where('status', Product::STATUS_ACTIVE)->whereNull('merged_into_id')
+            ->with('category')->orderBy('menu_category_id')->orderBy('sort')->get();
     }
 
     /**

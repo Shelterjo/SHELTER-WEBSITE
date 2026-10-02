@@ -51,9 +51,20 @@
     @if ($rows === [])
         <x-ui.empty-state :title="__($M.'empty')" icon="coffee" />
     @else
+        {{-- Several at once (MENU-062): tick items, choose what to do, confirm once on the next page. --}}
+        <form class="ui-bulk-bar" id="menu-bulk" method="post" action="{{ route('dashboard.menu.bulk') }}" data-bulk data-bulk-forms="{{ json_encode(__($M.'bulk.count_forms'), JSON_UNESCAPED_UNICODE) }}">
+            @csrf
+            <x-ui.field :label="__($M.'bulk.label')" for="bulk-action">
+                <x-ui.select id="bulk-action" name="action" :options="['' => __($M.'bulk.choose_short')] + __($M.'bulk.actions')" />
+            </x-ui.field>
+            <x-ui.button type="submit" variant="secondary">{{ __($M.'bulk.go') }}</x-ui.button>
+            <x-ui.checkbox :label="__($M.'bulk.all')" id="select-all" data-select-all />
+            <p class="ui-note" data-bulk-count aria-live="polite"></p>
+        </form>
         <x-ui.table :caption="$category !== null ? $catName($category) : __($M.'results', ['q' => $q])" stack>
             <thead role="rowgroup">
                 <tr role="row">
+                    <th scope="col" role="columnheader" class="ui-select-col"><span class="ui-visually-hidden">{{ __($M.'bulk.select') }}</span></th>
                     <th scope="col" role="columnheader">{{ __($M.'columns.item') }}</th>
                     <th scope="col" role="columnheader" class="ui-table__numeric">{{ __($M.'columns.price') }}</th>
                     <th scope="col" role="columnheader">{{ __($M.'columns.branches') }}</th>
@@ -63,6 +74,10 @@
                 @foreach ($rows as $row)
                     @php $p = $row['product']; @endphp
                     <tr role="row">
+                        <td role="cell" class="ui-select-col" data-label="{{ __($M.'bulk.select') }}">
+                            <label class="ui-select-cell"><input class="ui-check__input" type="checkbox" form="menu-bulk" name="ids[]" value="{{ $p->id }}" data-select-item
+                                aria-label="{{ __($M.'bulk.select_one', ['name' => $p->display_name_en]) }}"></label>
+                        </td>
                         <th scope="row" role="rowheader" data-label="{{ __($M.'columns.item') }}">
                             <a href="{{ route('dashboard.menu.show', $p) }}" lang="en" dir="ltr">{{ $p->display_name_en }}</a>
                             <span class="ui-menu-table__ar">

@@ -12,6 +12,7 @@ use App\Http\Controllers\Dashboard\Content\PagesController;
 use App\Http\Controllers\Dashboard\Content\TeamController;
 use App\Http\Controllers\Dashboard\Data\BranchesController;
 use App\Http\Controllers\Dashboard\Data\ContactsController;
+use App\Http\Controllers\Dashboard\Data\MenuBulkController;
 use App\Http\Controllers\Dashboard\Data\MenuController;
 use App\Http\Controllers\Dashboard\HomeController;
 use App\Http\Controllers\Dashboard\LiveController;
@@ -177,6 +178,8 @@ Route::prefix('dashboard')->middleware(DashboardLocale::class)->group(function (
         Route::get('data/menu/words', [MenuController::class, 'words'])->name('menu.words');
         Route::whereNumber(['product', 'branch', 'word', 'category'])->middleware('confirmed')->group(function (): void {
             Route::get('data/menu/new', [MenuController::class, 'create'])->name('menu.create');
+            Route::match(['get', 'post'], 'data/menu/bulk', [MenuBulkController::class, 'confirm'])->name('menu.bulk');
+            Route::post('data/menu/bulk/apply', [MenuBulkController::class, 'apply'])->name('menu.bulk.apply');
             Route::post('data/menu', [MenuController::class, 'store'])->name('menu.store');
             Route::get('data/menu/season', [MenuController::class, 'season'])->name('menu.season');
             Route::put('data/menu/season/{category}', [MenuController::class, 'saveSeason'])->name('menu.season.save');
