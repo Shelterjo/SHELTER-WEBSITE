@@ -17,6 +17,7 @@ class TrustedProxiesTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
+        // One URL form per page (CanonicalTrailingSlash): the probe is asked with its trailing slash.
         Route::get('/_probe/client', fn (Request $request): array => ['ip' => $request->ip(), 'secure' => $request->isSecure()]);
     }
 
@@ -24,7 +25,7 @@ class TrustedProxiesTest extends TestCase
     private function probe(string $peer): array
     {
         return $this->withServerVariables(['REMOTE_ADDR' => $peer])
-            ->getJson('/_probe/client', ['X-Forwarded-For' => '203.0.113.7', 'X-Forwarded-Proto' => 'https'])
+            ->getJson('/_probe/client/', ['X-Forwarded-For' => '203.0.113.7', 'X-Forwarded-Proto' => 'https'])
             ->assertOk()->json();
     }
 
