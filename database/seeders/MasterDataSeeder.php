@@ -44,8 +44,9 @@ class MasterDataSeeder extends Seeder
             foreach ($b['missing'] as $field => $ref) {
                 $this->fact($facts, $branch->factKey($field), 'branch', null, FactStatus::Missing, $ref);
             }
-            // Location descriptions (D-334): written once on a fresh install, never over an Owner edit (the fact exists then).
-            foreach ($b['landmarks'] ?? [] as $field => $l) {
+            // Owner-approved branch values (location description D-334, Maps link D-335): written once on a fresh install,
+            // never over an Owner edit (the fact exists from then on); a null value is recorded as MISSING.
+            foreach ($b['approved'] ?? [] as $field => $l) {
                 if ($facts->current($branch->factKey($field)) !== null) {
                     continue;
                 }

@@ -14,17 +14,17 @@
 ## التغطية الحالية
 | | العدد | % |
 |---|---|---|
-| NOT STARTED | 830 | 61% |
+| NOT STARTED | 829 | 61% |
 | PARTIAL | 227 | 16% |
 | IMPLEMENTED — NOT TESTED | 123 | 9% |
 | TESTED | 116 | 8% |
 | FROZEN | 43 | 3% |
 | NEEDS FIX | 8 | 0% |
-| IMPLEMENTED — NOT YET VERIFIED | 2 | 0% |
+| IMPLEMENTED — NOT YET VERIFIED | 3 | 0% |
 | CONFLICT | 1 | 0% |
 
-- **مُنفذ أو مجمّد** (وثائق، بيانات، أدوات): **284 من 1350** (21%).
-- **مُختبر فعليًا:** 199. **على النموذج فقط** (`PROTOTYPE`): 130.
+- **مُنفذ أو مجمّد** (وثائق، بيانات، أدوات): **285 من 1350** (21%).
+- **مُختبر فعليًا:** 200. **على النموذج فقط** (`PROTOTYPE`): 130.
 - **الموقع والـDashboard المبنيان:** 0%.
 
 ## تقييم ما هو موجود: KEEP / IMPROVE / REFACTOR / REPLACE / REMOVE
@@ -64,7 +64,7 @@
 
 ## فجوات P0 (حسب المرحلة)
 - **P00 Governance & Master Source of Truth:** 47 — `BUILD-002`, `BUILD-003`, `BUILD-004`, `BUILD-005`, `BUILD-006`, `BUILD-007`, `BUILD-011`, `CAREERS-098`, `DEPLOY-009`, `FRAN-004`, `FRAN-005`, `FRAN-006`, `FRAN-103`, `FRAN-108`, `GOV-005`, `GOV-006`, `GOV-007`, `GOV-011`, `GOV-012`, `GOV-013`, `GOV-014`, `GOV-015`, `GOV-024`, `GOV-029`, `GOV-065`, `GOV-066`, `GOV-067`, `GOV-068`, `GOV-069`, `GOV-070`, `GOV-071`, `GOV-072`, `GOV-073`, `GOV-074`, `GOV-075`, `GOV-076`, `GOV-078`, `GOV-081`, `GOV-082`, `GOV-091`, `INFRA-045`, `MDH-002`, `OPS-002`, `OPS-009`, `OPS-052`, `OPS-053`, `WEB-001`
-- **P01 Discovery completion:** 19 — `BRANCH-018`, `BRANCH-029`, `CONTENT-001`, `FRAN-007`, `GBP-002`, `GBP-003`, `GBP-004`, `GBP-005`, `GBP-013`, `GOV-027`, `GOV-028`, `GOV-042`, `GOV-043`, `GSC-003`, `GSC-005`, `PERM-010`, `SEC-011`, `SEO-003`, `SEO-004`
+- **P01 Discovery completion:** 18 — `BRANCH-018`, `BRANCH-029`, `CONTENT-001`, `FRAN-007`, `GBP-002`, `GBP-003`, `GBP-004`, `GBP-005`, `GOV-027`, `GOV-028`, `GOV-042`, `GOV-043`, `GSC-003`, `GSC-005`, `PERM-010`, `SEC-011`, `SEO-003`, `SEO-004`
 - **P02 Menu IA & Wireframes:** 3 — `BRANCH-021`, `GOV-052`, `HOURS-009`
 - **P03 Site-wide IA, Sitemap, URL & SEO architecture:** 25 — `BRANCH-008`, `CONTACT-002`, `CONTACT-013`, `FRAN-017`, `FRAN-044`, `FRAN-094`, `FRAN-104`, `HOME-001`, `I18N-001`, `IA-001`, `IA-003`, `IA-004`, `IA-005`, `IA-014`, `NAV-006`, `SEO-034`, `WEB-002`, `WEB-003`, `WEB-004`, `WEB-007`, `WEB-008`, `WEB-011`, `WEB-013`, `WEB-016`, `WEB-022`
 - **P04 Owner Dashboard & CMS architecture:** 64 — `ANL-042`, `ANL-043`, `ANL-044`, `ANL-045`, `BRANCH-010`, `BRANCH-012`, `BRANCH-014`, `BRAND-013`, `CAMP-004`, `CAMP-005`, `CAMP-006`, `CAREERS-001`, `CAREERS-002`, `CAREERS-003`, `CAREERS-004`, `CAREERS-006`, `CAREERS-078`, `CAREERS-091`, `CAREERS-097`, `CMS-033`, `CMS-034`, `DASH-001`, `DASH-002`, `DASH-003`, `DASH-004`, `DASH-005`, `DASH-006`, `DASH-032`, `DASH-033`, `DEPLOY-011`, `DEPLOY-012`, `DEPLOY-013`, `DEPLOY-014`, `DS-020`, `DS-021`, `FRAN-040`, `FRAN-066`, `FRAN-068`, `FRAN-070`, `GOV-053`, `GOV-054`, `GOV-055`, `IA-022`, `MDH-019`, `MDH-036`, `MEDIA-012`, `MEDIA-013`, `MENU-024`, `MENU-060`, `MENU-061`, `MON-003`, `OPS-004`, `OPS-005`, `OPS-006`, `OPS-007`, `OPS-008`, `OPS-048`, `OPS-049`, `PERF-023`, `PERM-005`, `PROD-004`, `PROD-005`, `PROD-024`, `RESP-025`
@@ -173,7 +173,7 @@
 | `GBP-003` | GBP الرسمي لكل فرع = OFFICIAL OPERATIONAL SOURCE (تابع للـOwner) | PARTIAL | doc: docs/google/GOOGLE-BUSINESS-PROFILE-SOURCE-OF-TRUTH.md (الجداول جاهزة؛ بيانات GBP لم تصل) | تعبئة عمود GBP لكل حقل × فرع بعد G-01/G-02 · أول Sync. | P0 | GBP-008, BRANCH-018 | جدول SoT مكتمل لكل الحقول مع حالة لكل حقل. | P01 |
 | `GBP-004` | GBP لا يتجاوز الـOwner: الاختلاف = CONFLICT — OWNER REVIEW REQUIRED | NOT STARTED | spec: docs/google/GOOGLE-ECOSYSTEM-POLICY.md §2، §5 · docs/google/BRANCH-DATA-SYNC.md (تصنيف CONFLICT) | تطبيق في كل Sync. | P0 | BRANCH-018 | تقرير Sync يصنف كل اختلاف عن بيانات الـOwner كـCONFLICT ولا يغيّر شيئًا. | P01 |
 | `GBP-005` | هاتف الفروع في GBP والـSchema = 0799009436؛ المختلف = CONFLICT | NOT STARTED | recorded: DECISION-LOG D-060 · docs/google/GOOGLE-BUSINESS-PROFILE-SOURCE-OF-TRUTH.md (Phone shown publicly) | مقارنة عند وصول بيانات GBP. | P0 | GBP-008, BRANCH-018 | Sync: هاتف GBP لكل فرع = 0799009436 أو تقرير CONFLICT؛ Schema telephone = +962799009436. | P01 |
-| `GBP-013` | روابط Google Maps لـDRIVE وHOUSE = MISSING — VERIFY | NOT STARTED | recorded: docs/google/GOOGLE-BUSINESS-PROFILE-SOURCE-OF-TRUTH.md (Google Maps URL = MISSING) · 04 CR-026، CR-034 | استلام/تحقق الرابطين واعتمادهما. | P0 | GBP-008 | Sync: الرابط يفتح الملف الرسمي الصحيح لكل فرع. | P01 |
+| `GBP-013` | روابط Google Maps لـDRIVE وHOUSE = MISSING — VERIFY | IMPLEMENTED — NOT YET VERIFIED | recorded: docs/google/GOOGLE-BUSINESS-PROFILE-SOURCE-OF-TRUTH.md (Google Maps URL = MISSING) · 04 CR-026، CR-034 | استلام/تحقق الرابطين واعتمادهما. | P0 | GBP-008 | Sync: الرابط يفتح الملف الرسمي الصحيح لكل فرع. | P01 |
 | `GOV-027` | Content Approval Register (الأعمدة والحالات) | NEEDS FIX | docs/phase-01-discovery/04-content-approval-register.md | تحديث الحالات المتأخرة (OBS-02)؛ توحيد الحالات مع M27 §7؛ ربطه بـMASTER-REQUIREMENTS وPENDING-OWNER-INPUT | P0 | GOV-024, GOV-074 | مطابقة كل صف مع DECISION-LOG: لا صف يخالف قرارًا معتمدًا؛ Last Updated محدث | P01 |
 | `GOV-028` | قائمة المعلومات التي تحتاج موافقة الـOwner (Phase 01 بند 5) | NEEDS FIX | docs/phase-01-discovery/03-verify-with-owner.md (VQ-01…VQ-27)؛ 04-content-approval-register.md | تحديث حالات VQ المحسومة؛ نقل المفتوح منها إلى PENDING-OWNER-INPUT (أقسام BLOCKING / VERIFICATION NEEDED…) | P0 | GOV-074 | كل VQ إما مغلق بمرجع قرار أو موجود في PENDING-OWNER-INPUT | P01 |
 | `GOV-039` | PHASE 01 — DISCOVERY & OWNER INTERVIEW فقط وقيودها | IMPLEMENTED — NOT TESTED | DECISION-LOG D-002؛ phase-01 README (لا Coding · لا Framework · لا Plugins · لا تغييرات Cloudflare/Cloudways/DNS · لا نشر)؛ لا تغيير على أي نظام حي (00 §header) | إغلاق Phase 01 رسميًا عبر بوابة الخروج (Exit Criteria) بموافقة الـOwner | P0 | GOV-040, GOV-030 | تدقيق: لا commit لكود موقع/Framework، لا تغيير Cloudflare/Cloudways/DNS/Google، لا نشر — حتى اعتماد الخروج | P01 |

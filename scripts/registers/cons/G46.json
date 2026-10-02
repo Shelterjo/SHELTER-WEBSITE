@@ -1,0 +1,55 @@
+{
+  "group": "G46",
+  "notes": "M59: جواب الـOwner على PO-010: «ج» — رابطا Google Maps الآن، والعنوان النصي لاحقًا.",
+  "requirements": [],
+  "updates_to_existing": [
+    {
+      "id": "PO-010",
+      "type": "UPDATE",
+      "source": "M59",
+      "change": "✅ جزئيًا 2026-10-02 (D-335): رابطا Maps مُدخلان ومعتمدان — DRIVE `share.google/Cko3RPFoBGY21bco4` · HOUSE `share.google/d7T2jt7BKhidMHG4A` (الربط حسب صفحة «موقعنا» في موقع الـOwner: الفرع الرئيسي / سيتي سنتر؛ share.google محجوب في بيئة العمل فيتحقق الـOwner بفتح زر «الاتجاهات» في كل صفحة). المتبقي: العنوان التفصيلي AR/EN والإحداثيات."
+    },
+    {
+      "id": "GBP-013",
+      "type": "UPDATE",
+      "source": "M59",
+      "change": "روابط Maps للفرعين معتمدة (D-335) وتُشغّل زر «الاتجاهات» وhasMap في البيانات المنظمة.",
+      "code_refs": [
+        "database/seeders/data/master-data.php (approved.maps_url)",
+        "app/Services/Dashboard/BranchEditor.php (share.google)"
+      ],
+      "test_refs": [
+        "tests/Feature/Site/LocationsPagesTest.php",
+        "tests/Feature/Site/LocalSeoTest.php",
+        "tests/Feature/Dashboard/BranchDetailsTest.php"
+      ],
+      "new_impl": "IMPLEMENTED — NOT YET VERIFIED",
+      "tested": "YES"
+    },
+    {
+      "id": "SEO-008",
+      "type": "UPDATE",
+      "source": "M59",
+      "change": "رابط Maps (hasMap) وزر الاتجاهات لكل فرع (D-335)؛ المتبقي من NAP: العنوان التفصيلي والإحداثيات (PO-010)."
+    }
+  ],
+  "conflicts": [],
+  "new_decisions": [
+    {
+      "temp_id": "G46-ND-01",
+      "area": "Branches / Master Data",
+      "decision": "اعتماد رابطي Google Maps للفرعين الآن (العنوان النصي لاحقًا): DRIVE https://share.google/Cko3RPFoBGY21bco4 · HOUSE https://share.google/d7T2jt7BKhidMHG4A — الربط كما في صفحة «موقعنا» بموقع الـOwner (الفرع الرئيسي / سيتي سنتر). يظهر زر «الاتجاهات» في صفحة كل فرع وشريط الموبايل، وhasMap في البيانات المنظمة. محرر الفرع يقبل روابط share.google.",
+      "sources": [
+        "M59"
+      ],
+      "status": "APPROVED",
+      "reason": "Owner: «ج» — الروابط الآن والعنوان النصي لاحقًا",
+      "impact": "PO-010 (جزئيًا) · GBP-013 · SEO-008 · database/seeders/data/master-data.php",
+      "date": "2026-10-02"
+    }
+  ],
+  "pending_owner": [],
+  "technical_flags": [],
+  "cost_api_dependencies": [],
+  "dropped": []
+}

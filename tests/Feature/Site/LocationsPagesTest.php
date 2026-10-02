@@ -53,7 +53,7 @@ class LocationsPagesTest extends TestCase
         // M57 §18: the city and country are fixed facts (D-008); the street address stays out until PO-010 is approved.
         $this->assertSame(['@type' => 'PostalAddress', 'addressLocality' => 'Irbid', 'addressCountry' => 'JO'], $shop['address']);
         $this->assertArrayNotHasKey('geo', $shop);
-        $this->assertArrayNotHasKey('hasMap', $shop);
+        $this->assertSame('https://share.google/Cko3RPFoBGY21bco4', $shop['hasMap'], 'the approved Maps link (D-335)');
         $this->assertCount(2, $shop['openingHoursSpecification']);
         $this->assertSame('http://localhost/#organization', $shop['parentOrganization']['@id']);
         $this->assertSame('http://localhost/ar/jo/menu/', $shop['hasMenu']);

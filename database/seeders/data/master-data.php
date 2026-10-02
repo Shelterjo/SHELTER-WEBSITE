@@ -32,11 +32,17 @@ return [
                 [[5, '08:00', '02:00']],
             ),
             'hours_ref' => 'D-020',
-            // D-020: detailed address, official place name and Maps link are NOT approved (PO-010).
-            'missing' => ['address_ar' => 'PO-010', 'address_en' => 'PO-010', 'maps_url' => 'PO-010', 'latitude' => 'PO-010', 'longitude' => 'PO-010'],
-            // D-334 (Owner «أ» to PO-079): the location description, as the Owner wrote it in M57 §1 — a landmark, not the
-            // street address (PO-010). Its English wording was not given → PO-081.
-            'landmarks' => ['landmark_ar' => ['value' => 'بجانب منطقة قصر النخيل / أرابيلا', 'ref' => 'D-334'], 'landmark_en' => ['value' => null, 'ref' => 'PO-081']],
+            // D-020: the detailed address and the coordinates are NOT approved yet (PO-010; the Maps link is, D-335).
+            'missing' => ['address_ar' => 'PO-010', 'address_en' => 'PO-010', 'latitude' => 'PO-010', 'longitude' => 'PO-010'],
+            // Owner-approved values the seeder writes once (never over an Owner edit):
+            // D-334 (Owner «أ» to PO-079): the location description as written in M57 §1 — a landmark, not the street
+            // address (PO-010); its English wording was not given → PO-081.
+            // D-335 (Owner «ج» to PO-010): the Google Maps link, the "main branch" link of the Owner's own site (موقعنا).
+            'approved' => [
+                'landmark_ar' => ['value' => 'بجانب منطقة قصر النخيل / أرابيلا', 'ref' => 'D-334'],
+                'landmark_en' => ['value' => null, 'ref' => 'PO-081'],
+                'maps_url' => ['value' => 'https://share.google/Cko3RPFoBGY21bco4', 'ref' => 'D-335'],
+            ],
         ],
         [
             'code' => 'BR-HOUSE', 'slug' => 'house', 'type' => 'coffee_house', 'sort' => 2, 'is_public' => true,
@@ -47,11 +53,13 @@ return [
                 array_map(fn (int $d): array => [$d, '09:00', '23:00'], [4, 5]),
             ),
             'hours_ref' => 'D-020',
-            'missing' => ['address_ar' => 'PO-010', 'address_en' => 'PO-010', 'maps_url' => 'PO-010', 'latitude' => 'PO-010', 'longitude' => 'PO-010'],
+            'missing' => ['address_ar' => 'PO-010', 'address_en' => 'PO-010', 'latitude' => 'PO-010', 'longitude' => 'PO-010'],
             // D-334 (Owner «أ» to PO-079; M57 §1, D-020): Irbid City Center, first floor, next to Jordan Islamic Bank.
-            'landmarks' => [
+            // D-335 (Owner «ج» to PO-010): the Google Maps link, the "City Centre" link of the Owner's own site (موقعنا).
+            'approved' => [
                 'landmark_ar' => ['value' => 'إربد سيتي سنتر، الطابق الأول، بجانب البنك الإسلامي الأردني', 'ref' => 'D-334'],
                 'landmark_en' => ['value' => 'Irbid City Center, First Floor, next to Jordan Islamic Bank', 'ref' => 'D-334'],
+                'maps_url' => ['value' => 'https://share.google/d7T2jt7BKhidMHG4A', 'ref' => 'D-335'],
             ],
         ],
     ],

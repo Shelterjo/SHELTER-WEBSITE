@@ -61,7 +61,8 @@ class BranchDetailsTest extends TestCase
         $url = '/dashboard/data/branches/'.$this->branch->id;
         $this->get($url)->assertOk()->assertSee('بيانات الفرع')->assertSee('رابط خرائط Google');
         $ar = $this->page('/ar/jo/locations/irbid/drive/');
-        $this->assertStringNotContainsString('الاتجاهات', $ar, 'nothing before the Owner saves it (PO-010)');
+        $this->assertStringContainsString('href="https://share.google/Cko3RPFoBGY21bco4"', $ar, 'the approved Maps link (D-335)');
+        $this->assertStringNotContainsString('شارع تجريبي', $ar, 'no street address before the Owner saves one (PO-010)');
 
         $this->put($url.'/details', $this->form(['name_en' => '', 'maps_url' => 'https://example.com/x', 'latitude' => '32.5']))
             ->assertSessionHasErrors(['name_en', 'maps_url', 'longitude'], null, 'details');
@@ -73,6 +74,7 @@ class BranchDetailsTest extends TestCase
         $ar = $this->page('/ar/jo/locations/irbid/drive/');
         $this->assertStringContainsString('إربد، شارع تجريبي، قرب معلم تجريبي', $ar);
         $this->assertStringContainsString('href="https://maps.app.goo.gl/Sample123"', $ar);
+        $this->assertStringNotContainsString('Cko3RPFoBGY21bco4', $ar, 'the saved link replaces the old one');
         $this->assertStringContainsString('واي فاي', $ar);
         $this->assertStringContainsString('نقدًا', $ar);
         $this->assertStringNotContainsString('مواقف سيارات', $ar, '"no" is not shown');

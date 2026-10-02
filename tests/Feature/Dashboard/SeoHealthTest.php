@@ -44,16 +44,18 @@ class SeoHealthTest extends TestCase
         $this->assertNotNull($row);
         $checks = $row['checks'];
         $this->assertTrue($checks['names'] && $checks['hours'] && $checks['phone']);
-        $this->assertFalse($checks['maps'] || $checks['address'] || $checks['landmark'] || $checks['coordinates'], 'PO-010 still open');
+        $this->assertTrue($checks['maps'] && $checks['city_ar'], 'D-335 Maps link, D-334 spelling');
+        $this->assertFalse($checks['address'] || $checks['landmark'] || $checks['coordinates'], 'street address and coordinates (PO-010), English location line (PO-081)');
 
         $this->put('/dashboard/data/branches/'.$drive->id.'/details', [
-            'name_ar' => $drive->name_ar, 'name_en' => $drive->name_en, 'is_public' => '1', 'maps_url' => 'https://maps.app.goo.gl/Sample123',
+            'name_ar' => $drive->name_ar, 'name_en' => $drive->name_en, 'is_public' => '1', 'maps_url' => (string) $drive->maps_url,
+            'landmark_ar' => (string) $drive->landmark_ar, 'landmark_en' => 'Test landmark wording',
         ])->assertSessionHasNoErrors();
         $this->app->forgetScopedInstances();
         $row = collect(app(SeoHealth::class)->branches('ar'))->firstWhere('branch.slug', 'drive');
         $this->assertNotNull($row);
         $checks = $row['checks'];
-        $this->assertTrue($checks['maps'], 'saving the link clears the gap');
+        $this->assertTrue($checks['landmark'], 'saving the English line clears the gap');
     }
 
     public function test_titles_and_descriptions_are_checked_for_length_and_repeats(): void
