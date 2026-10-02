@@ -3,7 +3,7 @@
 | البند | القيمة |
 |---|---|
 | **الغرض** | إذا سبب إصدار مشكلة نعود بسرعة إلى **Previous Stable Release**: الكود، والإعدادات، والـMigrations بأمان، والمحتوى، والـCache، والتحويلات. **لا تُعتبر معمارية النشر مكتملة بدون خطة تراجع** (M35 §3) |
-| **الحالة** | `SPEC — READY FOR BUILD` · التنفيذ: `NOT STARTED` |
+| **الحالة** | `SPEC — READY FOR BUILD` · التنفيذ: **المحتوى** (§1 «المحتوى»، §7 «استعادة نسخة سابقة»، RB-T5) `IMPLEMENTED — NOT YET VERIFIED` على Staging: الـDashboard ← سجل التغييرات ← النسخ السابقة ← معاينة ← استعادة (نسخة جديدة عبر حفظ العنصر نفسه وقواعده، إعادة تأكيد الهوية، سطر `*.restored` في `audit_logs`) للصفحات ونصوص الموقع والإعدادات وتفاصيل الفروع والسعر الأساسي — اختبارات `VersionRestoreTest` تمر محليًا؛ إبطال الوسوم في Cloudflare خارج هذا التنفيذ ([`CACHE-CDN`](CACHE-CDN.md)). الباقي (الكود، الإعدادات، `release:rollback`): `NOT STARTED` |
 | **مرحلة البناء (M36 §6)** | **PHASE 7** (production release process). تراجع المحتوى من **PHASE 1** (`content_versions`). خطة المشروع: P08 · P11 |
 | **المتطلبات** | M35 §3 · §46 · §58 · DEPLOY-009 · DEPLOY-013 · DEPLOY-014 · OPS-023 · OPS-024 · AC-5 · G14-TF-08 · FINAL-ARCHITECTURE-REVIEW §13 (التراجع) |
 | **المراجع الملزمة** | [`DEPLOYMENT`](DEPLOYMENT.md) · [`CACHE-CDN`](CACHE-CDN.md) · [`DISASTER-RECOVERY`](DISASTER-RECOVERY.md) · [`PLATFORM-ARCHITECTURE`](../architecture/PLATFORM-ARCHITECTURE.md) |

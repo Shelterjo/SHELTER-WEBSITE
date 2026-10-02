@@ -14,6 +14,11 @@ use Illuminate\Http\Request;
  */
 final class AuditLogger
 {
+    /** meta key naming who acted when no user did: 'system' (a job, a command) or 'applicant' (a visitor's form). */
+    public const ACTOR_TYPE = 'actor_type';
+
+    public const SYSTEM = 'system';
+
     public function __construct(private readonly AuthFactory $auth, private readonly Request $request) {}
 
     /**
@@ -31,20 +36,20 @@ final class AuditLogger
     ): AuditLog {
         $user = $actor ?? $this->auth->guard()->user();
 
-        $log = new AuditLog([
-            'user_id' => $user instanceof User ? $user->id : null,
-            'action' => $action,
-            'changes' => $changes === [] ? null : self::mask($changes),
-            'meta' => $meta === [] ? null : self::mask($meta),
-            'channels_affected' => $channels === [] ? null : $channels,
-            'ip_address' => str_starts_with($action, 'auth.') ? $this->request->ip() : null,
-        ]);
-        if ($subject !== null) {
-            $log->subject()->associate($subject);
-        }
-        $log->save();
+        return $this->write($user instanceof User ? $user : null, $action, $subject, $changes, $meta, $channels);
+    }
 
-        return $log;
+    /**
+     * A change made by the system itself — a scheduled job, a command, an import (AUDIT-002: no silent change, the
+     * actor is "system"). Never attributed to whoever happens to be signed in; the job name says which task did it.
+     *
+     * @param  array<string, mixed>  $changes
+     * @param  array<string, mixed>  $meta
+     * @param  list<string>  $channels
+     */
+    public function system(string $action, string $job, ?Model $subject = null, array $changes = [], array $meta = [], array $channels = []): AuditLog
+    {
+        return $this->write(null, $action, $subject, $changes, $meta + [self::ACTOR_TYPE => self::SYSTEM, 'job' => $job], $channels);
     }
 
     /**
@@ -64,5 +69,28 @@ final class AuditLogger
         }
 
         return $data;
+    }
+
+    /**
+     * @param  array<string, mixed>  $changes
+     * @param  array<string, mixed>  $meta
+     * @param  list<string>  $channels
+     */
+    private function write(?User $user, string $action, ?Model $subject, array $changes, array $meta, array $channels): AuditLog
+    {
+        $log = new AuditLog([
+            'user_id' => $user?->id,
+            'action' => $action,
+            'changes' => $changes === [] ? null : self::mask($changes),
+            'meta' => $meta === [] ? null : self::mask($meta),
+            'channels_affected' => $channels === [] ? null : $channels,
+            'ip_address' => str_starts_with($action, 'auth.') ? $this->request->ip() : null,
+        ]);
+        if ($subject !== null) {
+            $log->subject()->associate($subject);
+        }
+        $log->save();
+
+        return $log;
     }
 }

@@ -1,0 +1,6 @@
+/* Dashboard → Change history (App\Services\Dashboard\ChangeHistory): an entry or a version may hold long unbroken
+   words — a fact's key, a link, an address — that wrap inside its card instead of widening the page (from 320px). */
+
+.ui-history__entry {
+    overflow-wrap: anywhere;
+}

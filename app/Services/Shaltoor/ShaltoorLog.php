@@ -96,9 +96,18 @@ final class ShaltoorLog
         return $count;
     }
 
-    /** Questions older than the retention window are deleted (no personal data, but no reason to keep them). */
+    /**
+     * Questions older than the retention window are deleted (no personal data, but no reason to keep them). Run by the
+     * daily monitors; a run that deleted some leaves one audit line with the count (AUDIT-002: the system's own change).
+     */
     public function prune(): int
     {
-        return ShaltoorQuestion::query()->where('created_at', '<', now()->subDays((int) config('shaltoor.retention_days', 90)))->delete();
+        $days = (int) config('shaltoor.retention_days', 90);
+        $deleted = ShaltoorQuestion::query()->where('created_at', '<', now()->subDays($days))->delete();
+        if ($deleted > 0) {
+            app(AuditLogger::class)->system('shaltoor.questions_pruned', 'monitors:daily', meta: ['questions' => $deleted, 'older_than_days' => $days]);
+        }
+
+        return $deleted;
     }
 }

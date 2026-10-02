@@ -18,6 +18,7 @@ use App\Http\Controllers\Dashboard\Data\ContactsController;
 use App\Http\Controllers\Dashboard\Data\MenuBulkController;
 use App\Http\Controllers\Dashboard\Data\MenuController;
 use App\Http\Controllers\Dashboard\Data\MenuSectionsController;
+use App\Http\Controllers\Dashboard\HistoryController;
 use App\Http\Controllers\Dashboard\HomeController;
 use App\Http\Controllers\Dashboard\LiveController;
 use App\Http\Controllers\Dashboard\RecoveryCodesController;
@@ -89,6 +90,14 @@ Route::prefix('dashboard')->middleware(DashboardLocale::class)->group(function (
         Route::get('live', LiveController::class)->name('live');
         Route::get('attention', [AttentionController::class, 'index'])->name('attention');
         Route::post('attention/{signal}/dismiss', [AttentionController::class, 'dismiss'])->whereNumber('signal')->name('attention.dismiss');
+        // Change history (AUDIT-001…004, AUDIT-009): every audited change and an item's versions; bringing an earlier
+        // version back changes the live site — a fresh re-confirmation for the preview and the restore.
+        Route::get('history', [HistoryController::class, 'index'])->name('history');
+        Route::get('history/versions/{type}/{id}', [HistoryController::class, 'versions'])->where('type', '[a-z]+')->whereNumber('id')->name('history.versions');
+        Route::whereNumber('version')->middleware('confirmed')->group(function (): void {
+            Route::get('history/restore/{version}', [HistoryController::class, 'preview'])->name('history.restore');
+            Route::post('history/restore/{version}', [HistoryController::class, 'restore'])->name('history.restore.run');
+        });
         Route::get('seo', SeoController::class)->name('seo');
         // Shaltoor (M69 §23): what visitors asked; switching it on/off or changing its words is a live change.
         Route::get('shaltoor', [ShaltoorController::class, 'index'])->name('shaltoor');
