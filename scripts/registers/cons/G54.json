@@ -1,0 +1,68 @@
+{
+  "group": "G54",
+  "notes": "M67 (بوابة المسارات والحركة وتوحيد التصميم وسهولة الاستخدام) · M68 (الأدوات والمنظومة الرقمية والربطات والسوشال) · M69 (مساعد الموقع «شلتور») · M70 (مساعد الذكاء الاصطناعي للمالك). كلها شروط قبل «READY FOR CLOUDWAYS DEPLOYMENT».",
+  "requirements": [],
+  "updates_to_existing": [
+    {
+      "id": "D-343",
+      "type": "UPDATE",
+      "source": "M67",
+      "change": "الاعتماد النهائي يضم أيضًا: Public Route Architecture · URL/Path Consistency · Deep Links · Navigation · Typography/Button/Form/Design System · Motion Experience/Performance/Reduced Motion · Usability · Mobile Usability · Brand Consistency · Visual Polish · No Dead Ends (D-344)، ثم بنود M68 (D-345) وشلتور (D-346) ومساعد المالك (D-347)."
+    }
+  ],
+  "conflicts": [],
+  "new_decisions": [
+    {
+      "temp_id": "G54-ND-01",
+      "area": "Release / UX / Design System",
+      "decision": "بوابة إضافية قبل Cloudways (M67): بنية المسارات العامة المعتمدة (D-031: /ar/ و/en/ ثم /jo/ للسوق) تُراجع لكل صفحة (AR/EN، canonical، الحالة، H1، العنوان، الفهرسة، الـSitemap، مصدر التنقل، التحويلات) في docs/PUBLIC-ROUTE-MAP.md؛ مصطلح واحد لكل مفهوم؛ روابط الخطأ = 404 بالعلامة؛ لا تحويل لكل شيء إلى الرئيسية. الحركة مقصودة وراقية ومن Tokens (transform/opacity، احترام تقليل الحركة)، والموقع لا يبدو جامدًا. خطوط وأوزان وسلّم أحجام وأزرار ونماذج وبطاقات موحدة من نظام التصميم، وأي إصلاح يمر عبر Tokens والمكونات المشتركة. سهولة الاستخدام: اختبار 3 ثوانٍ و10 ثوانٍ، عمق النقرات، منطقة الإبهام، أهداف لمس 44px، بلا طريق مسدود. تقرير PRE-CLOUDWAYS-FINAL-AUDIT يضم أقسام DESIGN SYSTEM CONSISTENCY وMOTION EXPERIENCE وUSABILITY.",
+      "sources": ["M67"],
+      "status": "APPROVED",
+      "reason": "توجيه صريح من الـOwner (M67)",
+      "impact": "D-343 · docs/PUBLIC-ROUTE-MAP.md · docs/PRE-CLOUDWAYS-FINAL-AUDIT.md",
+      "date": "2026-10-02"
+    },
+    {
+      "temp_id": "G54-ND-02",
+      "area": "Integrations / Ecosystem",
+      "decision": "المنظومة الرقمية (M68): تدقيق أدوات UX/UI (ui-ux-pro-max، Motion؛ shadcn وGSAP وLenis وLottie فقط عند الحاجة الحقيقية)؛ طبقة وسوم واحدة عبر GTM (لا سكربتات متفرقة)؛ Consent (Essential/Analytics/Marketing) قبل أي تتبع غير أساسي؛ Pixel وCAPI وGoogle Ads وSnap Pixel عند الحاجة الفعلية فقط؛ روابط السوشال من كيان مركزي (المنصة، الرابط، الحالة، تاريخ التحقق، الإظهار) وبروابط موثقة فقط (غير المعروف = PENDING OWNER INPUT)، مع Snapchat؛ أيقونات من مكتبة التصميم الموحدة؛ Master Data مرجع واحد يغذي القنوات عبر Adapters؛ فشل أي خدمة خارجية لا يُسقط الموقع ولا يكون صامتًا. مخرجات: DIGITAL-INTEGRATIONS-RECOMMENDATIONS.md وTRACKING-AND-COOKIES-INVENTORY.md وdocs/SHELTER-DIGITAL-ECOSYSTEM.md وdocs/OWNER-CONNECTION-CHECKLIST.md. ترتيب الربط: GitHub QA ← Cloudways Origin ← اختبار الـOrigin ← الدومين/DNS ← Cloudflare ← SSL ← Search Console ← Google Business/Maps ← GTM ← GA4 ← Meta ← البكسلات الاختيارية ← المراقبة ← تدقيق الإنتاج. الـOwner يُطلب منه إجراء واحد في كل خطوة.",
+      "sources": ["M68"],
+      "status": "APPROVED",
+      "reason": "توجيه صريح من الـOwner (M68)",
+      "impact": "PO-009 · PO-011 · PO-012 · PO-013 · PO-064 · CONTACT-026 · docs/OWNER-CONNECTION-CHECKLIST.md",
+      "date": "2026-10-02"
+    },
+    {
+      "temp_id": "G54-ND-03",
+      "area": "AI / Website Assistant",
+      "decision": "«شلتور» (SHALTOOR) المساعد الرسمي لزوار الموقع (M69): يجيب من بيانات SHELTER المعتمدة فقط (Master Data، المنيو والأسعار والتوفر، الفروع والساعات والاستثناءات بتوقيت عمّان، التواصل حسب الغرض، الفعاليات والعروض الفعالة، الوظائف والشراكة العامة)؛ لا يخمّن، ويوجّه للتواصل حين لا يعرف؛ عربي (ويفهم اللهجة الأردنية) وإنجليزي؛ إجابات قابلة للتنفيذ (الاتجاهات، اتصال، واتساب، المنيو، الوظائف، الشراكة)؛ لا معلومات خاصة أو داخلية، ولا أرقام مالية للفرنشايز؛ أرقام التحويل من Master Data؛ طبقة مزوّد AI قابلة للتبديل والمفتاح على الخادم فقط — الربط PENDING OWNER AUTHORIZATION؛ البيانات المنظمة أولًا والـAI عند الحاجة فقط؛ تحميل كسول؛ حد للطلبات؛ تخزين أدنى بلا PII؛ أحداث تحليلات بلا نص المحادثة؛ قسم «شلتور» في لوحة التحكم (تشغيل/إيقاف، رسالة الترحيب، الاقتراحات، الأسئلة غير المجابة). المرجع: docs/SHALTOOR-ASSISTANT-SPEC.md.",
+      "sources": ["M69"],
+      "status": "APPROVED",
+      "reason": "توجيه صريح من الـOwner (M69)",
+      "impact": "PRIV (سياسة الخصوصية PO-019) · ANL · SEC · docs/SHALTOOR-ASSISTANT-SPEC.md",
+      "date": "2026-10-02"
+    },
+    {
+      "temp_id": "G54-ND-04",
+      "area": "AI / Owner Dashboard",
+      "decision": "«مساعد الذكاء الاصطناعي» في لوحة التحكم للمالك فقط (M70): وكيل ذكاء للموقع يقرأ ويحلل ويقارن الفترات ويكتشف المشاكل والفرص ويقترح (العنوان، ما وجدته، الدليل، لماذا يهم، الإجراء، الأثر المتوقع، الثقة، الفترة، المصادر) مع قبول/رفض/لاحقًا/غير مناسب؛ مصادر حقيقية فقط وحالة كل مصدر (متصل/غير متصل/فشل/قديم) ولا يتكلم عن مصدر غير متصل؛ يحسب أولًا (SQL/قواعد) ثم يشرح الـAI؛ يفصل الملاحظة عن الفرضية ولا يدّعي سببية؛ لا ينشر ولا يغيّر أسعارًا أو ساعات أو بيانات تواصل أو فهرسة أو أمانًا أو تتبعًا بلا موافقة؛ طبقة صلاحيات أدوات منفصلة تمامًا عن شلتور؛ تسجيل في سجل التدقيق؛ «حلل الآن» وتحليل مجدول. V1: الملخص، اسأل الـAI، رؤى التحليلات وSEO والبحث وشلتور والصحة التقنية، التوصيات، يحتاج انتباهك، رأي المالك، سجل التدقيق. المرجع: docs/OWNER-AI-ASSISTANT-SPEC.md.",
+      "sources": ["M70"],
+      "status": "APPROVED",
+      "reason": "توجيه صريح من الـOwner (M70)",
+      "impact": "DASH · ANL · SEC · PRIV · MON-007 · docs/OWNER-AI-ASSISTANT-SPEC.md",
+      "date": "2026-10-02"
+    }
+  ],
+  "pending_owner": [],
+  "technical_flags": [],
+  "cost_api_dependencies": [
+    {
+      "service": "AI provider (Anthropic or OpenAI) for Shaltoor and the Owner AI Assistant",
+      "purpose": "explain structured answers and insights in natural language when the rule layer is not enough",
+      "status": "PENDING OWNER AUTHORIZATION — nothing connected; both assistants work on structured data without it",
+      "cost": "usage-based; to confirm with the provider at setup",
+      "free_alternative": "the structured/rules layer alone (already built)"
+    }
+  ],
+  "dropped": []
+}

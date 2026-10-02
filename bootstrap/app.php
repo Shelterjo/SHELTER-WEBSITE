@@ -9,12 +9,14 @@ use App\Http\Middleware\ResolveMarket;
 use App\Http\Middleware\SecurityHeaders;
 use App\Http\Middleware\SetLocale;
 use App\Services\Forms\FormGuard;
+use App\Services\Seo\LegacyRedirects;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Http\Request;
 use Illuminate\Session\TokenMismatchException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -52,6 +54,9 @@ return Application::configure(basePath: dirname(__DIR__))
         $exceptions->shouldRenderJsonWhen(
             fn (Request $request) => $request->is('api/*') || $request->expectsJson(),
         );
+        // Old and changed addresses (SEO-011/018): an address no page answers is looked up in the Owner's switched-on
+        // redirects before the 404 — one hop, never over a live page (App\Services\Seo\LegacyRedirects).
+        $exceptions->render(fn (NotFoundHttpException $e, Request $request) => app(LegacyRedirects::class)->respond($request));
         // FINAL-QA QA-006: a public form left open past the session lifetime goes back to the same form with what the
         // visitor typed and one clear message — never a dead end. Identity numbers, files and secrets are not kept.
         // (The framework turns the token mismatch into an HTTP 419 before render callbacks run.)

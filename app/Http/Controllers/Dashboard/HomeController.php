@@ -8,6 +8,7 @@ use App\Models\Feedback;
 use App\Models\Media;
 use App\Models\Page;
 use App\Models\Recruitment\Application;
+use App\Services\Core\Attention;
 use App\Services\Dashboard\PageEditor;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Route;
@@ -19,10 +20,12 @@ use Illuminate\Support\Facades\Route;
  */
 final class HomeController extends Controller
 {
-    public function __invoke(): View
+    public function __invoke(Attention $attention): View
     {
         $live = Page::query()->whereIn('key', array_keys(PageEditor::PAGES))->where('status', PublishStatus::Published)->count();
         $tiles = [
+            // MON-007: open issues first — the one number that always deserves a look.
+            ['label' => __('dashboard.attention.tile'), 'value' => $attention->count(), 'route' => 'dashboard.attention'],
             // "New" = not opened yet — a read state, not a status (CAREERS-054, FRAN-055).
             ['label' => __('dashboard.home.new_job_applications'), 'value' => $this->unseen('JOB'), 'route' => 'dashboard.careers.index', 'params' => ['status' => 'new', 'period' => 'all']],
             ['label' => __('dashboard.home.new_partnership_applications'), 'value' => $this->unseen('FR'), 'route' => 'dashboard.partnerships.index', 'params' => ['status' => 'new']],
@@ -32,6 +35,7 @@ final class HomeController extends Controller
         ];
 
         return view('dashboard.home', [
+            'attention' => $attention->open(app()->getLocale(), 3),
             'tiles' => array_map(fn (array $t): array => $t + ['href' => Route::has($t['route']) ? route($t['route'], $t['params'] ?? []) : null], $tiles),
         ]);
     }

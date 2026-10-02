@@ -169,6 +169,10 @@ final class FactRegistry
                 'last_reviewed_at' => now(),
             ]);
             $this->audit->record('facts.superseded', $new, ['before' => ['code' => $old->code], 'after' => ['code' => $new->code]], actor: $owner);
+            // The Owner's new approved value settles what was open on the old row (MON-007: an issue closes once fixed).
+            foreach (['unpublishable', 'drift', 'expired'] as $issue) {
+                $this->signals->resolve("fact:{$old->code}:{$issue}", $owner);
+            }
 
             return $new;
         });

@@ -1,5 +1,6 @@
 <?php
 
+use App\Services\Core\Attention;
 use App\Services\Core\JobRuns;
 use App\Services\MasterData\FactRegistry;
 use Illuminate\Support\Facades\Artisan;
@@ -25,4 +26,11 @@ Schedule::call(fn () => app(JobRuns::class)->run('careers:prune-drafts', functio
 }))
     ->name('careers:prune-drafts')
     ->hourly()
+    ->withoutOverlapping();
+
+// Needs attention (MON-007): the daily monitors (image rights ending within 30 days, …) raise or close their issues.
+Schedule::call(fn () => app(JobRuns::class)->run('monitors:daily', fn (): string => app(Attention::class)->runMonitors()))
+    ->name('monitors:daily')
+    ->timezone('Asia/Amman')
+    ->dailyAt('03:20')
     ->withoutOverlapping();

@@ -17,8 +17,10 @@ final class DashboardChrome
     private const NAV = [
         'home' => [
             'dashboard.home' => ['dashboard.command_center', 'house', 'dashboard.home'],
+            'dashboard.attention' => ['dashboard.nav.attention', 'triangle-alert', 'dashboard.attention'],
             'dashboard.live' => ['dashboard.nav.live', 'clock', 'dashboard.live'],
             'dashboard.seo' => ['dashboard.nav.seo', 'search', 'dashboard.seo'],
+            'dashboard.redirects.index' => ['dashboard.nav.redirects', 'arrow-right', 'dashboard.redirects.*'],
         ],
         'content' => [
             'dashboard.pages.index' => ['dashboard.nav.pages', 'file-text', 'dashboard.pages.*'],

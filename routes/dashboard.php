@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Dashboard\AttentionController;
 use App\Http\Controllers\Dashboard\Auth\ConfirmIdentityController;
 use App\Http\Controllers\Dashboard\Auth\LoginController;
 use App\Http\Controllers\Dashboard\Auth\TwoFactorChallengeController;
@@ -20,6 +21,7 @@ use App\Http\Controllers\Dashboard\Data\MenuSectionsController;
 use App\Http\Controllers\Dashboard\HomeController;
 use App\Http\Controllers\Dashboard\LiveController;
 use App\Http\Controllers\Dashboard\RecoveryCodesController;
+use App\Http\Controllers\Dashboard\RedirectsController;
 use App\Http\Controllers\Dashboard\Requests\CareersBulkController;
 use App\Http\Controllers\Dashboard\Requests\CareersController;
 use App\Http\Controllers\Dashboard\Requests\CareersSettingsController;
@@ -84,7 +86,17 @@ Route::prefix('dashboard')->middleware(DashboardLocale::class)->group(function (
             Route::post('content/team/{member}/restore', [TeamController::class, 'restore'])->name('team.restore');
         });
         Route::get('live', LiveController::class)->name('live');
+        Route::get('attention', [AttentionController::class, 'index'])->name('attention');
+        Route::post('attention/{signal}/dismiss', [AttentionController::class, 'dismiss'])->whereNumber('signal')->name('attention.dismiss');
         Route::get('seo', SeoController::class)->name('seo');
+        Route::get('seo/redirects', [RedirectsController::class, 'index'])->name('redirects.index');
+        // Old links change what visitors and Google get on the live domain: a fresh re-confirmation to edit them.
+        Route::middleware('confirmed')->group(function (): void {
+            Route::post('seo/redirects', [RedirectsController::class, 'store'])->name('redirects.store');
+            Route::put('seo/redirects/{redirect}', [RedirectsController::class, 'update'])->whereNumber('redirect')->name('redirects.update');
+            Route::post('seo/redirects/{redirect}/{command}', [RedirectsController::class, 'command'])->whereNumber('redirect')
+                ->whereIn('command', ['activate', 'deactivate', 'archive', 'restore'])->name('redirects.command');
+        });
         Route::post('live/{experience}/disable', [LiveController::class, 'disable'])->whereNumber('experience')->name('live.disable');
         Route::get('content/announcements', [AnnouncementsController::class, 'index'])->name('announcements.index');
         Route::get('content/announcements/new', [AnnouncementsController::class, 'create'])->name('announcements.create');
