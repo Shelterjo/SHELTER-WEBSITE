@@ -73,8 +73,8 @@
 | متطلبات | **1350**: REQUIREMENT 491, RULE 442, DECISION 209, DELIVERABLE 109, GATE 99 |
 | حسب الحالة | APPROVED 900, FROZEN 294, APPROVED WITH CONDITIONS 73, PENDING OWNER INPUT 34, DEFERRED 22, SUPERSEDED 18, PENDING VERIFICATION 9 |
 | حسب الأولوية | P0 691, P1 572, P2 69, P3 18 |
-| حسب التنفيذ | NOT STARTED 858, PARTIAL 217, IMPLEMENTED — NOT TESTED 124, TESTED 97, FROZEN 43, NEEDS FIX 8, IMPLEMENTED — NOT YET VERIFIED 2, CONFLICT 1 |
-| مُختبر | NO 708, N/A 341, YES 170, PROTOTYPE 131 |
+| حسب التنفيذ | NOT STARTED 844, PARTIAL 224, IMPLEMENTED — NOT TESTED 124, TESTED 104, FROZEN 43, NEEDS FIX 8, IMPLEMENTED — NOT YET VERIFIED 2, CONFLICT 1 |
+| مُختبر | NO 694, N/A 341, YES 184, PROTOTYPE 131 |
 
 ## فهرس المجالات
 | # | المجال | متطلبات | P0 | معتمد/مجمّد | معلّق | تنفيذ (منفذ أو مجمّد) |
@@ -123,7 +123,7 @@
 | 42 | [Privacy & Legal](master-requirements/42-privacy-legal.md) | 14 | 9 | 14 | 0 | 2 |
 | 43 | [UX Principles](master-requirements/43-ux-principles.md) | 6 | 1 | 6 | 0 | 0 |
 | 44 | [Careers & Recruitment](master-requirements/44-careers-recruitment.md) | 99 | 60 | 98 | 1 | 27 |
-| 45 | [Dynamic Experience Engine](master-requirements/45-dynamic-experience-engine.md) | 38 | 14 | 38 | 0 | 5 |
+| 45 | [Dynamic Experience Engine](master-requirements/45-dynamic-experience-engine.md) | 38 | 14 | 38 | 0 | 12 |
 | 46 | [Platform Quality & Operations](master-requirements/46-platform-quality-operations.md) | 56 | 39 | 56 | 0 | 3 |
 | 47 | [Master Data & Channel Sync](master-requirements/47-master-data-channel-sync.md) | 36 | 34 | 36 | 0 | 5 |
 | 48 | [Design System & UI Consistency](master-requirements/48-design-system-ui-consistency.md) | 29 | 29 | 29 | 0 | 1 |
@@ -1486,34 +1486,34 @@
 | `DX-007` | الموظف المثالي لهذا الشهر (Employee of the Month) | FROZEN | P1 | NOT STARTED |
 | `DX-008` | حالات الموظف المثالي + الأرشيف | FROZEN | P1 | NOT STARTED |
 | `DX-009` | مواضع ظهور الموظف المثالي | FROZEN | P1 | NOT STARTED |
-| `DX-010` | نظام الإعلانات الديناميكي وأنواع العرض | FROZEN | P1 | NOT STARTED |
-| `DX-011` | حقول التجربة/الإعلان | FROZEN | P1 | NOT STARTED |
-| `DX-012` | لا حالة فارغة: لا شيء نشط = لا مكون | FROZEN | P0 | NOT STARTED |
-| `DX-013` | بدء وانتهاء تلقائي + تجاوز يدوي + إيقاف طارئ | FROZEN | P0 | PARTIAL |
+| `DX-010` | نظام الإعلانات الديناميكي وأنواع العرض | FROZEN | P1 | PARTIAL |
+| `DX-011` | حقول التجربة/الإعلان | FROZEN | P1 | PARTIAL |
+| `DX-012` | لا حالة فارغة: لا شيء نشط = لا مكون | FROZEN | P0 | TESTED |
+| `DX-013` | بدء وانتهاء تلقائي + تجاوز يدوي + إيقاف طارئ | FROZEN | P0 | TESTED |
 | `DX-014` | المشاركة في الفعاليات وأسطح الظهور | FROZEN | P1 | PARTIAL |
 | `DX-015` | محرك التجارب الموسمية القابل للإعداد | FROZEN | P1 | NOT STARTED |
 | `DX-016` | مثال عيد الاستقلال الأردني — حدود المعالجة | FROZEN | P1 | NOT STARTED |
 | `DX-017` | مثال الكريسماس — حدود المعالجة | FROZEN | P1 | NOT STARTED |
-| `DX-018` | أنواع التجارب وقواعد العرض | FROZEN | P1 | NOT STARTED |
-| `DX-019` | وحدة Experiences في الـDashboard | FROZEN | P1 | NOT STARTED |
-| `DX-020` | شاشة ACTIVE NOW + Disable Now | FROZEN | P0 | NOT STARTED |
-| `DX-021` | محرك الأولوية والتعارض | FROZEN | P0 | NOT STARTED |
+| `DX-018` | أنواع التجارب وقواعد العرض | FROZEN | P1 | PARTIAL |
+| `DX-019` | وحدة Experiences في الـDashboard | FROZEN | P1 | PARTIAL |
+| `DX-020` | شاشة ACTIVE NOW + Disable Now | FROZEN | P0 | TESTED |
+| `DX-021` | محرك الأولوية والتعارض | FROZEN | P0 | TESTED |
 | `DX-022` | العدّ التنازلي (اختياري) | FROZEN | P2 | NOT STARTED |
-| `DX-023` | المناطق الزمنية | FROZEN | P0 | NOT STARTED |
+| `DX-023` | المناطق الزمنية | FROZEN | P0 | TESTED |
 | `DX-024` | تكامل Media Center: ارفع مرة واستخدم في كل مكان | FROZEN | P1 | PARTIAL |
-| `DX-025` | إدارة كاملة بلا كود | FROZEN | P0 | NOT STARTED |
+| `DX-025` | إدارة كاملة بلا كود | FROZEN | P0 | PARTIAL |
 | `DX-026` | قواعد الحركة | FROZEN | P1 | NOT STARTED |
 | `DX-027` | Reduced motion لكل تجربة موسمية | FROZEN | P0 | NOT STARTED |
 | `DX-028` | معالجة موبايل لكل تجربة | FROZEN | P0 | NOT STARTED |
 | `DX-029` | ميزانية أداء لكل تجربة + تحميل مشروط | FROZEN | P0 | NOT STARTED |
 | `DX-030` | سلامة التصميم: العودة للحالة الطبيعية تمامًا | FROZEN | P0 | NOT STARTED |
-| `DX-031` | المعاينة قبل التفعيل (بتاريخ ووقت محددين) | FROZEN | P1 | NOT STARTED |
-| `DX-032` | أوامر الجدولة | FROZEN | P1 | NOT STARTED |
-| `DX-033` | سجل التدقيق للتجارب | FROZEN | P1 | NOT STARTED |
-| `DX-034` | سجل النسخ للتجارب | FROZEN | P1 | NOT STARTED |
+| `DX-031` | المعاينة قبل التفعيل (بتاريخ ووقت محددين) | FROZEN | P1 | PARTIAL |
+| `DX-032` | أوامر الجدولة | FROZEN | P1 | TESTED |
+| `DX-033` | سجل التدقيق للتجارب | FROZEN | P1 | PARTIAL |
+| `DX-034` | سجل النسخ للتجارب | FROZEN | P1 | PARTIAL |
 | `DX-035` | أحداث القياس للتجارب (بلا PII) | FROZEN | P1 | NOT STARTED |
 | `DX-036` | خصوصية الموظفين: فصل الملف العام عن سجل HR | FROZEN | P0 | TESTED |
-| `DX-037` | العزل عند الفشل: الموقع الأساسي مستقل | FROZEN | P0 | NOT STARTED |
+| `DX-037` | العزل عند الفشل: الموقع الأساسي مستقل | FROZEN | P0 | TESTED |
 | `DX-038` | الهدف النهائي: موقع حي وعودة نظيفة | FROZEN | P1 | NOT STARTED |
 
 ## 46 · Platform Quality & Operations — [التفاصيل](master-requirements/46-platform-quality-operations.md)
