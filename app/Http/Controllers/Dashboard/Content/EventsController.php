@@ -11,6 +11,7 @@ use App\Models\User;
 use App\Services\Dashboard\EventEditor;
 use App\Services\Experiences\Events;
 use App\Services\MasterData\MasterData;
+use App\Support\Input;
 use App\Support\PageUrl;
 use Carbon\CarbonImmutable;
 use Illuminate\Contracts\View\View;
@@ -29,7 +30,7 @@ final class EventsController extends Controller
     public function index(Request $request, EventEditor $editor): View
     {
         $market = $this->market();
-        $tab = array_key_exists((string) $request->query('show'), self::TABS) ? (string) $request->query('show') : 'current';
+        $tab = array_key_exists(Input::query($request, 'show'), self::TABS) ? Input::query($request, 'show') : 'current';
         $now = CarbonImmutable::now();
         $rows = [];
         $counts = array_fill_keys(array_keys(self::TABS), 0);

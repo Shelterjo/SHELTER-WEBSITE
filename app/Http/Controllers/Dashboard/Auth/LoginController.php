@@ -7,6 +7,7 @@ use App\Http\Requests\Dashboard\LoginRequest;
 use App\Models\User;
 use App\Services\Auth\OwnerSession;
 use App\Services\Core\AuditLogger;
+use App\Support\Input;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -28,14 +29,14 @@ final class LoginController extends Controller
         /** @var int $max */
         $max = config('shelter.auth.max_attempts_per_minute');
         if (RateLimiter::tooManyAttempts($key, $max)) {
-            $this->audit->record('auth.locked', meta: ['email_hash' => hash('sha256', mb_strtolower((string) $request->input('email')))]);
+            $this->audit->record('auth.locked', meta: ['email_hash' => hash('sha256', mb_strtolower(Input::text($request, 'email')))]);
             throw ValidationException::withMessages(['email' => __('dashboard.auth.throttled', ['seconds' => RateLimiter::availableIn($key)])]);
         }
 
-        $user = $this->owner->checkPassword((string) $request->input('email'), (string) $request->input('password'));
+        $user = $this->owner->checkPassword(Input::text($request, 'email'), Input::text($request, 'password'));
         if ($user === null) {
             RateLimiter::hit($key, 60);
-            $this->audit->record('auth.failed', meta: ['email_hash' => hash('sha256', mb_strtolower((string) $request->input('email')))]);
+            $this->audit->record('auth.failed', meta: ['email_hash' => hash('sha256', mb_strtolower(Input::text($request, 'email')))]);
             throw ValidationException::withMessages(['email' => __('dashboard.auth.failed')]);
         }
 

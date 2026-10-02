@@ -14,6 +14,7 @@ use App\Services\Franchise\PartnershipSubmitter;
 use App\Services\Franchise\PartnershipValidator;
 use App\Services\Site\ContactActions;
 use App\Support\Countries;
+use App\Support\Input;
 use App\Support\PageUrl;
 use App\Support\StructuredData;
 use Illuminate\Contracts\View\View;
@@ -100,7 +101,7 @@ final class FranchiseController extends Controller
         if (! FormGuard::attempt('franchise', $request, (int) config('franchise.abuse.attempts_per_hour'))) {
             return redirect()->to($back)->withInput($input)->withErrors(['form' => __('franchise.errors.rate')]);
         }
-        $idempotencyKey = (string) $request->input('idempotency_key');
+        $idempotencyKey = Input::text($request, 'idempotency_key');
         if (! Str::isUuid($idempotencyKey)) {
             return redirect()->to($back)->withInput($input)->withErrors(['form' => __('franchise.errors.expired')]);
         }

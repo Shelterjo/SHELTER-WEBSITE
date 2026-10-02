@@ -196,7 +196,7 @@ final class ApplicationValidator
     {
         $parts = [];
         foreach (['birth_day', 'birth_month', 'birth_year'] as $key) {
-            $value = filter_var(ApplicantInput::digits((string) ($input[$key] ?? '')), FILTER_VALIDATE_INT);
+            $value = filter_var(ApplicantInput::digits(is_string($input[$key] ?? null) ? $input[$key] : ''), FILTER_VALIDATE_INT);
             $parts[] = $value === false ? null : $value;
         }
         [$day, $month, $year] = $parts;

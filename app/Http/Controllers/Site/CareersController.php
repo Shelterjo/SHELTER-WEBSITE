@@ -15,6 +15,7 @@ use App\Services\Recruitment\ApplicationValidator;
 use App\Services\Recruitment\AttachmentStore;
 use App\Services\Recruitment\CareersForm;
 use App\Services\Recruitment\CvDetector;
+use App\Support\Input;
 use App\Support\PageUrl;
 use App\Support\StructuredData;
 use Illuminate\Contracts\View\View;
@@ -96,7 +97,7 @@ final class CareersController extends Controller
             return redirect()->to($back)->withInput($input)->withErrors(['form' => __('careers.errors.rate')]);
         }
 
-        $idempotencyKey = (string) $request->input('idempotency_key');
+        $idempotencyKey = Input::text($request, 'idempotency_key');
         if (! Str::isUuid($idempotencyKey)) {
             return redirect()->to($back)->withInput($input)->withErrors(['form' => __('careers.errors.expired')]);
         }
@@ -220,10 +221,10 @@ final class CareersController extends Controller
         $status = null;
         $error = null;
         if ($request->isMethod('post')) {
-            $number = (string) $request->input('number', '');
+            $number = Input::text($request, 'number', '');
             [$allowed, $error] = $this->trackingAllowed(FormGuard::clientKey($request), strtoupper(trim(ApplicantInput::digits($number)))); // one counter per reference, whatever digits are typed (FINAL-QA)
             if ($allowed) {
-                $status = $tracker->publicStatus($number, (string) $request->input('phone', ''));
+                $status = $tracker->publicStatus($number, Input::text($request, 'phone', ''));
                 if ($status === null) {
                     usleep(random_int(150_000, 300_000)); // same answer, about the same time, whatever was wrong
                     $error = __('careers.track.not_found');

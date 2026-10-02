@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Feedback;
 use App\Services\Feedback\FeedbackForm;
 use App\Services\Forms\FormGuard;
+use App\Support\Input;
 use App\Support\PageUrl;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -65,7 +66,7 @@ final class FeedbackController extends Controller
         if (! FormGuard::attempt('feedback', $request, (int) config('feedback.abuse.attempts_per_hour'))) {
             return redirect()->to($back)->withInput($input)->withErrors(['form' => __('feedback.errors.rate')]);
         }
-        $idempotencyKey = (string) $request->input('idempotency_key');
+        $idempotencyKey = Input::text($request, 'idempotency_key');
         if (! Str::isUuid($idempotencyKey)) {
             return redirect()->to($back)->withInput($input)->withErrors(['form' => __('feedback.errors.expired')]);
         }

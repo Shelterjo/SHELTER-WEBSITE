@@ -9,6 +9,7 @@ use App\Services\Core\AuditLogger;
 use App\Services\Dashboard\MenuManager;
 use App\Services\MasterData\MasterData;
 use App\Support\DashboardBack;
+use App\Support\Input;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -25,7 +26,7 @@ final class MenuBulkController extends Controller
     public function confirm(Request $request, MasterData $data): View|RedirectResponse
     {
         $products = MenuManager::bulkProducts($request->all());
-        $action = $request->string('action')->toString();
+        $action = Input::text($request, 'action');
         if ($products->isEmpty()) {
             return redirect()->to(DashboardBack::to(route('dashboard.menu.index')))->with('warning', __('dashboard.menu.bulk.none'));
         }
@@ -56,7 +57,7 @@ final class MenuBulkController extends Controller
             return redirect()->route('dashboard.menu.bulk', $request->only(['action', 'ids']))->withInput()->withErrors($result['errors'], 'bulk');
         }
         $selected = MenuManager::bulkProducts($request->all())->count();
-        $audit->record('menu.bulk_changed', null, [], ['action' => $request->string('action')->toString(), 'selected' => $selected, 'changed' => $result['changed']], actor: $owner);
+        $audit->record('menu.bulk_changed', null, [], ['action' => Input::text($request, 'action'), 'selected' => $selected, 'changed' => $result['changed']], actor: $owner);
 
         return redirect()->route('dashboard.menu.index')->with('status', trans_choice('dashboard.menu.bulk.done', $result['changed'], ['count' => $result['changed']]));
     }

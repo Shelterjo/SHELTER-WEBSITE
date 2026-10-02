@@ -2,6 +2,7 @@
 
 namespace App\Services\Forms;
 
+use App\Support\Input;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\RateLimiter;
@@ -66,7 +67,7 @@ final class FormGuard
     /** @return 'ok'|'bot'|'expired' */
     public static function check(Request $request, int $minSeconds, int $maxAgeSeconds): string
     {
-        $age = self::ageOf((string) $request->input('form_token'));
+        $age = self::ageOf(Input::text($request, 'form_token'));
         if (filled($request->input(self::HONEYPOT)) || ($age !== null && $age < $minSeconds)) {
             return 'bot';
         }

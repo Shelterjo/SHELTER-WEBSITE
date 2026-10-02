@@ -10,6 +10,7 @@ use App\Services\Requests\ApplicationInbox;
 use App\Services\Requests\CareersExport;
 use App\Services\Requests\CareersQuery;
 use App\Support\DashboardBack;
+use App\Support\Input;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\RedirectResponse;
@@ -34,7 +35,7 @@ final class CareersBulkController extends Controller
     public function bulk(Request $request): View|RedirectResponse
     {
         $ids = CareersQuery::jobIds((array) $request->input('ids', []));
-        $action = $request->string('action')->toString();
+        $action = Input::text($request, 'action');
         if ($ids === []) {
             return redirect()->to(DashboardBack::to(route('dashboard.careers.index')))->with('warning', __('dashboard.requests.bulk.none'));
         }
@@ -60,14 +61,14 @@ final class CareersBulkController extends Controller
     public function apply(Request $request, ApplicationInbox $inbox, AuditLogger $audit): RedirectResponse
     {
         $ids = CareersQuery::jobIds((array) $request->input('ids', []));
-        $status = $request->string('status')->toString();
+        $status = Input::text($request, 'status');
         abort_unless($ids !== [] && in_array($status, ApplicationInbox::statuses('JOB'), true), 422);
         $owner = $this->owner($request);
         $changed = 0;
         DB::transaction(function () use ($ids, $status, $request, $inbox, $owner, $audit, &$changed): void {
             foreach (Application::query()->whereIn('id', $ids)->get() as $application) {
                 if ($application->status !== $status) {
-                    $inbox->changeStatus($application, $status, $request->string('note')->toString(), $owner);
+                    $inbox->changeStatus($application, $status, Input::text($request, 'note'), $owner);
                     $changed++;
                 }
             }
@@ -80,8 +81,8 @@ final class CareersBulkController extends Controller
     /** The export screen: what (the filtered list, the selection or everything), the format, identity masked or full. */
     public function form(Request $request): View
     {
-        $ids = CareersQuery::jobIds(explode(',', $request->string('ids')->toString()));
-        $scope = in_array($request->query('scope'), self::SCOPES, true) ? (string) $request->query('scope') : 'filtered';
+        $ids = CareersQuery::jobIds(explode(',', Input::text($request, 'ids')));
+        $scope = in_array($request->query('scope'), self::SCOPES, true) ? Input::query($request, 'scope') : 'filtered';
         $filters = CareersQuery::filters($request->query());
 
         return view('dashboard.requests.careers.export', [
@@ -100,8 +101,8 @@ final class CareersBulkController extends Controller
 
     public function export(Request $request, CareersQuery $query, CareersExport $export, AuditLogger $audit): Response|View|RedirectResponse
     {
-        $format = $request->string('format')->toString();
-        $scope = $request->string('scope')->toString();
+        $format = Input::text($request, 'format');
+        $scope = Input::text($request, 'scope');
         abort_unless(in_array($format, self::FORMATS, true) && in_array($scope, self::SCOPES, true), 422);
         $full = $request->boolean('full_identity');
         $applications = $this->chosen($request, $scope, $query);

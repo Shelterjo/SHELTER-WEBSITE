@@ -23,6 +23,7 @@ use App\Services\Menu\MenuCatalog;
 use App\Services\Menu\MenuEditor;
 use App\Services\Menu\MenuSeason;
 use App\Services\Menu\MenuSections;
+use App\Support\Input;
 use Carbon\CarbonImmutable;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
@@ -42,8 +43,8 @@ final class MenuController extends Controller
         $categories = MenuCategory::query()->withCount([
             'products as shown_count' => fn ($q) => $q->where('status', Product::STATUS_ACTIVE)->whereNull('merged_into_id'),
         ])->orderBy('sort')->get();
-        $q = trim($request->string('q')->toString());
-        $code = $request->string('category')->toString();
+        $q = trim(Input::text($request, 'q'));
+        $code = Input::text($request, 'category');
         $category = $q === '' ? ($categories->firstWhere('code', $code) ?? $categories->first()) : null;
 
         $query = Product::query()->where('status', Product::STATUS_ACTIVE)->whereNull('merged_into_id')->with(['prices', 'branchOverrides', 'category'])->orderBy('sort');
@@ -226,7 +227,7 @@ final class MenuController extends Controller
      */
     public function words(Request $request, Search $search, FeatureFlags $flags): View
     {
-        $q = mb_substr(trim($request->string('q')->toString()), 0, 60);
+        $q = mb_substr(trim(Input::text($request, 'q')), 0, 60);
         $logging = $flags->enabled(SearchLog::FLAG);
 
         return view('dashboard.menu.words', [

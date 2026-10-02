@@ -21,6 +21,7 @@ class SecurityAndIndexingTest extends TestCase
         $response->assertHeader('X-Content-Type-Options', 'nosniff')
             ->assertHeader('Referrer-Policy', 'strict-origin-when-cross-origin')
             ->assertHeader('X-Frame-Options', 'DENY')
+            ->assertHeaderMissing('X-Powered-By')
             ->assertHeaderMissing('Strict-Transport-Security');
     }
 

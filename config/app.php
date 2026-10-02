@@ -39,7 +39,8 @@ return [
     |
     */
 
-    'debug' => (bool) env('APP_DEBUG', false),
+    // Never on staging or production, whatever .env says (FINAL-QA QA-025): debug pages show configuration and traces.
+    'debug' => ! in_array(env('APP_ENV'), ['production', 'staging'], true) && (bool) env('APP_DEBUG', false),
 
     /*
     |--------------------------------------------------------------------------

@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Services\Requests\ApplicationInbox;
 use App\Services\Requests\PartnershipsQuery;
 use App\Support\Countries;
+use App\Support\Input;
 use App\Support\OwnNavigation;
 use Carbon\CarbonImmutable;
 use Illuminate\Contracts\View\View;
@@ -64,11 +65,11 @@ final class PartnershipsController extends Controller
     public function status(Request $request, Application $application, ApplicationInbox $inbox): RedirectResponse
     {
         $this->partnership($application);
-        $status = (string) $request->input('status');
+        $status = Input::text($request, 'status');
         if (! in_array($status, ApplicationInbox::statuses('FR'), true)) {
             return back()->withErrors(['status' => __('dashboard.requests.errors.status')]);
         }
-        $inbox->changeStatus($application, $status, $request->string('note')->toString(), $this->owner($request));
+        $inbox->changeStatus($application, $status, Input::text($request, 'note'), $this->owner($request));
 
         return back()->with('status', __('dashboard.requests.fr.stage_saved'));
     }
@@ -84,10 +85,10 @@ final class PartnershipsController extends Controller
     public function addNote(Request $request, Application $application, ApplicationInbox $inbox): RedirectResponse
     {
         $this->partnership($application);
-        if (trim($request->string('body')->toString()) === '') {
+        if (trim(Input::text($request, 'body')) === '') {
             return back()->withErrors(['body' => __('dashboard.requests.errors.note')]);
         }
-        $inbox->addNote($application, $request->string('body')->toString(), $this->owner($request));
+        $inbox->addNote($application, Input::text($request, 'body'), $this->owner($request));
 
         return redirect()->to(route('dashboard.partnerships.show', $application).'#notes')->with('status', __('dashboard.requests.note_saved'));
     }
@@ -98,8 +99,8 @@ final class PartnershipsController extends Controller
         abort_unless($note->application_id === $application->id, 404);
         if ($request->boolean('remove')) {
             $inbox->deleteNote($note, $this->owner($request));
-        } elseif (trim($request->string('body')->toString()) !== '') {
-            $inbox->editNote($note, $request->string('body')->toString(), $this->owner($request));
+        } elseif (trim(Input::text($request, 'body')) !== '') {
+            $inbox->editNote($note, Input::text($request, 'body'), $this->owner($request));
         }
 
         return redirect()->to(route('dashboard.partnerships.show', $application).'#notes')->with('status', __('dashboard.requests.note_saved'));
@@ -108,9 +109,9 @@ final class PartnershipsController extends Controller
     public function meeting(Request $request, Application $application, ApplicationInbox $inbox): RedirectResponse
     {
         $this->partnership($application);
-        $date = $request->string('date')->toString();
-        $time = $request->string('time')->toString();
-        $channel = $request->string('channel')->toString();
+        $date = Input::text($request, 'date');
+        $time = Input::text($request, 'time');
+        $channel = Input::text($request, 'channel');
         $at = preg_match('/^\d{4}-\d{2}-\d{2}$/', $date) === 1 && preg_match('/^\d{2}:\d{2}$/', $time) === 1
             ? CarbonImmutable::createFromFormat('Y-m-d H:i', $date.' '.$time, 'Asia/Amman') : null;
         $errors = array_filter([
@@ -120,7 +121,7 @@ final class PartnershipsController extends Controller
         if ($errors !== [] || ! $at instanceof CarbonImmutable) {
             return redirect()->to(route('dashboard.partnerships.show', $application).'#meetings')->withInput()->withErrors($errors);
         }
-        $inbox->scheduleMeeting($application, $at, $channel, $request->string('place')->toString(), $request->string('notes')->toString(), $this->owner($request));
+        $inbox->scheduleMeeting($application, $at, $channel, Input::text($request, 'place'), Input::text($request, 'notes'), $this->owner($request));
 
         return redirect()->to(route('dashboard.partnerships.show', $application).'#meetings')->with('status', __('dashboard.requests.meeting_saved'));
     }
@@ -129,7 +130,7 @@ final class PartnershipsController extends Controller
     {
         $this->partnership($application);
         abort_unless($meeting->application_id === $application->id, 404);
-        $inbox->setMeetingState($meeting, $request->string('state')->toString(), $this->owner($request));
+        $inbox->setMeetingState($meeting, Input::text($request, 'state'), $this->owner($request));
 
         return redirect()->to(route('dashboard.partnerships.show', $application).'#meetings')->with('status', __('dashboard.requests.meeting_saved'));
     }

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Feedback;
 use App\Models\User;
 use App\Services\Requests\FeedbackBoard;
+use App\Support\Input;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -52,7 +53,7 @@ final class FeedbackController extends Controller
 
     public function redact(Request $request, Feedback $feedback, FeedbackBoard $board): RedirectResponse
     {
-        $board->redact($feedback, $request->string('comment')->toString(), $this->owner($request));
+        $board->redact($feedback, Input::text($request, 'comment'), $this->owner($request));
 
         return back()->with('status', __('dashboard.requests.feedback.redacted'));
     }

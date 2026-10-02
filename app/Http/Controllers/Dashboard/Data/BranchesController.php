@@ -11,6 +11,7 @@ use App\Services\Dashboard\BranchEditor;
 use App\Services\Dashboard\HoursEditor;
 use App\Services\MasterData\MasterData;
 use App\Services\Site\BranchDirectory;
+use App\Support\Input;
 use App\Support\LocalTime;
 use Carbon\CarbonImmutable;
 use Illuminate\Contracts\View\View;
@@ -54,7 +55,7 @@ final class BranchesController extends Controller
         }
         /** @var User $owner */
         $owner = $request->user();
-        $errors = $editor->publishWeek($branch, $parsed['rows'], $request->string('reason')->toString(), $request->string('previewed')->toString(), $owner);
+        $errors = $editor->publishWeek($branch, $parsed['rows'], Input::text($request, 'reason'), Input::text($request, 'previewed'), $owner);
         if ($errors !== []) {
             return $this->screen($branch, $editor, $data, $days, $parsed['rows'], $errors);
         }

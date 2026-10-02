@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Site;
 use App\Http\Controllers\Controller;
 use App\Services\Content\Search\Search;
 use App\Services\Content\Search\SearchLog;
+use App\Support\Input;
 use App\Support\PageUrl;
 use App\Support\PluralCategory;
 use Illuminate\Contracts\View\View;
@@ -21,7 +22,7 @@ final class SearchController extends Controller
     public function __invoke(Request $request, Search $search, SearchLog $log): View
     {
         $locale = app()->getLocale();
-        $query = mb_substr(trim((string) $request->query('q', '')), 0, Search::MAX_QUERY);
+        $query = mb_substr(trim(Input::query($request, 'q', '')), 0, Search::MAX_QUERY);
         $results = $query === '' ? null : $search->search($query, $locale);
         if ($results !== null) {
             $log->record('site', $locale, $query, $results->total);

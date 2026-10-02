@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard\Content;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Services\Content\SiteTexts;
+use App\Support\Input;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -17,7 +18,7 @@ final class TextsController extends Controller
 {
     public function index(Request $request): View
     {
-        $open = $request->string('page')->toString();
+        $open = Input::text($request, 'page');
 
         return view('dashboard.texts.index', [
             'groups' => SiteTexts::GROUPS,

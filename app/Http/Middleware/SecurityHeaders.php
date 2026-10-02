@@ -39,6 +39,11 @@ final class SecurityHeaders
             'X-Frame-Options' => 'DENY',
             'Cross-Origin-Opener-Policy' => 'same-origin',
         ];
+        // No server fingerprint (FINAL-QA QA-027): PHP adds "X-Powered-By: PHP/x.y.z" unless expose_php is off.
+        $response->headers->remove('X-Powered-By');
+        if (! headers_sent()) {
+            header_remove('X-Powered-By');
+        }
         // HSTS only over HTTPS. No includeSubDomains/preload until the shop. subdomain is audited (SECURITY-CENTER.md).
         if ($request->isSecure()) {
             $headers['Strict-Transport-Security'] = 'max-age=31536000';

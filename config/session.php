@@ -169,8 +169,9 @@ return [
     |
     */
 
-    // HTTPS-only session cookie: on by default on staging and production (both served over HTTPS behind Cloudflare).
-    'secure' => env('SESSION_SECURE_COOKIE', in_array(env('APP_ENV'), ['production', 'staging'], true)),
+    // HTTPS-only session cookie: always on staging and production (both served over HTTPS behind Cloudflare), whatever
+    // .env says — a copied .env.example (SESSION_SECURE_COOKIE=false) must not turn it off there (FINAL-QA QA-025).
+    'secure' => in_array(env('APP_ENV'), ['production', 'staging'], true) || (bool) env('SESSION_SECURE_COOKIE', false),
 
     /*
     |--------------------------------------------------------------------------

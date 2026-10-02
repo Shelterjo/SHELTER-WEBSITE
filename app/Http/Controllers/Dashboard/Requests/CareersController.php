@@ -15,6 +15,7 @@ use App\Services\Requests\ApplicationInbox;
 use App\Services\Requests\CareersQuery;
 use App\Services\Requests\CareersView;
 use App\Services\Requests\RecruitmentSettings;
+use App\Support\Input;
 use App\Support\OwnNavigation;
 use Carbon\CarbonImmutable;
 use Illuminate\Contracts\View\View;
@@ -70,7 +71,7 @@ final class CareersController extends Controller
     public function view(Request $request, CareersView $view): RedirectResponse
     {
         $view->update($this->owner($request), $request->all());
-        $back = $request->string('back')->toString();
+        $back = Input::text($request, 'back');
 
         return redirect()->to(str_starts_with($back, route('dashboard.careers.index')) ? $back : route('dashboard.careers.index'))->with('view_open', true);
     }
@@ -79,7 +80,7 @@ final class CareersController extends Controller
     public function saveFilter(Request $request): RedirectResponse
     {
         $owner = $this->owner($request);
-        $name = trim($request->string('name')->toString());
+        $name = trim(Input::text($request, 'name'));
         if ($name === '' || mb_strlen($name) > 120) {
             return back()->withErrors(['saved_name' => __('dashboard.requests.saved.errors.name')]);
         }
@@ -140,11 +141,11 @@ final class CareersController extends Controller
     public function status(Request $request, Application $application, ApplicationInbox $inbox): RedirectResponse
     {
         $this->job($application);
-        $status = (string) $request->input('status');
+        $status = Input::text($request, 'status');
         if (! in_array($status, ApplicationInbox::statuses('JOB'), true)) {
             return back()->withErrors(['status' => __('dashboard.requests.errors.status')]);
         }
-        $inbox->changeStatus($application, $status, $request->string('note')->toString(), $this->owner($request));
+        $inbox->changeStatus($application, $status, Input::text($request, 'note'), $this->owner($request));
 
         return back()->with('status', __('dashboard.requests.status_saved'));
     }
@@ -160,10 +161,10 @@ final class CareersController extends Controller
     public function addNote(Request $request, Application $application, ApplicationInbox $inbox): RedirectResponse
     {
         $this->job($application);
-        if (trim($request->string('body')->toString()) === '') {
+        if (trim(Input::text($request, 'body')) === '') {
             return back()->withErrors(['body' => __('dashboard.requests.errors.note')]);
         }
-        $inbox->addNote($application, $request->string('body')->toString(), $this->owner($request));
+        $inbox->addNote($application, Input::text($request, 'body'), $this->owner($request));
 
         return redirect()->to(route('dashboard.careers.show', $application).'#notes')->with('status', __('dashboard.requests.note_saved'));
     }
@@ -174,8 +175,8 @@ final class CareersController extends Controller
         abort_unless($note->application_id === $application->id, 404);
         if ($request->boolean('remove')) {
             $inbox->deleteNote($note, $this->owner($request));
-        } elseif (trim($request->string('body')->toString()) !== '') {
-            $inbox->editNote($note, $request->string('body')->toString(), $this->owner($request));
+        } elseif (trim(Input::text($request, 'body')) !== '') {
+            $inbox->editNote($note, Input::text($request, 'body'), $this->owner($request));
         }
 
         return redirect()->to(route('dashboard.careers.show', $application).'#notes')->with('status', __('dashboard.requests.note_saved'));
@@ -184,8 +185,8 @@ final class CareersController extends Controller
     public function interview(Request $request, Application $application, ApplicationInbox $inbox): RedirectResponse
     {
         $this->job($application);
-        $date = $request->string('date')->toString();
-        $time = $request->string('time')->toString();
+        $date = Input::text($request, 'date');
+        $time = Input::text($request, 'time');
         $location = InterviewLocation::query()->where('is_active', true)->find($request->integer('location'));
         $at = preg_match('/^\d{4}-\d{2}-\d{2}$/', $date) === 1 && preg_match('/^\d{2}:\d{2}$/', $time) === 1
             ? CarbonImmutable::createFromFormat('Y-m-d H:i', $date.' '.$time, 'Asia/Amman') : null;
@@ -196,7 +197,7 @@ final class CareersController extends Controller
         if ($errors !== [] || ! $at instanceof CarbonImmutable || $location === null) {
             return redirect()->to(route('dashboard.careers.show', $application).'#interview')->withInput()->withErrors($errors);
         }
-        $inbox->scheduleInterview($application, $at, $location, $request->string('notes')->toString(), $this->owner($request));
+        $inbox->scheduleInterview($application, $at, $location, Input::text($request, 'notes'), $this->owner($request));
 
         return redirect()->to(route('dashboard.careers.show', $application).'#interview')->with('status', __('dashboard.requests.interview_saved'));
     }
@@ -241,7 +242,7 @@ final class CareersController extends Controller
     {
         $this->job($application);
         abort_unless($application->status === 'archived', 404);
-        if (strtoupper(trim($request->string('reference')->toString())) !== $application->reference_number || ! $request->boolean('understood')) {
+        if (strtoupper(trim(Input::text($request, 'reference'))) !== $application->reference_number || ! $request->boolean('understood')) {
             return back()->withErrors(['reference' => __('dashboard.requests.errors.delete_confirm')]);
         }
         $reference = $application->reference_number;

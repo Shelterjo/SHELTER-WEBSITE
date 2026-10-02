@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Services\Dashboard\MediaEditor;
 use App\Services\Media\MediaLibrary;
 use App\Services\Media\MediaRights;
+use App\Support\Input;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\RedirectResponse;
@@ -27,7 +28,7 @@ final class MediaController extends Controller
 
     public function index(Request $request): View
     {
-        $filter = in_array($request->query('show'), self::FILTERS, true) ? (string) $request->query('show') : 'all';
+        $filter = in_array($request->query('show'), self::FILTERS, true) ? Input::query($request, 'show') : 'all';
         $counts = [];
         foreach (self::FILTERS as $name) {
             $counts[$name] = $this->filtered($name)->count();

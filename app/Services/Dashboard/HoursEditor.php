@@ -132,7 +132,7 @@ final class HoursEditor
     {
         $today ??= CarbonImmutable::now('Asia/Amman')->startOfDay();
         $errors = [];
-        $kind = HoursExceptionKind::tryFrom((string) ($input['kind'] ?? ''));
+        $kind = HoursExceptionKind::tryFrom(is_string($input['kind'] ?? null) ? $input['kind'] : '');
         if ($kind === null) {
             $errors['kind'] = (string) __('dashboard.hours.errors.kind');
         }
