@@ -38,10 +38,17 @@ final class TwoFactorChallengeController extends Controller
         ]);
 
         $key = "two-factor:{$user->id}";
+        // Second window per account (FINAL-QA QA-008): the per-minute limit alone allows ~7,200 guesses a day; this one
+        // stops the code step for the rest of the hour after a run of failures and leaves a trace in the audit log.
+        $hourKey = "two-factor-hour:{$user->id}";
         /** @var int $max */
         $max = config('shelter.auth.max_attempts_per_minute');
-        if (RateLimiter::tooManyAttempts($key, $max)) {
-            throw ValidationException::withMessages(['code' => __('dashboard.auth.throttled', ['seconds' => RateLimiter::availableIn($key)])]);
+        /** @var int $maxPerHour */
+        $maxPerHour = config('shelter.auth.max_second_factor_failures_per_hour');
+        foreach ([$key => $max, $hourKey => $maxPerHour] as $limiter => $limit) {
+            if (RateLimiter::tooManyAttempts($limiter, $limit)) {
+                throw ValidationException::withMessages(['code' => __('dashboard.auth.throttled', ['seconds' => RateLimiter::availableIn($limiter)])]);
+            }
         }
 
         $recovery = is_string($data['recovery_code'] ?? null) && $data['recovery_code'] !== '';
@@ -50,11 +57,13 @@ final class TwoFactorChallengeController extends Controller
             : $this->twoFactor->verify($user, (string) ($data['code'] ?? ''));
         if (! $ok) {
             RateLimiter::hit($key, 60);
-            $this->audit->record('auth.two_factor_failed', $user, actor: $user);
+            RateLimiter::hit($hourKey, 3600);
+            $this->audit->record(RateLimiter::tooManyAttempts($hourKey, $maxPerHour) ? 'auth.two_factor_locked' : 'auth.two_factor_failed', $user, actor: $user);
             throw ValidationException::withMessages([$recovery ? 'recovery_code' : 'code' => __('dashboard.auth.code_invalid')]);
         }
 
         RateLimiter::clear($key);
+        RateLimiter::clear($hourKey);
         $this->owner->complete($request->session(), $user, $recovery ? 'recovery_code' : 'totp');
 
         return redirect()->intended(route('dashboard.home'));

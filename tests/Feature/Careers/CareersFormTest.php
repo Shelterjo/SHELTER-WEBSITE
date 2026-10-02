@@ -5,6 +5,7 @@ namespace Tests\Feature\Careers;
 use App\Models\Recruitment\Application;
 use App\Models\Recruitment\ApplicationAttachment;
 use App\Models\Recruitment\JobApplication;
+use App\Services\Forms\FormGuard;
 use Database\Seeders\MasterDataSeeder;
 use Illuminate\Foundation\Http\Middleware\ValidateCsrfToken;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -68,7 +69,7 @@ class CareersFormTest extends TestCase
         preg_match_all('#<option value="\d+"\s*>([^<]+)</option>#u', $select[0] ?? '', $cities);
         $this->assertSame(['عمان', 'إربد', 'الزرقاء', 'البلقاء', 'المفرق', 'جرش', 'عجلون', 'مادبا', 'الكرك', 'الطفيلة', 'معان', 'العقبة'], array_map('trim', $cities[1]));
         $this->assertStringContainsString('أقر بأن جميع المعلومات المدخلة في طلب التوظيف صحيحة', $html);
-        $this->assertStringContainsString('name="website"', $html, 'honeypot');
+        $this->assertStringContainsString('name="hp_extra"', $html, 'honeypot');
 
         $en = (string) $this->get('/en/careers/')->assertOk()->getContent();
         $this->assertStringContainsString('href="http://localhost/ar/careers/#apply"', $en);
@@ -132,6 +133,7 @@ class CareersFormTest extends TestCase
             UploadedFile::fake()->createWithContent('cv.pdf', "MZ\x90\x00not a pdf"),
             UploadedFile::fake()->createWithContent('cv.pdf.php', '%PDF-1.4 fake'),
             UploadedFile::fake()->createWithContent('cv.pdf', "%PDF-1.4\n/OpenAction << /S /JavaScript /JS (app.alert(1)) >>"),
+            UploadedFile::fake()->createWithContent('escaped.pdf', "%PDF-1.4\n/OpenAction << /S /J#61vaScript /J#53 (app.alert(1)) >>"), // FINAL-QA: #xx names
         ];
         foreach ($cases as $file) {
             $response = $this->uploadFile($file)->assertUnprocessable();
@@ -181,7 +183,7 @@ class CareersFormTest extends TestCase
     public function test_f09_bots_and_forged_requests_are_refused(): void
     {
         $this->uploadFile($this->pdf())->assertCreated();
-        $this->submitForm(['website' => 'http://spam.example'])->assertSessionHasErrors('form');
+        $this->submitForm([FormGuard::HONEYPOT => 'http://spam.example'])->assertSessionHasErrors('form');
         $this->post('/ar/careers/', $this->validInput() + ['form_token' => Crypt::encryptString((string) now()->getTimestamp()), 'idempotency_key' => (string) Str::uuid()])
             ->assertSessionHasErrors('form'); // faster than a person can fill it
         $this->post('/ar/careers/', $this->validInput() + ['form_token' => 'forged', 'idempotency_key' => (string) Str::uuid()])
@@ -192,7 +194,11 @@ class CareersFormTest extends TestCase
         $this->withMiddleware(ValidateCsrfToken::class);
         $this->app->detectEnvironment(fn (): string => 'local');
         try {
-            $this->post('/ar/careers/', $this->validInput() + $this->formFields())->assertStatus(419);
+            // Refused, and the visitor lands back on the form with what they typed (FINAL-QA QA-006), never a dead end.
+            $this->post('/ar/careers/', $this->validInput() + $this->formFields())
+                ->assertRedirect('http://localhost/ar/careers/')->assertSessionHasErrors('form');
+            $this->assertSame(0, JobApplication::query()->count(), 'nothing is accepted without the token');
+            $this->assertNull(session()->getOldInput('national_id'));
         } finally {
             $this->app->detectEnvironment(fn (): string => 'testing');
         }
@@ -215,6 +221,22 @@ class CareersFormTest extends TestCase
         $this->uploadFile($this->pdf())->assertCreated();
         $this->submitForm(['email' => 'p9@example.com'])->assertSessionHasErrors('form');
         $this->assertSame(3, JobApplication::query()->count());
+    }
+
+    public function test_files_sent_with_the_form_count_against_the_upload_limit_and_every_send_counts(): void
+    {
+        // FINAL-QA QA-004: the no-JavaScript path stores files only within the same hourly upload limit…
+        config(['careers.abuse.uploads_per_hour' => 2]);
+        $this->post('/ar/careers/', $this->validInput(['full_name' => '']) + $this->formFields() + ['files' => [$this->pdf(), $this->png(), $this->png('c.png')]])
+            ->assertSessionHasErrors('files');
+        $this->assertSame(2, ApplicationAttachment::query()->count(), 'the third file is refused, never stored');
+
+        // …and every send that passes the bot check counts, accepted or not (one so far).
+        config(['careers.abuse.attempts_per_hour' => 3]);
+        $this->submitForm(['full_name' => ''])->assertSessionHasErrors('full_name');
+        $this->submitForm(['full_name' => ''])->assertSessionHasErrors('full_name');
+        $this->submitForm(['full_name' => ''])->assertSessionHasErrors('form');
+        $this->assertSame(__('careers.errors.rate'), session('errors')->first('form'));
     }
 
     public function test_server_side_validation_reports_every_problem_in_form_order(): void

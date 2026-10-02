@@ -38,8 +38,8 @@
                     <input type="hidden" name="idempotency_key" value="{{ $idempotencyKey }}">
                     <input type="hidden" name="entry" value="{{ $entry }}">
                     <div class="ui-apply__hp" aria-hidden="true">
-                        <label for="website">Website</label>
-                        <input id="website" name="website" type="text" tabindex="-1" autocomplete="off">
+                        <label for="{{ \App\Services\Forms\FormGuard::HONEYPOT }}">Leave this field empty</label>
+                        <input id="{{ \App\Services\Forms\FormGuard::HONEYPOT }}" name="{{ \App\Services\Forms\FormGuard::HONEYPOT }}" type="text" tabindex="-1" autocomplete="off">
                     </div>
 
                     <x-ui.fieldset :legend="$label('branch')" id="branch" :error="$errors->first('branch')" required class="ui-apply__choice">

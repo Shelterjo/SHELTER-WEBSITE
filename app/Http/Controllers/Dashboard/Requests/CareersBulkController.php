@@ -9,6 +9,7 @@ use App\Services\Core\AuditLogger;
 use App\Services\Requests\ApplicationInbox;
 use App\Services\Requests\CareersExport;
 use App\Services\Requests\CareersQuery;
+use App\Support\DashboardBack;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\RedirectResponse;
@@ -35,7 +36,7 @@ final class CareersBulkController extends Controller
         $ids = CareersQuery::jobIds((array) $request->input('ids', []));
         $action = $request->string('action')->toString();
         if ($ids === []) {
-            return back()->with('warning', __('dashboard.requests.bulk.none'));
+            return redirect()->to(DashboardBack::to(route('dashboard.careers.index')))->with('warning', __('dashboard.requests.bulk.none'));
         }
         if ($action === 'export') {
             return redirect()->route('dashboard.careers.export', ['scope' => 'selected', 'ids' => implode(',', $ids)]);
@@ -45,14 +46,14 @@ final class CareersBulkController extends Controller
         }
         $status = str_starts_with($action, 'status:') ? substr($action, 7) : '';
         if (! in_array($status, ApplicationInbox::statuses('JOB'), true)) {
-            return back()->with('warning', __('dashboard.requests.bulk.choose'));
+            return redirect()->to(DashboardBack::to(route('dashboard.careers.index')))->with('warning', __('dashboard.requests.bulk.choose'));
         }
 
         return view('dashboard.requests.careers.bulk', [
             'ids' => $ids,
             'status' => $status,
             'applications' => Application::query()->whereIn('id', $ids)->with('job')->orderByDesc('submitted_at')->get(),
-            'back' => url()->previous(),
+            'back' => DashboardBack::to(route('dashboard.careers.index')),
         ]);
     }
 

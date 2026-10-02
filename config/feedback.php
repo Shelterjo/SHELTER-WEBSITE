@@ -17,6 +17,8 @@ return [
         'max_form_age_hours' => 24,
         'per_ten_minutes' => 5,
         'per_day' => 60,
+        // Every send that passes the bot check, accepted or not (FINAL-QA QA-004).
+        'attempts_per_hour' => 30,
     ],
 
     'limits' => [

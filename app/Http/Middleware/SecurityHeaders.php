@@ -43,6 +43,11 @@ final class SecurityHeaders
         if ($request->isSecure()) {
             $headers['Strict-Transport-Security'] = 'max-age=31536000';
         }
+        // Owner screens and pages that show an applicant's reference are never kept by the browser or a proxy
+        // (FINAL-QA QA-007): back/forward after logout or on a shared device must not show them again.
+        if ($request->is('dashboard', 'dashboard/*', '*/careers/track', '*/careers/track/*', '*/submitted', '*/submitted/*')) {
+            $response->headers->set('Cache-Control', 'no-store, private');
+        }
         // A route that already set a stricter value (e.g. the sandboxed CSP of a private file download) keeps it — once.
         foreach ($headers as $name => $value) {
             if (! $response->headers->has($name)) {

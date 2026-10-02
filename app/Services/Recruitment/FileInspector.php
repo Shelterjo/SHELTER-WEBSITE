@@ -104,7 +104,10 @@ final class FileInspector
         $tail = '';
         while (! feof($handle)) {
             $chunk = $tail.(string) fread($handle, 1 << 20);
-            if (preg_match('#/(JavaScript|JS|Launch)\b#', $chunk) === 1) {
+            // Names may hide behind #xx escapes (/J#61vaScript = /JavaScript), so they are decoded first (FINAL-QA). A
+            // heuristic only: compressed object streams stay unseen until the planned malware scan (A-11).
+            $names = (string) preg_replace_callback('/#([0-9A-Fa-f]{2})/', fn (array $m): string => chr((int) hexdec($m[1])), $chunk);
+            if (preg_match('#/(JavaScript|JS|Launch)\b#', $names) === 1) {
                 fclose($handle);
 
                 return FileInspection::reject('active_content');

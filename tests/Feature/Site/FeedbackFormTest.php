@@ -3,6 +3,7 @@
 namespace Tests\Feature\Site;
 
 use App\Models\Feedback;
+use App\Services\Forms\FormGuard;
 use Database\Seeders\MasterDataSeeder;
 use Illuminate\Foundation\Http\Middleware\ValidateCsrfToken;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -127,7 +128,7 @@ class FeedbackFormTest extends TestCase
 
     public function test_vc_t04_bots_repeats_and_bursts(): void
     {
-        $this->send(['website' => 'http://spam.example'])->assertRedirect('http://localhost/ar/feedback/');
+        $this->send([FormGuard::HONEYPOT => 'http://spam.example'])->assertRedirect('http://localhost/ar/feedback/');
         $this->send(['form_token' => Crypt::encryptString((string) now()->getTimestamp())])->assertRedirect('http://localhost/ar/feedback/');
         $this->assertSame(0, Feedback::query()->count(), 'honeypot and a too-fast form save nothing');
 
@@ -141,6 +142,14 @@ class FeedbackFormTest extends TestCase
         }
         $this->send()->assertRedirect('http://localhost/ar/feedback/');
         $this->assertSame(5, DB::table('feedback')->count(), '5 per 10 minutes from one (hashed) address');
+
+        // FINAL-QA QA-004: refused sends count too — a script cannot resend an invalid form without end. Past the
+        // 10-minute window, 6 sends this hour (valid or not) are the limit here.
+        $this->travel(11)->minutes();
+        config(['feedback.abuse.attempts_per_hour' => 7]);
+        $this->send(['rating_overall' => ''])->assertSessionHasErrors('rating_overall');
+        $this->send(['rating_overall' => ''])->assertSessionHasErrors('form');
+        $this->assertSame(__('feedback.errors.rate'), session('errors')->first('form'));
     }
 
     public function test_the_form_is_linked_from_nowhere_until_its_entry_points_are_decided(): void

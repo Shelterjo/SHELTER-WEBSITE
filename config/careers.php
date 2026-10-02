@@ -68,6 +68,8 @@ return [
         'submit_per_day' => 20,
         'submit_per_phone_per_day' => 3,
         'uploads_per_hour' => 60,
+        // Every send that passes the bot check, accepted or not (FINAL-QA QA-004).
+        'attempts_per_hour' => 30,
         // A burst of bot rejections raises one LOW signal (input for a later CAPTCHA decision, never automatic).
         'spam_signal_threshold' => 50,
         // Idempotency: how long a second identical submit waits for the first one to finish (ms).

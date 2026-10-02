@@ -54,7 +54,15 @@ final class TwoFactor
         if (! is_int($step)) {
             return false;
         }
-        $user->forceFill(['two_factor_last_step' => $step])->save();
+        // Consumed with one conditional update (FINAL-QA QA-009): two parallel requests with the same code cannot both
+        // pass — only the first moves the step forward.
+        $consumed = User::query()->whereKey($user->getKey())
+            ->where(fn ($query) => $query->whereNull('two_factor_last_step')->orWhere('two_factor_last_step', '<', $step))
+            ->update(['two_factor_last_step' => $step]);
+        if ($consumed !== 1) {
+            return false;
+        }
+        $user->forceFill(['two_factor_last_step' => $step])->syncOriginalAttribute('two_factor_last_step');
 
         return true;
     }

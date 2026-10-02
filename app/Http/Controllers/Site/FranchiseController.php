@@ -97,6 +97,9 @@ final class FranchiseController extends Controller
                 return redirect()->to($back)->withInput($input)->withErrors(['form' => __('franchise.errors.rate')]);
             }
         }
+        if (! FormGuard::attempt('franchise', $request, (int) config('franchise.abuse.attempts_per_hour'))) {
+            return redirect()->to($back)->withInput($input)->withErrors(['form' => __('franchise.errors.rate')]);
+        }
         $idempotencyKey = (string) $request->input('idempotency_key');
         if (! Str::isUuid($idempotencyKey)) {
             return redirect()->to($back)->withInput($input)->withErrors(['form' => __('franchise.errors.expired')]);

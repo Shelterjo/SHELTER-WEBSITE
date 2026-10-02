@@ -4,6 +4,7 @@ namespace App\Services\Forms;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
 use Throwable;
 
@@ -15,7 +16,8 @@ use Throwable;
  */
 final class FormGuard
 {
-    public const HONEYPOT = 'website';
+    /** A name browser autofill does not recognise (a "website" field can be filled for a real person — FINAL-QA). */
+    public const HONEYPOT = 'hp_extra';
 
     /**
      * The key rate limits count against (FORM-RELIABILITY §4): a keyed hash of the address, kept only in the cache for
@@ -24,6 +26,21 @@ final class FormGuard
     public static function clientKey(Request $request): string
     {
         return substr(hash_hmac('sha256', (string) $request->ip(), (string) config('app.key')), 0, 32);
+    }
+
+    /**
+     * Every send that passes the bot check counts here, whether it is accepted or not (FINAL-QA QA-004): the per-form
+     * success limits alone let a script resend an invalid form — with files — without end.
+     */
+    public static function attempt(string $form, Request $request, int $perHour): bool
+    {
+        $key = $form.'-attempts:'.self::clientKey($request);
+        if (RateLimiter::tooManyAttempts($key, $perHour)) {
+            return false;
+        }
+        RateLimiter::hit($key, 3600);
+
+        return true;
     }
 
     public static function token(Request $request, int $maxAgeSeconds): string

@@ -9,6 +9,7 @@ use App\Models\Recruitment\Application;
 use App\Models\Recruitment\ConsentVersion;
 use App\Models\Recruitment\PartnershipApplication;
 use App\Services\Content\Search\SearchIndexer;
+use App\Services\Forms\FormGuard;
 use Database\Seeders\FranchiseSeeder;
 use Database\Seeders\MasterDataSeeder;
 use Illuminate\Foundation\Http\Middleware\ValidateCsrfToken;
@@ -259,7 +260,7 @@ class FranchisePageTest extends TestCase
         $this->post('/en/franchise/', $input)->assertRedirect('http://localhost/en/franchise/submitted/');
         $this->assertSame(1, Application::query()->count(), 'idempotency key');
 
-        $this->post('/en/franchise/', $this->validInput(['website' => 'http://spam.example']))->assertRedirect('http://localhost/en/franchise/');
+        $this->post('/en/franchise/', $this->validInput([FormGuard::HONEYPOT => 'http://spam.example']))->assertRedirect('http://localhost/en/franchise/');
         $this->post('/en/franchise/', $this->validInput(['form_token' => Crypt::encryptString((string) now()->getTimestamp())]))->assertRedirect('http://localhost/en/franchise/');
         $this->post('/en/franchise/', $this->validInput(['idempotency_key' => 'not-a-uuid']))->assertRedirect('http://localhost/en/franchise/');
         $this->assertSame(1, Application::query()->count());

@@ -90,6 +90,10 @@ class CareersInboxTest extends TestCase
     public function test_opening_an_application_marks_it_seen_and_shows_the_identity_masked(): void
     {
         $application = $this->apply();
+        // FINAL-QA QA-011: a link from another site shows the screen but records nothing.
+        $this->get('/dashboard/requests/careers/'.$application->id, ['Sec-Fetch-Site' => 'cross-site'])->assertOk();
+        $this->assertNull($application->refresh()->first_viewed_at, 'not marked seen by an outside link');
+
         $html = (string) $this->get('/dashboard/requests/careers/'.$application->id)->assertOk()->getContent();
         $this->assertNotNull($application->refresh()->first_viewed_at);
         $this->assertSame('received', $application->status, 'seeing is not a status change');

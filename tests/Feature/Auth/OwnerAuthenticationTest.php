@@ -91,6 +91,41 @@ class OwnerAuthenticationTest extends TestCase
         $this->assertGuest();
     }
 
+    public function test_the_code_step_waits_out_the_hour_after_a_run_of_failures(): void
+    {
+        // FINAL-QA QA-008: the per-minute limit resets every minute; a second, hourly window per account stops the run.
+        $owner = $this->owner();
+        $this->passwordStep();
+        for ($i = 0; $i < 10; $i++) {
+            if ($i > 0 && $i % 5 === 0) {
+                $this->travel(61)->seconds(); // past the per-minute window, still inside the hour
+                $this->passwordStep();
+            }
+            $this->post('/dashboard/two-factor', ['code' => '000000'])->assertSessionHasErrors('code');
+        }
+        $this->travel(61)->seconds();
+        $this->passwordStep();
+        $this->post('/dashboard/two-factor', ['code' => $this->otp()])->assertSessionHasErrors('code');
+        $this->assertGuest();
+        $this->assertSame(1, AuditLog::query()->where('action', 'auth.two_factor_locked')->count(), 'the lock leaves a trace');
+
+        $this->travel(1)->hours();
+        $this->passwordStep();
+        $this->post('/dashboard/two-factor', ['code' => $this->otp()])->assertRedirect('/dashboard');
+        $this->assertAuthenticatedAs($owner);
+    }
+
+    public function test_a_code_older_than_the_last_one_used_is_refused_even_by_a_stale_copy_of_the_owner(): void
+    {
+        // FINAL-QA QA-009: the step is consumed with one conditional update, so a request that loaded the owner before
+        // another request used the code cannot use it again.
+        $owner = $this->owner();
+        $stale = User::query()->findOrFail($owner->id);
+        $code = $this->otp();
+        $this->assertTrue(app(TwoFactor::class)->verify($owner, $code));
+        $this->assertFalse(app(TwoFactor::class)->verify($stale, $code), 'the parallel request loses');
+    }
+
     public function test_recovery_code_works_exactly_once(): void
     {
         $owner = $this->owner();

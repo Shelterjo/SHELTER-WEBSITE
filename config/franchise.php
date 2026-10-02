@@ -18,6 +18,8 @@ return [
         'submit_per_hour' => 5,
         'submit_per_day' => 20,
         'submit_per_phone_per_day' => 3,
+        // Every send that passes the bot check, accepted or not (FINAL-QA QA-004).
+        'attempts_per_hour' => 30,
     ],
 
     'limits' => [

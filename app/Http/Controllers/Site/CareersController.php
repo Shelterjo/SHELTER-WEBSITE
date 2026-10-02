@@ -8,6 +8,7 @@ use App\Models\Recruitment\ApplicationAttachment;
 use App\Models\Recruitment\JobApplication;
 use App\Models\Recruitment\UploadSession;
 use App\Services\Forms\FormGuard;
+use App\Services\Recruitment\ApplicantInput;
 use App\Services\Recruitment\ApplicationSubmitter;
 use App\Services\Recruitment\ApplicationTracker;
 use App\Services\Recruitment\ApplicationValidator;
@@ -91,6 +92,9 @@ final class CareersController extends Controller
                 return redirect()->to($back)->withInput($input)->withErrors(['form' => __('careers.errors.rate')]);
             }
         }
+        if (! FormGuard::attempt('careers', $request, (int) config('careers.abuse.attempts_per_hour'))) {
+            return redirect()->to($back)->withInput($input)->withErrors(['form' => __('careers.errors.rate')]);
+        }
 
         $idempotencyKey = (string) $request->input('idempotency_key');
         if (! Str::isUuid($idempotencyKey)) {
@@ -104,8 +108,15 @@ final class CareersController extends Controller
         // Files sent with the form itself (no JavaScript): same pipeline as the progressive upload.
         $session = $this->uploadSession($request);
         $errors = [];
+        // Each file counts against the same hourly upload limit as the progressive upload (FINAL-QA QA-004).
+        $uploadKey = 'careers-upload:'.$client;
         foreach ((array) $request->file('files', []) as $file) {
             if ($file instanceof UploadedFile) {
+                if (RateLimiter::tooManyAttempts($uploadKey, (int) config('careers.abuse.uploads_per_hour'))) {
+                    $errors['files'] = __('careers.upload.errors.rate');
+                    break;
+                }
+                RateLimiter::hit($uploadKey, 3600);
                 $stored = $store->store($session, $file);
                 if (is_string($stored)) {
                     $errors['files'] = __('careers.upload.errors.'.$stored);
@@ -210,7 +221,7 @@ final class CareersController extends Controller
         $error = null;
         if ($request->isMethod('post')) {
             $number = (string) $request->input('number', '');
-            [$allowed, $error] = $this->trackingAllowed(FormGuard::clientKey($request), strtoupper(trim($number)));
+            [$allowed, $error] = $this->trackingAllowed(FormGuard::clientKey($request), strtoupper(trim(ApplicantInput::digits($number)))); // one counter per reference, whatever digits are typed (FINAL-QA)
             if ($allowed) {
                 $status = $tracker->publicStatus($number, (string) $request->input('phone', ''));
                 if ($status === null) {

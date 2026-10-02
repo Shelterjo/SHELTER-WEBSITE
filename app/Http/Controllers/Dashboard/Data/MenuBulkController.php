@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Services\Core\AuditLogger;
 use App\Services\Dashboard\MenuManager;
 use App\Services\MasterData\MasterData;
+use App\Support\DashboardBack;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -26,10 +27,10 @@ final class MenuBulkController extends Controller
         $products = MenuManager::bulkProducts($request->all());
         $action = $request->string('action')->toString();
         if ($products->isEmpty()) {
-            return back()->with('warning', __('dashboard.menu.bulk.none'));
+            return redirect()->to(DashboardBack::to(route('dashboard.menu.index')))->with('warning', __('dashboard.menu.bulk.none'));
         }
         if (! in_array($action, self::ACTIONS, true)) {
-            return back()->with('warning', __('dashboard.menu.bulk.choose'));
+            return redirect()->to(DashboardBack::to(route('dashboard.menu.index')))->with('warning', __('dashboard.menu.bulk.choose'));
         }
         $branches = [];
         foreach (Branch::query()->whereNull('archived_at')->orderBy('sort')->get() as $branch) {
@@ -42,7 +43,7 @@ final class MenuBulkController extends Controller
             'products' => $products,
             'categories' => MenuController::categoryOptions(),
             'branches' => $branches,
-            'back' => url()->previous(),
+            'back' => DashboardBack::to(route('dashboard.menu.index')),
         ]);
     }
 

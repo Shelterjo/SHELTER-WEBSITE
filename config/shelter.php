@@ -43,6 +43,10 @@ return [
         // Pending (password OK, second factor not yet given) login lifetime in minutes.
         'pending_lifetime' => 5,
         'max_attempts_per_minute' => 5,
+        // Second-factor failures per account per hour before the code step waits out the hour (FINAL-QA QA-008). The
+        // password step has no per-account lock on purpose: anyone who knows the address could lock the Owner out, and
+        // a password alone opens nothing (the second factor is mandatory).
+        'max_second_factor_failures_per_hour' => 10,
         'totp_issuer' => 'SHELTER COFFEE',
         'totp_window' => 1,
         'recovery_codes' => 10,

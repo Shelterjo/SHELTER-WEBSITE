@@ -62,6 +62,9 @@ final class FeedbackController extends Controller
                 return redirect()->to($back)->withInput($input)->withErrors(['form' => __('feedback.errors.rate')]);
             }
         }
+        if (! FormGuard::attempt('feedback', $request, (int) config('feedback.abuse.attempts_per_hour'))) {
+            return redirect()->to($back)->withInput($input)->withErrors(['form' => __('feedback.errors.rate')]);
+        }
         $idempotencyKey = (string) $request->input('idempotency_key');
         if (! Str::isUuid($idempotencyKey)) {
             return redirect()->to($back)->withInput($input)->withErrors(['form' => __('feedback.errors.expired')]);

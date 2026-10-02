@@ -43,6 +43,16 @@ class MenuBulkTest extends TestCase
         return (string) $this->get('/en/jo/menu/')->assertOk()->getContent();
     }
 
+    public function test_an_outside_link_never_becomes_the_back_address(): void
+    {
+        // FINAL-QA QA-010: the bulk screen answers GET; the Referer of an outside link must not steer the Owner away.
+        $this->get('/dashboard/data/menu/bulk', ['Referer' => 'https://evil.example/x'])->assertRedirect(route('dashboard.menu.index'));
+        $id = (string) Product::query()->value('id');
+        $this->get('/dashboard/data/menu/bulk?action=hide&ids[]='.$id, ['Referer' => 'https://evil.example/x'])
+            ->assertOk()->assertDontSee('evil.example');
+        $this->get('/dashboard/data/menu/bulk', ['Referer' => url('/dashboard/data/menu?q=latte')])->assertRedirect(url('/dashboard/data/menu?q=latte'));
+    }
+
     public function test_hide_and_show_several_items_after_one_confirmation(): void
     {
         $this->get('/dashboard/data/menu')->assertOk()->assertSee('data-select-item', false)->assertSee('مع الأصناف المحددة');

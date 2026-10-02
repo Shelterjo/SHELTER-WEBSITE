@@ -1,6 +1,9 @@
+# Never list a folder (FINAL-QA QA-013): set on its own, not only when mod_negotiation is loaded.
+Options -Indexes
+
 <IfModule mod_rewrite.c>
     <IfModule mod_negotiation.c>
-        Options -MultiViews -Indexes
+        Options -MultiViews
     </IfModule>
 
     RewriteEngine On

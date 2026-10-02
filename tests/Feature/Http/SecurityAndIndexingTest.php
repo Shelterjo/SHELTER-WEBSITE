@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Http;
 
+use App\Support\CanonicalHost;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -21,6 +22,28 @@ class SecurityAndIndexingTest extends TestCase
             ->assertHeader('Referrer-Policy', 'strict-origin-when-cross-origin')
             ->assertHeader('X-Frame-Options', 'DENY')
             ->assertHeaderMissing('Strict-Transport-Security');
+    }
+
+    public function test_owner_screens_and_reference_pages_are_never_stored_by_the_browser(): void
+    {
+        // FINAL-QA QA-007: back/forward after logout or on a shared device must not show them again.
+        foreach (['/dashboard/login', '/dashboard', '/ar/careers/track/', '/ar/careers/submitted/'] as $path) {
+            $this->assertStringContainsString('no-store', (string) $this->get($path)->headers->get('Cache-Control'), $path);
+        }
+        $this->assertStringNotContainsString('no-store', (string) $this->get('/ar/')->headers->get('Cache-Control'), 'public pages stay cacheable');
+    }
+
+    public function test_staging_and_production_use_the_configured_address_never_the_host_header(): void
+    {
+        // FINAL-QA QA-012: canonicals, hreflang and the sitemap must not follow a forged or alternate Host header.
+        CanonicalHost::apply('local', 'https://www.shelterjo.com');
+        $this->assertStringStartsWith('http://localhost/', route('home', ['locale' => 'ar']), 'local keeps the request host');
+
+        CanonicalHost::apply('production', 'https://www.shelterjo.com');
+        $this->assertSame('https://www.shelterjo.com/ar', route('home', ['locale' => 'ar']));
+        $html = (string) $this->get('http://evil.example/ar/')->getContent();
+        $this->assertStringContainsString('<link rel="canonical" href="https://www.shelterjo.com/ar/">', $html);
+        $this->assertStringNotContainsString('evil.example', $html);
     }
 
     public function test_hsts_is_sent_over_https(): void

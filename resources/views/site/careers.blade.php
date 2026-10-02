@@ -59,8 +59,8 @@
                         <input type="hidden" name="form_token" value="{{ $formToken }}">
                         <input type="hidden" name="idempotency_key" value="{{ $idempotencyKey }}">
                         <div class="ui-apply__hp" aria-hidden="true">
-                            <label for="website">Website</label>
-                            <input id="website" name="website" type="text" tabindex="-1" autocomplete="off">
+                            <label for="{{ \App\Services\Forms\FormGuard::HONEYPOT }}">Leave this field empty</label>
+                            <input id="{{ \App\Services\Forms\FormGuard::HONEYPOT }}" name="{{ \App\Services\Forms\FormGuard::HONEYPOT }}" type="text" tabindex="-1" autocomplete="off">
                         </div>
 
                         <fieldset class="ui-apply__group">

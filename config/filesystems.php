@@ -41,12 +41,12 @@ return [
             'report' => false,
         ],
 
-        // Private careers files (CAREERS-037, INFRA-038): outside the public web root, never served by URL, no execute
-        // bit. On Cloudways set CAREERS_STORAGE_ROOT to …/private_html/recruitment (CLOUDWAYS-RECRUITMENT-ARCHITECTURE).
+        // An empty variable in .env (VAR=) must fall back to the safe default: env() returns '' for it, and a local disk
+        // with an empty root writes next to the running script — inside public/ under a web server (FINAL-QA QA-001).
         // Media library originals (MEDIA-RIGHTS): private, never served — only approved web copies are published.
         'media' => [
             'driver' => 'local',
-            'root' => env('MEDIA_STORAGE_ROOT', storage_path('app/private/media')),
+            'root' => env('MEDIA_STORAGE_ROOT') ?: storage_path('app/private/media'),
             'visibility' => 'private',
             'directory_visibility' => 'private',
         ],
@@ -54,14 +54,16 @@ return [
         // Web copies of APPROVED assets only (MEDIA-011): resized WebP/AVIF, content-hashed names, served as static files.
         'media_public' => [
             'driver' => 'local',
-            'root' => env('MEDIA_PUBLIC_ROOT', public_path('media')),
+            'root' => env('MEDIA_PUBLIC_ROOT') ?: public_path('media'),
             'url' => '/media',
             'visibility' => 'public',
         ],
 
+        // Private careers files (CAREERS-037, INFRA-038): outside the public web root, never served by URL, no execute
+        // bit. On Cloudways set CAREERS_STORAGE_ROOT to …/private_html/recruitment (CLOUDWAYS-RECRUITMENT-ARCHITECTURE).
         'careers' => [
             'driver' => 'local',
-            'root' => env('CAREERS_STORAGE_ROOT', storage_path('app/private/careers')),
+            'root' => env('CAREERS_STORAGE_ROOT') ?: storage_path('app/private/careers'),
             'visibility' => 'private',
             'directory_visibility' => 'private',
             'permissions' => [

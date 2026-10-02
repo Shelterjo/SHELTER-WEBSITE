@@ -87,8 +87,12 @@ final class SiteTexts
     {
         [$group, $path] = explode('.', $key, 2);
         $file = lang_path($locale.'/'.$group.'.php');
-        self::$files[$locale.'/'.$group] ??= is_file($file) ? (array) require $file : [];
-        $value = Arr::get(self::$files[$locale.'/'.$group], $path);
+        $cacheKey = $locale.'/'.$group;
+        if (! isset(self::$files[$cacheKey])) {
+            $lines = is_file($file) ? require $file : [];
+            self::$files[$cacheKey] = is_array($lines) ? $lines : [];
+        }
+        $value = Arr::get(self::$files[$cacheKey], $path);
 
         return is_string($value) ? $value : '';
     }

@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Services\Requests\ApplicationInbox;
 use App\Services\Requests\PartnershipsQuery;
 use App\Support\Countries;
+use App\Support\OwnNavigation;
 use Carbon\CarbonImmutable;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -44,7 +45,9 @@ final class PartnershipsController extends Controller
     public function show(Request $request, Application $application, ApplicationInbox $inbox): View
     {
         $this->partnership($application);
-        $inbox->markViewed($application, $this->owner($request));
+        if (OwnNavigation::is($request)) {
+            $inbox->markViewed($application, $this->owner($request));
+        }
         $application->load(['partnership', 'notes.author', 'statusHistory.actor', 'meetings']);
 
         return view('dashboard.requests.partnerships.show', [

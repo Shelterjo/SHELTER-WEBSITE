@@ -15,6 +15,7 @@ use App\Services\Content\SiteTexts;
 use App\Services\Content\Team;
 use App\Services\Forms\FormGuard;
 use App\Services\Site\Markets;
+use App\Support\CanonicalHost;
 use App\Support\OverridingTranslationLoader;
 use App\View\Composers\DashboardChrome;
 use App\View\Composers\ErrorPageLocale;
@@ -48,6 +49,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        CanonicalHost::apply((string) $this->app->environment(), (string) config('app.url'));
+
         // Public site chrome (header, footer) and localized error pages (SITE-INVENTORY §D).
         View::composer('layouts.site', SiteChrome::class);
         View::composer('layouts.dashboard', DashboardChrome::class);

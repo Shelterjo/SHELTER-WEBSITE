@@ -15,6 +15,7 @@ use App\Services\Requests\ApplicationInbox;
 use App\Services\Requests\CareersQuery;
 use App\Services\Requests\CareersView;
 use App\Services\Requests\RecruitmentSettings;
+use App\Support\OwnNavigation;
 use Carbon\CarbonImmutable;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -39,7 +40,9 @@ final class CareersController extends Controller
         $owner = $this->owner($request);
         $filters = CareersQuery::filters($request->query());
         if ($request->query('per') !== null) {
-            $view->rememberPerPage($owner, $filters['per']); // the last choice is remembered (CAREERS-063)
+            if (OwnNavigation::is($request)) {
+                $view->rememberPerPage($owner, $filters['per']); // the last choice is remembered (CAREERS-063)
+            }
         } else {
             $filters['per'] = $view->perPage($owner);
         }
@@ -116,7 +119,9 @@ final class CareersController extends Controller
         /** @var User $owner */
         $owner = $request->user();
         $wasNew = $application->isNew();
-        $inbox->markViewed($application, $owner);
+        if (OwnNavigation::is($request)) {
+            $inbox->markViewed($application, $owner);
+        }
         $application->load(['job.city', 'attachments', 'identity', 'notes.author', 'statusHistory.actor', 'interviews.location']);
 
         return view('dashboard.requests.careers.show', [
