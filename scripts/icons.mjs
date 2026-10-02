@@ -25,6 +25,7 @@ const ICONS = [
     'circle-x', // status-pill FAILED
     'clock', // status-pill PENDING
     'coffee', // dashboard navigation: the menu
+    'download', // dashboard: download an applicant's file (FINAL-QA)
     'external-link', // dashboard: open the live page on the site
     'file-text', // careers: an uploaded file in the list
     'hand', // status-pill MANUAL ACTION REQUIRED

@@ -65,8 +65,8 @@ return [
     'contact' => [
         'call' => 'Call',
         'whatsapp' => 'Message us on WhatsApp', // D-063 (provisional)
-        'call_label' => 'Call SHELTER COFFEE',
-        'whatsapp_label' => 'SHELTER COFFEE on WhatsApp', // CONTACT-016: name of the icon-only link
+        'call_label' => 'Call :name',
+        'whatsapp_label' => ':name on WhatsApp', // CONTACT-016: name of the icon-only link (the branch, FINAL-QA)
     ],
     'footer' => [
         'label' => 'Site footer',

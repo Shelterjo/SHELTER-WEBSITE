@@ -42,7 +42,8 @@
 
 @media (prefers-reduced-motion: no-preference) {
     .ui-open-status[data-state='open'] .ui-open-status__mark {
-        animation: ui-open-pulse calc(var(--motion-slow) * 6) var(--easing-standard) infinite;
+        /* Two beats (~3.8 s), then still: nothing moves on its own for more than 5 s (WCAG 2.2.2; FINAL-QA QA-031). */
+        animation: ui-open-pulse calc(var(--motion-slow) * 6) var(--easing-standard) 2;
     }
 }
 

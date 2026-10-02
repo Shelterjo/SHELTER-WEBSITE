@@ -132,6 +132,9 @@ body {
 }
 
 .ui-contact-number a {
+    display: inline-flex;
+    align-items: center;
+    min-block-size: var(--touch-target); /* FINAL-QA QA-032 */
     color: var(--color-text);
     text-decoration: none;
     unicode-bidi: isolate;

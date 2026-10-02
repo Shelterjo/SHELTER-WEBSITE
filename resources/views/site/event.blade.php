@@ -59,7 +59,7 @@
                         @endforeach
                     </x-ui.disclosure>
                 @endif
-                <p><a class="ui-event-detail__back" href="{{ $listing }}"><span>{{ __('site.events.back') }}</span><x-ui.icon name="arrow-right" size="sm" /></a></p>
+                <p><a class="ui-event-detail__back" href="{{ $listing }}"><x-ui.icon name="chevron-left" size="sm" /><span>{{ __('site.events.back') }}</span></a></p>
             </div>
         </div>
     </div>

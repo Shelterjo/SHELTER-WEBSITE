@@ -39,6 +39,10 @@
 }
 
 .ui-item-list__title a {
+    /* A full-height touch target for a standalone link (--touch-target; FINAL-QA QA-032). */
+    display: inline-flex;
+    align-items: center;
+    min-block-size: var(--touch-target);
     color: var(--color-text);
     text-decoration: none;
 }

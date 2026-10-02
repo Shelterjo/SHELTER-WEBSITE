@@ -23,6 +23,16 @@
     flex: 1 1 0;
 }
 
+/* Keyboard focus and in-page jumps stop above the bar, never under it (WCAG 2.2 — 2.4.11 Focus Not Obscured;
+   FINAL-QA QA-035). The bar is one touch-target row plus its padding. */
+@media (max-width: 1023.98px) {
+    html:has(.ui-action-bar) {
+        scroll-padding-block-end: calc(
+            var(--touch-target) + var(--space-3) * 2 + var(--space-4) + env(safe-area-inset-bottom)
+        );
+    }
+}
+
 @media (min-width: 1024px) {
     .ui-action-bar {
         display: none;

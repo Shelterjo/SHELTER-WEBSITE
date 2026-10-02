@@ -66,8 +66,8 @@ return [
     'contact' => [
         'call' => 'اتصال',
         'whatsapp' => 'راسلنا على واتساب', // D-063 (provisional)
-        'call_label' => 'اتصل بـ SHELTER COFFEE',
-        'whatsapp_label' => 'واتساب SHELTER COFFEE', // CONTACT-016: name of the icon-only link
+        'call_label' => 'اتصل بـ :name',
+        'whatsapp_label' => 'واتساب :name', // CONTACT-016: name of the icon-only link (the branch, FINAL-QA)
     ],
     'footer' => [
         'label' => 'تذييل الموقع',

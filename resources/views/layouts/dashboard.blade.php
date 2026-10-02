@@ -12,10 +12,10 @@
     <header class="ui-shell__topbar">
         <p class="ui-shell__brand" lang="en" dir="ltr">SHELTER COFFEE</p>
         <div class="ui-shell__actions">
-            <x-ui.button variant="ghost" :href="url('/ar/')" icon="arrow-right" target="_blank" rel="noopener">{{ __('dashboard.view_site') }}</x-ui.button>
+            <x-ui.button variant="ghost" :href="url('/ar/')" icon="external-link" target="_blank" rel="noopener"><span class="ui-shell__action-label">{{ __('dashboard.view_site') }}</span></x-ui.button>
             <form method="post" action="{{ route('dashboard.logout') }}">
                 @csrf
-                <x-ui.button type="submit" variant="ghost" icon="log-out">{{ __('dashboard.auth.logout') }}</x-ui.button>
+                <x-ui.button type="submit" variant="ghost" icon="log-out"><span class="ui-shell__action-label">{{ __('dashboard.auth.logout') }}</span></x-ui.button>
             </form>
         </div>
     </header>

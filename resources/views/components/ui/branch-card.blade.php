@@ -20,6 +20,9 @@
     $statusTimeline = $branch->status;
     $phoneHref = $branch->phone?->href;
     $whatsappHref = $branch->whatsapp?->href;
+    // Icon-only actions name the branch (FINAL-QA QA-034): two cards on one page must not share one label.
+    $callLabel = __('ui.contact.call_label', ['name' => $branch->name]);
+    $whatsappLabel = __('ui.contact.whatsapp_label', ['name' => $branch->name]);
     $todayText = $branch->today === null ? null : (count($branch->today) === 0
         ? __('ui.hours.closed')
         : collect($branch->today)->map(fn (array $i): string => $i['opens'].' – '.$i['closes'])->implode(' · '));
@@ -53,10 +56,10 @@
                 @endif
             @else
                 @if ($branch->phone !== null)
-                    <x-ui.button variant="ghost" icon="phone" icon-only :label="__('ui.contact.call_label')" :href="$phoneHref" />
+                    <x-ui.button variant="ghost" icon="phone" icon-only :label="$callLabel" :href="$phoneHref" />
                 @endif
                 @if ($branch->whatsapp !== null)
-                    <x-ui.button variant="ghost" icon="message-circle" icon-only :label="__('ui.contact.whatsapp_label')" :href="$whatsappHref" rel="noopener" target="_blank" />
+                    <x-ui.button variant="ghost" icon="message-circle" icon-only :label="$whatsappLabel" :href="$whatsappHref" rel="noopener" target="_blank" />
                 @endif
                 <span class="ui-branch__go" aria-hidden="true"><x-ui.icon name="arrow-right" /></span>
             @endif

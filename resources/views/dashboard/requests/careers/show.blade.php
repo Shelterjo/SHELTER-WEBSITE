@@ -125,7 +125,7 @@
                                 <bdi dir="ltr">{{ $file->original_filename }}</bdi>
                                 <span class="ui-note"><bdi>{{ number_format($file->size_bytes / 1024, 0) }} KB</bdi></span>
                             </span>
-                            <x-ui.button size="sm" variant="outline" :href="route('dashboard.requests.attachment', $file)" icon="arrow-right">{{ __('dashboard.requests.download') }}</x-ui.button>
+                            <x-ui.button size="sm" variant="outline" :href="route('dashboard.requests.attachment', $file)" icon="download">{{ __('dashboard.requests.download') }}</x-ui.button>
                         </li>
                     @endforeach
                 </ul>

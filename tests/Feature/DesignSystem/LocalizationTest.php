@@ -26,6 +26,42 @@ class LocalizationTest extends TestCase
         $this->assertSame($ar, $en);
     }
 
+    /**
+     * Every language file, not only ui.php (FINAL-QA QA-033): a key in one language only is a page that shows the raw
+     * key in the other. Allowed on purpose: the Arabic-only careers form (CAREERS-001 — English shows the page and an
+     * "apply in Arabic" link) and the extra Arabic plural forms (zero, two, few, many).
+     */
+    public function test_every_language_file_has_the_same_keys_in_both_languages(): void
+    {
+        $flatten = function (array $strings, string $prefix = '') use (&$flatten): array {
+            $out = [];
+            foreach ($strings as $key => $value) {
+                if (is_array($value) && $value !== [] && ! array_is_list($value)) {
+                    $out = array_merge($out, $flatten($value, $prefix.$key.'.'));
+                } else {
+                    $out[] = $prefix.$key;
+                }
+            }
+
+            return $out;
+        };
+        $files = array_map('basename', glob(lang_path('ar/*.php')) ?: []);
+        $this->assertSame($files, array_map('basename', glob(lang_path('en/*.php')) ?: []), 'the same files in both languages');
+        foreach ($files as $file) {
+            /** @var array<string, mixed> $ar */
+            $ar = require lang_path('ar/'.$file);
+            /** @var array<string, mixed> $en */
+            $en = require lang_path('en/'.$file);
+            $arKeys = $flatten($ar);
+            $enKeys = $flatten($en);
+            $plural = fn (string $key): bool => preg_match('/\.(zero|two|few|many)$/', $key) === 1;
+            $arOnly = array_values(array_filter(array_diff($arKeys, $enKeys), fn (string $key): bool => ! $plural($key) && $file !== 'careers.php'));
+            $enOnly = array_values(array_filter(array_diff($enKeys, $arKeys), fn (string $key): bool => ! ($file === 'careers.php' && $key === 'apply')));
+            $this->assertSame([], $arOnly, "lang/en/{$file} is missing keys");
+            $this->assertSame([], $enOnly, "lang/ar/{$file} is missing keys");
+        }
+    }
+
     public function test_every_ui_string_used_by_a_view_exists_in_both_languages(): void
     {
         $views = array_merge(

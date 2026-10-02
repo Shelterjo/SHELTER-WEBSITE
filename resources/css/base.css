@@ -13,6 +13,13 @@
     /* The brand surfaces are dark (#131313): native controls (date and time pickers, selects, scrollbars, autofill)
        must render for a dark page (FINAL-QA QA-019). */
     color-scheme: dark;
+    /* Language-aware aliases used by components (FINAL-QA QA-030: they were referenced but never defined). */
+    --leading-normal: var(--leading-normal-ar);
+    --ui-nudge: var(--space-1);
+}
+
+[dir='rtl'] {
+    --ui-nudge: calc(var(--space-1) * -1);
 }
 
 *,
@@ -45,10 +52,12 @@ html:lang(en) body {
 /* Mixed-language runs (an English name inside Arabic, and the reverse) use their own family. Arabic is never
    letter-spaced: it breaks letter joining (DESIGN-SYSTEM-STANDARD §2). */
 :where(:lang(en)) {
+    --leading-normal: var(--leading-normal-en);
     font-family: var(--font-en);
 }
 
 :where(:lang(ar)) {
+    --leading-normal: var(--leading-normal-ar);
     font-family: var(--font-ar);
     letter-spacing: var(--tracking-ar);
 }

@@ -47,6 +47,27 @@
     }
 }
 
+.ui-shell__brand,
+.ui-shell__action-label {
+    white-space: nowrap;
+}
+
+/* Phones: the two top-bar actions show their icon only; the words stay for screen readers (the same recipe as
+   .ui-visually-hidden), so nothing wraps onto a second line (FINAL-QA QA-036). */
+@media (max-width: 479px) {
+    .ui-shell__action-label {
+        position: absolute;
+        inline-size: var(--border-default);
+        block-size: var(--border-default);
+        overflow: hidden;
+        clip-path: inset(50%);
+    }
+
+    .ui-shell__actions .ui-button {
+        min-inline-size: var(--touch-target);
+    }
+}
+
 /* Phones: one scrollable row of every item (group titles hidden); desktop: titled groups in the side column. */
 .ui-shell__nav-group {
     display: none;

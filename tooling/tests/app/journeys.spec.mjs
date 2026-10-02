@@ -219,6 +219,34 @@ test.describe('site journeys @app @journey', () => {
     expect(hidden).toBe(0);
   });
 
+  test('keyboard focus is never completely hidden behind a sticky bar (WCAG 2.4.11)', async ({ page }, info) => {
+    test.skip(!PHONE.test(info.project.name), 'the sticky action bar exists on phones');
+    const hidden = [];
+    for (const path of ['/ar/jo/locations/irbid/drive/', '/en/jo/locations/irbid/house/', '/ar/jo/menu/', '/en/contact/', '/ar/']) {
+      await page.goto(path, { waitUntil: 'networkidle' });
+      for (let i = 0; i < 60; i++) {
+        await page.keyboard.press('Tab');
+        const covered = await page.evaluate(() => {
+          const el = document.activeElement;
+          if (!el || el === document.body) return null;
+          const box = el.getBoundingClientRect();
+          if (box.width === 0) return null;
+          const under = [[0.5, 0.5], [0.1, 0.1], [0.9, 0.1], [0.1, 0.9], [0.9, 0.9]].every(([x, y]) => {
+            const hit = document.elementFromPoint(box.left + box.width * x, box.top + box.height * y);
+            if (!hit || el.contains(hit)) return false;
+            for (let n = hit; n && n !== document.body; n = n.parentElement) {
+              if (['fixed', 'sticky'].includes(getComputedStyle(n).position)) return true;
+            }
+            return false;
+          });
+          return under ? `${el.tagName.toLowerCase()} "${(el.textContent || '').trim().slice(0, 25)}"` : null;
+        });
+        if (covered !== null) hidden.push(`${path} ${covered}`);
+      }
+    }
+    expect(hidden).toEqual([]);
+  });
+
   test('touch targets on a phone are at least 24 × 24 px (WCAG 2.5.8)', async ({ page }, info) => {
     test.skip(!PHONE.test(info.project.name), 'phone only');
     const small = [];

@@ -92,6 +92,9 @@
 }
 
 .ui-inbox-name a {
+    display: inline-flex;
+    align-items: center;
+    min-block-size: var(--touch-target); /* FINAL-QA QA-032 */
     color: var(--color-text);
     font-weight: var(--weight-bold);
 }

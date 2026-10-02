@@ -20,7 +20,7 @@
         <x-slot:actions>
             <x-ui.button variant="ghost" :href="route('dashboard.pages.index')">{{ __('dashboard.pages.title') }}</x-ui.button>
             @if ($url !== null)
-                <x-ui.button variant="outline" :href="$url" icon-end="arrow-right" target="_blank" rel="noopener">{{ __('dashboard.view_on_site') }}</x-ui.button>
+                <x-ui.button variant="outline" :href="$url" icon-end="external-link" target="_blank" rel="noopener">{{ __('dashboard.view_on_site') }}</x-ui.button>
             @endif
         </x-slot:actions>
     </x-ui.page-header>
