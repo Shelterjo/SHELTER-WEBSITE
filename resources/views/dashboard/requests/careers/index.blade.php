@@ -76,14 +76,32 @@
         </div>
     </form>
 
-    <p class="ui-inbox-count" role="status">{{ trans_choice('dashboard.requests.results', $total, ['count' => $total]) }}</p>
+    <div class="ui-inbox-bar">
+        <p class="ui-inbox-count" role="status">{{ trans_choice('dashboard.requests.results', $total, ['count' => $total]) }}</p>
+        @if ($total > 0)
+            <x-ui.button size="sm" variant="outline" icon="upload" :href="route('dashboard.careers.export', array_filter(['scope' => 'filtered'] + $filters, fn ($v) => $v !== '' && $v !== null))">{{ __('dashboard.requests.export.open') }}</x-ui.button>
+        @endif
+    </div>
 
     @if ($items === [])
         <x-ui.empty-state :title="__('dashboard.requests.empty')" icon="briefcase-business" />
     @else
+        {{-- Several at once (CAREERS-068): tick rows, choose what to do; a status change asks once, clearly. --}}
+        <form class="ui-bulk-bar" id="bulk" method="post" action="{{ route('dashboard.careers.bulk') }}" data-bulk data-bulk-forms="{{ json_encode(__('dashboard.requests.bulk.count_forms'), JSON_UNESCAPED_UNICODE) }}">
+            @csrf
+            <x-ui.field :label="__('dashboard.requests.bulk.label')" for="bulk-action">
+                <x-ui.select id="bulk-action" name="action" :options="['' => __('dashboard.requests.bulk.choose_short')]
+                    + collect(\App\Services\Requests\ApplicationInbox::statuses('JOB'))->mapWithKeys(fn ($s) => ['status:'.$s => __('dashboard.requests.bulk.to', ['status' => __('dashboard.requests.statuses.'.$s)])])->all()
+                    + ['export' => __('dashboard.requests.bulk.export'), 'zip' => __('dashboard.requests.bulk.zip')]" />
+            </x-ui.field>
+            <x-ui.button type="submit" variant="secondary">{{ __('dashboard.requests.bulk.go') }}</x-ui.button>
+            <x-ui.checkbox :label="__('dashboard.requests.bulk.all')" id="select-all" data-select-all />
+            <p class="ui-note" data-bulk-count aria-live="polite"></p>
+        </form>
         <x-ui.table :caption="__('dashboard.requests.careers_title')" stack="wide" class="ui-inbox-table">
             <thead role="rowgroup">
                 <tr role="row">
+                    <th scope="col" role="columnheader" class="ui-select-col"><span class="ui-visually-hidden">{{ __('dashboard.requests.bulk.select') }}</span></th>
                     @foreach (['name', 'job', 'city', 'experience', 'salary', 'date', 'status'] as $column)
                         <th scope="col" role="columnheader" @class(['ui-table__numeric' => $column === 'salary'])>{{ __('dashboard.requests.columns.'.$column) }}</th>
                     @endforeach
@@ -93,6 +111,10 @@
                 @foreach ($items as $application)
                     @php $job = $application->job; @endphp
                     <tr role="row" @class(['ui-inbox-row--new' => $application->isNew()])>
+                        <td role="cell" class="ui-select-col" data-label="{{ __('dashboard.requests.bulk.select') }}">
+                            <label class="ui-select-cell"><input class="ui-check__input" type="checkbox" form="bulk" name="ids[]" value="{{ $application->id }}" data-select-item
+                                aria-label="{{ __('dashboard.requests.bulk.select_one', ['name' => $job?->full_name ?? $application->reference_number]) }}"></label>
+                        </td>
                         <th scope="row" role="rowheader" data-label="{{ __('dashboard.requests.columns.name') }}">
                             <span class="ui-inbox-name">
                                 <a href="{{ route('dashboard.careers.show', $application) }}">{{ $job?->full_name }}</a>

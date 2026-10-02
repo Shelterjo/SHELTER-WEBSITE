@@ -13,6 +13,15 @@ if (pageEditor !== null) {
     void import('./dashboard/page-editor').then(({ installPageEditor }) => installPageEditor(pageEditor));
 }
 
+// Bulk selection on the applications list, and the print button of the export's PDF view (own chunk).
+const bulk = document.querySelector<HTMLFormElement>('form[data-bulk]');
+if (bulk !== null || document.querySelector('button[data-print]') !== null) {
+    void import('./dashboard/bulk').then(({ installBulk, installPrint }) => {
+        if (bulk !== null) installBulk(bulk);
+        installPrint();
+    });
+}
+
 // Phones: the navigation is one scrollable row — bring the current screen's item into view (RTL handled by the browser).
 const nav = document.querySelector<HTMLElement>('.ui-shell__nav');
 const current = nav?.querySelector<HTMLElement>('[aria-current="page"]');

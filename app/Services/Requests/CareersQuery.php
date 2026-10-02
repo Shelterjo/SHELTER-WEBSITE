@@ -62,7 +62,18 @@ final class CareersQuery
      */
     public function paginate(array $f, int $page = 1): LengthAwarePaginator
     {
-        $query = $this->base()->with(['job.city']);
+        return $this->filtered($f)->paginate($f['per'], ['applications.*'], 'page', $page);
+    }
+
+    /**
+     * The applications the filters select, in their sort order (the list and the export read the same answer).
+     *
+     * @param  array{q: string, status: string, city: int|null, gender: string, nationality: string, education: string, experience: string, job: string, from: string, to: string, sort: string, per: int, period: string}  $f
+     * @return Builder<Application>
+     */
+    public function filtered(array $f): Builder
+    {
+        $query = $this->base()->select('applications.*')->with(['job.city']);
         match ($f['status']) {
             '' => $query->where('applications.status', '!=', 'archived'),
             'new' => $query->whereNull('applications.first_viewed_at')->where('applications.status', '!=', 'archived'),
@@ -99,7 +110,20 @@ final class CareersQuery
         };
         $query->orderByDesc('applications.id');
 
-        return $query->paginate($f['per'], ['applications.*'], 'page', $page);
+        return $query;
+    }
+
+    /**
+     * Only job applications, by id — what a selection may contain.
+     *
+     * @param  array<int|string, mixed>  $ids
+     * @return list<int>
+     */
+    public static function jobIds(array $ids): array
+    {
+        $ids = array_values(array_unique(array_map('intval', array_filter($ids, 'is_numeric'))));
+
+        return $ids === [] ? [] : array_values(Application::query()->where('type', 'JOB')->whereIn('id', $ids)->pluck('id')->map(fn ($id): int => (int) $id)->all());
     }
 
     /**

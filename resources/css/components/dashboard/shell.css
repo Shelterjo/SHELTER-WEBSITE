@@ -126,3 +126,42 @@
         padding-inline: var(--container-gutter-desktop);
     }
 }
+
+/* Printing (the PDF export view, CAREERS-072): only the content, full width, no scroll areas, black on white. */
+@media print {
+    .ui-shell__topbar,
+    .ui-shell__nav,
+    .ui-shell__flash,
+    [data-print] {
+        display: none;
+    }
+
+    .ui-shell,
+    .ui-shell__main,
+    .ui-shell__content {
+        display: block;
+        max-inline-size: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    /* Paper is light: the brand's dark background becomes the ink, its light text the paper (token swap, no raw colours). */
+    :root {
+        --print-ink: var(--color-bg);
+        --print-paper: var(--color-text);
+    }
+
+    body {
+        --color-text: var(--print-ink);
+        --color-muted: var(--print-ink);
+        --color-bg: var(--print-paper);
+        --color-surface: var(--print-paper);
+
+        background: var(--color-bg);
+        color: var(--color-text);
+    }
+
+    .ui-table-wrap {
+        overflow: visible;
+    }
+}

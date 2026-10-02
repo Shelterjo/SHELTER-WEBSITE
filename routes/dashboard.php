@@ -14,6 +14,7 @@ use App\Http\Controllers\Dashboard\Data\ContactsController;
 use App\Http\Controllers\Dashboard\Data\MenuController;
 use App\Http\Controllers\Dashboard\HomeController;
 use App\Http\Controllers\Dashboard\RecoveryCodesController;
+use App\Http\Controllers\Dashboard\Requests\CareersBulkController;
 use App\Http\Controllers\Dashboard\Requests\CareersController;
 use App\Http\Controllers\Dashboard\Requests\FeedbackController;
 use App\Http\Controllers\Dashboard\Requests\PartnershipsController;
@@ -83,6 +84,13 @@ Route::prefix('dashboard')->middleware(DashboardLocale::class)->group(function (
 
         // Requests — job applications (CAREERS-052…073). Identity numbers and permanent deletion need a fresh re-confirmation.
         Route::get('requests/careers', [CareersController::class, 'index'])->name('careers.index');
+        Route::post('requests/careers/bulk', [CareersBulkController::class, 'bulk'])->name('careers.bulk');
+        Route::post('requests/careers/bulk/apply', [CareersBulkController::class, 'apply'])->name('careers.bulk.apply');
+        Route::middleware('confirmed')->group(function (): void {
+            Route::get('requests/careers/export', [CareersBulkController::class, 'form'])->name('careers.export');
+            Route::post('requests/careers/export', [CareersBulkController::class, 'export'])->name('careers.export.run');
+            Route::post('requests/careers/attachments', [CareersBulkController::class, 'zip'])->name('careers.zip');
+        });
         Route::whereNumber(['application', 'note', 'attachment'])->group(function (): void {
             Route::get('requests/careers/{application}', [CareersController::class, 'show'])->name('careers.show');
             Route::post('requests/careers/{application}/status', [CareersController::class, 'status'])->name('careers.status');
