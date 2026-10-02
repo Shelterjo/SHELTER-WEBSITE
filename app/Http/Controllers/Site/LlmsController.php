@@ -16,8 +16,9 @@ use Illuminate\Http\Response;
 
 /**
  * /llms.txt (SI-S06, llmstxt.org format) — generated from approved, published data only (CONTENT-SOURCE-OF-TRUTH):
- * the brand names, the main pages in both languages (Events only while something is listed), the branches by their approved names, the main public number
- * and the founding year once approved. No descriptions or claims until the brand copy is approved (D-068).
+ * the brand names, the main pages in both languages (Events only while something is listed; Careers as in the sitemap —
+ * PUBLIC-ROUTE-MAP RM-10), the branches by their approved names, the main public number and the founding year once
+ * approved. No descriptions or claims until the brand copy is approved (D-068).
  */
 final class LlmsController extends Controller
 {
@@ -42,9 +43,11 @@ final class LlmsController extends Controller
                     $links[] = [(string) __($label, [], $locale), $href];
                 }
             }
-            $contact = SiteLinks::to('contact', $parameters);
-            if ($contact !== null) {
-                $links[] = [(string) __('site.contact.title', [], $locale), $contact];
+            foreach (['contact' => 'site.contact.title', 'careers' => 'site.nav.careers'] as $route => $label) {
+                $href = SiteLinks::to($route, $parameters);
+                if ($href !== null) {
+                    $links[] = [(string) __($label, [], $locale), $href];
+                }
             }
             foreach ($pages->links([...Pages::EXPLORE, ...Pages::LEGAL, ...Pages::BUSINESS], $locale) as $page) {
                 $links[] = [$page['label'], $page['href']];

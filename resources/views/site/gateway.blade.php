@@ -25,11 +25,17 @@
                     @foreach (['ar' => ['العربية', 'primary', 'rtl'], 'en' => ['English', 'outline', 'ltr']] as $door => [$doorName, $doorVariant, $doorDir])
                         <li class="ui-gateway__door" lang="{{ $door }}" dir="{{ $doorDir }}">
                             <x-ui.button size="lg" :variant="$doorVariant" :href="\App\Support\PageUrl::route('home', ['locale' => $door])" :hreflang="$door">{{ $doorName }}</x-ui.button>
-                            <p class="ui-gateway__shortcuts">
-                                <a href="{{ \App\Support\PageUrl::route('menu', ['locale' => $door, 'market' => 'jo']) }}">{{ __('site.nav.menu', [], $door) }}</a>
-                                <span aria-hidden="true">·</span>
-                                <a href="{{ \App\Support\PageUrl::route('locations', ['locale' => $door, 'market' => 'jo']) }}">{{ __('site.nav.locations', [], $door) }}</a>
-                            </p>
+                            @if (($shortcuts[$door] ?? []) !== [])
+                                {{-- The active market's pages (RM-06: never a country code written here). --}}
+                                <p class="ui-gateway__shortcuts">
+                                    @foreach ($shortcuts[$door] as $page => $href)
+                                        @if (! $loop->first)
+                                            <span aria-hidden="true">·</span>
+                                        @endif
+                                        <a href="{{ $href }}">{{ __('site.nav.'.$page, [], $door) }}</a>
+                                    @endforeach
+                                </p>
+                            @endif
                         </li>
                     @endforeach
                 </ul>
