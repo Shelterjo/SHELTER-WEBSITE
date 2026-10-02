@@ -5,6 +5,7 @@ use App\Http\Controllers\Site\CareersController;
 use App\Http\Controllers\Site\ContactController;
 use App\Http\Controllers\Site\ContentPageController;
 use App\Http\Controllers\Site\EventsController;
+use App\Http\Controllers\Site\FeedbackController;
 use App\Http\Controllers\Site\FranchiseController;
 use App\Http\Controllers\Site\GatewayController;
 use App\Http\Controllers\Site\HomeController;
@@ -47,6 +48,10 @@ Route::prefix('{locale}')->where(['locale' => 'ar|en'])->middleware('locale')->g
     Route::get('franchise/', [FranchiseController::class, 'show'])->name('franchise');
     Route::post('franchise/', [FranchiseController::class, 'submit'])->name('franchise.submit');
     Route::get('franchise/submitted/', [FranchiseController::class, 'submitted'])->name('franchise.submitted');
+    // Customer feedback (SI-B16, VOICE-OF-CUSTOMER): anonymous, noindex, linked from nowhere until PO-063; closed in production.
+    Route::get('feedback/', [FeedbackController::class, 'show'])->name('feedback');
+    Route::post('feedback/', [FeedbackController::class, 'submit'])->name('feedback.submit');
+    Route::get('feedback/submitted/', [FeedbackController::class, 'submitted'])->name('feedback.submitted');
     // Site search (SI-B08): noindex, rate-limited (SEC-007 — the address only counts toward the limit, hashed).
     Route::get('search/', SearchController::class)->middleware('throttle:search')->name('search');
 

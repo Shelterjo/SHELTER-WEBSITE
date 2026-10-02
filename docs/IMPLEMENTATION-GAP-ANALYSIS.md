@@ -14,8 +14,8 @@
 ## التغطية الحالية
 | | العدد | % |
 |---|---|---|
-| NOT STARTED | 946 | 70% |
-| PARTIAL | 190 | 14% |
+| NOT STARTED | 944 | 69% |
+| PARTIAL | 192 | 14% |
 | IMPLEMENTED — NOT TESTED | 126 | 9% |
 | FROZEN | 43 | 3% |
 | TESTED | 34 | 2% |
@@ -24,7 +24,7 @@
 | CONFLICT | 1 | 0% |
 
 - **مُنفذ أو مجمّد** (وثائق، بيانات، أدوات): **205 من 1350** (15%).
-- **مُختبر فعليًا:** 77. **على النموذج فقط** (`PROTOTYPE`): 135.
+- **مُختبر فعليًا:** 79. **على النموذج فقط** (`PROTOTYPE`): 135.
 - **الموقع والـDashboard المبنيان:** 0%.
 
 ## تقييم ما هو موجود: KEEP / IMPROVE / REFACTOR / REPLACE / REMOVE
@@ -1207,7 +1207,7 @@
 | `NAV-014` | روابط الفئات تعمل بدون JavaScript | NOT STARTED | SPEC §20 (فشل JavaScript: الأسماء والأسعار والفئات والـAnchors تعمل من HTML الخادم) | البناء + اختبار مع تعطيل JS | P1 |  | Playwright مع javaScriptEnabled=false: روابط الفئات تقفز للأقسام؛ المحتوى والأسعار ظاهرة | P08 |
 | `NAV-015` | Sticky header offset عند القفز للـanchor | NOT STARTED | prototype test: «category anchor lands below sticky bars (not covered)» في responsive.spec | التنفيذ في الموقع الحقيقي (scroll-padding/scroll-margin) | P1 |  | App test F-06/F-07 على كل الـviewports: عنوان القسم غير مغطى بعد القفز (AR/EN، Landscape) | P08 |
 | `OPS-018` | CONTENT HEALTH / FRESHNESS — المراقبات الثلاث عشرة | NOT STARTED | spec: CMS-019 (صفحات تحتاج تحديث + Drafts) · DASH-016 (Last updated / Content status / Language version status) · CAREERS-071 (الطلبات القديمة) | تصميم + Wireframe في P04 (بوابة H — PO-007) ثم بناء في P08 | P1 | CMS-019, DASH-016, OPS-019, OPS-048, content_review (17 v0.4) | لكل مراقب من الـ13: بيانات مزروعة تولد Issue بالحقول الخمسة والنقر يفتح المحتوى؛ DoD أنظمة M32 (OPS-054): وظيفي · متكامل · فحص الصلاحيات (401/403 Server-side) · Responsive على مصفوفة الـ20 عرضًا · RTL/LTR · axe WCAG 2.2 AA + فحص يدوي · حالات الخطأ · موثق · Audit حيث يلزم · أثر الـBackup | P08 |
-| `OPS-030` | VOICE OF CUSTOMER — نظام Feedback داخلي بسيط بلا PII وبلا Review Gating | NOT STARTED | none (القناة الحالية هاتف فقط: CONTACT-007) | تصميم + Wireframe في P04 (بوابة H — PO-007) ثم بناء في P08 + قرار الإطلاق PO-063 | P1 | CONTACT-007, PRIV-004, SEC-007, OPS-037, PO-063 | إرسال صالح/غير صالح AR/EN على 20 عرضًا؛ لا حقل PII إلزامي؛ لا تفرّع في المسار حسب التقييم (اختبار آلي يثبت تطابق الشاشة التالية لكل الدرجات)؛ Rate limit؛ DoD أنظمة M32 (OPS-054): وظيفي · متكامل · فحص الصلاحيات (401/403 Server-side) · Responsive على مصفوفة الـ20 عرضًا · RTL/LTR · axe WCAG 2.2 AA + فحص يدوي · حالات الخطأ · موثق · Audit حيث يلزم · أثر الـBackup | P08 |
+| `OPS-030` | VOICE OF CUSTOMER — نظام Feedback داخلي بسيط بلا PII وبلا Review Gating | PARTIAL | none (القناة الحالية هاتف فقط: CONTACT-007) | تصميم + Wireframe في P04 (بوابة H — PO-007) ثم بناء في P08 + قرار الإطلاق PO-063 | P1 | CONTACT-007, PRIV-004, SEC-007, OPS-037, PO-063 | إرسال صالح/غير صالح AR/EN على 20 عرضًا؛ لا حقل PII إلزامي؛ لا تفرّع في المسار حسب التقييم (اختبار آلي يثبت تطابق الشاشة التالية لكل الدرجات)؛ Rate limit؛ DoD أنظمة M32 (OPS-054): وظيفي · متكامل · فحص الصلاحيات (401/403 Server-side) · Responsive على مصفوفة الـ20 عرضًا · RTL/LTR · axe WCAG 2.2 AA + فحص يدوي · حالات الخطأ · موثق · Audit حيث يلزم · أثر الـBackup | P08 |
 | `OPS-031` | FEEDBACK DASHBOARD — اتجاهات ومقارنة فروع، وتحليل AI موسوم AI ASSISTED ANALYSIS | NOT STARTED | none | تصميم + Wireframe في P04 (بوابة H — PO-007) ثم بناء في P08 | P1 | OPS-030, DASH-025, DASH-018, OPS-053 | بيانات مزروعة ← المتوسطات والمقارنات صحيحة مع n؛ وسم AI ASSISTED ANALYSIS يظهر على أي ناتج AI؛ لا Score مشاعر بلا وسم | P08 |
 | `OPS-032` | PRESS / MEDIA KIT ضمن Media Center — محتوى معتمد فقط | NOT STARTED | none | تصميم + Wireframe في P04 (بوابة H — PO-007) ثم بناء في P08 + محتوى PO-062 | P1 | OPS-011, OPS-013, OPS-033, MEDIA-012, BRAND-002, PO-032, PO-004, PO-062 | عنصر غير معتمد لا يظهر؛ كل حقيقة معروضة لها Fact APPROVED/VERIFIED؛ AR/EN Responsive؛ لا ملفات Brand guidelines داخلية في الحزمة العامة | P08 |
 | `OPS-033` | MEDIA RIGHTS MANAGER — حقول الحقوق والموافقات لكل Asset في المكتبة الواحدة | NOT STARTED | docs/governance/APPROVED-ASSET-LIBRARY.md (Source · Rights/License · Category People/Event · Approval Status · Owner Decision Date — سجل فارغ) · media/manifest.json schema (source · license · approved_by · approved_at) = [] · tooling/scripts/images.mjs يعالج APPROVED فقط | Photographer · People Consent · Website/Ads منفصلان · Restrictions · Expiry + الواجهة — تصميم + Wireframe في P04 (بوابة H — PO-007) ثم بناء في P08 | P1 | MEDIA-006, MEDIA-008, MEDIA-012, DX-003, DX-036 | حفظ/عرض الحقول العشرة؛ تنبيه الانتهاء؛ أصل Approved for Ads=false غير متاح للاستخدام الإعلاني | P08 |
@@ -1233,7 +1233,7 @@
 | `RESP-016` | دعم Safe Area لأجهزة iPhone | NOT STARTED | none | استخدام env(safe-area-inset-*) في العناصر الثابتة؛ فحص على iPhone حقيقي (Chromium emulation لا يكفي). | P1 | TEST-011, RESP-013, RESP-014 | iPhone Safari حقيقي (portrait + landscape) مع bottom bars وsheets. | P08 |
 | `RESP-017` | النماذج على الهاتف سهلة ولوحة المفاتيح لا تغطي الحقول | NOT STARTED | none (لا نماذج بعد) | تصميم النماذج (تواصل، توظيف، Dashboard editors) بنمط موبايل؛ اختبار لوحة المفاتيح على أجهزة حقيقية. | P1 | G7 DASH/CMS, TEST-011 | iOS/Android حقيقي: الحقل النشط ظاهر فوق لوحة المفاتيح، أنواع input صحيحة، Form Testing (TEST-001). | P08 |
 | `SCHEMA-010` | Schema Settings في الـDashboard حسب نوع المحتوى | NOT STARTED | none | تصميم وبناء | P1 | SEO-035, SCHEMA-003 | تعديل الحقول ينعكس في JSON-LD ويمر بـRich Results Test | P08 |
-| `SEC-007` | Rate limiting حيث يلزم (Login · Forms · APIs) | NOT STARTED | none | تحديد الحدود + التنفيذ (Cloudflare/التطبيق) | P1 | CF (G6) | اختبار تجاوز الحد = 429 بدون كسر الاستخدام الطبيعي | P08 |
+| `SEC-007` | Rate limiting حيث يلزم (Login · Forms · APIs) | PARTIAL | none | تحديد الحدود + التنفيذ (Cloudflare/التطبيق) | P1 | CF (G6) | اختبار تجاوز الحد = 429 بدون كسر الاستخدام الطبيعي | P08 |
 | `SEO-008` | Local SEO لكل فرع (NAP، Maps، الساعات، Schema، Metadata) | NOT STARTED | spec: GEP §10–§11؛ docs/google/BRANCH-DATA-SYNC.md؛ docs/google/GOOGLE-BUSINESS-PROFILE-SOURCE-OF-TRUTH.md (GBP data not received) | بيانات GBP (AC-03)؛ وثيقة صفحات الفروع (غير موجودة)؛ محتوى فريد معتمد لكل فرع | P1 | AC-03, SCHEMA-005, BRANCH | Branch Data Sync Check لكل فرع قبل/بعد الإطلاق؛ Rich Results Test؛ title/meta فريدة لكل فرع AR/EN | P08 |
 | `SEO-018` | Redirect Manager لإدارة 301 والروابط القديمة والمتغيرة | NOT STARTED | spec: 13 §5.3 | تصميم في CMS architecture (P04) ثم البناء | P1 | DB-08, CMS, SEO-011 | إضافة/تعديل تحويل من الـDashboard ينعكس فورًا؛ رفض chain/loop؛ Audit Log؛ صلاحيات | P08 |
 | `SEO-019` | صفحة 404 غير فارغة: Menu · Locations · Search · Home | NOT STARTED | none | تصميم وبناء | P1 | IA, SRCH | URL غير موجود → HTTP 404 (لا soft-404) + الروابط الأربعة AR/EN؛ noindex؛ RTL/LTR؛ a11y | P08 |

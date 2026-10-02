@@ -730,7 +730,7 @@
 | `SEC-004` | حماية الـStaging: Authentication + noindex — robots.txt وحده ليس حماية أمنية | M11-044, M35 | GEP-§18, D-046 | docs/google/GOOGLE-ECOSYSTEM-POLICY.md §18 Staging Must Not Index |  |  | NOT STARTED | NO |
 | `SEC-005` | Secure authentication + Session security لنظام الـAdmin | M25-153, M25-155, M28, M32 | DB-08 |  |  |  | NOT STARTED | NO |
 | `SEC-006` | CSRF protection حسب الـArchitecture | M25-156, M28 | DB-08 |  |  |  | NOT STARTED | NO |
-| `SEC-007` | Rate limiting حيث يلزم (Login · Forms · APIs) | M25-157, M28 |  |  |  |  | NOT STARTED | NO |
+| `SEC-007` | Rate limiting حيث يلزم (Login · Forms · APIs) | M25-157, M28, BUILD |  |  | app/Services/Forms/FormGuard.php | tests/Feature/Site/FeedbackFormTest.php · tests/Feature/Careers/CareersFormTest.php · tests/Feature/Site/FranchisePageTest.php | PARTIAL | YES |
 | `SEC-008` | Secure API access + audit logging — لا Admin APIs عامة بدون Authorization | M25-158, M25-160 |  |  |  |  | NOT STARTED | NO |
 | `SEC-009` | Safe file uploads في الـMedia Library | M25-159, M28, M35 | D-083 |  | tooling/scripts/images.mjs |  | NOT STARTED | NO |
 | `SEC-010` | أمان الموقع القديم: الخيار A — Backup → Staging → … → Owner Approval | M10-026, M10-027, M10-030 | D-037 | docs/governance/RISK-REGISTER.md RISK-01 |  |  | NOT STARTED | NO |
@@ -1195,7 +1195,7 @@
 | `OPS-027` | PERFORMANCE ALERTS — تراجع حقيقي بلا تخمين للسبب | M32 §12 | D-269 |  |  |  | NOT STARTED | NO |
 | `OPS-028` | REPUTATION CENTER — سمعة الفروع عبر Google Business Profile الرسمي | M32 §13 | D-270 | docs/REPUTATION-CENTER.md (مطلوب — OPS-008) · docs/google/GOOGLE-ECOSYSTEM-POLICY.md §42 §44 |  |  | NOT STARTED | NO |
 | `OPS-029` | REVIEW RESPONSE FLOW — لا رد على Google بلا موافقة الـOwner | M32 §14 | D-270 |  |  |  | NOT STARTED | NO |
-| `OPS-030` | VOICE OF CUSTOMER — نظام Feedback داخلي بسيط بلا PII وبلا Review Gating | M32 §15, M35 | D-270 | docs/VOICE-OF-CUSTOMER.md (مطلوب — OPS-008) |  |  | NOT STARTED | NO |
+| `OPS-030` | VOICE OF CUSTOMER — نظام Feedback داخلي بسيط بلا PII وبلا Review Gating | M32 §15, M35, BUILD | D-270 | docs/VOICE-OF-CUSTOMER.md (مطلوب — OPS-008) | app/Http/Controllers/Site/FeedbackController.php · app/Services/Feedback/FeedbackForm.php · resources/views/site/feedback.blade.php · resources/views/components/ui/rating.blade.php · database/migrations/2026_10_01_001000_create_feedback_table.php | tests/Feature/Site/FeedbackFormTest.php | PARTIAL | YES |
 | `OPS-031` | FEEDBACK DASHBOARD — اتجاهات ومقارنة فروع، وتحليل AI موسوم AI ASSISTED ANALYSIS | M32 §16 | D-270 |  |  |  | NOT STARTED | NO |
 | `OPS-032` | PRESS / MEDIA KIT ضمن Media Center — محتوى معتمد فقط | M32 §17 | D-271 | docs/MEDIA-RIGHTS.md (مطلوب — يشمل Press Kit) |  |  | NOT STARTED | NO |
 | `OPS-033` | MEDIA RIGHTS MANAGER — حقول الحقوق والموافقات لكل Asset في المكتبة الواحدة | M32 §18 | D-271 | docs/MEDIA-RIGHTS.md (مطلوب — OPS-008) · docs/governance/APPROVED-ASSET-LIBRARY.md · media/README.md | tooling/scripts/images.mjs |  | NOT STARTED | NO |

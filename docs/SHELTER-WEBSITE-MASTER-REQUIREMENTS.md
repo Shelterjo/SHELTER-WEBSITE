@@ -73,8 +73,8 @@
 | متطلبات | **1350**: REQUIREMENT 491, RULE 442, DECISION 209, DELIVERABLE 109, GATE 99 |
 | حسب الحالة | APPROVED 900, FROZEN 294, APPROVED WITH CONDITIONS 73, PENDING OWNER INPUT 34, DEFERRED 22, SUPERSEDED 18, PENDING VERIFICATION 9 |
 | حسب الأولوية | P0 691, P1 572, P2 69, P3 18 |
-| حسب التنفيذ | NOT STARTED 946, PARTIAL 190, IMPLEMENTED — NOT TESTED 126, FROZEN 43, TESTED 34, NEEDS FIX 8, IMPLEMENTED — NOT YET VERIFIED 2, CONFLICT 1 |
-| مُختبر | NO 791, N/A 347, PROTOTYPE 135, YES 77 |
+| حسب التنفيذ | NOT STARTED 944, PARTIAL 192, IMPLEMENTED — NOT TESTED 126, FROZEN 43, TESTED 34, NEEDS FIX 8, IMPLEMENTED — NOT YET VERIFIED 2, CONFLICT 1 |
+| مُختبر | NO 789, N/A 347, PROTOTYPE 135, YES 79 |
 
 ## فهرس المجالات
 | # | المجال | متطلبات | P0 | معتمد/مجمّد | معلّق | تنفيذ (منفذ أو مجمّد) |
@@ -1004,7 +1004,7 @@
 | `SEC-004` | حماية الـStaging: Authentication + noindex — robots.txt وحده ليس حماية أمنية | APPROVED | P0 | NOT STARTED |
 | `SEC-005` | Secure authentication + Session security لنظام الـAdmin | APPROVED | P0 | NOT STARTED |
 | `SEC-006` | CSRF protection حسب الـArchitecture | APPROVED | P0 | NOT STARTED |
-| `SEC-007` | Rate limiting حيث يلزم (Login · Forms · APIs) | APPROVED | P1 | NOT STARTED |
+| `SEC-007` | Rate limiting حيث يلزم (Login · Forms · APIs) | APPROVED | P1 | PARTIAL |
 | `SEC-008` | Secure API access + audit logging — لا Admin APIs عامة بدون Authorization | APPROVED | P0 | NOT STARTED |
 | `SEC-009` | Safe file uploads في الـMedia Library | APPROVED | P0 | NOT STARTED |
 | `SEC-010` | أمان الموقع القديم: الخيار A — Backup → Staging → … → Owner Approval | APPROVED | P1 | NOT STARTED |
@@ -1549,7 +1549,7 @@
 | `OPS-027` | PERFORMANCE ALERTS — تراجع حقيقي بلا تخمين للسبب | APPROVED | P1 | NOT STARTED |
 | `OPS-028` | REPUTATION CENTER — سمعة الفروع عبر Google Business Profile الرسمي | APPROVED | P1 | NOT STARTED |
 | `OPS-029` | REVIEW RESPONSE FLOW — لا رد على Google بلا موافقة الـOwner | APPROVED | P1 | NOT STARTED |
-| `OPS-030` | VOICE OF CUSTOMER — نظام Feedback داخلي بسيط بلا PII وبلا Review Gating | APPROVED | P1 | NOT STARTED |
+| `OPS-030` | VOICE OF CUSTOMER — نظام Feedback داخلي بسيط بلا PII وبلا Review Gating | APPROVED | P1 | PARTIAL |
 | `OPS-031` | FEEDBACK DASHBOARD — اتجاهات ومقارنة فروع، وتحليل AI موسوم AI ASSISTED ANALYSIS | APPROVED | P1 | NOT STARTED |
 | `OPS-032` | PRESS / MEDIA KIT ضمن Media Center — محتوى معتمد فقط | APPROVED | P1 | NOT STARTED |
 | `OPS-033` | MEDIA RIGHTS MANAGER — حقول الحقوق والموافقات لكل Asset في المكتبة الواحدة | APPROVED | P1 | NOT STARTED |

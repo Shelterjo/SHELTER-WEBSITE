@@ -17,6 +17,15 @@ final class FormGuard
 {
     public const HONEYPOT = 'website';
 
+    /**
+     * The key rate limits count against (FORM-RELIABILITY §4): a keyed hash of the address, kept only in the cache for
+     * the limit's window — the address itself is never stored or logged.
+     */
+    public static function clientKey(Request $request): string
+    {
+        return substr(hash_hmac('sha256', (string) $request->ip(), (string) config('app.key')), 0, 32);
+    }
+
     public static function token(Request $request, int $maxAgeSeconds): string
     {
         $old = $request->old('form_token');

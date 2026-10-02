@@ -1,0 +1,74 @@
+/* Rating scale (x-ui.rating): equal numbered options in one row, each a ≥44px target. The native radio stays in the
+   tab order (visually hidden); the chosen number is filled + bold. Focus shows on the option. Tokens and logical
+   properties only; in RTL the row starts from the right on its own. */
+
+/* A fieldset keeps its min-content width by default; let the scale shrink on the narrowest phones. */
+.ui-rating {
+    min-inline-size: 0;
+}
+
+.ui-rating__scale {
+    display: grid;
+    grid-auto-columns: minmax(0, 1fr);
+    grid-auto-flow: column;
+    gap: var(--space-2);
+    max-inline-size: calc(var(--touch-target) * 7);
+}
+
+.ui-rating__option {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-block-size: var(--touch-target);
+    border: var(--border-default) solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-bg);
+    color: var(--color-text);
+    font-weight: var(--weight-medium);
+    font-variant-numeric: tabular-nums;
+    cursor: pointer;
+    transition:
+        background-color var(--motion-fast) var(--easing-standard),
+        border-color var(--motion-fast) var(--easing-standard),
+        color var(--motion-fast) var(--easing-standard);
+}
+
+.ui-rating__value {
+    line-height: var(--leading-tight);
+}
+
+.ui-rating__option:hover {
+    border-color: var(--color-muted);
+}
+
+.ui-rating__input {
+    position: absolute;
+    inline-size: var(--border-default);
+    block-size: var(--border-default);
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+}
+
+.ui-rating__option:has(.ui-rating__input:checked) {
+    border-color: var(--color-accent);
+    background: var(--color-accent);
+    color: var(--color-on-accent);
+    font-weight: var(--weight-bold);
+}
+
+.ui-rating__option:has(.ui-rating__input:focus-visible) {
+    outline: var(--ui-focus-ring-width) solid var(--color-focus);
+    outline-offset: var(--ui-focus-ring-offset);
+}
+
+.ui-rating__option:has(.ui-rating__input[aria-invalid='true']) {
+    border-color: var(--color-danger);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .ui-rating__option {
+        transition: none;
+    }
+}

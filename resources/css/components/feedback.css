@@ -1,0 +1,12 @@
+/* Voice of Customer (SI-B16): one short reading column — the shared application-form pattern (apply-form.css) and the
+   rating scale (rating.css) do the rest. Tokens and logical properties only. */
+
+.ui-feedback {
+    display: grid;
+    gap: var(--space-6);
+    max-inline-size: calc(var(--measure-reading) * 0.75);
+}
+
+.ui-feedback .ui-page-intro {
+    margin-block-end: 0;
+}

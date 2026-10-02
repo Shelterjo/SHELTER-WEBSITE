@@ -35,6 +35,8 @@ return [
     'upload_sessions' => ['class' => 'INTERNAL', 'columns' => ['ip_hash' => 'CONFIDENTIAL']],
     'applications' => ['class' => 'CONFIDENTIAL'],
     'partnership_applications' => ['class' => 'CONFIDENTIAL'],
+    // Voice of Customer: no personal fields by design; a free comment may still hold what a customer typed (redactable).
+    'feedback' => ['class' => 'CONFIDENTIAL', 'columns' => ['comment' => 'CONFIDENTIAL']],
     'job_applications' => ['class' => 'CONFIDENTIAL', 'columns' => ['birth_date' => 'SENSITIVE', 'nationality_text' => 'SENSITIVE', 'marital_status' => 'SENSITIVE']],
     'application_identity_secure' => ['class' => 'SENSITIVE'],
     'application_attachments' => ['class' => 'SENSITIVE'],

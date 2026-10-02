@@ -263,6 +263,13 @@ return [
             ['story' => 'Disabled', 'state' => 'disabled', 'props' => ['name' => 'g', 'value' => '1', 'id' => 'ds-r1', 'disabled' => true, 'label' => $t('الخيار الأول', 'First option')]],
         ]],
 
+        'rating' => ['stories' => [
+            ['story' => 'Default', 'props' => ['legend' => $t('سؤال تجريبي', 'Sample question'), 'name' => 'ds-rating', 'id' => 'ds-rating', 'hint' => $t('1 الأقل · 5 الأفضل', '1 lowest · 5 highest')]],
+            ['story' => 'Selected', 'props' => ['legend' => $t('سؤال تجريبي', 'Sample question'), 'name' => 'ds-rating', 'id' => 'ds-rating', 'selected' => 4]],
+            ['story' => 'Required', 'props' => ['legend' => $t('سؤال تجريبي', 'Sample question'), 'name' => 'ds-rating', 'id' => 'ds-rating', 'required' => true]],
+            ['story' => 'Error', 'state' => 'error', 'props' => ['legend' => $t('سؤال تجريبي', 'Sample question'), 'name' => 'ds-rating', 'id' => 'ds-rating', 'required' => true, 'error' => $t('هذا الحقل مطلوب', 'This field is required')]],
+        ]],
+
         'fieldset' => ['stories' => [
             ['story' => 'Default', 'blade' => $both(fn (string $l): string => '<x-ui.fieldset legend="'.($l === 'ar' ? 'سؤال تجريبي' : 'Sample question').'" id="ds-group" hint="'.($l === 'ar' ? 'نص مساعد تجريبي' : 'Sample hint text').'"><x-ui.radio name="g" value="1" id="ds-r1" label="'.($l === 'ar' ? 'الخيار الأول' : 'First option').'" /><x-ui.radio name="g" value="2" id="ds-r2" label="'.($l === 'ar' ? 'الخيار الثاني' : 'Second option').'" /></x-ui.fieldset>')],
             ['story' => 'Required', 'blade' => $both(fn (string $l): string => '<x-ui.fieldset legend="'.($l === 'ar' ? 'سؤال تجريبي' : 'Sample question').'" id="ds-group" required><x-ui.radio name="g" value="1" id="ds-r1" label="'.($l === 'ar' ? 'نعم' : 'Yes').'" /><x-ui.radio name="g" value="2" id="ds-r2" label="'.($l === 'ar' ? 'لا' : 'No').'" /></x-ui.fieldset>')],

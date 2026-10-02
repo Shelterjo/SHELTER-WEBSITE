@@ -85,8 +85,8 @@ final class CareersController extends Controller
         if ($guard !== 'ok') {
             return redirect()->to($back)->withInput($input)->withErrors(['form' => $guard === 'bot' ? __('careers.errors.generic') : __('careers.errors.expired')]);
         }
-        $ip = (string) $request->ip();
-        foreach ([['careers-submit-hour:'.$ip, 'submit_per_hour', 3600], ['careers-submit-day:'.$ip, 'submit_per_day', 86400]] as [$key, $limit, $decay]) {
+        $client = FormGuard::clientKey($request);
+        foreach ([['careers-submit-hour:'.$client, 'submit_per_hour', 3600], ['careers-submit-day:'.$client, 'submit_per_day', 86400]] as [$key, $limit, $decay]) {
             if (RateLimiter::tooManyAttempts($key, (int) config('careers.abuse.'.$limit))) {
                 return redirect()->to($back)->withInput($input)->withErrors(['form' => __('careers.errors.rate')]);
             }
@@ -152,8 +152,8 @@ final class CareersController extends Controller
 
             return redirect()->to($back)->withInput($input)->withErrors(['form' => __('careers.errors.generic')]);
         }
-        RateLimiter::hit('careers-submit-hour:'.$ip, 3600);
-        RateLimiter::hit('careers-submit-day:'.$ip, 86400);
+        RateLimiter::hit('careers-submit-hour:'.$client, 3600);
+        RateLimiter::hit('careers-submit-day:'.$client, 86400);
         $request->session()->forget(self::SESSION_UPLOADS);
 
         return $this->success($application);
@@ -162,7 +162,7 @@ final class CareersController extends Controller
     public function upload(Request $request, AttachmentStore $store): JsonResponse
     {
         abort_unless(app()->getLocale() === 'ar' && $this->form->isOpen(), 404);
-        $key = 'careers-upload:'.$request->ip();
+        $key = 'careers-upload:'.FormGuard::clientKey($request);
         if (RateLimiter::tooManyAttempts($key, (int) config('careers.abuse.uploads_per_hour'))) {
             return response()->json(['error' => 'rate', 'message' => __('careers.upload.errors.rate')], 429);
         }
@@ -210,7 +210,7 @@ final class CareersController extends Controller
         $error = null;
         if ($request->isMethod('post')) {
             $number = (string) $request->input('number', '');
-            [$allowed, $error] = $this->trackingAllowed((string) $request->ip(), strtoupper(trim($number)));
+            [$allowed, $error] = $this->trackingAllowed(FormGuard::clientKey($request), strtoupper(trim($number)));
             if ($allowed) {
                 $status = $tracker->publicStatus($number, (string) $request->input('phone', ''));
                 if ($status === null) {
@@ -229,18 +229,23 @@ final class CareersController extends Controller
         ]);
     }
 
-    /** @return array{0: bool, 1: ?string} RECRUITMENT-SECURITY §7: 5 tries / 15 min per address, 10 / day per number, cooldown 1 → 5 → 30 min. */
-    private function trackingAllowed(string $ip, string $number): array
+    /**
+     * RECRUITMENT-SECURITY §7: 5 tries / 15 min per address, 10 / day per number, cooldown 1 → 5 → 30 min.
+     * `$client` = FormGuard::clientKey — a keyed hash, never the address.
+     *
+     * @return array{0: bool, 1: ?string}
+     */
+    private function trackingAllowed(string $client, string $number): array
     {
-        $cooldownKey = 'careers-track-cooldown:'.$ip;
+        $cooldownKey = 'careers-track-cooldown:'.$client;
         if (RateLimiter::tooManyAttempts($cooldownKey, 1)) {
             return [false, (string) __('careers.track.cooldown')];
         }
-        $windowKey = 'careers-track:'.$ip;
+        $windowKey = 'careers-track:'.$client;
         $numberKey = 'careers-track-number:'.hash('sha256', $number);
         if (RateLimiter::tooManyAttempts($windowKey, (int) config('careers.tracking.attempts_per_window'))
             || RateLimiter::tooManyAttempts($numberKey, (int) config('careers.tracking.attempts_per_reference_per_day'))) {
-            $stageKey = 'careers-track-stage:'.$ip;
+            $stageKey = 'careers-track-stage:'.$client;
             $stage = min(RateLimiter::attempts($stageKey), 2);
             /** @var list<int> $cooldowns */
             $cooldowns = config('careers.tracking.cooldown_seconds');

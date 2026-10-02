@@ -91,8 +91,8 @@ final class FranchiseController extends Controller
         if ($guard !== 'ok') {
             return redirect()->to($back)->withInput($input)->withErrors(['form' => __($guard === 'bot' ? 'franchise.errors.generic' : 'franchise.errors.expired')]);
         }
-        $ip = (string) $request->ip();
-        foreach ([['franchise-submit-hour:'.$ip, 'submit_per_hour'], ['franchise-submit-day:'.$ip, 'submit_per_day']] as [$key, $limit]) {
+        $client = FormGuard::clientKey($request);
+        foreach ([['franchise-submit-hour:'.$client, 'submit_per_hour'], ['franchise-submit-day:'.$client, 'submit_per_day']] as [$key, $limit]) {
             if (RateLimiter::tooManyAttempts($key, (int) config('franchise.abuse.'.$limit))) {
                 return redirect()->to($back)->withInput($input)->withErrors(['form' => __('franchise.errors.rate')]);
             }
@@ -126,8 +126,8 @@ final class FranchiseController extends Controller
 
             return redirect()->to($back)->withInput($input)->withErrors(['form' => __('franchise.errors.generic')]);
         }
-        RateLimiter::hit('franchise-submit-hour:'.$ip, 3600);
-        RateLimiter::hit('franchise-submit-day:'.$ip, 86400);
+        RateLimiter::hit('franchise-submit-hour:'.$client, 3600);
+        RateLimiter::hit('franchise-submit-day:'.$client, 86400);
 
         return $this->success($application);
     }
