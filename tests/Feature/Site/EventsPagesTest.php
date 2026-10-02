@@ -89,8 +89,8 @@ class EventsPagesTest extends TestCase
         $this->assertStringContainsString('Coming up', $html);
         $this->assertStringContainsString('20 – 22 October 2026</time>', $html, 'several days: the range only, no ambiguous time span');
         $later = (string) $this->fresh('/en/jo/events/later/')->assertOk()->getContent();
-        $this->assertStringContainsString('Starts: Tuesday 20 October, 10:00 AM', $later);
-        $this->assertStringContainsString('Ends: Thursday 22 October, 6:00 PM', $later);
+        $this->assertStringContainsString("Starts: Tuesday 20 October, 10:00\u{00A0}AM", $later);
+        $this->assertStringContainsString("Ends: Thursday 22 October, 6:00\u{00A0}PM", $later);
         $html = (string) $this->fresh('/en/jo/events/')->getContent();
         $this->assertMatchesRegularExpression('#<a class="ui-site-footer__link" href="http://localhost/en/jo/events/"\s+aria-current="page"\s*>Events</a>#', $html);
     }

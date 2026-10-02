@@ -4,6 +4,7 @@
     is fetched on the first open only (resources/js/shaltoor/widget.ts). Every answer comes from the server as plain text
     built from Master Data; nothing here is a business fact. The CSRF token travels in the form, never in a meta tag.
     $page picks the quick suggestions (menu, careers, franchise, locations, default); $branch is the branch page's slug.
+    The face and the figure are the Owner's approved image (D-348, public/brand/shaltoor-*; tooling/scripts/shaltoor-avatar.mjs).
 --}}
 @props([
     'endpoint',
@@ -16,12 +17,27 @@
     data-error="{{ __('shaltoor.answers.unavailable') }}" data-typing="{{ __('shaltoor.typing') }}" data-you="{{ __('shaltoor.you') }}">
     <button type="button" class="ui-shaltoor__launcher" hidden data-shaltoor-launcher commandfor="shaltoor" command="show-modal"
         aria-haspopup="dialog" aria-controls="shaltoor" aria-expanded="false" data-ui-dialog-open="shaltoor">
-        <x-ui.icon name="messages-square" />
+        <picture class="ui-shaltoor__avatar">
+            <source type="image/webp" srcset="/brand/shaltoor-avatar-64.webp 1x, /brand/shaltoor-avatar-128.webp 2x, /brand/shaltoor-avatar-192.webp 3x">
+            <img src="/brand/shaltoor-avatar-64.png" srcset="/brand/shaltoor-avatar-128.png 2x, /brand/shaltoor-avatar-192.png 3x" width="64" height="64" alt="" decoding="async" fetchpriority="low">
+        </picture>
         <span class="ui-shaltoor__launcher-label">{{ __('shaltoor.open') }}</span>
     </button>
     <x-ui.dialog id="shaltoor" variant="sheet-adaptive" :title="__('shaltoor.name')" class="ui-shaltoor__dialog">
-        <p class="ui-shaltoor__role">{{ __('shaltoor.role') }}</p>
+        <p class="ui-shaltoor__role">
+            <picture class="ui-shaltoor__avatar ui-shaltoor__avatar--sm">
+                <source type="image/webp" srcset="/brand/shaltoor-avatar-64.webp 1x, /brand/shaltoor-avatar-128.webp 2x">
+                <img src="/brand/shaltoor-avatar-64.png" srcset="/brand/shaltoor-avatar-128.png 2x" width="64" height="64" alt="" loading="lazy" decoding="async">
+            </picture>
+            <span>{{ __('shaltoor.role') }}</span>
+        </p>
         <ol class="ui-shaltoor__log" role="log" aria-live="polite" aria-relevant="additions" data-shaltoor-log>
+            <li class="ui-shaltoor__figure" aria-hidden="true">
+                <picture>
+                    <source type="image/webp" srcset="/brand/shaltoor-240.webp 1x, /brand/shaltoor-480.webp 2x">
+                    <img src="/brand/shaltoor-240.png" srcset="/brand/shaltoor-480.png 2x" width="240" height="240" alt="" loading="lazy" decoding="async">
+                </picture>
+            </li>
             <li class="ui-shaltoor__message ui-shaltoor__message--bot">{{ $welcome }}</li>
         </ol>
         @if ($suggestions !== [])

@@ -22,6 +22,7 @@
 | Launcher script (main bundle) | `resources/js/shaltoor/launcher.ts` |
 | Conversation script (lazy chunk, ~1.6 KB gz) | `resources/js/shaltoor/widget.ts` |
 | Styles | `resources/css/components/shaltoor.css` |
+| Face and figure (Owner's approved image, D-348) | `resources/brand/source/shaltoor-owner-original.webp` → `tooling/scripts/shaltoor-avatar.mjs` → `public/brand/shaltoor-avatar-{64,128,192}` and `shaltoor-{240,480}` (WebP + PNG). Crop/resize/compress only |
 | Dashboard | `/dashboard/shaltoor` — `app/Http/Controllers/Dashboard/ShaltoorController.php`, `resources/views/dashboard/shaltoor.blade.php` |
 | AI layer (shared with the Owner assistant) | `app/Services/Ai/*`, `config/ai.php` |
 | Config (intents, fillers, sections, limits) | `config/shaltoor.php` |
@@ -56,13 +57,14 @@ Branch context: on a branch page the widget sends that branch's slug, so «مت�
 The browser draws a link only if it is `tel:`, the site itself or `https:` (`safeHref`). All text is set with `textContent`, never as HTML.
 
 ## 5. Interface
-- **Launcher:** fixed at the inline-end corner.
+- **Launcher:** fixed at the inline-end corner, showing the Owner's شلتور face in a circle (D-348).
   - Phones: a 56 px round button, thumb-sized. It rises above a visible action bar (branch Call/WhatsApp/Directions, the franchise CTA) instead of covering it.
   - From 600 px it carries its label «اسأل شلتور».
   - The footer gets extra bottom space so its last line is never under the button.
 - **Dialog:** a bottom sheet on phones; from 1024 px a panel docked at the inline-end corner.
   - Built on `x-ui.dialog`: focus trap, Esc, backdrop, focus back to the launcher.
-- **Inside the dialog:**
+- **Inside the dialog:** the face beside «مساعد SHELTER», and the whole figure once at the top of the conversation (it scrolls away as the conversation grows).
+- **Inside the dialog (continued):**
   - **Conversation:** the welcome, then the conversation as `role="log"` + `aria-live="polite"`, `aria-busy` while waiting.
   - **Suggestions:** chips (`x-ui.chip` action mode) per page kind (default · menu · careers · franchise · locations). They are replaced by an answer's follow-ups when there are any.
   - **Form and privacy:** one input with a send button, then the privacy line under the form.
