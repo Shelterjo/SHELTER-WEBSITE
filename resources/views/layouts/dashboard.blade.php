@@ -12,7 +12,23 @@
     <x-ui.skip-link :label="__('dashboard.skip_to_content')" />
     <header class="ui-shell__topbar">
         <p class="ui-shell__brand" lang="en" dir="ltr">SHELTER COFFEE</p>
+        {{-- Dashboard search (DASH-019): a GET form to the results page (no script needed); phones get a link to that page. --}}
+        @php($searchBox = ! request()->routeIs('dashboard.search'))
+        @if ($searchBox)
+            <form class="ui-shell__search" action="{{ route('dashboard.search') }}" method="get" role="search">
+                <label class="ui-shell__search-label" for="dashboard-search">{{ __('dashboard.search.label') }}</label>
+                <div class="ui-search__box ui-shell__search-box">
+                    <x-ui.icon name="search" class="ui-search__icon" />
+                    <input class="ui-input ui-search__input ui-shell__search-input" id="dashboard-search" name="q" type="search" maxlength="100"
+                        autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="search">
+                </div>
+                <x-ui.button type="submit" variant="ghost" icon="arrow-right" icon-only :label="__('dashboard.search.submit')" />
+            </form>
+        @endif
         <div class="ui-shell__actions">
+            @if ($searchBox)
+                <x-ui.button variant="ghost" :href="route('dashboard.search')" icon="search" icon-only :label="__('dashboard.search.open')" class="ui-shell__search-link" />
+            @endif
             <x-ui.button variant="ghost" :href="url('/ar/')" icon="external-link" target="_blank" rel="noopener"><span class="ui-shell__action-label">{{ __('dashboard.view_site') }}</span></x-ui.button>
             <form method="post" action="{{ route('dashboard.logout') }}">
                 @csrf

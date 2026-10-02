@@ -34,6 +34,15 @@
         </section>
     @endif
 
+    {{-- Employee of the Month (DX-009), when the Owner placed it on the home page — or nothing (DX-012). --}}
+    @if ($recognition !== null)
+        <section class="ui-band" aria-labelledby="recognition-{{ $recognition->id }}">
+            <div class="ui-container">
+                @include('site.partials.recognition', ['recognition' => $recognition])
+            </div>
+        </section>
+    @endif
+
     @if (count($branches) > 0)
         <section class="ui-band" aria-labelledby="home-branches" data-ui-reveal>
             <div class="ui-container">

@@ -11,6 +11,7 @@ use App\Http\Controllers\Dashboard\Content\AwardsController;
 use App\Http\Controllers\Dashboard\Content\EventsController;
 use App\Http\Controllers\Dashboard\Content\MediaController;
 use App\Http\Controllers\Dashboard\Content\PagesController;
+use App\Http\Controllers\Dashboard\Content\RecognitionController;
 use App\Http\Controllers\Dashboard\Content\TeamController;
 use App\Http\Controllers\Dashboard\Content\TextsController;
 use App\Http\Controllers\Dashboard\Data\BranchesController;
@@ -28,6 +29,7 @@ use App\Http\Controllers\Dashboard\Requests\CareersController;
 use App\Http\Controllers\Dashboard\Requests\CareersSettingsController;
 use App\Http\Controllers\Dashboard\Requests\FeedbackController;
 use App\Http\Controllers\Dashboard\Requests\PartnershipsController;
+use App\Http\Controllers\Dashboard\SearchController;
 use App\Http\Controllers\Dashboard\SeoController;
 use App\Http\Controllers\Dashboard\SettingsController;
 use App\Http\Controllers\Dashboard\ShaltoorController;
@@ -87,6 +89,17 @@ Route::prefix('dashboard')->middleware(DashboardLocale::class)->group(function (
             Route::post('content/team/{member}/archive', [TeamController::class, 'archive'])->name('team.archive');
             Route::post('content/team/{member}/restore', [TeamController::class, 'restore'])->name('team.restore');
         });
+        // Employee of the Month (DX-007…009): shown only for a consenting SHELTER Family profile with an approved photo.
+        Route::get('content/recognition', [RecognitionController::class, 'index'])->name('recognition.index');
+        Route::get('content/recognition/new', [RecognitionController::class, 'create'])->name('recognition.create');
+        Route::post('content/recognition', [RecognitionController::class, 'store'])->name('recognition.store');
+        Route::whereNumber('recognition')->group(function (): void {
+            Route::get('content/recognition/{recognition}', [RecognitionController::class, 'edit'])->name('recognition.edit');
+            Route::put('content/recognition/{recognition}', [RecognitionController::class, 'update'])->name('recognition.update');
+            Route::post('content/recognition/{recognition}/{command}', [RecognitionController::class, 'command'])->whereIn('command', RecognitionController::COMMANDS)->name('recognition.command');
+        });
+        // Dashboard search (DASH-019): one box over the Owner's data; the words searched for are not stored.
+        Route::get('search', SearchController::class)->name('search');
         Route::get('live', LiveController::class)->name('live');
         Route::get('attention', [AttentionController::class, 'index'])->name('attention');
         Route::post('attention/{signal}/dismiss', [AttentionController::class, 'dismiss'])->whereNumber('signal')->name('attention.dismiss');

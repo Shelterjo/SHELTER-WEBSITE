@@ -5,4 +5,6 @@ return [
     'title' => 'SHELTER Family',
     'joined' => 'With us since :date',
     'lead' => '', // optional line under the heading — the Owner's (dashboard → Site texts)
+    // Employee of the Month (DX-007/009): the label only — the title, the text and the person are the Owner's (dashboard).
+    'month' => ['eyebrow' => 'Employee of the Month · :period'],
 ];

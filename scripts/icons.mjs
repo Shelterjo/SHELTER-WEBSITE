@@ -14,6 +14,7 @@ const STROKE = JSON.parse(readFileSync('design-system/tokens/tokens.json', 'utf8
 const ICONS = [
     'arrow-right', // site: branch link, CTA nudge (directional)
     'arrow-up', // Shaltoor: send the question (never mirrors)
+    'award', // dashboard navigation: Employee of the Month
     'ban', // status-pill NOT SUPPORTED
     'briefcase-business', // contact page: catering, B2B & events intent
     'calendar', // event-card date

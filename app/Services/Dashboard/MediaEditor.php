@@ -228,7 +228,12 @@ final class MediaEditor
             $used[] = (string) __('dashboard.media.used.product', ['name' => (string) $product->display_name_en]);
         }
         foreach (Experience::query()->where('media_id', $media->id)->whereNull('archived_at')->get() as $event) {
-            $used[] = (string) __('dashboard.media.used.'.($event->type === 'event' ? 'event' : 'campaign'), ['name' => ($ar ? $event->title_ar : $event->title_en) ?? $event->title_ar ?? '—']);
+            $label = match ($event->type) {
+                'recognition' => 'dashboard.recognition.used',
+                'event' => 'dashboard.media.used.event',
+                default => 'dashboard.media.used.campaign',
+            };
+            $used[] = (string) __($label, ['name' => ($ar ? $event->title_ar : $event->title_en) ?? $event->title_ar ?? '—']);
         }
         foreach (PageSection::query()->where('media_id', $media->id)->whereNull('archived_at')->with('page')->get() as $section) {
             $used[] = (string) __('dashboard.media.used.page', ['name' => (string) __('dashboard.pages.keys.'.$section->page?->key)]);

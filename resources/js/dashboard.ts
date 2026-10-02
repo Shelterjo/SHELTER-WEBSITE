@@ -31,6 +31,12 @@ if (careersResults !== null) {
     void import('./dashboard/careers-list').then(({ installCareersList }) => installCareersList(careersResults));
 }
 
+// Dashboard search: the results refresh while typing (own chunk, only on the results page).
+const ownerSearch = document.querySelector<HTMLElement>('[data-owner-search]');
+if (ownerSearch !== null) {
+    void import('./dashboard/owner-search').then(({ installOwnerSearch }) => installOwnerSearch(ownerSearch));
+}
+
 // Phones: the navigation is one scrollable row — the current screen's item in view, faded edges where more waits.
 const navStrip = document.querySelector<HTMLElement>('[data-ui-nav-strip]');
 if (navStrip !== null) installNavStrip(navStrip);

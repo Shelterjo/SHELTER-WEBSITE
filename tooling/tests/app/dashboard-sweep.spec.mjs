@@ -56,6 +56,7 @@ function exampleIds() {
     'award' => App\\Models\\Award::query()->orderBy('id')->value('id'),
     'media' => App\\Models\\Media::query()->orderBy('id')->value('id'),
     'member' => App\\Models\\TeamMember::query()->orderBy('id')->value('id'),
+    'recognition' => App\\Models\\Experience::query()->where('type', 'recognition')->orderByDesc('id')->value('id'),
     'key' => App\\Models\\Page::query()->orderBy('id')->value('key'),
     'branch' => App\\Models\\Branch::query()->orderBy('id')->value('id'),
     'category' => App\\Models\\MenuCategory::query()->orderBy('id')->value('id'),
