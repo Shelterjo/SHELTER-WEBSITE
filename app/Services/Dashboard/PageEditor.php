@@ -3,6 +3,7 @@
 namespace App\Services\Dashboard;
 
 use App\Enums\PublishStatus;
+use App\Models\Media;
 use App\Models\Page;
 use App\Models\PageSection;
 use App\Models\User;
@@ -10,6 +11,7 @@ use App\Services\Content\Pages;
 use App\Services\Content\Search\SearchIndexer;
 use App\Services\Core\AuditLogger;
 use App\Services\Core\Versions;
+use App\Services\Media\MediaRights;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -78,6 +80,7 @@ final class PageEditor
                 'heading_ar' => $text($row['heading_ar'] ?? null), 'heading_en' => $text($row['heading_en'] ?? null),
                 'body_ar' => $text($row['body_ar'] ?? null), 'body_en' => $text($row['body_en'] ?? null),
                 'is_visible' => ! empty($row['visible']),
+                'media_id' => is_numeric($row['media_id'] ?? null) ? (int) $row['media_id'] : null,
                 'remove' => ! empty($row['remove']),
                 'order' => is_numeric($row['sort'] ?? null) ? (float) $row['sort'] : $position,
                 'index' => $index,
@@ -86,6 +89,9 @@ final class PageEditor
             $empty = $section['heading_ar'] === null && $section['heading_en'] === null && $section['body_ar'] === null && $section['body_en'] === null;
             if ($section['id'] === null && ($empty || $section['remove'])) {
                 continue; // an untouched blank slot
+            }
+            if ($section['media_id'] !== null && ! MediaRights::canUse(Media::query()->find($section['media_id']))) {
+                $errors["sections.{$index}.media_id"] = (string) __('dashboard.awards.errors.image');
             }
             foreach (['heading', 'body'] as $part) {
                 foreach (['ar', 'en'] as $locale) {
@@ -151,14 +157,14 @@ final class PageEditor
                     continue;
                 }
                 $values = ['type' => $row['type'], 'heading_ar' => $row['heading_ar'], 'heading_en' => $row['heading_en'],
-                    'body_ar' => $row['body_ar'], 'body_en' => $row['body_en'], 'is_visible' => $row['is_visible'], 'origin' => 'owner', 'sort' => ++$sort];
+                    'body_ar' => $row['body_ar'], 'body_en' => $row['body_en'], 'is_visible' => $row['is_visible'], 'media_id' => $row['media_id'], 'origin' => 'owner', 'sort' => ++$sort];
                 $section !== null ? $section->update($values) : $page->sections()->create($values);
             }
 
             $page->load(['sections' => fn ($q) => $q->whereNull('archived_at')]);
             $this->versions->record($page, $status->value, [
                 'page' => $page->only(['key', 'type', 'title_ar', 'title_en', 'name_ar', 'name_en', 'description_ar', 'description_en']),
-                'sections' => $page->sections->map(fn (PageSection $s): array => $s->only(['id', 'type', 'heading_ar', 'heading_en', 'body_ar', 'body_en', 'is_visible', 'sort']))->all(),
+                'sections' => $page->sections->map(fn (PageSection $s): array => $s->only(['id', 'type', 'heading_ar', 'heading_en', 'body_ar', 'body_en', 'is_visible', 'media_id', 'sort']))->all(),
             ], 'dashboard', $owner);
             $this->audit->record('pages.saved', $page, ['after' => ['key' => $key, 'status' => $status->value, 'was_published' => $wasPublished]], actor: $owner);
         });

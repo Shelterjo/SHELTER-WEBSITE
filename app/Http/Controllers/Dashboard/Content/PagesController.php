@@ -49,6 +49,7 @@ final class PagesController extends Controller
 
         return view('dashboard.pages.edit', [
             'key' => $key,
+            'images' => AwardsController::usableImages(),
             'label' => (string) __('dashboard.pages.keys.'.$key),
             'page' => $page,
             'cards' => $this->cards($page, $request->old('sections')),

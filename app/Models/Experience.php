@@ -11,6 +11,7 @@ use Illuminate\Support\Carbon;
  * Public reads go through App\Services\Experiences\* only (status, schedule, manual state, emergency switch, both
  * languages, no unconfirmed AI text).
  *
+ * @property int|null $media_id
  * @property int $id
  * @property string $type
  * @property int|null $market_id
@@ -74,5 +75,11 @@ class Experience extends Model
         $value = $this->getAttribute($field.'_'.$locale);
 
         return is_string($value) && trim($value) !== '' ? $value : null;
+    }
+
+    /** @return BelongsTo<Media, $this> an approved image (only drawn while MediaRights allows it) */
+    public function media(): BelongsTo
+    {
+        return $this->belongsTo(Media::class);
     }
 }

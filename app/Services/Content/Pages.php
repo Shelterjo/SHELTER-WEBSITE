@@ -5,6 +5,7 @@ namespace App\Services\Content;
 use App\Enums\PublishStatus;
 use App\Models\Page;
 use App\Models\PageSection;
+use App\Services\Media\MediaLibrary;
 use App\Support\SiteLinks;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\Log;
@@ -29,6 +30,8 @@ final class Pages
 
     /** @var array<string, ContentPage|null> */
     private array $cache = [];
+
+    public function __construct(private readonly MediaLibrary $media) {}
 
     public function published(string $key, string $locale, ?CarbonImmutable $now = null): ?ContentPage
     {
@@ -124,7 +127,8 @@ final class Pages
                 return null; // a visible section that is not ready keeps the whole page offline (BLOCKING, not partial)
             }
             $body = (string) $section->body($locale);
-            $sections[] = new ContentSection($section->type, $section->heading($locale), in_array($section->type, ['list', 'steps'], true) ? self::items($body) : self::paragraphs($body));
+            $sections[] = new ContentSection($section->type, $section->heading($locale), in_array($section->type, ['list', 'steps'], true) ? self::items($body) : self::paragraphs($body),
+                $section->type === 'faq' ? null : $this->media->image($section->media, $locale, $section->heading($locale)));
         }
         if ($sections === []) {
             return null;
@@ -181,7 +185,7 @@ final class Pages
     /** The same completeness rule the site applies (the editor checks it before publishing). */
     public static function sectionComplete(PageSection $section): bool
     {
-        return (new self)->isComplete($section);
+        return app(self::class)->isComplete($section);
     }
 
     private function isLive(Page $page, CarbonImmutable $now): bool

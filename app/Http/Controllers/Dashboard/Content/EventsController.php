@@ -115,6 +115,7 @@ final class EventsController extends Controller
 
         return view('dashboard.events.form', [
             'event' => $event,
+            'images' => AwardsController::usableImages(),
             'state' => $event->exists ? $editor->state($event, $market) : 'draft',
             'fixed' => $editor->addressFixed($event),
             'branches' => $branches,

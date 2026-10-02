@@ -52,6 +52,7 @@ return [
         'arabic' => 'العربية',
         'english' => 'English',
         'fields' => [
+            'image' => 'Section image (optional)',
             'title' => 'Main title',
             'title_hint' => 'A new line = a new line in the title.',
             'name' => 'Page name (optional)',
@@ -172,7 +173,7 @@ return [
         ],
         'used_title' => 'Where is it used?',
         'used_none' => 'Not used anywhere yet.',
-        'used' => ['product' => 'Menu item: :name', 'press_kit' => 'Press kit', 'award' => 'Award: :name', 'team' => 'SHELTER Family: :name'],
+        'used' => ['event' => 'Event: :name', 'page' => 'Page: :name', 'product' => 'Menu item: :name', 'press_kit' => 'Press kit', 'award' => 'Award: :name', 'team' => 'SHELTER Family: :name'],
         'info' => ['code' => 'Number', 'size' => 'Size', 'uploaded' => 'Uploaded'],
         'archive' => 'Archive image',
         'archive_help' => 'It leaves the site and the lists, and can be brought back at any time. Nothing is deleted.',
@@ -804,6 +805,7 @@ return [
         ],
         'groups' => ['text' => 'Text', 'when' => 'When', 'where' => 'Where', 'button' => 'A button on the event page', 'address' => 'Page address'],
         'fields' => [
+            'image' => 'Event image (optional)',
             'status' => 'Status',
             'title' => 'Event title',
             'body' => 'Description',

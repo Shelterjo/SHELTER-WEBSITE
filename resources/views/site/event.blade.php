@@ -11,6 +11,9 @@
                 <p class="ui-eyebrow"><x-ui.badge>{{ __('site.events.state.'.$event->state) }}</x-ui.badge></p>
                 <h1 class="ui-page-intro__title">{{ $event->title }}</h1>
             </header>
+            @if ($event->image !== null)
+                <x-ui.picture :image="$event->image" ratio="landscape" sizes="(min-width: 1024px) 60vw, 100vw" eager />
+            @endif
             <div class="ui-event-detail">
                 <dl class="ui-event-detail__facts">
                     <div class="ui-event-detail__fact">

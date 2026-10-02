@@ -11,6 +11,7 @@ use Illuminate\Support\Carbon;
  * `faq` = question (heading) + answer (body), `list` = heading + items, `steps` = heading + ordered steps (one item per
  * line — e.g. the franchise criteria and partnership journey). Plain text only — rendered escaped.
  *
+ * @property int|null $media_id
  * @property int $id
  * @property int $page_id
  * @property string $type text | faq
@@ -52,5 +53,11 @@ class PageSection extends Model
         $value = $locale === 'ar' ? $this->body_ar : $this->body_en;
 
         return filled($value) ? (string) $value : null;
+    }
+
+    /** @return BelongsTo<Media, $this> an approved image (only drawn while MediaRights allows it) */
+    public function media(): BelongsTo
+    {
+        return $this->belongsTo(Media::class);
     }
 }

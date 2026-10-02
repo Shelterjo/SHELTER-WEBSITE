@@ -6,14 +6,19 @@ use App\Models\AuditLog;
 use App\Models\Branch;
 use App\Models\ContentVersion;
 use App\Models\Experience;
+use App\Models\Media;
 use App\Models\User;
 use App\Services\Auth\OwnerSession;
+use App\Services\Dashboard\MediaEditor;
+use App\Services\Media\MediaLibrary;
 use Carbon\CarbonImmutable;
 use Database\Seeders\MasterDataSeeder;
 use Illuminate\Foundation\Http\Middleware\ValidateCsrfToken;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Testing\TestResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Tests\Feature\Media\MediaLibraryTest;
 use Tests\TestCase;
 
 /** Dashboard → Events (DX-014, M50): draft → publish with both languages, the commands, fixed address, versions. */
@@ -145,5 +150,24 @@ class EventEditorTest extends TestCase
         $this->put('/dashboard/content/events/'.$event->id, $this->form())->assertSessionHasNoErrors();
         $this->assertSame('scheduled', $event->refresh()->status);
         $this->site('/ar/jo/events/coffee-day/')->assertOk();
+    }
+
+    public function test_an_event_shows_only_an_approved_image(): void
+    {
+        Storage::fake('media');
+        Storage::fake('media_public');
+        $image = app(MediaLibrary::class)->import(MediaLibraryTest::imageFile(seed: 5), ['source' => 'shelter', 'people_consent' => 'none']);
+        $this->post('/dashboard/content/events', $this->form(['media_id' => (string) $image->id]))->assertSessionHasErrors(['media_id']);
+
+        $image->forceFill(['approval_status' => Media::APPROVED, 'ok_website' => true, 'alt_ar' => 'تذوق القهوة', 'alt_en' => 'Coffee tasting'])->save();
+        app(MediaLibrary::class)->generateVariants($image);
+        $this->post('/dashboard/content/events', $this->form(['media_id' => (string) $image->id]))->assertSessionHasNoErrors();
+        $event = Experience::query()->where('title_en', 'Coffee Day')->firstOrFail();
+        $html = (string) $this->site('/en/jo/events/'.$event->slug.'/')->assertOk()->getContent();
+        $this->assertStringContainsString('alt="Coffee tasting"', $html);
+        $this->assertContains('Event: Coffee Day', app(MediaEditor::class)->usedIn($image, 'en'), 'the Media Center says where it is used');
+
+        $image->forceFill(['ok_website' => false])->save();
+        $this->assertStringNotContainsString('alt="Coffee tasting"', (string) $this->site('/en/jo/events/'.$event->slug.'/')->getContent(), 'rights withdrawn = not drawn');
     }
 }

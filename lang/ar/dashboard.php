@@ -53,6 +53,7 @@ return [
         'arabic' => 'العربية',
         'english' => 'English',
         'fields' => [
+            'image' => 'صورة للقسم (اختياري)',
             'title' => 'العنوان الكبير',
             'title_hint' => 'سطر جديد = سطر جديد في العنوان.',
             'name' => 'اسم الصفحة (اختياري)',
@@ -173,7 +174,7 @@ return [
         ],
         'used_title' => 'أين تُستخدم؟',
         'used_none' => 'لا تُستخدم في أي مكان بعد.',
-        'used' => ['product' => 'صنف في المنيو: :name', 'press_kit' => 'صور الصحافة (Press Kit)', 'award' => 'جائزة: :name', 'team' => 'SHELTER Family: :name'],
+        'used' => ['event' => 'فعالية: :name', 'page' => 'صفحة: :name', 'product' => 'صنف في المنيو: :name', 'press_kit' => 'صور الصحافة (Press Kit)', 'award' => 'جائزة: :name', 'team' => 'SHELTER Family: :name'],
         'info' => ['code' => 'الرقم', 'size' => 'الأبعاد', 'uploaded' => 'تاريخ الرفع'],
         'archive' => 'أرشفة الصورة',
         'archive_help' => 'تختفي من الموقع ومن القوائم، ويمكن إرجاعها في أي وقت. لا يُحذف شيء.',
@@ -805,6 +806,7 @@ return [
         ],
         'groups' => ['text' => 'النص', 'when' => 'متى', 'where' => 'أين', 'button' => 'زر في صفحة الفعالية', 'address' => 'رابط الصفحة'],
         'fields' => [
+            'image' => 'صورة الفعالية (اختياري)',
             'status' => 'الحالة',
             'title' => 'عنوان الفعالية',
             'body' => 'الوصف',

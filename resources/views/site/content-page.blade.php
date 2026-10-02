@@ -50,6 +50,9 @@
                             @if ($section->heading !== null)
                                 <h2 class="ui-prose__heading">{{ $section->heading }}</h2>
                             @endif
+                            @if ($section->image !== null)
+                                <x-ui.picture :image="$section->image" ratio="landscape" sizes="(min-width: 1024px) 60vw, 100vw" />
+                            @endif
                             @foreach ($section->paragraphs as $paragraph)
                                 <p>{{ $paragraph }}</p>
                             @endforeach

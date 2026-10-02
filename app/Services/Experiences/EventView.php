@@ -2,6 +2,7 @@
 
 namespace App\Services\Experiences;
 
+use App\Services\Media\MediaImage;
 use Carbon\CarbonImmutable;
 
 /**
@@ -30,6 +31,7 @@ final readonly class EventView
         public ?string $ctaLabel,
         public ?string $ctaUrl,
         public string $url,
+        public ?MediaImage $image = null,
     ) {}
 
     public function isEnded(): bool

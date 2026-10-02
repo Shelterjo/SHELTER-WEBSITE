@@ -74,6 +74,11 @@
             </div>
         </fieldset>
 
+        @include('dashboard.media._picker', [
+            'name' => 'media_id', 'id' => 'media_id', 'selected' => old('media_id', $event->media_id), 'images' => $images,
+            'legend' => __($E.'fields.image'), 'none' => __('dashboard.menu.fields.no_image'), 'empty' => __('dashboard.awards.fields.no_images'),
+        ])
+
         <fieldset class="ui-editor__group">
             <legend class="ui-editor__legend">{{ __($E.'groups.when') }}</legend>
             <p class="ui-note">{{ __($E.'when_help', ['market' => $market->name()]) }}</p>

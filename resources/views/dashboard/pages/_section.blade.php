@@ -56,4 +56,9 @@
             </div>
         @endforeach
     </div>
+    @include('dashboard.media._picker', [
+        'name' => 'sections['.$i.'][media_id]', 'id' => 's'.$i.'-media', 'selected' => $v('media_id'), 'images' => $images,
+        'legend' => __('dashboard.pages.fields.image'), 'none' => __('dashboard.menu.fields.no_image'), 'empty' => __('dashboard.awards.fields.no_images'),
+        'error' => $errors->first('sections.'.$i.'.media_id'),
+    ])
 </fieldset>

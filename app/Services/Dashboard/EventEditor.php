@@ -5,11 +5,13 @@ namespace App\Services\Dashboard;
 use App\Models\Branch;
 use App\Models\Experience;
 use App\Models\Market;
+use App\Models\Media;
 use App\Models\User;
 use App\Services\Core\AuditLogger;
 use App\Services\Core\Versions;
 use App\Services\Dashboard\Concerns\ReadsExperienceInput;
 use App\Services\Experiences\Events;
+use App\Services\Media\MediaRights;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -83,6 +85,10 @@ final class EventEditor
             $errors['ends_date'] = (string) __('dashboard.events.errors.order');
         }
 
+        $mediaId = is_numeric($input['media_id'] ?? null) ? (int) $input['media_id'] : null;
+        if ($mediaId !== null && ! MediaRights::canUse(Media::query()->find($mediaId))) {
+            $errors['media_id'] = (string) __('dashboard.awards.errors.image');
+        }
         $url = is_string($input['cta_url'] ?? null) ? trim($input['cta_url']) : '';
         if ($url !== '' && ! self::validLink($url)) {
             $errors['cta_url'] = (string) __('dashboard.events.errors.url');
@@ -137,7 +143,7 @@ final class EventEditor
             return ['event' => $event, 'errors' => $errors];
         }
 
-        $saved = DB::transaction(function () use ($event, $values, $starts, $ends, $url, $branchIds, $slug, $publish, $market, $input, $owner, $now): Experience {
+        $saved = DB::transaction(function () use ($event, $values, $starts, $ends, $url, $branchIds, $mediaId, $slug, $publish, $market, $input, $owner, $now): Experience {
             $event ??= new Experience(['type' => 'event', 'origin' => 'owner', 'market_id' => $market->id, 'timezone' => $market->timezone !== '' ? $market->timezone : 'Asia/Amman']);
             $created = ! $event->exists;
             $before = $created ? [] : self::snapshot($event);
@@ -159,6 +165,7 @@ final class EventEditor
                 'terms_ar' => $values['terms_ar'], 'terms_en' => $values['terms_en'],
                 'cta_label_ar' => $values['cta_label_ar'], 'cta_label_en' => $values['cta_label_en'], 'cta_url' => $url === '' ? null : $url,
                 'branch_ids' => $branchIds === [] ? null : $branchIds,
+                'media_id' => $mediaId,
                 'starts_at' => $starts?->utc(), 'ends_at' => $ends?->utc(),
                 'status' => $status,
                 'details' => $details,
@@ -211,6 +218,7 @@ final class EventEditor
             'cta_label_ar' => $event->cta_label_ar, 'cta_label_en' => $event->cta_label_en, 'cta_url' => $event->cta_url,
             'branch_ids' => $event->branch_ids, 'venue_ar' => ($event->details ?? [])['venue_ar'] ?? null, 'venue_en' => ($event->details ?? [])['venue_en'] ?? null,
             'starts_at' => $event->starts_at?->toIso8601String(), 'ends_at' => $event->ends_at?->toIso8601String(),
+            'media_id' => $event->media_id,
             'archived' => $event->archived_at !== null,
         ];
     }

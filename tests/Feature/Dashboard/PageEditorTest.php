@@ -4,17 +4,22 @@ namespace Tests\Feature\Dashboard;
 
 use App\Enums\PublishStatus;
 use App\Models\ContentVersion;
+use App\Models\Media;
 use App\Models\Page;
 use App\Models\PageSection;
 use App\Models\User;
 use App\Services\Auth\OwnerSession;
+use App\Services\Dashboard\MediaEditor;
+use App\Services\Media\MediaLibrary;
 use Database\Seeders\FranchiseSeeder;
 use Database\Seeders\MasterDataSeeder;
 use Illuminate\Foundation\Http\Middleware\ValidateCsrfToken;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Testing\TestResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Tests\Feature\Media\MediaLibraryTest;
 use Tests\TestCase;
 
 /** Dashboard → Content → Pages (M30, M50): the Owner edits every brand page without code, under the site's own rules. */
@@ -116,6 +121,22 @@ class PageEditorTest extends TestCase
         $this->assertStringContainsString('First paragraph.', $html);
         $this->assertStringContainsString('About us', $this->fresh('/en/search/?q=story'));
         $this->assertNotNull(Page::query()->where('key', 'about')->value('published_at'));
+    }
+
+    public function test_a_section_can_show_an_approved_image(): void
+    {
+        Storage::fake('media');
+        Storage::fake('media_public');
+        $image = app(MediaLibrary::class)->import(MediaLibraryTest::imageFile(seed: 7), ['source' => 'shelter', 'people_consent' => 'none']);
+        $page = $this->aboutPage();
+        $page['sections'][0]['media_id'] = (string) $image->id;
+        $this->save('about', $page)->assertSessionHasErrors(['sections.0.media_id']);
+
+        $image->forceFill(['approval_status' => Media::APPROVED, 'ok_website' => true, 'alt_ar' => 'داخل المقهى', 'alt_en' => 'Inside the café'])->save();
+        app(MediaLibrary::class)->generateVariants($image);
+        $this->save('about', $page)->assertSessionHasNoErrors();
+        $this->assertStringContainsString('alt="Inside the café"', $this->fresh('/en/about/'));
+        $this->assertContains('Page: '.__('dashboard.pages.keys.about', [], 'en'), app(MediaEditor::class)->usedIn($image, 'en'));
     }
 
     public function test_sections_are_reordered_and_removing_one_archives_it(): void

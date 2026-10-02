@@ -5,6 +5,7 @@ namespace App\Services\Experiences;
 use App\Models\Experience;
 use App\Models\Market;
 use App\Services\Content\Pages;
+use App\Services\Media\MediaLibrary;
 use App\Services\Site\BranchDirectory;
 use App\Support\LocalTime;
 use App\Support\PageUrl;
@@ -20,7 +21,7 @@ use Illuminate\Database\Eloquent\Builder;
  */
 final class Events
 {
-    public function __construct(private readonly BranchDirectory $branches) {}
+    public function __construct(private readonly BranchDirectory $branches, private readonly MediaLibrary $media) {}
 
     /** @return list<EventView> */
     public function listed(Market $market, string $locale, ?CarbonImmutable $now = null): array
@@ -117,6 +118,7 @@ final class Events
             ctaLabel: $ctaLabel !== null && $ctaUrl !== null ? $ctaLabel : null,
             ctaUrl: $ctaLabel !== null ? $ctaUrl : null,
             url: PageUrl::route('events.show', ['locale' => $locale, 'market' => $market->code, 'slug' => $event->slug]),
+            image: $this->media->image($event->media, $locale, $title),
         );
     }
 
