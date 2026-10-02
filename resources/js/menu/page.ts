@@ -296,6 +296,17 @@ export function installMenuPage(root: HTMLElement): void {
         }
         const location = dialog.querySelector<HTMLElement>('[data-detail-location]');
         if (location !== null) location.textContent = card.dataset.location ?? '';
+        const description = dialog.querySelector<HTMLElement>('[data-detail-description]');
+        if (description !== null) {
+            description.textContent = card.dataset.description ?? '';
+            description.hidden = (card.dataset.description ?? '') === '';
+        }
+        const picture = card.querySelector('.ui-card__media picture');
+        const media = dialog.querySelector<HTMLElement>('[data-detail-media]');
+        if (media !== null) {
+            media.replaceChildren(...(picture !== null ? [picture.cloneNode(true)] : []));
+            media.hidden = picture === null;
+        }
         const price = card.querySelector<HTMLElement>('.ui-product-card__price');
         const priceTarget = dialog.querySelector<HTMLElement>('[data-detail-price]');
         if (priceTarget !== null) priceTarget.replaceChildren(...(price !== null ? [price.cloneNode(true)] : []));

@@ -3,10 +3,12 @@
 namespace App\Services\Menu\Page;
 
 use App\Enums\Availability;
+use App\Services\Media\MediaImage;
 
 /**
  * One product as the public menu shows it (Menu IA spec §6): approved names only, the VAT-inclusive price in fils,
- * per-branch availability and price differences. Built by MenuPage; never carries unapproved display text.
+ * per-branch availability and price differences, the description in the page language (only when written in both),
+ * the approved image and the "New" badge. Built by MenuPage; never carries unapproved display text.
  */
 final readonly class MenuItem
 {
@@ -33,6 +35,10 @@ final readonly class MenuItem
         public array $availability,
         public array $branchPrices,
         public array $searchTerms,
+        public ?string $description = null,
+        public ?MediaImage $image = null,
+        public bool $isNew = false,
+        public ?string $ariaLabel = null,
     ) {}
 
     public function anchor(): string

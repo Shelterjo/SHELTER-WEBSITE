@@ -67,6 +67,9 @@
                                 @endif
                             </span>
                             <span class="ui-menu-table__code"><bdi>{{ $p->code }}</bdi></span>
+                            @if ($row['hidden'])
+                                <span class="ui-menu-table__ar"><x-ui.badge icon="ban">{{ __($M.'visibility.hidden_badge') }}</x-ui.badge></span>
+                            @endif
                         </th>
                         <td role="cell" data-label="{{ __($M.'columns.price') }}" class="ui-table__numeric">
                             @if ($row['price'] !== null)

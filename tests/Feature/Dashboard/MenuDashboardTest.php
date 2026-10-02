@@ -6,17 +6,22 @@ use App\Enums\Availability;
 use App\Enums\NameStatus;
 use App\Models\AuditLog;
 use App\Models\Branch;
+use App\Models\Media;
 use App\Models\MenuSourceRow;
 use App\Models\Product;
 use App\Models\ProductBranchOverride;
 use App\Models\User;
 use App\Services\Auth\OwnerSession;
+use App\Services\Dashboard\MediaEditor;
 use App\Services\Dashboard\MenuManager;
+use App\Services\Media\MediaLibrary;
 use App\Services\Menu\MenuCatalog;
 use Carbon\CarbonImmutable;
 use Database\Seeders\DatabaseSeeder;
 use Illuminate\Foundation\Http\Middleware\ValidateCsrfToken;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Storage;
+use Tests\Feature\Media\MediaLibraryTest;
 use Tests\TestCase;
 
 /** Dashboard → Menu (M33 §5, §16–§18, D-091/D-137, M50): prices with history, branch values, Arabic name approval. */
@@ -130,6 +135,65 @@ class MenuDashboardTest extends TestCase
         ])->assertSessionHas('status', 'اعتُمدت 2 أسماء.');
         $this->assertSame('اسم أول', $this->catalog()->name($first->refresh(), 'ar'));
         $this->assertSame('اسم ثانٍ', $this->catalog()->name($second->refresh(), 'ar'));
+    }
+
+    private function card(string $locale, string $anchor): ?string
+    {
+        $this->app->forgetScopedInstances();
+        $html = (string) $this->get('/'.$locale.'/jo/menu/')->assertOk()->getContent();
+
+        return preg_match('#<li data-ui-menu-item="'.$anchor.'".*?</li>#s', $html, $m) === 1 ? $m[0] : null;
+    }
+
+    public function test_item_details_reach_the_card_and_the_item_window(): void
+    {
+        Storage::fake('media');
+        Storage::fake('media_public');
+        $url = '/dashboard/data/menu/'.$this->product->id.'/details';
+        $anchor = 'p-american-coffee-003';
+
+        $this->put($url, ['visible' => '1', 'description_ar' => 'قهوة سوداء.'])->assertSessionHasErrors(['description_en'], null, 'details');
+        $this->put($url, ['visible' => '1', 'is_new' => '1', 'new_until' => '2026-10-01'])->assertSessionHasErrors(['new_until'], null, 'details');
+        $image = app(MediaLibrary::class)->import(MediaLibraryTest::imageFile(seed: 3), ['source' => 'shelter', 'people_consent' => 'none']);
+        $this->put($url, ['visible' => '1', 'media_id' => (string) $image->id])->assertSessionHasErrors(['media_id'], null, 'details');
+
+        $image->forceFill(['approval_status' => Media::APPROVED, 'ok_website' => true, 'alt_ar' => 'فنجان قهوة', 'alt_en' => 'A cup of coffee'])->save();
+        app(MediaLibrary::class)->generateVariants($image);
+        $this->put($url, [
+            'visible' => '1', 'description_ar' => 'قهوة سوداء.', 'description_en' => 'Black coffee.', 'media_id' => (string) $image->id,
+            'is_new' => '1', 'new_until' => '2026-10-20', 'is_featured' => '1', 'sort' => '1', 'aria_label_en' => 'American coffee',
+        ])->assertSessionHasNoErrors();
+        $card = (string) $this->card('en', $anchor);
+        $this->assertStringContainsString('data-description="Black coffee."', $card);
+        $this->assertStringContainsString('<picture', $card);
+        $this->assertStringContainsString('aria-label="American coffee"', $card);
+        $this->assertStringContainsString('NEW', $card);
+        $this->assertStringNotContainsStringIgnoringCase('featured', $card, 'internal only');
+        $used = app(MediaEditor::class)->usedIn($image, 'en');
+        $this->assertCount(1, array_filter($used, fn (string $line): bool => str_contains($line, 'AMERICAN COFFEE')), 'the media library says where the image is used');
+
+        $this->travelTo(CarbonImmutable::parse('2026-10-21 09:00', 'Asia/Amman'));
+        $this->assertStringNotContainsString('NEW', (string) $this->card('en', $anchor), 'the badge ends by itself');
+
+        $this->withSession([OwnerSession::LOGIN_AT => now()->getTimestamp(), OwnerSession::CONFIRMED_AT => now()->getTimestamp()]); // 11 days later
+        $this->put($url, ['visible' => '0'])->assertRedirect('/dashboard/data/menu/'.$this->product->id.'#details');
+        $this->assertNull($this->card('ar', $anchor), 'hidden from the menu');
+        $this->get('/dashboard/data/menu?q=AMERICAN')->assertSee('مخفي من المنيو');
+        $this->put($url, ['visible' => '1']);
+        $this->assertNotNull($this->card('ar', $anchor));
+    }
+
+    public function test_a_category_arabic_name_shows_only_once_approved(): void
+    {
+        $category = $this->product->category;
+        $url = '/dashboard/data/menu/review/'.$category->id.'/name';
+        $this->assertStringNotContainsString('مشروبات ساخنة', (string) $this->get('/ar/jo/menu/')->getContent());
+        $this->put($url, ['category_name_ar' => '', 'approve_category' => '1'])->assertSessionHasErrors(['category_name_ar'], null, 'category');
+        $this->put($url, ['category_name_ar' => 'مشروبات ساخنة', 'approve_category' => '1'])->assertSessionHasNoErrors();
+        $this->app->forgetScopedInstances();
+        $this->assertStringContainsString('مشروبات ساخنة', (string) $this->get('/ar/jo/menu/')->getContent());
+        $this->put($url, ['category_name_ar' => 'مشروبات ساخنة']);
+        $this->assertNull($category->refresh()->name_ar, 'approval withdrawn → nothing in the display column');
     }
 
     public function test_changing_prices_needs_a_fresh_confirmation(): void

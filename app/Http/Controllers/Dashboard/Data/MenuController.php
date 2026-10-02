@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Dashboard\Data;
 
 use App\Enums\NameStatus;
+use App\Enums\PublishStatus;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Dashboard\Content\AwardsController;
 use App\Models\Branch;
 use App\Models\ContentVersion;
 use App\Models\MenuCategory;
@@ -60,6 +62,7 @@ final class MenuController extends Controller
                 'arabic' => NameStatus::fromInventory($p->name_ar_status) === NameStatus::Approved ? $p->display_name_ar : null,
                 'price' => $catalog->basePrice($p)?->price_fils,
                 'branches' => $p->branchOverrides->count(),
+                'hidden' => $p->publish_status === PublishStatus::Archived,
             ])->all(),
             'branchNames' => $this->branchNames(),
         ]);
@@ -89,6 +92,7 @@ final class MenuController extends Controller
             'history' => $product->prices()->orderByDesc('valid_from')->orderByDesc('id')->limit(8)->get(),
             'source' => MenuSourceRow::query()->where('product_id', $product->id)->orderBy('id')->value('source_name_ar'),
             'approved' => NameStatus::fromInventory($product->name_ar_status) === NameStatus::Approved,
+            'images' => AwardsController::usableImages(),
             'branches' => $branches,
             'branchNames' => $names,
             'branchByCode' => $byCode,
@@ -102,6 +106,23 @@ final class MenuController extends Controller
         $errors = $menu->saveNames($product, $request->all(), $this->owner($request));
 
         return $this->back($product, 'names', $errors, 'names');
+    }
+
+    public function details(Request $request, Product $product, MenuManager $menu): RedirectResponse
+    {
+        $errors = $menu->saveDetails($product, $request->all(), $this->owner($request));
+
+        return $this->back($product, 'details', $errors, 'details');
+    }
+
+    public function categoryName(Request $request, MenuCategory $category, MenuManager $menu): RedirectResponse
+    {
+        $errors = $menu->saveCategoryName($category, $request->all(), $this->owner($request));
+        if ($errors !== []) {
+            return redirect()->route('dashboard.menu.review', $category)->withInput()->withErrors($errors, 'category');
+        }
+
+        return redirect()->route('dashboard.menu.review', $category)->with('status', __('dashboard.saved'));
     }
 
     public function price(Request $request, Product $product, MenuManager $menu): RedirectResponse
@@ -127,6 +148,7 @@ final class MenuController extends Controller
 
         return view('dashboard.menu.review', [
             'category' => $category,
+            'categoryApproved' => NameStatus::fromInventory($category->name_ar_status) === NameStatus::Approved,
             'rows' => $products->map(fn (Product $p): array => [
                 'product' => $p,
                 'approved' => NameStatus::fromInventory($p->name_ar_status) === NameStatus::Approved,

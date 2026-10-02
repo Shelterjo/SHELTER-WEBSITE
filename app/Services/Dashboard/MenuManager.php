@@ -4,9 +4,11 @@ namespace App\Services\Dashboard;
 
 use App\Enums\Availability;
 use App\Models\Branch;
+use App\Models\Media;
 use App\Models\MenuCategory;
 use App\Models\Product;
 use App\Models\User;
+use App\Services\Media\MediaRights;
 use App\Services\Menu\MenuCatalog;
 use App\Services\Menu\MenuEditor;
 use Carbon\CarbonImmutable;
@@ -25,6 +27,8 @@ final class MenuManager
     private const REASON_MAX = 300;
 
     private const NAME_MAX = 120;
+
+    private const DESCRIPTION_MAX = 400;
 
     /** A sanity range for a menu price (a guard against typos, not a business rule): 0.05 … 100.00 JD. */
     private const MIN_FILS = 50;
@@ -150,6 +154,82 @@ final class MenuManager
     }
 
     /**
+     * The item's other fields: shown/hidden, description (both languages or none), an approved image, the "New" badge
+     * and its end date (today or later), the internal "featured" flag, the order, the spoken English name.
+     *
+     * @param  array<string, mixed>  $input
+     * @return array<string, string> errors; empty = saved
+     */
+    public function saveDetails(Product $product, array $input, User $owner, ?CarbonImmutable $today = null): array
+    {
+        $today ??= CarbonImmutable::now('Asia/Amman')->startOfDay();
+        $errors = [];
+        $ar = self::paragraphs($input['description_ar'] ?? null);
+        $en = self::paragraphs($input['description_en'] ?? null);
+        foreach (['description_ar' => $ar, 'description_en' => $en] as $key => $value) {
+            if ($value !== null && mb_strlen($value) > self::DESCRIPTION_MAX) {
+                $errors[$key] = (string) __('dashboard.pages.errors.too_long', ['max' => self::DESCRIPTION_MAX]);
+            }
+        }
+        if (($ar === null) !== ($en === null)) {
+            $missing = $ar === null ? 'ar' : 'en';
+            $errors['description_'.$missing] ??= (string) __('dashboard.menu.errors.both_languages', [
+                'field' => __('dashboard.menu.fields.description').' ('.__('dashboard.pages.'.($missing === 'ar' ? 'arabic' : 'english')).')',
+            ]);
+        }
+        $mediaId = is_numeric($input['media_id'] ?? null) ? (int) $input['media_id'] : null;
+        if ($mediaId !== null && ! MediaRights::canUse(Media::query()->find($mediaId))) {
+            $errors['media_id'] = (string) __('dashboard.awards.errors.image');
+        }
+        $isNew = ! empty($input['is_new']);
+        $until = self::date($input['new_until'] ?? null);
+        if (is_string($input['new_until'] ?? null) && trim($input['new_until']) !== '' && $until === null) {
+            $errors['new_until'] = (string) __('dashboard.hours.errors.date');
+        } elseif ($isNew && $until !== null && $until->lessThan($today)) {
+            $errors['new_until'] = (string) __('dashboard.menu.errors.past');
+        }
+        $label = self::name($input['aria_label_en'] ?? null);
+        if ($label !== null && mb_strlen($label) > self::NAME_MAX) {
+            $errors['aria_label_en'] = (string) __('dashboard.pages.errors.too_long', ['max' => self::NAME_MAX]);
+        }
+        if ($errors !== []) {
+            return $errors;
+        }
+        $this->editor->setDetails($product, $owner, [
+            'visible' => ($input['visible'] ?? '1') !== '0',
+            'description_ar' => $ar,
+            'description_en' => $en,
+            'media_id' => $mediaId,
+            'is_new' => $isNew,
+            'new_until' => $isNew ? $until?->toDateString() : null,
+            'is_featured' => ! empty($input['is_featured']),
+            'sort' => is_numeric($input['sort'] ?? null) ? max(0, min(9999, (int) $input['sort'])) : $product->sort,
+            'aria_label_en' => $label,
+        ]);
+
+        return [];
+    }
+
+    /**
+     * @param  array<string, mixed>  $input
+     * @return array<string, string> errors; empty = saved
+     */
+    public function saveCategoryName(MenuCategory $category, array $input, User $owner): array
+    {
+        $name = self::name($input['category_name_ar'] ?? null);
+        $approve = ! empty($input['approve_category']);
+        if ($approve && $name === null) {
+            return ['category_name_ar' => (string) __('dashboard.menu.errors.name_required')];
+        }
+        if ($name !== null && mb_strlen($name) > self::NAME_MAX) {
+            return ['category_name_ar' => (string) __('dashboard.pages.errors.too_long', ['max' => self::NAME_MAX])];
+        }
+        $this->editor->setCategoryName($category, $owner, $name, $approve);
+
+        return [];
+    }
+
+    /**
      * Reviews the Arabic names of one category at once (D-137): each ticked row is approved with the name in its box.
      *
      * @param  array<string, mixed>  $input  names[product id] => text, approve[product id] => 1
@@ -191,6 +271,17 @@ final class MenuManager
         }
 
         return $reason;
+    }
+
+    /** Trimmed text that keeps its paragraphs (an empty line = a new paragraph). */
+    private static function paragraphs(mixed $value): ?string
+    {
+        if (! is_string($value)) {
+            return null;
+        }
+        $value = trim((string) preg_replace(['/\r\n?/', '/[ \t]+/u', '/\n{3,}/'], ["\n", ' ', "\n\n"], $value));
+
+        return $value === '' ? null : $value;
     }
 
     private static function name(mixed $value): ?string

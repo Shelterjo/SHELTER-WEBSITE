@@ -3,7 +3,9 @@
 namespace App\Services\Menu;
 
 use App\Enums\Availability;
+use App\Enums\PublishStatus;
 use App\Models\Branch;
+use App\Models\MenuCategory;
 use App\Models\Product;
 use App\Models\ProductBranchOverride;
 use App\Models\ProductPrice;
@@ -125,12 +127,13 @@ final class MenuEditor
         DB::transaction(function () use ($product, $owner, $nameEn, $nameAr, $approveAr, $reason): void {
             $before = $product->only(['display_name_en', 'display_name_ar', 'name_ar_status']);
             $stamp = 'OWNER-DASHBOARD '.CarbonImmutable::now('Asia/Amman')->toDateString();
-            $changes = ['display_name_ar' => $nameAr];
+            // Only an approved name reaches the display column (D-091, D-133); the source name stays in menu_source_rows.
+            $changes = ['display_name_ar' => $approveAr ? $nameAr : null];
             if ($nameEn !== $product->display_name_en) {
                 $changes += ['display_name_en' => $nameEn, 'name_en_status' => 'APPROVED — OWNER DASHBOARD', 'name_en_decision' => $stamp];
             }
             $wasApproved = str_starts_with($product->name_ar_status, 'APPROVED');
-            if ($approveAr && (! $wasApproved || $nameAr !== $product->display_name_ar)) {
+            if ($approveAr && (! $wasApproved || $nameAr !== $product->display_name_ar)) { // approved now, or corrected
                 $changes += ['name_ar_status' => 'APPROVED — OWNER DASHBOARD', 'name_ar_decision' => $stamp];
             } elseif (! $approveAr && $wasApproved) {
                 $changes += ['name_ar_status' => 'PENDING OWNER REVIEW — APPROVAL WITHDRAWN', 'name_ar_decision' => $stamp];
@@ -143,6 +146,74 @@ final class MenuEditor
             $this->versions->record($product, 'published', ['code' => $product->code] + $after, $reason, $owner);
             $this->audit->record('menu.names_saved', $product, ['before' => $before, 'after' => $after], $reason === null ? [] : ['reason' => $reason], self::CHANNELS, $owner);
         });
+    }
+
+    /**
+     * The item's other fields (Menu IA §6, §7, §19): shown or hidden on the menu, description, main image, the "New"
+     * badge and its end, the internal "featured" flag, the order inside its category and the spoken English name.
+     *
+     * @param  array{visible: bool, description_ar: ?string, description_en: ?string, media_id: ?int, is_new: bool, new_until: ?string, is_featured: bool, sort: int, aria_label_en: ?string}  $values
+     */
+    public function setDetails(Product $product, User $owner, array $values): void
+    {
+        $this->assertOwner($owner);
+        DB::transaction(function () use ($product, $owner, $values): void {
+            $fields = ['publish_status', 'description_ar', 'description_en', 'media_id', 'is_new', 'new_until', 'is_featured', 'sort', 'aria_label_en'];
+            $before = self::details($product, $fields);
+            $visible = $values['visible'];
+            unset($values['visible']);
+            $hidden = $product->publish_status === PublishStatus::Archived;
+            $product->forceFill($values + ['publish_status' => $visible ? ($hidden ? PublishStatus::Published : $product->publish_status) : PublishStatus::Archived])->save();
+            $after = self::details($product->refresh(), $fields);
+            if ($after === $before) {
+                return;
+            }
+            $this->versions->record($product, 'published', ['code' => $product->code] + $after, null, $owner);
+            $this->audit->record('menu.details_saved', $product, ['before' => array_diff_assoc($before, $after), 'after' => array_diff_assoc($after, $before)], [], self::CHANNELS, $owner);
+        });
+    }
+
+    /** A category's Arabic display name: shown only once approved (D-091, D-137 — P-01). */
+    public function setCategoryName(MenuCategory $category, User $owner, ?string $nameAr, bool $approve): void
+    {
+        $this->assertOwner($owner);
+        if ($approve && ($nameAr === null || trim($nameAr) === '')) {
+            throw new InvalidArgumentException('An approved name cannot be empty.');
+        }
+        DB::transaction(function () use ($category, $owner, $nameAr, $approve): void {
+            $before = $category->only(['name_ar', 'name_ar_status']);
+            $wasApproved = str_starts_with($category->name_ar_status, 'APPROVED');
+            $status = match (true) {
+                $approve && (! $wasApproved || $nameAr !== $category->name_ar) => 'APPROVED — OWNER DASHBOARD',
+                ! $approve && $wasApproved => 'PENDING OWNER REVIEW — APPROVAL WITHDRAWN',
+                default => $category->name_ar_status,
+            };
+            $category->forceFill(['name_ar' => $approve ? $nameAr : null, 'name_ar_status' => $status])->save(); // null until approved (P-01)
+            $after = $category->only(['name_ar', 'name_ar_status']);
+            if ($after !== $before) {
+                $this->versions->record($category, 'published', ['code' => $category->code] + $after, null, $owner);
+                $this->audit->record('menu.category_name_saved', $category, ['before' => $before, 'after' => $after], [], self::CHANNELS, $owner);
+            }
+        });
+    }
+
+    /**
+     * @param  list<string>  $fields
+     * @return array<string, mixed>
+     */
+    private static function details(Product $product, array $fields): array
+    {
+        $out = [];
+        foreach ($fields as $field) {
+            $value = $product->getAttribute($field);
+            $out[$field] = match (true) {
+                $value instanceof \BackedEnum => $value->value,
+                $value instanceof \DateTimeInterface => $value->format('Y-m-d'),
+                default => $value,
+            };
+        }
+
+        return $out;
     }
 
     /** "Reset to Master": the branch inherits the base price and availability again. */

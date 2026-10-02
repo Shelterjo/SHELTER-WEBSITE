@@ -151,6 +151,17 @@
     font-weight: var(--weight-bold);
 }
 
+/* The item's approved image (a copy of the card's picture) and its description — only when there is one. */
+.ui-menu-detail__media {
+    overflow: hidden;
+    inline-size: min(100%, calc(var(--touch-target) * 8));
+    border-radius: var(--radius-md);
+}
+
+.ui-menu-detail__description {
+    white-space: pre-line;
+}
+
 @media (min-width: 600px) {
     .ui-menu__nav {
         margin-inline: calc(var(--container-gutter-tablet) * -1);

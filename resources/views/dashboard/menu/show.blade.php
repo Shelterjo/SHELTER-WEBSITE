@@ -12,6 +12,8 @@
         $date = fn ($d) => $d?->format('Y-m-d');
         $namesBag = $errors->getBag('names');
         $priceBag = $errors->getBag('price');
+        $detailsBag = $errors->getBag('details');
+        $d = fn (string $field, $value) => $detailsBag->any() ? old($field) : $value;
     @endphp
     <x-ui.page-header :title="(string) $product->display_name_en">
         <x-slot:actions>
@@ -44,6 +46,50 @@
                     <x-ui.input id="name_ar" name="name_ar" lang="ar" dir="rtl" maxlength="120" :value="$namesBag->any() ? old('name_ar') : ($product->display_name_ar ?? $source)" />
                 </x-ui.field>
                 <x-ui.checkbox :label="__($M.'fields.approve_ar')" name="approve_ar" value="1" id="approve_ar" :hint="__($M.'fields.approve_hint')" :checked="$namesBag->any() ? (bool) old('approve_ar') : $approved" />
+                <x-ui.button type="submit">{{ __('dashboard.save') }}</x-ui.button>
+            </form>
+        </section>
+
+        <section class="ui-record__section" id="details" aria-labelledby="details-title">
+            <h2 id="details-title" class="ui-record__title">{{ __($M.'groups.details') }}</h2>
+            @if ($detailsBag->any())
+                <x-ui.error-summary :errors="$detailsBag" :title="__('dashboard.pages.errors.summary')" id="details-errors" />
+            @endif
+            <form class="ui-record__form" method="post" action="{{ route('dashboard.menu.details', $product) }}">
+                @csrf
+                @method('PUT')
+                @php $visible = (string) $d('visible', $product->publish_status === \App\Enums\PublishStatus::Archived ? '0' : '1'); @endphp
+                <x-ui.fieldset :legend="__($M.'fields.visible')" id="visible">
+                    <div class="ui-editor__options">
+                        <x-ui.radio :label="__($M.'visibility.shown')" name="visible" value="1" id="visible-1" :checked="$visible !== '0'" />
+                        <x-ui.radio :label="__($M.'visibility.hidden')" name="visible" value="0" id="visible-0" :checked="$visible === '0'" />
+                    </div>
+                </x-ui.fieldset>
+                <div class="ui-bilingual">
+                    @foreach (['ar' => 'rtl', 'en' => 'ltr'] as $locale => $dir)
+                        <div class="ui-bilingual__column">
+                            <x-ui.field :label="__($M.'fields.description').' — '.__('dashboard.pages.'.($locale === 'ar' ? 'arabic' : 'english'))" :for="'description_'.$locale" :hint="__($M.'fields.description_hint')" :error="$detailsBag->first('description_'.$locale)" optional>
+                                <x-ui.textarea :id="'description_'.$locale" :name="'description_'.$locale" rows="3" maxlength="400" :lang="$locale" :dir="$dir" :value="$d('description_'.$locale, $product->{'description_'.$locale})" />
+                            </x-ui.field>
+                        </div>
+                    @endforeach
+                </div>
+                @include('dashboard.media._picker', [
+                    'name' => 'media_id', 'id' => 'media_id', 'selected' => $d('media_id', $product->media_id), 'images' => $images,
+                    'legend' => __($M.'fields.image'), 'none' => __($M.'fields.no_image'), 'empty' => __('dashboard.awards.fields.no_images'),
+                    'error' => $detailsBag->first('media_id'),
+                ])
+                <x-ui.checkbox :label="__($M.'fields.is_new')" name="is_new" value="1" id="is_new" :hint="__($M.'fields.is_new_hint')" :checked="(bool) $d('is_new', $product->is_new)" />
+                <x-ui.field :label="__($M.'fields.new_until')" for="new_until" :hint="__($M.'fields.new_until_hint')" :error="$detailsBag->first('new_until')" optional>
+                    <x-ui.input type="date" id="new_until" name="new_until" :value="$d('new_until', $product->new_until?->format('Y-m-d'))" />
+                </x-ui.field>
+                <x-ui.checkbox :label="__($M.'fields.is_featured')" name="is_featured" value="1" id="is_featured" :hint="__($M.'fields.is_featured_hint')" :checked="(bool) $d('is_featured', $product->is_featured)" />
+                <x-ui.field :label="__($M.'fields.sort')" for="sort" :hint="__($M.'fields.sort_hint')" optional>
+                    <x-ui.input type="number" id="sort" name="sort" inputmode="numeric" min="0" max="9999" :value="$d('sort', $product->sort)" />
+                </x-ui.field>
+                <x-ui.field :label="__($M.'fields.aria_label_en')" for="aria_label_en" :hint="__($M.'fields.aria_label_hint')" :error="$detailsBag->first('aria_label_en')" optional>
+                    <x-ui.input id="aria_label_en" name="aria_label_en" lang="en" dir="ltr" maxlength="120" :value="$d('aria_label_en', $product->aria_label_en)" />
+                </x-ui.field>
                 <x-ui.button type="submit">{{ __('dashboard.save') }}</x-ui.button>
             </form>
         </section>
@@ -143,6 +189,8 @@
                                         isset($snap['override']['availability']) ? __($M.'states.'.$snap['override']['availability']) : null,
                                     ]))]) }}
                                 @endif
+                            @elseif (array_key_exists('publish_status', $snap))
+                                {{ __($M.'version.details') }}
                             @else
                                 {{ __($M.'version.names') }}
                             @endif

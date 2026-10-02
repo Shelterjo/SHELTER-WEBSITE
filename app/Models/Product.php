@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Support\Carbon;
 
 /**
  * One product identity for every channel (M33 §4). Codes PRD-##### are frozen and never reused (D-136).
@@ -35,6 +36,9 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
  * @property bool $show_addons
  * @property string|null $description_ar
  * @property string|null $description_en
+ * @property int|null $media_id
+ * @property Carbon|null $new_until
+ * @property string|null $aria_label_en
  * @property bool $is_featured
  * @property bool $is_new
  * @property bool $is_seasonal
@@ -59,6 +63,7 @@ class Product extends Model
             'show_addons' => 'boolean',
             'is_featured' => 'boolean',
             'is_new' => 'boolean',
+            'new_until' => 'date',
             'is_seasonal' => 'boolean',
             'sort' => 'integer',
         ];
@@ -74,6 +79,18 @@ class Product extends Model
     public function subcategory(): BelongsTo
     {
         return $this->belongsTo(MenuSubcategory::class, 'menu_subcategory_id');
+    }
+
+    /** @return BelongsTo<Media, $this> */
+    public function media(): BelongsTo
+    {
+        return $this->belongsTo(Media::class);
+    }
+
+    /** True while the "New" badge applies: switched on and its end date (if any) not passed (Amman day). */
+    public function isNewOn(string $day): bool
+    {
+        return $this->is_new && ($this->new_until === null || $this->new_until->toDateString() >= $day);
     }
 
     /** @return HasMany<ProductPrice, $this> */

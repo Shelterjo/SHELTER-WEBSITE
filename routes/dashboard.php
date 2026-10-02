@@ -141,10 +141,12 @@ Route::prefix('dashboard')->middleware(DashboardLocale::class)->group(function (
         Route::whereNumber('category')->group(function (): void {
             Route::get('data/menu/review/{category}', [MenuController::class, 'review'])->name('menu.review');
             Route::put('data/menu/review/{category}', [MenuController::class, 'saveReview'])->name('menu.review.save');
+            Route::put('data/menu/review/{category}/name', [MenuController::class, 'categoryName'])->name('menu.category.name');
         });
         Route::whereNumber(['product', 'branch'])->middleware('confirmed')->group(function (): void {
             Route::get('data/menu/{product}', [MenuController::class, 'show'])->name('menu.show');
             Route::put('data/menu/{product}/names', [MenuController::class, 'names'])->name('menu.names');
+            Route::put('data/menu/{product}/details', [MenuController::class, 'details'])->name('menu.details');
             Route::post('data/menu/{product}/price', [MenuController::class, 'price'])->name('menu.price');
             Route::put('data/menu/{product}/branches/{branch}', [MenuController::class, 'branch'])->name('menu.branch');
         });

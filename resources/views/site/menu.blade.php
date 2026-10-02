@@ -98,6 +98,10 @@
                                         <span @if ($group->nameLang) lang="{{ $group->nameLang }}" dir="{{ $group->nameLang === 'ar' ? 'rtl' : 'ltr' }}" @endif>{{ $group->name }}</span>
                                     </h3>
                                 @endif
+                                @php
+                                    // A section where some items have an approved image keeps the image space on every card (§6 (8)).
+                                    $mixed = collect($group->items)->contains(fn ($i) => $i->image !== null);
+                                @endphp
                                 <ul @class(['ui-grid', 'ui-menu__grid', 'ui-menu__grid--list' => $isSeason]) role="list">
                                     @foreach ($group->items as $item)
                                         @php
@@ -120,13 +124,22 @@
                                                 :secondary-lang="$item->secondaryLang"
                                                 :price="$d['price']"
                                                 :currency="$item->currency"
-                                                :badge="$isSeason ? __('menu.seasonal') : null"
+                                                :badge="$isSeason ? __('menu.seasonal') : ($item->isNew ? __('menu.new') : null)"
                                                 :status="$varies ? ($d['status'] ?? '') : null"
                                                 :unavailable="$d['unavailable']"
+                                                :label="$item->ariaLabel"
                                                 :level="0"
                                                 :compact="$isSeason"
+                                                :reserve-media="$mixed && $item->image === null && ! $isSeason"
                                                 opens="menu-detail"
-                                                data-location="{{ $item->location }}" />
+                                                data-location="{{ $item->location }}"
+                                                :data-description="$item->description">
+                                                @if ($item->image !== null && ! $isSeason)
+                                                    <x-slot:media>
+                                                        <x-ui.picture :image="$item->image" ratio="square" sizes="(min-width: 1200px) 18vw, (min-width: 600px) 30vw, 45vw" />
+                                                    </x-slot:media>
+                                                @endif
+                                            </x-ui.product-card>
                                         </li>
                                     @endforeach
                                 </ul>
@@ -141,9 +154,11 @@
              script fills it from the clicked card; without JavaScript the card already shows everything we have. --}}
         <x-ui.bottom-sheet id="menu-detail" :title="__('menu.title')" adaptive data-ui-menu-detail>
             <div class="ui-menu-detail">
+                <div class="ui-menu-detail__media" data-detail-media hidden></div>
                 <p class="ui-menu-detail__location" data-detail-location></p>
                 <p class="ui-menu-detail__secondary" data-detail-secondary></p>
                 <p class="ui-menu-detail__price" data-detail-price></p>
+                <p class="ui-menu-detail__description" data-detail-description hidden></p>
             </div>
         </x-ui.bottom-sheet>
 

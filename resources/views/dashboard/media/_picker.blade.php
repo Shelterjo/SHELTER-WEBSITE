@@ -1,15 +1,16 @@
 {{--
     Image picker for editors (awards, SHELTER Family): radio choices of the images that may appear on the website now,
     each with its private preview. `$name`, `$selected` (media id or null), `$images` (list<Media>), `$legend`, `$id`,
-    `$none` (label of the "no image" choice), `$empty` (shown when no image is usable yet).
+    `$none` (label of the "no image" choice), `$empty` (shown when no image is usable yet), `$error` (optional: a message
+    from another error bag).
 --}}
-<x-ui.fieldset :legend="$legend" :id="$id" :error="$errors->first($name)">
+<x-ui.fieldset :legend="$legend" :id="$id" :error="$error ?? $errors->first($name)">
     @if ($images === [])
         <p class="ui-note">{{ $empty }} <a href="{{ route('dashboard.media.index') }}">{{ __('dashboard.media.title') }}</a></p>
     @endif
     <div class="ui-picker">
         <label class="ui-picker__choice">
-            <input class="ui-picker__input" type="radio" name="{{ $name }}" value="" @checked($selected === null)>
+            <input class="ui-picker__input" type="radio" name="{{ $name }}" value="" @checked(blank($selected))>
             <span class="ui-picker__none">{{ $none }}</span>
         </label>
         @foreach ($images as $image)

@@ -4,10 +4,12 @@ namespace App\Services\Menu\Page;
 
 use App\Enums\Availability;
 use App\Enums\NameStatus;
+use App\Enums\PublishStatus;
 use App\Models\Branch;
 use App\Models\Market;
 use App\Models\MenuCategory;
 use App\Models\Product;
+use App\Services\Media\MediaLibrary;
 use App\Services\Menu\MenuCatalog;
 use App\Services\Site\BranchDirectory;
 use App\Services\Site\BranchSummary;
@@ -35,6 +37,7 @@ final class MenuPage
     public function __construct(
         private readonly MenuCatalog $catalog,
         private readonly BranchDirectory $directory,
+        private readonly MediaLibrary $media,
     ) {}
 
     public function build(Market $market, string $locale, ?string $branchParameter, ?CarbonImmutable $now = null): MenuView
@@ -62,7 +65,7 @@ final class MenuPage
 
         /** @var Collection<int, MenuCategory> $categories */
         $categories = MenuCategory::query()
-            ->with(['group', 'products' => fn ($q) => $this->visibleProducts($q)->with(['prices', 'branchOverrides'])])
+            ->with(['group', 'products' => fn ($q) => $this->visibleProducts($q)->with(['prices', 'branchOverrides', 'media'])])
             ->orderBy('sort')
             ->get();
 
@@ -113,7 +116,8 @@ final class MenuPage
      */
     private function visibleProducts($query)
     {
-        return $query->where('status', 'active')->whereNull('merged_into_id')->orderBy('sort');
+        // An item the Owner hid from the menu (dashboard → Menu: "Hidden") is left out everywhere, search included.
+        return $query->where('status', 'active')->whereNull('merged_into_id')->where('publish_status', '!=', PublishStatus::Archived->value)->orderBy('sort');
     }
 
     private function seasonActive(MenuCategory $category, CarbonImmutable $now): bool
@@ -197,6 +201,10 @@ final class MenuPage
                     $product->normalized_name_en,
                     $product->normalized_name_ar,
                 ])),
+                description: filled($product->description_ar) && filled($product->description_en) ? (string) $product->{'description_'.$locale} : null,
+                image: $this->media->image($product->media, $locale, $name),
+                isNew: $product->isNewOn($now->toDateString()),
+                ariaLabel: $locale === 'en' || $nameLang === 'en' ? $product->aria_label_en : null,
             );
         }
 

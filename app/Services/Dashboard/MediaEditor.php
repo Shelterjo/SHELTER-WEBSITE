@@ -7,6 +7,7 @@ use App\Models\Award;
 use App\Models\Media;
 use App\Models\MediaUsage;
 use App\Models\Page;
+use App\Models\Product;
 use App\Models\TeamMember;
 use App\Models\User;
 use App\Services\Core\AuditLogger;
@@ -206,7 +207,7 @@ final class MediaEditor
     }
 
     /**
-     * Where the image is used, in words for the Owner: the press kit, an award, a SHELTER Family profile.
+     * Where the image is used, in words for the Owner: the press kit, an award, a SHELTER Family profile, a menu item.
      *
      * @return list<string>
      */
@@ -219,6 +220,10 @@ final class MediaEditor
         }
         foreach (TeamMember::query()->where('photo_media_id', $media->id)->whereNull('archived_at')->get() as $member) {
             $used[] = (string) __('dashboard.media.used.team', ['name' => ($ar ? $member->display_name_ar : $member->display_name_en) ?? $member->display_name_ar ?? '—']);
+        }
+
+        foreach (Product::query()->where('media_id', $media->id)->where('status', Product::STATUS_ACTIVE)->get() as $product) {
+            $used[] = (string) __('dashboard.media.used.product', ['name' => (string) $product->display_name_en]);
         }
 
         return $used;
