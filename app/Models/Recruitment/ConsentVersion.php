@@ -6,9 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 
 /**
- * The careers consent text, versioned (M28 §21). Version 1 is the Owner's text, word for word.
+ * Consent texts, versioned per scope (PLATFORM-ARCHITECTURE §3.4): careers v1 is the Owner's text word for word
+ * (M28 §21); partnerships, inquiries and feedback wait for their approved texts.
  *
  * @property int $id
+ * @property string $scope careers | partnerships | inquiries | feedback
  * @property string $version
  * @property string $text_ar
  * @property Carbon $active_from

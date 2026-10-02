@@ -29,6 +29,6 @@ final class CareersForm
 
     public function consent(): ?ConsentVersion
     {
-        return ConsentVersion::query()->where('is_active', true)->orderByDesc('active_from')->first();
+        return ConsentVersion::query()->where('scope', 'careers')->where('is_active', true)->orderByDesc('active_from')->first();
     }
 }

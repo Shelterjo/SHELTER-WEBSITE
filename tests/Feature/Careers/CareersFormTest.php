@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Careers;
 
+use App\Models\Recruitment\Application;
 use App\Models\Recruitment\ApplicationAttachment;
 use App\Models\Recruitment\JobApplication;
 use Database\Seeders\MasterDataSeeder;
@@ -92,14 +93,16 @@ class CareersFormTest extends TestCase
 
         $response = $this->submitForm();
         $response->assertRedirect('http://localhost/ar/careers/submitted/');
-        $application = JobApplication::query()->sole();
-        $this->assertMatchesRegularExpression('/^JOB-\d{4}-00001$/', $application->application_number);
-        $this->assertSame('+962791234567', $application->phone_normalized);
+        $application = Application::query()->sole();
+        $job = JobApplication::query()->sole();
+        $this->assertSame('JOB', $application->type);
+        $this->assertMatchesRegularExpression('/^JOB-\d{4}-00001$/', $application->reference_number);
+        $this->assertSame('+962791234567', $job->phone_normalized);
         $this->assertSame('applicant.test@example.com', DB::table('job_applications')->value('email_normalized'));
-        $this->assertSame('2000-02-29', $application->birth_date->toDateString());
-        $this->assertSame('450.00', (string) $application->expected_salary_jod);
+        $this->assertSame('2000-02-29', $job->birth_date->toDateString());
+        $this->assertSame('450.00', (string) $job->expected_salary_jod);
         $this->assertSame(3, $application->attachments()->count());
-        $primary = ApplicationAttachment::query()->find($application->primary_attachment_id);
+        $primary = ApplicationAttachment::query()->find($job->primary_attachment_id);
         $this->assertSame('Ahmad CV.pdf', $primary?->original_filename);
         foreach ($application->attachments as $attachment) {
             Storage::disk('careers')->assertExists($attachment->storage_path);
@@ -110,7 +113,7 @@ class CareersFormTest extends TestCase
 
         // Success page: the number from the session, nothing sensitive in the URL; the page cannot be revisited.
         $html = (string) $this->get('/ar/careers/submitted/')->assertOk()->getContent();
-        $this->assertStringContainsString($application->application_number, $html);
+        $this->assertStringContainsString($application->reference_number, $html);
         $this->assertStringContainsString('تم استلام طلب التوظيف بنجاح', $html);
         $this->get('/ar/careers/submitted/')->assertRedirect('http://localhost/ar/careers/');
     }
@@ -170,7 +173,7 @@ class CareersFormTest extends TestCase
 
         $this->submitForm([], $key)->assertRedirect('http://localhost/ar/careers/submitted/');
         $this->assertSame(1, JobApplication::query()->count());
-        $number = JobApplication::query()->value('application_number');
+        $number = Application::query()->value('reference_number');
         $this->assertStringContainsString((string) $number, $first);
         $this->assertStringContainsString((string) $number, (string) $this->get('/ar/careers/submitted/')->getContent());
     }
@@ -253,8 +256,7 @@ class CareersFormTest extends TestCase
 
         $this->submitForm()->assertSessionHasErrors('files');
         $this->submitForm(['primary_attachment' => (string) $a])->assertRedirect('http://localhost/ar/careers/submitted/');
-        $application = JobApplication::query()->sole();
-        $this->assertSame($a, $application->primary_attachment_id);
+        $this->assertSame($a, JobApplication::query()->sole()->primary_attachment_id);
         $this->assertSame('applicant_selected', ApplicationAttachment::query()->find($a)?->cv_detection);
     }
 
@@ -273,16 +275,16 @@ class CareersFormTest extends TestCase
     {
         $this->uploadFile($this->pdf())->assertCreated();
         $this->submitForm()->assertRedirect();
-        $application = JobApplication::query()->sole();
+        $application = Application::query()->sole();
         $application->update(['status' => 'interviewed']);
 
-        $html = (string) $this->post('/ar/careers/track/', ['number' => strtolower($application->application_number), 'phone' => '+962 79 123 4567'])->assertOk()->getContent();
+        $html = (string) $this->post('/ar/careers/track/', ['number' => strtolower($application->reference_number), 'phone' => '+962 79 123 4567'])->assertOk()->getContent();
         $this->assertStringContainsString('قيد المراجعة', $html);
         foreach (['applicant.test@example.com', '9991234567', 'cv.pdf', 'سطر أول', 'تمت المقابلة'] as $private) {
             $this->assertStringNotContainsString($private, $html);
         }
 
-        $wrongPhone = (string) $this->post('/ar/careers/track/', ['number' => $application->application_number, 'phone' => '0790000000'])->getContent();
+        $wrongPhone = (string) $this->post('/ar/careers/track/', ['number' => $application->reference_number, 'phone' => '0790000000'])->getContent();
         $wrongNumber = (string) $this->post('/ar/careers/track/', ['number' => 'JOB-2026-99999', 'phone' => '0791234567'])->getContent();
         $this->assertStringContainsString('تعذر العثور على الطلب. تحقق من البيانات وحاول مجددًا.', $wrongPhone);
         $this->assertStringContainsString('تعذر العثور على الطلب. تحقق من البيانات وحاول مجددًا.', $wrongNumber);
@@ -291,7 +293,7 @@ class CareersFormTest extends TestCase
         for ($i = 0; $i < 3; $i++) {
             $this->post('/ar/careers/track/', ['number' => 'JOB-2026-99999', 'phone' => '0791234567']);
         }
-        $html = (string) $this->post('/ar/careers/track/', ['number' => $application->application_number, 'phone' => '0791234567'])->getContent();
+        $html = (string) $this->post('/ar/careers/track/', ['number' => $application->reference_number, 'phone' => '0791234567'])->getContent();
         $this->assertStringContainsString('محاولات كثيرة. حاول بعد قليل.', $html);
     }
 }

@@ -34,9 +34,9 @@ class ApplicationAttachment extends Model
         return ['size_bytes' => 'integer', 'cv_score' => 'integer'];
     }
 
-    /** @return BelongsTo<JobApplication, $this> */
+    /** @return BelongsTo<Application, $this> */
     public function application(): BelongsTo
     {
-        return $this->belongsTo(JobApplication::class, 'application_id');
+        return $this->belongsTo(Application::class, 'application_id');
     }
 }

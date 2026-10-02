@@ -2,7 +2,7 @@
 
 namespace App\Services\Recruitment;
 
-use App\Models\Recruitment\JobApplication;
+use App\Models\Recruitment\Application;
 
 /**
  * Applicant tracking without an account (CAREERS-REQUIREMENTS §5.4, RECRUITMENT-SECURITY §7): application number +
@@ -27,9 +27,10 @@ final class ApplicationTracker
     {
         $normalizedPhone = ApplicantInput::phone($phone);
         $number = strtoupper(trim(ApplicantInput::digits($number)));
-        $application = JobApplication::query()->where('application_number', $number)->first();
+        $application = Application::query()->with('job')->where('type', 'JOB')->where('reference_number', $number)->first();
+        $phone = $application?->job?->phone_normalized;
         // Same answer whether the number or the phone is wrong; compare in constant time.
-        if ($application === null || $normalizedPhone === null || ! hash_equals($application->phone_normalized, $normalizedPhone)) {
+        if ($application === null || $phone === null || $normalizedPhone === null || ! hash_equals($phone, $normalizedPhone)) {
             return null;
         }
 

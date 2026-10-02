@@ -32,6 +32,7 @@ audit_logs (مشترك مع كل الـDashboard) · upload_sessions (مسودا
 ## 2. الجداول
 
 ### 2.1 `job_applications`: الطلب (بلا بيانات الهوية الحساسة)
+> **التنفيذ (2026-10-02 — PLATFORM-ARCHITECTURE §3.4 Applications Core):** الأعمدة المشتركة بين أنواع الطلبات تعيش في جدول `applications` الموحد: `reference_number` (= `application_number`) · `status` · `status_before_archive` · `first_viewed_at/by` · `applicant_group_size` · `submitted_at` · `archived_at` · `idempotency_key` · `form_version` (+ `type` = JOB). `job_applications` يحمل حقول التوظيف بمفتاح `application_id`، وكل الجداول المشتركة (المرفقات، الهوية، الموافقة، الحالات، الملاحظات، المقابلات، الروابط) تشير إلى `applications`. المعنى والقيود كما في الجدول أدناه.
 | العمود | النوع (MySQL / PG) | قيود | ملاحظات |
 |---|---|---|---|
 | `id` | BIGINT UNSIGNED AI / BIGSERIAL | PK | داخلي، لا يظهر للمتقدم |

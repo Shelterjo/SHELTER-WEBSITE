@@ -2,6 +2,7 @@
 
 namespace App\Services\Recruitment;
 
+use App\Models\Recruitment\Application;
 use App\Models\Recruitment\ApplicationAttachment;
 use App\Models\Recruitment\ApplicationIdentity;
 use App\Models\Recruitment\ConsentVersion;
@@ -14,8 +15,9 @@ use Illuminate\Support\Facades\Storage;
 use Throwable;
 
 /**
- * Turns a validated form into one application (CAREERS-REQUIREMENTS §5, RECRUITMENT-DATA-MODEL §2–§3), in one
- * transaction: server-generated JOB-YYYY-NNNNN number, the record, the encrypted identity, the consent (version + time,
+ * Turns a validated careers form into one application (CAREERS-REQUIREMENTS §5, RECRUITMENT-DATA-MODEL §2–§3,
+ * PLATFORM-ARCHITECTURE §3.4), in one transaction: the Applications Core row with its server-generated JOB-YYYY-NNNNN
+ * number, the careers record, the encrypted identity, the consent (version + time,
  * no IP or user agent), the first status, the attachments (copied from quarantine to YYYY/MM first, quarantine removed
  * after commit), links to earlier applications by exact phone / email / identity match — never merged — and an audit
  * entry labelled by the application number only. The same idempotency key always returns the same application.
@@ -29,9 +31,9 @@ final class ApplicationSubmitter
     ) {}
 
     /** @param  array<string, mixed>  $data  ApplicationValidator output */
-    public function submit(array $data, UploadSession $session, int $primaryAttachmentId, string $idempotencyKey, ConsentVersion $consent): JobApplication
+    public function submit(array $data, UploadSession $session, int $primaryAttachmentId, string $idempotencyKey, ConsentVersion $consent): Application
     {
-        $existing = JobApplication::query()->where('idempotency_key', $idempotencyKey)->first();
+        $existing = Application::query()->where('idempotency_key', $idempotencyKey)->first();
         if ($existing !== null) {
             return $existing;
         }
@@ -47,10 +49,18 @@ final class ApplicationSubmitter
                 $moved[$attachment->id] = $target;
             }
 
-            $application = DB::transaction(function () use ($data, $attachments, $moved, $primaryAttachmentId, $idempotencyKey, $consent): JobApplication {
-                $blindIndex = null;
-                $application = JobApplication::query()->create([
-                    'application_number' => $this->numbers->next('JOB'),
+            $application = DB::transaction(function () use ($data, $attachments, $moved, $primaryAttachmentId, $idempotencyKey, $consent): Application {
+                $application = Application::query()->create([
+                    'type' => 'JOB',
+                    'reference_number' => $this->numbers->next('JOB'),
+                    'status' => 'received',
+                    'submitted_at' => now(),
+                    'idempotency_key' => $idempotencyKey,
+                    'form_version' => (string) config('careers.form_version'),
+                    'locale' => 'ar',
+                ]);
+                JobApplication::query()->create([
+                    'application_id' => $application->id,
                     'full_name' => $data['full_name'],
                     'phone_raw' => $data['phone'],
                     'phone_normalized' => $data['phone_normalized'],
@@ -71,10 +81,7 @@ final class ApplicationSubmitter
                     'expected_salary_jod' => $data['expected_salary'],
                     'has_driving_license' => $data['has_driving_license'],
                     'notes_text' => $data['notes'],
-                    'status' => 'received',
-                    'submitted_at' => now(),
-                    'idempotency_key' => $idempotencyKey,
-                    'form_version' => (string) config('careers.form_version'),
+                    'primary_attachment_id' => $primaryAttachmentId,
                 ]);
 
                 $identity = (string) $data['identity'];
@@ -107,11 +114,9 @@ final class ApplicationSubmitter
                         'cv_detection' => $isPrimary ? $attachment->cv_detection : ($attachment->cv_detection === 'pending' ? 'not_cv' : $attachment->cv_detection),
                     ]);
                 }
-                $application->update(['primary_attachment_id' => $primaryAttachmentId]);
-
-                $this->link($application, $blindIndex);
+                $this->link($application, (string) $data['phone_normalized'], ApplicantInput::email((string) $data['email']), $blindIndex);
                 $this->audit->record('application.created', $application, meta: [
-                    'target_label' => $application->application_number,
+                    'target_label' => $application->reference_number,
                     'actor_type' => 'applicant',
                     'attachments' => $attachments->count(),
                 ]);
@@ -135,12 +140,12 @@ final class ApplicationSubmitter
     }
 
     /** Earlier applications by the same phone, email or identity are linked — never merged, edited or removed. */
-    private function link(JobApplication $application, ?string $blindIndex): void
+    private function link(Application $application, string $phone, string $email, string $blindIndex): void
     {
         $signals = [
-            'phone' => JobApplication::query()->where('phone_normalized', $application->phone_normalized)->pluck('id'),
-            'email' => JobApplication::query()->where('email_normalized', $application->email_normalized)->pluck('id'),
-            'id_blind_index' => $blindIndex === null ? collect() : ApplicationIdentity::query()->where('id_blind_index', $blindIndex)->pluck('application_id'),
+            'phone' => JobApplication::query()->where('phone_normalized', $phone)->pluck('application_id'),
+            'email' => JobApplication::query()->where('email_normalized', $email)->pluck('application_id'),
+            'id_blind_index' => ApplicationIdentity::query()->where('id_blind_index', $blindIndex)->pluck('application_id'),
         ];
         $linked = [];
         foreach ($signals as $signal => $ids) {
@@ -158,7 +163,7 @@ final class ApplicationSubmitter
             $group = array_keys($linked);
             $size = count($group) + 1;
             $application->update(['applicant_group_size' => $size]);
-            JobApplication::query()->whereIn('id', $group)->where('applicant_group_size', '<', $size)->update(['applicant_group_size' => $size]);
+            Application::query()->whereIn('id', $group)->where('applicant_group_size', '<', $size)->update(['applicant_group_size' => $size]);
         }
     }
 

@@ -21,7 +21,7 @@ class RecruitmentSeeder extends Seeder
     {
         $now = now();
         DB::table('consent_versions')->updateOrInsert(['version' => 'careers-consent-v1'], [
-            'text_ar' => self::CONSENT_V1, 'active_from' => $now, 'is_active' => true, 'created_at' => $now, 'updated_at' => $now,
+            'scope' => 'careers', 'text_ar' => self::CONSENT_V1, 'active_from' => $now, 'is_active' => true, 'created_at' => $now, 'updated_at' => $now,
         ]);
         foreach ([['SHELTER COFFEE DRIVE', 'شلتر كوفي درايف', 1], ['SHELTER COFFEE HOUSE', 'شلتر كوفي هاوس', 2]] as [$en, $ar, $sort]) {
             DB::table('interview_locations')->updateOrInsert(['name_en' => $en], [

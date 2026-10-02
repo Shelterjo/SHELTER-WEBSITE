@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Careers;
 
+use App\Models\Recruitment\Application;
 use App\Models\Recruitment\ApplicationAttachment;
 use App\Models\Recruitment\JobApplication;
 use App\Models\Recruitment\UploadSession;
@@ -130,7 +131,7 @@ class CareersServicesTest extends TestCase
     {
         $numbers = [];
         for ($i = 0; $i < 25; $i++) {
-            $numbers[] = $this->submitSample(['phone' => '07912345'.str_pad((string) $i, 2, '0', STR_PAD_LEFT), 'email' => "p{$i}@example.com", 'national_id' => '99912345'.str_pad((string) $i, 2, '0', STR_PAD_LEFT)])->application_number;
+            $numbers[] = $this->submitSample(['phone' => '07912345'.str_pad((string) $i, 2, '0', STR_PAD_LEFT), 'email' => "p{$i}@example.com", 'national_id' => '99912345'.str_pad((string) $i, 2, '0', STR_PAD_LEFT)])->reference_number;
         }
         $this->assertSame(array_unique($numbers), $numbers);
         $year = now('Asia/Amman')->year;
@@ -145,10 +146,11 @@ class CareersServicesTest extends TestCase
         $third = $this->submitSample(['national_id' => '1112223334', 'email' => 'other@example.com', 'phone' => '0772222222']);
 
         $this->assertSame(3, JobApplication::query()->count());
+        $this->assertSame(3, Application::query()->where('type', 'JOB')->count());
         $this->assertTrue(DB::table('application_links')->where(['application_id' => $second->id, 'linked_application_id' => $first->id, 'signal' => 'id_blind_index'])->exists());
         $this->assertTrue(DB::table('application_links')->where(['application_id' => $third->id, 'linked_application_id' => $second->id, 'signal' => 'email'])->exists());
         $this->assertSame(2, $second->fresh()?->applicant_group_size);
-        $this->assertSame('متقدم تجريبي Test', $first->fresh()?->full_name, 'nothing on the earlier application changes');
+        $this->assertSame('متقدم تجريبي Test', $first->job?->fresh()?->full_name, 'nothing on the earlier application changes');
     }
 
     public function test_u11_identity_is_encrypted_with_a_fresh_nonce_and_survives_key_rotation(): void
@@ -182,9 +184,9 @@ class CareersServicesTest extends TestCase
         ];
         foreach ($expected as $internal => $public) {
             $application->update(['status' => $internal]);
-            $this->assertSame($public, app(ApplicationTracker::class)->publicStatus($application->application_number, '+962 79 123 4567'), $internal);
+            $this->assertSame($public, app(ApplicationTracker::class)->publicStatus($application->reference_number, '+962 79 123 4567'), $internal);
         }
-        $this->assertNull(app(ApplicationTracker::class)->publicStatus($application->application_number, '0790000000'));
+        $this->assertNull(app(ApplicationTracker::class)->publicStatus($application->reference_number, '0790000000'));
         $this->assertNull(app(ApplicationTracker::class)->publicStatus('JOB-2026-99999', '0791234567'));
     }
 
@@ -243,7 +245,7 @@ class CareersServicesTest extends TestCase
     }
 
     /** @param  array<string, mixed>  $overrides */
-    private function submitSample(array $overrides = []): JobApplication
+    private function submitSample(array $overrides = []): Application
     {
         $result = $this->check($this->validInput($overrides));
         $this->assertSame([], $result['errors']);

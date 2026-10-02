@@ -33,6 +33,7 @@ return [
     'jordan_cities' => ['class' => 'PUBLIC'],
     'consent_versions' => ['class' => 'PUBLIC'],
     'upload_sessions' => ['class' => 'INTERNAL', 'columns' => ['ip_hash' => 'CONFIDENTIAL']],
+    'applications' => ['class' => 'CONFIDENTIAL'],
     'job_applications' => ['class' => 'CONFIDENTIAL', 'columns' => ['birth_date' => 'SENSITIVE', 'nationality_text' => 'SENSITIVE', 'marital_status' => 'SENSITIVE']],
     'application_identity_secure' => ['class' => 'SENSITIVE'],
     'application_attachments' => ['class' => 'SENSITIVE'],

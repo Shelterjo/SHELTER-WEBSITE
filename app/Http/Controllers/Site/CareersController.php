@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
+use App\Models\Recruitment\Application;
 use App\Models\Recruitment\ApplicationAttachment;
 use App\Models\Recruitment\JobApplication;
 use App\Models\Recruitment\UploadSession;
@@ -98,7 +99,7 @@ final class CareersController extends Controller
         if (! Str::isUuid($idempotencyKey)) {
             return redirect()->to($back)->withInput($input)->withErrors(['form' => __('careers.errors.expired')]);
         }
-        $done = JobApplication::query()->where('idempotency_key', $idempotencyKey)->first();
+        $done = Application::query()->where('idempotency_key', $idempotencyKey)->first();
         if ($done !== null) {
             return $this->success($done); // a double click or a replay returns the same application
         }
@@ -133,7 +134,9 @@ final class CareersController extends Controller
         }
 
         $phone = (string) $result['data']['phone_normalized'];
-        if (JobApplication::query()->where('phone_normalized', $phone)->where('submitted_at', '>=', now()->subDay())->count() >= (int) config('careers.abuse.submit_per_phone_per_day')) {
+        $recent = JobApplication::query()->where('phone_normalized', $phone)
+            ->whereHas('application', fn ($q) => $q->where('submitted_at', '>=', now()->subDay()))->count();
+        if ($recent >= (int) config('careers.abuse.submit_per_phone_per_day')) {
             return redirect()->to($back)->withInput($input)->withErrors(['form' => __('careers.errors.rate')]);
         }
 
@@ -256,9 +259,9 @@ final class CareersController extends Controller
         return [true, null];
     }
 
-    private function success(JobApplication $application): RedirectResponse
+    private function success(Application $application): RedirectResponse
     {
-        session()->flash(self::SESSION_SUBMITTED, $application->application_number);
+        session()->flash(self::SESSION_SUBMITTED, $application->reference_number);
 
         return redirect()->to(PageUrl::route('careers.submitted'));
     }
