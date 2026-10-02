@@ -3,6 +3,7 @@
 return [
     'brand' => 'SHELTER COFFEE',
     'brand_ar' => 'شلتر كوفي', // D-007
+    'title_brand' => 'SHELTER COFFEE', // the brand after “ — ” in tab titles
     'skip_to_content' => 'Skip to content',
     'choose_language' => 'Choose language',
     'switch_language' => 'العربية',
@@ -43,7 +44,7 @@ return [
         'title' => 'Opening hours',
         'caption' => 'Regular opening hours for each day of the week',
         'today_hours' => 'Today: :hours',
-        'timezone' => 'Times are in :market time.',
+        'timezone' => 'All times are :market time.',
     ],
 
     'home' => [
@@ -51,10 +52,10 @@ return [
         // M57: the approved positioning line (D-332) in the Google title and the opening line; one short sentence.
         'title' => 'SHELTER COFFEE — Specialty Coffee & Drive-Thru in Irbid',
         'lead' => 'Specialty coffee and a drive-thru in Irbid. Browse the menu and see which branch is open right now — and until when.',
-        'cta_menu' => 'View the menu',
+        'cta_menu' => 'Browse the menu',
         'cta_locations' => 'Locations & hours',
         'branches_title' => 'Our branches in Irbid',
-        'branches_lead' => 'Status updates automatically from the opening hours.',
+        'branches_lead' => 'Each branch’s status updates automatically from its opening hours.',
         'branches_link' => 'All details',
     ],
 
@@ -66,7 +67,7 @@ return [
     ],
 
     'branch' => [
-        'place' => 'Address and services',
+        'place' => 'Location',
         'directions' => 'Directions on Google Maps',
         'directions_short' => 'Directions',
         'services' => 'Services',
@@ -81,14 +82,15 @@ return [
         'back' => 'All locations',
         // What kind of branch (master-data type, D-008) and where: “Drive-thru in Irbid”.
         'kinds' => ['drive_thru' => 'Drive-thru', 'coffee_house' => 'Coffee house'],
-        'title_kinds' => ['drive_thru' => 'Drive-thru', 'coffee_house' => 'Coffee house'],
+        // Title Case, as in the other Google titles (“Specialty Coffee & Drive-Thru”); the page keeps sentence case.
+        'title_kinds' => ['drive_thru' => 'Drive-Thru', 'coffee_house' => 'Coffee House'],
         'kind_in_city' => ':kind in :city',
     ],
 
     // Contact by intent (D-059; titles from the approved intent map, docs/phase-01-discovery/14 §1 / §4).
     'contact' => [
         'title' => 'Contact',
-        'lead' => 'Choose why you are getting in touch to reach the right number directly.',
+        'lead' => 'Choose the reason you’re getting in touch to reach the right number.',
         'general' => [
             'title' => 'General & Branches',
             'lead' => 'General questions, branches, opening hours and orders.',
@@ -104,8 +106,8 @@ return [
             'lead' => 'Catering, business orders and events.',
         ],
         'franchise' => [
-            'title' => 'Franchise inquiries',
-            'lead' => 'For questions about the franchise.',
+            'title' => 'Franchise Inquiries', // D-071
+            'lead' => 'For franchise and partnership inquiries.',
             'link' => 'Franchise page',
         ],
         'status_note' => 'Branch status updates automatically from the opening hours.',
@@ -114,13 +116,13 @@ return [
     // Site search (SI-B08, GLOBAL-SEARCH §4). results follows CLDR plural categories (App\Support\PluralCategory).
     'search' => [
         'title' => 'Search',
-        'lead' => 'Search the menu, the branches and the pages of the site.',
+        'lead' => 'Search the menu, branches and site pages.',
         'label' => 'Search the site',
         'submit' => 'Search',
         'open' => 'Search',
         'results' => [
             'zero' => 'No results',
-            'one' => 'One result',
+            'one' => '1 result',
             'two' => ':count results',
             'few' => ':count results',
             'many' => ':count results',
@@ -134,7 +136,7 @@ return [
             'branch' => 'Locations',
             'page' => 'Pages',
             'event' => 'Events',
-            'faq' => 'Questions',
+            'faq' => 'FAQs',
         ],
     ],
 

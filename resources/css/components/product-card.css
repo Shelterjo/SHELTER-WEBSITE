@@ -49,6 +49,13 @@
     overflow-wrap: anywhere;
 }
 
+/* A secondary name in the other language carries its own dir (DR-07) and still lines up with the card: its end is the
+   card's start (text-align: match-parent does the same, but Chromium does not support it). */
+.ui-product-card__body:dir(ltr) > .ui-product-card__secondary:dir(rtl),
+.ui-product-card__body:dir(rtl) > .ui-product-card__secondary:dir(ltr) {
+    text-align: end;
+}
+
 .ui-product-card__secondary :lang(en) {
     font-size: var(--text-xs);
     letter-spacing: var(--tracking-en-caps);
@@ -93,6 +100,12 @@
 
 .ui-product-card__badge {
     margin: 0;
+}
+
+/* English badges show as display caps (NEW, SEASONAL); the text stays in normal case (copy audit F56). */
+.ui-product-card__badge .ui-badge:lang(en) {
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-en-caps);
 }
 
 /* Compact row (seasonal list, Menu IA §10): names (and badge / status) at the inline start, the price at the inline

@@ -4,8 +4,8 @@
 // text is MISSING — OWNER INPUT REQUIRED: only functional wording here.
 return [
     'title' => 'Careers',
-    'lead' => 'Applications are made through one form, in Arabic.',
-    'apply' => 'Apply (Arabic form)',
+    'lead' => 'Apply through our application form (in Arabic) and attach your CV.',
+    'apply' => 'Apply now (form in Arabic)',
     'closed' => 'Online applications are not open right now.',
-    'track_link' => 'Track an application (Arabic)',
+    'track_link' => 'Track your application (in Arabic)',
 ];

@@ -10,6 +10,8 @@
     - `level`: heading level of the name (2–6), or 0 for a plain paragraph when the cards are list items under a
       section heading (Menu IA §3: product names are list items, not headings).
     - `compact`: one row — names at the inline start, price at the inline end (seasonal list, spec §10).
+    - A name in another language than the page gets its own direction (UX-006 DR-07): «(بدون سكر)» keeps its brackets on
+      the English menu, “(SUGAR-FREE)” on the Arabic one; the line still aligns with the card.
 --}}
 @props([
     'name',
@@ -35,7 +37,7 @@
         throw new InvalidArgumentException('x-ui.product-card: the image needs explicit width and height (no layout shift).');
     }
     $nameTag = (int) $level === 0 ? 'p' : 'h'.max(2, min(6, (int) $level));
-    $nameAttributes = (new \Illuminate\View\ComponentAttributeBag)->merge(array_filter(['lang' => $nameLang]));
+    $nameAttributes = (new \Illuminate\View\ComponentAttributeBag)->merge(array_filter(['lang' => $nameLang, 'dir' => \App\Support\Bidi::dir($nameLang)]));
     $describedBy = implode(' ', array_filter([
         filled($secondary) ? $cardId.'-secondary' : null,
         filled($badge) ? $cardId.'-badge' : null,
@@ -78,7 +80,7 @@
             @endif
         </{{ $nameTag }}>
         @if (filled($secondary))
-            <p {{ (new \Illuminate\View\ComponentAttributeBag)->merge(array_filter(['class' => 'ui-product-card__secondary', 'id' => $cardId.'-secondary', 'lang' => $secondaryLang])) }}>{{ $secondary }}</p>
+            <p {{ (new \Illuminate\View\ComponentAttributeBag)->merge(array_filter(['class' => 'ui-product-card__secondary', 'id' => $cardId.'-secondary', 'lang' => $secondaryLang, 'dir' => \App\Support\Bidi::dir($secondaryLang)])) }}>{{ $secondary }}</p>
         @endif
         @if (filled($badge))
             <p class="ui-product-card__badge" id="{{ $cardId }}-badge"><x-ui.badge>{{ $badge }}</x-ui.badge></p>

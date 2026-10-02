@@ -9,7 +9,7 @@ return [
     'optional' => 'اختياري',
     'error_prefix' => 'خطأ:',
     'announcement' => 'إعلان',
-    'error_summary_title' => 'يوجد خطأ، راجع الحقول التالية',
+    'error_summary_title' => 'يوجد خطأ. راجع الحقول التالية.',
     'select_placeholder' => 'اختر…',
     'breadcrumb' => 'مسار التنقل',
     'main_navigation' => 'التنقل الرئيسي',
@@ -66,13 +66,11 @@ return [
     'contact' => [
         'call' => 'اتصال',
         'whatsapp' => 'راسلنا على واتساب', // D-063 (provisional)
-        'call_label' => 'اتصل بـ :name',
-        'whatsapp_label' => 'واتساب :name', // CONTACT-016: name of the icon-only link (the branch, FINAL-QA)
     ],
     'footer' => [
         'label' => 'تذييل الموقع',
-        'explore' => 'تصفّح',
-        'contact' => 'تواصل',
+        'explore' => 'روابط سريعة',
+        'contact' => 'تواصل معنا',
         'all_contact' => 'كل قنوات التواصل',
         'follow' => 'تابعنا',
         'legal' => 'الصفحات القانونية',

@@ -116,7 +116,7 @@ class FeedbackFormTest extends TestCase
     {
         $this->send(['branch' => '', 'rating_overall' => '', 'rating_coffee' => '9', 'comment' => str_repeat('a', 1001)])->assertRedirect('http://localhost/ar/feedback/');
         $html = (string) $this->get('/ar/feedback/')->getContent();
-        foreach (['الفرع: هذا الحقل مطلوب.', 'التجربة العامة: هذا الحقل مطلوب.', 'القهوة: اختر قيمة من القائمة.', 'تعليق (اختياري): النص أطول من المسموح (1000 حرفًا).'] as $line) {
+        foreach (['الفرع: هذا الحقل مطلوب.', 'التجربة العامة: هذا الحقل مطلوب.', 'القهوة: اختر قيمة من القائمة.', 'تعليق (اختياري): عدد الأحرف أكبر من الحد المسموح (1000).'] as $line) {
             $this->assertStringContainsString($line, $html);
         }
         $this->assertStringContainsString(str_repeat('a', 1001), $html, 'the comment is kept after an error');

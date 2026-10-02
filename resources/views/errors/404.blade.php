@@ -1,6 +1,6 @@
 @extends('layouts.site', ['noindex' => true])
 
-@section('title', __('site.errors.404_title').' — '.__('site.brand'))
+@section('title', __('site.errors.404_title').' — '.__('site.title_brand'))
 
 @section('content')
     {{-- SI-S01: language from the URL prefix (ErrorPageLocale), bilingual on any other path. Links: home · menu (when

@@ -36,7 +36,7 @@
                     :href="$locationsUrl" :link-label="__('site.home.branches_link')" />
                 <ul class="ui-branch-list" role="list">
                     @foreach ($branches as $branch)
-                        <li><x-ui.branch-card :branch="$branch" /></li>
+                        <li><x-ui.branch-card :branch="$branch" :details-label="__('site.locations.details')" /></li>
                     @endforeach
                 </ul>
             </div>

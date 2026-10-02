@@ -1,6 +1,6 @@
 @extends('layouts.site')
 
-@section('title', ($query !== '' ? __('site.search.for', ['query' => $query]) : __('site.search.title')).' — '.__('site.brand'))
+@section('title', ($query !== '' ? __('site.search.for', ['query' => $query]) : __('site.search.title')).' — '.__('site.title_brand'))
 
 @section('content')
     {{-- SI-B08: server-rendered results (no JavaScript needed), grouped by kind; the count is announced politely. --}}
@@ -41,9 +41,9 @@
                                 @foreach ($hits as $hit)
                                     <li class="ui-search-page__item">
                                         <a class="ui-search-page__link" href="{{ $hit->url }}">
-                                            <span class="ui-search-page__title" @if ($hit->titleLang) lang="{{ $hit->titleLang }}" @endif>{{ $hit->title }}</span>
+                                            <span class="ui-search-page__title" @if ($hit->titleLang) lang="{{ $hit->titleLang }}" dir="{{ \App\Support\Bidi::dir($hit->titleLang) }}" @endif>{{ $hit->title }}</span>
                                             @if ($hit->meta !== null)
-                                                <span class="ui-search-page__meta" @if ($hit->metaLang) lang="{{ $hit->metaLang }}" @endif>{{ $hit->meta }}</span>
+                                                <span class="ui-search-page__meta" @if ($hit->metaLang) lang="{{ $hit->metaLang }}" dir="{{ \App\Support\Bidi::dir($hit->metaLang) }}" @endif>{{ $hit->meta }}</span>
                                             @endif
                                         </a>
                                         <x-ui.icon name="arrow-right" size="sm" class="ui-search-page__go" />

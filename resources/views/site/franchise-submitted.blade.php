@@ -1,6 +1,7 @@
 @extends('layouts.site')
 
-@section('title', __('franchise.success.title').' — '.__('site.brand'))
+{{-- The thank-you line already names the brand (copy audit F28). --}}
+@section('title', __('franchise.success.title'))
 
 @section('content')
     {{--

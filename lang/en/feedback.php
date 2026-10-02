@@ -28,7 +28,7 @@ return [
         'too_long' => 'The text is longer than allowed (:max characters).',
         'generic' => 'We could not send this. Please try again.',
         'expired' => 'The page has expired. Refresh it and try again; your answers are kept.',
-        'rate' => 'Too many answers in a short time. Please try later.',
+        'rate' => 'Too many answers in a short time. Please try again later.',
     ],
     'success' => [
         'title' => 'Thank you',

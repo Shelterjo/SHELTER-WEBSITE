@@ -1,6 +1,6 @@
 @extends('layouts.site')
 
-@section('title', $page->title.' — '.__('site.brand'))
+@section('title', $page->title.' — '.__('site.title_brand'))
 
 @section('content')
     {{-- SI-B03 / B05 / B06 / B07: published Owner text only (App\Services\Content\Pages); plain text, escaped. --}}

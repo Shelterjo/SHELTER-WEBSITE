@@ -1,7 +1,7 @@
 @extends('layouts.site')
 @php($description = filled($description ?? null) ? $description : __('site.meta.awards'))
 
-@section('title', __('awards.title').' — '.__('site.brand'))
+@section('title', __('awards.title').' — '.__('site.title_brand'))
 
 @section('content')
     {{-- SI-B14: verified awards only (Fact Registry — PO-032), newest first; each with its public source when given. --}}

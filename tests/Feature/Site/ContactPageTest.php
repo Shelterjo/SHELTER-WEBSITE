@@ -41,12 +41,12 @@ class ContactPageTest extends TestCase
         }
         // Real-text numbers in the Arabic display form (D-065), links always international.
         $this->assertStringContainsString('href="tel:+962799009436"', $html);
-        $this->assertStringContainsString('<span dir="ltr">0799009436</span>', $html);
+        $this->assertStringContainsString('<bdi dir="ltr">0799009436</bdi>', $html); // isolated left to right (UX-006 DR-12)
         $this->assertStringContainsString('href="https://wa.me/962799009436"', $html);
         $this->assertSame(2, substr_count($html, 'href="tel:+962799338445"'), 'complaints & feedback + franchise inquiries (D-057, D-071)');
-        $this->assertStringContainsString('<span dir="ltr">0799338445</span>', $html);
+        $this->assertStringContainsString('<bdi dir="ltr">0799338445</bdi>', $html);
         $this->assertStringContainsString('href="tel:+962799530383"', $html);
-        $this->assertStringContainsString('<span dir="ltr">0799530383</span>', $html);
+        $this->assertStringContainsString('<bdi dir="ltr">0799530383</bdi>', $html);
 
         // The General card carries each branch's page and live state; no directions until PO-010.
         $this->assertStringContainsString('href="http://localhost/ar/jo/locations/irbid/drive/"', $html);

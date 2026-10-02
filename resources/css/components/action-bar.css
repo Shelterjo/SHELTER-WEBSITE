@@ -23,9 +23,9 @@
     flex: 1 1 0;
 }
 
-/* Under 360px three labelled actions do not fit side by side ("Directions", "WhatsApp" at 320px — UX-006 DR-04):
-   the icon goes above a smaller label, still one 44px+ row, nothing leaves its button. */
-@media (max-width: 359.98px) {
+/* Under 375px three labelled actions do not fit side by side ("Directions", "WhatsApp" at 320px — UX-006 DR-04 — and
+   still 3px too wide at 360px): the icon goes above a smaller label, still one 44px+ row, nothing leaves its button. */
+@media (max-width: 374.98px) {
     .ui-action-bar__inner {
         gap: var(--space-1);
         padding-inline: var(--space-2);

@@ -37,9 +37,10 @@ const ICONS = [
     'info', // info alert
     'loader-circle', // loading
     'mail', // contact page: email (only once approved — D-035)
+    'layout-grid', // menu page «كل الفئات» / "All categories" (not ☰: that one opens the site navigation — DR-16)
     'log-out', // dashboard sign out (directional)
-    'map-pin', // event-card place
-    'menu', // site header drawer + menu page "all categories"
+    'map-pin', // event-card place, branch Directions
+    'menu', // site header drawer
     'message-circle', // site: WhatsApp action (no brand logos — Lucide only, D-062)
     'message-square-text', // contact page: complaints & feedback intent
     'messages-square', // Shaltoor launcher (not message-circle: that one means WhatsApp)

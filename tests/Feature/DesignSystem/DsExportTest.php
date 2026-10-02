@@ -89,7 +89,7 @@ class DsExportTest extends TestCase
         $pending = $cards->get('ArabicNamePending');
         $this->assertIsArray($pending);
         $this->assertStringNotContainsString('كابتشينو', $pending['html_ar']);
-        $this->assertStringContainsString('<span lang="en">CAPPUCCINO</span>', $pending['html_ar']);
+        $this->assertStringContainsString('<span lang="en" dir="ltr">CAPPUCCINO</span>', $pending['html_ar'], 'its own direction on the Arabic page (UX-006 DR-07)');
         $this->assertStringContainsString('2.50', $pending['html_ar']);
         // PRD-00001: approved in both languages, price 1.500 JOD.
         $default = $cards->get('Default');
