@@ -12,3 +12,10 @@ const pageEditor = document.querySelector<HTMLFormElement>('form[data-page-edito
 if (pageEditor !== null) {
     void import('./dashboard/page-editor').then(({ installPageEditor }) => installPageEditor(pageEditor));
 }
+
+// Phones: the navigation is one scrollable row — bring the current screen's item into view (RTL handled by the browser).
+const nav = document.querySelector<HTMLElement>('.ui-shell__nav');
+const current = nav?.querySelector<HTMLElement>('[aria-current="page"]');
+if (nav && current && nav.scrollWidth > nav.clientWidth) {
+    current.scrollIntoView({ behavior: 'instant', block: 'nearest', inline: 'center' });
+}

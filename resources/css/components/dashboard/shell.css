@@ -73,6 +73,12 @@
     background: var(--color-bg);
 }
 
+/* Several groups share one row: the navigation scrolls as a whole, the lists inside it do not (one scroller only). */
+.ui-shell__nav .ui-sidebar {
+    flex: none;
+    overflow: visible;
+}
+
 .ui-shell__main {
     min-inline-size: 0;
     padding-block: var(--space-6);

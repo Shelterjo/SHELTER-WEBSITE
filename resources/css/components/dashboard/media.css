@@ -153,3 +153,57 @@
 .ui-people:has(#people-none:checked) .ui-people__details {
     display: none;
 }
+
+/* Image picker (awards, SHELTER Family): native radios, each with its preview; the chosen one is outlined. */
+.ui-picker {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, calc(var(--touch-target) * 3)), 1fr));
+    gap: var(--space-3);
+}
+
+.ui-picker__choice {
+    display: grid;
+    gap: var(--space-2);
+    align-content: start;
+    min-block-size: var(--touch-target);
+    padding: var(--space-2);
+    border: var(--border-default) solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-surface);
+    cursor: pointer;
+}
+
+.ui-picker__choice:has(.ui-picker__input:checked) {
+    outline: var(--border-strong) solid var(--color-accent);
+    outline-offset: calc(var(--border-default) * -1);
+}
+
+.ui-picker__input {
+    inline-size: var(--space-5);
+    block-size: var(--space-5);
+    margin: 0;
+    accent-color: var(--color-accent);
+}
+
+.ui-picker__input:focus-visible {
+    outline: var(--ui-focus-ring-width) solid var(--color-focus);
+    outline-offset: var(--ui-focus-ring-offset);
+}
+
+.ui-picker__image {
+    display: block;
+    inline-size: 100%;
+    block-size: auto;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: var(--radius-sm);
+}
+
+.ui-picker__none {
+    font-weight: var(--weight-bold);
+}
+
+.ui-picker__code {
+    color: var(--color-muted);
+    font-size: var(--text-xs);
+}

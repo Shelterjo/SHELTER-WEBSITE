@@ -73,8 +73,8 @@
 | متطلبات | **1350**: REQUIREMENT 491, RULE 442, DECISION 209, DELIVERABLE 109, GATE 99 |
 | حسب الحالة | APPROVED 900, FROZEN 294, APPROVED WITH CONDITIONS 73, PENDING OWNER INPUT 34, DEFERRED 22, SUPERSEDED 18, PENDING VERIFICATION 9 |
 | حسب الأولوية | P0 691, P1 572, P2 69, P3 18 |
-| حسب التنفيذ | NOT STARTED 929, PARTIAL 200, IMPLEMENTED — NOT TESTED 124, TESTED 43, FROZEN 43, NEEDS FIX 8, IMPLEMENTED — NOT YET VERIFIED 2, CONFLICT 1 |
-| مُختبر | NO 774, N/A 345, PROTOTYPE 135, YES 96 |
+| حسب التنفيذ | NOT STARTED 923, PARTIAL 202, IMPLEMENTED — NOT TESTED 124, TESTED 47, FROZEN 43, NEEDS FIX 8, IMPLEMENTED — NOT YET VERIFIED 2, CONFLICT 1 |
+| مُختبر | NO 767, N/A 344, PROTOTYPE 135, YES 104 |
 
 ## فهرس المجالات
 | # | المجال | متطلبات | P0 | معتمد/مجمّد | معلّق | تنفيذ (منفذ أو مجمّد) |
@@ -95,7 +95,7 @@
 | 14 | [Contact](master-requirements/14-contact.md) | 30 | 11 | 25 | 4 | 0 |
 | 15 | [Blog / Coffee Knowledge](master-requirements/15-blog-coffee-knowledge.md) | 6 | 2 | 6 | 0 | 0 |
 | 16 | [Franchise](master-requirements/16-franchise.md) | 108 | 50 | 105 | 1 | 21 |
-| 17 | [CMS](master-requirements/17-cms.md) | 35 | 25 | 34 | 1 | 1 |
+| 17 | [CMS](master-requirements/17-cms.md) | 35 | 25 | 34 | 1 | 3 |
 | 18 | [Owner Dashboard](master-requirements/18-owner-dashboard.md) | 35 | 22 | 33 | 0 | 0 |
 | 19 | [Analytics](master-requirements/19-analytics.md) | 45 | 15 | 43 | 2 | 3 |
 | 20 | [GA4 / GTM](master-requirements/20-ga4-gtm.md) | 23 | 2 | 18 | 3 | 3 |
@@ -107,7 +107,7 @@
 | 26 | [Performance](master-requirements/26-performance.md) | 23 | 4 | 23 | 0 | 1 |
 | 27 | [Accessibility](master-requirements/27-accessibility.md) | 20 | 0 | 20 | 0 | 1 |
 | 28 | [Motion](master-requirements/28-motion.md) | 14 | 2 | 14 | 0 | 0 |
-| 29 | [Media & Images](master-requirements/29-media-images.md) | 16 | 7 | 15 | 1 | 3 |
+| 29 | [Media & Images](master-requirements/29-media-images.md) | 16 | 7 | 15 | 1 | 4 |
 | 30 | [Security](master-requirements/30-security.md) | 11 | 8 | 11 | 0 | 0 |
 | 31 | [Permissions & Auth](master-requirements/31-permissions-auth.md) | 11 | 6 | 10 | 0 | 1 |
 | 32 | [Audit / Versioning](master-requirements/32-audit-versioning.md) | 10 | 10 | 10 | 0 | 1 |
@@ -123,7 +123,7 @@
 | 42 | [Privacy & Legal](master-requirements/42-privacy-legal.md) | 14 | 9 | 14 | 0 | 2 |
 | 43 | [UX Principles](master-requirements/43-ux-principles.md) | 6 | 1 | 6 | 0 | 0 |
 | 44 | [Careers & Recruitment](master-requirements/44-careers-recruitment.md) | 99 | 60 | 98 | 1 | 1 |
-| 45 | [Dynamic Experience Engine](master-requirements/45-dynamic-experience-engine.md) | 38 | 14 | 38 | 0 | 4 |
+| 45 | [Dynamic Experience Engine](master-requirements/45-dynamic-experience-engine.md) | 38 | 14 | 38 | 0 | 5 |
 | 46 | [Platform Quality & Operations](master-requirements/46-platform-quality-operations.md) | 56 | 39 | 56 | 0 | 3 |
 | 47 | [Master Data & Channel Sync](master-requirements/47-master-data-channel-sync.md) | 36 | 34 | 36 | 0 | 0 |
 | 48 | [Design System & UI Consistency](master-requirements/48-design-system-ui-consistency.md) | 29 | 29 | 29 | 0 | 1 |
@@ -645,12 +645,12 @@
 | `CMS-003` | Menu CMS = Single Source of Truth في V1 (A الآن + جاهزية C) — لا Google Sheet | APPROVED | P0 | NOT STARTED |
 | `CMS-004` | مصدر واحد للحقيقة: لا CMS مزدوج ولا مصدر منيو مزدوج | APPROVED | P0 | NOT STARTED |
 | `CMS-005` | إدارة المنيو بعد الإطلاق من الـDashboard | APPROVED | P0 | NOT STARTED |
-| `CMS-006` | Workflow لكل المحتوى: DRAFT · IN REVIEW · SCHEDULED · PUBLISHED · ARCHIVED | APPROVED | P0 | NOT STARTED |
+| `CMS-006` | Workflow لكل المحتوى: DRAFT · IN REVIEW · SCHEDULED · PUBLISHED · ARCHIVED | APPROVED | P0 | PARTIAL |
 | `CMS-007` | لا يصل أي تعديل للعميل قبل Publish — لا تعديل مباشر على Production | APPROVED | P0 | NOT STARTED |
 | `CMS-008` | Preview قبل Publish: Desktop · Mobile (+ Arabic · English إذا أمكن) | APPROVED | P0 | NOT STARTED |
 | `CMS-009` | Scheduling والنشر الموسمي: تفعيل/انتهاء تلقائي · تجاوز يدوي · Audit trail | FROZEN | P1 | NOT STARTED |
-| `CMS-010` | Page Editor بسيط مبني على Sections/Blocks (ليس Page Builder مثل Elementor) | APPROVED | P0 | NOT STARTED |
-| `CMS-011` | Design Lock: الـCMS لا يسمح بكسر الـDesign System | APPROVED | P0 | NOT STARTED |
+| `CMS-010` | Page Editor بسيط مبني على Sections/Blocks (ليس Page Builder مثل Elementor) | APPROVED | P0 | TESTED |
+| `CMS-011` | Design Lock: الـCMS لا يسمح بكسر الـDesign System | APPROVED | P0 | PARTIAL |
 | `CMS-012` | Global Components تُدار من مكان واحد | APPROVED | P1 | NOT STARTED |
 | `CMS-013` | نظام Special Hours في الـCMS (Regular · Special/Holiday · Closure/Emergency) | APPROVED | P0 | NOT STARTED |
 | `CMS-014` | مناقشة UX والـCMS لنظام الساعات الخاصة مع الـOwner قبل التنفيذ | PENDING OWNER INPUT | P1 | NOT STARTED |
@@ -663,7 +663,7 @@
 | `CMS-021` | CMS Data Model والتخزين (CMS-DATA-MODEL.md) — Supabase مشروط بقرار DB-08 | APPROVED WITH CONDITIONS | P1 | PARTIAL |
 | `CMS-022` | المنيو بلا كود: كل حقول المنتج والتوفر والنشر | FROZEN | P0 | NOT STARTED |
 | `CMS-023` | الوسائط بلا كود | FROZEN | P0 | PARTIAL |
-| `CMS-024` | الصفحات بلا كود | FROZEN | P0 | NOT STARTED |
+| `CMS-024` | الصفحات بلا كود | FROZEN | P0 | TESTED |
 | `CMS-025` | الفروع والساعات بلا كود | FROZEN | P0 | NOT STARTED |
 | `CMS-026` | الحملات والفعاليات بلا كود | FROZEN | P0 | NOT STARTED |
 | `CMS-027` | المدونة / المعرفة بلا كود | FROZEN | P1 | NOT STARTED |
@@ -982,7 +982,7 @@
 | `MEDIA-003` | كل صورة مقترحة أو مطلوبة تبدأ PENDING OWNER APPROVAL | APPROVED | P0 | TESTED |
 | `MEDIA-004` | صور Google ليست Approved Assets | APPROVED | P0 | IMPLEMENTED — NOT TESTED |
 | `MEDIA-005` | لا Stock ولا AI ولا Google ولا صور الموقع القديم تلقائيًا | APPROVED | P0 | TESTED |
-| `MEDIA-006` | نظام Approved Asset Library | APPROVED | P1 | PARTIAL |
+| `MEDIA-006` | نظام Approved Asset Library | APPROVED | P1 | TESTED |
 | `MEDIA-007` | صور المنتجات من الـOwner وربطها بالـProduct ID | PENDING OWNER INPUT | P1 | PARTIAL |
 | `MEDIA-008` | Media Architecture / Media Model | APPROVED | P1 | PARTIAL |
 | `MEDIA-009` | صورة بطاقة المنتج: كبيرة بنسبة 1:1 | FROZEN | P1 | NOT STARTED |
@@ -1482,7 +1482,7 @@
 | `DX-003` | حقول الملف العام للموظف | FROZEN | P1 | TESTED |
 | `DX-004` | ممنوع عرض بيانات الموظف الخاصة | FROZEN | P0 | NOT STARTED |
 | `DX-005` | النشر بالاختيار: لا موظف علنيًا إلا بتفعيل الـOwner | FROZEN | P0 | TESTED |
-| `DX-006` | إدارة SHELTER Family بلا كود | FROZEN | P1 | NOT STARTED |
+| `DX-006` | إدارة SHELTER Family بلا كود | FROZEN | P1 | TESTED |
 | `DX-007` | الموظف المثالي لهذا الشهر (Employee of the Month) | FROZEN | P1 | NOT STARTED |
 | `DX-008` | حالات الموظف المثالي + الأرشيف | FROZEN | P1 | NOT STARTED |
 | `DX-009` | مواضع ظهور الموظف المثالي | FROZEN | P1 | NOT STARTED |
@@ -1500,7 +1500,7 @@
 | `DX-021` | محرك الأولوية والتعارض | FROZEN | P0 | NOT STARTED |
 | `DX-022` | العدّ التنازلي (اختياري) | FROZEN | P2 | NOT STARTED |
 | `DX-023` | المناطق الزمنية | FROZEN | P0 | NOT STARTED |
-| `DX-024` | تكامل Media Center: ارفع مرة واستخدم في كل مكان | FROZEN | P1 | NOT STARTED |
+| `DX-024` | تكامل Media Center: ارفع مرة واستخدم في كل مكان | FROZEN | P1 | PARTIAL |
 | `DX-025` | إدارة كاملة بلا كود | FROZEN | P0 | NOT STARTED |
 | `DX-026` | قواعد الحركة | FROZEN | P1 | NOT STARTED |
 | `DX-027` | Reduced motion لكل تجربة موسمية | FROZEN | P0 | NOT STARTED |
