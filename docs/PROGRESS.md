@@ -10,14 +10,14 @@
 > **الحالات:** NOT STARTED · IN PROGRESS · BLOCKED · READY FOR REVIEW · TESTED · COMPLETE.
 > **COMPLETE** = بُني واختُبر وتحقق. **`IMPLEMENTED — NOT YET VERIFIED`** لأي شيء لم يُختبر بعد.
 >
-> **آخر تحديث:** 2026-10-01
+> **آخر تحديث:** 2026-10-02
 
 ## الملخص
 | البند | الحالة |
 |---|---|
 | **التخطيط** | CLOSED (M36) |
 | **المرحلة الحالية** | **PHASE 3 — Owner Dashboard** (IN PROGRESS — M50 / D-327: أبسط Dashboard بلا كود). **D1–D7 جاهزة ومختبرة محليًا** (الصفحات، الصور، الجوائز، الفريق، الطلبات، الفروع والساعات، التواصل، الفعاليات، المنيو والأسعار وكلمات البحث والموسم، الإعلانات والحملات، «يحدث الآن»). PHASE 1 **COMPLETE** · صفحات PHASE 2/4 **TESTED** محليًا · الـStaging ينتظر Cloudways (PO-064) |
-| **اختبارات التطبيق** | **273 PHPUnit** · Vitest 49 · Storybook: آخر تشغيل كامل 521 ناجحًا + الإصلاح الوحيد مختبر (Header عند 360) + قصص بطاقة التواصل · Larastan المستوى 8 بلا أخطاء · Pint · Semgrep · Gitleaks |
+| **اختبارات التطبيق** | **352 PHPUnit** · Vitest 56 · Playwright: مصفوفة الموقع (40 صفحة × 20 مقاسًا + axe + الروابط) + **رحلات حقيقية**: المنيو 40 · الموقع 39 · لوحة التحكم 1 · Larastan المستوى 8 بلا أخطاء · Pint · Semgrep 0 · Gitleaks 0 · composer/npm audit 0 · Lighthouse 0.99–1.0 |
 | **CI** | `.github/workflows/quality.yml` يعمل على GitHub (سرعة + أمان + بناء) |
 | **Blockers للعمل المحلي** | لا يوجد |
 | **Blockers للـStaging والإطلاق** | - تطبيق Cloudways للـStaging (PO-064).<br>- ملفات الهوية (M-10).<br>- الوصول إلى Google وCloudflare (PO-011…013). |
@@ -100,6 +100,13 @@
 | المراجعة المعمارية (M35) · ADR-001 · قاعدة التوضيح (M38) · دمج M32–M38 في السجلات · الوثائق التشغيلية الـ39 | **COMPLETE** |
 | Wireframes الشراكات والـDashboard + توحيد المنيو والتوظيف على الـTokens | **TESTED**: المصفوفة الكاملة **2,617 ناجحًا · 0 فشل · 0 متقلب**.<br>المجموعات: التوظيف 736 · الشراكات 850 · الـDashboard 575 · المنيو 184 · الاستجابة 272.<br>الـ863 المتخطاة **مقصودة**: فحوص بنية تعمل مرة واحدة على عرض واحد، وعناصر خاصة بعرض معين.<br>**READY FOR REVIEW**. تدقيق التصميم: 0 مخالفات خط وRadius ومسافات، والمكونات المكررة 0. |
 
+## اختبار وإصلاح شامل (M51 / D-328)
+| البند | الحالة | الدليل |
+|---|---|---|
+| بناء نظيف من الصفر + كل مجموعات الاختبار + فحوص أمان حية + WCAG 2.2 + 20 مقاسًا + SEO + أداء + حدود الوقت + نافذتان | **TESTED** — 51 بندًا: 39 خللًا وُجد وأُصلح (9 منها P1)، 0 P0، 0 P1 مفتوح ضمن ما بُني | [`FINAL-QA-MATRIX`](FINAL-QA-MATRIX.md) · [`FINAL-QA-REPORT`](FINAL-QA-REPORT.md) |
+| البنية التحتية (Cloudways · Cloudflare · DNS · البريد) | **DEFERRED — INFRASTRUCTURE NOT CONNECTED** | PO-064 · PO-072 · PO-073 |
+| أسئلة جديدة لك | PO-077 صورة المشاركة · PO-078 قاعدة اسم العلامة | [`PENDING-OWNER-INPUT`](PENDING-OWNER-INPUT.md) |
+
 ## المراحل التالية
 | المرحلة | الحالة | ما ينتظر منك |
 |---|---|---|
@@ -107,5 +114,5 @@
 | **3 — Owner Dashboard** | **IN PROGRESS** (M50 — D-327) — D1…D7 وأدوات التوظيف **TESTED** محليًا — كل ما في الموقع يُعدّل من الـDashboard عدا أسئلة النماذج (مجمّدة) وعناصر القائمة الرئيسية | لا شيء لـD1. المحتوى نفسه (نصوص الصفحات، الصور، الجوائز، الفريق) تدخله أنت من الـDashboard عند جاهزيته |
 | **4 — Business Modules** | NOT STARTED | ملفات Franchise Master · المراجعة القانونية (PO-019) |
 | **5 — Integrations** | NOT STARTED → **BLOCKED** على الصلاحيات | PO-009…013 (PO-008 ✅) |
-| **6 — Quality / Operations** | NOT STARTED | — |
+| **6 — Quality / Operations** | **IN PROGRESS** — اختبار وإصلاح شامل محلي **TESTED** (M51)؛ التشغيل والمراقبة على السيرفر بعد الـStaging | PO-064 |
 | **7 — Release** | NOT STARTED | **موافقة الإنتاج** |

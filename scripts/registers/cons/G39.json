@@ -1,0 +1,50 @@
+{
+  "group": "G39",
+  "notes": "M51: توجيه الـOwner — مرحلة اختبار وإصلاح شاملة (ULTIMATE FULL-SPECTRUM TESTING + QA + REPAIR) قبل المراجعة النهائية: كل خلل يُكتشف ويُعاد إنتاجه ويُصلَح ويُعاد اختباره؛ لا ميزات عشوائية جديدة؛ لا تخمين لحقائق العمل؛ Cloudways وCloudflare غير متصلين فيُسجلان DEFERRED. المخرجات: docs/FINAL-QA-MATRIX.md وdocs/FINAL-QA-REPORT.md.",
+  "requirements": [],
+  "updates_to_existing": [],
+  "conflicts": [],
+  "new_decisions": [
+    {
+      "temp_id": "G39-ND-01",
+      "area": "Quality / Testing",
+      "decision": "توجيه الـOwner (M51): اختبار وإصلاح شامل لكل الموقع ولوحة التحكم قبل المراجعة النهائية — اكتشاف ← إعادة إنتاج ← فهم ← إصلاح ← إعادة اختبار ← انحدار، بدليل لكل نتيجة؛ لا ميزات عشوائية؛ لا تخمين لحقائق العمل (PENDING OWNER INPUT)؛ Cloudways وCloudflare لا يُختبران الآن (DEFERRED — INFRASTRUCTURE NOT CONNECTED)؛ لا يُعلن «جاهز» مع P0/P1 قائم.",
+      "sources": ["M51"],
+      "status": "APPROVED",
+      "reason": "Owner directive M51",
+      "impact": "docs/FINAL-QA-MATRIX.md · docs/FINAL-QA-REPORT.md · 51 بندًا (QA-001…QA-051) · اختبارات رحلات جديدة في tooling/tests/app",
+      "date": "2026-10-02"
+    }
+  ],
+  "pending_owner": [
+    {
+      "id": "G39-PO-01",
+      "item": "صورة المشاركة الافتراضية (Open Graph) عند مشاركة روابط الموقع على واتساب وفيسبوك وإنستغرام: الشعار الأبيض وحده لا يظهر على الخلفيات الفاتحة. الخيارات: A — بطاقة 1200×630 من الشعار المعتمد على خلفية العلامة #131313 تُصمَّم وتُعرض للاعتماد · B — صورة معتمدة من مكتبة الصور · C — بلا صورة الآن.",
+      "category": "NON-BLOCKING",
+      "type": "CONTENT NEEDED",
+      "blocks": "صورة المعاينة عند مشاركة الروابط فقط (العنوان والوصف يعملان الآن)",
+      "refs": ["SEO-035", "D-309"],
+      "count": "صورة واحدة",
+      "notes": "لا صورة غير معتمدة على الموقع (M36)"
+    },
+    {
+      "id": "G39-PO-02",
+      "item": "قاعدة اسم العلامة في النصوص: هل يُسمح بالاسم المختصر «SHELTER» (مثل «كن شريكًا مع SHELTER» و«لوحة SHELTER») أم يُستخدم دائمًا «SHELTER COFFEE / شلتر كوفي» (D-007)؟ وهل لبرنامج «SHELTER Family» اسم عربي؟",
+      "category": "NON-BLOCKING",
+      "type": "BUSINESS DECISION",
+      "blocks": "توحيد الاسم في النصوص فقط",
+      "refs": ["D-007", "D-327"],
+      "count": "قرار واحد",
+      "notes": "النصوص قابلة للتعديل من لوحة التحكم (نصوص الموقع) بعد القرار"
+    }
+  ],
+  "technical_flags": [
+    {"id": "G39-TF-01", "topic": "تعديل من نافذتين", "detail": "كل حفظ في لوحة التحكم يحمل لحظة فتح صفحته؛ إن تغيّر السجل بعدها من نافذة أو جهاز آخر يُرفض الحفظ مع شرح ويبقى ما كُتب، ولا يُكتب فوق التغيير الأحدث. النقرة الثانية خلال 5 ثوانٍ تُهمل.", "recommendation": "قرار تقني منفذ ومختبر (QA-044)", "needs_owner": false, "refs": ["CMS-001"]},
+    {"id": "G39-TF-02", "topic": "أمان الخادم", "detail": "على Staging وProduction: كوكي الجلسة HTTPS فقط ولا وضع Debug مهما كان في .env؛ عناوين الموقع (canonical وhreflang وsitemap) من APP_URL فقط، وأي Host مزوّر يُرفض (400)؛ إخفاء نسخة PHP.", "recommendation": "قرار تقني منفذ ومختبر (QA-012، QA-025، QA-027)", "needs_owner": false, "refs": ["SEC-001"]},
+    {"id": "G39-TF-03", "topic": "حماية النماذج العامة", "detail": "كل إرسال يمر بفحص الروبوت يُحسب (30 بالساعة لكل عنوان)، وكل ملف يُرفع مع النموذج يُحسب ضمن حد الرفع؛ أي قيمة غير نصية تُرفض بلطف (لا خطأ 500)؛ انتهاء الجلسة يعيد الزائر للنموذج بما كتبه (بلا رقم الهوية).", "recommendation": "قرار تقني منفذ ومختبر (QA-004، QA-006، QA-026)", "needs_owner": false, "refs": ["CAREERS-037"]},
+    {"id": "G39-TF-04", "topic": "الدخول بخطوتين", "detail": "قفل ساعة على خطوة الرمز بعد 10 محاولات خاطئة لكل حساب (مع سجل)؛ لا قفل لكل حساب على خطوة كلمة المرور حتى لا يستطيع من يعرف البريد إقفال الـOwner — والرمز إلزامي.", "recommendation": "قرار تقني منفذ ومختبر (QA-008)", "needs_owner": false, "refs": ["SEC-001"]},
+    {"id": "G39-TF-05", "topic": "معاينات المشاركة", "detail": "og:title/description/url/locale وtwitter:card على الصفحات القابلة للفهرسة؛ og:image فقط لصورة معتمدة (صورة الفعالية) — الصورة العامة بانتظار الـOwner (G39-PO-01).", "recommendation": "قرار تقني منفذ ومختبر (QA-041)", "needs_owner": false, "refs": ["SEO-035"]}
+  ],
+  "cost_api_dependencies": [],
+  "dropped": []
+}
