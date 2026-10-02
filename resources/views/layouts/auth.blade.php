@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, nofollow">
     <title>@yield('title') · {{ __('dashboard.name') }}</title>
+    @include('layouts._font-preload')
     @vite(['resources/css/dashboard.css', 'resources/js/dashboard.ts'])
 </head>
 <body class="ui-auth">

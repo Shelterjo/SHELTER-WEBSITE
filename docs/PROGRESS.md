@@ -22,7 +22,7 @@
 | **Blockers للعمل المحلي** | لا يوجد |
 | **Blockers للـStaging والإطلاق** | - تطبيق Cloudways للـStaging (PO-064).<br>- ملفات الهوية (M-10).<br>- الوصول إلى Google وCloudflare (PO-011…013). |
 | **الصلاحيات (D-308)** | خطوات [`ACCESS-SETUP`](platform/ACCESS-SETUP.md):<br>1. ✅ **الشبكة:** متحقق منها، وأول جرد مباشر للموقع القديم في [`24-live-site-crawl`](phase-01-discovery/24-live-site-crawl-2026-10-01.md).<br>2. ✅ **Cloudflare:** Token قراءة كـAPI credential، متحقق منه 2026-10-01.<br>3. ⏳ **Google:** حساب خدمة للقراءة عبر GitHub Secrets.<br>4. ⏳ **Cloudways Staging** |
-| **قرار مطلوب منك الآن** | - **PO-071:** ترخيص خط GE SS Two (يمنع الإطلاق فقط).<br>- **PO-066:** ملف "Menu List" ([`23-menu-list-reconciliation`](phase-01-discovery/23-menu-list-reconciliation.md)).<br>- Cloudflare: PO-070 · PO-072 · PO-073 **نُفذت** (D-311…D-313). الباقي (Full strict · DNSSEC) مع Cloudways في النهاية (D-314) |
+| **قرار مطلوب منك الآن** | - ~~**PO-071:**~~ ✅ D-329: الخط العربي Noto Kufi Arabic (مجاني) الآن، وGE SS Two يعود عند ترخيصه.<br>- **PO-066:** ملف "Menu List" ([`23-menu-list-reconciliation`](phase-01-discovery/23-menu-list-reconciliation.md)).<br>- Cloudflare: PO-070 · PO-072 · PO-073 **نُفذت** (D-311…D-313). الباقي (Full strict · DNSSEC) مع Cloudways في النهاية (D-314) |
 
 ## PHASE 1 — Foundation
 | الوحدة | الحالة | الدليل |

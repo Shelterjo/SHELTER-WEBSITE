@@ -1,0 +1,27 @@
+{
+  "group": "G40",
+  "notes": "M52: جواب الـOwner على سؤال الخط العربي (PO-071) بعد تقرير الاختبار الشامل: «ج» — خط عربي مجاني بنفس الطابع الآن (Noto Kufi Arabic)، والعودة إلى GE SS Two عند توفر ترخيص الويب.",
+  "requirements": [],
+  "updates_to_existing": [
+    {"id": "PO-071", "type": "RECLASSIFY", "source": "M52", "change": "✅ 2026-10-02 → ج (D-329): Noto Kufi Arabic (SIL OFL 1.1، مستضاف على الموقع) بدل GE SS Two الآن — بنفس الطابع الكوفي، بنفس الأوزان (نص خفيف، عناوين عريضة)، وبحجم معدّل 92% ليحافظ على نفس توزيع الأسطر المعتمد (D-309). لم يعد يمنع الإطلاق؛ يبقى سؤال ترخيص GE SS Two مفتوحًا للعودة إليه لاحقًا. مطبّق ومختبر (brand-guard ok، المصفوفة الكاملة)."}
+  ],
+  "conflicts": [],
+  "new_decisions": [
+    {
+      "temp_id": "G40-ND-01",
+      "area": "Brand / Design System",
+      "decision": "PO-071 → ج: الخط العربي للموقع ولوحة التحكم الآن Noto Kufi Arabic (مجاني للويب — SIL OFL 1.1، مستضاف على الموقع نفسه بلا خدمة خارجية) بنفس طابع GE SS Two؛ يعود GE SS Two عند تأكيد ترخيص الويب.",
+      "sources": ["M52"],
+      "status": "APPROVED",
+      "reason": "Owner: «ج» على الخيار الموصى به",
+      "impact": "D-309 (جزء الخط فقط) · PO-071 (NON-BLOCKING) · QA-039 (محلول) · resources/css/fonts.css · design-system/tokens/tokens.json",
+      "date": "2026-10-02"
+    }
+  ],
+  "pending_owner": [],
+  "technical_flags": [
+    {"id": "G40-TF-01", "topic": "الخط العربي", "detail": "Noto Kufi Arabic من @fontsource/noto-kufi-arabic 5.3.0 (المجموعة العربية فقط): الوزن 400 = ملف Light 300 (طابع GE SS Two Light في النصوص)، 500 = Medium، 700 = Bold؛ size-adjust 92% لأن الخط أعرض بنحو 4–8% وأطول بنحو 20% من GE SS Two؛ الأرقام واللاتيني من Poppins كما اعتُمد (D-065). لا طلبات لملفات غير موجودة بعد الآن.", "recommendation": "قرار تقني منفذ ومختبر", "needs_owner": false, "refs": ["D-309", "D-065"]}
+  ],
+  "cost_api_dependencies": [],
+  "dropped": []
+}

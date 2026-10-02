@@ -1,5 +1,6 @@
 // A production release must ship the real brand: no MISSING brand value and no brand asset whose licence is still pending.
-// D-309: brand colours, logo and fonts come from the old site; the GE SS Two web licence awaits the Owner (PO-071).
+// D-309: brand colours, logo and fonts come from the old site. Arabic font: Noto Kufi Arabic (SIL OFL) by D-329 until the
+// GE SS Two web licence is confirmed (PO-071).
 import { readFileSync } from 'node:fs';
 import process from 'node:process';
 

@@ -40,6 +40,7 @@
     <link rel="icon" href="/brand/favicon-32.png" sizes="32x32" type="image/png">
     <link rel="apple-touch-icon" href="/brand/favicon-180.png">
     <meta name="theme-color" content="#131313">
+    @include('layouts._font-preload')
     @vite(['resources/css/site.css', 'resources/js/site.ts'])
     @foreach ($jsonLd ?? [] as $structuredData)
         <script type="application/ld+json">{!! \App\Support\StructuredData::encode($structuredData) !!}</script>{{-- nosemgrep: shelter-blade-unescaped-output — JSON-LD from StructuredData::encode (JSON_HEX_TAG/AMP: cannot close the tag) --}}

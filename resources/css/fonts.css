@@ -1,25 +1,38 @@
-/* Brand fonts (D-309 — taken from the old site by Owner decision).
-   GE SS Two: Arabic text. © Boutros International. Web licence PENDING (PO-071): the files live in public/fonts/licensed/,
-   which is git-ignored and never deployed; without them the stack falls back (Poppins → Noto Sans Arabic → system).
+/* Brand fonts.
+   Arabic: Noto Kufi Arabic — SIL OFL 1.1 (resources/fonts/noto-kufi-arabic/OFL.txt), self-hosted from
+   @fontsource/noto-kufi-arabic 5.3.0, Arabic subset. Owner decision D-329 (PO-071 → C): a free font in the same geometric
+   Kufi character as the old site's GE SS Two, until GE SS Two has a web licence (then it returns here).
+   - size-adjust 92 %: Noto Kufi draws ~4–8 % wider and ~20 % taller than GE SS Two at the same size; 92 % keeps the
+     line breaks and the rhythm approved with D-309.
+   - Weights follow the old site: text = Light (300 file for weight 400), medium = 500, headings = Bold.
+   - Arabic script + spaces only: digits and Latin come from Poppins, so numbers read 0799009436 / 3.50 as approved
+     (D-065, Menu IA §6).
    Poppins: Latin text and buttons, SIL OFL 1.1 (resources/fonts/poppins/OFL.txt), self-hosted. */
 @font-face {
-    font-family: 'GE SS Two';
+    font-family: 'Noto Kufi Arabic';
     font-style: normal;
     font-weight: 400;
     font-display: swap;
-    src: url('/fonts/licensed/ge-ss-two-light.ttf') format('truetype');
-    /* Arabic script + spaces only: digits and Latin come from Poppins, so numbers read 0799009436 / 3.50 as approved
-       (D-065, Menu IA §6) — GE SS maps the ASCII digits to Arabic-Indic shapes. */
+    size-adjust: 92%;
+    src: url('../fonts/noto-kufi-arabic/noto-kufi-arabic-arabic-300-normal.woff2') format('woff2');
     unicode-range: U+0020, U+00A0, U+0600-06FF, U+0750-077F, U+08A0-08FF, U+FB50-FDFF, U+FE70-FEFF, U+200C-200F;
 }
 @font-face {
-    font-family: 'GE SS Two';
+    font-family: 'Noto Kufi Arabic';
+    font-style: normal;
+    font-weight: 500 600;
+    font-display: swap;
+    size-adjust: 92%;
+    src: url('../fonts/noto-kufi-arabic/noto-kufi-arabic-arabic-500-normal.woff2') format('woff2');
+    unicode-range: U+0020, U+00A0, U+0600-06FF, U+0750-077F, U+08A0-08FF, U+FB50-FDFF, U+FE70-FEFF, U+200C-200F;
+}
+@font-face {
+    font-family: 'Noto Kufi Arabic';
     font-style: normal;
     font-weight: 700;
     font-display: swap;
-    src: url('/fonts/licensed/ge-ss-two-bold.ttf') format('truetype');
-    /* Arabic script + spaces only: digits and Latin come from Poppins, so numbers read 0799009436 / 3.50 as approved
-       (D-065, Menu IA §6) — GE SS maps the ASCII digits to Arabic-Indic shapes. */
+    size-adjust: 92%;
+    src: url('../fonts/noto-kufi-arabic/noto-kufi-arabic-arabic-700-normal.woff2') format('woff2');
     unicode-range: U+0020, U+00A0, U+0600-06FF, U+0750-077F, U+08A0-08FF, U+FB50-FDFF, U+FE70-FEFF, U+200C-200F;
 }
 @font-face {
