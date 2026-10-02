@@ -1,0 +1,25 @@
+{
+  "group": "G42",
+  "notes": "M54: الـOwner اعتمد شكل بطاقة المشاركة (Open Graph) كما هي: «أ».",
+  "requirements": [],
+  "updates_to_existing": [
+    {"id": "PO-077", "type": "RESOLVE", "source": "M54", "change": "✅ 2026-10-02 → اعتماد الشكل كما هو (D-331): البطاقة منشورة public/brand/og-default-1200x630.png وتظهر على كل صفحة قابلة للفهرسة لا تملك صورة معتمدة خاصة بها. مطبّق ومختبر."}
+  ],
+  "conflicts": [],
+  "new_decisions": [
+    {
+      "temp_id": "G42-ND-01",
+      "area": "SEO / Brand",
+      "decision": "اعتماد بطاقة المشاركة 1200×630 كما صُممت (الشعار الأبيض المعتمد على #131313، سداسي الشعار الخفيف، SHELTER COFFEE بخط Poppins) صورةً افتراضية لمعاينة روابط الموقع.",
+      "sources": ["M54"],
+      "status": "APPROVED",
+      "reason": "Owner: «أ» — اعتماد كما هي",
+      "impact": "PO-077 (RESOLVED) · AST-007 Approved · SEO-035 · config shelter.share_image",
+      "date": "2026-10-02"
+    }
+  ],
+  "pending_owner": [],
+  "technical_flags": [],
+  "cost_api_dependencies": [],
+  "dropped": []
+}

@@ -30,7 +30,7 @@
 | AST-004 | خط GE SS Two (Light/Bold) | Font | Brand | الموقع القديم `ARBFONTS-GE-SS-TWO-*.ttf` ← `public/fonts/licensed/` (**غير مرفوع إلى Git**) | © Boutros International — **ترخيص Web غير مؤكد** | — | — | النص العربي | **خارج البناء** (D-329): يعود عند تأكيد ترخيص الويب (PO-071) |
 | AST-005 | خط Poppins (400/600/700) | Font | Brand | `@fontsource/poppins` 5.3.0 ← `resources/fonts/poppins/` | SIL OFL 1.1 (`OFL.txt`) | — | — | النص اللاتيني والأزرار | **Approved** (D-309) |
 | AST-006 | خط Noto Kufi Arabic (Light 300 للنص / Medium 500 / Bold 700) | Font | Brand | `@fontsource/noto-kufi-arabic` 5.3.0 (المجموعة العربية) ← `resources/fonts/noto-kufi-arabic/` | SIL OFL 1.1 (`OFL.txt`) | — | — | النص العربي (بديل GE SS Two بنفس الطابع، size-adjust 92%) | **Approved** (D-329) |
-| AST-007 | بطاقة المشاركة (Open Graph) 1200×630 | Image | Brand | `tooling/scripts/og-card.mjs` ← `resources/brand/og/og-default-1200x630.png` (من AST-001 + #131313 + سداسي الشعار + SHELTER COFFEE بخط AST-005) | مكونات العلامة المعتمدة فقط | — | — | معاينة الروابط على واتساب وفيسبوك وإنستغرام | **Pending** (D-330): MEDIA PENDING OWNER APPROVAL — لا تُنشر قبل اعتماد الشكل |
+| AST-007 | بطاقة المشاركة (Open Graph) 1200×630 | Image | Brand | `tooling/scripts/og-card.mjs` ← `resources/brand/og/og-default-1200x630.png` (من AST-001 + #131313 + سداسي الشعار + SHELTER COFFEE بخط AST-005) | مكونات العلامة المعتمدة فقط | — | — | معاينة الروابط على واتساب وفيسبوك وإنستغرام | **Approved** (D-331) — منشورة: `public/brand/og-default-1200x630.png` |
 
 ## ملاحظات Phase 01
 

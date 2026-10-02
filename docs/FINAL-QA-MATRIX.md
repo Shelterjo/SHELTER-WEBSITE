@@ -149,7 +149,7 @@ P2 medium · P3 polish. `FIXED` rows are listed under the area where the issue l
 | Sitemap | All indexable pages | complete | Contact and event pages missing | FIXED | P2 | QA-042 | added | EventsPagesTest | d96c6e0 |
 | robots.txt | Sitemap line; dashboard with/without slash | yes | missing / slash only | FIXED | P2 | QA-042 | added | test | d96c6e0 |
 | Share previews | OG + Twitter (SEO-035) | yes | none | FIXED | P2 | QA-041 | title/description/url/locale/type/twitter card; image only when approved | tests | d96c6e0 |
-| Share image | Site-wide default | approved image | none approved | PENDING OWNER INPUT | — | PO-077 | — | — | — |
+| Share image | Site-wide default | approved image | card designed from approved brand parts (D-330), approved by the Owner (D-331) and published | PASS | — | PO-077 | `public/brand/og-default-1200x630.png` + `config shelter.share_image` | SecurityAndIndexingTest | og-card.mjs |
 | Schema | Organization, CafeOrCoffeeShop, Menu, Event, FAQPage, Breadcrumb — approved data only, `</script>` safe | yes | yes; Event lacks an address (event ↔ branch address not linked); no `lastmod` | PASS WITH NOTES | P3 | QA-047 | — | — | SEO review |
 | Meta descriptions | Every page | written | empty until the Owner writes them (Site texts) | PENDING OWNER INPUT | P2 | QA-049 | editor ready | — | — |
 | Legacy URLs | Old site addresses → new | 301 map | not built; production redirects are a PHASE 7 gate | DEFERRED (Owner approval + PHASE 7) | P1 at launch | QA-048 | — | — | LEGACY-URL-MIGRATION |

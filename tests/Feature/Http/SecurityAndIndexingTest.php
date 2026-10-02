@@ -67,11 +67,14 @@ class SecurityAndIndexingTest extends TestCase
         config(['shelter.indexing' => true]);
 
         $this->get('/ar/')->assertHeaderMissing('X-Robots-Tag')->assertDontSee('name="robots"', false)
-            // Share previews (FINAL-QA QA-041): the page's own address and language; no unapproved image.
+            // Share previews (FINAL-QA QA-041): the page's own address and language, and the approved site card (D-331).
             ->assertSee('<meta property="og:url" content="http://localhost/ar/">', false)
             ->assertSee('<meta property="og:locale" content="ar_AR">', false)
-            ->assertDontSee('og:image', false);
-        // The site card appears only once approved (PO-077 → A): configured → absolute, with its size (D-330).
+            ->assertSee('<meta property="og:image" content="http://localhost/brand/og-default-1200x630.png">', false);
+        $this->assertFileExists(public_path('brand/og-default-1200x630.png'), 'the approved card is published');
+        config(['shelter.share_image' => null]);
+        $this->get('/en/')->assertDontSee('og:image', false)->assertSee('<meta name="twitter:card" content="summary">', false);
+        // Configured → absolute, with its size (D-330).
         config(['shelter.share_image' => '/brand/og-default-1200x630.png']);
         $this->get('/en/')->assertSee('<meta property="og:image" content="http://localhost/brand/og-default-1200x630.png">', false)
             ->assertSee('<meta property="og:image:width" content="1200">', false)

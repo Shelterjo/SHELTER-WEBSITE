@@ -35,10 +35,10 @@ return [
     'dashboard_locale' => env('DASHBOARD_LOCALE', 'ar'),
     'default_locale' => 'ar',
 
-    // The default share image (Open Graph) of pages without an approved image of their own (PO-077 → A, D-330). Empty
-    // until the Owner approves the card in resources/brand/og/ (MEDIA PENDING OWNER APPROVAL); on approval it is copied
-    // to public/brand/ and this points to it.
-    'share_image' => null,
+    // The default share image (Open Graph) of pages without an approved image of their own (PO-077 → A, D-330). The
+    // card was approved by the Owner (D-331); it is built by tooling/scripts/og-card.mjs into resources/brand/og/ and
+    // published as public/brand/og-default-1200x630.png. null = no site-wide share image.
+    'share_image' => '/brand/og-default-1200x630.png',
 
     'auth' => [
         // Absolute session limit in minutes, on top of the idle SESSION_LIFETIME (SECURITY-CENTER.md).
