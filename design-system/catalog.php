@@ -265,6 +265,7 @@ return [
 
         'fieldset' => ['stories' => [
             ['story' => 'Default', 'blade' => $both(fn (string $l): string => '<x-ui.fieldset legend="'.($l === 'ar' ? 'سؤال تجريبي' : 'Sample question').'" id="ds-group" hint="'.($l === 'ar' ? 'نص مساعد تجريبي' : 'Sample hint text').'"><x-ui.radio name="g" value="1" id="ds-r1" label="'.($l === 'ar' ? 'الخيار الأول' : 'First option').'" /><x-ui.radio name="g" value="2" id="ds-r2" label="'.($l === 'ar' ? 'الخيار الثاني' : 'Second option').'" /></x-ui.fieldset>')],
+            ['story' => 'Required', 'blade' => $both(fn (string $l): string => '<x-ui.fieldset legend="'.($l === 'ar' ? 'سؤال تجريبي' : 'Sample question').'" id="ds-group" required><x-ui.radio name="g" value="1" id="ds-r1" label="'.($l === 'ar' ? 'نعم' : 'Yes').'" /><x-ui.radio name="g" value="2" id="ds-r2" label="'.($l === 'ar' ? 'لا' : 'No').'" /></x-ui.fieldset>')],
             ['story' => 'Error', 'state' => 'error', 'blade' => $both(fn (string $l): string => '<x-ui.fieldset legend="'.($l === 'ar' ? 'سؤال تجريبي' : 'Sample question').'" id="ds-group" error="'.($l === 'ar' ? 'اختر إجابة' : 'Choose an answer').'"><x-ui.radio name="g" value="1" id="ds-r1" label="'.($l === 'ar' ? 'الخيار الأول' : 'First option').'" /><x-ui.radio name="g" value="2" id="ds-r2" label="'.($l === 'ar' ? 'الخيار الثاني' : 'Second option').'" /></x-ui.fieldset>')],
         ]],
 

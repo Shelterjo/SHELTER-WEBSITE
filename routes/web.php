@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Site\BranchController;
+use App\Http\Controllers\Site\CareersController;
 use App\Http\Controllers\Site\ContactController;
 use App\Http\Controllers\Site\ContentPageController;
 use App\Http\Controllers\Site\EventsController;
@@ -34,6 +35,13 @@ Route::prefix('{locale}')->where(['locale' => 'ar|en'])->middleware('locale')->g
     foreach (['about', 'faq', 'privacy', 'terms'] as $page) {
         Route::get($page.'/', ContentPageController::class)->defaults('key', $page)->name($page);
     }
+    // Careers (SI-B11): content in both languages; THE application form is Arabic only (CAREERS-REQUIREMENTS §2).
+    Route::get('careers/', [CareersController::class, 'show'])->name('careers');
+    Route::post('careers/', [CareersController::class, 'submit'])->name('careers.submit');
+    Route::post('careers/uploads/', [CareersController::class, 'upload'])->name('careers.upload');
+    Route::delete('careers/uploads/{attachment}/', [CareersController::class, 'removeUpload'])->whereNumber('attachment')->name('careers.upload.remove');
+    Route::get('careers/submitted/', [CareersController::class, 'submitted'])->name('careers.submitted');
+    Route::match(['get', 'post'], 'careers/track/', [CareersController::class, 'track'])->name('careers.track');
     // Site search (SI-B08): noindex, rate-limited (SEC-007 — the address only counts toward the limit, hashed).
     Route::get('search/', SearchController::class)->middleware('throttle:search')->name('search');
 

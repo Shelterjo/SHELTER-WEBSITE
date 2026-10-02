@@ -7,3 +7,4 @@ export default meta;
 
 export const Default = story('fieldset', 'Default');
 export const Error = story('fieldset', 'Error');
+export const Required = story('fieldset', 'Required');

@@ -1,11 +1,13 @@
 {{--
     Fieldset (DS-015): a group of controls answering one question (radio group, checkbox group, the three date selects).
-    The legend is the group label; hint and error are linked to the group with aria-describedby.
+    The legend is the group label; hint and error are linked to the group with aria-describedby. `required` marks the
+    question with the same * as x-ui.field (the group's controls carry the requirement).
 --}}
 @props([
     'legend',
     'hint' => null,
     'error' => null,
+    'required' => false,
 ])
 @php
     $groupId = $attributes->get('id');
@@ -18,7 +20,12 @@
     ])) ?: null;
 @endphp
 <fieldset {{ $attributes->class('ui-fieldset')->merge(array_filter(['aria-describedby' => $describedBy])) }}>
-    <legend class="ui-fieldset__legend">{{ $legend }}</legend>
+    <legend class="ui-fieldset__legend">
+        {{ $legend }}
+        @if ($required)
+            <span class="ui-field__required" aria-hidden="true">*</span>
+        @endif
+    </legend>
     @if (filled($hint))
         <p class="ui-field__hint" id="{{ $groupId }}-hint">{{ $hint }}</p>
     @endif

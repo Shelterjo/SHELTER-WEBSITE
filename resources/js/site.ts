@@ -14,3 +14,9 @@ const menu = document.querySelector<HTMLElement>('[data-ui-menu]');
 if (menu !== null) {
     void import('./menu/page').then(({ installMenuPage }) => installMenuPage(menu));
 }
+
+// The careers form script loads only on the careers page (its own chunk).
+const careers = document.querySelector<HTMLFormElement>('form[data-careers-form]');
+if (careers !== null) {
+    void import('./careers/form').then(({ installCareersForm }) => installCareersForm(careers));
+}

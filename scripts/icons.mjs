@@ -24,6 +24,7 @@ const ICONS = [
     'circle-check', // success alert, status-pill SYNCED
     'circle-x', // status-pill FAILED
     'clock', // status-pill PENDING
+    'file-text', // careers: an uploaded file in the list
     'hand', // status-pill MANUAL ACTION REQUIRED
     'handshake', // contact page: franchise inquiries intent
     'house', // navigation (home)
@@ -45,6 +46,7 @@ const ICONS = [
     'trending-down', // stat-tile trend
     'trending-up', // stat-tile trend
     'triangle-alert', // warning alert
+    'upload', // careers: the one upload area
     'x', // close
 ];
 

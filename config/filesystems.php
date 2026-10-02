@@ -41,6 +41,22 @@ return [
             'report' => false,
         ],
 
+        // Private careers files (CAREERS-037, INFRA-038): outside the public web root, never served by URL, no execute
+        // bit. On Cloudways set CAREERS_STORAGE_ROOT to …/private_html/recruitment (CLOUDWAYS-RECRUITMENT-ARCHITECTURE).
+        'careers' => [
+            'driver' => 'local',
+            'root' => env('CAREERS_STORAGE_ROOT', storage_path('app/private/careers')),
+            'visibility' => 'private',
+            'directory_visibility' => 'private',
+            'permissions' => [
+                'file' => ['public' => 0640, 'private' => 0640],
+                'dir' => ['public' => 0750, 'private' => 0750],
+            ],
+            'serve' => false,
+            'throw' => true,
+            'report' => false,
+        ],
+
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),

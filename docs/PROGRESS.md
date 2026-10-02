@@ -17,12 +17,12 @@
 |---|---|
 | **التخطيط** | CLOSED (M36) |
 | **المرحلة الحالية** | **PHASE 2 — Core Website** (IN PROGRESS). PHASE 1 **COMPLETE**، والـStaging الفعلي ينتظر Cloudways (PO-064) |
-| **اختبارات التطبيق** | **183 PHPUnit** · Vitest 43 · Storybook: آخر تشغيل كامل 521 ناجحًا + الإصلاح الوحيد مختبر (Header عند 360) + قصص بطاقة التواصل · Larastan المستوى 8 بلا أخطاء · Pint · Semgrep · Gitleaks |
+| **اختبارات التطبيق** | **212 PHPUnit** · Vitest 44 · Storybook: آخر تشغيل كامل 521 ناجحًا + الإصلاح الوحيد مختبر (Header عند 360) + قصص بطاقة التواصل · Larastan المستوى 8 بلا أخطاء · Pint · Semgrep · Gitleaks |
 | **CI** | `.github/workflows/quality.yml` يعمل على GitHub (سرعة + أمان + بناء) |
 | **Blockers للعمل المحلي** | لا يوجد |
 | **Blockers للـStaging والإطلاق** | - تطبيق Cloudways للـStaging (PO-064).<br>- ملفات الهوية (M-10).<br>- الوصول إلى Google وCloudflare (PO-011…013). |
 | **الصلاحيات (D-308)** | خطوات [`ACCESS-SETUP`](platform/ACCESS-SETUP.md):<br>1. ✅ **الشبكة:** متحقق منها، وأول جرد مباشر للموقع القديم في [`24-live-site-crawl`](phase-01-discovery/24-live-site-crawl-2026-10-01.md).<br>2. ✅ **Cloudflare:** Token قراءة كـAPI credential، متحقق منه 2026-10-01.<br>3. ⏳ **Google:** حساب خدمة للقراءة عبر GitHub Secrets.<br>4. ⏳ **Cloudways Staging** |
-| **قرار مطلوب منك الآن** | - **PO-071:** ترخيص خط GE SS Two (يمنع الإطلاق فقط).<br>- **PO-066:** ملف "Menu List" ([`23-menu-list-reconciliation`](phase-01-discovery/23-menu-list-reconciliation.md)).<br>- Cloudflare: PO-070 · PO-072 · PO-073 **نُفذت** (D-311…D-313). الباقي (Full strict · DNSSEC) مع Cloudways في النهاية (D-314) |
+| **قرار مطلوب منك الآن** | - **PO-074:** قائمة مدن الأردن لنموذج التوظيف (تفتح النموذج).<br>- **PO-071:** ترخيص خط GE SS Two (يمنع الإطلاق فقط).<br>- **PO-066:** ملف "Menu List" ([`23-menu-list-reconciliation`](phase-01-discovery/23-menu-list-reconciliation.md)).<br>- Cloudflare: PO-070 · PO-072 · PO-073 **نُفذت** (D-311…D-313). الباقي (Full strict · DNSSEC) مع Cloudways في النهاية (D-314) |
 
 ## PHASE 1 — Foundation
 | الوحدة | الحالة | الدليل |
@@ -55,6 +55,14 @@
 | ملفات النظام: `/llms.txt` من المعتمد فقط (SI-S06) · صفحة الصيانة 503 ثابتة بلا قاعدة بيانات (SI-S03) | **TESTED** | `SystemFilesTest` (2) |
 | البحث `/ar/search/` (GLOBAL-SEARCH): فهرس مشتق `search_index` + `search:rebuild` · نتائج مجمعة بلا JS · noindex · مدخل في الـDrawer والـHeader (1024+) وصفحة 404 · سجل مجهول الهوية مطفأ حتى PO-019 | **TESTED** | `SearchPageTest` (8) · `SearchNormalizerTest` + Vitest على ملف أمثلة واحد (GS-T1) · Storybook 30/30 · بلا تمدد 320…1920 |
 | الفعاليات `/ar/jo/events/` + صفحة كل فعالية (جدول `experiences` الموحد — DX-014): الجارية ثم القادمة · Event Schema للصالحة فقط · المنتهية تبقى صفحتها بعلامة "انتهت" وnoindex · القائمة الفارغة noindex · رابط في الـFooter فقط عند وجود فعالية · ضمن البحث | **TESTED** | `EventsPagesTest` (6) · محرك المواضع (بانر/Hero/ثيمات) في PHASE 3 |
+
+## PHASE 4 — الصفحات العامة للوحدات (تبدأ بالتوظيف)
+| الوحدة | الحالة | الدليل |
+|---|---|---|
+| التوظيف — الجانب العام: `/ar/careers/` (المحتوى + **النموذج العربي الوحيد**) · `/en/careers/` (محتوى + Apply) · الرفع التدريجي · صفحة النجاح · متابعة الطلب | **TESTED** محليًا · **النموذج مغلق تلقائيًا** حتى قائمة المدن (**PO-074**) | `CareersServicesTest` (U-01…U-13 + التنظيف) · `CareersFormTest` (F-01…F-10، T-01…T-04) · رحلة متصفح كاملة على 390 · بلا تمدد 320…1920 |
+| التوظيف — البيانات والأمان: 15 جدولًا حسب RECRUITMENT-DATA-MODEL · الهوية AES-256-GCM + Blind index · فحص الملفات بالتوقيع · اكتشاف الـCV محليًا · رقم JOB من الخادم · الربط بالطلبات السابقة بلا دمج | **TESTED** | المفاتيح على السيرفر فقط (`.env.example` بلا قيم) |
+| التوظيف — الـOwner Dashboard (القائمة، الفلاتر، المقابلات، التصدير…) | NOT STARTED | ضمن PHASE 3/4 للـDashboard |
+| الفرنشايز · الوسائط · الجوائز · SHELTER Family · رأي العميل | NOT STARTED | مخفية حتى موافقاتها (PO-030 وغيرها) |
 
 ## إغلاق المهام السابقة
 | المهمة | الحالة |

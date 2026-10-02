@@ -28,6 +28,24 @@ return [
     'search_index' => ['class' => 'PUBLIC', 'per_row' => 'scope'],
     'search_query_daily' => ['class' => 'INTERNAL'],
 
+    // Careers & recruitment (RECRUITMENT-DATA-MODEL, DATA-CLASSIFICATION): applicant data is CONFIDENTIAL, identity
+    // numbers and attachments SENSITIVE; Owner-only in the Dashboard, never in analytics or logs.
+    'jordan_cities' => ['class' => 'PUBLIC'],
+    'consent_versions' => ['class' => 'PUBLIC'],
+    'upload_sessions' => ['class' => 'INTERNAL', 'columns' => ['ip_hash' => 'CONFIDENTIAL']],
+    'job_applications' => ['class' => 'CONFIDENTIAL', 'columns' => ['birth_date' => 'SENSITIVE', 'nationality_text' => 'SENSITIVE', 'marital_status' => 'SENSITIVE']],
+    'application_identity_secure' => ['class' => 'SENSITIVE'],
+    'application_attachments' => ['class' => 'SENSITIVE'],
+    'application_consents' => ['class' => 'CONFIDENTIAL'],
+    'application_status_history' => ['class' => 'CONFIDENTIAL'],
+    'application_notes' => ['class' => 'CONFIDENTIAL'],
+    'interview_locations' => ['class' => 'INTERNAL'],
+    'application_interviews' => ['class' => 'CONFIDENTIAL'],
+    'application_links' => ['class' => 'CONFIDENTIAL'],
+    'recruitment_saved_filters' => ['class' => 'INTERNAL'],
+    'user_preferences' => ['class' => 'INTERNAL'],
+    'recruitment_settings' => ['class' => 'INTERNAL'],
+
     // Master data (public once approved; unapproved values are NULL + a pending fact)
     'markets' => ['class' => 'PUBLIC'],
     'countries' => ['class' => 'PUBLIC'],

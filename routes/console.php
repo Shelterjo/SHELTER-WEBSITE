@@ -2,6 +2,7 @@
 
 use App\Services\Core\JobRuns;
 use App\Services\MasterData\FactRegistry;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Schedule;
 
 /*
@@ -14,4 +15,14 @@ Schedule::call(fn () => app(JobRuns::class)->run('facts:expire-verified', fn ():
     ->name('facts:expire-verified')
     ->timezone('Asia/Amman')
     ->dailyAt('03:10')
+    ->withoutOverlapping();
+
+// Unsubmitted careers uploads (drafts, never applications) older than 24 hours (RECRUITMENT-SECURITY §2.5).
+Schedule::call(fn () => app(JobRuns::class)->run('careers:prune-drafts', function (): string {
+    Artisan::call('careers:prune-drafts');
+
+    return trim(Artisan::output());
+}))
+    ->name('careers:prune-drafts')
+    ->hourly()
     ->withoutOverlapping();

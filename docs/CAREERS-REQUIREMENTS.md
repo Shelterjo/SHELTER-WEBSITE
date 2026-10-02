@@ -157,7 +157,8 @@
 | 6 | Form wireframe | ✅ مسودة |
 | 7 | Dashboard wireframes | ✅ مسودة |
 | **8** | **Owner-approved architecture check** | **بوابة** |
-| 9–17 | Backend ← النموذج ← المتابعة ← الـDashboard ← الرفع ← البحث والتصدير ← الاختبار ← Staging ← الجاهزية | |
+| 9–11 | Backend ← النموذج ← المتابعة + الرفع | **TESTED محليًا** (2026-10-02): `tests/Feature/Careers/*`. النموذج مغلق تلقائيًا حتى قائمة المدن (PO-074) ومفاتيح الهوية على السيرفر |
+| 12–17 | الـDashboard ← البحث والتصدير ← الاختبار ← Staging ← الجاهزية | NOT STARTED |
 
 **شروط تسبق المرحلة 9 (Backend):**
 - المرحلة 2 (الوصول لـCloudways).

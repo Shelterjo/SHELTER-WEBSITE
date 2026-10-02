@@ -1,0 +1,319 @@
+/* Careers (SI-B11, CAREERS-REQUIREMENTS §4): premium, minimal, fast, Arabic first — clarity before beauty. One reading
+   column, six groups separated by hairlines, 44px targets, errors as icon + text (never colour alone). Conditional
+   fields follow the chosen nationality with :has() — no JavaScript needed. Tokens and logical properties only. */
+
+.ui-careers {
+    display: grid;
+    gap: var(--space-6);
+    max-inline-size: calc(var(--measure-reading) * 0.75);
+}
+
+.ui-careers__title {
+    margin: 0;
+    font-size: var(--text-2xl);
+    font-weight: var(--weight-bold);
+}
+
+.ui-careers__track {
+    margin: 0;
+}
+
+.ui-careers__track a {
+    display: inline-flex;
+    align-items: center;
+    min-block-size: var(--touch-target);
+    color: var(--color-text);
+    font-weight: var(--weight-medium);
+    text-underline-offset: var(--space-1);
+}
+
+.ui-careers__form {
+    display: grid;
+    gap: var(--space-10);
+}
+
+/* Honeypot: off-screen for people, present for bots (never display: none). */
+.ui-careers__hp {
+    position: absolute;
+    inline-size: var(--border-default);
+    block-size: var(--border-default);
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+}
+
+.ui-careers__group {
+    display: grid;
+    gap: var(--space-6);
+    min-inline-size: 0;
+    margin: 0;
+    padding: var(--space-8) 0 0;
+    border: 0;
+    border-block-start: var(--border-default) solid var(--color-border);
+}
+
+.ui-careers__legend {
+    float: inline-start;
+    inline-size: 100%;
+    margin-block-end: var(--space-2);
+    padding: 0;
+    font-size: var(--text-xl);
+    font-weight: var(--weight-bold);
+}
+
+.ui-careers__choice {
+    min-inline-size: 0;
+}
+
+/* The error summary takes focus after a failed submit; keep it clear of the top edge when scrolled to. */
+.ui-careers__summary {
+    scroll-margin-block-start: var(--space-6);
+}
+
+.ui-careers__options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-6);
+}
+
+.ui-careers__date {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-3);
+}
+
+/* Conditional fields: hidden until their nationality is chosen; required once shown (checked on the server). */
+.ui-careers__when {
+    display: none;
+}
+
+.ui-careers__form:has(#nationality_type-jordanian:checked) [data-when='jordanian'],
+.ui-careers__form:has(#nationality_type-non_jordanian:checked) [data-when='non_jordanian'] {
+    display: grid;
+    gap: var(--space-6);
+}
+
+.ui-careers__money {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+}
+
+.ui-careers__money .ui-input {
+    flex: 1 1 auto;
+    min-inline-size: 0;
+}
+
+.ui-careers__suffix {
+    flex: none;
+    color: var(--color-muted);
+    font-weight: var(--weight-medium);
+}
+
+.ui-careers__consent-text {
+    margin: 0;
+    padding: var(--space-4);
+    border-radius: var(--radius-md);
+    background: var(--color-surface);
+    line-height: var(--leading-normal);
+}
+
+.ui-careers__actions .ui-button {
+    inline-size: 100%;
+}
+
+.ui-careers__cta {
+    margin-block: 0 var(--space-6);
+}
+
+/* ── Upload area ─────────────────────────────────────────────────────────────────────────────────────────────── */
+.ui-upload {
+    display: grid;
+    gap: var(--space-3);
+}
+
+.ui-upload__zone {
+    display: grid;
+    justify-items: center;
+    gap: var(--space-2);
+    padding: var(--space-8) var(--space-4);
+    border: calc(var(--border-default) * 2) dashed var(--color-border);
+    border-radius: var(--radius-lg);
+    color: var(--color-muted);
+    text-align: center;
+    cursor: pointer;
+    transition:
+        border-color var(--motion-fast) var(--easing-standard),
+        background-color var(--motion-fast) var(--easing-standard);
+}
+
+.ui-upload__zone:hover,
+.ui-upload__zone.is-dragover {
+    border-color: var(--color-muted);
+    background: var(--color-surface);
+}
+
+.ui-upload:has(.ui-upload__input:focus-visible) .ui-upload__zone {
+    outline: var(--ui-focus-ring-width) solid var(--color-focus);
+    outline-offset: var(--ui-focus-ring-offset);
+}
+
+.ui-upload__title {
+    color: var(--color-text);
+    font-weight: var(--weight-bold);
+}
+
+.ui-upload__hint {
+    font-size: var(--text-sm);
+}
+
+/* The native input stays in the tab order (keyboard + screen readers); the zone is its visible label. */
+.ui-upload__input {
+    position: absolute;
+    inline-size: var(--border-default);
+    block-size: var(--border-default);
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+}
+
+.ui-upload__list {
+    display: grid;
+    gap: var(--space-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.ui-upload__list:empty {
+    display: none;
+}
+
+.ui-upload__item {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto auto;
+    align-items: center;
+    gap: var(--space-1) var(--space-3);
+    min-block-size: var(--touch-target);
+    padding-inline: var(--space-3) var(--space-1);
+    border: var(--border-default) solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-surface);
+}
+
+.ui-upload__name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.ui-upload__progress {
+    grid-column: 1 / -1;
+    inline-size: 100%;
+    block-size: var(--space-1);
+    margin-block-end: var(--space-2);
+    accent-color: var(--color-accent);
+}
+
+.ui-upload__error {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin: 0 0 var(--space-2);
+    color: var(--color-danger);
+    font-size: var(--text-sm);
+}
+
+.ui-upload__item--error {
+    border-color: var(--color-danger);
+}
+
+/* ── Success and tracking ────────────────────────────────────────────────────────────────────────────────────── */
+.ui-careers-done {
+    display: grid;
+    justify-items: center;
+    gap: var(--space-3);
+    max-inline-size: calc(var(--measure-reading) * 0.75);
+    margin-inline: auto;
+    padding-block: var(--space-10);
+    text-align: center;
+}
+
+.ui-careers-done__icon {
+    color: var(--color-success);
+}
+
+.ui-careers-done__title {
+    margin: 0;
+    font-size: var(--text-3xl);
+    font-weight: var(--weight-bold);
+}
+
+.ui-careers-done__title:focus {
+    outline: none;
+}
+
+.ui-careers-done__label {
+    margin: var(--space-4) 0 0;
+    color: var(--color-muted);
+    font-size: var(--text-sm);
+}
+
+.ui-careers-done__number {
+    margin: 0;
+    font-size: var(--text-2xl);
+    font-weight: var(--weight-bold);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: var(--tracking-en-eyebrow);
+    unicode-bidi: isolate;
+}
+
+.ui-careers-done__text {
+    margin: 0;
+    color: var(--color-muted);
+}
+
+.ui-careers-done__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-3);
+    margin-block-start: var(--space-4);
+}
+
+.ui-careers-track {
+    display: grid;
+    gap: var(--space-6);
+    max-inline-size: calc(var(--measure-reading) * 0.6);
+}
+
+.ui-careers-track__form {
+    display: grid;
+    gap: var(--space-6);
+}
+
+.ui-careers-track__result {
+    padding: var(--space-6);
+    border: var(--border-default) solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-surface);
+}
+
+.ui-careers-track__label {
+    margin: 0;
+    color: var(--color-muted);
+    font-size: var(--text-sm);
+}
+
+.ui-careers-track__status {
+    margin: var(--space-1) 0 0;
+    font-size: var(--text-2xl);
+    font-weight: var(--weight-bold);
+}
+
+@media (min-width: 768px) {
+    .ui-careers__actions .ui-button {
+        inline-size: auto;
+    }
+}
