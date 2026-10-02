@@ -384,6 +384,16 @@
     gap: var(--space-1);
 }
 
+/* Drag and drop (CAREERS-061, mouse): a shown column can be dragged; the one being dragged is marked. Up / down stay. */
+.ui-column-list__item[draggable='true'] {
+    cursor: grab;
+}
+
+.ui-column-list__item[data-dragging] {
+    border-block-end-color: var(--color-accent);
+    background: var(--color-surface);
+}
+
 /* Compact density: less padding, same text size (CAREERS-062). */
 .ui-inbox-table--compact th,
 .ui-inbox-table--compact td {

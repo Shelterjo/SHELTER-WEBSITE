@@ -62,7 +62,7 @@ final class CareersView
     }
 
     /**
-     * Applies the "table view" form: shown columns, a move (column:up / column:down), the density, or a reset.
+     * Applies the "table view" form: shown columns, a move (column:up / column:down) or a dragged order, the density, or a reset.
      *
      * @param  array<string, mixed>  $input
      */
@@ -75,7 +75,11 @@ final class CareersView
             return;
         }
         $order = $this->ordered($owner);
-        $shown = array_values(array_intersect($order, array_map('strval', is_array($input['shown'] ?? null) ? $input['shown'] : [])));
+        $submitted = array_map('strval', is_array($input['shown'] ?? null) ? $input['shown'] : []);
+        // After a drag (CAREERS-061) the ticked columns arrive in their new order; otherwise the saved order stays.
+        $shown = ! empty($input['reorder'])
+            ? array_values(array_unique(array_intersect($submitted, $order)))
+            : array_values(array_intersect($order, $submitted));
         $move = is_string($input['move'] ?? null) ? explode(':', $input['move']) : [];
         if (count($move) === 2 && in_array($move[0], $shown, true)) {
             $i = (int) array_search($move[0], $shown, true);

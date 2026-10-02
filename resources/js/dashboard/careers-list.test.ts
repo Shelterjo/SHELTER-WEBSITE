@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import { debounce, listUrl, shouldSearch } from './careers-list';
+import { debounce, listUrl, reorder, shouldSearch } from './careers-list';
 
 describe('careers list', () => {
     it('searches once typing pauses, not on every key', () => {
@@ -32,5 +32,13 @@ describe('careers list', () => {
                 ['period', 'all'],
             ]),
         ).toBe('/dashboard/requests/careers?q=%D8%A8%D8%A7%D8%B1%D9%8A%D8%B3%D8%AA%D8%A7&period=all');
+    });
+
+    it('a dropped column takes the place it was dropped on', () => {
+        const order = ['job', 'city', 'experience', 'salary'];
+        expect(reorder(order, 'salary', 'job', false)).toEqual(['salary', 'job', 'city', 'experience']);
+        expect(reorder(order, 'job', 'city', true)).toEqual(['city', 'job', 'experience', 'salary']);
+        expect(reorder(order, 'job', 'job', true)).toEqual(order);
+        expect(reorder(order, 'unknown', 'job', false)).toEqual(order);
     });
 });

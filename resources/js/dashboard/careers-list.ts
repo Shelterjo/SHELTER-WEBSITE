@@ -31,7 +31,66 @@ export function listUrl(action: string, entries: [string, string][]): string {
     return url.pathname + (url.search === '' ? '' : url.search);
 }
 
+/** The column order after dropping `moved` before (or after) `target`; unchanged for an unknown or same column. */
+export function reorder(order: string[], moved: string, target: string, after: boolean): string[] {
+    if (moved === target || !order.includes(moved) || !order.includes(target)) return order;
+    const rest = order.filter((column) => column !== moved);
+    const at = rest.indexOf(target) + (after ? 1 : 0);
+    return [...rest.slice(0, at), moved, ...rest.slice(at)];
+}
+
+/**
+ * Drag and drop for the table columns (CAREERS-061, mouse): a shown column dropped on another takes its place and the
+ * form is sent at once with `reorder` (the ticked boxes arrive in the new order). Keyboard and touch keep Up / Down.
+ */
+export function installColumnDrag(list: HTMLElement): void {
+    const form = list.closest('form');
+    if (form === null) return;
+    const items = (): HTMLElement[] => [...list.querySelectorAll<HTMLElement>('[data-column]')];
+    let dragged: HTMLElement | null = null;
+    for (const item of items()) {
+        if (item.querySelector<HTMLInputElement>('input[name="shown[]"]')?.checked !== true) continue;
+        item.draggable = true;
+        item.addEventListener('dragstart', (event) => {
+            dragged = item;
+            item.dataset.dragging = '';
+            event.dataTransfer?.setData('text/plain', item.dataset.column ?? '');
+        });
+        item.addEventListener('dragend', () => {
+            delete item.dataset.dragging;
+            dragged = null;
+        });
+        item.addEventListener('dragover', (event) => {
+            if (dragged !== null && dragged !== item) event.preventDefault();
+        });
+        item.addEventListener('drop', (event) => {
+            event.preventDefault();
+            if (dragged === null || dragged === item) return;
+            const box = item.getBoundingClientRect();
+            const next = reorder(
+                items().map((i) => i.dataset.column ?? ''),
+                dragged.dataset.column ?? '',
+                item.dataset.column ?? '',
+                event.clientY > box.top + box.height / 2,
+            );
+            const byName = new Map(items().map((i) => [i.dataset.column ?? '', i]));
+            for (const name of next) {
+                const node = byName.get(name);
+                if (node !== undefined) list.append(node);
+            }
+            const flag = document.createElement('input');
+            flag.type = 'hidden';
+            flag.name = 'reorder';
+            flag.value = '1';
+            form.append(flag);
+            form.requestSubmit();
+        });
+    }
+}
+
 export function installCareersList(results: HTMLElement): void {
+    const columns = document.querySelector<HTMLElement>('[data-column-list]');
+    if (columns !== null) installColumnDrag(columns);
     const form = document.querySelector<HTMLFormElement>('form.ui-inbox-filters');
     const input = form?.querySelector<HTMLInputElement>('#q');
     let controller: AbortController | null = null;

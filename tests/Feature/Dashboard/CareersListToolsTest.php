@@ -76,6 +76,19 @@ class CareersListToolsTest extends TestCase
         $this->assertStringContainsString('<option value="25" selected', (string) $this->get('/dashboard/requests/careers?period=all')->getContent(), 'the last choice is remembered');
     }
 
+    public function test_a_dragged_column_order_is_kept_as_sent(): void
+    {
+        $this->apply();
+        $this->post('/dashboard/requests/careers/view', ['shown' => ['salary', 'job', 'phone', 'not-a-column'], 'reorder' => '1']);
+        $html = (string) $this->get('/dashboard/requests/careers?period=all')->getContent();
+        $this->assertMatchesRegularExpression('#>الراتب المتوقع</th>\s*<th[^>]*>الوظيفة</th>\s*<th[^>]*>الهاتف</th>#u', $html, 'CAREERS-061: the dragged order');
+        $this->assertStringContainsString('data-column-list', $html);
+
+        $this->post('/dashboard/requests/careers/view', ['shown' => ['job', 'salary', 'phone']]);
+        $this->assertMatchesRegularExpression('#>الراتب المتوقع</th>\s*<th[^>]*>الوظيفة</th>#u', (string) $this->get('/dashboard/requests/careers?period=all')->getContent(),
+            'without a drag the saved order stays');
+    }
+
     public function test_a_search_is_saved_under_a_name_and_opens_in_one_press(): void
     {
         $this->post('/dashboard/requests/careers/filters', ['name' => '', 'filters' => ['q' => 'barista']])->assertSessionHasErrors(['saved_name']);

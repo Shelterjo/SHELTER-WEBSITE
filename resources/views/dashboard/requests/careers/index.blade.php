@@ -122,11 +122,12 @@
                     </div>
                 </x-ui.fieldset>
                 <x-ui.fieldset :legend="__('dashboard.requests.view.columns')" id="columns">
-                    <ul class="ui-column-list" role="list">
+                    <p class="ui-note">{{ __('dashboard.requests.view.drag_hint') }}</p>
+                    <ul class="ui-column-list" role="list" data-column-list>
                         <li class="ui-column-list__item"><x-ui.checkbox :label="__('dashboard.requests.columns.name')" id="col-name" checked disabled /></li>
                         @foreach ($ordered as $column)
                             @php $isShown = in_array($column, $columns, true); @endphp
-                            <li class="ui-column-list__item">
+                            <li class="ui-column-list__item" data-column="{{ $column }}">
                                 <x-ui.checkbox :label="__('dashboard.requests.columns.'.$column)" name="shown[]" :value="$column" :id="'col-'.$column" :checked="$isShown" />
                                 @if ($isShown)
                                     <span class="ui-column-list__moves">

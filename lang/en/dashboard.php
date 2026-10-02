@@ -298,6 +298,7 @@ return [
             'density' => 'Spacing',
             'densities' => ['comfortable' => 'Comfortable', 'compact' => 'Compact — more rows on screen'],
             'columns' => 'Shown columns and their order',
+            'drag_hint' => 'Order the shown columns by dragging them with the mouse, or with “Up” and “Down”.',
             'up' => 'Up',
             'down' => 'Down',
             'apply' => 'Apply',
