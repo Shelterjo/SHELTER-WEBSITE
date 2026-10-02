@@ -35,15 +35,27 @@
     @else
         <ul class="ui-item-list" role="list">
             @foreach ($rows as $row)
-                @php $item = $row['item']; @endphp
+                @php
+                    $item = $row['item'];
+                    // CAMP-004: the Owner's own name leads the row; the visitors' title follows it.
+                    $internal = $item->details['internal_name'] ?? null;
+                    $public = ($ar ? $item->title_ar : $item->title_en) ?? $item->title_ar ?? $item->title_en;
+                    $only = array_values(array_filter(array_map(fn ($id) => $branches[(int) $id] ?? null, $item->branch_ids ?? [])));
+                @endphp
                 <li class="ui-item-list__item">
                     <div class="ui-item-list__main">
-                        <h2 class="ui-item-list__title"><a href="{{ route('dashboard.announcements.edit', $item) }}">{{ ($ar ? $item->title_ar : $item->title_en) ?? $item->title_ar ?? $item->title_en ?? __($A.'untitled') }}</a></h2>
+                        <h2 class="ui-item-list__title"><a href="{{ route('dashboard.announcements.edit', $item) }}">{{ $internal ?? $public ?? __($A.'untitled') }}</a></h2>
                         <p class="ui-item-list__meta">
                             <x-ui.badge :variant="$badges[$row['state']][0]" :icon="$badges[$row['state']][1]">{{ __($A.'states.'.$row['state']) }}</x-ui.badge>
+                            @if ($internal !== null && $public !== null)
+                                <span>{{ $public }}</span>
+                            @endif
                             <span>{{ __($A.'types.'.(($item->details['urgent'] ?? false) === true ? 'urgent' : $item->type)) }}</span>
                             @if (($item->placements ?? []) !== [])
                                 <span>{{ __($A.'placements.'.$item->placements[0]) }}</span>
+                            @endif
+                            @if ($only !== [])
+                                <span>{{ __($A.'only_branches', ['branches' => implode('، ', $only)]) }}</span>
                             @endif
                             @if ($row['when'] !== null)
                                 <span><bdi>{{ $row['when'] }} → {{ $row['until'] }}</bdi></span>

@@ -108,18 +108,13 @@ final class EventsController extends Controller
         $editor = app(EventEditor::class);
         $events = app(Events::class);
         $timezone = $market->timezone !== '' ? $market->timezone : 'Asia/Amman';
-        $branches = [];
-        foreach (Branch::query()->whereNull('archived_at')->orderBy('sort')->get() as $branch) {
-            $name = $data->branchField($branch, app()->getLocale() === 'ar' ? 'name_ar' : 'name_en');
-            $branches[$branch->id] = is_string($name) ? $name : $branch->code;
-        }
 
         return view('dashboard.events.form', [
             'event' => $event,
             'images' => AwardsController::usableImages(),
             'state' => $event->exists ? $editor->state($event, $market) : 'draft',
             'fixed' => $editor->addressFixed($event),
-            'branches' => $branches,
+            'branches' => self::branchChoices($data),
             'starts' => $event->starts_at === null ? null : CarbonImmutable::instance($event->starts_at)->setTimezone($timezone),
             'ends' => $event->ends_at === null ? null : CarbonImmutable::instance($event->ends_at)->setTimezone($timezone),
             'preview' => $event->exists ? ['ar' => $events->preview($event, $market, 'ar'), 'en' => $events->preview($event, $market, 'en')] : null,
@@ -130,6 +125,22 @@ final class EventsController extends Controller
             'timezone' => $timezone,
             'market' => $market,
         ]);
+    }
+
+    /**
+     * The branches an event or a campaign may name, each by its approved name in the dashboard language (else its code).
+     *
+     * @return array<int, string> id => name
+     */
+    public static function branchChoices(MasterData $data): array
+    {
+        $branches = [];
+        foreach (Branch::query()->whereNull('archived_at')->orderBy('sort')->get() as $branch) {
+            $name = $data->branchField($branch, app()->getLocale() === 'ar' ? 'name_ar' : 'name_en');
+            $branches[$branch->id] = is_string($name) ? $name : $branch->code;
+        }
+
+        return $branches;
     }
 
     /** One line for the list: the day (and time) in the market's time zone. */

@@ -9,6 +9,8 @@ use App\Models\Market;
 use App\Models\User;
 use App\Services\Dashboard\AnnouncementEditor;
 use App\Services\Dashboard\ExperienceCommands;
+use App\Services\MasterData\MasterData;
+use App\Services\Media\MediaLibrary;
 use App\Support\Input;
 use Carbon\CarbonImmutable;
 use Illuminate\Contracts\View\View;
@@ -16,9 +18,10 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 /**
- * Content → Announcements and campaigns (dashboard, M50, DX-010…021): the list with each one's state for visitors, one
- * form with a preview of the bar / home block in both languages, the warnings about the same place at the same time,
- * the commands and the last versions. Owner only (routes/dashboard.php).
+ * Content → Announcements and campaigns (dashboard, M50, DX-010…021, CAMP-004): the list with each one's state for
+ * visitors (by the Owner's own name for it), one form — with the image from the approved media library and the
+ * branches it is for — and a preview of the bar / home block in both languages, the warnings about the same place at
+ * the same time, the commands and the last versions. Owner only (routes/dashboard.php).
  */
 final class AnnouncementsController extends Controller
 {
@@ -43,7 +46,7 @@ final class AnnouncementsController extends Controller
             }
         }
 
-        return view('dashboard.announcements.index', ['tab' => $tab, 'counts' => $counts, 'rows' => $rows]);
+        return view('dashboard.announcements.index', ['tab' => $tab, 'counts' => $counts, 'rows' => $rows, 'branches' => EventsController::branchChoices(app(MasterData::class))]);
     }
 
     public function create(): View
@@ -93,9 +96,14 @@ final class AnnouncementsController extends Controller
         $market = $this->market();
         $timezone = $market->timezone !== '' ? $market->timezone : 'Asia/Amman';
         $editor = app(AnnouncementEditor::class);
+        $media = app(MediaLibrary::class);
 
         return view('dashboard.announcements.form', [
             'item' => $item,
+            // CAMP-004: only images the website may show now are offered; the branches by their approved names.
+            'images' => AwardsController::usableImages(),
+            'branches' => EventsController::branchChoices(app(MasterData::class)),
+            'previewImages' => ['ar' => $media->image($item->media, 'ar', $item->title_ar), 'en' => $media->image($item->media, 'en', $item->title_en)],
             'state' => $item->exists ? $editor->state($item, $market) : 'draft',
             'conflicts' => (array) (session('conflicts') ?? ($item->exists && in_array($item->status, ['scheduled', 'active'], true) ? $editor->conflicts($item, $market) : [])),
             'starts' => $item->starts_at === null ? null : CarbonImmutable::instance($item->starts_at)->setTimezone($timezone),

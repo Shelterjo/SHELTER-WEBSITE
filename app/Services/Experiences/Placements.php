@@ -5,6 +5,7 @@ namespace App\Services\Experiences;
 use App\Models\Experience;
 use App\Models\Market;
 use App\Services\Core\FeatureFlags;
+use App\Services\Media\MediaLibrary;
 use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Collection;
 use Throwable;
@@ -15,7 +16,9 @@ use Throwable;
  * priority among those live now (Emergency/Urgent > Major event > Campaign > Seasonal > Recognition > Announcement,
  * the Owner may override). Live = published (scheduled/active), inside its dates (or switched on by hand), not paused,
  * cancelled, archived or stopped by "Disable now", with its title in both languages and no unconfirmed AI text.
- * Nothing live → null → nothing is drawn (DX-012). A failure here never breaks the page (DX-037): it returns null.
+ * One that names branches (CAMP-004) stays off the pages of the other branches; no branch named = every branch.
+ * Its image shows only while MediaRights allows it (approved, website rights). Nothing live → null → nothing is drawn
+ * (DX-012). A failure here never breaks the page (DX-037): it returns null.
  */
 final class Placements
 {
@@ -34,11 +37,12 @@ final class Placements
     /** @var array<string, PlacedExperience|null> one answer per request */
     private array $resolved = [];
 
-    public function __construct(private readonly FeatureFlags $flags) {}
+    public function __construct(private readonly FeatureFlags $flags, private readonly MediaLibrary $media) {}
 
-    public function current(Market $market, string $placement, string $locale, ?CarbonImmutable $now = null): ?PlacedExperience
+    /** @param  int|null  $branchId  the branch the page is about (its own page, its menu) — null on every other page */
+    public function current(Market $market, string $placement, string $locale, ?CarbonImmutable $now = null, ?int $branchId = null): ?PlacedExperience
     {
-        $key = $market->id.'|'.$placement.'|'.$locale.'|'.($now?->getTimestamp() ?? 'now');
+        $key = $market->id.'|'.$placement.'|'.$locale.'|'.($now?->getTimestamp() ?? 'now').'|'.($branchId ?? 'all');
         if (array_key_exists($key, $this->resolved)) {
             return $this->resolved[$key];
         }
@@ -46,9 +50,10 @@ final class Placements
             // Safe Mode (SAFE-MODE §2): the dynamic layer stops; only an urgent notice still shows in the top bar, as text.
             $safe = $this->flags->enabled(FeatureFlags::SAFE_MODE);
             $winner = $this->live($market, $now)->first(fn (Experience $e): bool => in_array($placement, $e->placements ?? [], true)
+                && self::targets($e, $branchId)
                 && (! $safe || ($placement === self::TOP_BAR && ($e->details['urgent'] ?? false) === true)));
 
-            return $this->resolved[$key] = $winner === null ? null : self::present($winner, $placement, $locale, $market);
+            return $this->resolved[$key] = $winner === null ? null : $this->present($winner, $placement, $locale, $market);
         } catch (Throwable $e) {
             report($e);
 
@@ -92,6 +97,17 @@ final class Placements
         return $urgent === true ? self::DEFAULT_PRIORITY['urgent'] : (self::DEFAULT_PRIORITY[$experience->type] ?? 0);
     }
 
+    /**
+     * Whether it may show on a page about this branch (CAMP-004): no branch named = every branch; a page about no
+     * branch in particular (null) shows it as before.
+     */
+    public static function targets(Experience $experience, ?int $branchId): bool
+    {
+        $branches = array_map('intval', $experience->branch_ids ?? []);
+
+        return $branchId === null || $branches === [] || in_array($branchId, $branches, true);
+    }
+
     /** Titles in both languages; a text and a button only as pairs (LANGUAGE-PARITY). */
     private static function complete(Experience $e): bool
     {
@@ -102,23 +118,26 @@ final class Placements
         return ($e->text('body', 'ar') === null) === ($e->text('body', 'en') === null);
     }
 
-    private static function present(Experience $e, string $placement, string $locale, Market $market): PlacedExperience
+    private function present(Experience $e, string $placement, string $locale, Market $market): PlacedExperience
     {
         $url = $e->cta_url !== null && preg_match('#^(https://|/(?!/))#', $e->cta_url) === 1 ? $e->cta_url : null; // G-08
         $url = $url === null ? null : (preg_replace('#^/(ar|en)/#', '/'.$locale.'/', $url) ?? $url);
         $label = $e->text('cta_label', $locale);
         $timezone = $e->timezone !== '' ? $e->timezone : $market->timezone;
+        $title = (string) $e->text('title', $locale);
 
         return new PlacedExperience(
             id: $e->id,
             type: $e->type,
             placement: $placement,
-            title: (string) $e->text('title', $locale),
+            title: $title,
             text: $e->text('body', $locale),
             ctaLabel: $label !== null && $url !== null ? $label : null,
             ctaUrl: $label !== null ? $url : null,
             urgent: (($e->details ?? [])['urgent'] ?? false) === true,
             endsAt: CarbonImmutable::instance($e->ends_at ?? CarbonImmutable::now()->addDay())->setTimezone($timezone),
+            // The top bar is one line of text; only the home block draws the image (approved, website rights — MEDIA-RIGHTS).
+            image: $placement === self::HOME_FEATURE ? $this->media->image($e->media, $locale, $title) : null,
         );
     }
 }

@@ -72,7 +72,7 @@ final class ExperienceCommands
             'terms_ar' => $experience->terms_ar, 'terms_en' => $experience->terms_en,
             'cta_label_ar' => $experience->cta_label_ar, 'cta_label_en' => $experience->cta_label_en, 'cta_url' => $experience->cta_url,
             'placements' => $experience->placements, 'priority' => $experience->priority, 'branch_ids' => $experience->branch_ids,
-            'details' => $experience->details,
+            'media_id' => $experience->media_id, 'details' => $experience->details,
             'starts_at' => $experience->starts_at?->toIso8601String(), 'ends_at' => $experience->ends_at?->toIso8601String(),
             'emergency_disabled' => $experience->emergency_disabled, 'archived_at' => $experience->archived_at?->toIso8601String(),
         ];
