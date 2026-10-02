@@ -8,7 +8,7 @@ return [
     'optional' => 'optional',
     'error_prefix' => 'Error:',
     'announcement' => 'Announcement',
-    'error_summary_title' => 'There is a problem. Check the fields below',
+    'error_summary_title' => 'There is a problem. Check the fields below.',
     'select_placeholder' => 'Choose…',
     'breadcrumb' => 'Breadcrumb',
     'main_navigation' => 'Main navigation',
@@ -65,8 +65,6 @@ return [
     'contact' => [
         'call' => 'Call',
         'whatsapp' => 'Message us on WhatsApp', // D-063 (provisional)
-        'call_label' => 'Call :name',
-        'whatsapp_label' => ':name on WhatsApp', // CONTACT-016: name of the icon-only link (the branch, FINAL-QA)
     ],
     'footer' => [
         'label' => 'Site footer',

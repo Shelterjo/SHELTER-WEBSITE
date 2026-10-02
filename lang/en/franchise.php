@@ -8,10 +8,10 @@ return [
     'cta' => 'Start Your Partnership Application',
     'secondary_cta' => 'Discover SHELTER',
     'final_cta' => 'Start Your Application',
-    'faq_title' => 'Questions',
+    'faq_title' => 'Frequently asked questions',
     'form_title' => 'Partnership application',
     'form_note' => 'Fields marked * are required.',
-    'closed_title' => 'Franchise inquiries',
+    'closed_title' => 'Franchise Inquiries', // D-071
     'closed_text' => 'For partnership questions, contact us directly.',
     'groups' => [
         'about' => 'About you',
@@ -66,7 +66,7 @@ return [
         'consent' => 'Please agree to send the application.',
         'generic' => 'We could not send the application right now. Please try again shortly.',
         'expired' => 'The form has expired. Refresh the page and try again; your answers are kept.',
-        'rate' => 'Too many applications in a short time. Please try later.',
+        'rate' => 'Too many applications in a short time. Please try again later.',
     ],
     'success' => [
         'title' => 'Thank You for Your Interest in Partnering With SHELTER COFFEE',

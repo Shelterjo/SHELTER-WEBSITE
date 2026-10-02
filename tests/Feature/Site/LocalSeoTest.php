@@ -53,7 +53,7 @@ class LocalSeoTest extends TestCase
     {
         $en = $this->page('/en/jo/locations/irbid/house/');
         $this->assertStringContainsString('<p class="ui-page-intro__lead">Coffee house in Irbid</p>', $en);
-        $this->assertStringContainsString('<title>SHELTER COFFEE HOUSE — Coffee house in Irbid | Opening Hours</title>', $en);
+        $this->assertStringContainsString('<title>SHELTER COFFEE HOUSE — Coffee House in Irbid | Opening Hours</title>', $en, 'Title Case, as the other Google titles (copy audit F33)');
         // D-341 (the Owner left the word to Claude): «كافيه» in the home and HOUSE titles and the home and locations
         // descriptions only; the locations title, the brand and the visible copy keep «كوفي» (D-007).
         $house = $this->page('/ar/jo/locations/irbid/house/');

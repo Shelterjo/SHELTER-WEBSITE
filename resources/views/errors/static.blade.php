@@ -1,8 +1,11 @@
 {{-- Shared static error page (SI-S02): no database, no session, no view composer, so it renders even when those are
      what failed. Language from the URL prefix; bilingual elsewhere. $code picks the texts (site.errors.{code}_title /
-     _text); $retry adds "Try again" (a reload of the same address). Used by 403, 419, 429, 4xx, 500, 503 and 5xx. --}}
+     _text); $retry adds "Try again" (a reload of the same address). Used by 403, 419, 429, 4xx, 500, 503 and 5xx.
+     $status = the real HTTP status for the 4xx/5xx fallbacks: the large code shows it, never a placeholder such as
+     "4xx" (copy audit F02); without one, no code line is shown. --}}
 @php
     $retry ??= true;
+    $shownCode = isset($status) && is_int($status) ? (string) $status : (ctype_digit($code) ? $code : null);
     $prefix = request()->segment(1);
     $only = in_array($prefix, ['ar', 'en'], true) ? $prefix : null;
     $blocks = $only !== null ? [$only] : ['ar', 'en'];
@@ -14,7 +17,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, nofollow">
-    <title>{{ __('site.errors.'.$code.'_title', [], $first) }} — {{ __('site.brand') }}</title>
+    <title>{{ __('site.errors.'.$code.'_title', [], $first) }} — {{ __('site.title_brand', [], $first) }}</title>
     <link rel="icon" href="/brand/favicon-32.png" sizes="32x32" type="image/png">
     <meta name="theme-color" content="#131313">
     @vite(['resources/css/site.css'])
@@ -30,7 +33,9 @@
     <main id="main" class="ui-main">
         <div class="ui-page">
             <div class="ui-container">
-                <p class="ui-error__code" aria-hidden="true">{{ $code }}</p>
+                @if ($shownCode !== null)
+                    <p class="ui-error__code" aria-hidden="true">{{ $shownCode }}</p>
+                @endif
                 @foreach ($blocks as $blockLocale)
                     <section class="ui-error" lang="{{ $blockLocale }}" dir="{{ $blockLocale === 'ar' ? 'rtl' : 'ltr' }}" aria-labelledby="error-{{ $blockLocale }}">
                         @if ($loop->first)

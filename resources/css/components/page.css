@@ -152,6 +152,12 @@ body {
     gap: var(--space-3);
 }
 
+/* Branch page header actions (UX-006 DR-09): phones keep them in the sticky action bar, so the group only shows from
+   1024px, where that bar steps aside — Directions, call and WhatsApp next to the live state, above the fold. */
+.ui-branch-page__actions {
+    display: none;
+}
+
 @media (min-width: 768px) {
     .ui-panel-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -179,5 +185,10 @@ body {
         grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
         align-items: start;
         gap: var(--space-16);
+    }
+
+    .ui-branch-page__actions {
+        display: flex;
+        margin-block-start: var(--space-6);
     }
 }

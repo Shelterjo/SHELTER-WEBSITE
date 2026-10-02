@@ -117,9 +117,13 @@ class MenuPageTest extends TestCase
         $compactTag = $compact[0] ?? '';
         $this->assertStringContainsString('href="#menu-search"', $compactTag);
         $this->assertStringContainsString('aria-label="'.__('menu.search_label', [], 'ar').'"', $compactTag);
-        // F-16: «كل الفئات» opens the full list; every section of the bar is in it, in the same order.
-        $this->assertSame(1, preg_match('#<button\b[^>]*commandfor="menu-all-categories"[^>]*>#u', $html, $all));
-        $this->assertStringContainsString('aria-label="كل الفئات"', $all[0] ?? '');
+        // F-16: «كل الفئات» opens the full list; every section of the bar is in it, in the same order. Its label is in view
+        // and its icon is a grid, not the ☰ of the site navigation (UX-006 DR-16).
+        $this->assertSame(1, preg_match('#<button\b[^>]*commandfor="menu-all-categories"[^>]*>(.*?)</button>#su', $html, $all));
+        $this->assertStringContainsString('كل الفئات', strip_tags($all[1] ?? ''));
+        $this->assertStringNotContainsString('aria-label', $all[0] ?? '', 'the visible label names it');
+        $this->assertStringNotContainsString('ui-button--icon-only', $all[0] ?? '');
+        $this->assertStringContainsString('<rect width="7" height="7" x="3" y="3" rx="1"/>', $all[1] ?? '', 'the layout-grid icon');
         $this->assertMatchesRegularExpression('#<dialog\b[^>]*\bid="menu-all-categories"#u', $html);
         preg_match_all('#data-ui-menu-nav="([^"]+)"#', $html, $chips);
         preg_match_all('#data-ui-menu-all-link="([^"]+)"#', $html, $entries);

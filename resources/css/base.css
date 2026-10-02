@@ -143,6 +143,11 @@ a {
     border: 0;
 }
 
+/* A short run that must not break across lines: a Latin name isolated inside Arabic text (App\Support\Bidi, DR-17). */
+.ui-nowrap {
+    white-space: nowrap;
+}
+
 /* Skip link: first focusable element on every page (WCAG 2.4.1). Hidden until focused. */
 .ui-skip-link {
     position: absolute;

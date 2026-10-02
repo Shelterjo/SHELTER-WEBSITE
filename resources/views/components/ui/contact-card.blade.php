@@ -1,7 +1,7 @@
 {{--
     Contact card (D-059 contact by intent, docs/phase-01-discovery/14 §4): the reason for getting in touch first, then
     its approved number as real, copyable text that is also the call link (tel: in international form, display per
-    D-065 — `dir="ltr"` keeps the digits in order on Arabic pages). Optional WhatsApp button (D-063 wording), email,
+    D-065 — `<bdi dir="ltr">` keeps the digits in order on Arabic pages, UX-006 DR-12). Optional WhatsApp button (D-063 wording), email,
     and a link to a related page. The slot holds extra content (the branch list on the General card).
     `phone` / `whatsapp` / `email` = App\Services\Site\ContactAction|null — nothing is rendered for a missing value.
 --}}
@@ -37,14 +37,14 @@
             @if ($phone !== null)
                 <a class="ui-contact-card__number" href="{{ $phone->href }}">
                     <x-ui.icon name="phone" />
-                    <span><span class="ui-visually-hidden">{{ __('ui.contact.call') }}: </span><span dir="ltr">{{ $phone->display }}</span></span>
+                    <span><span class="ui-visually-hidden">{{ __('ui.contact.call') }}: </span><bdi dir="ltr">{{ $phone->display }}</bdi></span>
                 </a>
             @endif
             @if ($whatsapp !== null)
                 <x-ui.button variant="secondary" icon="message-circle" :href="$whatsappHref" rel="noopener" target="_blank">{{ __('site.branch.whatsapp') }}</x-ui.button>
             @endif
             @if ($email !== null)
-                <a class="ui-contact-card__email" href="{{ $email->href }}"><x-ui.icon name="mail" /><span dir="ltr">{{ $email->display }}</span></a>
+                <a class="ui-contact-card__email" href="{{ $email->href }}"><x-ui.icon name="mail" /><bdi dir="ltr">{{ $email->display }}</bdi></a>
             @endif
         </div>
     @endif

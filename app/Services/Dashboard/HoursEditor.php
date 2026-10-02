@@ -115,7 +115,9 @@ final class HoursEditor
                 BranchHour::query()->create(['branch_id' => $branch->id, 'weekday' => $day, 'opens_at' => $opens, 'closes_at' => $closes]);
             }
             $after = MasterData::normalizeHours($branch->hours()->get());
-            $this->approval->approve("hours.{$branch->code}.regular", $after, $owner, 'hours', 'ساعات العمل: '.$branch->code, 'Opening hours: '.$branch->code);
+            // The approval reads with the branch's name (the code only while no name is saved) and the site's term «ساعات الدوام».
+            $this->approval->approve("hours.{$branch->code}.regular", $after, $owner, 'hours',
+                'ساعات الدوام: '.($branch->name_ar ?? $branch->code), 'Opening hours: '.($branch->name_en ?? $branch->code));
             $this->audit->record('hours.regular_published', $branch, ['before' => ['hours' => $before], 'after' => ['hours' => $after]], ['reason' => $reason], actor: $owner);
         });
 

@@ -1,6 +1,6 @@
 @extends('layouts.site')
 
-@section('title', __('feedback.title').' — '.__('site.brand'))
+@section('title', __('feedback.title').' — '.__('site.title_brand'))
 
 @section('content')
     {{--

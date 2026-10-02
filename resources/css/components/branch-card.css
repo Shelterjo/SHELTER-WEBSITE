@@ -1,5 +1,6 @@
-/* Branch card (DS §8, BRANCH-016). `row`: an editorial list row on the home page — the whole row links to the branch
-   page, the call/WhatsApp buttons sit above that link. `panel`: a framed panel on the locations page. */
+/* Branch card (DS §8, BRANCH-016). `row`: an editorial list row on the home page; `panel`: a framed panel on the
+   locations page. Both: the whole card links to the branch page and the labelled actions (Directions, call, WhatsApp —
+   UX-006 DR-08/DR-10) sit above that link; the gaps between them still reach it. */
 
 .ui-branch-list {
     display: grid;
@@ -71,29 +72,16 @@
     flex-wrap: wrap;
     align-items: center;
     gap: var(--space-2);
+    pointer-events: none;
 }
 
-.ui-branch__go {
-    display: inline-flex;
-    margin-inline-start: auto;
-    color: var(--color-muted);
-    transition:
-        translate var(--motion-fast) var(--easing-standard),
-        color var(--motion-fast) var(--easing-standard);
+.ui-branch__actions > * {
+    pointer-events: auto;
 }
 
 .ui-branch--row {
     padding-block: var(--space-6);
     border-block-end: var(--border-default) solid var(--color-border);
-}
-
-.ui-branch--row:hover .ui-branch__go {
-    color: var(--color-text);
-    translate: var(--space-1) 0;
-}
-
-[dir='rtl'] .ui-branch--row:hover .ui-branch__go {
-    translate: calc(var(--space-1) * -1) 0;
 }
 
 .ui-branch--panel {
@@ -120,8 +108,16 @@
     font-weight: var(--weight-medium);
 }
 
-.ui-branch--panel:hover .ui-branch__more {
+.ui-branch__more > .ui-icon {
+    transition: translate var(--motion-fast) var(--easing-standard);
+}
+
+.ui-branch:hover .ui-branch__more {
     color: var(--color-text);
+}
+
+.ui-branch:hover .ui-branch__more > .ui-icon {
+    translate: var(--ui-nudge) 0;
 }
 
 .ui-branch .ui-stretched:focus-visible {
@@ -134,10 +130,16 @@
     border-radius: var(--radius-md);
 }
 
+/* From 768px the row puts the name and the facts side by side; the actions and the details hint run underneath. */
 @media (min-width: 768px) {
     .ui-branch--row {
-        grid-template-columns: minmax(0, 2fr) minmax(0, 3fr) auto;
+        grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
         align-items: center;
-        gap: var(--space-6);
+        gap: var(--space-4) var(--space-6);
+    }
+
+    .ui-branch--row .ui-branch__actions,
+    .ui-branch--row .ui-branch__more {
+        grid-column: 1 / -1;
     }
 }

@@ -167,13 +167,13 @@ class MenuDashboardTest extends TestCase
         $this->assertStringContainsString('data-description="Black coffee."', $card);
         $this->assertStringContainsString('<picture', $card);
         $this->assertStringContainsString('aria-label="American coffee"', $card);
-        $this->assertStringContainsString('NEW', $card);
+        $this->assertMatchesRegularExpression('#<span class="ui-badge">\s*New\s*</span>#', $card, 'normal case; the badge style shows it in capitals (copy audit F56)');
         $this->assertStringNotContainsStringIgnoringCase('featured', $card, 'internal only');
         $used = app(MediaEditor::class)->usedIn($image, 'en');
         $this->assertCount(1, array_filter($used, fn (string $line): bool => str_contains($line, 'AMERICAN COFFEE')), 'the media library says where the image is used');
 
         $this->travelTo(CarbonImmutable::parse('2026-10-21 09:00', 'Asia/Amman'));
-        $this->assertStringNotContainsString('NEW', (string) $this->card('en', $anchor), 'the badge ends by itself');
+        $this->assertDoesNotMatchRegularExpression('#<span class="ui-badge">\s*New\s*</span>#', (string) $this->card('en', $anchor), 'the badge ends by itself');
 
         $this->withSession([OwnerSession::LOGIN_AT => now()->getTimestamp(), OwnerSession::CONFIRMED_AT => now()->getTimestamp()]); // 11 days later
         $this->put($url, ['visible' => '0'])->assertRedirect('/dashboard/data/menu/'.$this->product->id.'#details');

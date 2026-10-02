@@ -5,7 +5,7 @@
 return [
     'title' => 'المنيو',
     'page_title' => 'منيو شلتر كوفي في إربد — القهوة والمشروبات والأسعار', // P-07 title, M57 §15 (the description: D-332)
-    'prices_note' => 'الأسعار بالدينار الأردني وشاملة الضريبة', // P-05 (fact approved in F-01; wording pending)
+    'prices_note' => 'الأسعار بالدينار الأردني، وتشمل الضريبة.', // P-05 (fact approved in F-01; wording pending)
     'search_label' => 'بحث',
     'search_placeholder' => 'ابحث في المنيو',
     'search_open' => 'البحث في المنيو',
@@ -13,7 +13,7 @@ return [
     'all_branches' => 'كل الفروع',
     'categories_label' => 'فئات المنيو',
     'all_categories' => 'كل الفئات',
-    'items_count' => '{1} صنف واحد|{2} صنفان|[3,10] :count أصناف|[11,99] :count صنفًا|[100,*] :count صنف',
+    'items_count' => '{0} لا أصناف|{1} صنف واحد|{2} صنفان|[3,10] :count أصناف|[11,99] :count صنفًا|[100,*] :count صنف',
     'results_count' => '{0} لا توجد نتائج|{1} نتيجة واحدة|{2} نتيجتان|[3,10] :count نتائج|[11,99] :count نتيجة|[100,*] :count نتيجة',
     'results_forms' => [ // Intl plural categories for the live result count (spec §8)
         'zero' => 'لا توجد نتائج',

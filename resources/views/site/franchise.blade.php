@@ -24,6 +24,9 @@
         $bandAfter = count($keys) > 1 ? $keys[$band] : null;
         $ctaHref = $open ? '#apply' : '#franchise-contact';
         $firstSection = array_key_first($body);
+        // UX-006 DR-17: Latin names inside the Arabic text (SHELTER COFFEE DRIVE …) render as isolated left-to-right runs;
+        // the Owner's text itself is unchanged.
+        $bidi = fn (?string $text) => \App\Support\Bidi::isolate($text);
     @endphp
     <div class="ui-page ui-franchise" data-franchise-page>
         <div class="ui-container">
@@ -32,11 +35,11 @@
                 <p class="ui-eyebrow"><span lang="en" dir="ltr">{{ __('franchise.eyebrow') }}</span></p>
                 <h1 class="ui-franchise__title">
                     @foreach ($page->titleLines as $line)
-                        <span class="ui-franchise__title-line">{{ $line }}</span>
+                        <span class="ui-franchise__title-line">{{ $bidi($line) }}</span>
                     @endforeach
                 </h1>
                 @if ($page->description !== null)
-                    <p class="ui-page-intro__lead">{{ $page->description }}</p>
+                    <p class="ui-page-intro__lead">{{ $bidi($page->description) }}</p>
                 @endif
                 <div class="ui-franchise__actions">
                     <x-ui.button size="lg" :href="$ctaHref" icon-end="arrow-right">{{ __('franchise.cta') }}</x-ui.button>
@@ -51,18 +54,18 @@
                     @foreach ($body as $position => $section)
                         <section @class(['ui-franchise__section', 'ui-franchise__section--continued' => $section->heading === null && ! $loop->first]) id="s-{{ $position + 1 }}" data-ui-reveal>
                             @if ($section->heading !== null)
-                                <h2 class="ui-franchise__heading">{{ $section->heading }}</h2>
+                                <h2 class="ui-franchise__heading">{{ $bidi($section->heading) }}</h2>
                             @endif
                             @if ($section->type === 'steps')
                                 <ol class="ui-steps" role="list">
                                     @foreach ($section->paragraphs as $item)
-                                        <li class="ui-steps__item">{{ $item }}</li>
+                                        <li class="ui-steps__item">{{ $bidi($item) }}</li>
                                     @endforeach
                                 </ol>
                             @elseif ($section->type === 'list')
                                 <ul class="ui-franchise__list" role="list">
                                     @foreach ($section->paragraphs as $item)
-                                        <li class="ui-franchise__list-item"><x-ui.icon name="check" size="sm" /><span>{{ $item }}</span></li>
+                                        <li class="ui-franchise__list-item"><x-ui.icon name="check" size="sm" /><span>{{ $bidi($item) }}</span></li>
                                     @endforeach
                                 </ul>
                             @elseif ($section->type === 'cards')
@@ -70,9 +73,9 @@
                                     @foreach ($section->paragraphs as $card)
                                         @php [$cardTitle, $cardText] = array_pad(preg_split('/\R/u', $card, 2) ?: [], 2, ''); @endphp
                                         <article class="ui-franchise__card">
-                                            <h3 class="ui-franchise__card-title" dir="auto">{{ trim($cardTitle) }}</h3>
+                                            <h3 class="ui-franchise__card-title" dir="auto">{{ $bidi(trim($cardTitle)) }}</h3>
                                             @if (trim($cardText) !== '')
-                                                <p class="ui-franchise__card-text">{{ trim($cardText) }}</p>
+                                                <p class="ui-franchise__card-text">{{ $bidi(trim($cardText)) }}</p>
                                             @endif
                                         </article>
                                     @endforeach
@@ -80,7 +83,7 @@
                             @else
                                 <div class="ui-prose">
                                     @foreach ($section->paragraphs as $paragraph)
-                                        <p>{{ $paragraph }}</p>
+                                        <p>{{ $bidi($paragraph) }}</p>
                                     @endforeach
                                 </div>
                             @endif
@@ -97,9 +100,9 @@
                             <h2 class="ui-franchise__heading" id="franchise-faq">{{ __('franchise.faq_title') }}</h2>
                             <div class="ui-prose">
                                 @foreach ($faq as $position => $item)
-                                    <x-ui.disclosure :summary="(string) $item->heading" class="ui-prose__faq" :id="'q-'.($position + 1)">
+                                    <x-ui.disclosure :summary="$bidi($item->heading)" class="ui-prose__faq" :id="'q-'.($position + 1)">
                                         @foreach ($item->paragraphs as $paragraph)
-                                            <p>{{ $paragraph }}</p>
+                                            <p>{{ $bidi($paragraph) }}</p>
                                         @endforeach
                                     </x-ui.disclosure>
                                 @endforeach
@@ -124,10 +127,10 @@
             @foreach ($closing as $position => $section)
                 <section class="ui-franchise__closing" id="s-{{ $position + 1 }}" data-ui-reveal @if ($section->heading !== null) aria-labelledby="closing-{{ $position + 1 }}" @endif>
                     @if ($section->heading !== null)
-                        <h2 class="ui-franchise__closing-title" id="closing-{{ $position + 1 }}">{{ $section->heading }}</h2>
+                        <h2 class="ui-franchise__closing-title" id="closing-{{ $position + 1 }}">{{ $bidi($section->heading) }}</h2>
                     @endif
                     @foreach ($section->paragraphs as $paragraph)
-                        <p class="ui-franchise__closing-text">{{ $paragraph }}</p>
+                        <p class="ui-franchise__closing-text">{{ $bidi($paragraph) }}</p>
                     @endforeach
                     <p class="ui-franchise__closing-action"><x-ui.button size="lg" :href="$ctaHref" icon-end="arrow-right">{{ __('franchise.final_cta') }}</x-ui.button></p>
                 </section>

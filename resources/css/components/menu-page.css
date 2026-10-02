@@ -149,15 +149,17 @@
     font-weight: var(--weight-bold);
 }
 
-/* Seasonal section: a compact vertical list, never a carousel (spec §10). */
+/* Seasonal section: a compact vertical list, never a carousel (spec §10), framed by a solid hairline on a surface
+   tint — a dashed frame reads as an unfinished wireframe (UX-006 DR-15; dashes are kept for upload drop zones only). */
 .ui-menu__grid--list {
     grid-template-columns: minmax(0, 1fr);
 }
 
 .ui-menu__section--season {
     padding: var(--space-4);
-    border: var(--border-default) dashed var(--color-muted);
+    border: var(--border-default) solid var(--color-border);
     border-radius: var(--radius-lg);
+    background: var(--color-surface);
 }
 
 /* Search: a jumped-to product is outlined for a moment (spec §8 — 1.5 s, set by the script). */
@@ -178,6 +180,14 @@
 .ui-menu-detail__location,
 .ui-menu-detail__secondary {
     color: var(--color-muted);
+}
+
+/* A name in the other language carries its own dir (DR-07) but lines up with the sheet: its end is the sheet's start. */
+[data-ui-menu-detail]:dir(ltr) .ui-dialog__title:dir(rtl),
+[data-ui-menu-detail]:dir(rtl) .ui-dialog__title:dir(ltr),
+.ui-menu-detail:dir(ltr) > .ui-menu-detail__secondary:dir(rtl),
+.ui-menu-detail:dir(rtl) > .ui-menu-detail__secondary:dir(ltr) {
+    text-align: end;
 }
 
 .ui-menu-detail__price {

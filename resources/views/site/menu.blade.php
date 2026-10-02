@@ -35,7 +35,7 @@
             'href' => '#'.$section->id,
             'label' => $section->name,
             'lang' => $section->nameLang,
-            'attributes' => ['data-ui-menu-nav' => $section->id],
+            'attributes' => ['data-ui-menu-nav' => $section->id, 'dir' => \App\Support\Bidi::dir($section->nameLang)],
             'hidden' => isset($emptySections[$section->id]),
         ], $menu->allSections());
     @endphp
@@ -71,13 +71,14 @@
             <div class="ui-menu__layout">
                 <aside class="ui-menu__nav">
                     {{-- F-15 / F-16 / R-06 (phones and tablets): the compact search icon in the sticky bar (shown once the search
-                         field has scrolled away; a plain link to it without JavaScript) and «كل الفئات», which opens the full list. --}}
+                         field has scrolled away; a plain link to it without JavaScript) and «كل الفئات», which opens the full list —
+                         a grid icon with its label in view, never the ☰ that opens the site navigation (UX-006 DR-16). --}}
                     <x-ui.category-nav id="menu-categories" :label="__('menu.categories_label')" :items="$navItems" sidebar>
                         <x-slot:start>
                             <x-ui.button variant="ghost" icon="search" icon-only :label="__('menu.search_label')" href="#menu-search" class="ui-menu__compact-search" data-ui-menu-compact-search />
                         </x-slot:start>
                         <x-slot:end>
-                            <x-ui.button variant="ghost" icon="menu" icon-only :label="__('menu.all_categories')" opens="menu-all-categories" aria-controls="menu-all-categories" aria-expanded="false" />
+                            <x-ui.button variant="ghost" icon="layout-grid" opens="menu-all-categories" aria-controls="menu-all-categories" aria-expanded="false">{{ __('menu.all_categories') }}</x-ui.button>
                         </x-slot:end>
                     </x-ui.category-nav>
                 </aside>
@@ -168,7 +169,7 @@
             <ul class="ui-menu__all" role="list">
                 @foreach ($navItems as $item)
                     <li @if ($item['hidden']) hidden @endif>
-                        <a class="ui-menu__all-link" href="{{ $item['href'] }}" data-ui-menu-all-link="{{ $item['attributes']['data-ui-menu-nav'] }}" @if ($item['lang']) lang="{{ $item['lang'] }}" @endif>{{ $item['label'] }}</a>
+                        <a class="ui-menu__all-link" href="{{ $item['href'] }}" data-ui-menu-all-link="{{ $item['attributes']['data-ui-menu-nav'] }}" @if ($item['lang']) lang="{{ $item['lang'] }}" dir="{{ $item['attributes']['dir'] }}" @endif>{{ $item['label'] }}</a>
                     </li>
                 @endforeach
             </ul>

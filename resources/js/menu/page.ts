@@ -313,21 +313,28 @@ export function installMenuPage(root: HTMLElement): void {
     // ── Product detail (spec §7) ────────────────────────────────────────────────────────────────────────────
     const dialog = document.getElementById('menu-detail') as HTMLDialogElement | null;
     let pushed = false;
+    // A name in the other language keeps its language and direction in the sheet too (UX-006 DR-07).
+    const sameLanguage = (target: HTMLElement, source: HTMLElement | null): void => {
+        for (const attribute of ['lang', 'dir']) {
+            const value = source?.getAttribute(attribute) ?? null;
+            if (value !== null && value !== '') target.setAttribute(attribute, value);
+            else target.removeAttribute(attribute);
+        }
+    };
     const fill = (card: HTMLElement): void => {
         if (dialog === null) return;
         const title = dialog.querySelector<HTMLElement>('.ui-dialog__title');
         const name = card.querySelector<HTMLElement>('.ui-product-card__name span');
         if (title !== null && name !== null) {
             title.textContent = name.textContent;
-            if (name.lang !== '') title.lang = name.lang;
-            else title.removeAttribute('lang');
+            sameLanguage(title, name);
         }
         const secondary = card.querySelector<HTMLElement>('.ui-product-card__secondary');
         const secondaryTarget = dialog.querySelector<HTMLElement>('[data-detail-secondary]');
         if (secondaryTarget !== null) {
             secondaryTarget.textContent = secondary?.textContent ?? '';
             secondaryTarget.hidden = secondary === null;
-            if (secondary?.lang) secondaryTarget.lang = secondary.lang;
+            sameLanguage(secondaryTarget, secondary);
         }
         const location = dialog.querySelector<HTMLElement>('[data-detail-location]');
         if (location !== null) location.textContent = card.dataset.location ?? '';

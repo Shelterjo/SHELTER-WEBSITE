@@ -1,6 +1,6 @@
 @extends('layouts.site')
 
-@section('title', $event->title.' — '.__('site.brand'))
+@section('title', $event->title.' — '.__('site.title_brand'))
 
 @section('content')
     {{-- SI-M08: the approved event text in the page language; dates in the event's time zone; no media until approved. --}}

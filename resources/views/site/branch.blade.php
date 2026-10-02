@@ -21,6 +21,21 @@
                         <p class="ui-note">{{ __('site.status.special') }}</p>
                     @endif
                 @endif
+                {{-- UX-006 DR-09: from 1024px the actions sit here, next to the live state, in the D-061 order (the phone bar
+                     below steps aside at that width). Only what is approved is shown. --}}
+                @if ($branch->mapsUrl !== null || $branch->phone !== null || $branch->whatsapp !== null)
+                    <div class="ui-cluster ui-branch-page__actions" role="group" aria-label="{{ __('site.branch.actions') }}" data-track-placement="branch_header">
+                        @if ($branch->mapsUrl !== null)
+                            <x-ui.button variant="secondary" icon="map-pin" :href="$branch->mapsUrl" rel="noopener" target="_blank">{{ __('site.branch.directions_short') }}</x-ui.button>
+                        @endif
+                        @if ($branch->phone !== null)
+                            <x-ui.button icon="phone" :href="$branch->phone->href">{{ __('site.branch.call') }}</x-ui.button>
+                        @endif
+                        @if ($branch->whatsapp !== null)
+                            <x-ui.button variant="secondary" icon="message-circle" :href="$branch->whatsapp->href" rel="noopener" target="_blank">{{ __('site.branch.whatsapp') }}</x-ui.button>
+                        @endif
+                    </div>
+                @endif
             </header>
 
             <div class="ui-split">
@@ -33,6 +48,8 @@
                 @endif
                 @if ($branch->landmark !== null || $branch->address !== null || $branch->mapsUrl !== null || $branch->services !== [] || $branch->payments !== [])
                     <section class="ui-split__aside" aria-labelledby="branch-place" data-ui-reveal>
+                        {{-- «مكان الفرع» / “Location”: each part shows only when it exists (copy audit F03; address PO-010, services and
+                             payments D-033/D-034). --}}
                         <h2 class="ui-split__title" id="branch-place">{{ __('site.branch.place') }}</h2>
                         @if ($branch->landmark !== null)
                             <p>{{ $branch->landmark }}</p>
@@ -59,7 +76,7 @@
                     <aside class="ui-split__aside" aria-labelledby="branch-contact" data-ui-reveal>
                         <h2 class="ui-split__title" id="branch-contact">{{ __('site.branch.contact') }}</h2>
                         @if ($branch->phone !== null)
-                            <p class="ui-contact-number"><a href="{{ $branch->phone->href }}" dir="ltr">{{ $branch->phone->display }}</a></p>
+                            <p class="ui-contact-number"><a href="{{ $branch->phone->href }}"><bdi dir="ltr">{{ $branch->phone->display }}</bdi></a></p>
                         @endif
                         <div class="ui-contact-actions">
                             @if ($branch->phone !== null)

@@ -4,7 +4,7 @@
 return [
     'title' => 'Menu',
     'page_title' => 'SHELTER COFFEE Menu in Irbid — Coffee, Drinks & Prices', // P-07 title, M57 §15
-    'prices_note' => 'Prices in JOD, VAT included',
+    'prices_note' => 'Prices in Jordanian dinars (JOD), tax included', // P-05 wording, PENDING OWNER APPROVAL (Jordan levies a sales tax, not VAT)
     'search_label' => 'Search',
     'search_placeholder' => 'Search the menu',
     'search_open' => 'Search the menu',
@@ -24,9 +24,9 @@ return [
     'clear_search' => 'Clear search',
     'browse_categories' => 'Browse categories',
     'go_to_category' => 'Go to :category',
-    'more' => 'MORE',
-    'seasonal' => 'SEASONAL',
-    'new' => 'NEW',
+    'more' => 'More',
+    'seasonal' => 'Seasonal', // badges are upper-cased by the badge style, not in the text
+    'new' => 'New',
     'unavailable' => 'Currently unavailable',
     'unavailable_at' => 'Currently unavailable at :branch',
     'only_at' => 'Available at :branches only',

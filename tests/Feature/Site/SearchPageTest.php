@@ -53,7 +53,7 @@ class SearchPageTest extends TestCase
         $this->assertMatchesRegularExpression('#<span class="ui-search-page__title"\s*>[^<]*لاتيه[^<]*</span>#u', $html);
 
         $html = (string) $this->get('/ar/search/?q=v60')->assertOk()->getContent();
-        $this->assertMatchesRegularExpression('#<span class="ui-search-page__title"\s+lang="en"\s*>V60 #', $html);
+        $this->assertMatchesRegularExpression('#<span class="ui-search-page__title"\s+lang="en" dir="ltr"\s*>V60 #', $html);
     }
 
     public function test_unapproved_arabic_source_names_are_not_searchable(): void

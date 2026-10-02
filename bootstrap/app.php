@@ -29,7 +29,10 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->prepend(BasicAuthGate::class);
         $middleware->append(SecurityHeaders::class);
         $middleware->append(Indexing::class);
-        $middleware->web(prepend: [CanonicalTrailingSlash::class]);
+        // One URL form per page (trailing slash, single slashes, no /index.php). Global, so it runs before routing: an
+        // address with repeated slashes matches no route as typed (PUBLIC-ROUTE-MAP RM-03); its redirect still gets the
+        // headers above.
+        $middleware->append(CanonicalTrailingSlash::class);
         $middleware->alias([
             'locale' => SetLocale::class,
             'market' => ResolveMarket::class,

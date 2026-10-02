@@ -1,8 +1,11 @@
 {{--
     Branch card (DS §8 Branch card, BRANCH-016): approved name (+ the approved name in the other language), live open
-    state, what kind of branch and where (+ its approved location description), today's hours, call and WhatsApp (D-062 — icon-only links carry a descriptive name, CONTACT-016) and a
-    link to the branch page that covers the whole card (one tab stop; the contact links sit above it).
-    Variants: `row` — an editorial list row (home), `panel` — a framed panel with labelled buttons (locations).
+    state, what kind of branch and where (+ its approved location description), today's hours, and the same labelled
+    actions in both variants (UX-006 DR-08): Directions — from the branch's approved Maps link, only when there is one
+    (DR-10, D-061 order) — then call and WhatsApp (D-062, D-063). Each action also names the branch for screen readers,
+    so two cards on one page never share a label (FINAL-QA QA-034, copy audit F42). A link to the branch page covers the
+    whole card (one tab stop; the actions sit above it) and `detailsLabel` says where it goes.
+    Variants: `row` — an editorial list row (home), `panel` — a framed panel (locations).
     `branch` = App\Services\Site\BranchSummary. Nothing is rendered for a value that is not approved.
 --}}
 @props([
@@ -19,11 +22,10 @@
     // Plain variables keep component attributes free of "->" (the localization test strips tags by their brackets).
     $statusTimeline = $branch->status;
     $placeLine = $branch->placeLine();
+    $mapsHref = $branch->mapsUrl;
     $phoneHref = $branch->phone?->href;
     $whatsappHref = $branch->whatsapp?->href;
-    // Icon-only actions name the branch (FINAL-QA QA-034): two cards on one page must not share one label.
-    $callLabel = __('ui.contact.call_label', ['name' => $branch->name]);
-    $whatsappLabel = __('ui.contact.whatsapp_label', ['name' => $branch->name]);
+    $branchName = $branch->name;
     $todayText = $branch->today === null ? null : (count($branch->today) === 0
         ? __('ui.hours.closed')
         : collect($branch->today)->map(fn (array $i): string => $i['opens'].' – '.$i['closes'])->implode(' · '));
@@ -52,27 +54,20 @@
             </p>
         @endif
     </div>
-    @if ($branch->phone !== null || $branch->whatsapp !== null || $variant === 'row')
+    @if ($mapsHref !== null || $phoneHref !== null || $whatsappHref !== null)
         <div class="ui-branch__actions">
-            @if ($variant === 'panel')
-                @if ($branch->phone !== null)
-                    <x-ui.button variant="secondary" icon="phone" :href="$phoneHref">{{ __('ui.contact.call') }}</x-ui.button>
-                @endif
-                @if ($branch->whatsapp !== null)
-                    <x-ui.button variant="secondary" icon="message-circle" :href="$whatsappHref" rel="noopener" target="_blank">{{ __('ui.contact.whatsapp') }}</x-ui.button>
-                @endif
-            @else
-                @if ($branch->phone !== null)
-                    <x-ui.button variant="ghost" icon="phone" icon-only :label="$callLabel" :href="$phoneHref" />
-                @endif
-                @if ($branch->whatsapp !== null)
-                    <x-ui.button variant="ghost" icon="message-circle" icon-only :label="$whatsappLabel" :href="$whatsappHref" rel="noopener" target="_blank" />
-                @endif
-                <span class="ui-branch__go" aria-hidden="true"><x-ui.icon name="arrow-right" /></span>
+            @if ($mapsHref !== null)
+                <x-ui.button variant="secondary" icon="map-pin" :href="$mapsHref" rel="noopener" target="_blank">{{ __('site.branch.directions_short') }}<span class="ui-visually-hidden"> — {{ $branchName }}</span></x-ui.button>
+            @endif
+            @if ($phoneHref !== null)
+                <x-ui.button variant="secondary" icon="phone" :href="$phoneHref">{{ __('ui.contact.call') }}<span class="ui-visually-hidden"> — {{ $branchName }}</span></x-ui.button>
+            @endif
+            @if ($whatsappHref !== null)
+                <x-ui.button variant="secondary" icon="message-circle" :href="$whatsappHref" rel="noopener" target="_blank">{{ __('ui.contact.whatsapp') }}<span class="ui-visually-hidden"> — {{ $branchName }}</span></x-ui.button>
             @endif
         </div>
     @endif
-    @if ($variant === 'panel' && filled($detailsLabel))
+    @if (filled($detailsLabel))
         <p class="ui-branch__more" aria-hidden="true"><span>{{ $detailsLabel }}</span><x-ui.icon name="arrow-right" size="sm" /></p>
     @endif
 </article>

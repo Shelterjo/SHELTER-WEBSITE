@@ -1,6 +1,7 @@
 {{--
     Site footer (DS-018, CONTACT-015: not crowded): the logo, the same navigation as the header, ONE public number and
-    WhatsApp (D-057, D-062, D-065) — only when approved — the language links and the copyright with the brand name.
+    WhatsApp (D-057, D-062, D-065) — only when approved, the number in its locale's one display form, isolated left to
+    right (UX-006 DR-12) — the language links and the copyright with the brand name.
     No address or claims until each is approved (PO-010, D-025/D-036); social accounts only once the Owner switched
     them on in the dashboard (`social` = [['label', 'href']], CONTACT-026/027). `phone` / `whatsapp` =
     App\Services\Site\ContactAction|null; `contact` = URL of the contact page when it exists; `legal` = links to the
@@ -43,7 +44,7 @@
                             <li>
                                 <a class="ui-site-footer__link" href="{{ $phone->href }}">
                                     <x-ui.icon name="phone" size="sm" />
-                                    <span dir="ltr">{{ $phone->display }}</span>
+                                    <bdi dir="ltr">{{ $phone->display }}</bdi>
                                 </a>
                             </li>
                         @endif

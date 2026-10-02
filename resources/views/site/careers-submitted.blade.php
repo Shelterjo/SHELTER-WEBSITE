@@ -1,6 +1,6 @@
 @extends('layouts.site')
 
-@section('title', __('careers.success.title').' — '.__('site.brand'))
+@section('title', __('careers.success.title').' — '.__('site.title_brand'))
 
 @section('content')
     {{-- CAREERS-REQUIREMENTS §5.2: received + the number (from the session, never the URL) + a way back. No email/WhatsApp. --}}

@@ -1,7 +1,7 @@
 @extends('layouts.site')
 @php($description = filled($description ?? null) ? $description : __('site.meta.family'))
 
-@section('title', __('family.title').' — '.__('site.brand'))
+@section('title', __('family.title').' — '.__('site.title_brand'))
 
 @section('content')
     {{--

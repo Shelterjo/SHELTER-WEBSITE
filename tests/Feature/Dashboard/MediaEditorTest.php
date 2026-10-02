@@ -71,7 +71,7 @@ class MediaEditorTest extends TestCase
 
         $first = $this->file('a.png');
         $this->post('/dashboard/content/media', ['files' => [$first, $this->file('b.png')], 'source' => 'contracted', 'people_consent' => 'none', 'photographer' => 'Studio'])
-            ->assertRedirect('/dashboard/content/media?show=pending')->assertSessionHas('status', 'تم رفع 2 صور — بانتظار اعتمادك.');
+            ->assertRedirect('/dashboard/content/media?show=pending')->assertSessionHas('status', 'تم رفع صورتين — بانتظار اعتمادك.'); // the Arabic dual (copy audit F43)
         $this->assertSame(2, Media::query()->where('approval_status', Media::PENDING)->where('source', 'contracted')->count());
         $this->assertSame([], Storage::disk('media_public')->allFiles(), 'nothing public before approval');
 

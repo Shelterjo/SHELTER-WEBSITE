@@ -95,12 +95,18 @@ class FranchisePageTest extends TestCase
 
         $this->assertStringContainsString('<title>كن شريكًا مع SHELTER COFFEE</title>', $html);
         $this->assertMatchesRegularExpression('#<h1 class="ui-franchise__title">\s*<span class="ui-franchise__title-line">كن شريكًا في نمو</span>\s*<span class="ui-franchise__title-line">SHELTER COFFEE</span>\s*</h1>#u', $html);
-        $this->assertStringContainsString('انطلقت SHELTER COFFEE من إربد، الأردن عام 2019.', $html);
+        // UX-006 DR-17: the Latin names inside the Arabic text are isolated left-to-right runs; the Owner's wording is
+        // unchanged (the text without the tags is word for word the stored text).
+        $brand = fn (string $name): string => '<bdi dir="ltr" lang="en" class="ui-nowrap">'.$name.'</bdi>';
+        $text = strip_tags($html);
+        $this->assertStringContainsString('انطلقت '.$brand('SHELTER COFFEE').' من إربد، الأردن عام 2019.', $html);
+        $this->assertStringContainsString('من هي '.$brand('SHELTER').'؟', $html);
+        $this->assertStringContainsString('الحالية '.$brand('SHELTER COFFEE DRIVE').' و'.$brand('SHELTER COFFEE HOUSE').'، مع', $html);
         $this->assertStringContainsString('ابدأ طلب الشراكة', $html);
         $this->assertMatchesRegularExpression('#href="\#s-1"[^>]*>\s*تعرّف على SHELTER#u', $html);
-        foreach (['من هي SHELTER؟', 'نماذج تجربة SHELTER الحالية', 'لماذا تصبح شريكًا مع SHELTER؟', 'أكثر من مجرد اسم على الواجهة', 'ما الذي نبحث عنه في الشريك؟',
+        foreach (['انطلقت SHELTER COFFEE من إربد، الأردن عام 2019.', 'من هي SHELTER؟', 'نماذج تجربة SHELTER الحالية', 'لماذا تصبح شريكًا مع SHELTER؟', 'أكثر من مجرد اسم على الواجهة', 'ما الذي نبحث عنه في الشريك؟',
             'رحلة الشراكة', 'أسواق النمو', 'مهتم ببناء SHELTER في سوقك؟'] as $heading) {
-            $this->assertStringContainsString($heading, $html);
+            $this->assertStringContainsString($heading, $text);
         }
         $this->assertSame(2, substr_count($html, 'class="ui-franchise__card"'), 'DRIVE and HOUSE as current experiences');
         $this->assertStringContainsString('SHELTER COFFEE DRIVE</h3>', $html);
@@ -134,6 +140,7 @@ class FranchisePageTest extends TestCase
         $html = (string) $this->get('/en/franchise/')->assertOk()->getContent();
 
         $this->assertStringContainsString('<span class="ui-franchise__title-line">Grow With</span>', $html);
+        $this->assertStringNotContainsString('<bdi dir="ltr" lang="en"', $html, 'English text is not split into runs');
         $this->assertStringContainsString('Start Your Partnership Application', $html);
         $this->assertStringContainsString('Discover SHELTER', $html);
         $this->assertStringContainsString('Start Your Application', $html);
@@ -225,6 +232,7 @@ class FranchisePageTest extends TestCase
             $this->assertStringContainsString($text, $done);
         }
         $this->assertStringContainsString('<meta name="robots" content="noindex', $done);
+        $this->assertStringContainsString('<title>Thank You for Your Interest in Partnering With SHELTER COFFEE</title>', $done, 'the brand once (copy audit F28)');
         $this->get('/en/franchise/submitted/')->assertRedirect('http://localhost/en/franchise/');
     }
 
