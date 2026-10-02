@@ -1,7 +1,7 @@
 {
   "$schema": "https://unpkg.com/knip@6/schema.json",
-  "entry": ["resources/js/*.ts", "scripts/*.mjs", "design-system/stories/*.stories.ts"],
+  "entry": ["resources/js/*.ts", "scripts/*.mjs", "design-system/stories/*.stories.ts", ".storybook/vite.config.ts"],
   "project": ["resources/js/**/*.ts", "scripts/**/*.mjs", "design-system/stories/**/*.ts", ".storybook/**/*.ts"],
-  "ignore": ["design-system/stories/generated/**"],
-  "ignoreDependencies": ["lucide-static"]
+  "ignoreDependencies": ["lucide-static"],
+  "ignoreBinaries": ["php"]
 }

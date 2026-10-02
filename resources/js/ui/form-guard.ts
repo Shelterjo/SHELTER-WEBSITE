@@ -2,7 +2,7 @@
 // server can refuse a save from an old tab instead of silently overwriting a newer change; and a second click on the
 // same form within a few seconds is ignored, so a double click never sends the same save twice.
 
-export const SEEN_FIELD = '_seen_at';
+const SEEN_FIELD = '_seen_at';
 const RESUBMIT_MS = 5000;
 
 /** The render moment for a form: its own fragment's (a panel loaded later) or the page's. */

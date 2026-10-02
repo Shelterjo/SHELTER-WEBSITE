@@ -9,7 +9,7 @@
 >
 > **المعرّفات:**
 > - **`D-xxx`:** سجل القرارات.
->   - **D-150…D-341:** قرارات صريحة من الـOwner في الرسائل M01–M27 لم تكن مسجلة، وأُضيفت في هذا التدقيق.
+>   - **D-150…D-342:** قرارات صريحة من الـOwner في الرسائل M01–M27 لم تكن مسجلة، وأُضيفت في هذا التدقيق.
 > - **`F-xx` / `R-xx`:** المنيو.
 > - **`DB-xx`:** القرارات المفتوحة قبل التصميم.
 > - **`GEP-§n` / `GIO-§n`:** سياسة Google وملكية التنفيذ.
@@ -20,14 +20,14 @@
 | الفئة | العدد |
 |---|---|
 | FROZEN | 81 |
-| APPROVED | 284 |
+| APPROVED | 285 |
 | APPROVED WITH CONDITIONS | 45 |
 | PENDING OWNER INPUT | 18 |
 | PENDING VERIFICATION | 8 |
 | DEFERRED | 4 |
 | REJECTED | 0 |
 | SUPERSEDED | 24 |
-| **المجموع** | **464** |
+| **المجموع** | **465** |
 
 ## FROZEN — مجمّد — لا يُفتح إلا بتعارض حقيقي (81)
 
@@ -115,7 +115,7 @@
 | `F-22` | Products | هوية الأصناف: كل قرارات D-109 → D-134 كما هي |  |  | F #22 · 2026-10-01 (موجز Menu IA/UX/Wireframe — D-142) | PROD-009…016/021/022 |
 | `F-23` | Governance | Production: لا كود Production · لا نشر · لا Redirects · لا تغييرات Google · لا صور غير معتمدة · لا نصوص منتجات من عندنا |  |  | F #23 · 2026-10-01 (موجز Menu IA/UX/Wireframe — D-142) | GOV-026، GOV-047، CONTENT-004 |
 
-## APPROVED — معتمد (284)
+## APPROVED — معتمد (285)
 
 | Decision ID | Area | القرار الحالي المعتمد | القرار القديم (إن وجد) | السبب | الترتيب في المحادثة | أثر التنفيذ |
 |---|---|---|---|---|---|---|
@@ -329,7 +329,7 @@
 | `D-311` | 34 Cloudflare, Hosting & DNS | PO-070 → A: حذف سجلات DNS المكشوفة (`*.shelterjo.com` · `order` · `sweet`). الـWildcard فورًا، و`order`/`sweet` بعد تأكيد عدم استخدامهما (حديثا الإنشاء). |  | Owner: «A» | M41 §1 · 2026-10-01 (سُجّل في التدقيق) | PO-070 · CF-004 · docs/phase-01-discovery/25-cloudflare-audit-2026-10-01.md |
 | `D-312` | 34 Cloudflare, Hosting & DNS | PO-072 → C: حماية بريد @shelterjo.com تبدأ بـSPF (Google) وDKIM (Google Workspace) وDMARC بوضع المراقبة p=none والتقارير إلى info@shelterjo.com؛ لا رفض لأي بريد في هذه المرحلة. |  | Owner: «C» | M42 §1 · 2026-10-01 (سُجّل في التدقيق) | PO-072 · docs/phase-01-discovery/25-cloudflare-audit-2026-10-01.md |
 | `D-313` | 34 Cloudflare, Hosting & DNS | PO-073 → B: Minimum TLS 1.2 وSSL Full (strict) الآن (Strict بعد التحقق من شهادة الـOrigin)، وDNSSEC مؤجل حتى معرفة مسجّل الدومين. |  | Owner: «موافق» على توصية B | M43 §1 · 2026-10-01 (سُجّل في التدقيق) | PO-073 · docs/phase-01-discovery/25-cloudflare-audit-2026-10-01.md |
-| `D-314` | 50 Build Mode & Delivery Governance | ترتيب العمل: إكمال بناء كل صفحات الموقع أولًا، وما تبقى من Cloudways وCloudflare (شهادة www وFull strict وDNSSEC والـStaging) في النهاية. |  | Owner: «اكمل بناء كل الصفحات واخر اشي بنعالج كلاود ويز و كلاود فلير» | M44 §1 · 2026-10-01 (سُجّل في التدقيق) | PROGRESS · PO-073 · PO-064 |
+| `D-314` | 50 Build Mode & Delivery Governance | ترتيب العمل: إكمال بناء كل صفحات الموقع أولًا، وما تبقى من Cloudways وCloudflare (شهادة www وFull strict وDNSSEC والـStaging) في النهاية. |  | Owner: «اكمل بناء كل الصفحات واخر اشي بنعالج كلاود ويز و كلاود فلير» | M44 §1 · 2026-10-01 (سُجّل في التدقيق) | PROGRESS · PO-073 · PO-064 ↻ M65: D-342: Cloudways وCloudflare في النهاية فقط بعد بوابة التحقق قبل البنية التحتية وأمر الـOwner الصريح. |
 | `D-315` | 44 Careers & Recruitment | PO-074 → قائمة «المدينة» في نموذج التوظيف = 12 بندًا أرسلها الـOwner بالترتيب: عمان · إربد · الزرقاء · البلقاء · المفرق · جرش · عجلون · مادبا · الكرك · الطفيلة · معان · العقبة. |  | Owner: أرسل القائمة صراحة ردًا على PO-074 | M45 §1 · 2026-10-01 (سُجّل في التدقيق) | CAREERS-020 · PO-074 (RESOLVED) · CF-M-212 |
 | `D-316` | 16 Franchise | ترقيم طلبات الشراكة يبدأ من FR-2026-00100: أول طلب FR-2026-00101، الثاني FR-2026-00102، وهكذا (الصيغة FR-YYYY-NNNNN من الخادم بلا تغيير). لا يشمل ترقيم التوظيف JOB. |  | Owner: «اول رقم عالموقع خليه يبلش هيك FR-2026-00100 … الطلب الاول FR-2026-00101 … الثاني FR-2026-00102» | M46 §1 · 2026-10-02 (سُجّل في التدقيق) | FRAN-046 (محدّث) · ReferenceNumbers::START_AFTER · ReferenceNumbersTest · FranchisePageTest |
 | `D-317` | 16 Franchise | محتوى صفحة الفرنشايز V1 (OWNER APPROVED): اسم الصفحة «كن شريكًا مع SHELTER COFFEE» / «Partner With SHELTER COFFEE» · التوصيف الثانوي Franchise & Partnerships · الـHero (Eyebrow + «كن شريكًا في نمو / SHELTER COFFEE» · «Grow With / SHELTER COFFEE» + النص + «ابدأ طلب الشراكة» و«تعرّف على SHELTER») · من هي SHELTER؟ · نماذج تجربة SHELTER الحالية (DRIVE، HOUSE) · أكثر من مجرد اسم على الواجهة · رحلة الشراكة (9 خطوات) · أسواق النمو · 7 أسئلة · CTA ختامي «مهتم ببناء SHELTER في سوقك؟». PO-030 = RESOLVED. |  | Owner: FRANCHISE PAGE — FINAL CONTENT PART 1–3 · OWNER APPROVED — V1 | M47 §1 · 2026-10-02 (سُجّل في التدقيق) | FRAN-001/011/012/013/015/028/032/034/035/036 · PO-030 · FranchiseSeeder |
@@ -352,8 +352,9 @@
 | `D-334` | Branches / Master Data | اعتماد بيانات الموقع كما كتبها الـOwner في M57 §1 وإدخالها في Master Data: وصف موقع DRIVE «بجانب منطقة قصر النخيل / أرابيلا»؛ وصف موقع HOUSE «إربد سيتي سنتر، الطابق الأول، بجانب البنك الإسلامي الأردني» / «Irbid City Center, First Floor, next to Jordan Islamic Bank»؛ كتابة المدينة «إربد». وصف الموقع معلم قريب وليس العنوان التفصيلي (PO-010) ولا يُستخدم streetAddress. |  | Owner: «أ» — اعتماد القيم كما هي | M57, M58 · 2026-10-02 (سُجّل في التدقيق) | PO-079 (RESOLVED) · CF-M-036 (RESOLVED) · SEO-008 · database/seeders/data/master-data.php · صفحتا الفرعين وبطاقاتهما |
 | `D-336` | Branches / Google Business | الموقع والاسم لكل فرع حسب Google Business: SHELTER COFFEE DRIVE ← https://maps.app.goo.gl/zNfDbkxcT1aMdQiWA · SHELTER COFFEE HOUSE ← https://maps.app.goo.gl/k31BVoaAb1fcAF9e6 (يحل محل D-335). الاسمان كما هما (D-020) ومطابقان لـGBP. الرابط يشغّل زر «الاتجاهات» وhasMap. |  | توجيه صريح من الـOwner (M60) | M60 · 2026-10-02 (سُجّل في التدقيق) | D-335 (SUPERSEDED) · GBP-013 · PO-010 · docs/google/GOOGLE-BUSINESS-PROFILE-SOURCE-OF-TRUTH.md · database/seeders/data/master-data.php |
 | `D-337` | Branches / Master Data | نص عنوان كل فرع (AR/EN) يُدخله الـOwner بنفسه من لوحة التحكم مطابقًا لـGoogle Business؛ لا يُدخله Claude. الحفظ في المحرر = اعتماد، ويظهر في صفحة الفرع وفي streetAddress بالبيانات المنظمة. |  | Owner: «ب» — يدخله بنفسه | M61 · 2026-10-02 (سُجّل في التدقيق) | PO-010 · PO-064 (الوصول للوحة) · SEO-008 |
-| `D-339` | Release / Infrastructure | قبل أي نشر للإنتاج: رابط فحص كامل للموقع للـOwner — نسخة Staging على Cloudways (تطبيق مستقل، الرابط الافتراضي، بلا DNS، غير مفهرس، WordPress الحالي لا يُلمس). بعد الفحص والموافقة: Cloudflare (Full strict، DNSSEC) والإنتاج حسب بوابة PHASE 7. |  | توجيه صريح من الـOwner (M62) | M62 · 2026-10-02 (سُجّل في التدقيق) | PO-064 · PO-073 · DEPLOY-002 · docs/platform/ENVIRONMENTS.md · docs/platform/ACCESS-SETUP.md §4 |
+| `D-339` | Release / Infrastructure | قبل أي نشر للإنتاج: رابط فحص كامل للموقع للـOwner — نسخة Staging على Cloudways (تطبيق مستقل، الرابط الافتراضي، بلا DNS، غير مفهرس، WordPress الحالي لا يُلمس). بعد الفحص والموافقة: Cloudflare (Full strict، DNSSEC) والإنتاج حسب بوابة PHASE 7. |  | توجيه صريح من الـOwner (M62) | M62 · 2026-10-02 (سُجّل في التدقيق) | PO-064 · PO-073 · DEPLOY-002 · docs/platform/ENVIRONMENTS.md · docs/platform/ACCESS-SETUP.md §4 ↻ M65: توقيت رابط الـStaging على Cloudways: لا يبدأ إلا بعد أمر الـOwner الصريح «START CLOUDWAYS + CLOUDFLARE CONNECTION» (D-342). سكربتات النشر الجاهزة محفوظة محليًا وغير مرفوعة: DEFERRED — REQUIRES INFRASTRUCTURE CONNECTION. |
 | `D-341` | SEO / Content | مكان «كافيه» و«كوفي» في نصوص Google (اختيار Claude بتفويض الـOwner). «كافيه» هي الكلمة الأكثر بحثًا محليًا، وتظهر مرة واحدة في كل صفحة تستهدفها: عنوان الرئيسية «شلتر كوفي — كافيه قهوة مختصة ودرايف ثرو في إربد»، ووصف الرئيسية «شلتر كوفي، كافيه قهوة مختصة في إربد: …»، ووصف الفروع «… الدرايف ثرو، والكافيه في سيتي سنتر. …»، وعنوان HOUSE «شلتر كوفي هاوس — كافيه في إربد \| ساعات الدوام» (ويزيل تكرار «كوفي هاوس» في العنوان). عنوان صفحة الفروع يبقى «فروع شلتر كوفي في إربد — ساعات الدوام» حتى لا ينافس الرئيسية على البحث نفسه. DRIVE وباقي الصفحات بلا تغيير. اسم العلامة والنصوص الظاهرة «كوفي» (D-007). يحل محل D-340. |  | Owner: «لا امانع من استخدام كافيه او كوفي — انت اختار الافضل» | M64 · 2026-10-02 (سُجّل في التدقيق) | D-340 (SUPERSEDED) · PO-080 · PO-082 (RESOLVED) · D-007 · D-332 · lang/ar/site.php · docs/seo/LOCAL-SEO-MAP.md · tests/Feature/Site/LocalSeoTest.php |
+| `D-342` | Release / Infrastructure | بوابة ما قبل البنية التحتية: لا ربط ولا إعداد Cloudways أو Cloudflare أو DNS أو SSL أو CDN أو WAF أو نشر Production (ولا Staging على Cloudways) قبل اكتمال البناء والفحص والإصلاح والانحدار وSEO وSEO إربد والتحقق النهائي (16 بندًا: كل الاختبارات الآلية، الرحلات الحرجة، الموقع فعليًا AR/EN، Mobile/Tablet/Desktop، Console، Network، النماذج، الـDashboard، المصادقة والصلاحيات، سلامة قاعدة البيانات، تطابق المنيو والفروع وMaster Data، SEO/Schema/Sitemap/hreflang/canonical، الحركة والأداء، لا بيانات تجريبية، Git نظيف ومحفوظ، التوثيق والتتبع محدّثان). «Ready» ممنوعة مع أي P0/P1 أو اختبار أساسي ناقص أو Bug مؤثر. ما يعتمد على Cloudways/Cloudflare فقط = DEFERRED — REQUIRES INFRASTRUCTURE CONNECTION ولا يمنع. عند الجاهزية: الرسالة المحددة + ملخص PRE-INFRASTRUCTURE STATUS، ثم توقف حتى يقول الـOwner «START CLOUDWAYS + CLOUDFLARE CONNECTION». |  | توجيه صريح من الـOwner (M65) | M65 · 2026-10-02 (سُجّل في التدقيق) | D-339 · D-314 · PO-064 · DEPLOY-002 · docs/FINAL-QA-REPORT.md · docs/PROGRESS.md |
 | `DB-01` | Brand | حُسم: الاسم (D-007)، الفروع (D-008، D-020)، سنة التأسيس 2019 (D-018) | الحقائق التأسيسية مطلوبة قبل أي Sitemap |  | #1 of 22 in DECISION-LOG open table (P0/P1/P2 priority in 05) · P0 | BRAND-001، ABOUT-003 |
 | `DB-10` | Products | البنية تدعم العرض الكامل للأسعار (D-078) |  |  | #12 of 22 in DECISION-LOG open table (P0/P1/P2 priority in 05) · P2 | MENU-014 |
 | `DB-21` | CMS | المصدر الوحيد للمنيو: A الآن + جاهزية C (حُسم بـD-085) | سؤال مفتوح: مصدر المنيو SSOT |  | #13 of 22 in DECISION-LOG open table (P0/P1/P2 priority in 05) | CMS-003 |
@@ -532,7 +533,7 @@
 | `GEP-§3` | GBP/Maps | فرعان رسميان على Google (DRIVE، HOUSE)؛ GBP لكل فرع = OFFICIAL OPERATIONAL SOURCE للحقول الأحد عشر | M33 §23 | SUPERSEDED (جزئيًا) BY D-278: وصف GBP كمصدر تشغيلي رسمي؛ تبقى قائمة الملفين الرسميين DRIVE/HOUSE (GBP-002) |  | policy section order · 2026-10-01 | GBP-002، GBP-003 |
 | `GEP-§26` |  | menu_view · menu_category_click · product_view · branch_view · directions_click · phone_click · whatsapp_click · social_click · campaign_view · campaign_click · event_view · blog_view · language_switch · search_use | M12 §9 → M25 §9 → M27 §18 (D-204) | القائمة الحالية = M27 §18 (14 حدثًا) + branch_view/social_click/event_view بانتظار قرار. |  |  | تحديث GOOGLE-ECOSYSTEM-POLICY §26 (إضافي — غير وارد في G6-docs). |
 
-## تحديثات من المواصفات الجديدة (M28–M30) على قرارات وبنود قائمة (67)
+## تحديثات من المواصفات الجديدة (M28–M30) على قرارات وبنود قائمة (69)
 
 | المعرّف | النوع | التغيير | المصدر |
 |---|---|---|---|
@@ -603,3 +604,5 @@
 | `D-340` | SUPERSEDE | حلّ محله D-341: فوّض الـOwner الاختيار لـClaude، فصارت «كافيه» في عنواني الرئيسية وHOUSE ووصفي الرئيسية والفروع. | M64 |
 | `D-007` | UPDATE | D-341: «كافيه» في عنواني Google للرئيسية وHOUSE ووصفي الرئيسية والفروع فقط. اسم العلامة والنصوص الظاهرة وعنوان صفحة الفروع تبقى «كوفي»، و«كوفي شوب» ممنوعة. | M64 |
 | `D-332` | UPDATE | D-341: وصف الرئيسية العربي تغيّر أوله فقط («شلتر كوفي، كافيه قهوة مختصة في إربد: …»)، ووصف الفروع صار «فرعا شلتر كوفي في إربد: الدرايف ثرو، والكافيه في سيتي سنتر. ساعات الدوام وأيّ فرع مفتوح الآن.». | M64 |
+| `D-339` | UPDATE | توقيت رابط الـStaging على Cloudways: لا يبدأ إلا بعد أمر الـOwner الصريح «START CLOUDWAYS + CLOUDFLARE CONNECTION» (D-342). سكربتات النشر الجاهزة محفوظة محليًا وغير مرفوعة: DEFERRED — REQUIRES INFRASTRUCTURE CONNECTION. | M65 |
+| `D-314` | UPDATE | D-342: Cloudways وCloudflare في النهاية فقط بعد بوابة التحقق قبل البنية التحتية وأمر الـOwner الصريح. | M65 |

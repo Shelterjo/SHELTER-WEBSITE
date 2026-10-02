@@ -42,6 +42,8 @@ final class SiteTexts
     /** @var array<string, array<array-key, mixed>> */
     private static array $files = [];
 
+    private static bool $originalOnly = false;
+
     public function __construct(private readonly Versions $versions, private readonly AuditLogger $audit) {}
 
     public static function listed(string $key): bool
@@ -62,6 +64,9 @@ final class SiteTexts
      */
     public static function overrides(): array
     {
+        if (self::$originalOnly) {
+            return [];
+        }
         try {
             /** @var array<string, array<string, array<string, string>>> $all */
             $all = Cache::rememberForever(self::CACHE_KEY, function (): array {
@@ -79,6 +84,26 @@ final class SiteTexts
             return $all;
         } catch (Throwable) {
             return [];
+        }
+    }
+
+    /**
+     * Runs $work with the language files' wording only: no database read at all (the design-system export renders the
+     * components the same on any machine, whatever the Owner has reworded on a site).
+     *
+     * @template T
+     *
+     * @param  callable(): T  $work
+     * @return T
+     */
+    public static function originalOnly(callable $work): mixed
+    {
+        $before = self::$originalOnly;
+        self::$originalOnly = true;
+        try {
+            return $work();
+        } finally {
+            self::$originalOnly = $before;
         }
     }
 

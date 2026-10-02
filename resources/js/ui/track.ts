@@ -51,7 +51,7 @@ export function classify(href: string, base: string = window.location.href): Con
 }
 
 /** Where the element sits: the page language, the branch, the placement and the phone's purpose when marked. */
-export function context(element: Element): Params {
+function context(element: Element): Params {
     const params: Params = { language: document.documentElement.lang || 'ar' };
     const branch = element.closest<HTMLElement>('[data-track-branch]')?.dataset.trackBranch;
     if (branch !== undefined && branch !== '') params.branch_id = branch;

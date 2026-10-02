@@ -1,0 +1,44 @@
+{
+  "group": "G52",
+  "notes": "M65: «FINAL PRE-INFRASTRUCTURE GATE — CLOUDWAYS + CLOUDFLARE HANDOFF RULE». لا ربط Cloudways/Cloudflare/DNS/SSL/CDN/WAF/Production قبل إنهاء البناء والفحص والإصلاح والتحقق النهائي (16 بندًا)، وبعدها رسالة محددة ثم توقف حتى يقول الـOwner: START CLOUDWAYS + CLOUDFLARE CONNECTION.",
+  "requirements": [],
+  "updates_to_existing": [
+    {
+      "id": "D-339",
+      "type": "UPDATE",
+      "source": "M65",
+      "change": "توقيت رابط الـStaging على Cloudways: لا يبدأ إلا بعد أمر الـOwner الصريح «START CLOUDWAYS + CLOUDFLARE CONNECTION» (D-342). سكربتات النشر الجاهزة محفوظة محليًا وغير مرفوعة: DEFERRED — REQUIRES INFRASTRUCTURE CONNECTION."
+    },
+    {
+      "id": "D-314",
+      "type": "UPDATE",
+      "source": "M65",
+      "change": "D-342: Cloudways وCloudflare في النهاية فقط بعد بوابة التحقق قبل البنية التحتية وأمر الـOwner الصريح."
+    },
+    {
+      "id": "PO-064",
+      "type": "UPDATE",
+      "source": "M65",
+      "change": "معلّق بقرار الـOwner (D-342): لا يُطلب إنشاء تطبيق Cloudways للـStaging قبل رسالة «جاهز» وأمر START منه."
+    }
+  ],
+  "conflicts": [],
+  "new_decisions": [
+    {
+      "temp_id": "G52-ND-01",
+      "area": "Release / Infrastructure",
+      "decision": "بوابة ما قبل البنية التحتية: لا ربط ولا إعداد Cloudways أو Cloudflare أو DNS أو SSL أو CDN أو WAF أو نشر Production (ولا Staging على Cloudways) قبل اكتمال البناء والفحص والإصلاح والانحدار وSEO وSEO إربد والتحقق النهائي (16 بندًا: كل الاختبارات الآلية، الرحلات الحرجة، الموقع فعليًا AR/EN، Mobile/Tablet/Desktop، Console، Network، النماذج، الـDashboard، المصادقة والصلاحيات، سلامة قاعدة البيانات، تطابق المنيو والفروع وMaster Data، SEO/Schema/Sitemap/hreflang/canonical، الحركة والأداء، لا بيانات تجريبية، Git نظيف ومحفوظ، التوثيق والتتبع محدّثان). «Ready» ممنوعة مع أي P0/P1 أو اختبار أساسي ناقص أو Bug مؤثر. ما يعتمد على Cloudways/Cloudflare فقط = DEFERRED — REQUIRES INFRASTRUCTURE CONNECTION ولا يمنع. عند الجاهزية: الرسالة المحددة + ملخص PRE-INFRASTRUCTURE STATUS، ثم توقف حتى يقول الـOwner «START CLOUDWAYS + CLOUDFLARE CONNECTION».",
+      "sources": [
+        "M65"
+      ],
+      "status": "APPROVED",
+      "reason": "توجيه صريح من الـOwner (M65)",
+      "impact": "D-339 · D-314 · PO-064 · DEPLOY-002 · docs/FINAL-QA-REPORT.md · docs/PROGRESS.md",
+      "date": "2026-10-02"
+    }
+  ],
+  "pending_owner": [],
+  "technical_flags": [],
+  "cost_api_dependencies": [],
+  "dropped": []
+}

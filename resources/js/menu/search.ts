@@ -24,7 +24,7 @@ export function normalize(text: string): string {
         .trim();
 }
 
-export function words(text: string): string[] {
+function words(text: string): string[] {
     const normalized = normalize(text);
     return normalized === '' ? [] : normalized.split(' ');
 }

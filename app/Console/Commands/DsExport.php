@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Services\Content\SiteTexts;
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Blade;
@@ -34,6 +35,12 @@ final class DsExport extends Command
     private const STATES = ['default', 'hover', 'focus', 'active', 'disabled', 'loading', 'error', 'empty', 'open'];
 
     public function handle(Filesystem $files): int
+    {
+        // The language files' wording only — the export never reads a database (Site texts are a site's own).
+        return SiteTexts::originalOnly(fn (): int => $this->export($files));
+    }
+
+    private function export(Filesystem $files): int
     {
         $catalog = $this->loadCatalog($this->pathOption('catalog'));
         $out = $this->pathOption('out');
