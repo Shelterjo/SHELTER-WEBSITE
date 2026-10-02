@@ -15,8 +15,9 @@ use Illuminate\Contracts\View\View;
 
 /**
  * Branch page (/ar/jo/locations/irbid/drive/ — SI-M05/M06, fixed slugs D-053): approved name, weekly hours with
- * today marked, live state, call/WhatsApp (mobile action bar, D-061 — Directions waits for the Maps link, PO-010),
- * BreadcrumbList + CafeOrCoffeeShop JSON-LD without address/geo (PO-010).
+ * today marked, live state, the address and Maps link once the Owner saves them (PO-010), services and payments said
+ * yes, call/WhatsApp/Directions (mobile action bar, D-061), BreadcrumbList + CafeOrCoffeeShop JSON-LD (address and
+ * geo only when approved).
  */
 final class BranchController extends Controller
 {

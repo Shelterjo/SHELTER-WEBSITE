@@ -31,5 +31,13 @@ final readonly class BranchSummary
         public ?StatusTimeline $status,
         public ?ContactAction $phone,
         public ?ContactAction $whatsapp,
+        public ?string $address = null,
+        public ?string $mapsUrl = null,
+        public ?string $latitude = null,
+        public ?string $longitude = null,
+        /** @var list<string> the services the Owner said yes to (D-033) */
+        public array $services = [],
+        /** @var list<string> the payment methods the Owner said yes to (D-034) */
+        public array $payments = [],
     ) {}
 }

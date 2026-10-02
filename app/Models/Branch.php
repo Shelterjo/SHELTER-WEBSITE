@@ -43,6 +43,8 @@ class Branch extends Model
             'type' => BranchType::class,
             'status' => BranchStatus::class,
             'is_public' => 'boolean',
+            'latitude' => 'decimal:7',
+            'longitude' => 'decimal:7',
             'sort' => 'integer',
             'archived_at' => 'datetime',
         ];

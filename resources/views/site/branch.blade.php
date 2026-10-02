@@ -28,6 +28,27 @@
                         <p class="ui-note">{{ __('site.hours.timezone', ['market' => $market->name()]) }}</p>
                     </section>
                 @endif
+                @if ($branch->address !== null || $branch->mapsUrl !== null || $branch->services !== [] || $branch->payments !== [])
+                    <section class="ui-split__aside" aria-labelledby="branch-place" data-ui-reveal>
+                        <h2 class="ui-split__title" id="branch-place">{{ __('site.branch.place') }}</h2>
+                        @if ($branch->address !== null)
+                            <p>{{ $branch->address }}</p>
+                        @endif
+                        @if ($branch->mapsUrl !== null)
+                            <x-ui.button variant="secondary" icon="map-pin" :href="$branch->mapsUrl" rel="noopener" target="_blank">{{ __('site.branch.directions') }}</x-ui.button>
+                        @endif
+                        @foreach (['services' => 'service', 'payments' => 'payment'] as $list => $group)
+                            @if ($branch->{$list} !== [])
+                                <h3 class="ui-split__title">{{ __('site.branch.'.$list) }}</h3>
+                                <ul class="ui-cluster" role="list">
+                                    @foreach ($branch->{$list} as $key)
+                                        <li><x-ui.badge>{{ __('site.attributes.'.$group.'.'.$key) }}</x-ui.badge></li>
+                                    @endforeach
+                                </ul>
+                            @endif
+                        @endforeach
+                    </section>
+                @endif
                 @if ($branch->phone !== null || $branch->whatsapp !== null || $menuUrl !== null)
                     <aside class="ui-split__aside" aria-labelledby="branch-contact" data-ui-reveal>
                         <h2 class="ui-split__title" id="branch-contact">{{ __('site.branch.contact') }}</h2>
@@ -50,9 +71,12 @@
             </div>
         </div>
 
-        @if ($branch->phone !== null || $branch->whatsapp !== null)
-            {{-- D-061: [Directions] [Call] [WhatsApp] — Directions joins when the official Maps link is approved (PO-010). --}}
+        @if ($branch->phone !== null || $branch->whatsapp !== null || $branch->mapsUrl !== null)
+            {{-- D-061: [Directions] [Call] [WhatsApp] — Directions shows once the Owner saves the Maps link (PO-010). --}}
             <x-ui.action-bar :label="__('site.branch.actions')">
+                @if ($branch->mapsUrl !== null)
+                    <x-ui.button variant="secondary" icon="map-pin" :href="$branch->mapsUrl" rel="noopener" target="_blank">{{ __('site.branch.directions_short') }}</x-ui.button>
+                @endif
                 @if ($branch->phone !== null)
                     <x-ui.button icon="phone" :href="$branch->phone->href">{{ __('site.branch.call') }}</x-ui.button>
                 @endif

@@ -32,6 +32,76 @@
         @endif
     </p>
 
+    @php
+        $B = 'dashboard.branch.';
+        $detailsBag = $errors->getBag('details');
+        $dv = fn (string $field, $value) => $detailsBag->any() ? old($field) : $value;
+    @endphp
+    <section class="ui-record__section" id="details" aria-labelledby="details-title">
+        <h2 id="details-title" class="ui-record__title">{{ __($B.'title') }}</h2>
+        <p class="ui-note">{{ __($B.'help') }}</p>
+        @if ($detailsBag->any())
+            <x-ui.error-summary :errors="$detailsBag" :title="__('dashboard.pages.errors.summary')" id="details-errors" />
+        @endif
+        <form class="ui-record__form" method="post" action="{{ route('dashboard.branches.details', $branch) }}">
+            @csrf
+            @method('PUT')
+            <div class="ui-bilingual">
+                @foreach (['ar' => 'rtl', 'en' => 'ltr'] as $locale => $dir)
+                    <div class="ui-bilingual__column">
+                        <x-ui.field :label="__($B.'name_'.$locale)" :for="'name_'.$locale" :error="$detailsBag->first('name_'.$locale)">
+                            <x-ui.input :id="'name_'.$locale" :name="'name_'.$locale" maxlength="120" :lang="$locale" :dir="$dir" :value="$dv('name_'.$locale, $branch->{'name_'.$locale})" />
+                        </x-ui.field>
+                        <x-ui.field :label="__($B.'address_'.$locale)" :for="'address_'.$locale" :hint="__($B.'address_hint')" :error="$detailsBag->first('address_'.$locale)" optional>
+                            <x-ui.textarea :id="'address_'.$locale" :name="'address_'.$locale" rows="2" maxlength="300" :lang="$locale" :dir="$dir" :value="$dv('address_'.$locale, $branch->{'address_'.$locale})" />
+                        </x-ui.field>
+                    </div>
+                @endforeach
+            </div>
+            <x-ui.field :label="__($B.'maps_url')" for="maps_url" :hint="__($B.'maps_hint')" :error="$detailsBag->first('maps_url')" optional>
+                <x-ui.input type="url" id="maps_url" name="maps_url" dir="ltr" maxlength="500" inputmode="url" :value="$dv('maps_url', $branch->maps_url)" />
+            </x-ui.field>
+            <div class="ui-editor__pair">
+                <x-ui.field :label="__($B.'latitude')" for="latitude" :hint="__($B.'coordinates_hint')" :error="$detailsBag->first('latitude')" optional>
+                    <x-ui.input id="latitude" name="latitude" dir="ltr" inputmode="decimal" maxlength="14" :value="$dv('latitude', $branch->latitude)" />
+                </x-ui.field>
+                <x-ui.field :label="__($B.'longitude')" for="longitude" :error="$detailsBag->first('longitude')" optional>
+                    <x-ui.input id="longitude" name="longitude" dir="ltr" inputmode="decimal" maxlength="14" :value="$dv('longitude', $branch->longitude)" />
+                </x-ui.field>
+            </div>
+            @php $public = (string) $dv('is_public', $branch->is_public ? '1' : '0'); @endphp
+            <x-ui.fieldset :legend="__($B.'is_public')" id="is_public">
+                <div class="ui-editor__options">
+                    <x-ui.radio :label="__($B.'shown')" name="is_public" value="1" id="is_public-1" :checked="$public !== '0'" />
+                    <x-ui.radio :label="__($B.'hidden')" name="is_public" value="0" id="is_public-0" :checked="$public === '0'" />
+                </div>
+            </x-ui.fieldset>
+            @foreach ($attributes as $group => $rows)
+                <x-ui.fieldset :legend="__($B.'groups.'.$group)" :id="'attr-'.$group">
+                    @foreach ($rows as $attribute)
+                        @php
+                            $name = 'attributes['.$group.']['.$attribute->key.']';
+                            $choice = (string) $dv('attributes.'.$group.'.'.$attribute->key, $attribute->value === null ? 'unknown' : ($attribute->value ? 'yes' : 'no'));
+                            $id = 'attr-'.$group.'-'.str_replace('_', '-', $attribute->key);
+                        @endphp
+                        <div class="ui-live-item">
+                            <span>{{ __('site.attributes.'.$group.'.'.$attribute->key) }}</span>
+                            <div class="ui-editor__options" role="radiogroup" aria-label="{{ __('site.attributes.'.$group.'.'.$attribute->key) }}">
+                                @foreach (['yes', 'no', 'unknown'] as $option)
+                                    <x-ui.radio :label="__($B.'answers.'.$option)" :name="$name" :value="$option" :id="$id.'-'.$option" :checked="$choice === $option" />
+                                @endforeach
+                            </div>
+                        </div>
+                    @endforeach
+                </x-ui.fieldset>
+            @endforeach
+            <x-ui.field :label="__($B.'reason')" for="details-reason" :hint="__('dashboard.settings.reason_hint')" optional>
+                <x-ui.input id="details-reason" name="reason" maxlength="300" />
+            </x-ui.field>
+            <x-ui.button type="submit">{{ __($B.'save') }}</x-ui.button>
+        </form>
+    </section>
+
     @if ($hoursErrors !== [])
         <x-ui.error-summary :errors="collect($hoursErrors)->mapWithKeys(fn ($m, $k) => [(string) preg_replace('/^days\.(\d+)$/', 'd$1-opens', $k) => $m])->all()" :title="__('dashboard.pages.errors.summary')" />
     @endif

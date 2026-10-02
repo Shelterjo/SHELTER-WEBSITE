@@ -44,6 +44,15 @@ final class StructuredData
         if ($telephone !== null) {
             $data['telephone'] = $telephone;
         }
+        if ($branch->address !== null) {
+            $data['address'] = ['@type' => 'PostalAddress', 'streetAddress' => $branch->address, 'addressCountry' => 'JO'];
+        }
+        if ($branch->latitude !== null && $branch->longitude !== null) {
+            $data['geo'] = ['@type' => 'GeoCoordinates', 'latitude' => (float) $branch->latitude, 'longitude' => (float) $branch->longitude];
+        }
+        if ($branch->mapsUrl !== null) {
+            $data['hasMap'] = $branch->mapsUrl;
+        }
         $hours = self::openingHours($branch);
         if ($hours !== []) {
             $data['openingHoursSpecification'] = $hours;

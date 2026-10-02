@@ -7,6 +7,7 @@ use App\Models\Branch;
 use App\Models\HoursException;
 use App\Models\Market;
 use App\Models\User;
+use App\Services\Dashboard\BranchEditor;
 use App\Services\Dashboard\HoursEditor;
 use App\Services\MasterData\MasterData;
 use App\Services\Site\BranchDirectory;
@@ -96,6 +97,20 @@ final class BranchesController extends Controller
         return redirect()->to(route('dashboard.branches.show', $branch).'#exceptions')->with('status', __('dashboard.hours.exception_archived'));
     }
 
+    /** The branch's details: names, address, map, coordinates, shown on the site, services and payments (BranchEditor). */
+    public function details(Request $request, Branch $branch, BranchEditor $editor): RedirectResponse
+    {
+        /** @var User $owner */
+        $owner = $request->user();
+        $errors = $editor->save($branch, $request->all(), $owner);
+        $url = route('dashboard.branches.show', $branch).'#details';
+        if ($errors !== []) {
+            return redirect()->to($url)->withInput()->withErrors($errors, 'details');
+        }
+
+        return redirect()->to($url)->with('status', __('dashboard.saved'));
+    }
+
     /**
      * @param  array<int, array{open: bool, opens: string, closes: string}>  $days
      * @param  list<array{0: int, 1: string, 2: string}>|null  $preview
@@ -121,6 +136,7 @@ final class BranchesController extends Controller
         }
 
         return view('dashboard.branches.show', [
+            'attributes' => $branch->branchAttributes()->orderBy('id')->get()->groupBy('group'),
             'changed' => $changed,
             'branch' => $branch,
             'name' => $this->name($branch, $data),

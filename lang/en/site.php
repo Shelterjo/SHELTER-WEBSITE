@@ -65,6 +65,11 @@ return [
     ],
 
     'branch' => [
+        'place' => 'Address and services',
+        'directions' => 'Directions on Google Maps',
+        'directions_short' => 'Directions',
+        'services' => 'Services',
+        'payments' => 'Payment methods',
         'title' => ':name — Opening hours',
         'contact' => 'Contact the branch',
         'call' => 'Call',
@@ -165,4 +170,8 @@ return [
     // Google descriptions (meta description) per page: empty until the Owner writes them (dashboard → Site texts).
     'meta' => ['home' => '', 'menu' => '', 'locations' => '', 'branch' => '', 'contact' => '', 'events' => '', 'careers' => '', 'awards' => '', 'family' => ''],
     'gateway' => ['lead' => ''],
+    'attributes' => [
+        'service' => ['indoor_seating' => 'Indoor seating', 'outdoor_seating' => 'Outdoor seating', 'takeaway' => 'Takeaway', 'wifi' => 'Wi-Fi', 'parking' => 'Parking', 'wheelchair_accessible' => 'Wheelchair accessible'],
+        'payment' => ['cash' => 'Cash', 'card' => 'Card', 'cliq' => 'CliQ', 'mobile_wallet' => 'Mobile wallet'],
+    ],
 ];

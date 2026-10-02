@@ -10,6 +10,9 @@
             <li class="ui-item-list__item">
                 <div class="ui-item-list__main">
                     <h2 class="ui-item-list__title"><a href="{{ route('dashboard.branches.show', $row['branch']) }}">{{ $row['name'] }}</a></h2>
+                    @if (! $row['branch']->is_public)
+                        <x-ui.badge icon="ban">{{ __('dashboard.branch.hidden_badge') }}</x-ui.badge>
+                    @endif
                     <p class="ui-item-list__meta">
                         @if ($row['state'] === null)
                             <x-ui.badge icon="circle-alert">{{ __('dashboard.branches.unknown_now') }}</x-ui.badge>

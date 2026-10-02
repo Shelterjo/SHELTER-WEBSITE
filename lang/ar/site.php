@@ -72,6 +72,11 @@ return [
     ],
 
     'branch' => [
+        'place' => 'العنوان والخدمات',
+        'directions' => 'الاتجاهات على خرائط Google',
+        'directions_short' => 'الاتجاهات',
+        'services' => 'الخدمات',
+        'payments' => 'طرق الدفع',
         'title' => ':name — ساعات الدوام',
         'contact' => 'تواصل مع الفرع',
         'call' => 'اتصال',
@@ -172,4 +177,8 @@ return [
     // Google descriptions (meta description) per page: empty until the Owner writes them (dashboard → Site texts).
     'meta' => ['home' => '', 'menu' => '', 'locations' => '', 'branch' => '', 'contact' => '', 'events' => '', 'careers' => '', 'awards' => '', 'family' => ''],
     'gateway' => ['lead' => ''],
+    'attributes' => [
+        'service' => ['indoor_seating' => 'جلسات داخلية', 'outdoor_seating' => 'جلسات خارجية', 'takeaway' => 'طلبات خارجية', 'wifi' => 'واي فاي', 'parking' => 'مواقف سيارات', 'wheelchair_accessible' => 'مناسب للكراسي المتحركة'],
+        'payment' => ['cash' => 'نقدًا', 'card' => 'بطاقة', 'cliq' => 'CliQ', 'mobile_wallet' => 'محفظة إلكترونية'],
+    ],
 ];

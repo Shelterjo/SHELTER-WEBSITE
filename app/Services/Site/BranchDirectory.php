@@ -55,7 +55,7 @@ final class BranchDirectory
     /** @return Builder<Branch> */
     private function query(Market $market): Builder
     {
-        return Branch::query()->public()->with('city')
+        return Branch::query()->public()->with(['city', 'branchAttributes'])
             ->whereHas('city.country', fn (Builder $q) => $q->where('market_id', $market->id));
     }
 
@@ -96,7 +96,24 @@ final class BranchDirectory
             status: $status,
             phone: $this->contacts->phone($locale),
             whatsapp: $this->contacts->whatsapp($locale),
+            address: self::text($this->data->branchField($branch, 'address_'.$locale)),
+            mapsUrl: self::text($this->data->branchField($branch, 'maps_url')),
+            latitude: self::text($this->data->branchField($branch, 'latitude')),
+            longitude: self::text($this->data->branchField($branch, 'longitude')),
+            services: $this->said($branch, 'service'),
+            payments: $this->said($branch, 'payment'),
         );
+    }
+
+    private static function text(mixed $value): ?string
+    {
+        return is_scalar($value) && (string) $value !== '' ? (string) $value : null;
+    }
+
+    /** @return list<string> the keys of a group the Owner said yes to (unknown and no are not shown) */
+    private function said(Branch $branch, string $group): array
+    {
+        return array_values($branch->branchAttributes->where('group', $group)->where('value', true)->pluck('key')->map(fn ($k): string => (string) $k)->all());
     }
 
     /**
