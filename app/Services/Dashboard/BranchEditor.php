@@ -21,7 +21,7 @@ final class BranchEditor
     public const ADDRESS_MAX = 300;
 
     /** Google Maps link hosts accepted (a share link or a maps page). */
-    private const MAP_HOSTS = ['maps.app.goo.gl', 'goo.gl', 'www.google.com', 'google.com', 'maps.google.com', 'www.google.jo', 'google.jo'];
+    private const MAP_HOSTS = ['maps.app.goo.gl', 'share.google', 'goo.gl', 'www.google.com', 'google.com', 'maps.google.com', 'www.google.jo', 'google.jo'];
 
     public function __construct(private readonly OwnerApproval $approval, private readonly Versions $versions, private readonly AuditLogger $audit) {}
 
@@ -117,7 +117,12 @@ final class BranchEditor
             return false;
         }
 
-        // A share link (maps.app.goo.gl) or the Maps host itself; elsewhere only a /maps page.
+        // A share link (maps.app.goo.gl, or share.google — Google's newer "Share" link, path = the code) or the Maps
+        // host itself; elsewhere only a /maps page.
+        if ($host === 'share.google') {
+            return (bool) preg_match('#^/[A-Za-z0-9_-]+$#', $parts['path'] ?? '');
+        }
+
         return in_array($host, ['maps.app.goo.gl', 'maps.google.com'], true) || str_starts_with($parts['path'] ?? '', '/maps');
     }
 

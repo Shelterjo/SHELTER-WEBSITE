@@ -49,6 +49,8 @@ class BranchDetailsTest extends TestCase
     {
         $this->assertTrue(BranchEditor::mapsLink('https://maps.app.goo.gl/AbC123'));
         $this->assertTrue(BranchEditor::mapsLink('https://www.google.com/maps/place/SHELTER'));
+        $this->assertTrue(BranchEditor::mapsLink('https://share.google/Cko3RPFoBGY21bco4'), 'Google\'s newer Share link');
+        $this->assertFalse(BranchEditor::mapsLink('https://share.google/a/b?x=1'), 'only the bare share code');
         $this->assertFalse(BranchEditor::mapsLink('http://maps.app.goo.gl/AbC123'), 'https only');
         $this->assertFalse(BranchEditor::mapsLink('https://www.google.com/search?q=x'));
         $this->assertFalse(BranchEditor::mapsLink('https://evil.example/maps'));

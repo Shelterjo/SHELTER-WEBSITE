@@ -8,6 +8,7 @@ describe('contact link classification', () => {
         expect(classify('tel:+962799009436', BASE)).toBe('phone_click');
         expect(classify('https://wa.me/962799009436', BASE)).toBe('whatsapp_click');
         expect(classify('https://maps.app.goo.gl/abc123', BASE)).toBe('directions_click');
+        expect(classify('https://share.google/Cko3RPFoBGY21bco4', BASE)).toBe('directions_click');
         expect(classify('https://www.google.com/maps/place/x', BASE)).toBe('directions_click');
         expect(classify('https://maps.google.com/?q=1,2', BASE)).toBe('directions_click');
     });

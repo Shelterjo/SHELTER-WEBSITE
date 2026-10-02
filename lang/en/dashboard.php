@@ -738,7 +738,7 @@ return [
         'landmark_en' => 'Location description in English',
         'landmark_hint' => 'A short line that tells a customer where it is, e.g. “next to …” or “the mall, first floor”. Shown under the branch name and on its card.',
         'maps_url' => 'Google Maps link',
-        'maps_hint' => 'In Google Maps: Share → Copy link (starts with https://maps.app.goo.gl/). A “Directions” button shows.',
+        'maps_hint' => 'In Google Maps: Share → Copy link (starts with https://maps.app.goo.gl/ or https://share.google/). A “Directions” button shows.',
         'latitude' => 'Latitude',
         'longitude' => 'Longitude',
         'coordinates_hint' => 'Optional; helps Google. In Google Maps: long-press the branch and copy the two numbers.',

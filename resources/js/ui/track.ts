@@ -14,6 +14,7 @@ export type ContactEvent = 'phone_click' | 'whatsapp_click' | 'directions_click'
 
 const MAP_HOSTS = new Set([
     'maps.app.goo.gl',
+    'share.google',
     'goo.gl',
     'maps.google.com',
     'www.google.com',
@@ -40,7 +41,10 @@ export function classify(href: string, base: string = window.location.href): Con
     if (url.hostname === 'wa.me' || url.hostname === 'api.whatsapp.com') return 'whatsapp_click';
     if (MAP_HOSTS.has(url.hostname)) {
         const mapsHost =
-            url.hostname === 'maps.app.goo.gl' || url.hostname === 'maps.google.com' || url.hostname === 'goo.gl';
+            url.hostname === 'maps.app.goo.gl' ||
+            url.hostname === 'share.google' ||
+            url.hostname === 'maps.google.com' ||
+            url.hostname === 'goo.gl';
         if (mapsHost || url.pathname.startsWith('/maps')) return 'directions_click';
     }
     return null;
