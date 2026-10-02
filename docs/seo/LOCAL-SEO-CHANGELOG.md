@@ -80,7 +80,7 @@ Why the city and brand appear together in every title: «شلتر كافية» i
 - `resources/js/ui/track.test.ts` (4).
 - Updated: `LocationsPagesTest` (the address now carries city and country only) and `SiteTextsTest` (title placeholders and the separate title key).
 
-## J. «كافيه» in Google titles and descriptions (D-338, Owner «ج» to PO-080)
+## J. «كافيه» in Google titles and descriptions (D-338, Owner «ج» to PO-080) — SUPERSEDED by K (D-340)
 | Page | Before | After |
 |---|---|---|
 | Home title AR | شلتر كوفي — قهوة مختصة ودرايف ثرو في إربد | شلتر كوفي — كافيه قهوة مختصة ودرايف ثرو في إربد |
@@ -90,3 +90,28 @@ Why the city and brand appear together in every title: «شلتر كافية» i
 | HOUSE title AR | شلتر كوفي هاوس — كوفي هاوس في إربد \| ساعات الدوام | شلتر كوفي هاوس — كافيه في إربد \| ساعات الدوام (a title-only kind label; the page keeps «كوفي هاوس») |
 
 Why: «كافيه» is the most used local word (research §3.2). It goes only into the cluster-B pages (home, locations) and the sit-down branch, so there's no stuffing or cannibalisation. Visible copy and the brand name stay «كوفي» (D-007).
+
+## K. «كافيه» only in two Google descriptions, after approval (D-340, Owner «ب» to PO-080 — supersedes J) — SUPERSEDED by L (D-341) before publishing
+| Page | Before (J, D-338) | After (D-340) |
+|---|---|---|
+| Home title AR | شلتر كوفي — كافيه قهوة مختصة ودرايف ثرو في إربد | شلتر كوفي — قهوة مختصة ودرايف ثرو في إربد |
+| Locations title AR | فروع شلتر كوفي في إربد — كافيه ودرايف ثرو \| ساعات الدوام | فروع شلتر كوفي في إربد — ساعات الدوام |
+| HOUSE title AR | شلتر كوفي هاوس — كافيه في إربد \| ساعات الدوام | شلتر كوفي هاوس — كوفي هاوس في إربد \| ساعات الدوام (the title-only kind label is removed) |
+| Home description AR | شلتر كوفي، كافيه قهوة مختصة في إربد: … | back to D-332: شلتر كوفي في إربد: قهوة مختصة وV60 … |
+| Locations description AR | فرعا شلتر كوفي في إربد: الدرايف ثرو، والكافيه في سيتي سنتر. … | back to D-332: فرعا شلتر كوفي في إربد، الدرايف والهاوس: … |
+
+Why: the Owner chose «ب». «كافيه» covers the most used search word through the descriptions, while every title, the visible copy and the brand name keep «كوفي». The two descriptions stay on the approved D-332 wording until the Owner approves the «كافيه» wording (PO-082); then only those two lines change. Test: `LocalSeoTest` asserts that no title on the home or locations page, and not the HOUSE title, contains «كافيه».
+
+## L. Final placement of «كافيه» (D-341: the Owner left the choice to Claude — supersedes K)
+| Page | Title AR | Description AR |
+|---|---|---|
+| Home | شلتر كوفي — كافيه قهوة مختصة ودرايف ثرو في إربد | شلتر كوفي، كافيه قهوة مختصة في إربد: V60 ومشروبات ساخنة وباردة وحلويات، في فرع درايف ثرو وفرع كوفي هاوس. تصفّح المنيو وساعات الدوام. (only the opening differs from D-332) |
+| Locations | فروع شلتر كوفي في إربد — ساعات الدوام (unchanged) | فرعا شلتر كوفي في إربد: الدرايف ثرو، والكافيه في سيتي سنتر. ساعات الدوام وأيّ فرع مفتوح الآن. |
+| HOUSE | شلتر كوفي هاوس — كافيه في إربد \| ساعات الدوام (a title-only kind label; the page keeps «كوفي هاوس») | D-332 (unchanged) |
+| DRIVE and every other page | unchanged | unchanged |
+
+Why:
+- «كافيه» is the most searched local word (research §3.2), and Google titles weigh more than descriptions. It goes once into each page that answers a general café search: the home page, and HOUSE as the sit-down branch. HOUSE also loses the repeated «كوفي هاوس — كوفي هاوس».
+- The locations title stays on «branches and hours» so it doesn't compete with the home page for the same search. Its description names the café branch.
+- The brand name and all visible copy keep «كوفي» (D-007), and «كوفي شوب» is never used.
+- Tested by `LocalSeoTest`, which checks every title and description above.

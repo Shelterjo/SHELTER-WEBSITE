@@ -25,7 +25,7 @@ def write(rel, text):
 # ---------------------------------------------------------------- load
 G = {g: J(f'cons/{g}.json') for g in [f'G{i}' for i in range(1, 9)]}
 G9 = J('cons/G9.json')
-EXTRA = {g: J(f'cons/{g}.json') for g in ['G10', 'G11', 'G12', 'G13', 'G14', 'G15', 'G16', 'G17', 'G18', 'G19', 'G20', 'G21', 'G22', 'G23', 'G24', 'G25', 'G26', 'G27', 'G28', 'G29', 'G30', 'G31', 'G32', 'G33', 'G34', 'G35', 'G36', 'G37', 'G38', 'G39', 'G40', 'G41', 'G42', 'G43', 'G44', 'G45', 'G46', 'G47', 'G48', 'G49'] if os.path.exists(os.path.join(AUD, f'cons/{g}.json'))}
+EXTRA = {g: J(f'cons/{g}.json') for g in ['G10', 'G11', 'G12', 'G13', 'G14', 'G15', 'G16', 'G17', 'G18', 'G19', 'G20', 'G21', 'G22', 'G23', 'G24', 'G25', 'G26', 'G27', 'G28', 'G29', 'G30', 'G31', 'G32', 'G33', 'G34', 'G35', 'G36', 'G37', 'G38', 'G39', 'G40', 'G41', 'G42', 'G43', 'G44', 'G45', 'G46', 'G47', 'G48', 'G49', 'G50', 'G51'] if os.path.exists(os.path.join(AUD, f'cons/{g}.json'))}
 I = J('out/I-docs-registry.json')
 MSGS = J('msgs-stats.json')  # counts only — the raw Owner messages are not kept in the repo
 RAW = {r['key']: r for f in sorted(glob.glob(os.path.join(AUD, 'out/[A-H]-*.json'))) for r in json.load(open(f))['items']}
@@ -618,6 +618,18 @@ if '| D-150 |' not in log and not os.environ.get('NO_LOG'):
     open(log_p, 'w').write(log); print('DECISION-LOG updated', len(nds), 'new rows,', len(sup), 'superseded synced')
 
 log = open(log_p).read()
+# Later runs: a decision superseded by a newer group (e.g. D-335 → D-336, D-338 → D-340) gets its status cell updated too.
+_sup = {r['id']: r['superseded_by'] for r in dec_rows if r['cat'] == 'SUPERSEDED' and r['id'].startswith('D-') and r['superseded_by']}
+_i = log.index('\n## قرارات مفتوحة')
+_lines, _n = log[:_i].split('\n'), 0
+for k, line in enumerate(_lines):
+    m = re.match(r'\| (D-\d+) \|', line)
+    if m and m.group(1) in _sup and 'SUPERSEDED' not in line.rsplit('|', 2)[-2]:
+        cells = line.rstrip().rstrip('|').rsplit('|', 1)
+        _lines[k] = cells[0] + f"| `SUPERSEDED` → {_sup[m.group(1)]} (كان: {cells[1].strip()}) |"; _n += 1
+if _n and not os.environ.get('NO_LOG'):
+    log = '\n'.join(_lines) + log[_i:]
+    open(log_p, 'w').write(log); print('DECISION-LOG superseded synced', _n)
 miss = [n for n in nds if f"| {n['id']} |" not in log]
 if miss and not os.environ.get('NO_LOG'):
     SRC = lambda n: ' · '.join(f"{m} ({MSG_NAME.get(m, m)})" for m in msgs_of(n.get('sources', [])))

@@ -47,7 +47,7 @@ final readonly class BranchSummary
         public ?string $landmark = null,
         /** @var list<array{date: string, intervals: list<array{opens: string, closes: string}>}> exception days ahead */
         public array $special = [],
-        /** the kind as the Google title words it (D-338: «كافيه»); falls back to the page's kind */
+        /** the kind as the Google title words it (D-341: «كافيه»); falls back to the page's kind */
         public ?string $titleKind = null,
     ) {}
 

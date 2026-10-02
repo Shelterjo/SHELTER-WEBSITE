@@ -54,10 +54,17 @@ class LocalSeoTest extends TestCase
         $en = $this->page('/en/jo/locations/irbid/house/');
         $this->assertStringContainsString('<p class="ui-page-intro__lead">Coffee house in Irbid</p>', $en);
         $this->assertStringContainsString('<title>SHELTER COFFEE HOUSE — Coffee house in Irbid | Opening Hours</title>', $en);
-        // D-338: «كافيه» is how the Google title words the coffee house; the page itself keeps «كوفي هاوس» (D-007).
+        // D-341 (the Owner left the word to Claude): «كافيه» in the home and HOUSE titles and the home and locations
+        // descriptions only; the locations title, the brand and the visible copy keep «كوفي» (D-007).
         $house = $this->page('/ar/jo/locations/irbid/house/');
         $this->assertStringContainsString('<title>شلتر كوفي هاوس — كافيه في إربد | ساعات الدوام</title>', $house);
         $this->assertStringContainsString('<p class="ui-page-intro__lead">كوفي هاوس في إربد</p>', $house);
+        $home = $this->page('/ar/');
+        $this->assertStringContainsString('<title>شلتر كوفي — كافيه قهوة مختصة ودرايف ثرو في إربد</title>', $home);
+        $this->assertStringContainsString('<meta name="description" content="شلتر كوفي، كافيه قهوة مختصة في إربد:', $home);
+        $locations = $this->page('/ar/jo/locations/');
+        $this->assertStringContainsString('<title>فروع شلتر كوفي في إربد — ساعات الدوام</title>', $locations);
+        $this->assertStringContainsString('والكافيه في سيتي سنتر', $locations);
         // D-334: «إربد» is the approved spelling (CF-M-036).
         $this->assertStringContainsString('<p class="ui-page-intro__lead">درايف ثرو في إربد</p>', $this->page('/ar/jo/locations/irbid/drive/'));
 
