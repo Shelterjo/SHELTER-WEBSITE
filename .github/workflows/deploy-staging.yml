@@ -63,26 +63,20 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
           cache: npm
 
-      - name: Check secrets are present (names only)
+      - name: Check the secrets (shape only; no value is printed)
         env:
-          S1: ${{ secrets.STAGING_SSH_HOST }}
-          S2: ${{ secrets.STAGING_SSH_USER }}
-          S3: ${{ secrets.STAGING_SSH_KEY }}
-          S4: ${{ secrets.STAGING_APP_URL }}
-          S5: ${{ secrets.STAGING_DB_DATABASE }}
-          S6: ${{ secrets.STAGING_DB_USERNAME }}
-          S7: ${{ secrets.STAGING_DB_PASSWORD }}
-          S8: ${{ secrets.STAGING_BASIC_AUTH_USER }}
-          S9: ${{ secrets.STAGING_BASIC_AUTH_PASSWORD }}
+          STAGING_SSH_HOST: ${{ secrets.STAGING_SSH_HOST }}
+          STAGING_SSH_USER: ${{ secrets.STAGING_SSH_USER }}
+          STAGING_SSH_KEY: ${{ secrets.STAGING_SSH_KEY }}
+          STAGING_APP_URL: ${{ secrets.STAGING_APP_URL }}
+          STAGING_DB_DATABASE: ${{ secrets.STAGING_DB_DATABASE }}
+          STAGING_DB_USERNAME: ${{ secrets.STAGING_DB_USERNAME }}
+          STAGING_DB_PASSWORD: ${{ secrets.STAGING_DB_PASSWORD }}
+          STAGING_BASIC_AUTH_USER: ${{ secrets.STAGING_BASIC_AUTH_USER }}
+          STAGING_BASIC_AUTH_PASSWORD: ${{ secrets.STAGING_BASIC_AUTH_PASSWORD }}
         run: |
-          missing=""
-          for pair in "STAGING_SSH_HOST:$S1" "STAGING_SSH_USER:$S2" "STAGING_SSH_KEY:$S3" "STAGING_APP_URL:$S4" \
-            "STAGING_DB_DATABASE:$S5" "STAGING_DB_USERNAME:$S6" "STAGING_DB_PASSWORD:$S7" \
-            "STAGING_BASIC_AUTH_USER:$S8" "STAGING_BASIC_AUTH_PASSWORD:$S9"; do
-            [ -n "${pair#*:}" ] || missing="$missing ${pair%%:*}"
-          done
-          if [ -n "$missing" ]; then echo "::error::missing secrets:$missing"; exit 1; fi
-          case "$S4" in https://*|http://*) ;; *) echo "::error::STAGING_APP_URL must start with https:// or http://"; exit 1;; esac
+          python3 scripts/deploy/check-secrets.py STAGING_SSH_HOST STAGING_SSH_USER STAGING_SSH_KEY STAGING_APP_URL \
+            STAGING_DB_DATABASE STAGING_DB_USERNAME STAGING_DB_PASSWORD STAGING_BASIC_AUTH_USER STAGING_BASIC_AUTH_PASSWORD
 
       - name: Build the release (vendor --no-dev + public/build; no tests, tooling or docs)
         id: build
@@ -105,7 +99,10 @@ jobs:
             exit 1
           fi
           echo "deploy key OK: $(ssh-keygen -lf ~/.ssh/staging | cut -d' ' -f2) (fingerprint only)"
-          ssh-keyscan -T 15 -t ed25519,rsa "$HOST" > ~/.ssh/known_hosts 2>/dev/null
+          if ! ssh-keyscan -T 15 -t ed25519,rsa "$HOST" > ~/.ssh/known_hosts 2>/dev/null || [ ! -s ~/.ssh/known_hosts ]; then
+            echo "::error::the server did not answer on SSH (port 22). Check STAGING_SSH_HOST (the server's public IP in Cloudways › Servers) and that SSH access is allowed for this application."
+            exit 1
+          fi
           echo "Server host key fingerprints (trust on first use; compare on later runs):"
           ssh-keygen -lf ~/.ssh/known_hosts
 
