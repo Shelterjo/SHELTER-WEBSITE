@@ -83,11 +83,11 @@ case "$cmd" in
         ln -s "$SHARED/storage" storage
         ln -sfn "$SHARED/.env" .env
         mkdir -p bootstrap/cache "$MEDIA"
-        chmod 750 "$(dirname "$MEDIA")" "$MEDIA"
         if [ -d "$SHARED/media-public" ]; then
             # Earlier layout (inside the 700 folder, unreadable by the web server): move what is there.
             cp -a "$SHARED/media-public/." "$MEDIA/" && rm -rf "${SHARED:?}/media-public"
         fi
+        chmod 750 "$(dirname "$MEDIA")" "$MEDIA"
         # Approved image variants are made on the server (MediaLibrary): one shared folder, so a release keeps them.
         rm -rf public/media
         ln -s "$MEDIA" public/media
