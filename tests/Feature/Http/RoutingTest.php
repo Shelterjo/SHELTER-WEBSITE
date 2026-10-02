@@ -36,6 +36,9 @@ class RoutingTest extends TestCase
     public function test_missing_trailing_slash_redirects_once_permanently(): void
     {
         $this->get('/en?x=1')->assertStatus(301)->assertRedirect('http://localhost/en/?x=1');
+        // An address no page answers is a 404 at once — never a 301 to a 404 (FINAL-QA QA-051).
+        $this->get('/menu')->assertNotFound();
+        $this->get('/ar/no-such-page')->assertNotFound();
     }
 
     public function test_unknown_locale_is_not_found(): void
