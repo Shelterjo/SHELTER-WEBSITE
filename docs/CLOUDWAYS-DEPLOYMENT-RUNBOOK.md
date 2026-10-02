@@ -41,10 +41,13 @@
 └─ private_html/shelter/
     ├─ .env            (600)        ← أسرار البيئة، يُكتب مرة واحدة من الـpipeline
     ├─ storage/                     ← جلسات، سجلات، cache، ملفات خاصة، النسخ الاحتياطية
-    ├─ media-public/                ← صور معتمدة تُقدَّم على /media (مشتركة بين الإصدارات)
     ├─ bin/remote-release.sh
     └─ .seeded                      ← علامة: البيانات المعتمدة والمنيو عُبّئت مرة واحدة
+└─ private_html/shelter-public/media/ ← صور معتمدة تُقدَّم على /media (مشتركة بين الإصدارات، 750)
 ```
+**الصلاحيات (حقيقة من السيرفر 2026-10-02):** nginx يعمل بالمستخدم `www-data`، وPHP-FPM بمستخدم التطبيق. الملفات `<app-user>:www-data`. لذلك:
+- الكود والملفات العامة: مجلدات `750` وملفات `640`، يقرؤها nginx عبر المجموعة.
+- ما يحمل أسرارًا للمالك فقط: `private_html/shelter` (`700`) و`.env` (`600`) و`bootstrap/cache` (`700`/`600`)، لأن الإعدادات المخزنة تحمل كل قيم `.env`.
 `release_id` = `YYYY.MM.DD-HHMMSS-<commit>`، و`release.json` داخل كل إصدار يحمل الـcommit ووقت البناء.
 
 ## 3. إعداد لمرة واحدة (الـOwner)
@@ -55,7 +58,7 @@
 | 3 | GitHub ← Settings ← Secrets and variables ← Actions: الأسرار التسعة (القائمة في رأس `deploy-staging.yml`). `STAGING_SSH_KEY` = محتوى الملف **الخاص** `shelter_staging` كاملًا (انظر §7) | ✅ |
 | 4 | Cloudways ← Server ← Settings & Packages / Security: **SSH Shell Access** مفعّل للتطبيق | يُتحقق في أول تشغيل |
 | 5 | Cloudways ← `shelter-staging` ← Application Settings: **Varnish OFF** (كل صفحة لها جلسة وحالة "مفتوح الآن" حية) | مطلوب |
-| 6 | Cloudways ← `shelter-staging` ← Application Settings ← **Webroot** = `public_html/current/public` — بعد أول تشغيل `stage` | بعد §4 الخطوة 1 |
+| 6 | Cloudways ← `shelter-staging` ← Application Settings ← General ← **WEBROOT**: الحقل يبدأ بـ`public_html/` ثابتة، فيُكتب فيه **`current/public` فقط** (كتابة `public_html/current/public` تجعله `public_html/public_html/current/public` فيرد كل شيء 404) — بعد أول تشغيل `stage` | بعد §4 الخطوة 1 |
 | 7 | Cloudways ← Cron Job Management ← Advanced: `* * * * * cd <مجلد التطبيق>/public_html/current && php artisan schedule:run >> /dev/null 2>&1` | بعد أول `full` |
 | 8 | حساب الـOwner على Staging: عبر SSH Terminal في Cloudways، داخل `public_html/current`: `php artisan shelter:owner info@shelterjo.com` — كلمة المرور يكتبها الـOwner بنفسه ولا تمر بالمحادثة | بعد أول `full` |
 
@@ -100,5 +103,6 @@ GitHub ← Actions ← **Deploy staging** ← Run workflow:
 | `… protected by a passphrase` | المفتاح بكلمة مرور | مفتاح جديد بـEnter مرتين، وتحديث العام في Cloudways |
 | `Permission denied (publickey)` | المفتاح العام في Cloudways لا يطابق، أو SSH Shell Access مغلق | قارن الـfingerprint في السجل مع `ssh-keygen -lf "$env:USERPROFILE\.ssh\shelter_staging.pub"` |
 | `NEXT: … set the web root` | أول تشغيل: الـWebroot ما زال `public_html` | §3 الخطوة 6 ثم `full` |
+| 404 من nginx على كل شيء حتى `favicon.ico` | الـWEBROOT خاطئ (غالبًا `public_html/` مكرر) أو مجلد الإصدار غير مقروء لـnginx | سير العمل **Staging check** يعرض الملاك والصلاحيات وإجابة السيرفر من داخله |
 | 400 على كل الصفحات | `APP_URL` لا يطابق الرابط المستخدم (trustHosts) | صحّح `STAGING_APP_URL` (مع `https://` وبلا `/` في النهاية) |
 | 500 بعد التفعيل | تفاصيله في `private_html/shelter/storage/logs/laravel-*.log` | — |

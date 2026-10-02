@@ -8,7 +8,8 @@ echo "== who: $(id)"
 echo "== web server users: nginx=$(ps -o user= -C nginx 2>/dev/null | sort -u | tr '\n' ' ') php-fpm=$(ps -o user= -C php-fpm8.3,php-fpm 2>/dev/null | sort -u | tr '\n' ' ')"
 echo "== owners and modes"
 for p in . public_html public_html/releases public_html/current/ public_html/current/public public_html/current/public/index.php \
-    public_html/current/bootstrap/cache private_html private_html/shelter public_html/public_html; do
+    public_html/current/bootstrap/cache public_html/current/bootstrap/cache/config.php private_html private_html/shelter \
+    private_html/shelter-public private_html/shelter-public/media public_html/public_html; do
     [ -e "$p" ] && stat -c '%a %U:%G %n' "$p"
 done
 echo "== public_html/public_html (should not exist)"; find public_html/public_html -maxdepth 3 2>/dev/null | head -n 10

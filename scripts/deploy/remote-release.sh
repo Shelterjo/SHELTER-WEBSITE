@@ -7,7 +7,12 @@
 #   public_html/current -> releases/<id>  the live release; the Cloudways web root is public_html/current/public
 #   private_html/shelter/.env             the environment's own secrets (written once by the pipeline, never in Git)
 #   private_html/shelter/storage/         uploads, sessions, logs, cache — shared by every release
-#   private_html/shelter/media-public/    approved image variants served at /media/ (public/media of every release)
+#   private_html/shelter-public/media/    approved image variants served at /media/ (public/media of every release);
+#                                         outside the 700 folder because the web server (group www-data) reads them
+#
+# Modes: the web server (nginx, group www-data) reads the release through the group (dirs 750, files 640); PHP runs as
+# the application user. What holds secrets stays owner-only: private_html/shelter (700), .env (600) and the cached
+# config in bootstrap/cache (700/600).
 #
 # Steps (the pipeline checks the web root between `stage` and `activate`, so no secret is ever linked into a
 # folder the web server would hand out as a file):
@@ -27,6 +32,7 @@ if [ ! -d public_html ]; then
 fi
 PUB="$(pwd)/public_html"
 SHARED="$(pwd)/private_html/shelter"
+MEDIA="$(pwd)/private_html/shelter-public/media"
 KEEP=3
 
 valid_id() {
@@ -45,6 +51,8 @@ case "$cmd" in
         mkdir -p "$PUB/releases/$id"
         tar -xzf "$tarball" -C "$PUB/releases/$id"
         rm -f "$tarball"
+        # The archive root is the build's private temp folder (700); the web server must be able to enter it.
+        chmod 750 "$PUB/releases/$id"
         if [ ! -e "$PUB/current" ]; then
             # First run: a harmless page so the web root can be set to an existing folder.
             mkdir -p "$PUB/current/public"
@@ -74,10 +82,15 @@ case "$cmd" in
         rm -rf storage
         ln -s "$SHARED/storage" storage
         ln -sfn "$SHARED/.env" .env
-        mkdir -p bootstrap/cache "$SHARED/media-public"
+        mkdir -p bootstrap/cache "$MEDIA"
+        chmod 750 "$(dirname "$MEDIA")" "$MEDIA"
+        if [ -d "$SHARED/media-public" ]; then
+            # Earlier layout (inside the 700 folder, unreadable by the web server): move what is there.
+            cp -a "$SHARED/media-public/." "$MEDIA/" && rm -rf "${SHARED:?}/media-public"
+        fi
         # Approved image variants are made on the server (MediaLibrary): one shared folder, so a release keeps them.
         rm -rf public/media
-        ln -s "$SHARED/media-public" public/media
+        ln -s "$MEDIA" public/media
 
         if [ -f "$SHARED/.seeded" ]; then
             # DEPLOY-005: a copy of the database before any migration; a failed backup stops the release here.
@@ -90,8 +103,12 @@ case "$cmd" in
             php artisan search:rebuild --no-interaction
             touch "$SHARED/.seeded"
         fi
-        php artisan storage:link --no-interaction >/dev/null 2>&1 || true
+        # No storage:link: the public disk is unused and /storage/ is reserved (deploy-facts §e).
+        rm -f public/storage
         php artisan optimize --no-interaction
+        # The cached config holds every secret of .env: owner only.
+        chmod 700 bootstrap/cache
+        find bootstrap/cache -maxdepth 1 -type f -name '*.php' -exec chmod 600 {} +
 
         # Switch atomically; the first-run placeholder is a real folder and is replaced once.
         ln -sfn "releases/$id" "$PUB/current.next"
