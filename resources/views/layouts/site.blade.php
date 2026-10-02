@@ -32,10 +32,23 @@
         <meta property="og:url" content="{{ $canonical }}">
         <meta property="og:locale" content="{{ $ogLocale }}">
         <meta property="og:locale:alternate" content="{{ $ogLocale === 'ar_AR' ? 'en_US' : 'ar_AR' }}">
-        @if (filled($ogImage ?? null))
-            <meta property="og:image" content="{{ $ogImage }}">
+        @php
+            // The page's own approved image first (an event's), else the approved site card (config shelter.share_image).
+            $shareImage = $ogImage ?? null;
+            $siteCard = filled($shareImage) ? null : config('shelter.share_image');
+            if (filled($siteCard)) {
+                $shareImage = url((string) $siteCard);
+            }
+        @endphp
+        @if (filled($shareImage))
+            <meta property="og:image" content="{{ $shareImage }}">
+            @if (filled($siteCard))
+                <meta property="og:image:width" content="1200">
+                <meta property="og:image:height" content="630">
+                <meta property="og:image:alt" content="{{ __('site.brand') }}">
+            @endif
         @endif
-        <meta name="twitter:card" content="{{ filled($ogImage ?? null) ? 'summary_large_image' : 'summary' }}">
+        <meta name="twitter:card" content="{{ filled($shareImage) ? 'summary_large_image' : 'summary' }}">
     @endif
     <link rel="icon" href="/brand/favicon-32.png" sizes="32x32" type="image/png">
     <link rel="apple-touch-icon" href="/brand/favicon-180.png">

@@ -35,6 +35,11 @@ return [
     'dashboard_locale' => env('DASHBOARD_LOCALE', 'ar'),
     'default_locale' => 'ar',
 
+    // The default share image (Open Graph) of pages without an approved image of their own (PO-077 → A, D-330). Empty
+    // until the Owner approves the card in resources/brand/og/ (MEDIA PENDING OWNER APPROVAL); on approval it is copied
+    // to public/brand/ and this points to it.
+    'share_image' => null,
+
     'auth' => [
         // Absolute session limit in minutes, on top of the idle SESSION_LIFETIME (SECURITY-CENTER.md).
         'absolute_lifetime' => 12 * 60,

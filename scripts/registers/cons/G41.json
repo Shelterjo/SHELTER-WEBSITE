@@ -1,0 +1,25 @@
+{
+  "group": "G41",
+  "notes": "M53: جواب الـOwner على PO-077 (صورة المشاركة): «أ» — بطاقة 1200×630 من الشعار المعتمد على خلفية العلامة #131313. البطاقة صُممت وتنتظر اعتماد شكلها النهائي قبل أن تظهر على الموقع.",
+  "requirements": [],
+  "updates_to_existing": [
+    {"id": "PO-077", "type": "RECLASSIFY", "source": "M53", "change": "✅ 2026-10-02 → A (D-330): بطاقة 1200×630 من مكونات العلامة المعتمدة فقط (الشعار الأبيض AST-001، الخلفية #131313، خط السداسي من الشعار كما في الواجهة، الاسم SHELTER COFFEE بخط Poppins). جاهزة في resources/brand/og/ ويعيد إنتاجها tooling/scripts/og-card.mjs؛ الموقع جاهز لها (config shelter.share_image). تبقى MEDIA PENDING OWNER APPROVAL حتى اعتماد شكلها."}
+  ],
+  "conflicts": [],
+  "new_decisions": [
+    {
+      "temp_id": "G41-ND-01",
+      "area": "SEO / Brand",
+      "decision": "PO-077 → أ: صورة المشاركة الافتراضية للموقع بطاقة 1200×630 من الشعار المعتمد على خلفية العلامة #131313 (بلا صور أو نصوص جديدة)؛ تظهر بعد اعتماد الـOwner لشكلها النهائي، وصورة الصفحة المعتمدة (مثل صورة الفعالية) تتقدم عليها.",
+      "sources": ["M53"],
+      "status": "APPROVED",
+      "reason": "Owner: «أ» على الخيار الموصى به",
+      "impact": "SEO-035 · QA-041 · AST-007 · config shelter.share_image",
+      "date": "2026-10-02"
+    }
+  ],
+  "pending_owner": [],
+  "technical_flags": [],
+  "cost_api_dependencies": [],
+  "dropped": []
+}

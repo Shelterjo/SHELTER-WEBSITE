@@ -71,6 +71,11 @@ class SecurityAndIndexingTest extends TestCase
             ->assertSee('<meta property="og:url" content="http://localhost/ar/">', false)
             ->assertSee('<meta property="og:locale" content="ar_AR">', false)
             ->assertDontSee('og:image', false);
+        // The site card appears only once approved (PO-077 → A): configured → absolute, with its size (D-330).
+        config(['shelter.share_image' => '/brand/og-default-1200x630.png']);
+        $this->get('/en/')->assertSee('<meta property="og:image" content="http://localhost/brand/og-default-1200x630.png">', false)
+            ->assertSee('<meta property="og:image:width" content="1200">', false)
+            ->assertSee('<meta name="twitter:card" content="summary_large_image">', false);
         $this->get('/robots.txt')->assertSee("Disallow: /dashboard\n", false)->assertDontSee("Disallow: /\n", false)
             ->assertSee('Sitemap: http://localhost/sitemap.xml', false);
     }
