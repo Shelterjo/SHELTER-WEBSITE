@@ -73,8 +73,8 @@
 | متطلبات | **1350**: REQUIREMENT 491, RULE 442, DECISION 209, DELIVERABLE 109, GATE 99 |
 | حسب الحالة | APPROVED 900, FROZEN 294, APPROVED WITH CONDITIONS 73, PENDING OWNER INPUT 34, DEFERRED 22, SUPERSEDED 18, PENDING VERIFICATION 9 |
 | حسب الأولوية | P0 691, P1 572, P2 69, P3 18 |
-| حسب التنفيذ | NOT STARTED 870, PARTIAL 218, IMPLEMENTED — NOT TESTED 124, TESTED 84, FROZEN 43, NEEDS FIX 8, IMPLEMENTED — NOT YET VERIFIED 2, CONFLICT 1 |
-| مُختبر | NO 720, N/A 341, YES 158, PROTOTYPE 131 |
+| حسب التنفيذ | NOT STARTED 858, PARTIAL 217, IMPLEMENTED — NOT TESTED 124, TESTED 97, FROZEN 43, NEEDS FIX 8, IMPLEMENTED — NOT YET VERIFIED 2, CONFLICT 1 |
+| مُختبر | NO 708, N/A 341, YES 170, PROTOTYPE 131 |
 
 ## فهرس المجالات
 | # | المجال | متطلبات | P0 | معتمد/مجمّد | معلّق | تنفيذ (منفذ أو مجمّد) |
@@ -95,7 +95,7 @@
 | 14 | [Contact](master-requirements/14-contact.md) | 30 | 11 | 25 | 4 | 2 |
 | 15 | [Blog / Coffee Knowledge](master-requirements/15-blog-coffee-knowledge.md) | 6 | 2 | 6 | 0 | 0 |
 | 16 | [Franchise](master-requirements/16-franchise.md) | 108 | 50 | 105 | 1 | 28 |
-| 17 | [CMS](master-requirements/17-cms.md) | 35 | 25 | 34 | 1 | 5 |
+| 17 | [CMS](master-requirements/17-cms.md) | 35 | 25 | 34 | 1 | 6 |
 | 18 | [Owner Dashboard](master-requirements/18-owner-dashboard.md) | 35 | 22 | 33 | 0 | 1 |
 | 19 | [Analytics](master-requirements/19-analytics.md) | 45 | 15 | 43 | 2 | 3 |
 | 20 | [GA4 / GTM](master-requirements/20-ga4-gtm.md) | 23 | 2 | 18 | 3 | 3 |
@@ -122,12 +122,12 @@
 | 41 | [Tooling](master-requirements/41-tooling.md) | 47 | 19 | 40 | 1 | 11 |
 | 42 | [Privacy & Legal](master-requirements/42-privacy-legal.md) | 14 | 9 | 14 | 0 | 2 |
 | 43 | [UX Principles](master-requirements/43-ux-principles.md) | 6 | 1 | 6 | 0 | 0 |
-| 44 | [Careers & Recruitment](master-requirements/44-careers-recruitment.md) | 99 | 60 | 98 | 1 | 16 |
+| 44 | [Careers & Recruitment](master-requirements/44-careers-recruitment.md) | 99 | 60 | 98 | 1 | 27 |
 | 45 | [Dynamic Experience Engine](master-requirements/45-dynamic-experience-engine.md) | 38 | 14 | 38 | 0 | 5 |
 | 46 | [Platform Quality & Operations](master-requirements/46-platform-quality-operations.md) | 56 | 39 | 56 | 0 | 3 |
 | 47 | [Master Data & Channel Sync](master-requirements/47-master-data-channel-sync.md) | 36 | 34 | 36 | 0 | 5 |
 | 48 | [Design System & UI Consistency](master-requirements/48-design-system-ui-consistency.md) | 29 | 29 | 29 | 0 | 1 |
-| 49 | [Infrastructure, Release & Operations](master-requirements/49-infrastructure-release-operations.md) | 46 | 38 | 46 | 0 | 8 |
+| 49 | [Infrastructure, Release & Operations](master-requirements/49-infrastructure-release-operations.md) | 46 | 38 | 46 | 0 | 9 |
 | 50 | [Build Mode & Delivery Governance](master-requirements/50-build-mode-delivery-governance.md) | 26 | 19 | 26 | 0 | 5 |
 
 > **التفاصيل الكاملة لكل متطلب** في ملف مجاله تحت [`master-requirements/`](master-requirements/):
@@ -656,7 +656,7 @@
 | `CMS-014` | مناقشة UX والـCMS لنظام الساعات الخاصة مع الـOwner قبل التنفيذ | PENDING OWNER INPUT | P1 | NOT STARTED |
 | `CMS-015` | التوفر لكل Product × Branch: Available · Unavailable + Show · Unavailable + Hide | FROZEN | P0 | NOT STARTED |
 | `CMS-016` | ترتيب المنتجات بـsort_order يدوي من الـCMS — ممنوع Random Algorithm | FROZEN | P1 | NOT STARTED |
-| `CMS-017` | FEATURED = خاصية CMS داخلية — لا Badge 'Featured' للعميل | FROZEN | P1 | NOT STARTED |
+| `CMS-017` | FEATURED = خاصية CMS داخلية — لا Badge 'Featured' للعميل | FROZEN | P1 | TESTED |
 | `CMS-018` | Search Alias Dictionary قابل للإدارة من الـCMS | FROZEN | P1 | NOT STARTED |
 | `CMS-019` | حالة المحتوى في الـDashboard: صفحات تحتاج تحديث + Drafts تنتظر النشر | APPROVED | P1 | TESTED |
 | `CMS-020` | لا تعديل يدوي لقاعدة البيانات: كل Business Content اليومي له UI | APPROVED | P0 | NOT STARTED |
@@ -667,7 +667,7 @@
 | `CMS-025` | الفروع والساعات بلا كود | FROZEN | P0 | PARTIAL |
 | `CMS-026` | الحملات والفعاليات بلا كود | FROZEN | P0 | PARTIAL |
 | `CMS-027` | المدونة / المعرفة بلا كود | FROZEN | P1 | NOT STARTED |
-| `CMS-028` | التوظيف بلا كود | FROZEN | P0 | NOT STARTED |
+| `CMS-028` | التوظيف بلا كود | FROZEN | P0 | PARTIAL |
 | `CMS-029` | الشراكات / الفرنشايز بلا كود | FROZEN | P1 | NOT STARTED |
 | `CMS-030` | معلومات التواصل بلا كود | FROZEN | P0 | TESTED |
 | `CMS-031` | الـSEO بلا كود (والمتقدم محمي) | FROZEN | P0 | NOT STARTED |
@@ -1430,24 +1430,24 @@
 | `CAREERS-055` | إشعارات الطلب الجديد: داخل الـDashboard فقط (لا Email ولا WhatsApp) | FROZEN | P1 | PARTIAL |
 | `CAREERS-056` | جدول الطلبات: 7 أعمدة افتراضية والترتيب الأحدث أولًا | FROZEN | P1 | TESTED |
 | `CAREERS-057` | الترتيب المتقدم: 6 خيارات | FROZEN | P1 | TESTED |
-| `CAREERS-058` | Global Quick Search حي أثناء الكتابة (مع Debounce) | FROZEN | P1 | PARTIAL |
+| `CAREERS-058` | Global Quick Search حي أثناء الكتابة (مع Debounce) | FROZEN | P1 | TESTED |
 | `CAREERS-059` | Advanced Filters (10 على الأقل) مع دمج عدة Filters | FROZEN | P1 | TESTED |
-| `CAREERS-060` | Saved Filters بأسماء يحددها الـOwner | FROZEN | P1 | NOT STARTED |
-| `CAREERS-061` | تخصيص الأعمدة: Show/Hide · Drag & Drop · Reset — مع حفظ التفضيل | FROZEN | P1 | NOT STARTED |
-| `CAREERS-062` | كثافة الجدول Comfortable/Compact + عرض مناسب للهاتف | FROZEN | P1 | PARTIAL |
-| `CAREERS-063` | عدد الصفوف: 25 / 50 / 100 — الافتراضي على Desktop = 50 مع تذكر آخر اختيار | FROZEN | P1 | NOT STARTED |
+| `CAREERS-060` | Saved Filters بأسماء يحددها الـOwner | FROZEN | P1 | TESTED |
+| `CAREERS-061` | تخصيص الأعمدة: Show/Hide · Drag & Drop · Reset — مع حفظ التفضيل | FROZEN | P1 | PARTIAL |
+| `CAREERS-062` | كثافة الجدول Comfortable/Compact + عرض مناسب للهاتف | FROZEN | P1 | TESTED |
+| `CAREERS-063` | عدد الصفوف: 25 / 50 / 100 — الافتراضي على Desktop = 50 مع تذكر آخر اختيار | FROZEN | P1 | TESTED |
 | `CAREERS-064` | Traditional Pagination — لا Infinite Scroll لقائمة الإدارة | FROZEN | P1 | TESTED |
-| `CAREERS-065` | Quick View (Side Panel) — الحد الأدنى للمحتوى | FROZEN | P1 | NOT STARTED |
+| `CAREERS-065` | Quick View (Side Panel) — الحد الأدنى للمحتوى | FROZEN | P1 | TESTED |
 | `CAREERS-066` | صفحة الطلب الكاملة بترتيب UX واضح (ليست Dump لحقول DB) | FROZEN | P1 | TESTED |
 | `CAREERS-067` | الملاحظات الداخلية: ملاحظات متعددة مستقلة — بلا Overwrite | FROZEN | P1 | TESTED |
-| `CAREERS-068` | Bulk Actions: تغيير الحالة · Archive · Export · Download Attachments — بلا Bulk Permanent Delete | FROZEN | P1 | NOT STARTED |
-| `CAREERS-069` | Bulk Status Change: تأكيد واحد واضح + Audit Log | FROZEN | P1 | NOT STARTED |
+| `CAREERS-068` | Bulk Actions: تغيير الحالة · Archive · Export · Download Attachments — بلا Bulk Permanent Delete | FROZEN | P1 | TESTED |
+| `CAREERS-069` | Bulk Status Change: تأكيد واحد واضح + Audit Log | FROZEN | P1 | TESTED |
 | `CAREERS-070` | Archive ثم Permanent Delete (Owner only، تأكيد قوي، Tombstone) — لا حذف تلقائي | FROZEN | P0 | TESTED |
-| `CAREERS-071` | الطلبات القديمة: Last Updated + تنبيه اختياري — بلا حذف تلقائي | FROZEN | P2 | NOT STARTED |
-| `CAREERS-072` | Export: Excel · CSV · PDF — والهوية Masked افتراضيًا | FROZEN | P1 | NOT STARTED |
-| `CAREERS-073` | تنزيل المرفقات: Action منفصل يجمعها في ZIP — Owner only ومسجل | FROZEN | P1 | PARTIAL |
+| `CAREERS-071` | الطلبات القديمة: Last Updated + تنبيه اختياري — بلا حذف تلقائي | FROZEN | P2 | TESTED |
+| `CAREERS-072` | Export: Excel · CSV · PDF — والهوية Masked افتراضيًا | FROZEN | P1 | TESTED |
+| `CAREERS-073` | تنزيل المرفقات: Action منفصل يجمعها في ZIP — Owner only ومسجل | FROZEN | P1 | TESTED |
 | `CAREERS-074` | Audit Log للتوظيف: 13 حدثًا × 7 حقول — بلا محتوى ملفات حساس | APPROVED | P0 | NOT STARTED |
-| `CAREERS-075` | Settings للتوظيف: قوائم قابلة للإدارة (المدن · أماكن المقابلة) | APPROVED | P2 | NOT STARTED |
+| `CAREERS-075` | Settings للتوظيف: قوائم قابلة للإدارة (المدن · أماكن المقابلة) | APPROVED | P2 | TESTED |
 | `CAREERS-076` | ممنوع إرسال PII إلى GA4 · GTM · Google Analytics · Search Console · أي Analytics خارجية | APPROVED | P0 | NOT STARTED |
 | `CAREERS-077` | أحداث Privacy-safe: careers_page_view · application_started · application_submitted · application_error | APPROVED WITH CONDITIONS | P2 | NOT STARTED |
 | `CAREERS-078` | نموذج البيانات: Normalized schema (11 كيانًا مفاهيميًا) بلا جداول مكررة | APPROVED | P0 | PARTIAL |
@@ -1691,7 +1691,7 @@
 | `INFRA-033` | خريطة التحويل (REDIRECT MAP): أقرب بديل مكافئ — لا تحويل جماعي للرئيسية | APPROVED | P0 | NOT STARTED |
 | `INFRA-034` | Global Definition of Done — RELEASE-CHECKLIST.md المرجع الوحيد (17 فحصًا) | APPROVED | P0 | IMPLEMENTED — NOT TESTED |
 | `INFRA-035` | قابلية نقل البيانات (Data Portability) — تصدير منظم بصلاحيات الـOwner | APPROVED | P1 | NOT STARTED |
-| `INFRA-036` | أمان التصدير: Owner only · تأكيد صريح · Audit · إخفاء حيث يلزم | APPROVED | P0 | NOT STARTED |
+| `INFRA-036` | أمان التصدير: Owner only · تأكيد صريح · Audit · إخفاء حيث يلزم | APPROVED | P0 | TESTED |
 | `INFRA-037` | قابلية نقل النظام — لا حبس لبيانات SHELTER عند Vendor | APPROVED | P1 | PARTIAL |
 | `INFRA-038` | حوكمة تخزين الملفات — أربع مناطق، ولا ملفات خاصة في مجلدات الويب العامة | APPROVED | P0 | NOT STARTED |
 | `INFRA-039` | تصنيف البيانات: PUBLIC · INTERNAL · CONFIDENTIAL · SENSITIVE | APPROVED | P0 | NOT STARTED |
