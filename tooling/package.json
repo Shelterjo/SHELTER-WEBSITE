@@ -15,7 +15,8 @@
     "lighthouse": "node scripts/lighthouse.mjs",
     "images:build": "node scripts/images.mjs",
     "images:selftest": "node scripts/images.mjs --selftest",
-    "qa": "npm run test:e2e; npm run qa:matrix && npm run lighthouse && npm run images:selftest",
+    "guard:selftest": "node scripts/base-url-guard.mjs --selftest",
+    "qa": "npm run test:e2e; npm run qa:matrix && npm run lighthouse && npm run images:selftest && npm run guard:selftest",
     "qa:matrix": "node scripts/qa-matrix.mjs",
     "tokens:css": "node scripts/tokens-css.mjs",
     "ds:audit": "node scripts/ds-audit.mjs"
