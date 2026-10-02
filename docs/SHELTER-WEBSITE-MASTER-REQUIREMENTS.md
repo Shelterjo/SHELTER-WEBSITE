@@ -26,10 +26,10 @@
 ## الملفات المرتبطة
 | الملف | الدور |
 |---|---|
-| [`MASTER-DECISION-REGISTER.md`](MASTER-DECISION-REGISTER.md) | الحالة الحالية لكل قرار (446 قرارًا) |
-| [`governance/DECISION-LOG.md`](governance/DECISION-LOG.md) | السجل الزمني (D-000 ← D-323) |
+| [`MASTER-DECISION-REGISTER.md`](MASTER-DECISION-REGISTER.md) | الحالة الحالية لكل قرار (448 قرارًا) |
+| [`governance/DECISION-LOG.md`](governance/DECISION-LOG.md) | السجل الزمني (D-000 ← D-325) |
 | [`CONFLICT-REGISTER.md`](CONFLICT-REGISTER.md) | 215 تعارضًا وطريقة حسمها |
-| [`PENDING-OWNER-INPUT.md`](PENDING-OWNER-INPUT.md) | 65 بندًا فقط تحتاجك |
+| [`PENDING-OWNER-INPUT.md`](PENDING-OWNER-INPUT.md) | 64 بندًا فقط تحتاجك |
 | [`REQUIREMENTS-TRACEABILITY-MATRIX.md`](REQUIREMENTS-TRACEABILITY-MATRIX.md) | متطلب ← قرار ← تصميم ← كود ← اختبار |
 | [`IMPLEMENTATION-GAP-ANALYSIS.md`](IMPLEMENTATION-GAP-ANALYSIS.md) | ما الموجود وما الناقص |
 | [`IMPLEMENTATION-PLAN.md`](IMPLEMENTATION-PLAN.md) | الخطة الموحدة P00 ← P12 والبوابات |
@@ -73,8 +73,8 @@
 | متطلبات | **1350**: REQUIREMENT 491, RULE 442, DECISION 209, DELIVERABLE 109, GATE 99 |
 | حسب الحالة | APPROVED 900, FROZEN 294, APPROVED WITH CONDITIONS 73, PENDING OWNER INPUT 34, DEFERRED 22, SUPERSEDED 18, PENDING VERIFICATION 9 |
 | حسب الأولوية | P0 691, P1 572, P2 69, P3 18 |
-| حسب التنفيذ | NOT STARTED 948, PARTIAL 191, IMPLEMENTED — NOT TESTED 126, FROZEN 43, TESTED 31, NEEDS FIX 8, IMPLEMENTED — NOT YET VERIFIED 2, CONFLICT 1 |
-| مُختبر | NO 793, N/A 347, PROTOTYPE 135, YES 75 |
+| حسب التنفيذ | NOT STARTED 947, PARTIAL 191, IMPLEMENTED — NOT TESTED 126, FROZEN 43, TESTED 32, NEEDS FIX 8, IMPLEMENTED — NOT YET VERIFIED 2, CONFLICT 1 |
+| مُختبر | NO 792, N/A 347, PROTOTYPE 135, YES 76 |
 
 ## فهرس المجالات
 | # | المجال | متطلبات | P0 | معتمد/مجمّد | معلّق | تنفيذ (منفذ أو مجمّد) |
@@ -122,7 +122,7 @@
 | 41 | [Tooling](master-requirements/41-tooling.md) | 47 | 19 | 40 | 1 | 11 |
 | 42 | [Privacy & Legal](master-requirements/42-privacy-legal.md) | 14 | 9 | 14 | 0 | 2 |
 | 43 | [UX Principles](master-requirements/43-ux-principles.md) | 6 | 1 | 6 | 0 | 0 |
-| 44 | [Careers & Recruitment](master-requirements/44-careers-recruitment.md) | 99 | 60 | 98 | 1 | 0 |
+| 44 | [Careers & Recruitment](master-requirements/44-careers-recruitment.md) | 99 | 60 | 98 | 1 | 1 |
 | 45 | [Dynamic Experience Engine](master-requirements/45-dynamic-experience-engine.md) | 38 | 14 | 38 | 0 | 0 |
 | 46 | [Platform Quality & Operations](master-requirements/46-platform-quality-operations.md) | 56 | 39 | 56 | 0 | 2 |
 | 47 | [Master Data & Channel Sync](master-requirements/47-master-data-channel-sync.md) | 36 | 34 | 36 | 0 | 0 |
@@ -1412,7 +1412,7 @@
 | `CAREERS-037` | تخزين خاص للـCVs والمرفقات — لا Public URL، والوصول بعد Authentication + Owner authorization | FROZEN | P0 | NOT STARTED |
 | `CAREERS-038` | حقل 19: الإقرار والموافقة — Checkbox إلزامي بنص معتمد وسجل مُنسخ (versioned) | FROZEN | P0 | NOT STARTED |
 | `CAREERS-039` | Server-side validation إلزامي عند Submit | APPROVED | P0 | NOT STARTED |
-| `CAREERS-040` | رقم طلب فريد Server-side (صيغة مقترحة JOB-2026-00125) | FROZEN | P0 | NOT STARTED |
+| `CAREERS-040` | رقم طلب فريد Server-side (صيغة مقترحة JOB-2026-00125) | FROZEN | P0 | TESTED |
 | `CAREERS-041` | صفحة النجاح بالعربي — بلا Email ولا WhatsApp تلقائي | FROZEN | P0 | NOT STARTED |
 | `CAREERS-042` | متابعة طلب التوظيف بدون حساب: رقم الطلب + رقم الهاتف فقط | FROZEN | P0 | NOT STARTED |
 | `CAREERS-043` | لا تعديل للطلب من المتقدم — التصحيح الإداري Owner only + Audit Log | FROZEN | P0 | NOT STARTED |

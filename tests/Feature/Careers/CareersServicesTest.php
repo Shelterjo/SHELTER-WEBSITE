@@ -135,8 +135,8 @@ class CareersServicesTest extends TestCase
         }
         $this->assertSame(array_unique($numbers), $numbers);
         $year = now('Asia/Amman')->year;
-        $this->assertSame("JOB-{$year}-00001", $numbers[0]);
-        $this->assertSame("JOB-{$year}-00025", $numbers[24]);
+        $this->assertSame("JOB-{$year}-00101", $numbers[0], 'D-324');
+        $this->assertSame("JOB-{$year}-00125", $numbers[24]);
     }
 
     public function test_u10_earlier_applications_are_linked_never_merged(): void

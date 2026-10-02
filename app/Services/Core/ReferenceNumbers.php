@@ -17,11 +17,12 @@ final class ReferenceNumbers
     public const PREFIXES = ['JOB', 'FR', 'INQ'];
 
     /**
-     * Where a sequence starts counting from (the first number issued is this + 1). D-316 (Owner, 2026-10-02): the
-     * partnership numbers start at FR-2026-00100, so the first application is FR-2026-00101. Each year's sequence
-     * starts the same way — PENDING OWNER APPROVAL (PO-075: restart at 00101 every year, or continue the count).
+     * Where each yearly sequence starts counting from (the first number issued is this + 1). Owner decisions:
+     * D-316 — partnerships start at FR-2026-00100, so the first application is FR-2026-00101; D-324 — careers follow
+     * the same rule (JOB-2026-00101); D-325 (PO-075 → A) — every new year starts again at 00101. Inquiries (INQ) are
+     * unchanged.
      */
-    public const START_AFTER = ['FR' => 100];
+    public const START_AFTER = ['FR' => 100, 'JOB' => 100];
 
     public function next(string $prefix, ?CarbonImmutable $now = null, string $timezone = 'Asia/Amman'): string
     {

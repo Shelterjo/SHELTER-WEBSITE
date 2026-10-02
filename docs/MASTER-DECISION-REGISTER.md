@@ -9,7 +9,7 @@
 >
 > **المعرّفات:**
 > - **`D-xxx`:** سجل القرارات.
->   - **D-150…D-323:** قرارات صريحة من الـOwner في الرسائل M01–M27 لم تكن مسجلة، وأُضيفت في هذا التدقيق.
+>   - **D-150…D-325:** قرارات صريحة من الـOwner في الرسائل M01–M27 لم تكن مسجلة، وأُضيفت في هذا التدقيق.
 > - **`F-xx` / `R-xx`:** المنيو.
 > - **`DB-xx`:** القرارات المفتوحة قبل التصميم.
 > - **`GEP-§n` / `GIO-§n`:** سياسة Google وملكية التنفيذ.
@@ -20,14 +20,14 @@
 | الفئة | العدد |
 |---|---|
 | FROZEN | 81 |
-| APPROVED | 269 |
+| APPROVED | 271 |
 | APPROVED WITH CONDITIONS | 45 |
 | PENDING OWNER INPUT | 18 |
 | PENDING VERIFICATION | 8 |
 | DEFERRED | 4 |
 | REJECTED | 0 |
 | SUPERSEDED | 21 |
-| **المجموع** | **446** |
+| **المجموع** | **448** |
 
 ## FROZEN — مجمّد — لا يُفتح إلا بتعارض حقيقي (81)
 
@@ -115,7 +115,7 @@
 | `F-22` | Products | هوية الأصناف: كل قرارات D-109 → D-134 كما هي |  |  | F #22 · 2026-10-01 (موجز Menu IA/UX/Wireframe — D-142) | PROD-009…016/021/022 |
 | `F-23` | Governance | Production: لا كود Production · لا نشر · لا Redirects · لا تغييرات Google · لا صور غير معتمدة · لا نصوص منتجات من عندنا |  |  | F #23 · 2026-10-01 (موجز Menu IA/UX/Wireframe — D-142) | GOV-026، GOV-047، CONTENT-004 |
 
-## APPROVED — معتمد (269)
+## APPROVED — معتمد (271)
 
 | Decision ID | Area | القرار الحالي المعتمد | القرار القديم (إن وجد) | السبب | الترتيب في المحادثة | أثر التنفيذ |
 |---|---|---|---|---|---|---|
@@ -339,6 +339,8 @@
 | `D-321` | 16 Franchise | PF-06 = RESOLVED: «نوع اهتمامك بالشراكة» / «Type of Partnership Interest» (`partnership_interest_type`، إلزامي) = single_location (امتياز لفرع واحد) · multi_location (تطوير أكثر من فرع) · market_development (تطوير SHELTER في سوق أو مدينة) · proposed_location (لدي موقع مقترح وأرغب بدراسة ملاءمته) · general_interest (أرغب بالتعرف على فرص الشراكة المتاحة) · other (أخرى) + `partnership_interest_other` «وضح نوع اهتمامك بالشراكة» إلزامي عند other فقط ولا تُرسل قيمة قديمة مخفية. الخيارات تصف اهتمام المتقدم فقط — لا تعني Master Franchise ولا Exclusive/Specific Territory ولا Area Development/Multi-Unit Rights ولا صيغة مضمونة ولا سوقًا متاحًا. |  | Owner: PF-06 — PARTNERSHIP INTEREST TYPE | M47 §4 · 2026-10-02 (سُجّل في التدقيق) | FRAN-042 · PO-048 (UPDATE) · CF-M-215 |
 | `D-322` | 16 Franchise | رسالة نجاح طلب الشراكة V1 (AR/EN) كما أرسلها الـOwner، وقواعدها: لا Success قبل الحفظ الفعلي · رقم الطلب من الخادم بلا بيانات شخصية · لا وعد بمدة رد أو اجتماع أو موافقة · لا صياغة توحي بالقبول · لا تحويل لـNewsletter. |  | Owner: APPLICATION SUCCESS MESSAGE + SUCCESS STATE RULES | M47 §5 · 2026-10-02 (سُجّل في التدقيق) | FRAN-047 · CF-M-213 |
 | `D-323` | 16 Franchise | COMMERCIAL / FINANCIAL SAFETY: ممنوع نشر Franchise Fee · Royalty · Marketing Fee · Initial Investment · Investment Range · CapEx · Operating Cost · ROI · Payback · Expected Revenue/Profit · Profit Margin · Minimum Capital/Net Worth · Territory/Renewal Fee · Contract Duration · Exclusive/Guaranteed Territory · Minimum Store Area · Opening Cost · Guaranteed Return/Success بلا موافقة صريحة من Franchise Master؛ الصياغة العامة المعتمدة عند الحاجة: «تتم مناقشة التفاصيل التجارية والاستثمارية مع المتقدمين المؤهلين خلال المراحل اللاحقة من عملية التقييم.» ممنوع «أرباح/عائد/نجاح مضمون» و«أفضل فرصة استثمار». تقديم الطلب لا يعني حجز سوق أو مدينة أو حصرية أو Territory أو Master Franchise أو Development Rights. |  | Owner: COMMERCIAL / FINANCIAL SAFETY RULE · NO GUARANTEES · NO TERRITORY PROMISE | M47 §5 · 2026-10-02 (سُجّل في التدقيق) | FRAN-003/008/022/017 · config/content.php (حارس العبارات) |
+| `D-324` | 44 Careers & Recruitment | ترقيم طلبات التوظيف يتبع قاعدة الشراكة: يبدأ من JOB-2026-00100، فأول طلب JOB-2026-00101 والثاني JOB-2026-00102 (الصيغة JOB-YYYY-NNNNN من الخادم بلا تغيير). ترقيم الاستفسارات INQ لم يتغير. |  | Owner: «طبقها» ردًا على اقتراح بدء JOB من 00101 | M48 §1 · 2026-10-02 (سُجّل في التدقيق) | CAREERS-040 · ReferenceNumbers::START_AFTER |
+| `D-325` | 44 Careers & Recruitment | PO-075 → A: مع كل سنة جديدة يبدأ الترقيم من جديد من 00101 (FR-2027-00101، JOB-2027-00101…) — السنة ظاهرة في الرقم. |  | Owner: «اوافق» على التوصية A | M48 §2 · 2026-10-02 (سُجّل في التدقيق) | FRAN-046 · CAREERS-040 · PO-075 (RESOLVED) |
 | `DB-01` | Brand | حُسم: الاسم (D-007)، الفروع (D-008، D-020)، سنة التأسيس 2019 (D-018) | الحقائق التأسيسية مطلوبة قبل أي Sitemap |  | #1 of 22 in DECISION-LOG open table (P0/P1/P2 priority in 05) · P0 | BRAND-001، ABOUT-003 |
 | `DB-10` | Products | البنية تدعم العرض الكامل للأسعار (D-078) |  |  | #12 of 22 in DECISION-LOG open table (P0/P1/P2 priority in 05) · P2 | MENU-014 |
 | `DB-21` | CMS | المصدر الوحيد للمنيو: A الآن + جاهزية C (حُسم بـD-085) | سؤال مفتوح: مصدر المنيو SSOT |  | #13 of 22 in DECISION-LOG open table (P0/P1/P2 priority in 05) | CMS-003 |

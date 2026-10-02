@@ -26,7 +26,7 @@
                 <form class="ui-careers-track__form" method="post" action="{{ \App\Support\PageUrl::route('careers.track') }}" novalidate>
                     @csrf
                     <x-ui.field :label="__('careers.track.number')" for="number">
-                        <x-ui.input id="number" name="number" dir="ltr" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="20" placeholder="JOB-2026-00001" />
+                        <x-ui.input id="number" name="number" dir="ltr" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="20" placeholder="JOB-2026-00101" />
                     </x-ui.field>
                     <x-ui.field :label="__('careers.track.phone')" for="track-phone">
                         <x-ui.input id="track-phone" name="phone" type="tel" dir="ltr" autocomplete="tel" inputmode="tel" maxlength="40" />

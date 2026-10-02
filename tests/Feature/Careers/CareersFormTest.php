@@ -96,7 +96,7 @@ class CareersFormTest extends TestCase
         $application = Application::query()->sole();
         $job = JobApplication::query()->sole();
         $this->assertSame('JOB', $application->type);
-        $this->assertMatchesRegularExpression('/^JOB-\d{4}-00001$/', $application->reference_number);
+        $this->assertMatchesRegularExpression('/^JOB-\d{4}-00101$/', $application->reference_number, 'D-324');
         $this->assertSame('+962791234567', $job->phone_normalized);
         $this->assertSame('applicant.test@example.com', DB::table('job_applications')->value('email_normalized'));
         $this->assertSame('2000-02-29', $job->birth_date->toDateString());
