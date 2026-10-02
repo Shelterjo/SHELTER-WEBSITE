@@ -71,12 +71,26 @@ class ChangeHistoryTest extends TestCase
         return app(ChangeHistory::class)->page(ChangeHistory::filters($filters), 1)->total();
     }
 
+    /**
+     * Branch details are previewed, then exactly the previewed values are published (BRANCH-010).
+     *
+     * @param  array<string, mixed>  $form
+     */
+    private function publishBranch(Branch $branch, array $form): void
+    {
+        $url = '/dashboard/data/branches/'.$branch->id.'/details';
+        $preview = (string) $this->put($url, $form + ['action' => 'preview'])->assertOk()->getContent();
+        $fingerprint = preg_match('/name="previewed" value="([a-f0-9]{64})"/', $preview, $m) === 1 ? $m[1] : null;
+        $this->assertNotNull($fingerprint, 'the preview carries the fingerprint to publish');
+        $this->put($url, $form + ['action' => 'publish', 'previewed' => $fingerprint])->assertSessionHasNoErrors();
+    }
+
     public function test_a_change_shows_who_what_when_and_from_to(): void
     {
         $before = (string) $this->branch->name_ar;
-        $this->put('/dashboard/data/branches/'.$this->branch->id.'/details', [
+        $this->publishBranch($this->branch, [
             'name_ar' => 'فرع تجريبي جديد', 'name_en' => (string) $this->branch->name_en, 'is_public' => '1', 'reason' => 'تصحيح الاسم',
-        ])->assertSessionHasNoErrors();
+        ]);
 
         $html = (string) $this->get('/dashboard/history')->assertOk()->getContent();
         $this->assertStringContainsString('حفظ تفاصيل فرع', $html, 'what, in plain Arabic');
@@ -95,9 +109,9 @@ class ChangeHistoryTest extends TestCase
     public function test_the_screen_speaks_english_too(): void
     {
         config(['shelter.dashboard_locale' => 'en']);
-        $this->put('/dashboard/data/branches/'.$this->branch->id.'/details', [
+        $this->publishBranch($this->branch, [
             'name_ar' => (string) $this->branch->name_ar, 'name_en' => 'Test branch name', 'is_public' => '1',
-        ])->assertSessionHasNoErrors();
+        ]);
         $this->get('/dashboard/history')->assertOk()->assertSee('Change history')->assertSee('Branch details saved')
             ->assertSee('Name (English)')->assertSee('Was:')->assertSee('Now:')->assertSee('Test branch name')->assertDontSee('dashboard.history.');
         $this->get('/dashboard/history/versions/branch/'.$this->branch->id)->assertOk()->assertSee('Earlier versions')->assertSee('Version 1');
@@ -184,7 +198,7 @@ class ChangeHistoryTest extends TestCase
     {
         $other = Branch::query()->whereKeyNot($this->branch->id)->firstOrFail();
         foreach ([$this->branch, $other] as $branch) {
-            $this->put('/dashboard/data/branches/'.$branch->id.'/details', ['name_ar' => 'اسم '.$branch->code, 'name_en' => 'Name '.$branch->code, 'is_public' => '1'])->assertSessionHasNoErrors();
+            $this->publishBranch($branch, ['name_ar' => 'اسم '.$branch->code, 'name_en' => 'Name '.$branch->code, 'is_public' => '1']);
         }
         $this->post('/dashboard/data/branches/'.$this->branch->id.'/exceptions', [
             'kind' => 'holiday', 'starts_on' => '2026-10-20', 'ends_on' => '2026-10-20', 'mode' => 'closed', 'reason' => 'عطلة تجريبية', 'status' => 'published',

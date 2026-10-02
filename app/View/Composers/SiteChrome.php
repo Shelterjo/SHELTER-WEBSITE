@@ -2,6 +2,7 @@
 
 namespace App\View\Composers;
 
+use App\Models\Branch;
 use App\Services\Content\Awards;
 use App\Services\Content\Pages;
 use App\Services\Content\Team;
@@ -116,8 +117,9 @@ final class SiteChrome
             'social' => array_map(fn (string $platform, string $url): array => ['label' => self::SOCIAL_NAMES[$platform] ?? $platform, 'href' => $url],
                 array_keys($social = $this->social->published()), $social),
             'search' => SiteLinks::to('search', $parameters),
-            // The top announcement bar: the one experience the engine picks now, or nothing (DX-010, DX-012).
-            'announcement' => ($market = $this->markets->current()) !== null ? $this->placements->current($market, Placements::TOP_BAR, $locale) : null,
+            // The top announcement bar: the one experience the engine picks now, or nothing (DX-010, DX-012); on a page
+            // about one branch, never one meant for other branches (CAMP-004).
+            'announcement' => ($market = $this->markets->current()) !== null ? $this->placements->current($market, Placements::TOP_BAR, $locale, branchId: $this->branchInView()) : null,
             'shaltoor' => $this->shaltoor($locale),
         ]);
     }
@@ -150,6 +152,29 @@ final class SiteChrome
             'page' => $page,
             'branch' => is_string($branch) ? $branch : null,
         ];
+    }
+
+    /**
+     * The branch a page is about — its own page (or the Owner's preview of it, BRANCH-010), the menu chosen for it
+     * (?branch=drive) — else null.
+     */
+    private function branchInView(): ?int
+    {
+        $previewed = $this->request->routeIs('dashboard.branches.details.preview') ? $this->request->route('branch') : null;
+        if ($previewed instanceof Branch) {
+            return $previewed->id;
+        }
+        $slug = match (true) {
+            $this->request->routeIs('locations.branch') => $this->request->route('branch'),
+            $this->request->routeIs('menu') => $this->request->query('branch'),
+            default => null,
+        };
+        if (! is_string($slug) || $slug === '' || $slug === 'all') {
+            return null;
+        }
+        $id = Branch::query()->public()->where('slug', $slug)->value('id');
+
+        return is_numeric($id) ? (int) $id : null;
     }
 
     /** aria-current: "page" on the page itself, "true" on its section (a branch page inside Locations). */

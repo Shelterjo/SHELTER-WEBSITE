@@ -4,8 +4,12 @@
 @section('title', __('site.branch.title', ['name' => $branch->name, 'kind' => $branch->titleKind ?? $branch->kind ?? '']))
 
 @section('content')
-    <div class="ui-page ui-page--with-bar" data-track-view="branch_view" data-track-branch="{{ $branch->branch->slug }}" data-track-placement="branch_page">
+    {{-- The Owner's preview of details not published yet (BRANCH-010, dashboard only, noindex): said so, and never measured. --}}
+    <div class="ui-page ui-page--with-bar" @unless (isset($preview)) data-track-view="branch_view" data-track-branch="{{ $branch->branch->slug }}" data-track-placement="branch_page" @endunless>
         <div class="ui-container">
+            @isset($preview)
+                <x-ui.alert variant="warning" :title="__('dashboard.branch.preview_page_title')">{{ __($preview['hidden'] ? 'dashboard.branch.preview_page_hidden' : 'dashboard.branch.preview_page_help') }}</x-ui.alert>
+            @endisset
             <x-ui.breadcrumb :items="$crumbs" />
             <header class="ui-page-intro">
                 @if ($branch->altName !== null)

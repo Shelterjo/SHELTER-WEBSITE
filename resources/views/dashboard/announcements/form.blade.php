@@ -4,9 +4,10 @@
 
 @section('content')
     {{--
-        Add / change an announcement or campaign (AnnouncementEditor): the kind, one place (top bar or home block), the
-        text in both languages, a button, when, the priority. Then: how it looks (both languages), what else wants the
-        same place at the same time (DX-021), the commands and the last versions.
+        Add / change an announcement or campaign (AnnouncementEditor): the Owner's own name for it, the kind, one place
+        (top bar or home block), the branches it is for, the text in both languages, a button, an image from the approved
+        media library (CAMP-004), when, the priority. Then: how it looks (both languages), what else wants the same place
+        at the same time (DX-021), the commands and the last versions.
     --}}
     @php
         $A = 'dashboard.announcements.';
@@ -15,7 +16,8 @@
         $kind = old('type', $item->type ?? 'announcement');
         $placement = old('placement', ($item->placements ?? [])[0] ?? 'top_bar');
         $urgent = (bool) old('urgent', ($item->details['urgent'] ?? false) === true);
-        $title = $item->exists ? (($ar ? $item->title_ar : $item->title_en) ?? $item->title_ar ?? __($A.'untitled')) : __($A.'new_title');
+        $selected = array_map('intval', (array) old('branches', $item->branch_ids ?? []));
+        $title = $item->exists ? (($item->details['internal_name'] ?? null) ?? ($ar ? $item->title_ar : $item->title_en) ?? $item->title_ar ?? __($A.'untitled')) : __($A.'new_title');
         $badges = [
             'live' => ['success', 'circle-check'], 'outranked' => ['warning', 'triangle-alert'], 'upcoming' => ['info', 'calendar'],
             'draft' => ['neutral', 'file-text'], 'paused' => ['warning', 'pause'], 'incomplete' => ['warning', 'triangle-alert'],
@@ -53,6 +55,10 @@
             @method('PUT')
         @endif
 
+        <x-ui.field :label="__($A.'fields.internal_name')" for="internal_name" :hint="__($A.'fields.internal_name_hint')" :error="$errors->first('internal_name')" optional>
+            <x-ui.input id="internal_name" name="internal_name" maxlength="120" :value="old('internal_name', $item->details['internal_name'] ?? null)" />
+        </x-ui.field>
+
         <x-ui.fieldset :legend="__('dashboard.events.fields.status')" id="status">
             <div class="ui-editor__options">
                 @foreach (['draft', 'published'] as $option)
@@ -80,6 +86,14 @@
             </div>
         </x-ui.fieldset>
 
+        <x-ui.fieldset :legend="__($A.'fields.branches')" id="branches" :hint="__($A.'fields.branches_hint')" :error="$errors->first('branches')">
+            <div class="ui-editor__options">
+                @foreach ($branches as $id => $name)
+                    <x-ui.checkbox :label="$name" name="branches[]" :value="$id" :id="'branch-'.$id" :checked="in_array($id, $selected, true)" />
+                @endforeach
+            </div>
+        </x-ui.fieldset>
+
         <fieldset class="ui-editor__group">
             <legend class="ui-editor__legend">{{ __('dashboard.events.groups.text') }}</legend>
             <div class="ui-bilingual">
@@ -102,6 +116,13 @@
                 <x-ui.input id="cta_url" name="cta_url" inputmode="url" dir="ltr" :value="old('cta_url', $item->cta_url)" maxlength="500" />
             </x-ui.field>
         </fieldset>
+
+        {{-- CAMP-004: only what the media library approved for the website is offered (MEDIA-RIGHTS); nothing else can be chosen. --}}
+        <p class="ui-note">{{ __($A.'fields.media_hint') }}</p>
+        @include('dashboard.media._picker', [
+            'name' => 'media_id', 'id' => 'media_id', 'selected' => old('media_id', $item->media_id), 'images' => $images,
+            'legend' => __($A.'fields.media'), 'none' => __('dashboard.menu.fields.no_image'), 'empty' => __('dashboard.awards.fields.no_images'),
+        ])
 
         <fieldset class="ui-editor__group">
             <legend class="ui-editor__legend">{{ __('dashboard.events.groups.when') }}</legend>
@@ -143,6 +164,8 @@
                         @if ((($item->placements ?? [])[0] ?? 'top_bar') === 'top_bar')
                             <x-ui.announcement-bar :title="$item->{'title_'.$locale}" :text="$item->{'body_'.$locale}" :href="$url" :link="$item->{'cta_label_'.$locale}" :urgent="($item->details['urgent'] ?? false) === true" />
                         @else
+                            {{-- The home block draws the approved image above its text on a phone (CAMP-004). --}}
+                            <x-ui.picture :image="$previewImages[$locale]" ratio="landscape" sizes="50vw" />
                             <x-ui.section-heading :eyebrow="__('site.home.feature.'.$item->type, [], $locale)" :title="$item->{'title_'.$locale}" :lead="$item->{'body_'.$locale}" :href="$url" :link-label="$item->{'cta_label_'.$locale}" />
                         @endif
                     </div>

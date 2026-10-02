@@ -2,14 +2,17 @@
 
 namespace App\Support;
 
+use App\Services\Experiences\EventView;
 use App\Services\Site\BranchSummary;
 
 /**
  * JSON-LD for public pages (SITE-INVENTORY schema column; allowed types only). Approved values only, all read from the
  * Master Data Hub (M57 §18–§19): a branch has name, url, logo, telephone (D-060), its city and country (D-008), the
  * menu and its opening hours — regular weeks plus the published exception days ahead; the street address, geo and
- * Maps link appear only once the Owner approves them (PO-010). The entities are linked by @id: the website and each
- * branch point to the one Organization. Past-midnight hours keep closes < opens in one specification (MDH-022).
+ * Maps link appear only once the Owner approves them (PO-010). An event's place is the same branch data. The entities
+ * are linked by @id: the website, each branch and each event's organizer point to the one Organization. Past-midnight
+ * hours keep closes < opens in one specification (MDH-022). Every block is checked against its rich-result rules by
+ * tests/Feature/Site/StructuredDataValidationTest (SCHEMA-009).
  */
 final class StructuredData
 {
@@ -52,14 +55,7 @@ final class StructuredData
         if ($telephone !== null) {
             $data['telephone'] = $telephone;
         }
-        // The city is the fixed one in the page address (D-008, D-053) — written in English as a machine value.
-        $address = ['@type' => 'PostalAddress'];
-        if ($branch->address !== null) {
-            $address['streetAddress'] = $branch->address;
-        }
-        $address['addressLocality'] = $branch->branch->city->name_en;
-        $address['addressCountry'] = 'JO';
-        $data['address'] = $address;
+        $data['address'] = self::address($branch);
         if ($branch->latitude !== null && $branch->longitude !== null) {
             $data['geo'] = ['@type' => 'GeoCoordinates', 'latitude' => (float) $branch->latitude, 'longitude' => (float) $branch->longitude];
         }
@@ -75,6 +71,50 @@ final class StructuredData
         }
 
         return $data;
+    }
+
+    /**
+     * Event (SCHEMA-009 — Google's Event rich result requires name, startDate and, for an event at a venue,
+     * location.address). The location is each of our branches the event is at, by its approved name and address. An
+     * event whose place has no address in the Master Data — another venue typed as text — or no place at all gets no
+     * Event data (null; the reason is self::eventGap()): nothing is invented to make it valid.
+     *
+     * @param  string  $site  the site root (the gateway) that owns the Organization @id
+     * @param  string|null  $image  the event's approved image, absolute
+     * @return array<string, mixed>|null
+     */
+    public static function event(EventView $event, string $site, string $locale, ?string $image): ?array
+    {
+        if (self::eventGap($event) !== null) {
+            return null;
+        }
+        $places = array_map(fn (BranchSummary $branch): array => self::place($branch), $event->branches);
+
+        return array_filter([
+            '@context' => 'https://schema.org',
+            '@type' => 'Event',
+            'name' => $event->title,
+            'startDate' => $event->startsAt->toIso8601String(),
+            'endDate' => $event->endsAt->toIso8601String(),
+            'eventStatus' => 'https://schema.org/EventScheduled',
+            'eventAttendanceMode' => 'https://schema.org/OfflineEventAttendanceMode',
+            'location' => count($places) === 1 ? $places[0] : $places,
+            'description' => $event->paragraphs[0] ?? null,
+            'image' => $image,
+            'organizer' => ['@type' => 'Organization', '@id' => self::organizationId($site), 'name' => 'SHELTER COFFEE', 'url' => $site],
+            'url' => $event->url,
+            'inLanguage' => $locale,
+        ], fn (mixed $value): bool => $value !== null);
+    }
+
+    /** Why an event carries no Event data (null = it does): `venue_without_address` · `no_location`. */
+    public static function eventGap(EventView $event): ?string
+    {
+        return match (true) {
+            $event->atVenue => 'venue_without_address',
+            $event->branches === [] => 'no_location',
+            default => null,
+        };
     }
 
     /** The one Organization every other entity points to. */
@@ -128,6 +168,34 @@ final class StructuredData
     public static function encode(array $data): string
     {
         return (string) json_encode($data, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG | JSON_HEX_AMP | JSON_THROW_ON_ERROR);
+    }
+
+    /**
+     * A branch's address: the street once the Owner approved it (PO-010), the city of the fixed page address (D-008,
+     * D-053) and its country — the last two written in English / ISO as machine values.
+     *
+     * @return array<string, string>
+     */
+    private static function address(BranchSummary $branch): array
+    {
+        $address = ['@type' => 'PostalAddress'];
+        if ($branch->address !== null) {
+            $address['streetAddress'] = $branch->address;
+        }
+        $address['addressLocality'] = $branch->branch->city->name_en;
+        $address['addressCountry'] = $branch->branch->city->country->iso2;
+
+        return $address;
+    }
+
+    /**
+     * A branch as an event's place: its approved name, its page and its address.
+     *
+     * @return array<string, mixed>
+     */
+    private static function place(BranchSummary $branch): array
+    {
+        return ['@type' => 'Place', 'name' => $branch->name, 'url' => $branch->url, 'address' => self::address($branch)];
     }
 
     /** @return list<array<string, mixed>> */

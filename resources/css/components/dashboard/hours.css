@@ -1,5 +1,37 @@
 /* Dashboard → Branches and hours (M50): the week as seven compact day cards, the preview beside what is published
-   now, and the exception form that shows only the fields its type needs (no JavaScript — :has). */
+   now, the branch details preview (the site's card and the page's address part, each language in its own frame —
+   BRANCH-010), and the exception form that shows only the fields its type needs (no JavaScript — :has). */
+
+.ui-branch-preview {
+    display: grid;
+    align-content: start;
+    justify-items: start;
+    gap: var(--space-2);
+    min-inline-size: 0;
+}
+
+.ui-branch-preview__frame {
+    display: grid;
+    gap: var(--space-4);
+    inline-size: 100%;
+    padding: var(--space-2);
+}
+
+@media (min-width: 600px) {
+    .ui-branch-preview__frame {
+        padding: var(--space-4);
+    }
+}
+
+.ui-branch-preview__place {
+    display: grid;
+    justify-items: start;
+    gap: var(--space-2);
+}
+
+.ui-branch-preview__place > p {
+    margin: 0;
+}
 
 .ui-branch-state {
     margin-block-end: var(--space-6);

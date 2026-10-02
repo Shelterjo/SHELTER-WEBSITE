@@ -2,23 +2,27 @@
 
 namespace App\Services\Dashboard;
 
+use App\Models\Branch;
 use App\Models\Experience;
 use App\Models\Market;
+use App\Models\Media;
 use App\Models\User;
 use App\Services\Content\ContentGuard;
 use App\Services\Core\AuditLogger;
 use App\Services\Core\Versions;
 use App\Services\Dashboard\Concerns\ReadsExperienceInput;
 use App\Services\Experiences\Placements;
+use App\Services\Media\MediaRights;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\DB;
 
 /**
- * The Owner's announcements and campaigns (no code — M50, DX-010/011/013/018/021, DYNAMIC-EXPERIENCE-ENGINE §5): one
- * form — the kind (announcement, urgent notice, campaign/offer), where it shows (the top bar on every page or the home
- * feature — one place, never all at once), the text in both languages, an optional button, when (Amman time) and the
- * priority (automatic by kind, or the Owner's own). Publishing needs the title in both languages, a place and an end
- * that has not passed. Saving tells the Owner what else competes for the same place at the same time (DX-021). Every
+ * The Owner's announcements and campaigns (no code — M50, DX-010/011/013/018/021, CAMP-004, DYNAMIC-EXPERIENCE-ENGINE
+ * §5): one form — the Owner's own name for it (the list only), the kind (announcement, urgent notice, campaign/offer),
+ * where it shows (the top bar on every page or the home feature — one place, never all at once), the text in both
+ * languages, an optional button, an image from the approved media library, the branches it is for (none = every
+ * branch), when (Amman time) and the priority (automatic by kind, or the Owner's own). Publishing needs the title in
+ * both languages, a place and an end that has not passed. Saving tells the Owner what else competes for the same place at the same time (DX-021). Every
  * save keeps a version and an audit entry; the commands (pause, resume, cancel, end, archive, disable) are shared.
  */
 final class AnnouncementEditor
@@ -30,7 +34,7 @@ final class AnnouncementEditor
     /** Priority levels the Owner may choose (auto = by kind — Placements::DEFAULT_PRIORITY). */
     public const LEVELS = ['auto' => 0, 'urgent' => 100, 'high' => 70, 'normal' => 40, 'low' => 10];
 
-    private const LIMITS = ['title' => 120, 'body' => 200, 'cta_label' => 40];
+    private const LIMITS = ['title' => 120, 'body' => 200, 'cta_label' => 40, 'internal_name' => 120];
 
     public function __construct(private readonly Versions $versions, private readonly AuditLogger $audit, private readonly Placements $placements) {}
 
@@ -58,9 +62,20 @@ final class AnnouncementEditor
             return 'incomplete';
         }
         $placement = ($item->placements ?? [])[0] ?? null;
-        $winner = $live->first(fn (Experience $e): bool => in_array($placement, $e->placements ?? [], true));
+        // Live when it is the one shown somewhere it may show: the pages about no branch, or a branch page (the top bar
+        // there leaves out what names other branches — CAMP-004).
+        $scopes = $placement === Placements::TOP_BAR ? [null, ...Branch::query()->public()->pluck('id')->map(fn ($id): int => (int) $id)->all()] : [null];
+        foreach ($scopes as $branchId) {
+            if (! Placements::targets($item, $branchId)) {
+                continue;
+            }
+            $winner = $live->first(fn (Experience $e): bool => in_array($placement, $e->placements ?? [], true) && Placements::targets($e, $branchId));
+            if ($winner?->id === $item->id) {
+                return 'live';
+            }
+        }
 
-        return $winner?->id === $item->id ? 'live' : 'outranked';
+        return 'outranked';
     }
 
     /**
@@ -95,6 +110,21 @@ final class AnnouncementEditor
         }
         $level = is_string($input['level'] ?? null) && array_key_exists($input['level'], self::LEVELS) ? $input['level'] : 'auto';
         $urgent = $type === 'announcement' && ! empty($input['urgent']);
+        // CAMP-004: the Owner's own name for the list (never shown to visitors), an image only from the approved media
+        // library (MediaRights — approved, website rights), and the branches it is for (none = every branch).
+        $name = self::text($input['internal_name'] ?? null);
+        if ($name !== null && mb_strlen($name) > self::LIMITS['internal_name']) {
+            $errors['internal_name'] = (string) __('dashboard.pages.errors.too_long', ['max' => self::LIMITS['internal_name']]);
+        }
+        $mediaId = is_numeric($input['media_id'] ?? null) ? (int) $input['media_id'] : null;
+        if ($mediaId !== null && ! MediaRights::canUse(Media::query()->find($mediaId))) {
+            $errors['media_id'] = (string) __('dashboard.announcements.errors.media');
+        }
+        $active = Branch::query()->whereNull('archived_at')->pluck('id')->map(fn ($id): int => (int) $id)->all();
+        $branchIds = array_values(array_unique(array_map('intval', array_filter(is_array($input['branches'] ?? null) ? $input['branches'] : [], 'is_numeric'))));
+        if (array_diff($branchIds, $active) !== []) {
+            $errors['branches'] = (string) __('dashboard.events.errors.branch');
+        }
 
         $publish = ($input['status'] ?? '') === 'published';
         if ($publish) {
@@ -130,14 +160,17 @@ final class AnnouncementEditor
             return ['item' => $item, 'errors' => $errors, 'warnings' => []];
         }
 
-        $saved = DB::transaction(function () use ($item, $type, $values, $placement, $starts, $ends, $url, $level, $urgent, $publish, $market, $input, $owner, $now): Experience {
+        $saved = DB::transaction(function () use ($item, $type, $values, $placement, $starts, $ends, $url, $level, $urgent, $name, $mediaId, $branchIds, $publish, $market, $input, $owner, $now): Experience {
             $item ??= new Experience(['origin' => 'owner', 'market_id' => $market->id, 'timezone' => $market->timezone !== '' ? $market->timezone : 'Asia/Amman']);
             $created = ! $item->exists;
             $details = $item->details ?? [];
             $details['urgent'] = $urgent;
+            $details['internal_name'] = $name;
             $item->forceFill($values + [
                 'type' => $type,
                 'cta_url' => $url === '' ? null : $url,
+                'media_id' => $mediaId,
+                'branch_ids' => $branchIds === [] ? null : $branchIds,
                 'placements' => $placement === null ? null : [$placement],
                 'priority' => self::LEVELS[$level],
                 'starts_at' => $starts?->utc(), 'ends_at' => $ends?->utc(),
@@ -148,7 +181,7 @@ final class AnnouncementEditor
             $snapshot = ExperienceCommands::snapshot($item);
             $this->versions->record($item, $item->status, $snapshot, $reason === null ? null : mb_substr($reason, 0, 300), $owner);
             $this->audit->record($created ? 'announcements.created' : 'announcements.saved', $item,
-                ['after' => array_intersect_key($snapshot, array_flip(['type', 'status', 'placements', 'starts_at', 'ends_at', 'priority']))], actor: $owner);
+                ['after' => array_intersect_key($snapshot, array_flip(['type', 'status', 'placements', 'starts_at', 'ends_at', 'priority', 'branch_ids', 'media_id']))], actor: $owner);
 
             return $item;
         });

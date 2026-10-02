@@ -12,6 +12,7 @@ use Carbon\CarbonImmutable;
 use Database\Seeders\DatabaseSeeder;
 use Illuminate\Foundation\Http\Middleware\ValidateCsrfToken;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\Support\PublishesBranchDetails;
 use Tests\TestCase;
 
 /**
@@ -21,6 +22,7 @@ use Tests\TestCase;
  */
 class LocalSeoTest extends TestCase
 {
+    use PublishesBranchDetails;
     use RefreshDatabase;
 
     protected function setUp(): void
@@ -96,11 +98,11 @@ class LocalSeoTest extends TestCase
         $this->assertStringContainsString('كوفي هاوس · إربد سيتي سنتر، الطابق الأول', $cards);
         $this->assertStringContainsString('درايف ثرو في إربد · بجانب منطقة قصر النخيل / أرابيلا', $cards);
 
-        // The Owner saves the missing wording in the branch editor (saving = approval) and it shows.
+        // The Owner publishes the missing wording in the branch editor (publishing = approval) and it shows.
         $this->withoutMiddleware(ValidateCsrfToken::class);
         $this->actingAs($this->owner())->withSession([OwnerSession::LOGIN_AT => now()->getTimestamp(), OwnerSession::CONFIRMED_AT => now()->getTimestamp()]);
         $this->get('/dashboard/data/branches/'.$drive->id)->assertOk()->assertSee('وصف الموقع بالإنجليزي');
-        $this->put('/dashboard/data/branches/'.$drive->id.'/details', [
+        $this->publishBranchDetails($drive, [
             'name_ar' => $drive->name_ar, 'name_en' => $drive->name_en, 'is_public' => '1',
             'landmark_ar' => (string) $drive->landmark_ar, 'landmark_en' => 'Test landmark wording',
         ])->assertSessionHasNoErrors();

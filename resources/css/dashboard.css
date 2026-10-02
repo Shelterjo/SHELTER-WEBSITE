@@ -3,6 +3,8 @@
 @import '../../design-system/build/tokens-brand.css';
 @import './fonts.css';
 @import './ui.css';
+/* The site's branch card, drawn as it is in the branch details preview (BRANCH-010). */
+@import './components/branch-card.css';
 @import './components/dashboard/shell.css';
 @import './components/dashboard/sidebar.css';
 @import './components/dashboard/page-header.css';

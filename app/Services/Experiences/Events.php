@@ -7,6 +7,7 @@ use App\Models\Market;
 use App\Services\Content\Pages;
 use App\Services\Media\MediaLibrary;
 use App\Services\Site\BranchDirectory;
+use App\Services\Site\BranchSummary;
 use App\Support\LocalTime;
 use App\Support\PageUrl;
 use Carbon\CarbonImmutable;
@@ -101,6 +102,10 @@ final class Events
         $ctaUrl = $event->cta_url !== null && preg_match('#^(https://|/)#', $event->cta_url) === 1 ? $event->cta_url : null; // G-08
         // A page of this site opens in the page's language (/ar/jo/menu/ on the English page → /en/jo/menu/).
         $ctaUrl = $ctaUrl === null ? null : (preg_replace('#^/(ar|en)/#', '/'.$locale.'/', $ctaUrl) ?? $ctaUrl);
+        // Where: the venue typed by the Owner, else the approved names of the event's branches.
+        $venue = $this->venue($event, $locale);
+        $branches = $venue === null ? $this->branchesOf($event, $market, $locale) : [];
+        $names = array_map(fn (BranchSummary $branch): string => $branch->name, $branches);
 
         return new EventView(
             slug: (string) $event->slug,
@@ -114,11 +119,13 @@ final class Events
             startText: $oneDay ? null : $this->moment($starts, $locale),
             endText: $oneDay ? null : $this->moment($ends, $locale),
             state: $state,
-            place: $this->place($event, $market, $locale),
+            place: $venue ?? ($names === [] ? null : implode(' · ', $names)),
             ctaLabel: $ctaLabel !== null && $ctaUrl !== null ? $ctaLabel : null,
             ctaUrl: $ctaLabel !== null ? $ctaUrl : null,
             url: PageUrl::route('events.show', ['locale' => $locale, 'market' => $market->code, 'slug' => $event->slug]),
             image: $this->media->image($event->media, $locale, $title),
+            branches: $branches,
+            atVenue: $venue !== null,
         );
     }
 
@@ -155,26 +162,31 @@ final class Events
         return $localized instanceof CarbonImmutable ? $localized : $date;
     }
 
-    /** The venue: an approved venue text in both languages, else the approved names of the event's branches. */
-    private function place(Experience $event, Market $market, string $locale): ?string
+    /** The venue typed by the Owner, shown only in both languages (another place than our branches). */
+    private function venue(Experience $event, string $locale): ?string
     {
         $details = $event->details ?? [];
         $venueAr = is_string($details['venue_ar'] ?? null) ? trim($details['venue_ar']) : '';
         $venueEn = is_string($details['venue_en'] ?? null) ? trim($details['venue_en']) : '';
-        if ($venueAr !== '' && $venueEn !== '') {
-            return $locale === 'ar' ? $venueAr : $venueEn;
-        }
-        $ids = array_map('intval', $event->branch_ids ?? []);
-        if ($ids === []) {
+        if ($venueAr === '' || $venueEn === '') {
             return null;
         }
-        $names = [];
-        foreach ($this->branches->forMarket($market, $locale) as $branch) {
-            if (in_array($branch->branch->id, $ids, true)) {
-                $names[] = $branch->name;
-            }
+
+        return $locale === 'ar' ? $venueAr : $venueEn;
+    }
+
+    /**
+     * The public branches the event is at, as the site shows them (approved names; the address once approved).
+     *
+     * @return list<BranchSummary>
+     */
+    private function branchesOf(Experience $event, Market $market, string $locale): array
+    {
+        $ids = array_map('intval', $event->branch_ids ?? []);
+        if ($ids === []) {
+            return [];
         }
 
-        return $names === [] ? null : implode(' · ', $names);
+        return array_values(array_filter($this->branches->forMarket($market, $locale), fn (BranchSummary $branch): bool => in_array($branch->branch->id, $ids, true)));
     }
 }

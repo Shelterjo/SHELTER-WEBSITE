@@ -347,7 +347,7 @@ final class VersionRestore
     }
 
     /**
-     * A branch's details through the branch editor (each value approved in the Owner's name, as an edit is). A field
+     * A branch's details through the branch editor's publish path (each value approved in the Owner's name, as an edit is). A field
      * the version did not have yet keeps its current value; services and payments are not part of a restore.
      *
      * @param  array<string, mixed>  $snap
@@ -361,7 +361,12 @@ final class VersionRestore
             $input[$field] = $field === 'is_public' ? (in_array($value, ['0', 0, false], true) ? '0' : '1') : (is_scalar($value) ? (string) $value : '');
         }
 
-        return app(BranchEditor::class)->save($branch, $input, $owner);
+        // The restore screen is the preview (the Owner sees what changes and re-confirms), so it publishes exactly the
+        // details it parsed through the same path as a normal edit (BRANCH-010).
+        $editor = app(BranchEditor::class);
+        $details = $editor->parse($branch, $input);
+
+        return $editor->publish($branch, $details, BranchEditor::fingerprint($branch, $details), $owner);
     }
 
     /**

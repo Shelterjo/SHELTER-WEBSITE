@@ -1,9 +1,27 @@
 /* Events (SI-M07 listing, SI-M08 detail): cards in the panel grid (3 columns from 1024px); the detail page reads in
-   one column — the facts (when / where) first, then the text, the call to action and the terms. */
+   one column — the facts (when / where) first, then the text, the call to action and the terms. The home feature of a
+   campaign with its approved image (CAMP-004): the image above the text on phones, beside it from 768px. */
 
 @media (min-width: 1024px) {
     .ui-events-grid {
         grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+.ui-feature {
+    display: grid;
+    align-items: center;
+    gap: var(--space-6);
+}
+
+.ui-feature__media {
+    min-inline-size: 0;
+}
+
+@media (min-width: 768px) {
+    .ui-feature {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        gap: var(--space-8);
     }
 }
 

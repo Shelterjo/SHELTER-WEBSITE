@@ -9,11 +9,13 @@ use App\Services\Dashboard\SeoHealth;
 use Database\Seeders\DatabaseSeeder;
 use Illuminate\Foundation\Http\Middleware\ValidateCsrfToken;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\Support\PublishesBranchDetails;
 use Tests\TestCase;
 
 /** Dashboard → Google visibility (M57 §48): read-only health from the master data and the site texts. */
 class SeoHealthTest extends TestCase
 {
+    use PublishesBranchDetails;
     use RefreshDatabase;
 
     protected function setUp(): void
@@ -47,7 +49,7 @@ class SeoHealthTest extends TestCase
         $this->assertTrue($checks['maps'] && $checks['city_ar'], 'D-336 Maps link, D-334 spelling');
         $this->assertFalse($checks['address'] || $checks['landmark'] || $checks['coordinates'], 'street address and coordinates (PO-010), English location line (PO-081)');
 
-        $this->put('/dashboard/data/branches/'.$drive->id.'/details', [
+        $this->publishBranchDetails($drive, [
             'name_ar' => $drive->name_ar, 'name_en' => $drive->name_en, 'is_public' => '1', 'maps_url' => (string) $drive->maps_url,
             'landmark_ar' => (string) $drive->landmark_ar, 'landmark_en' => 'Test landmark wording',
         ])->assertSessionHasNoErrors();

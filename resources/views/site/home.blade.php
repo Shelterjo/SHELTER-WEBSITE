@@ -19,10 +19,15 @@
         @endif
     </x-ui.hero>
 
-    {{-- The home feature placement (DX-010): the campaign or announcement the engine picks now — or nothing (DX-012). --}}
+    {{-- The home feature placement (DX-010): the campaign or announcement the engine picks now — or nothing (DX-012) —
+         with its image only when the Owner chose an approved one (CAMP-004, MEDIA-RIGHTS). --}}
     @if ($feature !== null)
+        @php($featureImage = $feature->image)
         <section class="ui-band" aria-labelledby="home-feature" data-experience="{{ $feature->id }}">
-            <div class="ui-container">
+            <div @class(['ui-container', 'ui-feature' => $featureImage !== null])>
+                @if ($featureImage !== null)
+                    <x-ui.picture :image="$featureImage" ratio="landscape" sizes="(min-width: 768px) 50vw, 100vw" class="ui-feature__media" />
+                @endif
                 <x-ui.section-heading id="home-feature" :eyebrow="__('site.home.feature.'.$feature->type)" :title="$feature->title" :lead="$feature->text"
                     :href="$feature->ctaUrl" :link-label="$feature->ctaLabel" />
             </div>

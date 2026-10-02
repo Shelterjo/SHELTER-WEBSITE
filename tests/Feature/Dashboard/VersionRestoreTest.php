@@ -216,12 +216,26 @@ class VersionRestoreTest extends TestCase
         $this->get('/dashboard/history?area=settings')->assertOk()->assertSee('استعادة نسخة سابقة من إعداد')->assertSee('سنة التأسيس');
     }
 
+    /**
+     * Branch details are previewed, then exactly the previewed values are published (BRANCH-010).
+     *
+     * @param  array<string, mixed>  $form
+     */
+    private function publishBranch(Branch $branch, array $form): void
+    {
+        $url = '/dashboard/data/branches/'.$branch->id.'/details';
+        $preview = (string) $this->put($url, $form + ['action' => 'preview'])->assertOk()->getContent();
+        $fingerprint = preg_match('/name="previewed" value="([a-f0-9]{64})"/', $preview, $m) === 1 ? $m[1] : null;
+        $this->assertNotNull($fingerprint, 'the preview carries the fingerprint to publish');
+        $this->put($url, $form + ['action' => 'publish', 'previewed' => $fingerprint])->assertSessionHasNoErrors();
+    }
+
     public function test_branch_details_come_back_approved_and_services_are_left_alone(): void
     {
         $branch = Branch::query()->where('slug', 'drive')->firstOrFail();
         $form = fn (string $name): array => ['name_ar' => $name, 'name_en' => (string) $branch->name_en, 'address_ar' => 'عنوان '.$name, 'is_public' => '1'];
-        $this->put('/dashboard/data/branches/'.$branch->id.'/details', $form('الاسم الأول'))->assertSessionHasNoErrors();
-        $this->put('/dashboard/data/branches/'.$branch->id.'/details', $form('الاسم الثاني') + ['attributes' => ['service' => ['wifi' => 'yes']]])->assertSessionHasNoErrors();
+        $this->publishBranch($branch, $form('الاسم الأول'));
+        $this->publishBranch($branch, $form('الاسم الثاني') + ['attributes' => ['service' => ['wifi' => 'yes']]]);
         $first = $this->versionsOf($branch)[0];
 
         $this->get('/dashboard/history/restore/'.$first->id)->assertOk()->assertSee('الاسم الأول')->assertSee(__('dashboard.history.notes.fact'));

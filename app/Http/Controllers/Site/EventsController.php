@@ -8,10 +8,12 @@ use App\Services\Experiences\Events;
 use App\Support\PageUrl;
 use App\Support\StructuredData;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Log;
 
 /**
  * Events and campaigns of a market (SI-M07 /ar/jo/events/, SI-M08 /ar/jo/events/{slug}/ — DX-014). The listing is
- * indexable only while it lists something; an event page carries Event data only while the event is valid (not ended).
+ * indexable only while it lists something; an event page carries Event data only while the event is valid (not ended)
+ * and its place is one of our branches (an address from the Master Data — SCHEMA-009); otherwise the reason is logged.
  */
 final class EventsController extends Controller
 {
@@ -52,21 +54,13 @@ final class EventsController extends Controller
         // The event's approved image, as an absolute address for schema.org and share previews (FINAL-QA QA-041).
         $image = $event->image !== null ? url($event->image->src) : null;
         if (! $event->isEnded()) {
-            $jsonLd[] = array_filter([
-                '@context' => 'https://schema.org',
-                '@type' => 'Event',
-                'name' => $event->title,
-                'startDate' => $event->startsAt->toIso8601String(),
-                'endDate' => $event->endsAt->toIso8601String(),
-                'eventStatus' => 'https://schema.org/EventScheduled',
-                'eventAttendanceMode' => 'https://schema.org/OfflineEventAttendanceMode',
-                'location' => $event->place !== null ? ['@type' => 'Place', 'name' => $event->place] : null,
-                'description' => $event->paragraphs[0] ?? null,
-                'image' => $image,
-                'organizer' => ['@type' => 'Organization', 'name' => 'SHELTER COFFEE', 'url' => PageUrl::route('gateway')],
-                'url' => $event->url,
-                'inLanguage' => $locale,
-            ], fn (mixed $value): bool => $value !== null);
+            // SCHEMA-009: Event data only with a place whose address is in the Master Data — never an invented one.
+            $schema = StructuredData::event($event, PageUrl::route('gateway'), $locale, $image);
+            if ($schema !== null) {
+                $jsonLd[] = $schema;
+            } else {
+                Log::info('schema.event_omitted', ['event' => $event->slug, 'reason' => StructuredData::eventGap($event)]);
+            }
         }
 
         return view('site.event', [
