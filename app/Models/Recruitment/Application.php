@@ -66,4 +66,27 @@ class Application extends Model
     {
         return $this->hasOne(ApplicationIdentity::class, 'application_id');
     }
+
+    /** @return HasMany<ApplicationNote, $this> */
+    public function notes(): HasMany
+    {
+        return $this->hasMany(ApplicationNote::class, 'application_id')->orderByDesc('id');
+    }
+
+    /** @return HasMany<ApplicationStatusChange, $this> */
+    public function statusHistory(): HasMany
+    {
+        return $this->hasMany(ApplicationStatusChange::class, 'application_id')->orderByDesc('changed_at')->orderByDesc('id');
+    }
+
+    /** @return HasMany<ApplicationInterview, $this> */
+    public function interviews(): HasMany
+    {
+        return $this->hasMany(ApplicationInterview::class, 'application_id')->orderByDesc('id');
+    }
+
+    public function isNew(): bool
+    {
+        return $this->first_viewed_at === null;
+    }
 }

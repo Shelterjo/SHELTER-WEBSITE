@@ -43,8 +43,11 @@ final class SecurityHeaders
         if ($request->isSecure()) {
             $headers['Strict-Transport-Security'] = 'max-age=31536000';
         }
+        // A route that already set a stricter value (e.g. the sandboxed CSP of a private file download) keeps it — once.
         foreach ($headers as $name => $value) {
-            $response->headers->set($name, $value, false);
+            if (! $response->headers->has($name)) {
+                $response->headers->set($name, $value);
+            }
         }
 
         return $response;

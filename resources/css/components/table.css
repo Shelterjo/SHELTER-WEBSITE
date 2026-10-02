@@ -1,5 +1,5 @@
 /* Table: caption + scoped headers in a keyboard-scrollable region. The page never scrolls sideways.
-   "stack" variant: rows become cards below 600px (DS §8 "Table → cards on mobile"). */
+   "stack" variant: rows become cards below 600px (DS §8 "Table → cards on mobile"); "wide" stack: below 1200px. */
 
 .ui-table-wrap {
     max-inline-size: 100%;
@@ -84,31 +84,62 @@
 }
 
 @media (min-width: 600px) {
-    .ui-table--stack thead {
+    .ui-table--stack:not(.ui-table--stack-wide) thead {
         display: table-header-group;
     }
 
-    .ui-table--stack tr {
+    .ui-table--stack:not(.ui-table--stack-wide) tr {
         display: table-row;
         padding: 0;
         border: 0;
     }
 
-    .ui-table--stack th,
-    .ui-table--stack td {
+    .ui-table--stack:not(.ui-table--stack-wide) th,
+    .ui-table--stack:not(.ui-table--stack-wide) td {
         display: table-cell;
         padding-block: var(--space-2);
         padding-inline: var(--space-3);
         border-block-start: var(--border-default) solid var(--color-border);
     }
 
-    .ui-table--stack th::before,
-    .ui-table--stack td::before {
+    .ui-table--stack:not(.ui-table--stack-wide) th::before,
+    .ui-table--stack:not(.ui-table--stack-wide) td::before {
         content: none;
     }
 
-    .ui-table--stack th.ui-table__numeric,
-    .ui-table--stack td.ui-table__numeric {
+    .ui-table--stack:not(.ui-table--stack-wide) th.ui-table__numeric,
+    .ui-table--stack:not(.ui-table--stack-wide) td.ui-table__numeric {
+        text-align: end;
+    }
+}
+
+/* stack="wide": cards until 1200px — for many columns beside the dashboard's side navigation. */
+@media (min-width: 1200px) {
+    .ui-table--stack-wide thead {
+        display: table-header-group;
+    }
+
+    .ui-table--stack-wide tr {
+        display: table-row;
+        padding: 0;
+        border: 0;
+    }
+
+    .ui-table--stack-wide th,
+    .ui-table--stack-wide td {
+        display: table-cell;
+        padding-block: var(--space-2);
+        padding-inline: var(--space-3);
+        border-block-start: var(--border-default) solid var(--color-border);
+    }
+
+    .ui-table--stack-wide th::before,
+    .ui-table--stack-wide td::before {
+        content: none;
+    }
+
+    .ui-table--stack-wide th.ui-table__numeric,
+    .ui-table--stack-wide td.ui-table__numeric {
         text-align: end;
     }
 }

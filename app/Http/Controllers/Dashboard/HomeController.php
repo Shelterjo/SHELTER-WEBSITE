@@ -23,8 +23,9 @@ final class HomeController extends Controller
     {
         $live = Page::query()->whereIn('key', array_keys(PageEditor::PAGES))->where('status', PublishStatus::Published)->count();
         $tiles = [
-            ['label' => __('dashboard.home.new_job_applications'), 'value' => Application::query()->where('type', 'JOB')->where('status', 'received')->count(), 'route' => 'dashboard.careers.index'],
-            ['label' => __('dashboard.home.new_partnership_applications'), 'value' => Application::query()->where('type', 'FR')->where('status', 'received')->count(), 'route' => 'dashboard.partnerships.index'],
+            // "New" = not opened yet — a read state, not a status (CAREERS-054, FRAN-055).
+            ['label' => __('dashboard.home.new_job_applications'), 'value' => $this->unseen('JOB'), 'route' => 'dashboard.careers.index', 'params' => ['status' => 'new', 'period' => 'all']],
+            ['label' => __('dashboard.home.new_partnership_applications'), 'value' => $this->unseen('FR'), 'route' => 'dashboard.partnerships.index', 'params' => ['status' => 'new']],
             ['label' => __('dashboard.home.feedback_week'), 'value' => Feedback::query()->where('submitted_at', '>=', now()->subDays(7))->count(), 'route' => 'dashboard.feedback.index'],
             ['label' => __('dashboard.home.media_pending'), 'value' => Media::query()->where('approval_status', 'PENDING OWNER APPROVAL')->whereNull('archived_at')->count(), 'route' => 'dashboard.media.index', 'params' => ['show' => 'pending']],
             ['label' => __('dashboard.home.pages_not_live'), 'value' => count(PageEditor::PAGES) - $live, 'route' => 'dashboard.pages.index'],
@@ -33,5 +34,10 @@ final class HomeController extends Controller
         return view('dashboard.home', [
             'tiles' => array_map(fn (array $t): array => $t + ['href' => Route::has($t['route']) ? route($t['route'], $t['params'] ?? []) : null], $tiles),
         ]);
+    }
+
+    private function unseen(string $type): int
+    {
+        return Application::query()->where('type', $type)->whereNull('first_viewed_at')->where('status', '!=', 'archived')->count();
     }
 }

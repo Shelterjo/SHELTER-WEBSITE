@@ -7,3 +7,4 @@ export default meta;
 
 export const Default = story('table', 'Default');
 export const Stacked = story('table', 'Stacked');
+export const StackedWide = story('table', 'StackedWide');

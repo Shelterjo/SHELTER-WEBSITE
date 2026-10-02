@@ -392,6 +392,19 @@ return [
                 ),
                 'rowHeader' => 'item',
             ]],
+            ['story' => 'StackedWide', 'props' => [
+                'caption' => $t('جدول تجريبي يبقى بطاقات حتى 1200px', 'Sample table that stays cards up to 1200px'),
+                'stack' => 'wide',
+                'columns' => $t(
+                    [['key' => 'item', 'label' => 'العنصر'], ['key' => 'status', 'label' => 'الحالة'], ['key' => 'count', 'label' => 'العدد', 'numeric' => true]],
+                    [['key' => 'item', 'label' => 'Item'], ['key' => 'status', 'label' => 'Status'], ['key' => 'count', 'label' => 'Count', 'numeric' => true]],
+                ),
+                'rows' => $t(
+                    [['item' => 'عنصر تجريبي 1', 'status' => 'مثال', 'count' => 12], ['item' => 'عنصر تجريبي 2', 'status' => 'مثال', 'count' => 3]],
+                    [['item' => 'Sample item 1', 'status' => 'Example', 'count' => 12], ['item' => 'Sample item 2', 'status' => 'Example', 'count' => 3]],
+                ),
+                'rowHeader' => 'item',
+            ]],
         ]],
 
         // ───────────────────────────── Navigation ─────────────────────────────

@@ -10,6 +10,7 @@ use App\Http\Controllers\Dashboard\Content\PagesController;
 use App\Http\Controllers\Dashboard\Content\TeamController;
 use App\Http\Controllers\Dashboard\HomeController;
 use App\Http\Controllers\Dashboard\RecoveryCodesController;
+use App\Http\Controllers\Dashboard\Requests\CareersController;
 use App\Http\Middleware\DashboardLocale;
 use Illuminate\Support\Facades\Route;
 
@@ -63,6 +64,23 @@ Route::prefix('dashboard')->middleware(DashboardLocale::class)->group(function (
             Route::put('content/team/{member}', [TeamController::class, 'update'])->name('team.update');
             Route::post('content/team/{member}/archive', [TeamController::class, 'archive'])->name('team.archive');
             Route::post('content/team/{member}/restore', [TeamController::class, 'restore'])->name('team.restore');
+        });
+
+        // Requests — job applications (CAREERS-052…073). Identity numbers and permanent deletion need a fresh re-confirmation.
+        Route::get('requests/careers', [CareersController::class, 'index'])->name('careers.index');
+        Route::whereNumber(['application', 'note', 'attachment'])->group(function (): void {
+            Route::get('requests/careers/{application}', [CareersController::class, 'show'])->name('careers.show');
+            Route::post('requests/careers/{application}/status', [CareersController::class, 'status'])->name('careers.status');
+            Route::post('requests/careers/{application}/restore', [CareersController::class, 'restore'])->name('careers.restore');
+            Route::post('requests/careers/{application}/notes', [CareersController::class, 'addNote'])->name('careers.notes.store');
+            Route::put('requests/careers/{application}/notes/{note}', [CareersController::class, 'editNote'])->name('careers.notes.update');
+            Route::post('requests/careers/{application}/interview', [CareersController::class, 'interview'])->name('careers.interview');
+            Route::get('requests/attachments/{attachment}', [CareersController::class, 'attachment'])->name('requests.attachment');
+            Route::middleware('confirmed')->group(function (): void {
+                Route::get('requests/careers/{application}/identity', [CareersController::class, 'identity'])->name('careers.identity');
+                Route::get('requests/careers/{application}/delete', [CareersController::class, 'confirmDelete'])->name('careers.delete');
+                Route::delete('requests/careers/{application}', [CareersController::class, 'destroy'])->name('careers.destroy');
+            });
         });
         Route::get('recovery-codes', RecoveryCodesController::class)->name('recovery-codes');
         Route::get('confirm', [ConfirmIdentityController::class, 'show'])->name('confirm');
