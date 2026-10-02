@@ -9,6 +9,7 @@ use App\Models\HoursException;
 use App\Models\Market;
 use App\Models\MenuCategory;
 use App\Models\User;
+use App\Services\Core\FeatureFlags;
 use App\Services\Dashboard\ExperienceCommands;
 use App\Services\Experiences\Placements;
 use App\Services\MasterData\MasterData;
@@ -53,6 +54,7 @@ final class LiveController extends Controller
                 ->where('starts_at', '>', $now->utc())->where('starts_at', '<=', $now->addDays(7)->utc())->orderBy('starts_at')->get(),
             'branchNames' => $names,
             'timezone' => $timezone,
+            'safe' => app(FeatureFlags::class)->enabled(FeatureFlags::SAFE_MODE),
             'seasons' => MenuCategory::query()->where('type', 'seasonal')->orderBy('sort')->get()
                 ->map(fn (MenuCategory $c): array => ['category' => $c, 'state' => MenuSeason::state($c, $now->setTimezone($timezone))])->all(),
         ]);

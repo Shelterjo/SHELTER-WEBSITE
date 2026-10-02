@@ -3,6 +3,7 @@
 namespace App\Services\Franchise;
 
 use App\Models\Recruitment\ConsentVersion;
+use App\Services\Core\FeatureFlags;
 
 /**
  * Is the partnership form open? Only when both approved texts are active in both languages — the non-binding
@@ -19,7 +20,8 @@ final class FranchiseForm
     public function isOpen(): bool
     {
         return $this->consent() !== null && $this->acknowledgement() !== null
-            && (! app()->isProduction() || config('franchise.form_enabled_in_production') === true);
+            && (! app()->isProduction() || config('franchise.form_enabled_in_production') === true)
+            && ! app(FeatureFlags::class)->enabled(FeatureFlags::PARTNERSHIP_CLOSED); // the Owner's switch (Settings)
     }
 
     public function consent(): ?ConsentVersion

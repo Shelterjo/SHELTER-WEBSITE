@@ -3,6 +3,7 @@
 namespace App\Services\Feedback;
 
 use App\Models\Feedback;
+use App\Services\Core\FeatureFlags;
 use App\Services\Recruitment\ApplicantInput;
 use App\Services\Site\BranchDirectory;
 use App\Services\Site\BranchSummary;
@@ -29,7 +30,8 @@ final class FeedbackForm
     public function isOpen(string $locale): bool
     {
         return $this->branches($locale) !== []
-            && (! app()->isProduction() || config('feedback.form_enabled_in_production') === true);
+            && (! app()->isProduction() || config('feedback.form_enabled_in_production') === true)
+            && ! app(FeatureFlags::class)->enabled(FeatureFlags::FEEDBACK_CLOSED); // the Owner's switch (Settings)
     }
 
     /**

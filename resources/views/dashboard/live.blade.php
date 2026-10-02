@@ -15,6 +15,9 @@
         $edit = fn ($e) => $e->type === 'event' ? route('dashboard.events.edit', $e) : route('dashboard.announcements.edit', $e);
     @endphp
     <x-ui.page-header :title="__($L.'title')" :description="__($L.'description')" />
+    @if ($safe)
+        <x-ui.alert variant="warning"><a href="{{ route('dashboard.settings') }}">{{ __('dashboard.settings.safe_banner') }}</a></x-ui.alert>
+    @endif
 
     <div class="ui-menu-item">
         @foreach ($places as $placement => $place)

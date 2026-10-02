@@ -14,6 +14,13 @@ final class FeatureFlags
 
     public const MAINTENANCE = 'maintenance';
 
+    /** The Owner closed a public form (Settings). Unknown flags are OFF, so every form starts open. */
+    public const CAREERS_CLOSED = 'forms.careers.closed';
+
+    public const PARTNERSHIP_CLOSED = 'forms.partnership.closed';
+
+    public const FEEDBACK_CLOSED = 'forms.feedback.closed';
+
     /** @var array<string, bool>|null */
     private ?array $memo = null;
 

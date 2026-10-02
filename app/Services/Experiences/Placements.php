@@ -4,6 +4,7 @@ namespace App\Services\Experiences;
 
 use App\Models\Experience;
 use App\Models\Market;
+use App\Services\Core\FeatureFlags;
 use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Collection;
 use Throwable;
@@ -33,6 +34,8 @@ final class Placements
     /** @var array<string, PlacedExperience|null> one answer per request */
     private array $resolved = [];
 
+    public function __construct(private readonly FeatureFlags $flags) {}
+
     public function current(Market $market, string $placement, string $locale, ?CarbonImmutable $now = null): ?PlacedExperience
     {
         $key = $market->id.'|'.$placement.'|'.$locale.'|'.($now?->getTimestamp() ?? 'now');
@@ -40,7 +43,10 @@ final class Placements
             return $this->resolved[$key];
         }
         try {
-            $winner = $this->live($market, $now)->first(fn (Experience $e): bool => in_array($placement, $e->placements ?? [], true));
+            // Safe Mode (SAFE-MODE §2): the dynamic layer stops; only an urgent notice still shows in the top bar, as text.
+            $safe = $this->flags->enabled(FeatureFlags::SAFE_MODE);
+            $winner = $this->live($market, $now)->first(fn (Experience $e): bool => in_array($placement, $e->placements ?? [], true)
+                && (! $safe || ($placement === self::TOP_BAR && ($e->details['urgent'] ?? false) === true)));
 
             return $this->resolved[$key] = $winner === null ? null : self::present($winner, $placement, $locale, $market);
         } catch (Throwable $e) {

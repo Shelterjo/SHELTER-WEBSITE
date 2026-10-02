@@ -4,6 +4,7 @@ namespace App\Services\Recruitment;
 
 use App\Models\Recruitment\ConsentVersion;
 use App\Models\Recruitment\JordanCity;
+use App\Services\Core\FeatureFlags;
 use Illuminate\Support\Collection;
 
 /**
@@ -18,7 +19,8 @@ final class CareersForm
         return $this->cities()->isNotEmpty()
             && $this->consent() !== null
             && app(IdentityVault::class)->isConfigured()
-            && (! app()->isProduction() || config('careers.form_enabled_in_production') === true);
+            && (! app()->isProduction() || config('careers.form_enabled_in_production') === true)
+            && ! app(FeatureFlags::class)->enabled(FeatureFlags::CAREERS_CLOSED); // the Owner's switch (Settings)
     }
 
     /** @return Collection<int, JordanCity> */

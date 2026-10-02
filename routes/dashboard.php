@@ -23,6 +23,7 @@ use App\Http\Controllers\Dashboard\Requests\CareersController;
 use App\Http\Controllers\Dashboard\Requests\CareersSettingsController;
 use App\Http\Controllers\Dashboard\Requests\FeedbackController;
 use App\Http\Controllers\Dashboard\Requests\PartnershipsController;
+use App\Http\Controllers\Dashboard\SettingsController;
 use App\Http\Middleware\DashboardLocale;
 use App\Services\Dashboard\ExperienceCommands;
 use Illuminate\Support\Facades\Route;
@@ -164,6 +165,12 @@ Route::prefix('dashboard')->middleware(DashboardLocale::class)->group(function (
         // Content — the site's fixed texts, page titles and Google descriptions (M50): the Owner's wording on top.
         Route::get('content/texts', [TextsController::class, 'index'])->name('texts.index');
         Route::put('content/texts/{group}', [TextsController::class, 'update'])->where('group', '[a-z]+')->name('texts.update');
+
+        // Settings (M50): forms open or closed, Safe Mode, search counting, the founding year — a fresh re-confirmation.
+        Route::middleware('confirmed')->group(function (): void {
+            Route::get('settings', [SettingsController::class, 'index'])->name('settings');
+            Route::put('settings', [SettingsController::class, 'update'])->name('settings.update');
+        });
 
         // Business data — contact numbers and social accounts (CMS-030). Central facts: a fresh re-confirmation.
         Route::middleware('confirmed')->group(function (): void {
