@@ -1,0 +1,74 @@
+# SHELTER — check the STAGING site without deploying (docs/CLOUDWAYS-DEPLOYMENT-RUNBOOK.md §7). Manual only. Read-only:
+# the same smoke test as the deploy, then what the web server answers (status, server, app or not, page title) and a
+# read-only look at the application folder over SSH (links, PHP version and extensions, artisan about, last log lines).
+# Secrets are never printed; GitHub masks them, and the scripts print verdicts, codes and names only.
+name: Staging check
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-staging
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+
+      - name: Check the secrets (shape only; no value is printed)
+        env:
+          STAGING_SSH_HOST: ${{ secrets.STAGING_SSH_HOST }}
+          STAGING_SSH_USER: ${{ secrets.STAGING_SSH_USER }}
+          STAGING_SSH_KEY: ${{ secrets.STAGING_SSH_KEY }}
+          STAGING_APP_URL: ${{ secrets.STAGING_APP_URL }}
+          STAGING_BASIC_AUTH_USER: ${{ secrets.STAGING_BASIC_AUTH_USER }}
+          STAGING_BASIC_AUTH_PASSWORD: ${{ secrets.STAGING_BASIC_AUTH_PASSWORD }}
+        run: |
+          python3 scripts/deploy/check-secrets.py STAGING_SSH_HOST STAGING_SSH_USER STAGING_SSH_KEY STAGING_APP_URL \
+            STAGING_BASIC_AUTH_USER STAGING_BASIC_AUTH_PASSWORD
+
+      - name: Smoke test
+        id: smoke
+        continue-on-error: true
+        env:
+          URL: ${{ secrets.STAGING_APP_URL }}
+          AUTH_USER: ${{ secrets.STAGING_BASIC_AUTH_USER }}
+          AUTH_PASS: ${{ secrets.STAGING_BASIC_AUTH_PASSWORD }}
+        run: bash scripts/deploy/smoke.sh
+
+      - name: What the web server answers
+        env:
+          URL: ${{ secrets.STAGING_APP_URL }}
+          AUTH_USER: ${{ secrets.STAGING_BASIC_AUTH_USER }}
+          AUTH_PASS: ${{ secrets.STAGING_BASIC_AUTH_PASSWORD }}
+        run: bash scripts/deploy/diagnose-http.sh
+
+      - name: Read-only look at the application folder (SSH)
+        env:
+          KEY: ${{ secrets.STAGING_SSH_KEY }}
+          HOST: ${{ secrets.STAGING_SSH_HOST }}
+          USER: ${{ secrets.STAGING_SSH_USER }}
+          ROOT: ${{ secrets.STAGING_APP_ROOT }}
+          URL: ${{ secrets.STAGING_APP_URL }}
+        run: |
+          install -m 700 -d ~/.ssh
+          python3 scripts/deploy/prepare-key.py ~/.ssh/staging
+          ssh-keyscan -T 15 -t ed25519,rsa "$HOST" > ~/.ssh/known_hosts 2>/dev/null
+          host="${URL#*://}"
+          ssh -i ~/.ssh/staging -o BatchMode=yes -o StrictHostKeyChecking=yes "$USER@$HOST" \
+            "SHELTER_APP_ROOT='${ROOT:-.}' APP_HOST='$host' bash -s" < scripts/deploy/diagnose-remote.sh
+
+      - name: Result
+        if: steps.smoke.outcome != 'success'
+        run: |
+          echo "::error::the smoke test failed — see the two steps above for why"
+          exit 1
