@@ -15,9 +15,9 @@
 | الحالة | العدد |
 |---|---|
 | `OWNER DECISION REQUIRED` | 19 |
-| `RESOLVED` (حُسم من المحادثة بقاعدة موثقة) | 167 |
+| `RESOLVED` (حُسم من المحادثة بقاعدة موثقة) | 168 |
 | `DOC FIX NEEDED` (وثيقة متأخرة عن قرار لاحق) | 33 |
-| **المجموع** | **219** |
+| **المجموع** | **220** |
 
 > **عمود Refs:** يربط كل تعارض بمجموعة التدقيق التي وجدته (G1…G8)، لأن التعارض الواحد قد يظهر في أكثر من مجال.
 > **معرّفات المنيو القديمة** (CF-01…CF-11 في `menu-ia/MENU-DECISION-REGISTER.md`) و**VQ / OBS** مربوطة في الملاحظات.
@@ -46,7 +46,7 @@
 | `CF-M-147` | Real User Monitoring مقابل قواعد الخصوصية والموافقة | أي Tracking يراعي Privacy Policy · Cookie Policy · Consent (PRIV-008)؛ لا تتبع يحتاج إفصاحًا قبل تحديث صفحات الخصوصية (PRIV-009)؛ قرار الـConsent مفتوح (GOOGLE-022، PO-019)<br>_(M01 §82 · M12 §22–§23)_ | اجمع Privacy-safe Web Vitals من الزوار بلا PII (RUM)<br>_(M32 §11)_ | الجزء التقني محسوم: RUM First-party بلا Cookies ولا معرفات ولا IP مخزن ومجمّع، ويُذكر في سياسة الخصوصية قبل تفعيله على Production (PRIV-009). هل يحتاج موافقة Cookie/Analytics أم يكفي الإفصاح؟ = قرار الـOwner/القانوني (PO-019) | لا تعارض في الهدف، لكن متطلب الموافقة قانوني ولم يُحسم؛ البناء غير متوقف (التفعيل فقط) | OPS-025 · PRIV-008/009 · PO-019 | docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §A22 §A23 | **OWNER DECISION REQUIRED** |
 | `CF-M-209` | 6 أسماء عربية للكيك والكوكيز: المعتمد (D-132) مقابل ملف Menu List الجديد | D-132: الأسماء العربية الـ26 المقترحة معتمدة كما هي — كيكة الجزر · جيرمان شوكليت · ريد فيلفيت كيك · تشيز كيك مانجو · تشيز كيك باشن فروت · كوكيز فستق<br>_(D-132)_ | ملف Menu List: كاروت كيك · جيرمن شوكليت · ريد فلفيت كيك · مانجو تشيز كيك · باشن فروت تشيز كيك · كوكيز فستق حلبي<br>_(OWNER-MENU-LIST-RECEIVED-2026-10-01.xlsx)_ |  | لا يتضح هل الملف قرار تسمية صريح أم قائمة تشغيلية (POS) — M38 §6: عرض A/B والسؤال | الاسم العربي لستة أصناف في المنيو والـSchema | docs/phase-01-discovery/23-menu-list-reconciliation.md | **OWNER DECISION REQUIRED** |
 
-## RESOLVED (167)
+## RESOLVED (168)
 
 | Conflict ID | Topic | Old instruction | New instruction | Which one wins | Why | Impact | Files/code affected | Status |
 |---|---|---|---|---|---|---|---|---|
@@ -217,6 +217,7 @@
 | `CF-M-217` | طريقة اعتماد عناوين Google وسطور الربط المحلي | D-068 / PO-020: كل نص يصوغه Claude يُعرض بثلاثة خيارات ويُعتمد قبل الإدخال (ومنه لاحقة العناوين وTitle المنيو P-07)<br>_(D-068، PO-020)_ | M57 §15، §51: نفّذ مباشرة التحسينات الآمنة المبنية على الحقائق المعتمدة: titles, metadata, headings, internal links, branch copy… بلا ادعاءات غير معتمدة<br>_(M57 (2026-10-02))_ | M57 للعناوين وسطور الربط المحلي المبنية فقط من حقائق Master Data وعبارة D-332 المعتمدة؛ D-068/PO-020 يبقى حاكمًا لأي صياغة تسويقية أو ادعاء أو نص جديد. كل ما نُفذ قابل للتعديل من نصوص الموقع ومعروض على الـOwner في التقرير. | قاعدة الأولوية 1: آخر قرار صريح من الـOwner؛ النطاق محصور في الحقائق المعتمدة | lang/{ar,en}/site.php (titles, home.title/lead, branches_title, locations.lead, branch.title)، lang/{ar,en}/menu.php (page_title) | docs/seo/LOCAL-SEO-CHANGELOG.md | **RESOLVED** |
 | `CF-M-218` | طابق فرع HOUSE وساعات الفرعين في المصادر العامة | الموقع القديم (الرئيسية) «اربد ستي سنتر الطابق الثاني»؛ ساعات متعددة على الموقع القديم وSnapchat وfoodyas<br>_(shelterjo.com (قديم) وقوائم خارجية — رُصدت 2026-10-02)_ | D-020 وM57 §1: الطابق الأول، بجانب البنك الإسلامي الأردني؛ الساعات المعتمدة D-020<br>_(D-020، M57 §1)_ | قرار الـOwner (D-020، M57) للموقع الجديد؛ الموقع القديم مصدر معلومات فقط. تصحيح القوائم الخارجية من حسابات الـOwner (PO-041). | قاعدة الأولوية 1–2؛ لا يُغيّر الموقع أي حقيقة بلا مصدر معتمد | القوائم الخارجية وGBP (PO-009، PO-041) | docs/seo/LOCAL-COMPETITOR-MATRIX.md | **RESOLVED** |
 | `CF-M-219` | اسم حدث الاتصال في القياس | GA4-MEASUREMENT-PLAN: phone_click (مع phone_purpose)<br>_(GA4-MEASUREMENT-PLAN، D-149)_ | M57 §47: «events such as … call_click»<br>_(M57 §47)_ | phone_click (الاسم المعتمد في الخطة)؛ M57 يذكر أمثلة («such as») — التسمية قرار تقني (M38) | اسم واحد لكل حدث عبر الوثائق والتقارير | resources/js/ui/track.ts | docs/google/GA4-MEASUREMENT-PLAN.md | **RESOLVED** |
+| `CF-M-220` | متى يبدأ ربط Cloudways وCloudflare | M65/M66: لا ربط قبل رسالة الجاهزية (لا P0/P1) ثم انتظار «START CLOUDWAYS + CLOUDFLARE CONNECTION»<br>_(M65, M66 (D-342, D-343))_ | M74: «خلينا نبني هسا كلاود ويز و كلاود فلير نكسب وقت»<br>_(M74 (2026-10-02 23:3x عمّان))_ | M74 للـStaging الآن بالتوازي مع الجاهزية. لا يتغير: الإنتاج (نقل الدومين من تطبيق WordPress، Full strict، HSTS، DS لـDNSSEC، تفعيل التحويلات، Google) بعد فحص الـStaging وموافقة صريحة من الـOwner؛ تطبيق WordPress الحالي لا يُلمس؛ لا خدمة مدفوعة. | قاعدة الأولوية 1: آخر قرار صريح من الـOwner؛ الـStaging محمي (Basic Auth + noindex) وقابل للتراجع | .github/workflows/deploy-staging.yml · scripts/deploy/* · deploy/staging.env.template · docs/CLOUDWAYS-DEPLOYMENT-RUNBOOK.md | .github/workflows/deploy-staging.yml | **RESOLVED** |
 
 ## DOC FIX NEEDED (33)
 

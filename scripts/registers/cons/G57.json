@@ -1,0 +1,49 @@
+{
+  "group": "G57",
+  "notes": "M72: «يلا نشتغل على كلاود ويز و فلير انا جاهز بس انت تكون جاهز خبرني» · M73: «اذا بنقدر نعمل اشي نكسب وقت انا جاهز» → فحص قراءة فقط لـCloudways وCloudflare بصور من الـOwner · M74: «خلينا نبني هسا كلاود ويز و كلاود فلير نكسب وقت».",
+  "requirements": [],
+  "updates_to_existing": [
+    {
+      "id": "D-342",
+      "type": "UPDATE",
+      "source": "M74",
+      "change": "التوقيت فقط: الـOwner أذن ببدء ربط البنية التحتية الآن (Staging) بالتوازي مع ما تبقى من أعمال الجاهزية، بدل انتظار رسالة الجاهزية وعبارة START (D-349). شروط الإنتاج كما هي."
+    },
+    {
+      "id": "D-343",
+      "type": "UPDATE",
+      "source": "M74",
+      "change": "شهادة الجاهزية والتقرير النهائي يستمران ويصدران على الـStaging؛ لا يُنقل الدومين للإنتاج قبلهما وقبل موافقة الـOwner الصريحة."
+    }
+  ],
+  "conflicts": [
+    {
+      "topic": "متى يبدأ ربط Cloudways وCloudflare",
+      "old_instruction": "M65/M66: لا ربط قبل رسالة الجاهزية (لا P0/P1) ثم انتظار «START CLOUDWAYS + CLOUDFLARE CONNECTION»",
+      "old_source": "M65, M66 (D-342, D-343)",
+      "new_instruction": "M74: «خلينا نبني هسا كلاود ويز و كلاود فلير نكسب وقت»",
+      "new_source": "M74 (2026-10-02 23:3x عمّان)",
+      "winner": "M74 للـStaging الآن بالتوازي مع الجاهزية. لا يتغير: الإنتاج (نقل الدومين من تطبيق WordPress، Full strict، HSTS، DS لـDNSSEC، تفعيل التحويلات، Google) بعد فحص الـStaging وموافقة صريحة من الـOwner؛ تطبيق WordPress الحالي لا يُلمس؛ لا خدمة مدفوعة.",
+      "why": "قاعدة الأولوية 1: آخر قرار صريح من الـOwner؛ الـStaging محمي (Basic Auth + noindex) وقابل للتراجع",
+      "impact": ".github/workflows/deploy-staging.yml · scripts/deploy/* · deploy/staging.env.template · docs/CLOUDWAYS-DEPLOYMENT-RUNBOOK.md",
+      "files": [".github/workflows/deploy-staging.yml"],
+      "status": "RESOLVED"
+    }
+  ],
+  "new_decisions": [
+    {
+      "temp_id": "G57-ND-01",
+      "area": "Release / Infrastructure",
+      "decision": "بدء ربط البنية التحتية الآن (M74) على الـStaging فقط: تطبيق shelter-staging الموجود على سيرفر Cloudways الحالي (PHP 8.3، MariaDB 10.11، Lightning/Nginx)، نشر يدوي عبر GitHub Actions (deploy-staging.yml: بناء واحد، رفع عبر SSH بمستخدم التطبيق لا الـmaster، فحص أن الويب لا يقدّم إلا public/، ‏.env يُكتب مرة على السيرفر بمفاتيح تُولَّد هناك ولا تُطبع، migrate + seed مرة، فحص سريع). الأسرار في GitHub Secrets يضيفها الـOwner. Cloudflare: لا تغيير للـStaging (الرابط الافتراضي لـCloudways)؛ تغييرات Cloudflare (Full strict، Respect Existing Headers، HSTS لاحقًا، DS) عند نقل الإنتاج فقط وبموافقته. حساب الـOwner على الـStaging يُنشأ بأمر shelter:owner يكتب فيه الـOwner كلمة المرور بنفسه.",
+      "sources": ["M72", "M73", "M74"],
+      "status": "APPROVED",
+      "reason": "توجيه صريح من الـOwner لكسب الوقت",
+      "impact": "D-342 · D-343 · D-339 · task 20/61 · CF-005 (جزئي: فحص قراءة 2026-10-02)",
+      "date": "2026-10-02"
+    }
+  ],
+  "pending_owner": [],
+  "technical_flags": [],
+  "cost_api_dependencies": [],
+  "dropped": []
+}

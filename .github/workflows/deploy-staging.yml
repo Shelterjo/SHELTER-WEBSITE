@@ -1,0 +1,199 @@
+# SHELTER — deploy one release to the Cloudways STAGING application (docs/CLOUDWAYS-DEPLOYMENT-RUNBOOK.md, D-349).
+# Manual only (workflow_dispatch). Never touches Production, DNS or Cloudflare. Built once here; nothing is built on
+# the server. Secrets live in GitHub (Settings → Secrets and variables → Actions) and on the server's .env only — the
+# workflow never prints them.
+#
+# Required repository secrets (added by the Owner):
+#   STAGING_SSH_HOST       server public IP (Cloudways → Servers)
+#   STAGING_SSH_USER       the shelter-staging APPLICATION username (Access Details → Application Credentials) — never master
+#   STAGING_SSH_KEY        the private key whose public half is added to that user in Cloudways
+#   STAGING_APP_URL        the staging URL with its scheme, e.g. https://phpstack-….cloudwaysapps.com (no trailing slash)
+#   STAGING_DB_DATABASE / STAGING_DB_USERNAME / STAGING_DB_PASSWORD   Access Details → MySQL access of shelter-staging
+#   STAGING_BASIC_AUTH_USER / STAGING_BASIC_AUTH_PASSWORD             chosen by the Owner (staging is private)
+# Optional: STAGING_APP_ROOT (folder that holds public_html, when the SSH user does not land in it)
+#
+# Steps: build → upload → stage → web-root guard → .env once (keys generated, never printed) → activate → smoke test.
+# step=stage stops after the guard (first run: set the Cloudways web root to public_html/current/public, then run full).
+name: Deploy staging
+
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: Branch, tag or commit to release
+        required: true
+        default: claude/determined-newton-ftnxpn
+      step:
+        description: stage = upload and check only · full = stage + activate
+        required: true
+        default: full
+        type: choice
+        options: [stage, full]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-staging
+  cancel-in-progress: false
+
+env:
+  PHP_VERSION: '8.3'
+  NODE_VERSION: '22'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    defaults:
+      run:
+        shell: bash # = bash -eo pipefail
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          ref: ${{ inputs.ref }}
+      - uses: shivammathur/setup-php@f3e473d116dcccaddc5834248c87452386958240 # v2
+        with:
+          php-version: ${{ env.PHP_VERSION }}
+          extensions: mbstring, intl, gd, zip, pdo_mysql
+          tools: composer:v2
+          coverage: none
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+
+      - name: Check secrets are present (names only)
+        env:
+          S1: ${{ secrets.STAGING_SSH_HOST }}
+          S2: ${{ secrets.STAGING_SSH_USER }}
+          S3: ${{ secrets.STAGING_SSH_KEY }}
+          S4: ${{ secrets.STAGING_APP_URL }}
+          S5: ${{ secrets.STAGING_DB_DATABASE }}
+          S6: ${{ secrets.STAGING_DB_USERNAME }}
+          S7: ${{ secrets.STAGING_DB_PASSWORD }}
+          S8: ${{ secrets.STAGING_BASIC_AUTH_USER }}
+          S9: ${{ secrets.STAGING_BASIC_AUTH_PASSWORD }}
+        run: |
+          missing=""
+          for pair in "STAGING_SSH_HOST:$S1" "STAGING_SSH_USER:$S2" "STAGING_SSH_KEY:$S3" "STAGING_APP_URL:$S4" \
+            "STAGING_DB_DATABASE:$S5" "STAGING_DB_USERNAME:$S6" "STAGING_DB_PASSWORD:$S7" \
+            "STAGING_BASIC_AUTH_USER:$S8" "STAGING_BASIC_AUTH_PASSWORD:$S9"; do
+            [ -n "${pair#*:}" ] || missing="$missing ${pair%%:*}"
+          done
+          if [ -n "$missing" ]; then echo "::error::missing secrets:$missing"; exit 1; fi
+          case "$S4" in https://*|http://*) ;; *) echo "::error::STAGING_APP_URL must start with https:// or http://"; exit 1;; esac
+
+      - name: Build the release (vendor --no-dev + public/build; no tests, tooling or docs)
+        id: build
+        run: |
+          id="$(bash scripts/deploy/build-release.sh "$RUNNER_TEMP/out" HEAD | tail -n 1)"
+          echo "id=$id" >> "$GITHUB_OUTPUT"
+          ls -la "$RUNNER_TEMP/out"
+
+      - name: SSH setup (application user, key from secrets)
+        env:
+          KEY: ${{ secrets.STAGING_SSH_KEY }}
+          HOST: ${{ secrets.STAGING_SSH_HOST }}
+        run: |
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$KEY" > ~/.ssh/staging && chmod 600 ~/.ssh/staging
+          ssh-keyscan -T 15 -t ed25519,rsa "$HOST" > ~/.ssh/known_hosts 2>/dev/null
+          echo "Server host key fingerprints (trust on first use; compare on later runs):"
+          ssh-keygen -lf ~/.ssh/known_hosts
+
+      - name: Upload and stage
+        env:
+          HOST: ${{ secrets.STAGING_SSH_HOST }}
+          USER: ${{ secrets.STAGING_SSH_USER }}
+          ROOT: ${{ secrets.STAGING_APP_ROOT }}
+          ID: ${{ steps.build.outputs.id }}
+        run: |
+          ssh_() { ssh -i ~/.ssh/staging -o BatchMode=yes -o StrictHostKeyChecking=yes "$USER@$HOST" "$@"; }
+          root="${ROOT:-.}"
+          ssh_ "cd '$root' && test -d public_html && mkdir -p private_html/shelter/bin && chmod 700 private_html/shelter"
+          scp -i ~/.ssh/staging -o BatchMode=yes -q scripts/deploy/remote-release.sh "$USER@$HOST:$root/private_html/shelter/bin/remote-release.sh"
+          scp -i ~/.ssh/staging -o BatchMode=yes -q "$RUNNER_TEMP/out/shelter-$ID.tar.gz" "$USER@$HOST:$root/private_html/shelter/shelter-$ID.tar.gz"
+          ssh_ "cd '$root' && sha256sum private_html/shelter/shelter-$ID.tar.gz" | cut -d' ' -f1 > "$RUNNER_TEMP/remote.sha"
+          cut -d' ' -f1 "$RUNNER_TEMP/out/shelter-$ID.tar.gz.sha256" > "$RUNNER_TEMP/local.sha"
+          cmp -s "$RUNNER_TEMP/remote.sha" "$RUNNER_TEMP/local.sha" || { echo "::error::upload checksum mismatch"; exit 1; }
+          ssh_ "cd '$root' && SHELTER_APP_ROOT=. bash private_html/shelter/bin/remote-release.sh stage '$ID' private_html/shelter/shelter-$ID.tar.gz"
+
+      - name: Web-root guard (nothing outside public/ may be served)
+        env:
+          URL: ${{ secrets.STAGING_APP_URL }}
+          HOST: ${{ secrets.STAGING_SSH_HOST }}
+          USER: ${{ secrets.STAGING_SSH_USER }}
+          ROOT: ${{ secrets.STAGING_APP_ROOT }}
+          ID: ${{ steps.build.outputs.id }}
+          STEP: ${{ inputs.step }}
+        run: |
+          leak=0
+          for path in "releases/$ID/release.json" "current/release.json" "release.json" "current/.env" ".env" "composer.json"; do
+            code="$(curl -s -o /dev/null -w '%{http_code}' --max-time 20 "$URL/$path" || true)"
+            echo "$path → $code"
+            [ "$code" = "200" ] && leak=1
+          done
+          if [ "$leak" = "1" ]; then
+            ssh -i ~/.ssh/staging -o BatchMode=yes "$USER@$HOST" "cd '${ROOT:-.}' && SHELTER_APP_ROOT=. bash private_html/shelter/bin/remote-release.sh discard '$ID'"
+            if [ "$STEP" = "stage" ]; then
+              # Expected on the very first run: no secret exists yet (the .env is written only in a full run).
+              echo "::notice::NEXT: in Cloudways set the web root of shelter-staging to public_html/current/public, then run this workflow with step=full."
+              exit 0
+            fi
+            echo "::error::the web root serves files outside public/ — set the Cloudways web root to public_html/current/public. Release discarded, nothing activated."
+            exit 1
+          fi
+          echo "web root OK: only public/ is served"
+
+      - name: Shared .env (first run only; keys generated here and never printed)
+        if: inputs.step == 'full'
+        env:
+          HOST: ${{ secrets.STAGING_SSH_HOST }}
+          USER: ${{ secrets.STAGING_SSH_USER }}
+          ROOT: ${{ secrets.STAGING_APP_ROOT }}
+          ENV_APP_URL: ${{ secrets.STAGING_APP_URL }}
+          ENV_DB_DATABASE: ${{ secrets.STAGING_DB_DATABASE }}
+          ENV_DB_USERNAME: ${{ secrets.STAGING_DB_USERNAME }}
+          ENV_DB_PASSWORD: ${{ secrets.STAGING_DB_PASSWORD }}
+          ENV_BASIC_AUTH_USER: ${{ secrets.STAGING_BASIC_AUTH_USER }}
+          ENV_BASIC_AUTH_PASSWORD: ${{ secrets.STAGING_BASIC_AUTH_PASSWORD }}
+        run: |
+          ssh_() { ssh -i ~/.ssh/staging -o BatchMode=yes "$USER@$HOST" "$@"; }
+          root="${ROOT:-.}"
+          if ssh_ "cd '$root' && SHELTER_APP_ROOT=. bash private_html/shelter/bin/remote-release.sh has-env"; then
+            echo "shared .env already exists — left unchanged"
+          else
+            case "$ENV_APP_URL" in https://*) export ENV_SESSION_SECURE_COOKIE=true ;; *) export ENV_SESSION_SECURE_COOKIE=false ;; esac
+            python3 scripts/deploy/render-env.py deploy/staging.env.template \
+              | ssh_ "cd '$root' && umask 077 && cat > private_html/shelter/.env.new && mv private_html/shelter/.env.new private_html/shelter/.env"
+            echo "shared .env written (values not shown)"
+          fi
+
+      - name: Activate (migrate, seed once, cache, switch)
+        if: inputs.step == 'full'
+        env:
+          HOST: ${{ secrets.STAGING_SSH_HOST }}
+          USER: ${{ secrets.STAGING_SSH_USER }}
+          ROOT: ${{ secrets.STAGING_APP_ROOT }}
+          ID: ${{ steps.build.outputs.id }}
+        run: |
+          ssh -i ~/.ssh/staging -o BatchMode=yes "$USER@$HOST" "cd '${ROOT:-.}' && SHELTER_APP_ROOT=. bash private_html/shelter/bin/remote-release.sh activate '$ID'"
+
+      - name: Smoke test (health, both languages, dashboard login, not indexable)
+        if: inputs.step == 'full'
+        env:
+          URL: ${{ secrets.STAGING_APP_URL }}
+          AUTH_USER: ${{ secrets.STAGING_BASIC_AUTH_USER }}
+          AUTH_PASS: ${{ secrets.STAGING_BASIC_AUTH_PASSWORD }}
+        run: |
+          fail=0
+          anon="$(curl -s -o /dev/null -w '%{http_code}' --max-time 20 "$URL/ar/")"
+          echo "/ar/ without basic auth → $anon (expected 401)"; [ "$anon" = "401" ] || fail=1
+          for path in up ar/ en/ ar/jo/menu/ ar/jo/locations/ dashboard/login robots.txt; do
+            code="$(curl -s -o /dev/null -w '%{http_code}' --max-time 30 -u "$AUTH_USER:$AUTH_PASS" "$URL/$path")"
+            echo "/$path → $code"; [ "$code" = "200" ] || fail=1
+          done
+          curl -s --max-time 30 -u "$AUTH_USER:$AUTH_PASS" "$URL/ar/" | grep -q 'name="robots" content="noindex' \
+            && echo "noindex present" || { echo "::error::staging page is not noindex"; fail=1; }
+          exit $fail

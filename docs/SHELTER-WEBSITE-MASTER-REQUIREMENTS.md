@@ -26,9 +26,9 @@
 ## الملفات المرتبطة
 | الملف | الدور |
 |---|---|
-| [`MASTER-DECISION-REGISTER.md`](MASTER-DECISION-REGISTER.md) | الحالة الحالية لكل قرار (471 قرارًا) |
-| [`governance/DECISION-LOG.md`](governance/DECISION-LOG.md) | السجل الزمني (D-000 ← D-348) |
-| [`CONFLICT-REGISTER.md`](CONFLICT-REGISTER.md) | 219 تعارضًا وطريقة حسمها |
+| [`MASTER-DECISION-REGISTER.md`](MASTER-DECISION-REGISTER.md) | الحالة الحالية لكل قرار (472 قرارًا) |
+| [`governance/DECISION-LOG.md`](governance/DECISION-LOG.md) | السجل الزمني (D-000 ← D-349) |
+| [`CONFLICT-REGISTER.md`](CONFLICT-REGISTER.md) | 220 تعارضًا وطريقة حسمها |
 | [`PENDING-OWNER-INPUT.md`](PENDING-OWNER-INPUT.md) | 66 بندًا فقط تحتاجك |
 | [`REQUIREMENTS-TRACEABILITY-MATRIX.md`](REQUIREMENTS-TRACEABILITY-MATRIX.md) | متطلب ← قرار ← تصميم ← كود ← اختبار |
 | [`IMPLEMENTATION-GAP-ANALYSIS.md`](IMPLEMENTATION-GAP-ANALYSIS.md) | ما الموجود وما الناقص |
