@@ -30,6 +30,7 @@ final class DashboardChrome
             'dashboard.events.index' => ['dashboard.nav.events', 'calendar', 'dashboard.events.*'],
             'dashboard.announcements.index' => ['dashboard.nav.announcements', 'message-square-text', 'dashboard.announcements.*'],
             'dashboard.texts.index' => ['dashboard.nav.texts', 'file-text', 'dashboard.texts.*'],
+            'dashboard.shaltoor' => ['dashboard.nav.shaltoor', 'messages-square', 'dashboard.shaltoor*'],
         ],
         'requests' => [
             'dashboard.careers.index' => ['dashboard.nav.careers', 'briefcase-business', 'dashboard.careers.*'],

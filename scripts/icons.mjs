@@ -13,6 +13,7 @@ const STROKE = JSON.parse(readFileSync('design-system/tokens/tokens.json', 'utf8
 // Only icons a component or an approved pattern uses. Add here first, then use it (TOOLCHAIN §4: no full icon set).
 const ICONS = [
     'arrow-right', // site: branch link, CTA nudge (directional)
+    'arrow-up', // Shaltoor: send the question (never mirrors)
     'ban', // status-pill NOT SUPPORTED
     'briefcase-business', // contact page: catering, B2B & events intent
     'calendar', // event-card date
@@ -41,6 +42,7 @@ const ICONS = [
     'menu', // site header drawer + menu page "all categories"
     'message-circle', // site: WhatsApp action (no brand logos — Lucide only, D-062)
     'message-square-text', // contact page: complaints & feedback intent
+    'messages-square', // Shaltoor launcher (not message-circle: that one means WhatsApp)
     'pause', // dashboard: pause an event
     'phone', // site: call action (tel:)
     'play', // dashboard: resume an event

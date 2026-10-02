@@ -1,0 +1,6 @@
+/* Dashboard › Shaltoor (M69 §23): the period choice is a row of chips (links, so it works without JavaScript). */
+.ui-shaltoor-periods {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+}

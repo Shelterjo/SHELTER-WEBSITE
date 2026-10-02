@@ -192,6 +192,7 @@ return [
             ['story' => 'Default', 'slot' => $t('خيار تجريبي', 'Sample option')],
             ['story' => 'Pressed', 'props' => ['pressed' => true], 'slot' => $t('خيار تجريبي', 'Sample option')],
             ['story' => 'CurrentLink', 'props' => ['href' => '#', 'current' => true], 'slot' => $t('فئة تجريبية', 'Sample category')],
+            ['story' => 'Action', 'props' => ['toggle' => false], 'slot' => $t('سؤال مقترح', 'Suggested question')],
             ['story' => 'Hover', 'state' => 'hover', 'slot' => $t('خيار تجريبي', 'Sample option')],
             ['story' => 'Focus', 'state' => 'focus', 'slot' => $t('خيار تجريبي', 'Sample option')],
             ['story' => 'Active', 'state' => 'active', 'slot' => $t('خيار تجريبي', 'Sample option')],
@@ -606,6 +607,10 @@ return [
         ]],
         'hours-table' => ['stories' => [
             ['story' => 'Week', 'props' => ['rows' => $both($week), 'caption' => $t('ساعات الدوام', 'Opening hours')]],
+        ]],
+        'shaltoor' => ['stories' => [
+            ['story' => 'Default', 'props' => ['endpoint' => '#shaltoor', 'welcome' => $t('رسالة ترحيب تجريبية.', 'Sample welcome message.'),
+                'suggestions' => $t(['اقتراح أول', 'اقتراح ثانٍ'], ['First suggestion', 'Second suggestion'])]],
         ]],
         'action-bar' => ['stories' => [
             ['story' => 'Default', 'props' => ['label' => $t('إجراءات الفرع', 'Branch actions')], 'slot' => $t('<x-ui.button icon="phone" href="#call">اتصال</x-ui.button><x-ui.button variant="secondary" icon="message-circle" href="#wa">واتساب</x-ui.button>', '<x-ui.button icon="phone" href="#call">Call</x-ui.button><x-ui.button variant="secondary" icon="message-circle" href="#wa">WhatsApp</x-ui.button>')],

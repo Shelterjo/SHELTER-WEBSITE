@@ -29,6 +29,7 @@ use App\Http\Controllers\Dashboard\Requests\FeedbackController;
 use App\Http\Controllers\Dashboard\Requests\PartnershipsController;
 use App\Http\Controllers\Dashboard\SeoController;
 use App\Http\Controllers\Dashboard\SettingsController;
+use App\Http\Controllers\Dashboard\ShaltoorController;
 use App\Http\Middleware\DashboardLocale;
 use App\Http\Middleware\PreventStaleEdits;
 use App\Services\Dashboard\ExperienceCommands;
@@ -89,6 +90,10 @@ Route::prefix('dashboard')->middleware(DashboardLocale::class)->group(function (
         Route::get('attention', [AttentionController::class, 'index'])->name('attention');
         Route::post('attention/{signal}/dismiss', [AttentionController::class, 'dismiss'])->whereNumber('signal')->name('attention.dismiss');
         Route::get('seo', SeoController::class)->name('seo');
+        // Shaltoor (M69 §23): what visitors asked; switching it on/off or changing its words is a live change.
+        Route::get('shaltoor', [ShaltoorController::class, 'index'])->name('shaltoor');
+        Route::post('shaltoor/handled', [ShaltoorController::class, 'handled'])->name('shaltoor.handled');
+        Route::put('shaltoor', [ShaltoorController::class, 'update'])->middleware('confirmed')->name('shaltoor.update');
         Route::get('seo/redirects', [RedirectsController::class, 'index'])->name('redirects.index');
         // Old links change what visitors and Google get on the live domain: a fresh re-confirmation to edit them.
         Route::middleware('confirmed')->group(function (): void {

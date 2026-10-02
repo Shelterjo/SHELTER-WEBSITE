@@ -71,5 +71,10 @@
     </main>
     <x-ui.site-footer :home="$siteChrome['home']" :nav="$siteChrome['footerNav']" :languages="$siteChrome['languages']"
         :phone="$siteChrome['phone']" :whatsapp="$siteChrome['whatsapp']" :contact="$siteChrome['contact']" :social="$siteChrome['social']" :legal="$siteChrome['legal']" />
+    @if ($siteChrome['shaltoor'] ?? null)
+        @php $assistant = $siteChrome['shaltoor']; @endphp
+        <x-ui.shaltoor :endpoint="$assistant['endpoint']" :welcome="$assistant['welcome']" :suggestions="$assistant['suggestions']"
+            :page="$assistant['page']" :branch="$assistant['branch']" />
+    @endif
 </body>
 </html>

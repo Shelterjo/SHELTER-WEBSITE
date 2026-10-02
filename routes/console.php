@@ -28,7 +28,8 @@ Schedule::call(fn () => app(JobRuns::class)->run('careers:prune-drafts', functio
     ->hourly()
     ->withoutOverlapping();
 
-// Needs attention (MON-007): the daily monitors (image rights ending within 30 days, …) raise or close their issues.
+// Needs attention (MON-007): the daily monitors (image rights ending within 30 days, questions Shaltoor keeps leaving
+// unanswered) raise or close their issues; Shaltoor's questions older than 90 days are deleted in the same run.
 Schedule::call(fn () => app(JobRuns::class)->run('monitors:daily', fn (): string => app(Attention::class)->runMonitors()))
     ->name('monitors:daily')
     ->timezone('Asia/Amman')

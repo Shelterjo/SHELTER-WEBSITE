@@ -24,6 +24,8 @@ return [
     'page_sections' => ['class' => 'PUBLIC'],
     // The Owner's wording for the listed site texts (SiteTexts): shown on the public site.
     'site_texts' => ['class' => 'PUBLIC', 'columns' => ['updated_by' => 'INTERNAL']],
+    // Shaltoor (M69): scrubbed questions only — no person, no IP, no cookie; 90 days.
+    'shaltoor_questions' => ['class' => 'INTERNAL'],
     'redirects' => ['class' => 'PUBLIC', 'columns' => ['updated_by' => 'INTERNAL', 'hits' => 'INTERNAL', 'last_hit_at' => 'INTERNAL', 'note' => 'INTERNAL']],
     'experiences' => ['class' => 'PUBLIC', 'per_row' => 'status'],
 

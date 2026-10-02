@@ -8,6 +8,7 @@ export default meta;
 export const Default = story('chip', 'Default');
 export const Pressed = story('chip', 'Pressed');
 export const CurrentLink = story('chip', 'CurrentLink');
+export const Action = story('chip', 'Action');
 export const Hover = story('chip', 'Hover');
 export const Focus = story('chip', 'Focus');
 export const Active = story('chip', 'Active');

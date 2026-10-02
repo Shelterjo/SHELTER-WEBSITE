@@ -10,6 +10,7 @@ use App\Models\Branch;
 use App\Models\Fact;
 use App\Models\Media;
 use App\Models\Signal;
+use App\Services\Shaltoor\ShaltoorLog;
 use Illuminate\Support\Facades\Route;
 
 /**
@@ -50,10 +51,31 @@ final class Attention
         ])->all());
     }
 
-    /** The daily monitors that feed this list (scheduled through JobRuns). */
+    /** The daily monitors that feed this list (scheduled through JobRuns), and Shaltoor's retention clean-up. */
     public function runMonitors(): string
     {
-        return 'media rights: '.$this->mediaRights();
+        return 'media rights: '.$this->mediaRights().' · shaltoor unanswered: '.$this->shaltoorUnanswered()
+            .' · shaltoor pruned: '.app(ShaltoorLog::class)->prune();
+    }
+
+    /** The same question left unanswered several times this week (M69 §22): the Owner can add what is missing. */
+    private function shaltoorUnanswered(): int
+    {
+        $threshold = (int) config('shaltoor.unanswered_alert_threshold', 3);
+        $repeated = count(array_filter(app(ShaltoorLog::class)->unanswered(7), fn (array $q): bool => $q['count'] >= $threshold));
+        if ($repeated === 0) {
+            $this->signals->resolve('shaltoor:unanswered');
+
+            return 0;
+        }
+        $this->signals->raise(
+            SignalKind::Issue, SignalCategory::Content, Severity::Low, Priority::Information, 'monitors',
+            "شلتور: {$repeated} سؤال تكرّر بلا جواب هذا الأسبوع", "Shaltoor: {$repeated} question(s) repeatedly unanswered this week",
+            dedupeKey: 'shaltoor:unanswered', details: ['questions' => $repeated],
+            recommendedAction: 'add-missing-data',
+        );
+
+        return $repeated;
     }
 
     /** Approved images whose usage rights end within the notice window; renewed or archived ones close their issue. */
@@ -86,7 +108,9 @@ final class Attention
         $subject = $signal->subject;
         $route = null;
         $params = [];
-        if ($subject instanceof Media) {
+        if (str_starts_with((string) $signal->dedupe_key, 'shaltoor:')) {
+            $route = 'dashboard.shaltoor';
+        } elseif ($subject instanceof Media) {
             [$route, $params] = ['dashboard.media.edit', ['media' => $subject->id]];
         } elseif ($subject instanceof Fact) {
             $key = $subject->key;

@@ -7,12 +7,14 @@ use App\Services\Content\Pages;
 use App\Services\Content\Team;
 use App\Services\Experiences\Events;
 use App\Services\Experiences\Placements;
+use App\Services\Shaltoor\ShaltoorSettings;
 use App\Services\Site\ContactActions;
 use App\Services\Site\Markets;
 use App\Services\Site\SocialLinks;
 use App\Support\PageUrl;
 use App\Support\SiteLinks;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Route;
 use Illuminate\View\View;
 
 /**
@@ -45,6 +47,7 @@ final class SiteChrome
         private readonly Awards $awards,
         private readonly Team $team,
         private readonly Placements $placements,
+        private readonly ShaltoorSettings $shaltoor,
         private readonly Request $request,
     ) {}
 
@@ -115,7 +118,38 @@ final class SiteChrome
             'search' => SiteLinks::to('search', $parameters),
             // The top announcement bar: the one experience the engine picks now, or nothing (DX-010, DX-012).
             'announcement' => ($market = $this->markets->current()) !== null ? $this->placements->current($market, Placements::TOP_BAR, $locale) : null,
+            'shaltoor' => $this->shaltoor($locale),
         ]);
+    }
+
+    /**
+     * The assistant on the language pages while the Owner keeps it on (M69 §23): its endpoint, the welcome, the quick
+     * suggestions for this kind of page and, on a branch page, that branch. Not on the bilingual gateway.
+     *
+     * @return array{endpoint: string, welcome: string, suggestions: list<string>, page: string, branch: string|null}|null
+     */
+    private function shaltoor(string $locale): ?array
+    {
+        $route = $this->request->route();
+        if (! $route instanceof Route || ! str_starts_with($route->uri(), '{locale}') || ! $this->shaltoor->enabled()) {
+            return null;
+        }
+        $page = match (true) {
+            $this->request->routeIs('menu') => 'menu',
+            $this->request->routeIs('careers', 'careers.*') => 'careers',
+            $this->request->routeIs('franchise', 'franchise.*') => 'franchise',
+            $this->request->routeIs('locations', 'locations.*') => 'locations',
+            default => 'default',
+        };
+        $branch = $this->request->routeIs('locations.branch') ? $this->request->route('branch') : null;
+
+        return [
+            'endpoint' => PageUrl::route('shaltoor', ['locale' => $locale]),
+            'welcome' => $this->shaltoor->welcome($locale),
+            'suggestions' => $this->shaltoor->suggestions($locale, $page),
+            'page' => $page,
+            'branch' => is_string($branch) ? $branch : null,
+        ];
     }
 
     /** aria-current: "page" on the page itself, "true" on its section (a branch page inside Locations). */

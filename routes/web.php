@@ -17,6 +17,7 @@ use App\Http\Controllers\Site\MediaCenterController;
 use App\Http\Controllers\Site\MenuController;
 use App\Http\Controllers\Site\RobotsController;
 use App\Http\Controllers\Site\SearchController;
+use App\Http\Controllers\Site\ShaltoorController;
 use App\Http\Controllers\Site\SitemapController;
 use Illuminate\Support\Facades\Route;
 
@@ -61,6 +62,8 @@ Route::prefix('{locale}')->where(['locale' => 'ar|en'])->middleware('locale')->g
     Route::get('feedback/submitted/', [FeedbackController::class, 'submitted'])->name('feedback.submitted');
     // Site search (SI-B08): noindex, rate-limited (SEC-007 — the address only counts toward the limit, hashed).
     Route::get('search/', SearchController::class)->middleware('throttle:search')->name('search');
+    // شلتور / Shaltoor (M69): one question → one answer from public data (JSON, rate-limited, 404 when switched off).
+    Route::post('shaltoor/', ShaltoorController::class)->name('shaltoor');
 
     // Market layer: locations and branch pages (SI-M03, SI-M05/M06). Branch slugs are fixed (D-053); the city and
     // market pages themselves stay reserved (URL-07), so /ar/jo/ and /ar/jo/locations/irbid/ have no route (404).
