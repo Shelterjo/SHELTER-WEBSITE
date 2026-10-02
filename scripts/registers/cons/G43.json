@@ -1,0 +1,78 @@
+{
+  "group": "G43",
+  "notes": "M55: جواب الـOwner على سؤال وصف Google (Meta Description): «أ» — يكتب Claude مسودات AR/EN من الحقائق المعتمدة فقط (3 خيارات لكل نص — D-068) ويراجعها الـOwner قبل الإدخال. قُدّمت الدفعة 01 في docs/copy/META-DESCRIPTIONS-DRAFT-01.md. M56: «أ» — اعتماد المجموعة الموصى بها كما هي.",
+  "requirements": [],
+  "updates_to_existing": [
+    {
+      "id": "PO-020",
+      "type": "UPDATE",
+      "source": "M56",
+      "change": "الدفعة 01 معتمدة (D-332): وصف Google لتسع صفحات (الرئيسية، المنيو، الفروع، الفرع، تواصل، الفعاليات، التوظيف، الجوائز، SHELTER Family) + سطر الجذر RG-04، بالعربي والإنجليزي. ما زال مفتوحًا: فقرة الحقائق RG-05، نصوص الرئيسية، لاحقة العناوين وTitle المنيو (P-07)، سطر الأسعار (P-05)، رسالة واتساب (D-064)، تسمية الفعاليات (D-070)، دليل الأسلوب."
+    },
+    {
+      "id": "PO-016",
+      "type": "UPDATE",
+      "source": "M56",
+      "change": "وصفا «قهوة مختصة / specialty coffee» و«درايف ثرو / drive-thru» معتمدان داخل نصوص D-332 فقط (Meta الرئيسية والمنيو وسطر الجذر). الجملة التعريفية الرسمية للعلامة وقرار شعار STAY SHELTERED ما زالا مفتوحين."
+    },
+    {
+      "id": "CF-M-036",
+      "type": "UPDATE",
+      "source": "M56",
+      "change": "كتابة «إربد» بالهمزة معتمدة داخل نصوص D-332؛ القاعدة العامة لدليل الأسلوب ما زالت ضمن PO-020."
+    },
+    {
+      "id": "D-068",
+      "type": "UPDATE",
+      "source": "M55",
+      "change": "طُبّق على الدفعة 01 (10 نصوص × 3 خيارات × AR/EN) ← D-332."
+    },
+    {
+      "id": "CONTENT-013",
+      "type": "UPDATE",
+      "source": "M56",
+      "change": "RG-04 (سطر الجذر) معتمد ومنشور (D-332): «قهوة مختصة ودرايف ثرو في إربد. اختر لغتك لتصفّح المنيو وساعات الدوام.» — قابل للتعديل من نصوص الموقع. RG-05 (فقرة الحقائق) ما زالت ضمن PO-020.",
+      "new_impl": "PARTIAL",
+      "tested": "YES",
+      "code_refs": [
+        "lang/ar/site.php (gateway.lead)",
+        "resources/views/site/gateway.blade.php"
+      ],
+      "test_refs": [
+        "tests/Feature/Site/ApprovedMetaTextsTest.php"
+      ]
+    },
+    {
+      "id": "SEO-008",
+      "type": "UPDATE",
+      "source": "M56",
+      "change": "وصف Google لصفحة كل فرع معتمد (D-332) ويُسمّي الفرع تلقائيًا (:name) باللغتين.",
+      "code_refs": [
+        "lang/{ar,en}/site.php (meta.branch)"
+      ],
+      "test_refs": [
+        "tests/Feature/Site/ApprovedMetaTextsTest.php"
+      ]
+    }
+  ],
+  "conflicts": [],
+  "new_decisions": [
+    {
+      "temp_id": "G43-ND-01",
+      "area": "SEO / Content",
+      "decision": "اعتماد وصف Google (Meta Description) لتسع صفحات وسطر صفحة الجذر بالعربي والإنجليزي — المجموعة الموصى بها من الدفعة 01: الرئيسية C · المنيو C · الفروع A · الفرع A (مع :name) · تواصل C · الفعاليات C · التوظيف B · الجوائز C · SHELTER Family B · سطر الجذر C. النصوص هي الصياغة الافتراضية في ملفات اللغة ويستطيع الـOwner تعديلها من لوحة التحكم ← نصوص الموقع (الحقل الفارغ يعيد النص المعتمد). بلا سنة تأسيس أو أعداد أو أسعار أو أرقام هواتف أو صيغ تفضيل.",
+      "sources": [
+        "M55",
+        "M56"
+      ],
+      "status": "APPROVED",
+      "reason": "Owner: «أ» — اعتماد المجموعة الموصى بها كما هي",
+      "impact": "PO-020 (الدفعة 01) · P-07 (شق الـMeta؛ الـTitle ما زال PENDING) · CONTENT-013 (RG-04) · SEO-008 · lang/{ar,en}/site.php · tests/Feature/Site/ApprovedMetaTextsTest.php · docs/copy/META-DESCRIPTIONS-DRAFT-01.md",
+      "date": "2026-10-02"
+    }
+  ],
+  "pending_owner": [],
+  "technical_flags": [],
+  "cost_api_dependencies": [],
+  "dropped": []
+}

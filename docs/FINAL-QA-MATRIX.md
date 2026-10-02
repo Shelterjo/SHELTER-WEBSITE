@@ -135,7 +135,7 @@ P2 medium · P3 polish. `FIXED` rows are listed under the area where the issue l
 |---|---|---|---|---|---|---|---|---|---|
 | Lab (Lighthouse, mobile, gzip front) | `/ar/` · `/ar/jo/menu/` · `/en/jo/locations/irbid/drive/` | perf ≥ 0.9, a11y 1 | perf 1.00 / 0.99 / 0.99 · a11y 1 · BP 1 · LCP 1.1 / 1.8 / 1.8 s · CLS ≤ 0.025 · TBT 0 · 132–151 KB | PASS | — | — | — | — | reports/lighthouse |
 | Lab after D-329 (Noto Kufi Arabic) | `/ar/` · `/ar/jo/menu/` · `/ar/jo/locations/irbid/drive/` | CLS < 0.1, perf ≥ 0.9 | first run: **CLS 0.223** on `/ar/` (perf 0.89) — the text reflowed when the new font swapped in | FIXED | P2 | QA-052 | Arabic pages preload Kufi Light + Bold and Poppins Regular | perf 0.98 / 0.97 / 0.97 · CLS 0.000 / 0.001 / 0.001 · LCP 2.0–2.3 s (fonts now load early: ~+0.4 s, still < 2.5 s) | reports/lighthouse |
-| Lab | SEO score | ≥ 0.9 on production | 0.61 locally = noindex by design + empty meta descriptions (Owner content) | PASS WITH NOTES | — | QA-049 | — | production check | reports/lighthouse |
+| Lab | SEO score | ≥ 0.9 on production | 0.61 → 0.69 locally after D-332 (meta-description audit passes); the remaining failure is is-crawlable = noindex by design off production | PASS WITH NOTES | — | QA-049 | — | production check | reports/lighthouse |
 | Fonts | Arabic licensed font | deployed or not declared | GE SS Two declared always; files git-ignored → 404 on a server without them | FIXED (Owner D-329: PO-071 → ج) | P2 | QA-039 | Noto Kufi Arabic (SIL OFL), self-hosted, same Kufi character, size-adjust 92 %, Light text / Bold headings | full matrix rerun + screenshots | fonts.css |
 | Network | Real CDN / HTTP2 / compression / cache | — | — | DEFERRED — INFRASTRUCTURE NOT CONNECTED | — | — | — | staging | — |
 
@@ -151,7 +151,7 @@ P2 medium · P3 polish. `FIXED` rows are listed under the area where the issue l
 | Share previews | OG + Twitter (SEO-035) | yes | none | FIXED | P2 | QA-041 | title/description/url/locale/type/twitter card; image only when approved | tests | d96c6e0 |
 | Share image | Site-wide default | approved image | card designed from approved brand parts (D-330), approved by the Owner (D-331) and published | PASS | — | PO-077 | `public/brand/og-default-1200x630.png` + `config shelter.share_image` | SecurityAndIndexingTest | og-card.mjs |
 | Schema | Organization, CafeOrCoffeeShop, Menu, Event, FAQPage, Breadcrumb — approved data only, `</script>` safe | yes | yes; Event lacks an address (event ↔ branch address not linked); no `lastmod` | PASS WITH NOTES | P3 | QA-047 | — | — | SEO review |
-| Meta descriptions | Every page | written | empty until the Owner writes them (Site texts) | PENDING OWNER INPUT | P2 | QA-049 | editor ready | — | — |
+| Meta descriptions | Every page | written | Owner-approved AR/EN on 9 pages + gateway line (D-332); editable in Site texts | FIXED | P2 | QA-049 | approved texts are the language-file defaults | ApprovedMetaTextsTest · Lighthouse meta-description = 1 | D-332 |
 | Legacy URLs | Old site addresses → new | 301 map | not built; production redirects are a PHASE 7 gate | DEFERRED (Owner approval + PHASE 7) | P1 at launch | QA-048 | — | — | LEGACY-URL-MIGRATION |
 | Analytics | GA4 / GTM / Meta Pixel / consent | per approved plan | not implemented (PO-012, PO-036, PO-043, PO-019); no PII anywhere today | DEFERRED | — | QA-050 | — | — | — |
 

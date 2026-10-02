@@ -183,9 +183,20 @@ return [
         'retry' => 'حاول مرة أخرى',
         'links' => 'روابط مفيدة',
     ],
-    // Google descriptions (meta description) per page: empty until the Owner writes them (dashboard → Site texts).
-    'meta' => ['home' => '', 'menu' => '', 'locations' => '', 'branch' => '', 'contact' => '', 'events' => '', 'careers' => '', 'awards' => '', 'family' => ''],
-    'gateway' => ['lead' => ''],
+    // Google descriptions (meta description) per page and the root gateway line: Owner-approved wording, batch 01 (D-332,
+    // docs/copy/META-DESCRIPTIONS-DRAFT-01.md). The Owner may reword any of them (dashboard → Site texts); empty = this text.
+    'meta' => [
+        'home' => 'شلتر كوفي في إربد: قهوة مختصة وV60 ومشروبات ساخنة وباردة وحلويات، في فرع درايف ثرو وفرع كوفي هاوس. تصفّح المنيو وساعات الدوام.',
+        'menu' => 'منيو شلتر كوفي في إربد: قهوة مختصة وV60، إسبريسو ولاتيه، مشروبات باردة، فرابيه، سموذي، شاي، كيك وكوكيز، مع الأسعار لكل فرع.',
+        'locations' => 'فرعا شلتر كوفي في إربد، الدرايف والهاوس: ساعات الدوام وأيّ فرع مفتوح الآن.',
+        'branch' => ':name في إربد: ساعات الدوام، وهل الفرع مفتوح الآن، والمنيو بأسعار الفرع، وطرق التواصل.',
+        'contact' => 'أرقام التواصل مع شلتر كوفي في إربد: التواصل العام والفروع، الشكاوى والاقتراحات، والكيترنج وطلبات الشركات والفعاليات.',
+        'events' => 'فعاليات وحملات شلتر كوفي في إربد: ما يجري الآن وما هو قادم، بالتواريخ والفروع المشاركة.',
+        'careers' => 'انضم إلى فريق شلتر كوفي في إربد. قدّم طلب التوظيف وأرفق سيرتك الذاتية، وتابع طلبك برقمه.',
+        'awards' => 'جوائز شلتر كوفي في إربد والتقدير الذي نالته، مع الجهة المانحة وسنة كل جائزة.',
+        'family' => 'الناس وراء قهوتك: تعرّف على فريق شلتر كوفي في SHELTER Family.',
+    ],
+    'gateway' => ['lead' => 'قهوة مختصة ودرايف ثرو في إربد. اختر لغتك لتصفّح المنيو وساعات الدوام.'],
     'attributes' => [
         'service' => ['indoor_seating' => 'جلسات داخلية', 'outdoor_seating' => 'جلسات خارجية', 'takeaway' => 'طلبات خارجية', 'wifi' => 'واي فاي', 'parking' => 'مواقف سيارات', 'wheelchair_accessible' => 'مناسب للكراسي المتحركة'],
         'payment' => ['cash' => 'نقدًا', 'card' => 'بطاقة', 'cliq' => 'CliQ', 'mobile_wallet' => 'محفظة إلكترونية'],

@@ -42,7 +42,7 @@
 | P-04 | **أسماء الأقسام الفرعية (12 اسمًا بالعربي والإنجليزي)** + توزيع 25 صنفًا بثقة متوسطة + 3 أصناف بلا قسم (MESTEKH · ICED CROCCONATE · CODE RED) | `PENDING OWNER APPROVAL` | النص النهائي للأقسام الفرعية |
 | P-05 | سطر تحت العنوان: "الأسعار بالدينار الأردني وشاملة الضريبة" / "Prices in JOD, VAT included" | نص مقترح — `PENDING OWNER APPROVAL` | النص النهائي |
 | P-06 | قاموس البحث: مرادفات وأسماء بديلة معتمدة | `PENDING OWNER APPROVAL`. البداية من الأسماء الرسمية والمصدرية فقط | جودة البحث، لا وظيفته |
-| P-07 | Title / Meta Description للمنيو بالعربي والإنجليزي | `PENDING OWNER APPROVAL` | الإطلاق |
+| P-07 | Title / Meta Description للمنيو بالعربي والإنجليزي | Meta Description ✅ `APPROVED` (D-332، منشور). الـTitle «المنيو — SHELTER COFFEE» ما زال `PENDING OWNER APPROVAL` | الإطلاق (الـTitle فقط) |
 | P-08 | التحقق من ساعات الفرعين مع Google Business Profile | `PENDING VERIFICATION`. ساعات الـOwner (D-020) لها الأولوية | لا شيء |
 | P-09 | Product Family presentation (MQ-08) | مؤجل بقرار سابق (D-097) | لا شيء |
 | P-10 | (اختياري — P2) إخفاء البادئة المكررة "SMOOTHIE" في بطاقات قسم SMOOTHIES (عرض فقط) | قرار تسمية للـOwner | لا شيء |

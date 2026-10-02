@@ -26,8 +26,8 @@
 ## الملفات المرتبطة
 | الملف | الدور |
 |---|---|
-| [`MASTER-DECISION-REGISTER.md`](MASTER-DECISION-REGISTER.md) | الحالة الحالية لكل قرار (454 قرارًا) |
-| [`governance/DECISION-LOG.md`](governance/DECISION-LOG.md) | السجل الزمني (D-000 ← D-331) |
+| [`MASTER-DECISION-REGISTER.md`](MASTER-DECISION-REGISTER.md) | الحالة الحالية لكل قرار (455 قرارًا) |
+| [`governance/DECISION-LOG.md`](governance/DECISION-LOG.md) | السجل الزمني (D-000 ← D-332) |
 | [`CONFLICT-REGISTER.md`](CONFLICT-REGISTER.md) | 216 تعارضًا وطريقة حسمها |
 | [`PENDING-OWNER-INPUT.md`](PENDING-OWNER-INPUT.md) | 64 بندًا فقط تحتاجك |
 | [`REQUIREMENTS-TRACEABILITY-MATRIX.md`](REQUIREMENTS-TRACEABILITY-MATRIX.md) | متطلب ← قرار ← تصميم ← كود ← اختبار |
@@ -73,8 +73,8 @@
 | متطلبات | **1350**: REQUIREMENT 491, RULE 442, DECISION 209, DELIVERABLE 109, GATE 99 |
 | حسب الحالة | APPROVED 900, FROZEN 294, APPROVED WITH CONDITIONS 73, PENDING OWNER INPUT 34, DEFERRED 22, SUPERSEDED 18, PENDING VERIFICATION 9 |
 | حسب الأولوية | P0 691, P1 572, P2 69, P3 18 |
-| حسب التنفيذ | NOT STARTED 830, PARTIAL 226, IMPLEMENTED — NOT TESTED 124, TESTED 116, FROZEN 43, NEEDS FIX 8, IMPLEMENTED — NOT YET VERIFIED 2, CONFLICT 1 |
-| مُختبر | NO 684, N/A 338, YES 198, PROTOTYPE 130 |
+| حسب التنفيذ | NOT STARTED 830, PARTIAL 227, IMPLEMENTED — NOT TESTED 123, TESTED 116, FROZEN 43, NEEDS FIX 8, IMPLEMENTED — NOT YET VERIFIED 2, CONFLICT 1 |
+| مُختبر | NO 684, N/A 337, YES 199, PROTOTYPE 130 |
 
 ## فهرس المجالات
 | # | المجال | متطلبات | P0 | معتمد/مجمّد | معلّق | تنفيذ (منفذ أو مجمّد) |
@@ -117,7 +117,7 @@
 | 36 | [Deployment & Production Safety](master-requirements/36-deployment-production-safety.md) | 14 | 13 | 14 | 0 | 6 |
 | 37 | [Monitoring & Alerts](master-requirements/37-monitoring-alerts.md) | 13 | 6 | 11 | 0 | 0 |
 | 38 | [Documentation & Governance](master-requirements/38-documentation-governance.md) | 91 | 64 | 84 | 0 | 44 |
-| 39 | [Content & Copy](master-requirements/39-content-copy.md) | 24 | 8 | 19 | 3 | 11 |
+| 39 | [Content & Copy](master-requirements/39-content-copy.md) | 24 | 8 | 19 | 3 | 10 |
 | 40 | [Internationalization (AR/EN · RTL/LTR · Global)](master-requirements/40-internationalization-ar-en-rtl-ltr-global.md) | 15 | 6 | 12 | 3 | 5 |
 | 41 | [Tooling](master-requirements/41-tooling.md) | 47 | 19 | 40 | 1 | 11 |
 | 42 | [Privacy & Legal](master-requirements/42-privacy-legal.md) | 14 | 9 | 14 | 0 | 2 |
@@ -1254,7 +1254,7 @@
 | `CONTENT-010` | تسميات قنوات التواصل للرقمين 0799338445 و0799530383 | APPROVED | P1 | NOT STARTED |
 | `CONTENT-011` | نص زر واتساب (مبدئي): «راسلنا على واتساب» / «Message us on WhatsApp» | APPROVED WITH CONDITIONS | P1 | NOT STARTED |
 | `CONTENT-012` | الرسالة المسبقة لواتساب حسب الفرع — مسودة فقط؛ اقتراح نص قصير وطبيعي AR/EN | PENDING OWNER INPUT | P1 | NOT STARTED |
-| `CONTENT-013` | نصوص الجذر RG-04 / RG-05 = DRAFT ONLY — Placeholder واضح في الـWireframe فقط | APPROVED | P1 | IMPLEMENTED — NOT TESTED |
+| `CONTENT-013` | نصوص الجذر RG-04 / RG-05 = DRAFT ONLY — Placeholder واضح في الـWireframe فقط | APPROVED | P1 | PARTIAL |
 | `CONTENT-014` | مرحلة Copy: 3 خيارات لكل نص (Minimal · Brand-led · SEO-aware) AR/EN | DEFERRED | P1 | NOT STARTED |
 | `CONTENT-015` | لا حشو كلمات SEO ولا صياغة تبدو مولّدة بالذكاء الاصطناعي | APPROVED | P1 | NOT STARTED |
 | `CONTENT-016` | صفحة Catering / B2B: لا نشر ولا خدمات من عند Claude قبل تفاصيل الـOwner | APPROVED | P0 | IMPLEMENTED — NOT TESTED |

@@ -176,9 +176,20 @@ return [
         'retry' => 'Try again',
         'links' => 'Useful links',
     ],
-    // Google descriptions (meta description) per page: empty until the Owner writes them (dashboard → Site texts).
-    'meta' => ['home' => '', 'menu' => '', 'locations' => '', 'branch' => '', 'contact' => '', 'events' => '', 'careers' => '', 'awards' => '', 'family' => ''],
-    'gateway' => ['lead' => ''],
+    // Google descriptions (meta description) per page and the root gateway line: Owner-approved wording, batch 01 (D-332,
+    // docs/copy/META-DESCRIPTIONS-DRAFT-01.md). The Owner may reword any of them (dashboard → Site texts); empty = this text.
+    'meta' => [
+        'home' => 'SHELTER COFFEE in Irbid: specialty coffee, V60, hot and cold drinks and desserts, at a drive-thru and a coffee house. See the menu and opening hours.',
+        'menu' => 'SHELTER COFFEE menu in Irbid: specialty coffee and V60, espresso and lattes, cold drinks, frappés, smoothies, tea, cake and cookies, with prices per branch.',
+        'locations' => 'SHELTER COFFEE\'s two branches in Irbid, DRIVE and HOUSE: opening hours and which one is open right now.',
+        'branch' => ':name in Irbid: opening hours, whether it\'s open right now, the menu with this branch\'s prices, and how to get in touch.',
+        'contact' => 'SHELTER COFFEE contact numbers in Irbid: general and branch enquiries, complaints and suggestions, and catering, corporate orders and events.',
+        'events' => 'SHELTER COFFEE events and campaigns in Irbid: what\'s on now and what\'s coming, with dates and participating branches.',
+        'careers' => 'Join the SHELTER COFFEE team in Irbid. Apply with your CV through our Arabic application form and follow your application with its number.',
+        'awards' => 'SHELTER COFFEE awards and recognition in Irbid, with the awarding body and year of each.',
+        'family' => 'The people behind your coffee: meet the SHELTER COFFEE team in SHELTER Family.',
+    ],
+    'gateway' => ['lead' => 'Specialty coffee and a drive-thru in Irbid. Choose your language to browse the menu and opening hours.'],
     'attributes' => [
         'service' => ['indoor_seating' => 'Indoor seating', 'outdoor_seating' => 'Outdoor seating', 'takeaway' => 'Takeaway', 'wifi' => 'Wi-Fi', 'parking' => 'Parking', 'wheelchair_accessible' => 'Wheelchair accessible'],
         'payment' => ['cash' => 'Cash', 'card' => 'Card', 'cliq' => 'CliQ', 'mobile_wallet' => 'Mobile wallet'],

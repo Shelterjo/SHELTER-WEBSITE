@@ -4,8 +4,8 @@
 
 @section('content')
     {{-- Root gateway (D-052, D-066): the brand in both languages and the two language doors, nothing else. Its own
-         wording (D-068, three options per text) is the Owner's: dashboard → Site texts → site.gateway.lead, shown only
-         when written. Built from design-system parts only (FINAL-QA QA-020). --}}
+         wording is the Owner's (D-068 three options → approved line D-332), editable in dashboard → Site texts →
+         site.gateway.lead; an empty line is not shown. Built from design-system parts only (FINAL-QA QA-020). --}}
     <div class="ui-page ui-gateway">
         <div class="ui-container">
             <header class="ui-page-intro ui-gateway__intro">

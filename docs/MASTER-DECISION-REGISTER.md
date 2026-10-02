@@ -9,7 +9,7 @@
 >
 > **المعرّفات:**
 > - **`D-xxx`:** سجل القرارات.
->   - **D-150…D-331:** قرارات صريحة من الـOwner في الرسائل M01–M27 لم تكن مسجلة، وأُضيفت في هذا التدقيق.
+>   - **D-150…D-332:** قرارات صريحة من الـOwner في الرسائل M01–M27 لم تكن مسجلة، وأُضيفت في هذا التدقيق.
 > - **`F-xx` / `R-xx`:** المنيو.
 > - **`DB-xx`:** القرارات المفتوحة قبل التصميم.
 > - **`GEP-§n` / `GIO-§n`:** سياسة Google وملكية التنفيذ.
@@ -20,14 +20,14 @@
 | الفئة | العدد |
 |---|---|
 | FROZEN | 81 |
-| APPROVED | 277 |
+| APPROVED | 278 |
 | APPROVED WITH CONDITIONS | 45 |
 | PENDING OWNER INPUT | 18 |
 | PENDING VERIFICATION | 8 |
 | DEFERRED | 4 |
 | REJECTED | 0 |
 | SUPERSEDED | 21 |
-| **المجموع** | **454** |
+| **المجموع** | **455** |
 
 ## FROZEN — مجمّد — لا يُفتح إلا بتعارض حقيقي (81)
 
@@ -115,7 +115,7 @@
 | `F-22` | Products | هوية الأصناف: كل قرارات D-109 → D-134 كما هي |  |  | F #22 · 2026-10-01 (موجز Menu IA/UX/Wireframe — D-142) | PROD-009…016/021/022 |
 | `F-23` | Governance | Production: لا كود Production · لا نشر · لا Redirects · لا تغييرات Google · لا صور غير معتمدة · لا نصوص منتجات من عندنا |  |  | F #23 · 2026-10-01 (موجز Menu IA/UX/Wireframe — D-142) | GOV-026، GOV-047، CONTENT-004 |
 
-## APPROVED — معتمد (277)
+## APPROVED — معتمد (278)
 
 | Decision ID | Area | القرار الحالي المعتمد | القرار القديم (إن وجد) | السبب | الترتيب في المحادثة | أثر التنفيذ |
 |---|---|---|---|---|---|---|
@@ -171,7 +171,7 @@
 | `D-065` | Contact | CT-07: العرض العربي 0799009436 · الإنجليزي +962 79 900 9436 · روابط tel: وWhatsApp والـSchema بالصيغة الدولية |  | `14` | #66 of 150 (log row order) · 2026-10-01 | CONTACT-020، CONTACT-021 |
 | `D-066` | Homepage | RG-02: Header مختصر جدًا على `/`؛ الجذر ليس نسخة ثالثة كاملة — تعريف سريع، اختيار اللغة/السوق، وصول للمنيو والفروع |  | `15` | #67 of 150 (log row order) · 2026-10-01 | HOME-001 (الجذر ≠ الرئيسية)؛ التفاصيل في مجموعة WEB |
 | `D-067` | i18n | RG-03: العربية أولًا بصريًا في الأردن على الموبايل؛ لا IP Redirect · لا Geo Redirect إجباري · لا منع لاختيار English مباشرة |  | `15` | #68 of 150 (log row order) · 2026-10-01 | I18N-007، WEB-017 |
-| `D-068` | Content | نصوص الجذر RG-04/RG-05 = DRAFT / Placeholder؛ في مرحلة Copy: 3 خيارات (Minimal/Premium · Brand-led · SEO-aware natural) AR/EN بلا حشو SEO أو صياغة AI |  | `15` | #69 of 150 (log row order) · 2026-10-01 | CONTENT-013، CONTENT-014، CONTENT-015 |
+| `D-068` | Content | نصوص الجذر RG-04/RG-05 = DRAFT / Placeholder؛ في مرحلة Copy: 3 خيارات (Minimal/Premium · Brand-led · SEO-aware natural) AR/EN بلا حشو SEO أو صياغة AI |  | `15` | #69 of 150 (log row order) · 2026-10-01 | CONTENT-013، CONTENT-014، CONTENT-015 ↻ M55: طُبّق على الدفعة 01 (10 نصوص × 3 خيارات × AR/EN) ← D-332. |
 | `D-070` | Campaigns | PG-02: فصل SHELTER Events & Campaigns عن Catering / B2B / Private Events؛ Naming نهائي AR/EN يُقترح لاحقًا |  | PG-02 | #71 of 150 (log row order) · 2026-10-01 | IA-009، CAMP-001 |
 | `D-071` | Franchise | PG-03: خيار «استفسارات الفرنشايز / Franchise Inquiries» → 0799338445 في صفحة التواصل من يوم الإطلاق؛ صفحة Franchise الكاملة غير منشورة؛ لا Fees/Requirements/Territories/Financial claims/Application criteria |  | PG-03 | #72 of 150 (log row order) · 2026-10-01 | FRAN-001…FRAN-003 ↻ M29 §21 (CF-M-129): الحظر «Application criteria» يُضيَّق بالقرار الأحدث M29 §21: المعايير العامة السبع قابلة للعرض بعد اعتماد محتوى الصفحة ومطابقة Franchise Master؛ الحظر قائم على الاشتراطات المحددة/المالية. باقي D-071 (خيار التواصل، الصفحة غير منشورة حتى الاعتماد) بلا تغيير. |
 | `D-073` | Integrations | R2B: لا منصة/رابط من الإنترنت؛ R2B-01/03/04 = MISSING — OWNER INPUT REQUIRED؛ زر «اطلب» مستقبلًا؛ Pre-order/Pickup/Drive-thru pickup/Direct Online Ordering = FUTURE CAPABILITY ONLY. |  | R2B | #74 of 150 (log row order) · 2026-10-01 | INT-010/011 (البيانات PENDING OWNER INPUT). |
@@ -347,6 +347,7 @@
 | `D-329` | Brand / Design System | PO-071 → ج: الخط العربي للموقع ولوحة التحكم الآن Noto Kufi Arabic (مجاني للويب — SIL OFL 1.1، مستضاف على الموقع نفسه بلا خدمة خارجية) بنفس طابع GE SS Two؛ يعود GE SS Two عند تأكيد ترخيص الويب. |  | Owner: «ج» على الخيار الموصى به | M52 · 2026-10-02 (سُجّل في التدقيق) | D-309 (جزء الخط فقط) · PO-071 (NON-BLOCKING) · QA-039 (محلول) · resources/css/fonts.css · design-system/tokens/tokens.json |
 | `D-330` | SEO / Brand | PO-077 → أ: صورة المشاركة الافتراضية للموقع بطاقة 1200×630 من الشعار المعتمد على خلفية العلامة #131313 (بلا صور أو نصوص جديدة)؛ تظهر بعد اعتماد الـOwner لشكلها النهائي، وصورة الصفحة المعتمدة (مثل صورة الفعالية) تتقدم عليها. |  | Owner: «أ» على الخيار الموصى به | M53 · 2026-10-02 (سُجّل في التدقيق) | SEO-035 · QA-041 · AST-007 · config shelter.share_image |
 | `D-331` | SEO / Brand | اعتماد بطاقة المشاركة 1200×630 كما صُممت (الشعار الأبيض المعتمد على #131313، سداسي الشعار الخفيف، SHELTER COFFEE بخط Poppins) صورةً افتراضية لمعاينة روابط الموقع. |  | Owner: «أ» — اعتماد كما هي | M54 · 2026-10-02 (سُجّل في التدقيق) | PO-077 (RESOLVED) · AST-007 Approved · SEO-035 · config shelter.share_image |
+| `D-332` | SEO / Content | اعتماد وصف Google (Meta Description) لتسع صفحات وسطر صفحة الجذر بالعربي والإنجليزي — المجموعة الموصى بها من الدفعة 01: الرئيسية C · المنيو C · الفروع A · الفرع A (مع :name) · تواصل C · الفعاليات C · التوظيف B · الجوائز C · SHELTER Family B · سطر الجذر C. النصوص هي الصياغة الافتراضية في ملفات اللغة ويستطيع الـOwner تعديلها من لوحة التحكم ← نصوص الموقع (الحقل الفارغ يعيد النص المعتمد). بلا سنة تأسيس أو أعداد أو أسعار أو أرقام هواتف أو صيغ تفضيل. |  | Owner: «أ» — اعتماد المجموعة الموصى بها كما هي | M55, M56 · 2026-10-02 (سُجّل في التدقيق) | PO-020 (الدفعة 01) · P-07 (شق الـMeta؛ الـTitle ما زال PENDING) · CONTENT-013 (RG-04) · SEO-008 · lang/{ar,en}/site.php · tests/Feature/Site/ApprovedMetaTextsTest.php · docs/copy/META-DESCRIPTIONS-DRAFT-01.md |
 | `DB-01` | Brand | حُسم: الاسم (D-007)، الفروع (D-008، D-020)، سنة التأسيس 2019 (D-018) | الحقائق التأسيسية مطلوبة قبل أي Sitemap |  | #1 of 22 in DECISION-LOG open table (P0/P1/P2 priority in 05) · P0 | BRAND-001، ABOUT-003 |
 | `DB-10` | Products | البنية تدعم العرض الكامل للأسعار (D-078) |  |  | #12 of 22 in DECISION-LOG open table (P0/P1/P2 priority in 05) · P2 | MENU-014 |
 | `DB-21` | CMS | المصدر الوحيد للمنيو: A الآن + جاهزية C (حُسم بـD-085) | سؤال مفتوح: مصدر المنيو SSOT |  | #13 of 22 in DECISION-LOG open table (P0/P1/P2 priority in 05) | CMS-003 |
@@ -522,7 +523,7 @@
 | `GEP-§3` | GBP/Maps | فرعان رسميان على Google (DRIVE، HOUSE)؛ GBP لكل فرع = OFFICIAL OPERATIONAL SOURCE للحقول الأحد عشر | M33 §23 | SUPERSEDED (جزئيًا) BY D-278: وصف GBP كمصدر تشغيلي رسمي؛ تبقى قائمة الملفين الرسميين DRIVE/HOUSE (GBP-002) |  | policy section order · 2026-10-01 | GBP-002، GBP-003 |
 | `GEP-§26` |  | menu_view · menu_category_click · product_view · branch_view · directions_click · phone_click · whatsapp_click · social_click · campaign_view · campaign_click · event_view · blog_view · language_switch · search_use | M12 §9 → M25 §9 → M27 §18 (D-204) | القائمة الحالية = M27 §18 (14 حدثًا) + branch_view/social_click/event_view بانتظار قرار. |  |  | تحديث GOOGLE-ECOSYSTEM-POLICY §26 (إضافي — غير وارد في G6-docs). |
 
-## تحديثات من المواصفات الجديدة (M28–M30) على قرارات وبنود قائمة (51)
+## تحديثات من المواصفات الجديدة (M28–M30) على قرارات وبنود قائمة (53)
 
 | المعرّف | النوع | التغيير | المصدر |
 |---|---|---|---|
@@ -577,3 +578,5 @@
 | `D-213` | UPDATE | Gate H ← مراجعة غير مانعة؛ قاعدة DEMO/LIVE DATA تبقى | M36 §24 |
 | `D-308` | UPDATE | مكان الأسرار (تفصيل تقني لـD-308، M38 §2): لا سر في Environment variables لبيئة التطوير لأنها ظاهرة لكل مستخدم للبيئة. Cloudflare → API credentials (يحتفظ بها الـProxy خارج الجلسة)؛ Cloudways SSH ومفتاح حساب خدمة Google → GitHub Actions secrets؛ أسرار وقت التشغيل → .env على السيرفر. التوثيق: docs/platform/ACCESS-SETUP.md | M39 §1 |
 | `F-11` | UPDATE | D-309 يسمح بالشعار والألوان والخطوط من الموقع القديم فقط؛ صور المنتجات والموقع القديم ما زالت ممنوعة دون موافقة منفصلة | M39 §2 |
+| `CF-M-036` | UPDATE | كتابة «إربد» بالهمزة معتمدة داخل نصوص D-332؛ القاعدة العامة لدليل الأسلوب ما زالت ضمن PO-020. | M56 |
+| `D-068` | UPDATE | طُبّق على الدفعة 01 (10 نصوص × 3 خيارات × AR/EN) ← D-332. | M55 |

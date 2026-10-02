@@ -38,7 +38,8 @@ class SiteTextsTest extends TestCase
     {
         $original = SiteTexts::original('site.home.lead', 'ar');
         $this->get('/dashboard/content/texts')->assertOk()->assertSee('الصفحة الرئيسية')->assertSee('السطر تحت الشعار')->assertSee($original);
-        $this->assertStringNotContainsString('<meta name="description"', $this->page('/ar/'), 'no description is invented');
+        $approved = SiteTexts::original('site.meta.home', 'ar');
+        $this->assertStringContainsString('<meta name="description" content="'.e($approved).'">', $this->page('/ar/'), 'the approved description by default (D-332)');
 
         $this->put('/dashboard/content/texts/home', ['texts' => [
             'site.home.lead' => ['ar' => 'قهوة مختصة في إربد — جرّبها اليوم.', 'en' => ''],
@@ -48,6 +49,7 @@ class SiteTextsTest extends TestCase
         $ar = $this->page('/ar/');
         $this->assertStringContainsString('قهوة مختصة في إربد — جرّبها اليوم.', $ar);
         $this->assertStringContainsString('<meta name="description" content="وصف تجريبي للصفحة الرئيسية.">', $ar);
+        $this->assertStringNotContainsString(e($approved), $ar, 'the Owner\'s new wording replaces the approved one');
         $this->assertStringContainsString(SiteTexts::original('site.home.lead', 'en'), $this->page('/en/'), 'each language on its own');
         $this->assertStringNotContainsString('اسم آخر', $ar);
         $this->get('/dashboard/content/texts')->assertSee('معدّل');

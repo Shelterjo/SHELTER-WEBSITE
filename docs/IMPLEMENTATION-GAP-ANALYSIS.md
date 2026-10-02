@@ -15,16 +15,16 @@
 | | العدد | % |
 |---|---|---|
 | NOT STARTED | 830 | 61% |
-| PARTIAL | 226 | 16% |
-| IMPLEMENTED — NOT TESTED | 124 | 9% |
+| PARTIAL | 227 | 16% |
+| IMPLEMENTED — NOT TESTED | 123 | 9% |
 | TESTED | 116 | 8% |
 | FROZEN | 43 | 3% |
 | NEEDS FIX | 8 | 0% |
 | IMPLEMENTED — NOT YET VERIFIED | 2 | 0% |
 | CONFLICT | 1 | 0% |
 
-- **مُنفذ أو مجمّد** (وثائق، بيانات، أدوات): **285 من 1350** (21%).
-- **مُختبر فعليًا:** 198. **على النموذج فقط** (`PROTOTYPE`): 130.
+- **مُنفذ أو مجمّد** (وثائق، بيانات، أدوات): **284 من 1350** (21%).
+- **مُختبر فعليًا:** 199. **على النموذج فقط** (`PROTOTYPE`): 130.
 - **الموقع والـDashboard المبنيان:** 0%.
 
 ## تقييم ما هو موجود: KEEP / IMPROVE / REFACTOR / REPLACE / REMOVE
@@ -1048,7 +1048,7 @@
 | `CONTENT-010` | تسميات قنوات التواصل للرقمين 0799338445 و0799530383 | NOT STARTED | spec: DECISION-LOG D-057؛ docs/phase-01-discovery/14-contact-architecture-and-whatsapp.md؛ 04 CR-039، CR-040 | تطبيقها في صفحة التواصل والـFooter عند البناء | P1 | CONTACT (G4) | Visual/QA: النصوص الأربعة مطابقة حرفيًا بالعربية والإنجليزية | P07 |
 | `CONTENT-011` | نص زر واتساب (مبدئي): «راسلنا على واتساب» / «Message us on WhatsApp» | NOT STARTED | spec: DECISION-LOG D-063؛ 14-contact-architecture-and-whatsapp.md | تطبيقه عند البناء؛ أي صياغة أقصر تُعرض أولًا | P1 | CONTACT (G4) | QA: النص مطابق؛ لا اختصار بدون قرار مسجل | P07 |
 | `CONTENT-012` | الرسالة المسبقة لواتساب حسب الفرع — مسودة فقط؛ اقتراح نص قصير وطبيعي AR/EN | NOT STARTED | spec: DECISION-LOG D-064؛ 14-contact-architecture-and-whatsapp.md | تقديم الاقتراح (AR/EN) للـOwner واعتماده قبل التنفيذ | P1 | GOV-074, CONTACT (G4) | النص المعتمد قصير (جملة واحدة)، غير تسويقي، بالعربية والإنجليزية، ومطبق في رابط wa.me لكل فرع | P07 |
-| `CONTENT-013` | نصوص الجذر RG-04 / RG-05 = DRAFT ONLY — Placeholder واضح في الـWireframe فقط | IMPLEMENTED — NOT TESTED | 15-root-gateway-wireframe.md (النصوص DRAFT)؛ DECISION-LOG D-068 | استبدالها بنصوص معتمدة في مرحلة Brand Content | P1 | CONTENT-014 | كل نص جذر في الـwireframe موسوم Placeholder؛ لا نشر قبل APPROVED | P07 |
+| `CONTENT-013` | نصوص الجذر RG-04 / RG-05 = DRAFT ONLY — Placeholder واضح في الـWireframe فقط | PARTIAL | 15-root-gateway-wireframe.md (النصوص DRAFT)؛ DECISION-LOG D-068 | استبدالها بنصوص معتمدة في مرحلة Brand Content | P1 | CONTENT-014 | كل نص جذر في الـwireframe موسوم Placeholder؛ لا نشر قبل APPROVED | P07 |
 | `CONTENT-014` | مرحلة Copy: 3 خيارات لكل نص (Minimal · Brand-led · SEO-aware) AR/EN | NOT STARTED | none | تنفيذه عند مرحلة المحتوى P07 (بعد اعتماد IA والـContent Structure) | P1 | CONTENT-015, GOV-040 | لكل نص مطلوب: 3 خيارات × لغتان معروضة، واختيار الـOwner مسجل | P07 |
 | `CONTENT-015` | لا حشو كلمات SEO ولا صياغة تبدو مولّدة بالذكاء الاصطناعي | NOT STARTED | spec: DECISION-LOG D-068 | مراجعة تحريرية لكل نص قبل عرضه | P1 | CONTENT-014, SEO (G5) | مراجعة تحريرية + فحص كثافة الكلمات المفتاحية لكل صفحة | P07 |
 | `FRAN-021` | محتوى قديم يبقى كفكرة ويُعاد كتابته (8 بنود) — بعد المطابقة | NOT STARTED | spec: docs/franchise/02-PAGE-IA-AND-CONTENT.md (DRAFT — Phase 1، غير مُتتبعة في git) |  | P1 | FRAN-007 | Content QA: البنود الثمانية مكتوبة من جديد (لا نسخ نصي من القديم) وكل بند التزام له حالة APPROVED قبل النشر | P07 |
