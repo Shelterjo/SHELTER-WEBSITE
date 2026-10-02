@@ -15,6 +15,7 @@ use App\Http\Controllers\Dashboard\Data\BranchesController;
 use App\Http\Controllers\Dashboard\Data\ContactsController;
 use App\Http\Controllers\Dashboard\Data\MenuBulkController;
 use App\Http\Controllers\Dashboard\Data\MenuController;
+use App\Http\Controllers\Dashboard\Data\MenuSectionsController;
 use App\Http\Controllers\Dashboard\HomeController;
 use App\Http\Controllers\Dashboard\LiveController;
 use App\Http\Controllers\Dashboard\RecoveryCodesController;
@@ -190,6 +191,10 @@ Route::prefix('dashboard')->middleware(DashboardLocale::class)->group(function (
         });
         Route::get('data/menu/words', [MenuController::class, 'words'])->name('menu.words');
         Route::whereNumber(['product', 'branch', 'word', 'category'])->middleware('confirmed')->group(function (): void {
+            Route::get('data/menu/sections', [MenuSectionsController::class, 'index'])->name('menu.sections');
+            Route::post('data/menu/sections', [MenuSectionsController::class, 'store'])->name('menu.sections.store');
+            Route::put('data/menu/sections/{category}', [MenuSectionsController::class, 'update'])->name('menu.sections.update');
+            Route::post('data/menu/sections/{category}/{direction}', [MenuSectionsController::class, 'move'])->whereIn('direction', ['up', 'down'])->name('menu.sections.move');
             Route::get('data/menu/new', [MenuController::class, 'create'])->name('menu.create');
             Route::match(['get', 'post'], 'data/menu/bulk', [MenuBulkController::class, 'confirm'])->name('menu.bulk');
             Route::post('data/menu/bulk/apply', [MenuBulkController::class, 'apply'])->name('menu.bulk.apply');

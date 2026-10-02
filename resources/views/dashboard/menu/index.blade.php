@@ -16,6 +16,7 @@
     <x-ui.page-header :title="__($M.'title')" :description="__($M.'description')">
         <x-slot:actions>
             <x-ui.button :href="route('dashboard.menu.create', $category !== null ? ['category' => $category->id] : [])">{{ __($M.'add_item') }}</x-ui.button>
+            <x-ui.button variant="secondary" :href="route('dashboard.menu.sections')">{{ __($M.'sections.link') }}</x-ui.button>
             <x-ui.button variant="secondary" :href="route('dashboard.menu.season')">{{ __($M.'season_link') }}</x-ui.button>
             <x-ui.button variant="ghost" :href="route('dashboard.menu.words')" icon="search">{{ __($M.'words_link') }}</x-ui.button>
         </x-slot:actions>

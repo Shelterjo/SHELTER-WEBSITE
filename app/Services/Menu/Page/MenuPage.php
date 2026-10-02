@@ -12,6 +12,7 @@ use App\Models\Product;
 use App\Services\Media\MediaLibrary;
 use App\Services\Menu\MenuCatalog;
 use App\Services\Menu\MenuSeason;
+use App\Services\Menu\MenuSections;
 use App\Services\Site\BranchDirectory;
 use App\Services\Site\BranchSummary;
 use Carbon\CarbonImmutable;
@@ -74,6 +75,9 @@ final class MenuPage
         $sections = [];
         $grouped = [];
         foreach ($categories as $category) {
+            if ($category->status === MenuSections::HIDDEN) {
+                continue; // a section the Owner hid (dashboard → Menu → Sections): its items leave the menu and search
+            }
             if ($category->type === 'seasonal') {
                 if (MenuSeason::active($category, $now)) {
                     $season = $this->section($category->slug ?? Str::slug((string) $category->name_en), (string) $category->code, $this->categoryName($category, $locale), [
@@ -84,6 +88,9 @@ final class MenuPage
                 continue;
             }
             if ($category->group !== null) {
+                if (! isset($grouped[$category->group->code])) {
+                    $sections[] = 'group:'.$category->group->code; // the group takes the place of its first section
+                }
                 $grouped[$category->group->code][] = $category;
 
                 continue;
@@ -94,7 +101,8 @@ final class MenuPage
         }
 
         // Display groups (SWEETS) take the place of their first category in the approved order.
-        foreach ($grouped as $members) {
+        $built = [];
+        foreach ($grouped as $code => $members) {
             $group = $members[0]->group;
             $groups = array_map(function (MenuCategory $category) use ($locale, $now): MenuGroup {
                 [$name, $lang] = $this->categoryName($category, $locale);
@@ -103,9 +111,10 @@ final class MenuPage
             }, $members);
             $nameAr = $group?->name_ar;
             $name = $locale === 'ar' && filled($nameAr) ? [(string) $nameAr, null] : [(string) $group?->name_en, $locale === 'ar' ? 'en' : null];
-            $sections[] = $this->section((string) $group?->code, (string) $group?->code, $name, $groups);
+            $built['group:'.$code] = $this->section((string) $group?->code, (string) $group?->code, $name, $groups);
         }
 
+        $sections = array_map(fn (MenuSection|string $s): MenuSection => is_string($s) ? $built[$s] : $s, $sections);
         $sections = array_values(array_filter($sections, fn (MenuSection $section): bool => $section->count() > 0));
 
         return new MenuView($locale, 'MV-2026-10-01', $market->timezone, $season, $sections, $branches, $selected);

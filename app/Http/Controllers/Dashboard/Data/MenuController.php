@@ -22,6 +22,7 @@ use App\Services\MasterData\MasterData;
 use App\Services\Menu\MenuCatalog;
 use App\Services\Menu\MenuEditor;
 use App\Services\Menu\MenuSeason;
+use App\Services\Menu\MenuSections;
 use Carbon\CarbonImmutable;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
@@ -274,7 +275,11 @@ final class MenuController extends Controller
         $options = [];
         foreach (MenuCategory::query()->orderBy('sort')->get() as $c) {
             $name = $ar && NameStatus::fromInventory($c->name_ar_status) === NameStatus::Approved && filled($c->name_ar) ? (string) $c->name_ar : (string) $c->name_en;
-            $options[$c->id] = $c->type === 'seasonal' ? $name.' — '.__('dashboard.menu.season.label') : $name;
+            $options[$c->id] = match (true) {
+                $c->type === 'seasonal' => $name.' — '.__('dashboard.menu.season.label'),
+                $c->status === MenuSections::HIDDEN => $name.' — '.__('dashboard.menu.sections.hidden_badge'),
+                default => $name,
+            };
         }
 
         return $options;
