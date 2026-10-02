@@ -2,7 +2,7 @@
 
 | البند | القيمة |
 |---|---|
-| **الحالة** | `DRAFT — PENDING OWNER APPROVAL` · Staging: `IN PROGRESS` (D-349) · Production: `BLOCKED` (بوابة: تحقق Staging + موافقة صريحة من الـOwner) |
+| **الحالة** | `DRAFT — PENDING OWNER APPROVAL` · Staging: **يعمل** منذ 2026-10-02 (التشغيل #13، الفحص بعد النشر ناجح) — التحقق الكامل `IN PROGRESS` (D-349) · Production: `BLOCKED` (بوابة: تحقق Staging + موافقة صريحة من الـOwner) |
 | **المرجع** | قرار D-349 (M74: البدء ببناء Staging الآن، دون لمس الموقع الحالي) · [`platform/DEPLOYMENT.md`](platform/DEPLOYMENT.md) §5 (الآلية) · [`platform/ENVIRONMENTS.md`](platform/ENVIRONMENTS.md) · [`platform/ROLLBACK.md`](platform/ROLLBACK.md) · [`platform/CACHE-CDN.md`](platform/CACHE-CDN.md) |
 | **الملفات** | `.github/workflows/deploy-staging.yml` · `scripts/deploy/build-release.sh` · `scripts/deploy/remote-release.sh` · `scripts/deploy/render-env.py` · `scripts/deploy/prepare-key.py` · `deploy/staging.env.template` |
 | **قاعدة ثابتة** | التطبيق `Shelter Website` (WordPress الحالي) وقاعدة بياناته وسجلات البريد (MX/SPF/DKIM/DMARC) **لا تُلمس أبدًا** |
@@ -56,9 +56,9 @@
 | 1 | مفتاح SSH على جهاز الـOwner: `ssh-keygen -t ed25519 -C "shelter-staging-deploy" -f "$env:USERPROFILE\.ssh\shelter_staging"` (Enter مرتين، بلا Passphrase) | ✅ |
 | 2 | Cloudways ← `shelter-staging` ← Access Details ← Application Credentials: مستخدم `shelterdeploy` + المفتاح **العام** `shelter_staging.pub` | ✅ |
 | 3 | GitHub ← Settings ← Secrets and variables ← Actions: الأسرار التسعة (القائمة في رأس `deploy-staging.yml`). `STAGING_SSH_KEY` = محتوى الملف **الخاص** `shelter_staging` كاملًا (انظر §7) | ✅ |
-| 4 | Cloudways ← Server ← Settings & Packages / Security: **SSH Shell Access** مفعّل للتطبيق | يُتحقق في أول تشغيل |
-| 5 | Cloudways ← `shelter-staging` ← Application Settings: **Varnish OFF** (كل صفحة لها جلسة وحالة "مفتوح الآن" حية) | مطلوب |
-| 6 | Cloudways ← `shelter-staging` ← Application Settings ← General ← **WEBROOT**: الحقل يبدأ بـ`public_html/` ثابتة، فيُكتب فيه **`current/public` فقط** (كتابة `public_html/current/public` تجعله `public_html/public_html/current/public` فيرد كل شيء 404) — بعد أول تشغيل `stage` | بعد §4 الخطوة 1 |
+| 4 | Cloudways ← Server ← Settings & Packages / Security: **SSH Shell Access** مفعّل للتطبيق | ✅ (تحقق في التشغيل #11) |
+| 5 | Cloudways ← `shelter-staging` ← Application Settings: **Varnish OFF** (كل صفحة لها جلسة وحالة "مفتوح الآن" حية) | ✅ (الـOwner) |
+| 6 | Cloudways ← `shelter-staging` ← Application Settings ← General ← **WEBROOT**: الحقل يبدأ بـ`public_html/` ثابتة، فيُكتب فيه **`current/public` فقط** (كتابة `public_html/current/public` تجعله `public_html/public_html/current/public` فيرد كل شيء 404) — بعد أول تشغيل `stage` | ✅ (الـOwner، 2026-10-02) |
 | 7 | Cloudways ← Cron Job Management ← Advanced: `* * * * * cd <مجلد التطبيق>/public_html/current && php artisan schedule:run >> /dev/null 2>&1` | بعد أول `full` |
 | 8 | حساب الـOwner على Staging: عبر SSH Terminal في Cloudways، داخل `public_html/current`: `php artisan shelter:owner info@shelterjo.com` — كلمة المرور يكتبها الـOwner بنفسه ولا تمر بالمحادثة | بعد أول `full` |
 

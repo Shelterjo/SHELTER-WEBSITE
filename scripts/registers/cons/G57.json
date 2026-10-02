@@ -81,6 +81,17 @@
         "D-349",
         "CF-005"
       ]
+    },
+    {
+      "id": "G57-TF-04",
+      "topic": "Staging يعمل على Cloudways",
+      "detail": "التشغيل #13 (2026-10-02 22:01 UTC، commit f79cad8): فحص الأسرار ✅، بناء ✅، SSH بمستخدم التطبيق ✅، رفع + checksum ✅، حارس الـWebroot ✅، .env (مرة واحدة) ✅، نسخة قاعدة البيانات قبل النشر ✅ (db-…-pre-deploy)، migrate (لا جديد) ✅، optimize ✅، تبديل ذري ✅، فحص بعد النشر: 401 بلا كلمة مرور، 200 لـ/up و/ar/ و/en/ والمنيو والفروع ودخول اللوحة وrobots.txt، noindex، ملفات CSS/JS والشعار 200. أُصلح في الطريق: حقل WEBROOT في Cloudways يبدأ بـpublic_html/ (القيمة current/public)، ومجلد الإصدار 750 لأن nginx يعمل بـwww-data، وملفات الإعدادات المخزنة 600، والصور المشتركة خارج المجلد الخاص.",
+      "recommendation": "IMPLEMENTED — VERIFIED BY SMOKE TEST؛ التحقق الكامل (الـ16 خطوة) على Staging لاحقًا",
+      "needs_owner": false,
+      "refs": [
+        "D-349",
+        "DEPLOY-005"
+      ]
     }
   ],
   "cost_api_dependencies": [],
