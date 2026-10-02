@@ -36,8 +36,8 @@
         <h2 class="ui-record__title" id="averages-title">{{ __($F.'averages_title') }}</h2>
         <div class="ui-tiles ui-feedback-tiles">
             @foreach ($dimensions as $d)
-                <x-ui.stat-tile :label="__($F.'dimensions.'.$d)" :value="$averages[$d]['avg'] !== null ? __($F.'avg', ['avg' => number_format($averages[$d]['avg'], 1)]) : __($F.'no_ratings')"
-                    :hint="__($F.'n', ['n' => $averages[$d]['n']])" :href="$link(['page' => null]).'#comments'" />
+                <x-ui.stat-tile :label="__($F.'dimensions.'.$d)" :value="$averages[$d]['avg'] !== null ? __($F.'avg', ['avg' => number_format($averages[$d]['avg'], 1)]) : null"
+                    :empty="__($F.'no_ratings')" :hint="__($F.'n', ['n' => $averages[$d]['n']])" :href="$link(['page' => null]).'#comments'" />
             @endforeach
         </div>
     </section>
@@ -102,7 +102,7 @@
                                 <x-ui.field :label="__($F.'comments_title')" :for="'comment-'.$item->id">
                                     <x-ui.textarea :id="'comment-'.$item->id" name="comment" rows="3" maxlength="1000" :value="$item->comment" dir="auto" />
                                 </x-ui.field>
-                                <x-ui.button type="submit" size="sm">{{ __($F.'redact_save') }}</x-ui.button>
+                                <x-ui.button type="submit" size="sm" variant="secondary">{{ __($F.'redact_save') }}</x-ui.button>
                             </form>
                         </x-ui.disclosure>
                     </li>

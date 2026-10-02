@@ -27,7 +27,7 @@
                     @endif
                 </div>
                 <div class="ui-item-list__actions">
-                    <x-ui.button size="sm" :href="route('dashboard.pages.edit', $row['key'])" icon="file-text">{{ __('dashboard.edit') }}</x-ui.button>
+                    <x-ui.button size="sm" variant="secondary" :href="route('dashboard.pages.edit', $row['key'])" icon="file-text">{{ __('dashboard.edit') }}</x-ui.button>
                     @if ($row['url'] !== null)
                         <x-ui.button size="sm" variant="ghost" :href="$row['url']" icon-end="external-link" target="_blank" rel="noopener">{{ __('dashboard.view_on_site') }}</x-ui.button>
                     @endif

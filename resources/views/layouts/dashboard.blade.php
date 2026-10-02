@@ -20,18 +20,27 @@
             </form>
         </div>
     </header>
-    {{-- Navigation groups (FINAL-ARCHITECTURE-REVIEW §10) — items appear as their screens ship (DashboardChrome). --}}
+    {{--
+        Navigation groups (FINAL-ARCHITECTURE-REVIEW §10) — items appear as their screens ship (DashboardChrome).
+        Phones: one scrolling row whose edges fade where more items wait, plus "All sections", a sheet with the same
+        groups as the desktop side column (UX-006 DR-18). From 1024px the row is the side column and the button hides.
+    --}}
     <nav class="ui-shell__nav" aria-label="{{ __('ui.main_navigation') }}">
-        @foreach ($dashboardNav ?? [] as $group)
-            @if ($group['label'] !== null)
-                <p class="ui-shell__nav-group">{{ $group['label'] }}</p>
-            @endif
-            <ul class="ui-sidebar">
-                @foreach ($group['links'] as $link)
-                    <x-ui.sidebar-item :href="$link['href']" :icon="$link['icon']" :current="$link['current']">{{ $link['label'] }}</x-ui.sidebar-item>
-                @endforeach
-            </ul>
-        @endforeach
+        <div class="ui-shell__nav-scroll" data-ui-nav-strip>
+            @foreach ($dashboardNav ?? [] as $group)
+                @if ($group['label'] !== null)
+                    <p class="ui-shell__nav-group">{{ $group['label'] }}</p>
+                @endif
+                <ul class="ui-sidebar">
+                    @foreach ($group['links'] as $link)
+                        <x-ui.sidebar-item :href="$link['href']" :icon="$link['icon']" :current="$link['current']">{{ $link['label'] }}</x-ui.sidebar-item>
+                    @endforeach
+                </ul>
+            @endforeach
+        </div>
+        <div class="ui-shell__nav-more">
+            <x-ui.button variant="ghost" icon="menu" opens="dashboard-sections" aria-controls="dashboard-sections" aria-expanded="false"><span class="ui-shell__action-label">{{ __('dashboard.nav.all_sections') }}</span></x-ui.button>
+        </div>
     </nav>
     <main id="main" class="ui-shell__main" tabindex="-1">
         <div class="ui-shell__content">
@@ -44,5 +53,19 @@
             @yield('content')
         </div>
     </main>
+    <x-ui.bottom-sheet id="dashboard-sections" :title="__('dashboard.nav.all_sections')">
+        <nav class="ui-shell__sheet" aria-labelledby="dashboard-sections-title">
+            @foreach ($dashboardNav ?? [] as $group)
+                @if ($group['label'] !== null)
+                    <h3 class="ui-shell__sheet-group">{{ $group['label'] }}</h3>
+                @endif
+                <ul class="ui-sidebar ui-shell__sheet-list">
+                    @foreach ($group['links'] as $link)
+                        <x-ui.sidebar-item :href="$link['href']" :icon="$link['icon']" :current="$link['current']">{{ $link['label'] }}</x-ui.sidebar-item>
+                    @endforeach
+                </ul>
+            @endforeach
+        </nav>
+    </x-ui.bottom-sheet>
 </body>
 </html>

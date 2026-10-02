@@ -20,7 +20,15 @@
     </nav>
 
     @if ($rows === [])
-        <x-ui.empty-state :title="__('dashboard.awards.empty')" icon="circle-check" />
+        {{-- The one empty-state pattern (UX-006 DR-56): title · what it means · the next step (secondary: one primary). --}}
+        <x-ui.empty-state :title="__('dashboard.awards.empty')" icon="circle-check">
+            @unless ($archived)
+                {{ __('dashboard.awards.empty_hint') }}
+                <x-slot:actions>
+                    <x-ui.button variant="secondary" :href="route('dashboard.awards.create')" icon="circle-check">{{ __('dashboard.awards.add') }}</x-ui.button>
+                </x-slot:actions>
+            @endunless
+        </x-ui.empty-state>
     @else
         <ul class="ui-item-list" role="list">
             @foreach ($rows as $row)
@@ -37,7 +45,7 @@
                         </p>
                     </div>
                     <div class="ui-item-list__actions">
-                        <x-ui.button size="sm" :href="route('dashboard.awards.edit', $a)" icon="file-text">{{ __('dashboard.edit') }}</x-ui.button>
+                        <x-ui.button size="sm" variant="secondary" :href="route('dashboard.awards.edit', $a)" icon="file-text">{{ __('dashboard.edit') }}</x-ui.button>
                     </div>
                 </li>
             @endforeach

@@ -52,8 +52,9 @@
     white-space: nowrap;
 }
 
-/* Phones: the two top-bar actions show their icon only; the words stay for screen readers (the same recipe as
-   .ui-visually-hidden), so nothing wraps onto a second line (FINAL-QA QA-036). */
+/* Phones: the two top-bar actions and "All sections" show their icon only; the words stay for screen readers (the
+   same recipe as .ui-visually-hidden), so nothing wraps onto a second line (FINAL-QA QA-036) and the navigation row
+   keeps its width (UX-006 DR-18). */
 @media (max-width: 479px) {
     .ui-shell__action-label {
         position: absolute;
@@ -63,8 +64,13 @@
         clip-path: inset(50%);
     }
 
-    .ui-shell__actions .ui-button {
+    .ui-shell__actions .ui-button,
+    .ui-shell__nav-more .ui-button {
         min-inline-size: var(--touch-target);
+    }
+
+    .ui-shell__nav-more .ui-button {
+        padding-inline: 0;
     }
 }
 
@@ -84,20 +90,100 @@
 
 .ui-shell__nav {
     display: flex;
+    align-items: center;
     gap: var(--space-1);
     min-inline-size: 0;
-    overflow-x: auto;
-    scrollbar-width: thin;
     padding-block: var(--space-2);
     padding-inline: var(--container-gutter-mobile);
     border-block-end: var(--border-default) solid var(--color-border);
     background: var(--color-bg);
 }
 
-/* Several groups share one row: the navigation scrolls as a whole, the lists inside it do not (one scroller only). */
-.ui-shell__nav .ui-sidebar {
+/* Phones (UX-006 DR-18): the row scrolls and settles with an item in the middle (the current one on load); an edge
+   fades only where more items wait beyond it (resources/js/dashboard/nav-strip.ts sets data-more-before /
+   data-more-after; without script the far edge fades). */
+.ui-shell__nav-scroll {
+    --ui-nav-fade-before: 0%;
+    --ui-nav-fade-after: var(--space-8);
+
+    display: flex;
+    flex: 1;
+    gap: var(--space-1);
+    min-inline-size: 0;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+    mask-image: linear-gradient(
+        to right,
+        transparent,
+        var(--color-text) var(--ui-nav-fade-before),
+        var(--color-text) calc(100% - var(--ui-nav-fade-after)),
+        transparent
+    );
+}
+
+.ui-shell__nav-scroll:dir(rtl) {
+    mask-image: linear-gradient(
+        to left,
+        transparent,
+        var(--color-text) var(--ui-nav-fade-before),
+        var(--color-text) calc(100% - var(--ui-nav-fade-after)),
+        transparent
+    );
+}
+
+.ui-shell__nav-scroll::-webkit-scrollbar {
+    display: none;
+}
+
+.ui-shell__nav-scroll[data-more-before] {
+    --ui-nav-fade-before: var(--space-8);
+}
+
+.ui-shell__nav-scroll[data-ready]:not([data-more-after]) {
+    --ui-nav-fade-after: 0%;
+}
+
+.ui-shell__nav-scroll .ui-sidebar__item {
+    scroll-snap-align: center;
+}
+
+/* Several groups share one row: the row scrolls as a whole, the lists inside it do not (one scroller only). */
+.ui-shell__nav-scroll .ui-sidebar {
     flex: none;
     overflow: visible;
+}
+
+/* "All sections": always at the end of the row, outside the scroller, so it never scrolls away. */
+.ui-shell__nav-more {
+    flex: none;
+    padding-inline-start: var(--space-1);
+    border-inline-start: var(--border-default) solid var(--color-border);
+}
+
+/* The sheet: the same groups as the side column, titled, in two columns on phones. */
+.ui-shell__sheet {
+    display: grid;
+    gap: var(--space-2);
+}
+
+.ui-shell__sheet-group {
+    margin: var(--space-2) 0 0;
+    color: var(--color-muted);
+    font-size: var(--text-xs);
+    font-weight: var(--weight-bold);
+}
+
+.ui-shell__sheet .ui-shell__sheet-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, calc(var(--touch-target) * 3.5)), 1fr));
+    overflow: visible;
+}
+
+.ui-shell__sheet-list .ui-sidebar__link {
+    display: flex;
+    padding-inline: var(--space-2);
 }
 
 .ui-shell__main {
@@ -135,11 +221,21 @@
 
     .ui-shell__nav {
         display: block;
-        overflow: visible;
         padding-block: var(--space-4);
         padding-inline: var(--space-3);
         border-block-end: 0;
         border-inline-end: var(--border-default) solid var(--color-border);
+    }
+
+    .ui-shell__nav-scroll,
+    .ui-shell__nav-scroll:dir(rtl) {
+        display: block;
+        overflow: visible;
+        mask-image: none;
+    }
+
+    .ui-shell__nav-more {
+        display: none;
     }
 
     .ui-shell__main {

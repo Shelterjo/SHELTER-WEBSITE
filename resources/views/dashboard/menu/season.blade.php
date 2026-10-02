@@ -77,7 +77,7 @@
                     <ul class="ui-record__lines ui-menu-item__lines" role="list">
                         @foreach ($s['products'] as $p)
                             <li class="ui-live-item">
-                                <a href="{{ route('dashboard.menu.show', $p) }}" lang="en" dir="ltr">{{ $p->display_name_en }}</a>
+                                <a class="ui-action-link" href="{{ route('dashboard.menu.show', $p) }}" lang="en" dir="ltr">{{ $p->display_name_en }}</a>
                                 @if ($p->publish_status === \App\Enums\PublishStatus::Archived)
                                     <x-ui.badge variant="neutral">{{ __('dashboard.menu.visibility.hidden_badge') }}</x-ui.badge>
                                 @endif

@@ -22,7 +22,7 @@
     @if ($items === [])
         <x-ui.empty-state :title="__('dashboard.media.empty')" icon="image">
             <x-slot:actions>
-                <x-ui.button :href="route('dashboard.media.create')" icon="upload">{{ __('dashboard.media.upload') }}</x-ui.button>
+                <x-ui.button variant="secondary" :href="route('dashboard.media.create')" icon="upload">{{ __('dashboard.media.upload') }}</x-ui.button>
             </x-slot:actions>
         </x-ui.empty-state>
     @else

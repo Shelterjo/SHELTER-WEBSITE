@@ -16,7 +16,7 @@
     @endphp
     <x-ui.page-header :title="__('dashboard.requests.careers_title')" :description="__('dashboard.requests.careers_description')">
         <x-slot:actions>
-            <x-ui.button variant="ghost" size="sm" :href="route('dashboard.careers.settings')">{{ __('dashboard.requests.settings.title') }}</x-ui.button>
+            <x-ui.button variant="secondary" :href="route('dashboard.careers.settings')">{{ __('dashboard.requests.settings.title') }}</x-ui.button>
         </x-slot:actions>
     </x-ui.page-header>
 
@@ -25,11 +25,16 @@
             <x-ui.chip :href="$link(['period' => $period])" :current="$filters['period'] === $period">{{ __('dashboard.requests.periods.'.$period) }}</x-ui.chip>
         @endforeach
     </nav>
-    <div class="ui-tiles ui-inbox-cards">
-        @foreach ($counts as $card => $value)
-            <x-ui.stat-tile :label="__('dashboard.requests.cards.'.$card)" :value="$value" :href="$link(['status' => $card === 'total' ? '' : $card])" />
-        @endforeach
-    </div>
+    {{-- Nothing at all in the period: one line instead of eight zero cards above the list (UX-006 DR-50). --}}
+    @if (array_sum($counts) === 0)
+        <p class="ui-inbox-summary">{{ __('dashboard.requests.cards_none', ['period' => __('dashboard.requests.periods.'.$filters['period'])]) }}</p>
+    @else
+        <div class="ui-tiles ui-inbox-cards">
+            @foreach ($counts as $card => $value)
+                <x-ui.stat-tile :label="__('dashboard.requests.cards.'.$card)" :value="$value" :href="$link(['status' => $card === 'total' ? '' : $card])" />
+            @endforeach
+        </div>
+    @endif
 
     <form class="ui-inbox-filters" method="get" action="{{ route('dashboard.careers.index') }}" role="search">
         <input type="hidden" name="period" value="{{ $filters['period'] }}">

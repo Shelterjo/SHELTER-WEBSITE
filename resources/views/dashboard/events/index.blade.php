@@ -29,6 +29,9 @@
         <x-ui.empty-state :title="__($E.'empty.'.$tab)" icon="calendar">
             @if ($tab === 'current')
                 {{ __($E.'empty_hint') }}
+                <x-slot:actions>
+                    <x-ui.button variant="secondary" :href="route('dashboard.events.create')" icon="calendar">{{ __($E.'add') }}</x-ui.button>
+                </x-slot:actions>
             @endif
         </x-ui.empty-state>
     @else
@@ -46,7 +49,7 @@
                         </p>
                     </div>
                     <div class="ui-item-list__actions">
-                        <x-ui.button size="sm" :href="route('dashboard.events.edit', $e)" icon="file-text">{{ __('dashboard.edit') }}</x-ui.button>
+                        <x-ui.button size="sm" variant="secondary" :href="route('dashboard.events.edit', $e)" icon="file-text">{{ __('dashboard.edit') }}</x-ui.button>
                     </div>
                 </li>
             @endforeach

@@ -11,7 +11,8 @@
 <body class="ui-auth">
     <x-ui.skip-link :label="__('dashboard.skip_to_content')" />
     <main id="main" class="ui-auth__panel" tabindex="-1">
-        <p class="ui-auth__brand" lang="en" dir="ltr">SHELTER COFFEE</p>
+        {{-- The line follows the page direction (start-aligned); only the Latin name is isolated (UX-006 DR-20). --}}
+        <p class="ui-auth__brand"><bdi lang="en" dir="ltr">SHELTER COFFEE</bdi></p>
         <h1 class="ui-auth__title">@yield('title')</h1>
         @yield('content')
     </main>

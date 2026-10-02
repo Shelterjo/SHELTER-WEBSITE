@@ -15,6 +15,18 @@
     font-size: var(--text-sm);
 }
 
+/* Search above the list: the button beside the field from 768px, lined up with the box (UX-006 DR-49). */
+@media (min-width: 768px) {
+    .ui-menu-search {
+        grid-template-columns: minmax(0, 1fr) auto;
+        align-items: end;
+    }
+
+    .ui-menu-search .ui-inbox-filters__main {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
 .ui-menu-item,
 .ui-menu-item__branches {
     display: grid;

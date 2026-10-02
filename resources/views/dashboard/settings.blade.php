@@ -14,8 +14,9 @@
     @endphp
     <x-ui.page-header :title="__($S.'title')" :description="__($S.'description')">
         <x-slot:actions>
+            {{-- Two links to related screens: one look for both (UX-006 DR-55); "Save" below stays the primary. --}}
             <x-ui.button variant="secondary" :href="route('dashboard.consents')">{{ __($S.'consents_link') }}</x-ui.button>
-            <x-ui.button variant="ghost" :href="route('dashboard.texts.index')">{{ __('dashboard.texts.title') }}</x-ui.button>
+            <x-ui.button variant="secondary" :href="route('dashboard.texts.index')">{{ __('dashboard.texts.title') }}</x-ui.button>
         </x-slot:actions>
     </x-ui.page-header>
     @if ($bag->any())

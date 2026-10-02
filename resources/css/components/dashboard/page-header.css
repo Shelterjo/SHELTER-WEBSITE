@@ -6,10 +6,12 @@
     margin-block-end: var(--space-6);
 }
 
+/* Actions line up with the title (top), so a lone action reads as part of the header instead of floating beside the
+   end of a long description (UX-006 DR-51). */
 .ui-page-header__main {
     display: flex;
     flex-wrap: wrap;
-    align-items: flex-end;
+    align-items: flex-start;
     justify-content: space-between;
     gap: var(--space-4);
 }

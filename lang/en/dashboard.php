@@ -22,6 +22,7 @@ return [
     ],
     'nav' => [
         'groups' => ['content' => 'Content', 'requests' => 'Requests', 'data' => 'Data'],
+        'all_sections' => 'All sections',
         'pages' => 'Pages',
         'media' => 'Images',
         'awards' => 'Awards',
@@ -211,6 +212,7 @@ return [
         'add' => 'Add an award',
         'new_title' => 'New award',
         'empty' => 'No awards yet.',
+        'empty_hint' => 'The awards page stays off the site until the first award you confirm as real is published.',
         'show_archived' => 'Archived',
         'show_current' => 'Current',
         'states' => ['live' => 'On the site', 'draft' => 'Draft', 'unconfirmed' => 'Waiting for your confirmation', 'incomplete' => 'Published but incomplete', 'archived' => 'Archived'],
@@ -251,6 +253,7 @@ return [
         'add' => 'Add a person',
         'new_title' => 'New person',
         'empty' => 'Nobody yet.',
+        'empty_hint' => 'The SHELTER Family page stays off the site until the first person who agreed in writing appears on it.',
         'states' => ['live' => 'On the site', 'hidden' => 'Hidden', 'incomplete' => 'Switched on but incomplete', 'withdrawn' => 'Consent withdrawn', 'archived' => 'Archived'],
         'groups' => ['profile' => 'Profile', 'work' => 'Work', 'bio' => 'Bio', 'photo' => 'Photo', 'consent' => 'Their consent to publish'],
         'fields' => [
@@ -455,6 +458,7 @@ return [
         'public' => ['received' => 'Application received', 'under_review' => 'Under review', 'shortlisted' => 'Selected for an interview', 'closed' => 'Application closed'],
         'new' => 'New',
         'cards' => ['new' => 'New applications', 'total' => 'All applications', 'under_review' => 'Under review', 'interview_shortlisted' => 'Shortlisted', 'interviewed' => 'Interviewed', 'accepted' => 'Accepted', 'rejected' => 'Rejected', 'archived' => 'Archived'],
+        'cards_none' => 'No job applications in “:period”.',
         'periods' => ['today' => 'Today', 'week' => 'Last 7 days', 'days30' => 'Last 30 days', 'month' => 'This month', 'all' => 'All time'],
         'period_label' => 'Period',
         'columns' => ['reference' => 'Application no.', 'phone' => 'Phone', 'email' => 'Email', 'education' => 'Education', 'gender' => 'Gender', 'nationality' => 'Nationality', 'updated' => 'Last updated', 'name' => 'Name', 'job' => 'Job', 'city' => 'City', 'experience' => 'Experience', 'salary' => 'Expected salary', 'date' => 'Applied on', 'status' => 'Status'],
