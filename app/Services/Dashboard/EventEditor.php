@@ -7,6 +7,7 @@ use App\Models\Experience;
 use App\Models\Market;
 use App\Models\Media;
 use App\Models\User;
+use App\Services\Content\ContentGuard;
 use App\Services\Core\AuditLogger;
 use App\Services\Core\Versions;
 use App\Services\Dashboard\Concerns\ReadsExperienceInput;
@@ -124,6 +125,10 @@ final class EventEditor
             }
             if ($ends !== null && ! $ends->greaterThan($now)) {
                 $errors['ends_date'] ??= (string) __('dashboard.events.errors.past');
+            }
+            $hit = ContentGuard::firstHit($values);
+            if ($hit !== null) {
+                $errors[$hit[0]] ??= (string) __('dashboard.blocked_phrase', ['phrase' => $hit[1]]);
             }
             // A pair is shown only in both languages (LANGUAGE-PARITY): fill both or leave both empty.
             foreach (['terms', 'venue'] as $field) {

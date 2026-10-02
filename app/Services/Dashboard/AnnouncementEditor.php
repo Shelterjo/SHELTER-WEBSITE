@@ -5,6 +5,7 @@ namespace App\Services\Dashboard;
 use App\Models\Experience;
 use App\Models\Market;
 use App\Models\User;
+use App\Services\Content\ContentGuard;
 use App\Services\Core\AuditLogger;
 use App\Services\Core\Versions;
 use App\Services\Dashboard\Concerns\ReadsExperienceInput;
@@ -112,6 +113,10 @@ final class AnnouncementEditor
             }
             if ($ends !== null && ! $ends->greaterThan($now)) {
                 $errors['ends_date'] ??= (string) __('dashboard.events.errors.past');
+            }
+            $hit = ContentGuard::firstHit($values);
+            if ($hit !== null) {
+                $errors[$hit[0]] ??= (string) __('dashboard.blocked_phrase', ['phrase' => $hit[1]]);
             }
             if (($values['body_ar'] === null) !== ($values['body_en'] === null)) {
                 $errors[$values['body_ar'] === null ? 'body_ar' : 'body_en'] ??= (string) __('dashboard.announcements.errors.both_languages');

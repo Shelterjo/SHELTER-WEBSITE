@@ -119,6 +119,10 @@ export function installMenuPage(root: HTMLElement): void {
                 .querySelector<HTMLElement>(`[data-ui-menu-nav="${CSS.escape(section.id)}"]`)
                 ?.closest('li');
             if (chip !== null && chip !== undefined) chip.hidden = empty;
+            const entry = document
+                .querySelector<HTMLElement>(`[data-ui-menu-all-link="${CSS.escape(section.id)}"]`)
+                ?.closest('li');
+            if (entry !== null && entry !== undefined) entry.hidden = empty;
         }
         if (count !== null) {
             count.hidden = q === '';
@@ -382,6 +386,29 @@ export function installMenuPage(root: HTMLElement): void {
         if (card !== null && card.classList.contains('ui-product-card')) {
             card.scrollIntoView({ block: 'center' });
             open(card, false);
+        }
+    }
+
+    // ── «كل الفئات» and the compact search (F-15 / F-16 / R-06) ───────────────────────────────────────────────
+    // A category chosen in the full list closes the sheet first, so the page lands on the section underneath.
+    const allSheet = document.querySelector<HTMLDialogElement>('dialog[data-ui-menu-all]');
+    allSheet?.addEventListener('click', (event) => {
+        if (event.target instanceof Element && event.target.closest('[data-ui-menu-all-link]') !== null)
+            allSheet.close();
+    });
+    // The compact search icon appears once the search field has scrolled away; until then it is inert (no tab stop).
+    const compact = root.querySelector<HTMLElement>('[data-ui-menu-compact-search]');
+    if (compact !== null && input !== null) {
+        compact.addEventListener('click', (event) => {
+            event.preventDefault();
+            const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            input.scrollIntoView({ block: 'center', behavior: reduce ? 'auto' : 'smooth' });
+            input.focus({ preventScroll: true });
+        });
+        if ('IntersectionObserver' in window) {
+            new IntersectionObserver(([entry]) => {
+                compact.inert = entry?.isIntersecting ?? false;
+            }).observe(input);
         }
     }
 

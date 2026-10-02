@@ -1,5 +1,5 @@
-/* Root gateway (D-052, D-066): the brand in both languages and the two language doors, centred in the first screen
-   (FINAL-QA QA-020). Tokens only. */
+/* Root gateway (D-052, D-066): the brand in both languages and the two language doors, each with its menu and branches
+   shortcuts, centred in the first screen (FINAL-QA QA-020). Tokens only. */
 .ui-gateway {
     display: grid;
     min-block-size: 70dvh;
@@ -14,4 +14,24 @@
 .ui-gateway__doors {
     justify-content: center;
     gap: var(--space-4);
+}
+
+.ui-gateway__door {
+    display: grid;
+    justify-items: center;
+    gap: var(--space-2);
+}
+
+.ui-gateway__shortcuts {
+    display: flex;
+    gap: var(--space-2);
+    margin: 0;
+    color: var(--color-muted);
+}
+
+.ui-gateway__shortcuts a {
+    display: inline-flex;
+    align-items: center;
+    min-block-size: var(--control-md);
+    color: var(--color-text);
 }

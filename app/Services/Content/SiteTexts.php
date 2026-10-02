@@ -160,6 +160,12 @@ final class SiteTexts
 
                     continue;
                 }
+                $phrase = $value === '' ? null : ContentGuard::find($value);
+                if ($phrase !== null) {
+                    $errors[$field] = (string) __('dashboard.blocked_phrase', ['phrase' => $phrase]);
+
+                    continue;
+                }
                 $values[$key][$locale] = $value === '' || $value === $original ? null : $value;
             }
         }

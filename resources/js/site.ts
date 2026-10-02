@@ -1,10 +1,11 @@
 // Public site entry. Progressive enhancement only: every page works without JavaScript (ADR-001).
 // Only what the public pages need: guarded aria-disabled controls, dialog fallbacks, opening a linked FAQ answer and
-// the lazy section reveal (Motion is loaded only when a page has something to reveal) and the privacy-safe
-// measurement hooks (a no-op until a tag manager provides window.dataLayer).
+// the lazy section reveal (Motion is loaded only when a page has something to reveal), the live branch open state and
+// the privacy-safe measurement hooks (a no-op until a tag manager provides window.dataLayer).
 import { installAriaDisabledGuard } from './ui/aria-disabled';
 import { installDialogs } from './ui/dialog';
 import { installHashDisclosure } from './ui/hash-disclosure';
+import { installOpenStatus } from './ui/open-status';
 import { installReveal } from './ui/reveal';
 import { installTracking } from './ui/track';
 
@@ -12,6 +13,7 @@ installAriaDisabledGuard();
 installDialogs();
 installHashDisclosure();
 void installReveal();
+installOpenStatus();
 installTracking();
 
 // The menu page script loads only on the menu page (its own chunk).

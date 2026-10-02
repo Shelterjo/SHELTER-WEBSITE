@@ -4,8 +4,8 @@
     only behind a menu button) and the menu button opens the navigation drawer, which holds every item and the
     language choice; from 1024px everything is inline and the button is not needed. `minimal` = logo only (root
     gateway, RG-02 / D-066). Items: [['label', 'href', 'current' => 'page'|'true'|null]]; languages: [['locale',
-    'label', 'href', 'current' => bool]]. The drawer opens and closes with Motion when it is loaded
-    (resources/js/ui/site-nav.ts); without JavaScript it is a native dialog (Invoker Commands) or the links stay inline.
+    'label', 'href', 'current' => bool]]. The drawer is a native dialog opened by Invoker Commands, with a fallback in
+    resources/js/ui/dialog.ts; without JavaScript the links stay reachable.
     `search` = URL of the results page: a search field at the top of the drawer, and a search link in the bar from
     1024px where the drawer button is gone (GLOBAL-SEARCH §4) — the bar itself keeps Menu + Locations (D-027).
 --}}

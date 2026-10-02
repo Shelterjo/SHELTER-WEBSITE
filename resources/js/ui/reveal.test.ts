@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { startsBelowFold, toSeconds } from './reveal';
+import { startsBelowFold, toBezier, toSeconds } from './reveal';
 
 describe('motion token parsing', () => {
     it('reads milliseconds and seconds', () => {
@@ -18,5 +18,16 @@ describe('reveal targets', () => {
         expect(startsBelowFold(900, 844)).toBe(true);
         expect(startsBelowFold(844, 844)).toBe(true);
         expect(startsBelowFold(300, 844)).toBe(false);
+    });
+});
+
+describe('easing token parsing', () => {
+    it('reads the cubic-bezier token the CSS uses', () => {
+        expect(toBezier(' cubic-bezier(0, 0, .2, 1) ', [1, 1, 1, 1])).toEqual([0, 0, 0.2, 1]);
+    });
+
+    it('falls back for anything else', () => {
+        expect(toBezier('ease-out', [0, 0, 0.2, 1])).toEqual([0, 0, 0.2, 1]);
+        expect(toBezier('cubic-bezier(1, 2)', [0, 0, 0.2, 1])).toEqual([0, 0, 0.2, 1]);
     });
 });

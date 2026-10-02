@@ -1,0 +1,44 @@
+{
+  "group": "G53",
+  "notes": "M66: «FINAL PRE-CLOUDWAYS MASTER AUDIT — GITHUB → CLOUDWAYS RELEASE GATE» (146 بندًا): فحص + إصلاح + إعادة اختبار + انحدار + تحقق + اعتماد، قبل الانتقال من GitHub إلى Cloudways. لا Deployment ولا DNS ولا Cloudflare ولا Production. مخرجات إلزامية: docs/CLOUDWAYS-DEPLOYMENT-RUNBOOK.md وdocs/PRE-CLOUDWAYS-FINAL-AUDIT.md. الاعتماد النهائي: READY / NOT READY FOR CLOUDWAYS DEPLOYMENT، ثم انتظار «START CLOUDWAYS DEPLOYMENT».",
+  "requirements": [],
+  "updates_to_existing": [
+    {
+      "id": "D-342",
+      "type": "UPDATE",
+      "source": "M66",
+      "change": "D-343 يكمّلها: البوابة صارت «FINAL PRE-CLOUDWAYS MASTER AUDIT» (146 بندًا) بمخرجين إلزاميين (Runbook + تقرير الفحص النهائي)، والاعتماد النهائي «READY FOR CLOUDWAYS DEPLOYMENT»، وأمر البدء «START CLOUDWAYS DEPLOYMENT». Cloudflare يأتي بعد نجاح نشر Cloudways واختبارات الـOrigin."
+    },
+    {
+      "id": "D-339",
+      "type": "UPDATE",
+      "source": "M66",
+      "change": "رابط الفحص على Cloudways لا يُنشأ إلا بعد أمر الـOwner «START CLOUDWAYS DEPLOYMENT» (D-343)."
+    },
+    {
+      "id": "DX-007",
+      "type": "UPDATE",
+      "source": "M66",
+      "change": "M66 §40: الـOwner يتوقع تعديل «موظف الشهر» من لوحة التحكم بلا كود قبل Cloudways."
+    }
+  ],
+  "conflicts": [],
+  "new_decisions": [
+    {
+      "temp_id": "G53-ND-01",
+      "area": "Release / Infrastructure",
+      "decision": "بوابة ما قبل Cloudways (M66): فحص المشروع كاملًا كأنه سيُطلق للعملاء مباشرة — المحتوى والعربية والإنجليزية والتطابق، والبيانات مقابل Master Data، والمنيو والفروع، والثيم والألوان والخطوط والمسافات والزوايا والظلال والأيقونات، والهيدر والفوتر، وكل زر ورابط ونموذج، والتوظيف والفرنشايز والتواصل والوسائط والجوائز والفعاليات والحملات، والحركة وتقليلها، والاستجابة على 14 عرضًا، والموبايل والتابلت والديسكتوب، وRTL/LTR، ولوحة المالك، والمصادقة والصلاحيات، وقاعدة البيانات والـMigrations والـSeeders والتخزين والمسارات وحساسية الأحرف وتوافق Linux، ومتغيرات البيئة، وعدم وجود أسرار في Git، وبناء الإنتاج، والأمان، والوصولية، والأداء، وSEO وSEO إربد والـSchema والـSitemap وخطة الروابط القديمة، والتحليلات، وسجل التدقيق والنسخ وحارس النشر، والمتصفحات، والشبكة البطيئة، ومحاكاة الفشل، وتنظيف بيانات الاختبار، وGit. ثم إصلاح كل ما هو تقني، وإعادة الاختبار، وبناء نظيف من الصفر. المخرجات: docs/CLOUDWAYS-DEPLOYMENT-RUNBOOK.md (لا يُنفذ) وdocs/PRE-CLOUDWAYS-FINAL-AUDIT.md مع دليل لكل P0/P1. لا P0 ولا P1 عند الاعتماد؛ P2 يُصلح قدر الإمكان؛ P3 تجميلي فقط ويُذكر. الاعتماد: READY أو NOT READY FOR CLOUDWAYS DEPLOYMENT، ثم توقف حتى «START CLOUDWAYS DEPLOYMENT». Cloudflare بعد نجاح Cloudways واختبارات الـOrigin.",
+      "sources": [
+        "M66"
+      ],
+      "status": "APPROVED",
+      "reason": "توجيه صريح من الـOwner (M66)",
+      "impact": "D-342 · D-339 · PO-064 · docs/CLOUDWAYS-DEPLOYMENT-RUNBOOK.md · docs/PRE-CLOUDWAYS-FINAL-AUDIT.md · DX-007",
+      "date": "2026-10-02"
+    }
+  ],
+  "pending_owner": [],
+  "technical_flags": [],
+  "cost_api_dependencies": [],
+  "dropped": []
+}

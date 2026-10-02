@@ -64,6 +64,40 @@
     background: var(--color-bg);
 }
 
+/* Compact search icon in the sticky bar (F-15 / R-06): it keeps its place (the chips never move) and fades in once the
+   search field has scrolled away; while the field is on screen it is inert — no tab stop, not announced. */
+.ui-menu__compact-search {
+    transition: opacity var(--motion-fast) var(--easing-standard);
+}
+
+.ui-menu__compact-search[inert] {
+    opacity: 0;
+}
+
+/* «كل الفئات» (F-16): every category in one list inside the bottom sheet; big rows for the thumb. */
+.ui-menu__all {
+    display: grid;
+    gap: var(--space-1);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.ui-menu__all-link {
+    display: flex;
+    align-items: center;
+    min-block-size: var(--control-lg);
+    padding-inline: var(--space-4);
+    border-radius: var(--radius-md);
+    color: var(--color-text);
+    font-weight: var(--weight-medium);
+    text-decoration: none;
+}
+
+.ui-menu__all-link:hover {
+    background: var(--color-surface);
+}
+
 .ui-menu__content {
     display: grid;
     gap: var(--space-12);

@@ -9,7 +9,7 @@
 >
 > **المعرّفات:**
 > - **`D-xxx`:** سجل القرارات.
->   - **D-150…D-342:** قرارات صريحة من الـOwner في الرسائل M01–M27 لم تكن مسجلة، وأُضيفت في هذا التدقيق.
+>   - **D-150…D-343:** قرارات صريحة من الـOwner في الرسائل M01–M27 لم تكن مسجلة، وأُضيفت في هذا التدقيق.
 > - **`F-xx` / `R-xx`:** المنيو.
 > - **`DB-xx`:** القرارات المفتوحة قبل التصميم.
 > - **`GEP-§n` / `GIO-§n`:** سياسة Google وملكية التنفيذ.
@@ -20,14 +20,14 @@
 | الفئة | العدد |
 |---|---|
 | FROZEN | 81 |
-| APPROVED | 285 |
+| APPROVED | 286 |
 | APPROVED WITH CONDITIONS | 45 |
 | PENDING OWNER INPUT | 18 |
 | PENDING VERIFICATION | 8 |
 | DEFERRED | 4 |
 | REJECTED | 0 |
 | SUPERSEDED | 24 |
-| **المجموع** | **465** |
+| **المجموع** | **466** |
 
 ## FROZEN — مجمّد — لا يُفتح إلا بتعارض حقيقي (81)
 
@@ -115,7 +115,7 @@
 | `F-22` | Products | هوية الأصناف: كل قرارات D-109 → D-134 كما هي |  |  | F #22 · 2026-10-01 (موجز Menu IA/UX/Wireframe — D-142) | PROD-009…016/021/022 |
 | `F-23` | Governance | Production: لا كود Production · لا نشر · لا Redirects · لا تغييرات Google · لا صور غير معتمدة · لا نصوص منتجات من عندنا |  |  | F #23 · 2026-10-01 (موجز Menu IA/UX/Wireframe — D-142) | GOV-026، GOV-047، CONTENT-004 |
 
-## APPROVED — معتمد (285)
+## APPROVED — معتمد (286)
 
 | Decision ID | Area | القرار الحالي المعتمد | القرار القديم (إن وجد) | السبب | الترتيب في المحادثة | أثر التنفيذ |
 |---|---|---|---|---|---|---|
@@ -352,9 +352,10 @@
 | `D-334` | Branches / Master Data | اعتماد بيانات الموقع كما كتبها الـOwner في M57 §1 وإدخالها في Master Data: وصف موقع DRIVE «بجانب منطقة قصر النخيل / أرابيلا»؛ وصف موقع HOUSE «إربد سيتي سنتر، الطابق الأول، بجانب البنك الإسلامي الأردني» / «Irbid City Center, First Floor, next to Jordan Islamic Bank»؛ كتابة المدينة «إربد». وصف الموقع معلم قريب وليس العنوان التفصيلي (PO-010) ولا يُستخدم streetAddress. |  | Owner: «أ» — اعتماد القيم كما هي | M57, M58 · 2026-10-02 (سُجّل في التدقيق) | PO-079 (RESOLVED) · CF-M-036 (RESOLVED) · SEO-008 · database/seeders/data/master-data.php · صفحتا الفرعين وبطاقاتهما |
 | `D-336` | Branches / Google Business | الموقع والاسم لكل فرع حسب Google Business: SHELTER COFFEE DRIVE ← https://maps.app.goo.gl/zNfDbkxcT1aMdQiWA · SHELTER COFFEE HOUSE ← https://maps.app.goo.gl/k31BVoaAb1fcAF9e6 (يحل محل D-335). الاسمان كما هما (D-020) ومطابقان لـGBP. الرابط يشغّل زر «الاتجاهات» وhasMap. |  | توجيه صريح من الـOwner (M60) | M60 · 2026-10-02 (سُجّل في التدقيق) | D-335 (SUPERSEDED) · GBP-013 · PO-010 · docs/google/GOOGLE-BUSINESS-PROFILE-SOURCE-OF-TRUTH.md · database/seeders/data/master-data.php |
 | `D-337` | Branches / Master Data | نص عنوان كل فرع (AR/EN) يُدخله الـOwner بنفسه من لوحة التحكم مطابقًا لـGoogle Business؛ لا يُدخله Claude. الحفظ في المحرر = اعتماد، ويظهر في صفحة الفرع وفي streetAddress بالبيانات المنظمة. |  | Owner: «ب» — يدخله بنفسه | M61 · 2026-10-02 (سُجّل في التدقيق) | PO-010 · PO-064 (الوصول للوحة) · SEO-008 |
-| `D-339` | Release / Infrastructure | قبل أي نشر للإنتاج: رابط فحص كامل للموقع للـOwner — نسخة Staging على Cloudways (تطبيق مستقل، الرابط الافتراضي، بلا DNS، غير مفهرس، WordPress الحالي لا يُلمس). بعد الفحص والموافقة: Cloudflare (Full strict، DNSSEC) والإنتاج حسب بوابة PHASE 7. |  | توجيه صريح من الـOwner (M62) | M62 · 2026-10-02 (سُجّل في التدقيق) | PO-064 · PO-073 · DEPLOY-002 · docs/platform/ENVIRONMENTS.md · docs/platform/ACCESS-SETUP.md §4 ↻ M65: توقيت رابط الـStaging على Cloudways: لا يبدأ إلا بعد أمر الـOwner الصريح «START CLOUDWAYS + CLOUDFLARE CONNECTION» (D-342). سكربتات النشر الجاهزة محفوظة محليًا وغير مرفوعة: DEFERRED — REQUIRES INFRASTRUCTURE CONNECTION. |
+| `D-339` | Release / Infrastructure | قبل أي نشر للإنتاج: رابط فحص كامل للموقع للـOwner — نسخة Staging على Cloudways (تطبيق مستقل، الرابط الافتراضي، بلا DNS، غير مفهرس، WordPress الحالي لا يُلمس). بعد الفحص والموافقة: Cloudflare (Full strict، DNSSEC) والإنتاج حسب بوابة PHASE 7. |  | توجيه صريح من الـOwner (M62) | M62 · 2026-10-02 (سُجّل في التدقيق) | PO-064 · PO-073 · DEPLOY-002 · docs/platform/ENVIRONMENTS.md · docs/platform/ACCESS-SETUP.md §4 ↻ M65: توقيت رابط الـStaging على Cloudways: لا يبدأ إلا بعد أمر الـOwner الصريح «START CLOUDWAYS + CLOUDFLARE CONNECTION» (D-342). سكربتات النشر الجاهزة محفوظة محليًا وغير مرفوعة: DEFERRED — REQUIRES INFRASTRUCTURE CONNECTION. ↻ M66: رابط الفحص على Cloudways لا يُنشأ إلا بعد أمر الـOwner «START CLOUDWAYS DEPLOYMENT» (D-343). |
 | `D-341` | SEO / Content | مكان «كافيه» و«كوفي» في نصوص Google (اختيار Claude بتفويض الـOwner). «كافيه» هي الكلمة الأكثر بحثًا محليًا، وتظهر مرة واحدة في كل صفحة تستهدفها: عنوان الرئيسية «شلتر كوفي — كافيه قهوة مختصة ودرايف ثرو في إربد»، ووصف الرئيسية «شلتر كوفي، كافيه قهوة مختصة في إربد: …»، ووصف الفروع «… الدرايف ثرو، والكافيه في سيتي سنتر. …»، وعنوان HOUSE «شلتر كوفي هاوس — كافيه في إربد \| ساعات الدوام» (ويزيل تكرار «كوفي هاوس» في العنوان). عنوان صفحة الفروع يبقى «فروع شلتر كوفي في إربد — ساعات الدوام» حتى لا ينافس الرئيسية على البحث نفسه. DRIVE وباقي الصفحات بلا تغيير. اسم العلامة والنصوص الظاهرة «كوفي» (D-007). يحل محل D-340. |  | Owner: «لا امانع من استخدام كافيه او كوفي — انت اختار الافضل» | M64 · 2026-10-02 (سُجّل في التدقيق) | D-340 (SUPERSEDED) · PO-080 · PO-082 (RESOLVED) · D-007 · D-332 · lang/ar/site.php · docs/seo/LOCAL-SEO-MAP.md · tests/Feature/Site/LocalSeoTest.php |
-| `D-342` | Release / Infrastructure | بوابة ما قبل البنية التحتية: لا ربط ولا إعداد Cloudways أو Cloudflare أو DNS أو SSL أو CDN أو WAF أو نشر Production (ولا Staging على Cloudways) قبل اكتمال البناء والفحص والإصلاح والانحدار وSEO وSEO إربد والتحقق النهائي (16 بندًا: كل الاختبارات الآلية، الرحلات الحرجة، الموقع فعليًا AR/EN، Mobile/Tablet/Desktop، Console، Network، النماذج، الـDashboard، المصادقة والصلاحيات، سلامة قاعدة البيانات، تطابق المنيو والفروع وMaster Data، SEO/Schema/Sitemap/hreflang/canonical، الحركة والأداء، لا بيانات تجريبية، Git نظيف ومحفوظ، التوثيق والتتبع محدّثان). «Ready» ممنوعة مع أي P0/P1 أو اختبار أساسي ناقص أو Bug مؤثر. ما يعتمد على Cloudways/Cloudflare فقط = DEFERRED — REQUIRES INFRASTRUCTURE CONNECTION ولا يمنع. عند الجاهزية: الرسالة المحددة + ملخص PRE-INFRASTRUCTURE STATUS، ثم توقف حتى يقول الـOwner «START CLOUDWAYS + CLOUDFLARE CONNECTION». |  | توجيه صريح من الـOwner (M65) | M65 · 2026-10-02 (سُجّل في التدقيق) | D-339 · D-314 · PO-064 · DEPLOY-002 · docs/FINAL-QA-REPORT.md · docs/PROGRESS.md |
+| `D-342` | Release / Infrastructure | بوابة ما قبل البنية التحتية: لا ربط ولا إعداد Cloudways أو Cloudflare أو DNS أو SSL أو CDN أو WAF أو نشر Production (ولا Staging على Cloudways) قبل اكتمال البناء والفحص والإصلاح والانحدار وSEO وSEO إربد والتحقق النهائي (16 بندًا: كل الاختبارات الآلية، الرحلات الحرجة، الموقع فعليًا AR/EN، Mobile/Tablet/Desktop، Console، Network، النماذج، الـDashboard، المصادقة والصلاحيات، سلامة قاعدة البيانات، تطابق المنيو والفروع وMaster Data، SEO/Schema/Sitemap/hreflang/canonical، الحركة والأداء، لا بيانات تجريبية، Git نظيف ومحفوظ، التوثيق والتتبع محدّثان). «Ready» ممنوعة مع أي P0/P1 أو اختبار أساسي ناقص أو Bug مؤثر. ما يعتمد على Cloudways/Cloudflare فقط = DEFERRED — REQUIRES INFRASTRUCTURE CONNECTION ولا يمنع. عند الجاهزية: الرسالة المحددة + ملخص PRE-INFRASTRUCTURE STATUS، ثم توقف حتى يقول الـOwner «START CLOUDWAYS + CLOUDFLARE CONNECTION». |  | توجيه صريح من الـOwner (M65) | M65 · 2026-10-02 (سُجّل في التدقيق) | D-339 · D-314 · PO-064 · DEPLOY-002 · docs/FINAL-QA-REPORT.md · docs/PROGRESS.md ↻ M66: D-343 يكمّلها: البوابة صارت «FINAL PRE-CLOUDWAYS MASTER AUDIT» (146 بندًا) بمخرجين إلزاميين (Runbook + تقرير الفحص النهائي)، والاعتماد النهائي «READY FOR CLOUDWAYS DEPLOYMENT»، وأمر البدء «START CLOUDWAYS DEPLOYMENT». Cloudflare يأتي بعد نجاح نشر Cloudways واختبارات الـOrigin. |
+| `D-343` | Release / Infrastructure | بوابة ما قبل Cloudways (M66): فحص المشروع كاملًا كأنه سيُطلق للعملاء مباشرة — المحتوى والعربية والإنجليزية والتطابق، والبيانات مقابل Master Data، والمنيو والفروع، والثيم والألوان والخطوط والمسافات والزوايا والظلال والأيقونات، والهيدر والفوتر، وكل زر ورابط ونموذج، والتوظيف والفرنشايز والتواصل والوسائط والجوائز والفعاليات والحملات، والحركة وتقليلها، والاستجابة على 14 عرضًا، والموبايل والتابلت والديسكتوب، وRTL/LTR، ولوحة المالك، والمصادقة والصلاحيات، وقاعدة البيانات والـMigrations والـSeeders والتخزين والمسارات وحساسية الأحرف وتوافق Linux، ومتغيرات البيئة، وعدم وجود أسرار في Git، وبناء الإنتاج، والأمان، والوصولية، والأداء، وSEO وSEO إربد والـSchema والـSitemap وخطة الروابط القديمة، والتحليلات، وسجل التدقيق والنسخ وحارس النشر، والمتصفحات، والشبكة البطيئة، ومحاكاة الفشل، وتنظيف بيانات الاختبار، وGit. ثم إصلاح كل ما هو تقني، وإعادة الاختبار، وبناء نظيف من الصفر. المخرجات: docs/CLOUDWAYS-DEPLOYMENT-RUNBOOK.md (لا يُنفذ) وdocs/PRE-CLOUDWAYS-FINAL-AUDIT.md مع دليل لكل P0/P1. لا P0 ولا P1 عند الاعتماد؛ P2 يُصلح قدر الإمكان؛ P3 تجميلي فقط ويُذكر. الاعتماد: READY أو NOT READY FOR CLOUDWAYS DEPLOYMENT، ثم توقف حتى «START CLOUDWAYS DEPLOYMENT». Cloudflare بعد نجاح Cloudways واختبارات الـOrigin. |  | توجيه صريح من الـOwner (M66) | M66 · 2026-10-02 (سُجّل في التدقيق) | D-342 · D-339 · PO-064 · docs/CLOUDWAYS-DEPLOYMENT-RUNBOOK.md · docs/PRE-CLOUDWAYS-FINAL-AUDIT.md · DX-007 |
 | `DB-01` | Brand | حُسم: الاسم (D-007)، الفروع (D-008، D-020)، سنة التأسيس 2019 (D-018) | الحقائق التأسيسية مطلوبة قبل أي Sitemap |  | #1 of 22 in DECISION-LOG open table (P0/P1/P2 priority in 05) · P0 | BRAND-001، ABOUT-003 |
 | `DB-10` | Products | البنية تدعم العرض الكامل للأسعار (D-078) |  |  | #12 of 22 in DECISION-LOG open table (P0/P1/P2 priority in 05) · P2 | MENU-014 |
 | `DB-21` | CMS | المصدر الوحيد للمنيو: A الآن + جاهزية C (حُسم بـD-085) | سؤال مفتوح: مصدر المنيو SSOT |  | #13 of 22 in DECISION-LOG open table (P0/P1/P2 priority in 05) | CMS-003 |
@@ -533,7 +534,7 @@
 | `GEP-§3` | GBP/Maps | فرعان رسميان على Google (DRIVE، HOUSE)؛ GBP لكل فرع = OFFICIAL OPERATIONAL SOURCE للحقول الأحد عشر | M33 §23 | SUPERSEDED (جزئيًا) BY D-278: وصف GBP كمصدر تشغيلي رسمي؛ تبقى قائمة الملفين الرسميين DRIVE/HOUSE (GBP-002) |  | policy section order · 2026-10-01 | GBP-002، GBP-003 |
 | `GEP-§26` |  | menu_view · menu_category_click · product_view · branch_view · directions_click · phone_click · whatsapp_click · social_click · campaign_view · campaign_click · event_view · blog_view · language_switch · search_use | M12 §9 → M25 §9 → M27 §18 (D-204) | القائمة الحالية = M27 §18 (14 حدثًا) + branch_view/social_click/event_view بانتظار قرار. |  |  | تحديث GOOGLE-ECOSYSTEM-POLICY §26 (إضافي — غير وارد في G6-docs). |
 
-## تحديثات من المواصفات الجديدة (M28–M30) على قرارات وبنود قائمة (69)
+## تحديثات من المواصفات الجديدة (M28–M30) على قرارات وبنود قائمة (71)
 
 | المعرّف | النوع | التغيير | المصدر |
 |---|---|---|---|
@@ -606,3 +607,5 @@
 | `D-332` | UPDATE | D-341: وصف الرئيسية العربي تغيّر أوله فقط («شلتر كوفي، كافيه قهوة مختصة في إربد: …»)، ووصف الفروع صار «فرعا شلتر كوفي في إربد: الدرايف ثرو، والكافيه في سيتي سنتر. ساعات الدوام وأيّ فرع مفتوح الآن.». | M64 |
 | `D-339` | UPDATE | توقيت رابط الـStaging على Cloudways: لا يبدأ إلا بعد أمر الـOwner الصريح «START CLOUDWAYS + CLOUDFLARE CONNECTION» (D-342). سكربتات النشر الجاهزة محفوظة محليًا وغير مرفوعة: DEFERRED — REQUIRES INFRASTRUCTURE CONNECTION. | M65 |
 | `D-314` | UPDATE | D-342: Cloudways وCloudflare في النهاية فقط بعد بوابة التحقق قبل البنية التحتية وأمر الـOwner الصريح. | M65 |
+| `D-342` | UPDATE | D-343 يكمّلها: البوابة صارت «FINAL PRE-CLOUDWAYS MASTER AUDIT» (146 بندًا) بمخرجين إلزاميين (Runbook + تقرير الفحص النهائي)، والاعتماد النهائي «READY FOR CLOUDWAYS DEPLOYMENT»، وأمر البدء «START CLOUDWAYS DEPLOYMENT». Cloudflare يأتي بعد نجاح نشر Cloudways واختبارات الـOrigin. | M66 |
+| `D-339` | UPDATE | رابط الفحص على Cloudways لا يُنشأ إلا بعد أمر الـOwner «START CLOUDWAYS DEPLOYMENT» (D-343). | M66 |

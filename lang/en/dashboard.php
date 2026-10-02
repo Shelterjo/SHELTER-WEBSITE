@@ -1,6 +1,8 @@
 <?php
 
 return [
+    // ContentGuard: a phrase that never goes public (a blocked claim or a rejected fact such as an old founding year).
+    'blocked_phrase' => 'The text contains a phrase that is never published: “:phrase”. Remove it or reword.',
     'stale_edit' => 'This record was changed in another tab or device after you opened this page, so your change was not saved and the newer one is kept. Open the page again to see the latest version, then edit again.', // FINAL-QA QA-044
     'name' => 'SHELTER Dashboard',
     'command_center' => 'Command Center',

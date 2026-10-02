@@ -4,6 +4,15 @@
 // and only the functions used (M40 §45). The hero headline moves with CSS (resources/css/components/hero.css).
 
 /** "700ms" | "0.7s" → seconds; falls back when the token is missing or unparsable. */
+/** A cubic-bezier() motion token as Motion's [x1, y1, x2, y2] (MOTION-004: the easing comes from the tokens). */
+export function toBezier(value: string, fallback: [number, number, number, number]): [number, number, number, number] {
+    const match = /^cubic-bezier\(([^)]+)\)$/.exec(value.trim());
+    const points = match?.[1]?.split(',').map((part) => Number(part.trim())) ?? [];
+    return points.length === 4 && points.every((n) => Number.isFinite(n))
+        ? [points[0] ?? 0, points[1] ?? 0, points[2] ?? 0, points[3] ?? 0]
+        : fallback;
+}
+
 export function toSeconds(value: string, fallback: number): number {
     const match = /^\s*(-?\d*\.?\d+)\s*(ms|s)\s*$/.exec(value);
     if (match === null) return fallback;
@@ -28,6 +37,7 @@ export async function installReveal(doc: Document = document): Promise<void> {
     const { animate, inView } = await import('motion');
     const tokens = view.getComputedStyle(doc.documentElement);
     const duration = toSeconds(tokens.getPropertyValue('--motion-reveal'), 0.6);
+    const ease = toBezier(tokens.getPropertyValue('--easing-enter'), [0, 0, 0.2, 1]);
     const rise = tokens.getPropertyValue('--space-4').trim() || '1rem';
 
     for (const element of targets) {
@@ -40,7 +50,7 @@ export async function installReveal(doc: Document = document): Promise<void> {
                     { opacity: [0, 1], transform: [`translateY(${rise})`, 'translateY(0)'] },
                     {
                         duration,
-                        ease: [0.2, 0.8, 0.2, 1],
+                        ease,
                     },
                 );
             },

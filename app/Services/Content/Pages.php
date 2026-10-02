@@ -162,18 +162,10 @@ final class Pages
         return true;
     }
 
-    /** The first phrase blocked for this page key found in the text (config content.blocked_phrases), or null. */
+    /** The first phrase blocked for this page found in the text (ContentGuard: the page's own list + facts), or null. */
     public static function blockedPhrase(string $key, string $text): ?string
     {
-        /** @var list<string> $phrases */
-        $phrases = config('content.blocked_phrases.'.$key, []);
-        foreach ($phrases as $phrase) {
-            if (mb_stripos($text, $phrase) !== false) {
-                return $phrase;
-            }
-        }
-
-        return null;
+        return ContentGuard::find($text, $key);
     }
 
     private static function text(Page $page): string

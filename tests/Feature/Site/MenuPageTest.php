@@ -108,6 +108,25 @@ class MenuPageTest extends TestCase
         $this->assertSame('JOD', $menu['hasMenuSection'][1]['hasMenuItem'][0]['offers']['priceCurrency']);
     }
 
+    public function test_the_sticky_bar_has_the_compact_search_and_all_categories_with_every_section(): void
+    {
+        $html = (string) $this->get('/ar/jo/menu/')->assertOk()->getContent();
+
+        // F-15: the compact search icon is a plain link to the search field (it works without JavaScript).
+        $this->assertSame(1, preg_match('#<a\b[^>]*data-ui-menu-compact-search[^>]*>#u', $html, $compact));
+        $compactTag = $compact[0] ?? '';
+        $this->assertStringContainsString('href="#menu-search"', $compactTag);
+        $this->assertStringContainsString('aria-label="'.__('menu.search_label', [], 'ar').'"', $compactTag);
+        // F-16: «كل الفئات» opens the full list; every section of the bar is in it, in the same order.
+        $this->assertSame(1, preg_match('#<button\b[^>]*commandfor="menu-all-categories"[^>]*>#u', $html, $all));
+        $this->assertStringContainsString('aria-label="كل الفئات"', $all[0] ?? '');
+        $this->assertMatchesRegularExpression('#<dialog\b[^>]*\bid="menu-all-categories"#u', $html);
+        preg_match_all('#data-ui-menu-nav="([^"]+)"#', $html, $chips);
+        preg_match_all('#data-ui-menu-all-link="([^"]+)"#', $html, $entries);
+        $this->assertNotEmpty($chips[1]);
+        $this->assertSame($chips[1], $entries[1]);
+    }
+
     public function test_unknown_branch_parameter_falls_back_to_all_branches(): void
     {
         $html = (string) $this->get('/en/jo/menu/?branch=nope')->assertOk()->getContent();
