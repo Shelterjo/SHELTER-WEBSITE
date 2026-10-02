@@ -49,6 +49,21 @@ final readonly class BranchSummary
         public array $special = [],
     ) {}
 
+    /**
+     * The card's one line: what and where, then the location description — the city only once (M57 §28: never
+     * «… في إربد · إربد سيتي سنتر…»). Null when nothing is known.
+     */
+    public function placeLine(): ?string
+    {
+        if ($this->landmark === null) {
+            return $this->kindInCity();
+        }
+        $cityInLandmark = $this->city !== null && mb_stripos($this->landmark, $this->city) !== false;
+        $lead = $cityInLandmark ? $this->kind : $this->kindInCity();
+
+        return $lead !== null ? $lead.' · '.$this->landmark : $this->landmark;
+    }
+
     /** «درايف ثرو في إربد» / “Drive-thru in Irbid”, or whichever half is known; null when neither is. */
     public function kindInCity(): ?string
     {

@@ -49,46 +49,50 @@ class LocalSeoTest extends TestCase
         return User::factory()->withTwoFactor('JBSWY3DPEHPK3PXPJBSWY3DPEHPK3PXP')->create();
     }
 
-    public function test_the_kind_of_branch_and_its_city_show_and_the_arabic_city_waits_for_its_spelling(): void
+    public function test_the_kind_of_branch_and_its_city_show_only_while_the_city_spelling_is_approved(): void
     {
         $en = $this->page('/en/jo/locations/irbid/house/');
         $this->assertStringContainsString('<p class="ui-page-intro__lead">Coffee house in Irbid</p>', $en);
         $this->assertStringContainsString('<title>SHELTER COFFEE HOUSE — Coffee house in Irbid | Opening Hours</title>', $en);
+        // D-334: «إربد» is the approved spelling (CF-M-036).
+        $this->assertStringContainsString('<p class="ui-page-intro__lead">درايف ثرو في إربد</p>', $this->page('/ar/jo/locations/irbid/drive/'));
 
-        // CF-M-036: the Arabic spelling of the city is the Owner's to approve; until then only the kind shows.
-        $ar = $this->page('/ar/jo/locations/irbid/drive/');
-        $this->assertStringContainsString('<p class="ui-page-intro__lead">درايف ثرو</p>', $ar);
-        $this->assertStringNotContainsString('<p class="ui-page-intro__lead">درايف ثرو في', $ar);
-
+        // The fact gates it: when the live name no longer matches the approved spelling, only the kind shows.
         $facts = app(FactRegistry::class);
         $fact = $facts->current('city.irbid.name_ar');
         $this->assertNotNull($fact);
-        $facts->approve($fact, $this->owner(), 'D-TEST');
-        $this->assertStringContainsString('<p class="ui-page-intro__lead">درايف ثرو في إربد</p>', $this->page('/ar/jo/locations/irbid/drive/'));
-        $this->assertStringContainsString('درايف ثرو في إربد', $this->page('/ar/jo/locations/'), 'the card says it too');
+        $facts->supersede($fact, 'اربد', $this->owner(), 'D-TEST');
+        $ar = $this->page('/ar/jo/locations/irbid/drive/');
+        $this->assertStringContainsString('<p class="ui-page-intro__lead">درايف ثرو</p>', $ar);
+        $this->assertStringNotContainsString('<p class="ui-page-intro__lead">درايف ثرو في', $ar);
     }
 
-    public function test_the_location_description_is_missing_until_the_owner_saves_it(): void
+    public function test_the_approved_location_descriptions_show_and_a_missing_one_waits_for_the_owner(): void
     {
-        $branch = Branch::query()->where('slug', 'house')->firstOrFail();
-        $facts = app(FactRegistry::class);
-        foreach (['landmark_ar', 'landmark_en'] as $field) {
-            $this->assertSame('MISSING', $facts->current($branch->factKey($field))?->status->value, $field.' is recorded as missing, not invented');
-        }
-        $this->assertStringNotContainsString('Test landmark', $this->page('/en/jo/locations/irbid/house/'));
+        // D-334: HOUSE in both languages, DRIVE in Arabic; DRIVE's English wording is still missing (PO-081).
+        $house = $this->page('/ar/jo/locations/irbid/house/');
+        $this->assertStringContainsString('<p>إربد سيتي سنتر، الطابق الأول، بجانب البنك الإسلامي الأردني</p>', $house);
+        $this->assertStringContainsString('<p>Irbid City Center, First Floor, next to Jordan Islamic Bank</p>', $this->page('/en/jo/locations/irbid/house/'));
+        $this->assertStringContainsString('<p>بجانب منطقة قصر النخيل / أرابيلا</p>', $this->page('/ar/jo/locations/irbid/drive/'));
+        $drive = Branch::query()->where('slug', 'drive')->firstOrFail();
+        $this->assertSame('MISSING', app(FactRegistry::class)->current($drive->factKey('landmark_en'))?->status->value, 'not invented');
+        $this->assertStringNotContainsString('id="branch-place"', $this->page('/en/jo/locations/irbid/drive/'));
 
+        // The card names the city once: «كوفي هاوس · إربد سيتي سنتر…», not «… في إربد · إربد سيتي سنتر…».
+        $cards = $this->page('/ar/jo/locations/');
+        $this->assertStringContainsString('كوفي هاوس · إربد سيتي سنتر، الطابق الأول', $cards);
+        $this->assertStringContainsString('درايف ثرو في إربد · بجانب منطقة قصر النخيل / أرابيلا', $cards);
+
+        // The Owner saves the missing wording in the branch editor (saving = approval) and it shows.
         $this->withoutMiddleware(ValidateCsrfToken::class);
         $this->actingAs($this->owner())->withSession([OwnerSession::LOGIN_AT => now()->getTimestamp(), OwnerSession::CONFIRMED_AT => now()->getTimestamp()]);
-        $this->get('/dashboard/data/branches/'.$branch->id)->assertOk()->assertSee('وصف الموقع بالعربي');
-        $this->put('/dashboard/data/branches/'.$branch->id.'/details', [
-            'name_ar' => $branch->name_ar, 'name_en' => $branch->name_en, 'is_public' => '1',
-            'landmark_ar' => 'معلم تجريبي، الطابق التجريبي', 'landmark_en' => 'Test landmark, test floor',
+        $this->get('/dashboard/data/branches/'.$drive->id)->assertOk()->assertSee('وصف الموقع بالإنجليزي');
+        $this->put('/dashboard/data/branches/'.$drive->id.'/details', [
+            'name_ar' => $drive->name_ar, 'name_en' => $drive->name_en, 'is_public' => '1',
+            'landmark_ar' => (string) $drive->landmark_ar, 'landmark_en' => 'Test landmark wording',
         ])->assertSessionHasNoErrors();
-
-        $en = $this->page('/en/jo/locations/irbid/house/');
-        $this->assertStringContainsString('<p>Test landmark, test floor</p>', $en);
-        $this->assertStringContainsString('Test landmark, test floor', $this->page('/en/jo/locations/'));
-        $this->assertStringContainsString('معلم تجريبي، الطابق التجريبي', $this->page('/ar/jo/locations/irbid/house/'));
+        $en = $this->page('/en/jo/locations/irbid/drive/');
+        $this->assertStringContainsString('<p>Test landmark wording</p>', $en);
         // The landmark never pretends to be a street address.
         $shop = collect($this->jsonLd($en))->firstWhere('@type', 'CafeOrCoffeeShop');
         $this->assertNotNull($shop);

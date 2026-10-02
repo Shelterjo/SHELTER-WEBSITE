@@ -18,9 +18,9 @@ return [
     'country' => ['iso2' => 'JO', 'name_ar' => 'الأردن', 'name_en' => 'Jordan'],
     'city' => [
         // D-008: both public branches are in Irbid. Latin slug per D-014/D-031.
-        // Arabic spelling is not approved yet (CF-M-036: إربد / أربد / اربد) → its fact stays PENDING OWNER APPROVAL.
+        // Arabic spelling «إربد» approved by the Owner (D-334, PO-079 → «أ»; CF-M-036 resolved).
         'slug' => 'irbid', 'name_ar' => 'إربد', 'name_en' => 'Irbid',
-        'facts' => ['name_ar' => ['status' => 'PENDING OWNER APPROVAL', 'ref' => 'CF-M-036']],
+        'facts' => ['name_ar' => ['status' => 'APPROVED', 'ref' => 'D-334']],
     ],
     'branches' => [
         [
@@ -33,7 +33,10 @@ return [
             ),
             'hours_ref' => 'D-020',
             // D-020: detailed address, official place name and Maps link are NOT approved (PO-010).
-            'missing' => ['address_ar' => 'PO-010', 'address_en' => 'PO-010', 'landmark_ar' => 'PO-010', 'landmark_en' => 'PO-010', 'maps_url' => 'PO-010', 'latitude' => 'PO-010', 'longitude' => 'PO-010'],
+            'missing' => ['address_ar' => 'PO-010', 'address_en' => 'PO-010', 'maps_url' => 'PO-010', 'latitude' => 'PO-010', 'longitude' => 'PO-010'],
+            // D-334 (Owner «أ» to PO-079): the location description, as the Owner wrote it in M57 §1 — a landmark, not the
+            // street address (PO-010). Its English wording was not given → PO-081.
+            'landmarks' => ['landmark_ar' => ['value' => 'بجانب منطقة قصر النخيل / أرابيلا', 'ref' => 'D-334'], 'landmark_en' => ['value' => null, 'ref' => 'PO-081']],
         ],
         [
             'code' => 'BR-HOUSE', 'slug' => 'house', 'type' => 'coffee_house', 'sort' => 2, 'is_public' => true,
@@ -44,7 +47,12 @@ return [
                 array_map(fn (int $d): array => [$d, '09:00', '23:00'], [4, 5]),
             ),
             'hours_ref' => 'D-020',
-            'missing' => ['address_ar' => 'PO-010', 'address_en' => 'PO-010', 'landmark_ar' => 'PO-010', 'landmark_en' => 'PO-010', 'maps_url' => 'PO-010', 'latitude' => 'PO-010', 'longitude' => 'PO-010'],
+            'missing' => ['address_ar' => 'PO-010', 'address_en' => 'PO-010', 'maps_url' => 'PO-010', 'latitude' => 'PO-010', 'longitude' => 'PO-010'],
+            // D-334 (Owner «أ» to PO-079; M57 §1, D-020): Irbid City Center, first floor, next to Jordan Islamic Bank.
+            'landmarks' => [
+                'landmark_ar' => ['value' => 'إربد سيتي سنتر، الطابق الأول، بجانب البنك الإسلامي الأردني', 'ref' => 'D-334'],
+                'landmark_en' => ['value' => 'Irbid City Center, First Floor, next to Jordan Islamic Bank', 'ref' => 'D-334'],
+            ],
         ],
     ],
     // D-033 services and D-034 payment methods: data model ready, every value MISSING until the owner confirms.

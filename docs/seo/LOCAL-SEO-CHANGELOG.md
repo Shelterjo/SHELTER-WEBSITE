@@ -37,6 +37,7 @@ Why the city and brand appear together in every title: «شلتر كافية» i
 | Change | Detail |
 |---|---|
 | New fields `landmark_ar` / `landmark_en` (location description) | A migration, the Fact Registry (registered **MISSING — PO-010** until the Owner saves them) and the branch editor (saving = approval). Shown under the address on the branch page and on cards; never used as `streetAddress`. **No value was entered**, because entering the M57 §1 wording as approved data needs the Owner's confirmation (PO-079) |
+| **Values entered (D-334, Owner «أ» to PO-079)** | DRIVE `landmark_ar` «بجانب منطقة قصر النخيل / أرابيلا»; HOUSE `landmark_ar` «إربد سيتي سنتر، الطابق الأول، بجانب البنك الإسلامي الأردني» and `landmark_en` “Irbid City Center, First Floor, next to Jordan Islamic Bank”; city spelling «إربد» (CF-M-036 resolved). DRIVE `landmark_en` is still MISSING (PO-081). Cards name the city only once: «كوفي هاوس · إربد سيتي سنتر…» |
 | `MasterData::cityName()` | The Arabic city name shows only once its fact is approved (CF-M-036); English comes from the fixed page address (D-053) |
 | `HoursResolver::specialDays()` | The exception days ahead, by the same priority rule the page uses: one source for the page and the schema (§19, §21) |
 

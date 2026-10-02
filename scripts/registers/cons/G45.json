@@ -1,0 +1,69 @@
+{
+  "group": "G45",
+  "notes": "M58: جواب الـOwner على PO-079: «أ» — اعتماد بيانات الموقع التي كتبها في M57 §1 كما هي وإدخالها في Master Data، وكتابة المدينة «إربد».",
+  "requirements": [],
+  "updates_to_existing": [
+    {
+      "id": "PO-079",
+      "type": "RESOLVE",
+      "source": "M58",
+      "change": "✅ 2026-10-02 → «أ» (D-334): أُدخلت في Master Data واعتُمدت في سجل الحقائق: وصف DRIVE بالعربي «بجانب منطقة قصر النخيل / أرابيلا»، ووصف HOUSE «إربد سيتي سنتر، الطابق الأول، بجانب البنك الإسلامي الأردني» / «Irbid City Center, First Floor, next to Jordan Islamic Bank»، وكتابة «إربد». الصيغة الإنجليزية لوصف DRIVE لم تُعطَ → PO-081. ظاهرة في صفحتي الفرعين وبطاقاتهما ومختبرة."
+    },
+    {
+      "id": "CF-M-036",
+      "type": "RESOLVE",
+      "source": "M58",
+      "change": "«إربد» بالهمزة تحت الألف — اعتمدها الـOwner (D-334)"
+    },
+    {
+      "id": "SEO-008",
+      "type": "UPDATE",
+      "source": "M58",
+      "change": "وصف الموقع والمدينة بالعربي معتمدان وظاهران (D-334)؛ العنوان التفصيلي ورابط Maps والإحداثيات ما زالت PO-010.",
+      "test_refs": [
+        "tests/Feature/Site/LocalSeoTest.php"
+      ]
+    },
+    {
+      "id": "D-008",
+      "type": "UPDATE",
+      "source": "M58",
+      "change": "صياغة وصف موقع DRIVE المعتمدة الآن «بجانب منطقة قصر النخيل / أرابيلا» (M57 §1، D-334) بدل «صالة قصر النخيل»."
+    }
+  ],
+  "conflicts": [],
+  "new_decisions": [
+    {
+      "temp_id": "G45-ND-01",
+      "area": "Branches / Master Data",
+      "decision": "اعتماد بيانات الموقع كما كتبها الـOwner في M57 §1 وإدخالها في Master Data: وصف موقع DRIVE «بجانب منطقة قصر النخيل / أرابيلا»؛ وصف موقع HOUSE «إربد سيتي سنتر، الطابق الأول، بجانب البنك الإسلامي الأردني» / «Irbid City Center, First Floor, next to Jordan Islamic Bank»؛ كتابة المدينة «إربد». وصف الموقع معلم قريب وليس العنوان التفصيلي (PO-010) ولا يُستخدم streetAddress.",
+      "sources": [
+        "M57",
+        "M58"
+      ],
+      "status": "APPROVED",
+      "reason": "Owner: «أ» — اعتماد القيم كما هي",
+      "impact": "PO-079 (RESOLVED) · CF-M-036 (RESOLVED) · SEO-008 · database/seeders/data/master-data.php · صفحتا الفرعين وبطاقاتهما",
+      "date": "2026-10-02"
+    }
+  ],
+  "pending_owner": [
+    {
+      "id": "G45-PO-01",
+      "item": "الصيغة الإنجليزية لوصف موقع DRIVE (العربي معتمد: «بجانب منطقة قصر النخيل / أرابيلا»). مقترح للمراجعة: “Next to the Qasr Al-Nakheel / Arabella area” — تهجئة «قصر النخيل» بالإنجليزي تختلف بين المصادر (Qasr Al-Nakheel · Qaser Al-Nakheel · Qasr Alnakheel).",
+      "category": "NON-BLOCKING",
+      "type": "CONTENT NEEDED",
+      "blocks": "سطر الموقع في صفحة DRIVE الإنجليزية فقط",
+      "refs": [
+        "D-334",
+        "SEO-008",
+        "docs/seo/LOCAL-KEYWORD-RESEARCH.md §3.6"
+      ],
+      "count": "سطر واحد",
+      "notes": "يُدخل من محرر الفرع (الحفظ = اعتماد) أو بردّك"
+    }
+  ],
+  "technical_flags": [],
+  "cost_api_dependencies": [],
+  "dropped": []
+}

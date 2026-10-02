@@ -18,7 +18,7 @@
     $level = max(2, min(4, (int) $level));
     // Plain variables keep component attributes free of "->" (the localization test strips tags by their brackets).
     $statusTimeline = $branch->status;
-    $kindInCity = $branch->kindInCity();
+    $placeLine = $branch->placeLine();
     $phoneHref = $branch->phone?->href;
     $whatsappHref = $branch->whatsapp?->href;
     // Icon-only actions name the branch (FINAL-QA QA-034): two cards on one page must not share one label.
@@ -36,10 +36,10 @@
         @endif
     </div>
     <div class="ui-branch__info">
-        @if ($kindInCity !== null || $branch->landmark !== null)
+        @if ($placeLine !== null)
             <p class="ui-branch__place">
                 <x-ui.icon name="map-pin" size="sm" />
-                <span>{{ $kindInCity }}@if ($kindInCity !== null && $branch->landmark !== null) · @endif{{ $branch->landmark }}</span>
+                <span>{{ $placeLine }}</span>
             </p>
         @endif
         @if ($branch->status !== null)

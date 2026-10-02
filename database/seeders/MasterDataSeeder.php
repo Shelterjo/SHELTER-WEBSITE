@@ -44,6 +44,16 @@ class MasterDataSeeder extends Seeder
             foreach ($b['missing'] as $field => $ref) {
                 $this->fact($facts, $branch->factKey($field), 'branch', null, FactStatus::Missing, $ref);
             }
+            // Location descriptions (D-334): written once on a fresh install, never over an Owner edit (the fact exists then).
+            foreach ($b['landmarks'] ?? [] as $field => $l) {
+                if ($facts->current($branch->factKey($field)) !== null) {
+                    continue;
+                }
+                if ($l['value'] !== null && $branch->getAttribute($field) === null) {
+                    $branch->forceFill([$field => $l['value']])->save();
+                }
+                $this->fact($facts, $branch->factKey($field), 'branch', $l['value'], $l['value'] === null ? FactStatus::Missing : FactStatus::Approved, $l['ref']);
+            }
 
             if ($branch->hours()->doesntExist()) {
                 foreach ($b['hours'] as [$weekday, $opens, $closes]) {
