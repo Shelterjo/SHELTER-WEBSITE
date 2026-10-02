@@ -1,6 +1,7 @@
 <?php
 
 use App\Services\Core\Attention;
+use App\Services\Core\DatabaseBackup;
 use App\Services\Core\JobRuns;
 use App\Services\MasterData\FactRegistry;
 use Illuminate\Support\Facades\Artisan;
@@ -11,6 +12,14 @@ use Illuminate\Support\Facades\Schedule;
 | Time-dependent public state (open now, active campaign) is computed at request time; jobs only do housekeeping.
 | Server cron: * * * * * php artisan schedule:run
 */
+
+// Database backup (DEPLOY-005, OPS-041) first, before the night's jobs change anything. DatabaseBackup records its own
+// run through JobRuns, so `php artisan ops:backup-db --reason=pre-deploy` during a deploy shows up the same way.
+Schedule::call(fn () => app(DatabaseBackup::class)->run('scheduled'))
+    ->name(DatabaseBackup::JOB)
+    ->timezone('Asia/Amman')
+    ->dailyAt('03:00')
+    ->withoutOverlapping();
 
 Schedule::call(fn () => app(JobRuns::class)->run('facts:expire-verified', fn (): string => app(FactRegistry::class)->expireVerified().' expired'))
     ->name('facts:expire-verified')

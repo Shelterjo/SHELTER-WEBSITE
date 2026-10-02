@@ -6,17 +6,21 @@ use App\Http\Controllers\Controller;
 use App\Models\Signal;
 use App\Models\User;
 use App\Services\Core\Attention;
+use App\Services\Core\DatabaseBackup;
 use App\Services\Core\Signals;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
-/** Needs attention (MON-007, DASH-017): every open issue, most serious first, each with the screen that fixes it. */
+/**
+ * Needs attention (MON-007, DASH-017): every open issue, most serious first, each with the screen that fixes it — and
+ * the last database backup (OPS-041), next to where a failed scheduled task shows up.
+ */
 final class AttentionController extends Controller
 {
-    public function index(Attention $attention): View
+    public function index(Attention $attention, DatabaseBackup $backup): View
     {
-        return view('dashboard.attention', ['items' => $attention->open(app()->getLocale())]);
+        return view('dashboard.attention', ['items' => $attention->open(app()->getLocale()), 'backup' => $backup->status()]);
     }
 
     /** Only information can be dismissed; an action-required issue closes when its cause is fixed (M35 §8). */
