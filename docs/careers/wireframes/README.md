@@ -126,7 +126,7 @@
 ## ما زال معلّقًا (لا يُخترع)
 | البند | الحالة |
 |---|---|
-| قائمة مدن الأردن | `PENDING DATA VERIFICATION` |
+| قائمة مدن الأردن | ✅ معتمدة (D-315): 12 بندًا من الـOwner — _كانت `PENDING DATA VERIFICATION`_ |
 | حد حجم الملف | يُحدد بعد Cloudways audit (§18) |
 | نص الحالة العامة المحايدة بعد «تمت المقابلة» و«مقبول» | يُحدد في `RECRUITMENT-PUBLIC-STATUS-MAPPING.md` |
 | نص مقدمة صفحة التوظيف (AR/EN) | `MISSING — OWNER INPUT REQUIRED` |

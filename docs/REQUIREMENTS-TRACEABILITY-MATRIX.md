@@ -1048,7 +1048,7 @@
 | `CAREERS-017` | حقل شرطي: الرقم الوطني (للأردني) — Required وحساس | M28-§07, M28-§27 | D-232, D-236 | docs/CAREERS-REQUIREMENTS.md · docs/RECRUITMENT-SECURITY.md |  |  | NOT STARTED | NO |
 | `CAREERS-018` | حقل شرطي: «ما هي جنسيتك؟» (لغير الأردني) — نص حر | M28-§07 | D-232 | docs/CAREERS-REQUIREMENTS.md |  |  | NOT STARTED | NO |
 | `CAREERS-019` | حقل شرطي: رقم جواز السفر أو رقم وثيقة الهوية (لغير الأردني) — حساس | M28-§07, M28-§27 | D-232, D-236 | docs/CAREERS-REQUIREMENTS.md · docs/RECRUITMENT-SECURITY.md |  |  | NOT STARTED | NO |
-| `CAREERS-020` | حقل 8: المدينة — Dropdown لمدن الأردن (ليست كتابة حرة ولا المحافظات فقط) | M28-§08 | D-232 | docs/CAREERS-REQUIREMENTS.md · docs/RECRUITMENT-DATA-MODEL.md |  |  | NOT STARTED | NO |
+| `CAREERS-020` | حقل 8: المدينة — Dropdown لمدن الأردن (ليست كتابة حرة ولا المحافظات فقط) | M28-§08, M45 | D-232 | docs/CAREERS-REQUIREMENTS.md · docs/RECRUITMENT-DATA-MODEL.md |  |  | NOT STARTED | NO |
 | `CAREERS-021` | قائمة مدن الأردن (Dataset موثوق مخزن داخليًا) — PENDING DATA VERIFICATION حتى التحقق | M28-§08 | D-232 | docs/RECRUITMENT-DATA-MODEL.md |  |  | NOT STARTED | NO |
 | `CAREERS-022` | حقل 9: المنطقة — نص حر (لا عنوان كامل) | M28-§08 | D-232 | docs/CAREERS-REQUIREMENTS.md |  |  | NOT STARTED | NO |
 | `CAREERS-023` | حقل 10: الوظيفة المتقدم لها — نص حر بلا Autocorrection | M28-§09 | D-232 | docs/CAREERS-REQUIREMENTS.md |  |  | NOT STARTED | NO |

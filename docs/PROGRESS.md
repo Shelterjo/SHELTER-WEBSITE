@@ -22,7 +22,7 @@
 | **Blockers للعمل المحلي** | لا يوجد |
 | **Blockers للـStaging والإطلاق** | - تطبيق Cloudways للـStaging (PO-064).<br>- ملفات الهوية (M-10).<br>- الوصول إلى Google وCloudflare (PO-011…013). |
 | **الصلاحيات (D-308)** | خطوات [`ACCESS-SETUP`](platform/ACCESS-SETUP.md):<br>1. ✅ **الشبكة:** متحقق منها، وأول جرد مباشر للموقع القديم في [`24-live-site-crawl`](phase-01-discovery/24-live-site-crawl-2026-10-01.md).<br>2. ✅ **Cloudflare:** Token قراءة كـAPI credential، متحقق منه 2026-10-01.<br>3. ⏳ **Google:** حساب خدمة للقراءة عبر GitHub Secrets.<br>4. ⏳ **Cloudways Staging** |
-| **قرار مطلوب منك الآن** | - **PO-074:** قائمة مدن الأردن لنموذج التوظيف (تفتح النموذج).<br>- **PO-071:** ترخيص خط GE SS Two (يمنع الإطلاق فقط).<br>- **PO-066:** ملف "Menu List" ([`23-menu-list-reconciliation`](phase-01-discovery/23-menu-list-reconciliation.md)).<br>- Cloudflare: PO-070 · PO-072 · PO-073 **نُفذت** (D-311…D-313). الباقي (Full strict · DNSSEC) مع Cloudways في النهاية (D-314) |
+| **قرار مطلوب منك الآن** | - **PO-071:** ترخيص خط GE SS Two (يمنع الإطلاق فقط).<br>- **PO-066:** ملف "Menu List" ([`23-menu-list-reconciliation`](phase-01-discovery/23-menu-list-reconciliation.md)).<br>- Cloudflare: PO-070 · PO-072 · PO-073 **نُفذت** (D-311…D-313). الباقي (Full strict · DNSSEC) مع Cloudways في النهاية (D-314) |
 
 ## PHASE 1 — Foundation
 | الوحدة | الحالة | الدليل |
@@ -59,7 +59,7 @@
 ## PHASE 4 — الصفحات العامة للوحدات (تبدأ بالتوظيف)
 | الوحدة | الحالة | الدليل |
 |---|---|---|
-| التوظيف — الجانب العام: `/ar/careers/` (المحتوى + **النموذج العربي الوحيد**) · `/en/careers/` (محتوى + Apply) · الرفع التدريجي · صفحة النجاح · متابعة الطلب | **TESTED** محليًا · **النموذج مغلق تلقائيًا** حتى قائمة المدن (**PO-074**) | `CareersServicesTest` (U-01…U-13 + التنظيف) · `CareersFormTest` (F-01…F-10، T-01…T-04) · رحلة متصفح كاملة على 390 · بلا تمدد 320…1920 |
+| التوظيف — الجانب العام: `/ar/careers/` (المحتوى + **النموذج العربي الوحيد**) · `/en/careers/` (محتوى + Apply) · الرفع التدريجي · صفحة النجاح · متابعة الطلب | **TESTED** محليًا · قائمة المدن معتمدة (D-315) · على Production مغلق حتى بوابات الإطلاق | `CareersServicesTest` (U-01…U-13 + التنظيف) · `CareersFormTest` (F-01…F-10، T-01…T-04) · رحلة متصفح كاملة على 390 · بلا تمدد 320…1920 |
 | التوظيف — البيانات والأمان: 15 جدولًا حسب RECRUITMENT-DATA-MODEL · الهوية AES-256-GCM + Blind index · فحص الملفات بالتوقيع · اكتشاف الـCV محليًا · رقم JOB من الخادم · الربط بالطلبات السابقة بلا دمج | **TESTED** | المفاتيح على السيرفر فقط (`.env.example` بلا قيم) |
 | التوظيف — الـOwner Dashboard (القائمة، الفلاتر، المقابلات، التصدير…) | NOT STARTED | ضمن PHASE 3/4 للـDashboard |
 | الفرنشايز · الوسائط · الجوائز · SHELTER Family · رأي العميل | NOT STARTED | مخفية حتى موافقاتها (PO-030 وغيرها) |

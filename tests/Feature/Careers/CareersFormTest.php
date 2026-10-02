@@ -62,6 +62,10 @@ class CareersFormTest extends TestCase
             $this->assertStringContainsString($text, $html);
         }
         $this->assertStringNotContainsString('دبلوم', $html);
+        // D-315: the Owner's 12 entries, in his order.
+        preg_match('#<select[^>]*id="city_id".*?</select>#su', $html, $select);
+        preg_match_all('#<option value="\d+"\s*>([^<]+)</option>#u', $select[0] ?? '', $cities);
+        $this->assertSame(['عمان', 'إربد', 'الزرقاء', 'البلقاء', 'المفرق', 'جرش', 'عجلون', 'مادبا', 'الكرك', 'الطفيلة', 'معان', 'العقبة'], array_map('trim', $cities[1]));
         $this->assertStringContainsString('أقر بأن جميع المعلومات المدخلة في طلب التوظيف صحيحة', $html);
         $this->assertStringContainsString('name="website"', $html, 'honeypot');
 

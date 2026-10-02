@@ -9,12 +9,11 @@ use Illuminate\Support\Facades\Storage;
 
 /**
  * Shared setup for the careers tests: random identity keys generated per run (no key is ever committed), a fake
- * private disk, the approved recruitment seed, and SAMPLE cities clearly marked as test data (the real list is
- * PENDING DATA VERIFICATION and never invented).
+ * private disk and the approved recruitment seed (consent v1, interview locations, the Owner's city list — D-315).
  */
 trait CareersTestHelpers
 {
-    protected function bootCareers(bool $withCities = true): void
+    protected function bootCareers(): void
     {
         config([
             'careers.identity.encryption_key' => base64_encode(random_bytes(32)),
@@ -24,16 +23,11 @@ trait CareersTestHelpers
         ]);
         Storage::fake('careers');
         $this->seed(RecruitmentSeeder::class);
-        if ($withCities) {
-            foreach (['مدينة تجريبية أ', 'مدينة تجريبية ب'] as $i => $name) {
-                JordanCity::query()->create(['name_ar' => $name, 'sort_order' => $i, 'source' => 'TEST DATA', 'verification_status' => 'TEST DATA']);
-            }
-        }
     }
 
     protected function cityId(): int
     {
-        return (int) JordanCity::query()->orderBy('id')->value('id');
+        return (int) JordanCity::query()->orderBy('sort_order')->value('id');
     }
 
     /**

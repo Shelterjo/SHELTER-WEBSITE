@@ -15,9 +15,9 @@
 | الحالة | العدد |
 |---|---|
 | `OWNER DECISION REQUIRED` | 20 |
-| `RESOLVED` (حُسم من المحادثة بقاعدة موثقة) | 158 |
+| `RESOLVED` (حُسم من المحادثة بقاعدة موثقة) | 159 |
 | `DOC FIX NEEDED` (وثيقة متأخرة عن قرار لاحق) | 33 |
-| **المجموع** | **211** |
+| **المجموع** | **212** |
 
 > **عمود Refs:** يربط كل تعارض بمجموعة التدقيق التي وجدته (G1…G8)، لأن التعارض الواحد قد يظهر في أكثر من مجال.
 > **معرّفات المنيو القديمة** (CF-01…CF-11 في `menu-ia/MENU-DECISION-REGISTER.md`) و**VQ / OBS** مربوطة في الملاحظات.
@@ -47,7 +47,7 @@
 | `CF-M-147` | Real User Monitoring مقابل قواعد الخصوصية والموافقة | أي Tracking يراعي Privacy Policy · Cookie Policy · Consent (PRIV-008)؛ لا تتبع يحتاج إفصاحًا قبل تحديث صفحات الخصوصية (PRIV-009)؛ قرار الـConsent مفتوح (GOOGLE-022، PO-019)<br>_(M01 §82 · M12 §22–§23)_ | اجمع Privacy-safe Web Vitals من الزوار بلا PII (RUM)<br>_(M32 §11)_ | الجزء التقني محسوم: RUM First-party بلا Cookies ولا معرفات ولا IP مخزن ومجمّع، ويُذكر في سياسة الخصوصية قبل تفعيله على Production (PRIV-009). هل يحتاج موافقة Cookie/Analytics أم يكفي الإفصاح؟ = قرار الـOwner/القانوني (PO-019) | لا تعارض في الهدف، لكن متطلب الموافقة قانوني ولم يُحسم؛ البناء غير متوقف (التفعيل فقط) | OPS-025 · PRIV-008/009 · PO-019 | docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §A22 §A23 | **OWNER DECISION REQUIRED** |
 | `CF-M-209` | 6 أسماء عربية للكيك والكوكيز: المعتمد (D-132) مقابل ملف Menu List الجديد | D-132: الأسماء العربية الـ26 المقترحة معتمدة كما هي — كيكة الجزر · جيرمان شوكليت · ريد فيلفيت كيك · تشيز كيك مانجو · تشيز كيك باشن فروت · كوكيز فستق<br>_(D-132)_ | ملف Menu List: كاروت كيك · جيرمن شوكليت · ريد فلفيت كيك · مانجو تشيز كيك · باشن فروت تشيز كيك · كوكيز فستق حلبي<br>_(OWNER-MENU-LIST-RECEIVED-2026-10-01.xlsx)_ |  | لا يتضح هل الملف قرار تسمية صريح أم قائمة تشغيلية (POS) — M38 §6: عرض A/B والسؤال | الاسم العربي لستة أصناف في المنيو والـSchema | docs/phase-01-discovery/23-menu-list-reconciliation.md | **OWNER DECISION REQUIRED** |
 
-## RESOLVED (158)
+## RESOLVED (159)
 
 | Conflict ID | Topic | Old instruction | New instruction | Which one wins | Why | Impact | Files/code affected | Status |
 |---|---|---|---|---|---|---|---|---|
@@ -209,6 +209,7 @@
 | `CF-M-208` | gitleaks-action يحتاج ترخيصًا للمؤسسات | Gitleaks في CI<br>_(M37 §15)_ | —<br>_(تحقق تقني)_ | تشغيل ملف gitleaks التنفيذي مباشرة (MIT) بدل الـAction | تجنب ترخيص/حساب | لا تكلفة | .github/workflows/ | **RESOLVED** |
 | `CF-M-210` | shadcn و21st (React) مقابل منصة Blade (ADR-001) | ADR-001: Laravel + Blade، وTailwind/shadcn/Radix مرفوضة لأنها React-only<br>_(ADR-001 · D-300)_ | M40: استخدم shadcn كـprimitive factory و21st كمصدر إلهام ومكونات<br>_(M40 §01–§02)_ | كلاهما: M40 نفسه يقول shadcn «primitive factory لا final design» و21st «لا Copy/Paste». يُستخدمان كمرجع بنية وسلوك ووصولية ويُعاد البناء كمكونات Blade x-ui | لا تعارض في القصد؛ إدخال React يكسر ADR-001 والأداء (M40 §44–§45) | لا React في الحزمة العامة | docs/adr/ADR-001-platform.md · docs/TOOLCHAIN.md | **RESOLVED** |
 | `CF-M-211` | «لا صور من الموقع القديم» (F-11) مقابل «خذ الشعارات من الموقع القديم» (D-309) | F-11: فقط OWNER APPROVED · لا Stock/Google/AI/صور الموقع القديم<br>_(F-11)_ | خذ الالوان والشعارات والخطوط من الموقع القديم<br>_(M39 §2)_ | D-309 للشعار والألوان والخطوط فقط (آخر قرار صريح)؛ F-11 يبقى لكل الصور الأخرى | القرار الجديد محدد بعناصر الهوية | الشعار معتمد؛ الصور الحقيقية ما زالت MEDIA PENDING OWNER APPROVAL | docs/governance/APPROVED-ASSET-LIBRARY.md | **RESOLVED** |
+| `CF-M-212` | قائمة «المدينة» في نموذج التوظيف: مدن أم محافظات | M28: Dropdown لمدن الأردن، «ولا تُستبدل المدينة بالمحافظة بصمت»<br>_(M28 §06 · CAREERS-020 · RECRUITMENT-DATA-MODEL §2.12)_ | الـOwner أرسل القائمة صراحة: عمان · إربد · الزرقاء · البلقاء · المفرق · جرش · عجلون · مادبا · الكرك · الطفيلة · معان · العقبة (أسماء المحافظات الـ12)<br>_(M45 §1)_ | قرار الـOwner الأحدث الصريح (M45): القائمة كما أرسلها، وبنفس ترتيبه | قاعدة السلطة 1: آخر قرار صريح من الـOwner. ليس استبدالًا صامتًا — الـOwner اختار القائمة بنفسه بعد عرض الخيارات (PO-074) | CAREERS-020 محدّث · jordan_cities = 12 بندًا · تسمية الحقل تبقى «المدينة» (نص الـOwner المعتمد) | database/seeders/RecruitmentSeeder.php · docs/RECRUITMENT-DATA-MODEL.md | **RESOLVED** |
 
 ## DOC FIX NEEDED (33)
 
