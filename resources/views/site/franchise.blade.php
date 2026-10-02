@@ -15,7 +15,13 @@
         $faq = array_filter($page->sections, fn ($s) => $s->type === 'faq');
         $closing = array_filter($page->sections, fn ($s) => $s->type === 'cta');
         $body = array_filter($page->sections, fn ($s) => ! in_array($s->type, ['faq', 'cta'], true));
-        $mid = (int) ceil(count($body) / 2);
+        // The mid-page CTA goes after the middle section — never between a section and the heading-less one continuing it.
+        $keys = array_keys($body);
+        $band = (int) ceil(count($keys) / 2) - 1;
+        while (isset($keys[$band + 1]) && $body[$keys[$band + 1]]->heading === null) {
+            $band++;
+        }
+        $bandAfter = count($keys) > 1 ? $keys[$band] : null;
         $ctaHref = $open ? '#apply' : '#franchise-contact';
         $firstSection = array_key_first($body);
     @endphp
@@ -43,7 +49,7 @@
             <div class="ui-franchise__layout">
                 <div class="ui-franchise__body">
                     @foreach ($body as $position => $section)
-                        <section class="ui-franchise__section" id="s-{{ $position + 1 }}" data-ui-reveal>
+                        <section @class(['ui-franchise__section', 'ui-franchise__section--continued' => $section->heading === null && ! $loop->first]) id="s-{{ $position + 1 }}" data-ui-reveal>
                             @if ($section->heading !== null)
                                 <h2 class="ui-franchise__heading">{{ $section->heading }}</h2>
                             @endif
@@ -79,7 +85,7 @@
                                 </div>
                             @endif
                         </section>
-                        @if ($loop->iteration === $mid && count($body) > 1)
+                        @if ($position === $bandAfter)
                             <div class="ui-franchise__band">
                                 <x-ui.button :href="$ctaHref" icon-end="arrow-right">{{ __('franchise.cta') }}</x-ui.button>
                             </div>

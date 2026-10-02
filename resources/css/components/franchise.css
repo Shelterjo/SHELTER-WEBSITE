@@ -69,6 +69,11 @@
     gap: var(--space-4);
 }
 
+/* A section without a heading continues the one above it (e.g. the partner criteria under their introduction). */
+.ui-franchise__section--continued {
+    margin-block-start: calc(var(--space-8) * -1);
+}
+
 .ui-franchise__heading {
     margin: 0;
     font-size: var(--text-2xl);

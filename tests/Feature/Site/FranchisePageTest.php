@@ -97,7 +97,8 @@ class FranchisePageTest extends TestCase
         $this->assertStringContainsString('انطلقت SHELTER COFFEE من إربد، الأردن عام 2019.', $html);
         $this->assertStringContainsString('ابدأ طلب الشراكة', $html);
         $this->assertMatchesRegularExpression('#href="\#s-1"[^>]*>\s*تعرّف على SHELTER#u', $html);
-        foreach (['من هي SHELTER؟', 'نماذج تجربة SHELTER الحالية', 'أكثر من مجرد اسم على الواجهة', 'رحلة الشراكة', 'أسواق النمو', 'مهتم ببناء SHELTER في سوقك؟'] as $heading) {
+        foreach (['من هي SHELTER؟', 'نماذج تجربة SHELTER الحالية', 'لماذا تصبح شريكًا مع SHELTER؟', 'أكثر من مجرد اسم على الواجهة', 'ما الذي نبحث عنه في الشريك؟',
+            'رحلة الشراكة', 'أسواق النمو', 'مهتم ببناء SHELTER في سوقك؟'] as $heading) {
             $this->assertStringContainsString($heading, $html);
         }
         $this->assertSame(2, substr_count($html, 'class="ui-franchise__card"'), 'DRIVE and HOUSE as current experiences');
@@ -106,9 +107,12 @@ class FranchisePageTest extends TestCase
         $this->assertSame(7, substr_count($html, 'ui-prose__faq'));
         $this->assertStringContainsString('تقديم الطلب لا يعني أن السوق أو المنطقة المطلوبة متاحة أو محجوزة.', $html);
 
-        // Arabic-only sections and the unverified pillars stay hidden (language parity, PENDING VERIFICATION).
-        foreach (['لماذا تصبح شريكًا مع SHELTER؟', 'ما الذي نبحث عنه في الشريك؟', 'التوريد والمشتريات', 'الجدية في الاستثمار والتشغيل'] as $hidden) {
-            $this->assertStringNotContainsString($hidden, $html);
+        // The seven public criteria continue "Who we look for"; the nine pillars stay hidden (PENDING FRANCHISE MASTER APPROVAL).
+        $this->assertMatchesRegularExpression('#class="ui-franchise__section ui-franchise__section--continued"[^>]*>\s*<ul class="ui-franchise__list"#', $html);
+        $this->assertSame(7, substr_count($html, 'class="ui-franchise__list-item"'));
+        $this->assertStringContainsString('الجدية في الاستثمار والتشغيل', $html);
+        foreach (['التوريد والمشتريات', 'الأنظمة والتقنية', 'نظام القهوة والمنيو'] as $pillar) {
+            $this->assertStringNotContainsString($pillar, $html);
         }
 
         $ld = collect($this->jsonLd($html));
@@ -134,6 +138,13 @@ class FranchisePageTest extends TestCase
         $this->assertStringContainsString('Start Your Application', $html);
         $this->assertStringContainsString('Interested in Bringing SHELTER to Your Market?', $html);
         $this->assertStringContainsString('No profit or specific return is guaranteed.', $html);
+        foreach (['Why Partner With SHELTER?', 'We see partnership as more than simply using a brand name.', 'Who We Look For',
+            'Willingness to operate within the approved operating system', 'Interest in building a long-term relationship'] as $text) {
+            $this->assertStringContainsString(e($text), $html);
+        }
+        foreach (['Supply &amp; Procurement', 'Technology &amp; Systems'] as $pillar) {
+            $this->assertStringNotContainsString($pillar, $html, 'pillars stay hidden');
+        }
 
         app(SearchIndexer::class)->rebuild();
         $search = (string) $this->fresh('/en/search/?q=cost')->assertOk()->getContent();
@@ -252,6 +263,25 @@ class FranchisePageTest extends TestCase
         $this->post('/en/franchise/', $this->validInput(['form_token' => Crypt::encryptString((string) now()->getTimestamp())]))->assertRedirect('http://localhost/en/franchise/');
         $this->post('/en/franchise/', $this->validInput(['idempotency_key' => 'not-a-uuid']))->assertRedirect('http://localhost/en/franchise/');
         $this->assertSame(1, Application::query()->count());
+    }
+
+    public function test_english_approved_later_fills_an_existing_page_without_touching_owner_edits(): void
+    {
+        $this->seedFranchise();
+        // The page as first seeded: the two sections in Arabic only, hidden; and an Owner edit elsewhere.
+        foreach (['لماذا تصبح شريكًا مع SHELTER؟', 'ما الذي نبحث عنه في الشريك؟'] as $heading) {
+            PageSection::query()->where('heading_ar', $heading)->update(['heading_en' => null, 'body_en' => null, 'is_visible' => false]);
+        }
+        PageSection::query()->where('body_ar', 'like', 'الالتزام بهوية%')->update(['body_en' => null, 'is_visible' => false]);
+        PageSection::query()->where('heading_ar', 'أسواق النمو')->update(['body_en' => 'Owner edited text.']);
+
+        $this->seed(FranchiseSeeder::class);
+
+        $why = PageSection::query()->where('heading_ar', 'لماذا تصبح شريكًا مع SHELTER؟')->sole();
+        $this->assertSame(['Why Partner With SHELTER?', true], [$why->heading_en, $why->is_visible]);
+        $this->assertTrue(PageSection::query()->where('body_ar', 'like', 'الالتزام بهوية%')->sole()->is_visible);
+        $this->assertSame('Owner edited text.', PageSection::query()->where('heading_ar', 'أسواق النمو')->sole()->body_en);
+        $this->assertFalse(PageSection::query()->where('body_ar', 'like', 'هوية وتجربة العلامة%')->sole()->is_visible, 'pillars stay hidden');
     }
 
     public function test_the_seeder_never_overwrites_owner_edits(): void

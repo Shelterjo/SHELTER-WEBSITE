@@ -26,10 +26,10 @@
 ## الملفات المرتبطة
 | الملف | الدور |
 |---|---|
-| [`MASTER-DECISION-REGISTER.md`](MASTER-DECISION-REGISTER.md) | الحالة الحالية لكل قرار (448 قرارًا) |
-| [`governance/DECISION-LOG.md`](governance/DECISION-LOG.md) | السجل الزمني (D-000 ← D-325) |
+| [`MASTER-DECISION-REGISTER.md`](MASTER-DECISION-REGISTER.md) | الحالة الحالية لكل قرار (449 قرارًا) |
+| [`governance/DECISION-LOG.md`](governance/DECISION-LOG.md) | السجل الزمني (D-000 ← D-326) |
 | [`CONFLICT-REGISTER.md`](CONFLICT-REGISTER.md) | 215 تعارضًا وطريقة حسمها |
-| [`PENDING-OWNER-INPUT.md`](PENDING-OWNER-INPUT.md) | 64 بندًا فقط تحتاجك |
+| [`PENDING-OWNER-INPUT.md`](PENDING-OWNER-INPUT.md) | 63 بندًا فقط تحتاجك |
 | [`REQUIREMENTS-TRACEABILITY-MATRIX.md`](REQUIREMENTS-TRACEABILITY-MATRIX.md) | متطلب ← قرار ← تصميم ← كود ← اختبار |
 | [`IMPLEMENTATION-GAP-ANALYSIS.md`](IMPLEMENTATION-GAP-ANALYSIS.md) | ما الموجود وما الناقص |
 | [`IMPLEMENTATION-PLAN.md`](IMPLEMENTATION-PLAN.md) | الخطة الموحدة P00 ← P12 والبوابات |
@@ -73,8 +73,8 @@
 | متطلبات | **1350**: REQUIREMENT 491, RULE 442, DECISION 209, DELIVERABLE 109, GATE 99 |
 | حسب الحالة | APPROVED 900, FROZEN 294, APPROVED WITH CONDITIONS 73, PENDING OWNER INPUT 34, DEFERRED 22, SUPERSEDED 18, PENDING VERIFICATION 9 |
 | حسب الأولوية | P0 691, P1 572, P2 69, P3 18 |
-| حسب التنفيذ | NOT STARTED 947, PARTIAL 191, IMPLEMENTED — NOT TESTED 126, FROZEN 43, TESTED 32, NEEDS FIX 8, IMPLEMENTED — NOT YET VERIFIED 2, CONFLICT 1 |
-| مُختبر | NO 792, N/A 347, PROTOTYPE 135, YES 76 |
+| حسب التنفيذ | NOT STARTED 946, PARTIAL 190, IMPLEMENTED — NOT TESTED 126, FROZEN 43, TESTED 34, NEEDS FIX 8, IMPLEMENTED — NOT YET VERIFIED 2, CONFLICT 1 |
+| مُختبر | NO 791, N/A 347, PROTOTYPE 135, YES 77 |
 
 ## فهرس المجالات
 | # | المجال | متطلبات | P0 | معتمد/مجمّد | معلّق | تنفيذ (منفذ أو مجمّد) |
@@ -94,7 +94,7 @@
 | 13 | [About](master-requirements/13-about.md) | 4 | 2 | 3 | 1 | 0 |
 | 14 | [Contact](master-requirements/14-contact.md) | 30 | 11 | 25 | 4 | 0 |
 | 15 | [Blog / Coffee Knowledge](master-requirements/15-blog-coffee-knowledge.md) | 6 | 2 | 6 | 0 | 0 |
-| 16 | [Franchise](master-requirements/16-franchise.md) | 108 | 50 | 105 | 1 | 19 |
+| 16 | [Franchise](master-requirements/16-franchise.md) | 108 | 50 | 105 | 1 | 21 |
 | 17 | [CMS](master-requirements/17-cms.md) | 35 | 25 | 34 | 1 | 0 |
 | 18 | [Owner Dashboard](master-requirements/18-owner-dashboard.md) | 35 | 22 | 33 | 0 | 0 |
 | 19 | [Analytics](master-requirements/19-analytics.md) | 45 | 15 | 43 | 2 | 3 |
@@ -544,7 +544,7 @@
 | `FRAN-015` | قسم «من هي SHELTER؟»: حقائق معتمدة فقط — بلا ادعاءات تفوق | APPROVED | P0 | TESTED |
 | `FRAN-016` | DRIVE/HOUSE = «نماذج تجربة SHELTER الحالية» — وليست باقات فرنشايز | APPROVED | P0 | TESTED |
 | `FRAN-017` | Global-ready بلا إعلان أي دولة/مدينة/Territory متاحة | APPROVED | P0 | NOT STARTED |
-| `FRAN-018` | الصفحة كاملة AR (RTL) وEN (LTR) — بلا ترجمة حرفية | APPROVED | P0 | NOT STARTED |
+| `FRAN-018` | الصفحة كاملة AR (RTL) وEN (LTR) — بلا ترجمة حرفية | APPROVED | P0 | TESTED |
 | `FRAN-019` | الروابط: /ar/franchise/ و /en/franchise/ (طبقة العلامة — مبدئي) | APPROVED WITH CONDITIONS | P1 | NOT STARTED |
 | `FRAN-020` | محتوى قديم يُحذف ولا يُعاد استخدامه (9 بنود) | APPROVED | P0 | NOT STARTED |
 | `FRAN-021` | محتوى قديم يبقى كفكرة ويُعاد كتابته (8 بنود) — بعد المطابقة | APPROVED WITH CONDITIONS | P1 | NOT STARTED |
@@ -556,7 +556,7 @@
 | `FRAN-027` | Visual hierarchy متنوع — لا 9 بطاقات متطابقة ولا شكل Admin Dashboard | APPROVED | P1 | NOT STARTED |
 | `FRAN-028` | قسم «أكثر من مجرد اسم على الواجهة» — منظومة لا ترخيص شعار | APPROVED WITH CONDITIONS | P1 | TESTED |
 | `FRAN-029` | رحلة الدعم (Support Journey) — 9 مراحل — Franchise Master Process يفوز | APPROVED WITH CONDITIONS | P1 | NOT STARTED |
-| `FRAN-030` | «ما الذي نبحث عنه في الشريك؟»: 7 معايير عامة قابلة للعرض | APPROVED WITH CONDITIONS | P1 | PARTIAL |
+| `FRAN-030` | «ما الذي نبحث عنه في الشريك؟»: 7 معايير عامة قابلة للعرض | APPROVED WITH CONDITIONS | P1 | TESTED |
 | `FRAN-031` | ممنوع نشر اشتراطات الشريك المحددة حتى اعتمادها | APPROVED | P0 | TESTED |
 | `FRAN-032` | رحلة الشراكة العامة (9 خطوات) — تُطابق مع Franchise Master قبل النشر | APPROVED WITH CONDITIONS | P1 | TESTED |
 | `FRAN-033` | لا وعد بمدة رد (لا SLA) — الصياغة البديلة المعتمدة | APPROVED | P0 | NOT STARTED |

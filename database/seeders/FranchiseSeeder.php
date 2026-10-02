@@ -8,10 +8,11 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
 /**
- * Franchise & Partnerships page content V1 and its two form texts — OWNER APPROVED (M47 Parts 1–5, 2026-10-02), verbatim.
- * Inserted once: a page or text that already exists is never overwritten (later edits belong to the Owner Dashboard).
- * Sections the Owner sent in Arabic only stay hidden until their English arrives (LANGUAGE-PARITY, FRAN-018), and the
- * nine "why partner" pillars stay hidden until SHELTER Franchise Master confirms them (PENDING VERIFICATION — FRAN-026).
+ * Franchise & Partnerships page content V1 and its two form texts — OWNER APPROVED (M47 Parts 1–5, M49 English for two
+ * sections, 2026-10-02), verbatim. Inserted once: a page or text that already exists is never overwritten (later edits
+ * belong to the Owner Dashboard). On an existing page, a section still waiting for its approved English (body_en empty)
+ * receives it and is shown — nothing else is touched. The nine "why partner" pillars stay hidden until SHELTER
+ * Franchise Master approves them (PENDING FRANCHISE MASTER APPROVAL — FRAN-026).
  */
 class FranchiseSeeder extends Seeder
 {
@@ -36,7 +37,10 @@ class FranchiseSeeder extends Seeder
             ]);
         }
 
-        if (Page::query()->where('key', 'franchise')->exists()) {
+        $existing = Page::query()->where('key', 'franchise')->first();
+        if ($existing !== null) {
+            $this->fillApprovedEnglish($existing);
+
             return;
         }
         $page = Page::query()->create([
@@ -54,7 +58,35 @@ class FranchiseSeeder extends Seeder
             'content_updated_at' => $now,
         ]);
 
-        $sections = [
+        foreach (self::sections() as $sort => $section) {
+            [$type, $headingAr, $headingEn, $bodyAr, $bodyEn] = $section;
+            $page->sections()->create([
+                'type' => $type, 'heading_ar' => $headingAr, 'heading_en' => $headingEn, 'body_ar' => $bodyAr, 'body_en' => $bodyEn,
+                'origin' => 'owner', 'is_visible' => $section[5] ?? true, 'sort' => $sort + 1,
+            ]);
+        }
+    }
+
+    /**
+     * English approved after the first seed (M49): a section with the same type and Arabic text whose English is still
+     * empty receives the approved English and is shown. A section the Owner already changed is left alone.
+     */
+    private function fillApprovedEnglish(Page $page): void
+    {
+        foreach (self::sections() as $section) {
+            [$type, $headingAr, $headingEn, $bodyAr, $bodyEn] = $section;
+            if ($bodyEn === null || ($section[5] ?? true) === false) {
+                continue;
+            }
+            $page->sections()->where('type', $type)->where('body_ar', $bodyAr)->whereNull('body_en')
+                ->update(['heading_en' => $headingEn, 'body_en' => $bodyEn, 'is_visible' => true]);
+        }
+    }
+
+    /** @return list<array{0: string, 1: ?string, 2: ?string, 3: string, 4: ?string, 5?: bool}> */
+    private static function sections(): array
+    {
+        return [
             ['text', 'من هي SHELTER؟', 'Who Is SHELTER?',
                 'SHELTER COFFEE هي علامة قهوة انطلقت من إربد، الأردن عام 2019. تطورت تجربة العلامة من خلال نماذجها الحالية SHELTER COFFEE DRIVE وSHELTER COFFEE HOUSE، مع التركيز على تجربة العميل، جودة المنتج، وضوح الهوية ومعايير التشغيل.',
                 'SHELTER COFFEE is a coffee brand founded in Irbid, Jordan in 2019. The brand currently operates through the SHELTER COFFEE DRIVE and SHELTER COFFEE HOUSE concepts, with a focus on customer experience, product quality, brand consistency, and operating standards.'],
@@ -62,24 +94,23 @@ class FranchiseSeeder extends Seeder
             ['cards', 'نماذج تجربة SHELTER الحالية', 'Current SHELTER Experiences',
                 "SHELTER COFFEE DRIVE\nتجربة SHELTER المصممة لتقديم خدمة سريعة وسهلة مع الحفاظ على جودة المنتج وهوية العلامة.\n\nSHELTER COFFEE HOUSE\nتجربة مقهى تتيح للضيوف الاستمتاع بمنتجات SHELTER ضمن بيئة تعكس هوية العلامة وتجربتها.",
                 "SHELTER COFFEE DRIVE\nA SHELTER experience designed around convenience and speed while maintaining product quality and brand consistency.\n\nSHELTER COFFEE HOUSE\nA café experience where guests can enjoy SHELTER products in an environment that reflects the brand and its experience."],
-            // Arabic only so far — hidden until its English is approved.
-            ['text', 'لماذا تصبح شريكًا مع SHELTER؟', null,
+            ['text', 'لماذا تصبح شريكًا مع SHELTER؟', 'Why Partner With SHELTER?',
                 'ننظر إلى الشراكة على أنها أكثر من مجرد استخدام اسم تجاري. الهدف هو بناء تجربة تحافظ على هوية SHELTER ومعاييرها وتقدمها بصورة متناسقة في كل سوق.',
-                null, false],
-            // The nine pillars: PENDING VERIFICATION against SHELTER Franchise Master — never a public promise before.
+                'We see partnership as more than simply using a brand name. The goal is to build an experience that preserves SHELTER’s identity and standards and delivers them consistently across every market.'],
+            // The nine pillars: PENDING FRANCHISE MASTER APPROVAL — never a public promise before (M47, M49).
             ['list', null, null,
                 "هوية وتجربة العلامة\nنظام القهوة والمنيو\nمعايير التشغيل\nمعايير الجودة\nالتدريب والتأهيل\nدعم العلامة والتسويق\nالتوريد والمشتريات\nتصميم وتجربة الموقع\nالأنظمة والتقنية",
                 "Brand & Customer Experience\nCoffee & Menu System\nOperational Standards\nQuality Standards\nTraining\nBrand & Marketing Support\nSupply & Procurement\nStore Design & Experience\nTechnology & Systems", false],
             ['text', 'أكثر من مجرد اسم على الواجهة', 'More Than a Name on the Storefront',
                 'الشراكة مع SHELTER لا تقتصر على استخدام الاسم أو الشعار. نحن ننظر إلى تجربة العلامة كمنظومة تشمل المنتج، تجربة العميل، الهوية، معايير التشغيل والجودة، والتدريب وفق النموذج الذي يتم اعتماده لكل شراكة.',
                 'A SHELTER partnership is more than the use of a name or logo. We view the brand as a complete experience that includes the product, customer experience, visual identity, operating and quality standards, and training according to the model approved for each partnership.'],
-            // Arabic only so far — hidden until its English is approved.
-            ['text', 'ما الذي نبحث عنه في الشريك؟', null,
+            ['text', 'ما الذي نبحث عنه في الشريك؟', 'Who We Look For',
                 'نبحث عن شركاء جادين يقدرون أهمية الجودة، الالتزام بالمعايير وفهم السوق المحلي، ولديهم الرغبة في بناء علاقة طويلة المدى مع SHELTER COFFEE.',
-                null, false],
+                'We look for serious partners who value quality, commitment to standards, and a strong understanding of their local market, and who are interested in building a long-term relationship with SHELTER COFFEE.'],
+            // The public high-level criteria: no heading — it continues the section above.
             ['list', null, null,
                 "الالتزام بهوية ومعايير SHELTER\nالجدية في الاستثمار والتشغيل\nالقدرة الإدارية المناسبة\nفهم السوق المحلي\nالالتزام بمعايير الجودة\nالالتزام بالنظام التشغيلي المعتمد\nالرغبة في بناء علاقة طويلة المدى",
-                null, false],
+                "Commitment to SHELTER’s identity and standards\nSerious commitment to investment and operations\nAppropriate management capability\nUnderstanding of the local market\nCommitment to quality standards\nWillingness to operate within the approved operating system\nInterest in building a long-term relationship"],
             ['steps', 'رحلة الشراكة', 'Partnership Journey',
                 "تقديم طلب الاهتمام\nالمراجعة الأولية\nاجتماع تعريفي\nتقييم السوق والموقع\nمناقشة نموذج الشراكة\nالموافقات\nالتعاقد\nالتجهيز والتدريب\nالافتتاح",
                 "Submit Your Interest\nInitial Review\nIntroductory Meeting\nMarket & Location Review\nPartnership Model Discussion\nApprovals\nAgreement\nSetup & Training\nOpening"],
@@ -111,12 +142,5 @@ class FranchiseSeeder extends Seeder
                 'ابدأ بإرسال معلوماتك الأساسية وسنراجع فرصة الشراكة قبل الانتقال إلى أي مرحلة لاحقة.',
                 'Start by sharing the key information about your interest and proposed market. The opportunity will be reviewed before any further stage.'],
         ];
-        foreach ($sections as $sort => $section) {
-            [$type, $headingAr, $headingEn, $bodyAr, $bodyEn] = $section;
-            $page->sections()->create([
-                'type' => $type, 'heading_ar' => $headingAr, 'heading_en' => $headingEn, 'body_ar' => $bodyAr, 'body_en' => $bodyEn,
-                'origin' => 'owner', 'is_visible' => $section[5] ?? true, 'sort' => $sort + 1,
-            ]);
-        }
     }
 }
