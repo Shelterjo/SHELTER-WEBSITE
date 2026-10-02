@@ -4,8 +4,10 @@ use App\Http\Controllers\Dashboard\Auth\ConfirmIdentityController;
 use App\Http\Controllers\Dashboard\Auth\LoginController;
 use App\Http\Controllers\Dashboard\Auth\TwoFactorChallengeController;
 use App\Http\Controllers\Dashboard\Auth\TwoFactorSetupController;
+use App\Http\Controllers\Dashboard\Content\PagesController;
 use App\Http\Controllers\Dashboard\HomeController;
 use App\Http\Controllers\Dashboard\RecoveryCodesController;
+use App\Http\Middleware\DashboardLocale;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 | No registration and no password-reset-by-email route exist (owner accounts are created on the server).
 */
 
-Route::prefix('dashboard')->group(function (): void {
+Route::prefix('dashboard')->middleware(DashboardLocale::class)->group(function (): void {
     Route::middleware('guest')->group(function (): void {
         Route::get('login', [LoginController::class, 'show'])->name('login');
         Route::post('login', [LoginController::class, 'store'])->name('login.store');
@@ -26,6 +28,11 @@ Route::prefix('dashboard')->group(function (): void {
 
     Route::middleware(['auth', 'owner'])->name('dashboard.')->group(function (): void {
         Route::get('/', HomeController::class)->name('home');
+
+        // Content (FINAL-ARCHITECTURE-REVIEW §10) — no code needed to change the site (M30, M50).
+        Route::get('content/pages', [PagesController::class, 'index'])->name('pages.index');
+        Route::get('content/pages/{key}', [PagesController::class, 'edit'])->name('pages.edit');
+        Route::put('content/pages/{key}', [PagesController::class, 'update'])->name('pages.update');
         Route::get('recovery-codes', RecoveryCodesController::class)->name('recovery-codes');
         Route::get('confirm', [ConfirmIdentityController::class, 'show'])->name('confirm');
         Route::post('confirm', [ConfirmIdentityController::class, 'store'])->name('confirm.store');

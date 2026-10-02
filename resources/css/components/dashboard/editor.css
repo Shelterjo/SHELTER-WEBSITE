@@ -1,0 +1,207 @@
+/* Dashboard editors (no code — M30, M50): plain lists of items with their state, and edit forms where Arabic and
+   English sit side by side (stacked on phones). Tokens and logical properties only; same components as the site. */
+
+/* Command Center tiles. */
+.ui-tiles {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, calc(var(--touch-target) * 5)), 1fr));
+    gap: var(--space-4);
+}
+
+/* Lists: one row per item — title, state badges, actions. */
+.ui-item-list {
+    display: grid;
+    gap: var(--space-3);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.ui-item-list__item {
+    display: grid;
+    gap: var(--space-3);
+    padding: var(--space-4);
+    border: var(--border-default) solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-surface);
+}
+
+.ui-item-list__main {
+    display: grid;
+    gap: var(--space-2);
+    min-inline-size: 0;
+}
+
+.ui-item-list__title {
+    margin: 0;
+    font-size: var(--text-lg);
+    font-weight: var(--weight-bold);
+}
+
+.ui-item-list__title a {
+    color: var(--color-text);
+    text-decoration: none;
+}
+
+.ui-item-list__title a:hover {
+    text-decoration: underline;
+}
+
+.ui-item-list__meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2) var(--space-4);
+    margin: 0;
+    color: var(--color-muted);
+    font-size: var(--text-sm);
+}
+
+.ui-item-list__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+}
+
+/* Edit forms. */
+.ui-editor {
+    display: grid;
+    gap: var(--space-8);
+}
+
+/* A refused save: room between the error summary (and its focus ring) and the form. */
+.ui-error-summary + .ui-editor {
+    margin-block-start: var(--space-8);
+}
+
+.ui-editor__options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-6);
+}
+
+.ui-editor__group {
+    display: grid;
+    gap: var(--space-4);
+    min-inline-size: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+.ui-editor__legend {
+    float: inline-start;
+    inline-size: 100%;
+    margin: 0 0 var(--space-2);
+    padding: 0;
+    font-size: var(--text-xl);
+    font-weight: var(--weight-bold);
+}
+
+.ui-editor__sections {
+    display: grid;
+    gap: var(--space-4);
+}
+
+/* The save button stays reachable at the bottom of long forms. */
+.ui-editor__bar {
+    position: sticky;
+    inset-block-end: 0;
+    z-index: var(--z-sticky);
+    display: flex;
+    justify-content: flex-end;
+    padding-block: var(--space-3) calc(var(--space-3) + env(safe-area-inset-bottom));
+    border-block-start: var(--border-default) solid var(--color-border);
+    background: var(--color-bg);
+}
+
+/* Arabic | English. */
+.ui-bilingual {
+    display: grid;
+    gap: var(--space-6);
+}
+
+.ui-bilingual__column {
+    display: grid;
+    align-content: start;
+    gap: var(--space-4);
+    min-inline-size: 0;
+}
+
+.ui-bilingual__language {
+    margin: 0;
+    color: var(--color-muted);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-bold);
+}
+
+/* One section of a page. */
+.ui-section-card {
+    display: grid;
+    gap: var(--space-4);
+    min-inline-size: 0;
+    margin: 0;
+    padding: var(--space-4);
+    border: var(--border-default) solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-surface);
+    scroll-margin-block-start: var(--space-16);
+}
+
+.ui-section-card--new {
+    border-style: dashed;
+    background: var(--color-bg);
+}
+
+.ui-section-card--error {
+    border-color: var(--color-danger);
+}
+
+.ui-section-card__legend {
+    float: inline-start;
+    inline-size: 100%;
+    margin: 0;
+    padding: 0;
+    font-weight: var(--weight-bold);
+}
+
+.ui-section-card__tag {
+    margin-inline-start: var(--space-2);
+    font-weight: var(--weight-regular);
+    color: var(--color-muted);
+}
+
+.ui-section-card__controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: end;
+    gap: var(--space-3) var(--space-6);
+}
+
+.ui-section-card__sort {
+    inline-size: calc(var(--touch-target) * 2);
+}
+
+.ui-section-card__move {
+    display: flex;
+    gap: var(--space-1);
+}
+
+.ui-section-card__up .ui-icon {
+    rotate: 180deg;
+}
+
+.ui-section-card__move[hidden] {
+    display: none;
+}
+
+@media (min-width: 1024px) {
+    .ui-bilingual {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .ui-item-list__item {
+        grid-template-columns: minmax(0, 1fr) auto;
+        align-items: center;
+    }
+}

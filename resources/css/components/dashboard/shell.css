@@ -3,6 +3,7 @@
 
 .ui-shell {
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     grid-template-rows: auto auto 1fr;
     min-block-size: 100dvh;
 }
@@ -33,8 +34,39 @@
     margin: 0;
 }
 
+.ui-shell__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+}
+
+/* Small phones (320px, Arabic labels): tighter top-bar buttons so brand + both actions fit on one row. */
+@media (max-width: 599px) {
+    .ui-shell__actions .ui-button {
+        padding-inline: var(--space-2);
+    }
+}
+
+/* Phones: one scrollable row of every item (group titles hidden); desktop: titled groups in the side column. */
+.ui-shell__nav-group {
+    display: none;
+    margin: var(--space-4) 0 var(--space-1);
+    padding-inline: var(--space-3);
+    color: var(--color-muted);
+    font-size: var(--text-xs);
+    font-weight: var(--weight-bold);
+}
+
+.ui-shell__flash {
+    margin-block-end: var(--space-6);
+}
+
 .ui-shell__nav {
+    display: flex;
+    gap: var(--space-1);
     min-inline-size: 0;
+    overflow-x: auto;
+    scrollbar-width: thin;
     padding-block: var(--space-2);
     padding-inline: var(--container-gutter-mobile);
     border-block-end: var(--border-default) solid var(--color-border);
@@ -60,6 +92,10 @@
 }
 
 @media (min-width: 1024px) {
+    .ui-shell__nav-group {
+        display: block;
+    }
+
     .ui-shell {
         grid-template-columns: var(--container-sidebar) minmax(0, 1fr);
         grid-template-rows: auto 1fr;
@@ -71,6 +107,8 @@
     }
 
     .ui-shell__nav {
+        display: block;
+        overflow: visible;
         padding-block: var(--space-4);
         padding-inline: var(--space-3);
         border-block-end: 0;

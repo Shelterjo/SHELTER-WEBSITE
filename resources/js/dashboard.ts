@@ -6,3 +6,9 @@ import { installTabs } from './ui/tabs';
 installAriaDisabledGuard();
 installDialogs();
 installTabs();
+
+// The page editor script loads only on the page editor (its own chunk).
+const pageEditor = document.querySelector<HTMLFormElement>('form[data-page-editor]');
+if (pageEditor !== null) {
+    void import('./dashboard/page-editor').then(({ installPageEditor }) => installPageEditor(pageEditor));
+}

@@ -9,7 +9,7 @@
 >
 > **المعرّفات:**
 > - **`D-xxx`:** سجل القرارات.
->   - **D-150…D-326:** قرارات صريحة من الـOwner في الرسائل M01–M27 لم تكن مسجلة، وأُضيفت في هذا التدقيق.
+>   - **D-150…D-327:** قرارات صريحة من الـOwner في الرسائل M01–M27 لم تكن مسجلة، وأُضيفت في هذا التدقيق.
 > - **`F-xx` / `R-xx`:** المنيو.
 > - **`DB-xx`:** القرارات المفتوحة قبل التصميم.
 > - **`GEP-§n` / `GIO-§n`:** سياسة Google وملكية التنفيذ.
@@ -20,14 +20,14 @@
 | الفئة | العدد |
 |---|---|
 | FROZEN | 81 |
-| APPROVED | 272 |
+| APPROVED | 273 |
 | APPROVED WITH CONDITIONS | 45 |
 | PENDING OWNER INPUT | 18 |
 | PENDING VERIFICATION | 8 |
 | DEFERRED | 4 |
 | REJECTED | 0 |
 | SUPERSEDED | 21 |
-| **المجموع** | **449** |
+| **المجموع** | **450** |
 
 ## FROZEN — مجمّد — لا يُفتح إلا بتعارض حقيقي (81)
 
@@ -115,7 +115,7 @@
 | `F-22` | Products | هوية الأصناف: كل قرارات D-109 → D-134 كما هي |  |  | F #22 · 2026-10-01 (موجز Menu IA/UX/Wireframe — D-142) | PROD-009…016/021/022 |
 | `F-23` | Governance | Production: لا كود Production · لا نشر · لا Redirects · لا تغييرات Google · لا صور غير معتمدة · لا نصوص منتجات من عندنا |  |  | F #23 · 2026-10-01 (موجز Menu IA/UX/Wireframe — D-142) | GOV-026، GOV-047، CONTENT-004 |
 
-## APPROVED — معتمد (272)
+## APPROVED — معتمد (273)
 
 | Decision ID | Area | القرار الحالي المعتمد | القرار القديم (إن وجد) | السبب | الترتيب في المحادثة | أثر التنفيذ |
 |---|---|---|---|---|---|---|
@@ -342,6 +342,7 @@
 | `D-324` | 44 Careers & Recruitment | ترقيم طلبات التوظيف يتبع قاعدة الشراكة: يبدأ من JOB-2026-00100، فأول طلب JOB-2026-00101 والثاني JOB-2026-00102 (الصيغة JOB-YYYY-NNNNN من الخادم بلا تغيير). ترقيم الاستفسارات INQ لم يتغير. |  | Owner: «طبقها» ردًا على اقتراح بدء JOB من 00101 | M48 §1 · 2026-10-02 (سُجّل في التدقيق) | CAREERS-040 · ReferenceNumbers::START_AFTER |
 | `D-325` | 44 Careers & Recruitment | PO-075 → A: مع كل سنة جديدة يبدأ الترقيم من جديد من 00101 (FR-2027-00101، JOB-2027-00101…) — السنة ظاهرة في الرقم. |  | Owner: «اوافق» على التوصية A | M48 §2 · 2026-10-02 (سُجّل في التدقيق) | FRAN-046 · CAREERS-040 · PO-075 (RESOLVED) |
 | `D-326` | 16 Franchise | PO-076 → النص الإنجليزي المعتمد: «Why Partner With SHELTER?» + «We see partnership as more than simply using a brand name…» · «Who We Look For» + «We look for serious partners…» + المعايير السبعة (Commitment to SHELTER’s identity and standards · Serious commitment to investment and operations · Appropriate management capability · Understanding of the local market · Commitment to quality standards · Willingness to operate within the approved operating system · Interest in building a long-term relationship). القسمان يُعرضان AR + EN؛ لا قسم بلغة واحدة؛ لا ترجمة آلية لغير المعتمد. الركائز التسع = PENDING FRANCHISE MASTER APPROVAL. |  | Owner: PO-076 — ENGLISH CONTENT APPROVAL | M49 §1 · 2026-10-02 (سُجّل في التدقيق) | FRAN-018/026/030 · PO-076 (RESOLVED) · FranchiseSeeder |
+| `D-327` | Owner Dashboard | توجيه الـOwner (M50): «بدي تبني أسهل داشبورد أقدر أعدل منه كل اشي بدي ياه بدون ما أعدل الكود» — كل محتوى الموقع وبياناته تُدار من الـOwner Dashboard بلا تعديل الكود، بأبسط واجهة ممكنة. |  | Owner directive M50 | M50 · 2026-10-02 (سُجّل في التدقيق) | CMS-001 · CMS-019 · DASH-006/007/027 · RESP-025 · FRAN-067 · خطة التنفيذ G31-TF-05 |
 | `DB-01` | Brand | حُسم: الاسم (D-007)، الفروع (D-008، D-020)، سنة التأسيس 2019 (D-018) | الحقائق التأسيسية مطلوبة قبل أي Sitemap |  | #1 of 22 in DECISION-LOG open table (P0/P1/P2 priority in 05) · P0 | BRAND-001، ABOUT-003 |
 | `DB-10` | Products | البنية تدعم العرض الكامل للأسعار (D-078) |  |  | #12 of 22 in DECISION-LOG open table (P0/P1/P2 priority in 05) · P2 | MENU-014 |
 | `DB-21` | CMS | المصدر الوحيد للمنيو: A الآن + جاهزية C (حُسم بـD-085) | سؤال مفتوح: مصدر المنيو SSOT |  | #13 of 22 in DECISION-LOG open table (P0/P1/P2 priority in 05) | CMS-003 |

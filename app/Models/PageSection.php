@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Carbon;
 
 /**
  * One block of a page from an approved section type (Design lock): `text` = optional heading + paragraphs,
@@ -20,6 +21,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string $origin owner | import | ai
  * @property bool $is_visible
  * @property int $sort
+ * @property Carbon|null $archived_at
  */
 class PageSection extends Model
 {
@@ -29,7 +31,7 @@ class PageSection extends Model
 
     protected function casts(): array
     {
-        return ['is_visible' => 'boolean', 'sort' => 'integer'];
+        return ['is_visible' => 'boolean', 'sort' => 'integer', 'archived_at' => 'datetime'];
     }
 
     /** @return BelongsTo<Page, $this> */

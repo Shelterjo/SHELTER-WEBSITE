@@ -7,6 +7,7 @@ use App\Services\Content\Pages;
 use App\Services\Content\Team;
 use App\Services\Forms\FormGuard;
 use App\Services\Site\Markets;
+use App\View\Composers\DashboardChrome;
 use App\View\Composers\ErrorPageLocale;
 use App\View\Composers\SiteChrome;
 use Illuminate\Cache\RateLimiting\Limit;
@@ -36,6 +37,7 @@ class AppServiceProvider extends ServiceProvider
     {
         // Public site chrome (header, footer) and localized error pages (SITE-INVENTORY §D).
         View::composer('layouts.site', SiteChrome::class);
+        View::composer('layouts.dashboard', DashboardChrome::class);
         View::composer(['errors.404', 'errors::404'], ErrorPageLocale::class);
 
         // Public search (SEC-007): 30 searches a minute per address — counted on a keyed hash, the address is not kept.

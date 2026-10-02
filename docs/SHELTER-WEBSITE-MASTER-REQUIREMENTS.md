@@ -26,8 +26,8 @@
 ## الملفات المرتبطة
 | الملف | الدور |
 |---|---|
-| [`MASTER-DECISION-REGISTER.md`](MASTER-DECISION-REGISTER.md) | الحالة الحالية لكل قرار (449 قرارًا) |
-| [`governance/DECISION-LOG.md`](governance/DECISION-LOG.md) | السجل الزمني (D-000 ← D-326) |
+| [`MASTER-DECISION-REGISTER.md`](MASTER-DECISION-REGISTER.md) | الحالة الحالية لكل قرار (450 قرارًا) |
+| [`governance/DECISION-LOG.md`](governance/DECISION-LOG.md) | السجل الزمني (D-000 ← D-327) |
 | [`CONFLICT-REGISTER.md`](CONFLICT-REGISTER.md) | 215 تعارضًا وطريقة حسمها |
 | [`PENDING-OWNER-INPUT.md`](PENDING-OWNER-INPUT.md) | 63 بندًا فقط تحتاجك |
 | [`REQUIREMENTS-TRACEABILITY-MATRIX.md`](REQUIREMENTS-TRACEABILITY-MATRIX.md) | متطلب ← قرار ← تصميم ← كود ← اختبار |
@@ -73,8 +73,8 @@
 | متطلبات | **1350**: REQUIREMENT 491, RULE 442, DECISION 209, DELIVERABLE 109, GATE 99 |
 | حسب الحالة | APPROVED 900, FROZEN 294, APPROVED WITH CONDITIONS 73, PENDING OWNER INPUT 34, DEFERRED 22, SUPERSEDED 18, PENDING VERIFICATION 9 |
 | حسب الأولوية | P0 691, P1 572, P2 69, P3 18 |
-| حسب التنفيذ | NOT STARTED 936, PARTIAL 194, IMPLEMENTED — NOT TESTED 124, FROZEN 43, TESTED 42, NEEDS FIX 8, IMPLEMENTED — NOT YET VERIFIED 2, CONFLICT 1 |
-| مُختبر | NO 781, N/A 345, PROTOTYPE 135, YES 89 |
+| حسب التنفيذ | NOT STARTED 929, PARTIAL 200, IMPLEMENTED — NOT TESTED 124, TESTED 43, FROZEN 43, NEEDS FIX 8, IMPLEMENTED — NOT YET VERIFIED 2, CONFLICT 1 |
+| مُختبر | NO 774, N/A 345, PROTOTYPE 135, YES 96 |
 
 ## فهرس المجالات
 | # | المجال | متطلبات | P0 | معتمد/مجمّد | معلّق | تنفيذ (منفذ أو مجمّد) |
@@ -95,7 +95,7 @@
 | 14 | [Contact](master-requirements/14-contact.md) | 30 | 11 | 25 | 4 | 0 |
 | 15 | [Blog / Coffee Knowledge](master-requirements/15-blog-coffee-knowledge.md) | 6 | 2 | 6 | 0 | 0 |
 | 16 | [Franchise](master-requirements/16-franchise.md) | 108 | 50 | 105 | 1 | 21 |
-| 17 | [CMS](master-requirements/17-cms.md) | 35 | 25 | 34 | 1 | 0 |
+| 17 | [CMS](master-requirements/17-cms.md) | 35 | 25 | 34 | 1 | 1 |
 | 18 | [Owner Dashboard](master-requirements/18-owner-dashboard.md) | 35 | 22 | 33 | 0 | 0 |
 | 19 | [Analytics](master-requirements/19-analytics.md) | 45 | 15 | 43 | 2 | 3 |
 | 20 | [GA4 / GTM](master-requirements/20-ga4-gtm.md) | 23 | 2 | 18 | 3 | 3 |
@@ -244,7 +244,7 @@
 | `RESP-022` | كل Component متجاوب بذاته | APPROVED | P1 | NOT STARTED |
 | `RESP-023` | Fluid Responsive System بلا device-specific patching | APPROVED | P1 | NOT STARTED |
 | `RESP-024` | المبدأ النهائي: تجربة مصممة لكل جهاز بلا compromises | APPROVED | P1 | NOT STARTED |
-| `RESP-025` | Owner Dashboard ممتازة على الهاتف | APPROVED | P0 | NOT STARTED |
+| `RESP-025` | Owner Dashboard ممتازة على الهاتف | APPROVED | P0 | PARTIAL |
 | `RESP-026` | شبكة المنيو على الموبايل: عمودان من 360px، عمود واحد أفقي تحته | APPROVED WITH CONDITIONS | P1 | NOT STARTED |
 | `RESP-027` | شبكة المنيو على التابلت والديسكتوب: 3 أعمدة حتى 1199px و4 من 1200px | APPROVED WITH CONDITIONS | P1 | NOT STARTED |
 | `RESP-028` | Responsive fallback للقائمة الجانبية على الديسكتوب | APPROVED | P1 | NOT STARTED |
@@ -593,7 +593,7 @@
 | `FRAN-064` | البحث والفلاتر في وحدة الشراكات | APPROVED | P1 | NOT STARTED |
 | `FRAN-065` | Audit Log للوحدة: 8 أنواع إجراءات + 6 حقول | APPROVED | P0 | NOT STARTED |
 | `FRAN-066` | النسخ الاحتياطي: DB + مرفقات خاصة + إجراء استعادة — يُتحقق ولا يُفترض | APPROVED | P0 | NOT STARTED |
-| `FRAN-067` | الصفحة قابلة للتحرير بالكامل من الـOwner Dashboard بلا كود (16 عنصرًا) | APPROVED | P1 | NOT STARTED |
+| `FRAN-067` | الصفحة قابلة للتحرير بالكامل من الـOwner Dashboard بلا كود (16 عنصرًا) | APPROVED | P1 | PARTIAL |
 | `FRAN-068` | Design System Lock: المحتوى قابل للتحرير — التصميم مضبوط | APPROVED | P0 | NOT STARTED |
 | `FRAN-069` | Workflow المحتوى: Draft · Review · Scheduled · Published · Archived + Preview + Versions + Audit | APPROVED | P1 | NOT STARTED |
 | `FRAN-070` | حالة لكل محتوى فرنشايز: APPROVED · PENDING · MISSING · SUPERSEDED — المعلّق لا يُنشر كحقيقة | APPROVED | P0 | NOT STARTED |
@@ -640,7 +640,7 @@
 
 | ID | المتطلب | الحالة | P | التنفيذ |
 |---|---|---|---|---|
-| `CMS-001` | 95%+ من العمليات اليومية يديرها الـOwner من الـDashboard بدون لمس الكود | APPROVED | P0 | NOT STARTED |
+| `CMS-001` | 95%+ من العمليات اليومية يديرها الـOwner من الـDashboard بدون لمس الكود | APPROVED | P0 | PARTIAL |
 | `CMS-002` | نطاق كيانات الـCMS (القائمة الموحدة القابلة للتعديل من UI) | APPROVED | P0 | NOT STARTED |
 | `CMS-003` | Menu CMS = Single Source of Truth في V1 (A الآن + جاهزية C) — لا Google Sheet | APPROVED | P0 | NOT STARTED |
 | `CMS-004` | مصدر واحد للحقيقة: لا CMS مزدوج ولا مصدر منيو مزدوج | APPROVED | P0 | NOT STARTED |
@@ -658,7 +658,7 @@
 | `CMS-016` | ترتيب المنتجات بـsort_order يدوي من الـCMS — ممنوع Random Algorithm | FROZEN | P1 | NOT STARTED |
 | `CMS-017` | FEATURED = خاصية CMS داخلية — لا Badge 'Featured' للعميل | FROZEN | P1 | NOT STARTED |
 | `CMS-018` | Search Alias Dictionary قابل للإدارة من الـCMS | FROZEN | P1 | NOT STARTED |
-| `CMS-019` | حالة المحتوى في الـDashboard: صفحات تحتاج تحديث + Drafts تنتظر النشر | APPROVED | P1 | NOT STARTED |
+| `CMS-019` | حالة المحتوى في الـDashboard: صفحات تحتاج تحديث + Drafts تنتظر النشر | APPROVED | P1 | TESTED |
 | `CMS-020` | لا تعديل يدوي لقاعدة البيانات: كل Business Content اليومي له UI | APPROVED | P0 | NOT STARTED |
 | `CMS-021` | CMS Data Model والتخزين (CMS-DATA-MODEL.md) — Supabase مشروط بقرار DB-08 | APPROVED WITH CONDITIONS | P1 | PARTIAL |
 | `CMS-022` | المنيو بلا كود: كل حقول المنتج والتوفر والنشر | FROZEN | P0 | NOT STARTED |
@@ -685,8 +685,8 @@
 | `DASH-003` | أولويات الـDashboard لـVersion 1 (P0 / P1 / P2 حسب M25 §68) | APPROVED | P0 | NOT STARTED |
 | `DASH-004` | تسلسل تنفيذ الـDashboard (Phases A–N) — لا بناء قبل Gate H | APPROVED | P0 | NOT STARTED |
 | `DASH-005` | Low-Fidelity Wireframes للـDashboard قبل الـCoding (12 شاشة) | APPROVED | P0 | NOT STARTED |
-| `DASH-006` | وحدات الـDashboard والتنقل — القائمة الدنيا الكاملة (M25 §49 ∪ M27 §13) | APPROVED | P0 | NOT STARTED |
-| `DASH-007` | الشاشة الأولى بعد Login = Executive Dashboard (Owner KPIs فقط) | APPROVED | P0 | NOT STARTED |
+| `DASH-006` | وحدات الـDashboard والتنقل — القائمة الدنيا الكاملة (M25 §49 ∪ M27 §13) | APPROVED | P0 | PARTIAL |
+| `DASH-007` | الشاشة الأولى بعد Login = Executive Dashboard (Owner KPIs فقط) | APPROVED | P0 | PARTIAL |
 | `DASH-008` | TOP SUMMARY: 10 مؤشرات + مقارنة + percentage/trend arrow/mini chart | APPROVED | P0 | NOT STARTED |
 | `DASH-009` | Date Selector عام أعلى الـDashboard مع Presets | APPROVED | P0 | NOT STARTED |
 | `DASH-010` | Comparison: previous period / previous year — فقط إذا البيانات متوفرة | APPROVED WITH CONDITIONS | P1 | NOT STARTED |
@@ -706,7 +706,7 @@
 | `DASH-024` | Labels واضحة: DEMO DATA مقابل LIVE DATA — ممنوع الخلط | APPROVED | P0 | NOT STARTED |
 | `DASH-025` | لا أرقام مزيفة: أي Score يوضح طريقة حسابه | APPROVED | P0 | NOT STARTED |
 | `DASH-026` | Summary Health Score اختياري — فقط بقواعد واضحة؛ الـIssues أهم من الرقم | SUPERSEDED | P2 | NOT STARTED |
-| `DASH-027` | الـOwner Dashboard كاملة الوظائف على Mobile و Desktop | APPROVED | P0 | NOT STARTED |
+| `DASH-027` | الـOwner Dashboard كاملة الوظائف على Mobile و Desktop | APPROVED | P0 | PARTIAL |
 | `DASH-028` | 9 مهام Owner يجب أن تكون سهلة على الهاتف | APPROVED | P1 | NOT STARTED |
 | `DASH-029` | Dashboard cards لا تنضغط بشكل سيئ على الهاتف · Desktop أكثر كثافة عند الفائدة | APPROVED | P1 | NOT STARTED |
 | `DASH-030` | Charts متجاوبة — وتتحول إلى Summary/Card على الشاشات الصغيرة عند الحاجة | APPROVED | P1 | NOT STARTED |

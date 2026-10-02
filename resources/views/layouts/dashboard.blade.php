@@ -11,19 +11,32 @@
     <x-ui.skip-link :label="__('dashboard.skip_to_content')" />
     <header class="ui-shell__topbar">
         <p class="ui-shell__brand" lang="en" dir="ltr">SHELTER COFFEE</p>
-        <form method="post" action="{{ route('dashboard.logout') }}">
-            @csrf
-            <x-ui.button type="submit" variant="ghost" icon="log-out">{{ __('dashboard.auth.logout') }}</x-ui.button>
-        </form>
+        <div class="ui-shell__actions">
+            <x-ui.button variant="ghost" :href="url('/ar/')" icon="arrow-right" target="_blank" rel="noopener">{{ __('dashboard.view_site') }}</x-ui.button>
+            <form method="post" action="{{ route('dashboard.logout') }}">
+                @csrf
+                <x-ui.button type="submit" variant="ghost" icon="log-out">{{ __('dashboard.auth.logout') }}</x-ui.button>
+            </form>
+        </div>
     </header>
-    {{-- PHASE 1 shell. Navigation groups (FINAL-ARCHITECTURE-REVIEW §10) are filled module by module from PHASE 3. --}}
+    {{-- Navigation groups (FINAL-ARCHITECTURE-REVIEW §10) — items appear as their screens ship (DashboardChrome). --}}
     <nav class="ui-shell__nav" aria-label="{{ __('ui.main_navigation') }}">
-        <ul class="ui-sidebar">
-            <x-ui.sidebar-item :href="route('dashboard.home')" icon="house" :current="request()->routeIs('dashboard.home')">{{ __('dashboard.command_center') }}</x-ui.sidebar-item>
-        </ul>
+        @foreach ($dashboardNav ?? [] as $group)
+            @if ($group['label'] !== null)
+                <p class="ui-shell__nav-group">{{ $group['label'] }}</p>
+            @endif
+            <ul class="ui-sidebar">
+                @foreach ($group['links'] as $link)
+                    <x-ui.sidebar-item :href="$link['href']" :icon="$link['icon']" :current="$link['current']">{{ $link['label'] }}</x-ui.sidebar-item>
+                @endforeach
+            </ul>
+        @endforeach
     </nav>
     <main id="main" class="ui-shell__main" tabindex="-1">
         <div class="ui-shell__content">
+            @if (session('status'))
+                <x-ui.alert variant="success" class="ui-shell__flash">{{ session('status') }}</x-ui.alert>
+            @endif
             @yield('content')
         </div>
     </main>

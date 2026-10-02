@@ -95,7 +95,7 @@ final class Pages
             return;
         }
         $pages = Page::query()
-            ->with(['sections' => fn ($query) => $query->where('is_visible', true)])
+            ->with(['sections' => fn ($query) => $query->where('is_visible', true)->whereNull('archived_at')])
             ->whereIn('key', $missing)
             ->get()
             ->keyBy('key');
@@ -150,22 +150,38 @@ final class Pages
     /** Both languages are checked: one blocked phrase in either keeps the whole page offline. */
     private function isBlocked(Page $page): bool
     {
-        /** @var list<string> $phrases */
-        $phrases = config('content.blocked_phrases.'.$page->key, []);
-        if ($phrases === []) {
+        if (self::blockedPhrase($page->key, self::text($page)) === null) {
             return false;
         }
-        $text = implode("\n", [$page->title_ar, $page->title_en, $page->name_ar, $page->name_en, $page->description_ar, $page->description_en,
-            ...$page->sections->flatMap(fn (PageSection $s): array => [$s->heading_ar, $s->heading_en, $s->body_ar, $s->body_en])->all()]);
+        Log::warning('content.blocked_phrase', ['page' => $page->key]);
+
+        return true;
+    }
+
+    /** The first phrase blocked for this page key found in the text (config content.blocked_phrases), or null. */
+    public static function blockedPhrase(string $key, string $text): ?string
+    {
+        /** @var list<string> $phrases */
+        $phrases = config('content.blocked_phrases.'.$key, []);
         foreach ($phrases as $phrase) {
             if (mb_stripos($text, $phrase) !== false) {
-                Log::warning('content.blocked_phrase', ['page' => $page->key]);
-
-                return true;
+                return $phrase;
             }
         }
 
-        return false;
+        return null;
+    }
+
+    private static function text(Page $page): string
+    {
+        return implode("\n", [$page->title_ar, $page->title_en, $page->name_ar, $page->name_en, $page->description_ar, $page->description_en,
+            ...$page->sections->flatMap(fn (PageSection $s): array => [$s->heading_ar, $s->heading_en, $s->body_ar, $s->body_en])->all()]);
+    }
+
+    /** The same completeness rule the site applies (the editor checks it before publishing). */
+    public static function sectionComplete(PageSection $section): bool
+    {
+        return (new self)->isComplete($section);
     }
 
     private function isLive(Page $page, CarbonImmutable $now): bool

@@ -27,6 +27,9 @@ return [
 
     // Supported interface languages. Arabic first (D-014).
     'locales' => ['ar', 'en'],
+
+    // The Owner dashboard's language (DASH-034: Arabic first).
+    'dashboard_locale' => env('DASHBOARD_LOCALE', 'ar'),
     'default_locale' => 'ar',
 
     'auth' => [
