@@ -47,17 +47,21 @@
 .ui-hero__line {
     display: block;
     overflow: hidden;
-    padding-block-end: var(--space-1);
+    /* The mask grows with the type, so descenders (g, p, y) and the dots under Arabic letters («كوفي») stay inside it
+       (UX-006 DR-02); the next line moves up by most of it, so the title keeps its tight rhythm. */
+    padding-block-end: 0.25em;
 }
 
-/* Arabic letters reach below the line box (the dots of ي in «كوفي»): the mask grows with the type so nothing is
-   clipped (UX-006 DR-02); the next line moves up by the same amount, so the title keeps its rhythm. */
+.ui-hero__line + .ui-hero__line {
+    margin-block-start: -0.15em;
+}
+
 .ui-hero__title:lang(ar) .ui-hero__line {
-    padding-block-end: 0.3em;
+    padding-block-end: 0.36em;
 }
 
 .ui-hero__title:lang(ar) .ui-hero__line + .ui-hero__line {
-    margin-block-start: -0.2em;
+    margin-block-start: -0.24em;
 }
 
 .ui-hero__line--quiet {
