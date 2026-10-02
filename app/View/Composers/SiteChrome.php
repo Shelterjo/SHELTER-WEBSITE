@@ -8,6 +8,7 @@ use App\Services\Content\Team;
 use App\Services\Experiences\Events;
 use App\Services\Site\ContactActions;
 use App\Services\Site\Markets;
+use App\Services\Site\SocialLinks;
 use App\Support\PageUrl;
 use App\Support\SiteLinks;
 use Illuminate\Http\Request;
@@ -25,6 +26,10 @@ use Illuminate\View\View;
 final class SiteChrome
 {
     /** Primary navigation in IA order (NAV-006: Menu, then Locations). route name => lang key. */
+    /** Platform names as the platforms write them (proper nouns, shown in Latin script in both languages). */
+    private const SOCIAL_NAMES = ['instagram' => 'Instagram', 'facebook' => 'Facebook', 'tiktok' => 'TikTok', 'snapchat' => 'Snapchat',
+        'youtube' => 'YouTube', 'x' => 'X', 'linkedin' => 'LinkedIn'];
+
     private const NAV = [
         'menu' => 'site.nav.menu',
         'locations' => 'site.nav.locations',
@@ -33,6 +38,7 @@ final class SiteChrome
     public function __construct(
         private readonly Markets $markets,
         private readonly ContactActions $contacts,
+        private readonly SocialLinks $social,
         private readonly Pages $pages,
         private readonly Events $events,
         private readonly Awards $awards,
@@ -100,6 +106,8 @@ final class SiteChrome
             'phone' => $this->contacts->phone($locale),
             'whatsapp' => $this->contacts->whatsapp($locale),
             'contact' => SiteLinks::to('contact', $parameters),
+            'social' => array_map(fn (string $platform, string $url): array => ['label' => self::SOCIAL_NAMES[$platform] ?? $platform, 'href' => $url],
+                array_keys($social = $this->social->published()), $social),
             'search' => SiteLinks::to('search', $parameters),
         ]);
     }

@@ -1,7 +1,8 @@
 {{--
     Site footer (DS-018, CONTACT-015: not crowded): the logo, the same navigation as the header, ONE public number and
     WhatsApp (D-057, D-062, D-065) — only when approved — the language links and the copyright with the brand name.
-    No address, social links or claims until each is approved (PO-010, D-025/D-036). `phone` / `whatsapp` =
+    No address or claims until each is approved (PO-010, D-025/D-036); social accounts only once the Owner switched
+    them on in the dashboard (`social` = [['label', 'href']], CONTACT-026/027). `phone` / `whatsapp` =
     App\Services\Site\ContactAction|null; `contact` = URL of the contact page when it exists; `legal` = links to the
     published legal pages (privacy, terms) next to the copyright: [['label', 'href', 'current' => 'page'|null]].
 --}}
@@ -12,6 +13,7 @@
     'phone' => null,
     'whatsapp' => null,
     'contact' => null,
+    'social' => [],
     'legal' => [],
 ])
 <footer {{ $attributes->class('ui-site-footer') }}>
@@ -58,6 +60,16 @@
                         @endif
                     </ul>
                 </div>
+            @endif
+            @if (count($social) > 0)
+                <nav class="ui-site-footer__group" aria-labelledby="footer-follow">
+                    <h2 class="ui-site-footer__title" id="footer-follow">{{ __('ui.footer.follow') }}</h2>
+                    <ul class="ui-site-footer__list" role="list">
+                        @foreach ($social as $item)
+                            <li><a class="ui-site-footer__link" href="{{ $item['href'] }}" rel="noopener me" target="_blank" lang="en" dir="ltr">{{ $item['label'] }}</a></li>
+                        @endforeach
+                    </ul>
+                </nav>
             @endif
             @if (count($languages) > 1)
                 <div class="ui-site-footer__group">

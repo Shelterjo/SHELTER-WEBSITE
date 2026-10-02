@@ -8,6 +8,8 @@ use App\Http\Controllers\Dashboard\Content\AwardsController;
 use App\Http\Controllers\Dashboard\Content\MediaController;
 use App\Http\Controllers\Dashboard\Content\PagesController;
 use App\Http\Controllers\Dashboard\Content\TeamController;
+use App\Http\Controllers\Dashboard\Data\BranchesController;
+use App\Http\Controllers\Dashboard\Data\ContactsController;
 use App\Http\Controllers\Dashboard\HomeController;
 use App\Http\Controllers\Dashboard\RecoveryCodesController;
 use App\Http\Controllers\Dashboard\Requests\CareersController;
@@ -103,6 +105,23 @@ Route::prefix('dashboard')->middleware(DashboardLocale::class)->group(function (
             Route::post('requests/feedback/{feedback}/archive', [FeedbackController::class, 'archive'])->name('feedback.archive');
             Route::post('requests/feedback/{feedback}/restore', [FeedbackController::class, 'restore'])->name('feedback.restore');
             Route::put('requests/feedback/{feedback}', [FeedbackController::class, 'redact'])->name('feedback.redact');
+        });
+
+        // Business data — branches and hours (MDH-005…007). Central facts: a fresh re-confirmation to edit.
+        Route::get('data/branches', [BranchesController::class, 'index'])->name('branches.index');
+        Route::whereNumber(['branch', 'exception'])->middleware('confirmed')->group(function (): void {
+            Route::get('data/branches/{branch}', [BranchesController::class, 'show'])->name('branches.show');
+            Route::post('data/branches/{branch}/hours', [BranchesController::class, 'hours'])->name('branches.hours');
+            Route::post('data/branches/{branch}/exceptions', [BranchesController::class, 'storeException'])->name('branches.exceptions.store');
+            Route::put('data/branches/{branch}/exceptions/{exception}', [BranchesController::class, 'updateException'])->name('branches.exceptions.update');
+            Route::post('data/branches/{branch}/exceptions/{exception}/archive', [BranchesController::class, 'archiveException'])->name('branches.exceptions.archive');
+        });
+
+        // Business data — contact numbers and social accounts (CMS-030). Central facts: a fresh re-confirmation.
+        Route::middleware('confirmed')->group(function (): void {
+            Route::get('data/contacts', [ContactsController::class, 'index'])->name('contacts.index');
+            Route::put('data/contacts/{point}', [ContactsController::class, 'update'])->whereNumber('point')->name('contacts.update');
+            Route::put('data/contacts/social/{platform}', [ContactsController::class, 'social'])->where('platform', '[a-z]+')->name('contacts.social');
         });
         Route::get('recovery-codes', RecoveryCodesController::class)->name('recovery-codes');
         Route::get('confirm', [ConfirmIdentityController::class, 'show'])->name('confirm');

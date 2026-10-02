@@ -75,7 +75,7 @@ final class BranchDirectory
             $resolver = new HoursResolver($branch, $market->timezone, $regular);
             $week = $this->week($regular, $local->dayOfWeek, $locale);
             $today = array_map(
-                fn (array $i): array => $this->interval($i[0]->format('H:i'), $i[1]->format('H:i'), $locale),
+                fn (array $i): array => self::interval($i[0]->format('H:i'), $i[1]->format('H:i'), $locale),
                 $resolver->intervalsOn($local),
             );
             $status = $this->status->timeline($resolver, $now, $market->timezone, $locale);
@@ -105,20 +105,31 @@ final class BranchDirectory
      */
     private function week(Collection $rows, int $todayWeekday, string $locale): array
     {
+        return self::weekRows($rows->map(fn (BranchHour $h): array => [$h->weekday, substr($h->opens_at, 0, 5), substr($h->closes_at, 0, 5)])->all(), $todayWeekday, $locale);
+    }
+
+    /**
+     * The week as the site shows it (Saturday first), from [weekday, "HH:MM", "HH:MM"] rows — also the dashboard's
+     * preview of hours not published yet, so the Owner sees exactly what visitors will.
+     *
+     * @param  array<int, array{0: int, 1: string, 2: string}>  $rows
+     * @return list<DayRow>
+     */
+    public static function weekRows(array $rows, ?int $todayWeekday, string $locale): array
+    {
         return array_map(fn (int $weekday): array => [
             'weekday' => $weekday,
             'day' => LocalTime::weekday($weekday, $locale),
             'today' => $weekday === $todayWeekday,
-            'intervals' => array_values($rows
-                ->filter(fn (BranchHour $h): bool => $h->weekday === $weekday)
-                ->sortBy('opens_at')
-                ->map(fn (BranchHour $h): array => $this->interval(substr($h->opens_at, 0, 5), substr($h->closes_at, 0, 5), $locale))
-                ->all()),
+            'intervals' => array_values(array_map(
+                fn (array $r): array => self::interval($r[1], $r[2], $locale),
+                collect($rows)->filter(fn (array $r): bool => $r[0] === $weekday)->sortBy(fn (array $r): string => $r[1])->all(),
+            )),
         ], self::WEEK);
     }
 
     /** @return Interval */
-    private function interval(string $opens, string $closes, string $locale): array
+    private static function interval(string $opens, string $closes, string $locale): array
     {
         return [
             'opens' => LocalTime::clock($opens, $locale),

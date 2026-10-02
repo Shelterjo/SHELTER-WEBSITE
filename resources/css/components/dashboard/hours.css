@@ -1,0 +1,99 @@
+/* Dashboard → Branches and hours (M50): the week as seven compact day cards, the preview beside what is published
+   now, and the exception form that shows only the fields its type needs (no JavaScript — :has). */
+
+.ui-branch-state {
+    margin-block-end: var(--space-6);
+}
+
+.ui-week {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, calc(var(--touch-target) * 6)), 1fr));
+    gap: var(--space-3);
+}
+
+.ui-week__day {
+    display: grid;
+    gap: var(--space-2);
+    min-inline-size: 0;
+    margin: 0;
+    padding: var(--space-3);
+    border: var(--border-default) solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-bg);
+}
+
+.ui-week__day--error {
+    border-color: var(--color-danger);
+}
+
+.ui-week__name {
+    float: inline-start;
+    inline-size: 100%;
+    margin: 0;
+    padding: 0;
+    font-weight: var(--weight-bold);
+}
+
+.ui-week__times {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: var(--space-2);
+}
+
+/* A closed day hides its times. */
+.ui-week__day:has(.ui-check__input:not(:checked)) .ui-week__times {
+    display: none;
+}
+
+.ui-preview {
+    display: grid;
+    gap: var(--space-3);
+    justify-items: start;
+    padding: var(--space-4);
+    border: var(--border-strong) solid var(--color-accent);
+    border-radius: var(--radius-md);
+}
+
+.ui-preview > .ui-field {
+    inline-size: 100%;
+}
+
+.ui-preview__compare {
+    display: grid;
+    gap: var(--space-4);
+    inline-size: 100%;
+}
+
+@media (min-width: 768px) {
+    .ui-preview__compare {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    }
+}
+
+/* Closures are closed all day: no "open with hours" choice; "closed" hides the times. */
+.ui-exception:has(input[name='kind'][value='temporary']:checked) .ui-exception__hours,
+.ui-exception:has(input[name='kind'][value='emergency']:checked) .ui-exception__hours,
+.ui-exception:has(input[name='mode'][value='closed']:checked) .ui-exception__hours .ui-editor__pair {
+    display: none;
+}
+
+.ui-exception__hours {
+    display: grid;
+    gap: var(--space-3);
+    inline-size: 100%;
+}
+
+/* Contacts: one small card per social platform. */
+.ui-social-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, calc(var(--touch-target) * 6)), 1fr));
+    gap: var(--space-3);
+}
+
+.ui-social-grid .ui-week__day {
+    justify-items: start;
+}
+
+.ui-social-grid .ui-field {
+    inline-size: 100%;
+}

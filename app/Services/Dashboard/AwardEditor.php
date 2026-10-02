@@ -2,13 +2,10 @@
 
 namespace App\Services\Dashboard;
 
-use App\Enums\FactSource;
-use App\Enums\FactStatus;
 use App\Models\Award;
 use App\Models\Media;
 use App\Models\User;
 use App\Services\Core\AuditLogger;
-use App\Services\MasterData\FactRegistry;
 use App\Services\Media\MediaRights;
 use Illuminate\Support\Facades\DB;
 
@@ -22,21 +19,19 @@ use Illuminate\Support\Facades\DB;
 final class AwardEditor
 {
     /** What `decision_ref` says for a confirmation given in the Owner Dashboard (the audit holds who and when). */
-    public const DECISION_REF = 'OWNER-DASHBOARD';
+    public const DECISION_REF = OwnerApproval::DECISION_REF;
 
     private const LIMITS = ['title' => 200, 'issuer' => 200, 'description' => 600, 'evidence_url' => 500];
 
     /** A sanity range for the year (not a business fact): 2000 … this year. */
     public const FIRST_YEAR = 2000;
 
-    public function __construct(private readonly FactRegistry $facts, private readonly AuditLogger $audit) {}
+    public function __construct(private readonly OwnerApproval $approval, private readonly AuditLogger $audit) {}
 
     /** True when the award's current values are the ones the Owner confirmed (nothing changed since). */
     public function isConfirmed(Award $award): bool
     {
-        $fact = $award->exists ? $this->facts->current($award->factKey()) : null;
-
-        return $fact !== null && $fact->status->isPublishable() && $fact->value_hash === FactRegistry::hash($award->factValue());
+        return $award->exists && $this->approval->isApproved($award->factKey(), $award->factValue());
     }
 
     /**
@@ -130,15 +125,6 @@ final class AwardEditor
     /** The Owner's confirmation = the fact approved with exactly these values (a newer value supersedes the older). */
     private function confirm(Award $award, User $owner): void
     {
-        $fact = $this->facts->current($award->factKey());
-        if ($fact === null) {
-            $fact = $this->facts->register($award->factKey(), 'awards', $award->factValue(), FactStatus::PendingOwnerApproval, FactSource::OwnerDashboard,
-                labelAr: 'جائزة: '.$award->title_ar, labelEn: 'Award: '.$award->title_en);
-            $this->facts->approve($fact, $owner, self::DECISION_REF);
-        } elseif ($fact->status->isPublishable()) {
-            $this->facts->supersede($fact, $award->factValue(), $owner, self::DECISION_REF);
-        } else {
-            $this->facts->approve($fact, $owner, self::DECISION_REF, replaceValue: true, value: $award->factValue());
-        }
+        $this->approval->approve($award->factKey(), $award->factValue(), $owner, 'awards', 'جائزة: '.$award->title_ar, 'Award: '.$award->title_en);
     }
 }

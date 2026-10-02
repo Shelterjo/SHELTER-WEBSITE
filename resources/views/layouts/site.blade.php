@@ -34,6 +34,6 @@
         @yield('content')
     </main>
     <x-ui.site-footer :home="$siteChrome['home']" :nav="$siteChrome['footerNav']" :languages="$siteChrome['languages']"
-        :phone="$siteChrome['phone']" :whatsapp="$siteChrome['whatsapp']" :contact="$siteChrome['contact']" :legal="$siteChrome['legal']" />
+        :phone="$siteChrome['phone']" :whatsapp="$siteChrome['whatsapp']" :contact="$siteChrome['contact']" :social="$siteChrome['social']" :legal="$siteChrome['legal']" />
 </body>
 </html>
