@@ -26,7 +26,9 @@
       "winner": "M74 للـStaging الآن بالتوازي مع الجاهزية. لا يتغير: الإنتاج (نقل الدومين من تطبيق WordPress، Full strict، HSTS، DS لـDNSSEC، تفعيل التحويلات، Google) بعد فحص الـStaging وموافقة صريحة من الـOwner؛ تطبيق WordPress الحالي لا يُلمس؛ لا خدمة مدفوعة.",
       "why": "قاعدة الأولوية 1: آخر قرار صريح من الـOwner؛ الـStaging محمي (Basic Auth + noindex) وقابل للتراجع",
       "impact": ".github/workflows/deploy-staging.yml · scripts/deploy/* · deploy/staging.env.template · docs/CLOUDWAYS-DEPLOYMENT-RUNBOOK.md",
-      "files": [".github/workflows/deploy-staging.yml"],
+      "files": [
+        ".github/workflows/deploy-staging.yml"
+      ],
       "status": "RESOLVED"
     }
   ],
@@ -35,7 +37,11 @@
       "temp_id": "G57-ND-01",
       "area": "Release / Infrastructure",
       "decision": "بدء ربط البنية التحتية الآن (M74) على الـStaging فقط: تطبيق shelter-staging الموجود على سيرفر Cloudways الحالي (PHP 8.3، MariaDB 10.11، Lightning/Nginx)، نشر يدوي عبر GitHub Actions (deploy-staging.yml: بناء واحد، رفع عبر SSH بمستخدم التطبيق لا الـmaster، فحص أن الويب لا يقدّم إلا public/، ‏.env يُكتب مرة على السيرفر بمفاتيح تُولَّد هناك ولا تُطبع، migrate + seed مرة، فحص سريع). الأسرار في GitHub Secrets يضيفها الـOwner. Cloudflare: لا تغيير للـStaging (الرابط الافتراضي لـCloudways)؛ تغييرات Cloudflare (Full strict، Respect Existing Headers، HSTS لاحقًا، DS) عند نقل الإنتاج فقط وبموافقته. حساب الـOwner على الـStaging يُنشأ بأمر shelter:owner يكتب فيه الـOwner كلمة المرور بنفسه.",
-      "sources": ["M72", "M73", "M74"],
+      "sources": [
+        "M72",
+        "M73",
+        "M74"
+      ],
       "status": "APPROVED",
       "reason": "توجيه صريح من الـOwner لكسب الوقت",
       "impact": "D-342 · D-343 · D-339 · task 20/61 · CF-005 (جزئي: فحص قراءة 2026-10-02)",
@@ -43,7 +49,40 @@
     }
   ],
   "pending_owner": [],
-  "technical_flags": [],
+  "technical_flags": [
+    {
+      "id": "G57-TF-01",
+      "topic": "مفتاح النشر وأسرار GitHub",
+      "detail": "تشغيلات النشر 1–9 توقفت عند الأسرار: (1) غير موجودة، (2) مفتاح بنهايات أسطر Windows (CRLF)، (3–7) قيمة STAGING_SSH_KEY سطر قصير لا مفتاح، (8) المفتاح الخاص لُصق في STAGING_SSH_HOST. الإصلاح التقني: scripts/deploy/prepare-key.py يرمم المفتاح (CRLF، أسطر مدموجة، شرطات مطبعية، رموز خفية، بلا BEGIN/END) أو يذكر السبب، وscripts/deploy/check-secrets.py يفحص شكل الأسرار التسعة قبل أي اتصال ويسمّي القيمة الموضوعة في السر الخطأ. لا يُطبع أي سر، فقط الحكم وبصمة المفتاح.",
+      "recommendation": "قرار تقني منفذ ومختبر (25 حالة مفاتيح + حالات أسرار)",
+      "needs_owner": false,
+      "refs": [
+        "D-349"
+      ]
+    },
+    {
+      "id": "G57-TF-02",
+      "topic": "تجربة نشر محلية كاملة",
+      "detail": "بناء ← stage ← تفعيل أول (migrate + seed) ← تفعيل ثانٍ (ops:backup-db --reason=pre-deploy ← تبديل ذري ← إبقاء آخر 3) ← فحص بعد النشر: 0 فشل، والملفات الحساسة 404. كشفت خللًا واحدًا وأُصلح: الإصدار كان يحذف ملفي المنيو اللذين يقرؤهما MenuSeeder (5a0ca15). أُضيف أيضًا: public/media مشترك بين الإصدارات (deploy-facts F-5)، نسخة قاعدة البيانات قبل كل migration (DEPLOY-005)، وفحص ملفات CSS/JS والشعار بعد النشر.",
+      "recommendation": "قرار تقني منفذ ومختبر محليًا؛ التحقق على Cloudways بعد أول تشغيل full",
+      "needs_owner": false,
+      "refs": [
+        "D-349",
+        "DEPLOY-005"
+      ]
+    },
+    {
+      "id": "G57-TF-03",
+      "topic": "دليل النشر",
+      "detail": "docs/CLOUDWAYS-DEPLOYMENT-RUNBOOK.md (مسودة): حالة Cloudways وCloudflare من فحص القراءة (CF-005 جزئي)، شكل الملفات على السيرفر، إعداد لمرة واحدة، مراحل النشر وشروط التوقف، التراجع، خطوات التحويل للإنتاج (كل بند بموافقة)، جدول أعطال.",
+      "recommendation": "DRAFT — PENDING OWNER APPROVAL",
+      "needs_owner": false,
+      "refs": [
+        "D-349",
+        "CF-005"
+      ]
+    }
+  ],
   "cost_api_dependencies": [],
   "dropped": []
 }
