@@ -229,3 +229,28 @@
         align-items: center;
     }
 }
+
+/* Announcements form: "urgent" applies to announcements only; the preview frames hold the real site components. */
+.ui-editor:has(#type-campaign:checked) .ui-urgent-option {
+    display: none;
+}
+
+.ui-preview__frame {
+    overflow: hidden;
+    border: var(--border-default) solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-bg);
+}
+
+.ui-preview__frame > .ui-section-heading {
+    padding: var(--space-4);
+}
+
+/* Active now: one line per item with its "Stop now" at the end. */
+.ui-live-item {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2) var(--space-3);
+}

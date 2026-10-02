@@ -29,6 +29,10 @@
 </head>
 <body>
     <x-ui.skip-link :label="__('site.skip_to_content')" />
+    @if ($siteChrome['announcement'] ?? null)
+        @php $notice = $siteChrome['announcement']; @endphp
+        <x-ui.announcement-bar :title="$notice->title" :text="$notice->text" :href="$notice->ctaUrl" :link="$notice->ctaLabel" :urgent="$notice->urgent" data-experience="{{ $notice->id }}" />
+    @endif
     <x-ui.site-header :home="$siteChrome['home']" :nav="$siteChrome['nav']" :languages="$siteChrome['languages']" :minimal="$minimalHeader ?? false" :search="$siteChrome['search']" />
     <main id="main" class="ui-main" tabindex="-1">
         @yield('content')

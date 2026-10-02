@@ -6,6 +6,7 @@ use App\Services\Content\Awards;
 use App\Services\Content\Pages;
 use App\Services\Content\Team;
 use App\Services\Experiences\Events;
+use App\Services\Experiences\Placements;
 use App\Services\Site\ContactActions;
 use App\Services\Site\Markets;
 use App\Services\Site\SocialLinks;
@@ -43,6 +44,7 @@ final class SiteChrome
         private readonly Events $events,
         private readonly Awards $awards,
         private readonly Team $team,
+        private readonly Placements $placements,
         private readonly Request $request,
     ) {}
 
@@ -109,6 +111,8 @@ final class SiteChrome
             'social' => array_map(fn (string $platform, string $url): array => ['label' => self::SOCIAL_NAMES[$platform] ?? $platform, 'href' => $url],
                 array_keys($social = $this->social->published()), $social),
             'search' => SiteLinks::to('search', $parameters),
+            // The top announcement bar: the one experience the engine picks now, or nothing (DX-010, DX-012).
+            'announcement' => ($market = $this->markets->current()) !== null ? $this->placements->current($market, Placements::TOP_BAR, $locale) : null,
         ]);
     }
 

@@ -8,6 +8,7 @@ use App\Models\Market;
 use App\Models\User;
 use App\Services\Core\AuditLogger;
 use App\Services\Core\Versions;
+use App\Services\Dashboard\Concerns\ReadsExperienceInput;
 use App\Services\Experiences\Events;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\DB;
@@ -23,12 +24,14 @@ use Illuminate\Support\Str;
  */
 final class EventEditor
 {
+    use ReadsExperienceInput;
+
     /** Field => max length. */
     private const LIMITS = ['title' => 200, 'body' => 3000, 'terms' => 2000, 'cta_label' => 60, 'venue' => 200, 'cta_url' => 500, 'reason' => 300];
 
-    public const COMMANDS = ['pause', 'resume', 'cancel', 'end', 'archive', 'restore'];
+    public const COMMANDS = ExperienceCommands::COMMANDS;
 
-    public function __construct(private readonly Versions $versions, private readonly AuditLogger $audit, private readonly Events $events) {}
+    public function __construct(private readonly Versions $versions, private readonly AuditLogger $audit, private readonly Events $events, private readonly ExperienceCommands $commands) {}
 
     /**
      * Where the event stands for visitors right now, in one word for the dashboard.
@@ -145,7 +148,7 @@ final class EventEditor
                 $slug = $this->freeSlug((string) $values['title_en'], $market, $event);
             }
             // A paused event stays paused until resumed; otherwise published = scheduled or active by time.
-            $status = ! $publish ? 'draft' : ($event->status === 'paused' ? 'paused' : self::timeStatus($starts, $now));
+            $status = ! $publish ? 'draft' : ($event->status === 'paused' ? 'paused' : ExperienceCommands::timeStatus($starts, $now));
             if ($publish && ! is_string($details['first_published_at'] ?? null)) {
                 $details['first_published_at'] = $now->utc()->toIso8601String();
             }
@@ -173,41 +176,10 @@ final class EventEditor
         return ['event' => $saved, 'errors' => []];
     }
 
-    /** Runs one command; false when it does not apply to the event's current state. */
+    /** Runs one command (pause, resume, cancel, end now, archive, restore, disable); false when it does not apply now. */
     public function command(Experience $event, string $command, User $owner, ?CarbonImmutable $now = null): bool
     {
-        $now ??= CarbonImmutable::now();
-        $public = in_array($event->status, ['scheduled', 'active'], true);
-        $starts = $event->starts_at === null ? null : CarbonImmutable::instance($event->starts_at);
-        $resumed = $event->status === 'paused' ? self::timeStatus($starts, $now) : $event->status;
-        $changes = match (true) {
-            $command === 'pause' && $public && $event->archived_at === null => ['status' => 'paused'],
-            $command === 'resume' && ($event->status === 'paused' || $event->emergency_disabled || $event->manual_state === 'off') && $event->archived_at === null => ['status' => $resumed, 'emergency_disabled' => false, 'manual_state' => null],
-            $command === 'cancel' && ($public || $event->status === 'paused') && $event->archived_at === null => ['status' => 'cancelled'],
-            // Ending early keeps the page (marked ended) so shared links still work.
-            $command === 'end' && $public && $event->starts_at !== null && $event->starts_at->lessThan($now) && $event->ends_at !== null && $event->ends_at->greaterThan($now) => ['status' => 'ended', 'ends_at' => $now->utc()],
-            $command === 'archive' && $event->archived_at === null => ['archived_at' => $now->utc()],
-            $command === 'restore' && $event->archived_at !== null => ['archived_at' => null],
-            default => null,
-        };
-        if ($changes === null) {
-            return false;
-        }
-
-        DB::transaction(function () use ($event, $command, $changes, $owner): void {
-            $before = self::snapshot($event);
-            $event->forceFill($changes)->save();
-            $this->versions->record($event, $event->status, self::snapshot($event), 'command: '.$command, $owner);
-            $this->audit->record('events.'.$command, $event, ['before' => array_intersect_key($before, $changes), 'after' => array_intersect_key(self::snapshot($event), $changes)], actor: $owner);
-        });
-
-        return true;
-    }
-
-    /** Published: `scheduled` until it starts, `active` once it has (the public pages compute the state by time). */
-    private static function timeStatus(?CarbonImmutable $starts, CarbonImmutable $now): string
-    {
-        return $starts !== null && $starts->greaterThan($now) ? 'scheduled' : 'active';
+        return $this->commands->run($event, $command, $owner, 'events', $now);
     }
 
     private function slugTaken(string $slug, Market $market, ?Experience $event): bool
@@ -269,50 +241,5 @@ final class EventEditor
         }
 
         return (string) __('dashboard.events.fields.'.$key);
-    }
-
-    /** A link the site may follow: https:// anywhere, or a path on this site (G-08). */
-    private static function validLink(string $url): bool
-    {
-        if (mb_strlen($url) > self::LIMITS['cta_url']) {
-            return false;
-        }
-        if (str_starts_with($url, '/')) {
-            return ! str_starts_with($url, '//') && preg_match('#^/[A-Za-z0-9\-._~/%?=&]*$#', $url) === 1;
-        }
-
-        return str_starts_with($url, 'https://') && filter_var($url, FILTER_VALIDATE_URL) !== false;
-    }
-
-    /** @param  array<string, string>  $errors */
-    private static function moment(mixed $date, mixed $time, string $timezone, string $prefix, array &$errors): ?CarbonImmutable
-    {
-        $date = is_string($date) ? trim($date) : '';
-        $time = is_string($time) ? trim($time) : '';
-        if ($date === '' && $time === '') {
-            return null;
-        }
-        if (preg_match('/^(\d{4})-(\d{2})-(\d{2})$/', $date, $d) !== 1 || ! checkdate((int) $d[2], (int) $d[3], (int) $d[1])) {
-            $errors[$prefix.'_date'] = (string) __('dashboard.hours.errors.date');
-
-            return null;
-        }
-        if (preg_match('/^([01]\d|2[0-3]):([0-5]\d)$/', $time, $t) !== 1) {
-            $errors[$prefix.'_time'] = (string) __('dashboard.events.errors.time');
-
-            return null;
-        }
-
-        return CarbonImmutable::create((int) $d[1], (int) $d[2], (int) $d[3], (int) $t[1], (int) $t[2], 0, $timezone);
-    }
-
-    private static function text(mixed $value): ?string
-    {
-        if (! is_string($value)) {
-            return null;
-        }
-        $value = trim(preg_replace('/[ \t]+/u', ' ', str_replace(["\r\n", "\r"], "\n", $value)) ?? '');
-
-        return $value === '' ? null : $value;
     }
 }

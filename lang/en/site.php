@@ -47,6 +47,7 @@ return [
     ],
 
     'home' => [
+        'feature' => ['announcement' => 'Announcement', 'campaign' => 'Offer', 'event' => 'Event'],
         'title' => 'SHELTER COFFEE',
         'lead' => 'Browse the menu and see which branch is open right now — and until when.',
         'cta_menu' => 'View the menu',

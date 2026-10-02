@@ -4,6 +4,7 @@ use App\Http\Controllers\Dashboard\Auth\ConfirmIdentityController;
 use App\Http\Controllers\Dashboard\Auth\LoginController;
 use App\Http\Controllers\Dashboard\Auth\TwoFactorChallengeController;
 use App\Http\Controllers\Dashboard\Auth\TwoFactorSetupController;
+use App\Http\Controllers\Dashboard\Content\AnnouncementsController;
 use App\Http\Controllers\Dashboard\Content\AwardsController;
 use App\Http\Controllers\Dashboard\Content\EventsController;
 use App\Http\Controllers\Dashboard\Content\MediaController;
@@ -13,6 +14,7 @@ use App\Http\Controllers\Dashboard\Data\BranchesController;
 use App\Http\Controllers\Dashboard\Data\ContactsController;
 use App\Http\Controllers\Dashboard\Data\MenuController;
 use App\Http\Controllers\Dashboard\HomeController;
+use App\Http\Controllers\Dashboard\LiveController;
 use App\Http\Controllers\Dashboard\RecoveryCodesController;
 use App\Http\Controllers\Dashboard\Requests\CareersBulkController;
 use App\Http\Controllers\Dashboard\Requests\CareersController;
@@ -20,7 +22,7 @@ use App\Http\Controllers\Dashboard\Requests\CareersSettingsController;
 use App\Http\Controllers\Dashboard\Requests\FeedbackController;
 use App\Http\Controllers\Dashboard\Requests\PartnershipsController;
 use App\Http\Middleware\DashboardLocale;
-use App\Services\Dashboard\EventEditor;
+use App\Services\Dashboard\ExperienceCommands;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -74,13 +76,23 @@ Route::prefix('dashboard')->middleware(DashboardLocale::class)->group(function (
             Route::post('content/team/{member}/archive', [TeamController::class, 'archive'])->name('team.archive');
             Route::post('content/team/{member}/restore', [TeamController::class, 'restore'])->name('team.restore');
         });
+        Route::get('live', LiveController::class)->name('live');
+        Route::post('live/{experience}/disable', [LiveController::class, 'disable'])->whereNumber('experience')->name('live.disable');
+        Route::get('content/announcements', [AnnouncementsController::class, 'index'])->name('announcements.index');
+        Route::get('content/announcements/new', [AnnouncementsController::class, 'create'])->name('announcements.create');
+        Route::post('content/announcements', [AnnouncementsController::class, 'store'])->name('announcements.store');
+        Route::whereNumber('announcement')->group(function (): void {
+            Route::get('content/announcements/{announcement}', [AnnouncementsController::class, 'edit'])->name('announcements.edit');
+            Route::put('content/announcements/{announcement}', [AnnouncementsController::class, 'update'])->name('announcements.update');
+            Route::post('content/announcements/{announcement}/{command}', [AnnouncementsController::class, 'command'])->whereIn('command', ExperienceCommands::COMMANDS)->name('announcements.command');
+        });
         Route::get('content/events', [EventsController::class, 'index'])->name('events.index');
         Route::get('content/events/new', [EventsController::class, 'create'])->name('events.create');
         Route::post('content/events', [EventsController::class, 'store'])->name('events.store');
         Route::whereNumber('event')->group(function (): void {
             Route::get('content/events/{event}', [EventsController::class, 'edit'])->name('events.edit');
             Route::put('content/events/{event}', [EventsController::class, 'update'])->name('events.update');
-            Route::post('content/events/{event}/{command}', [EventsController::class, 'command'])->whereIn('command', EventEditor::COMMANDS)->name('events.command');
+            Route::post('content/events/{event}/{command}', [EventsController::class, 'command'])->whereIn('command', ExperienceCommands::COMMANDS)->name('events.command');
         });
 
         // Requests — job applications (CAREERS-052…073). Identity numbers and permanent deletion need a fresh re-confirmation.

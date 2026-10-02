@@ -18,6 +18,16 @@
         @endif
     </x-ui.hero>
 
+    {{-- The home feature placement (DX-010): the campaign or announcement the engine picks now — or nothing (DX-012). --}}
+    @if ($feature !== null)
+        <section class="ui-band" aria-labelledby="home-feature" data-experience="{{ $feature->id }}">
+            <div class="ui-container">
+                <x-ui.section-heading id="home-feature" :eyebrow="__('site.home.feature.'.$feature->type)" :title="$feature->title" :lead="$feature->text"
+                    :href="$feature->ctaUrl" :link-label="$feature->ctaLabel" />
+            </div>
+        </section>
+    @endif
+
     @if (count($branches) > 0)
         <section class="ui-band" aria-labelledby="home-branches" data-ui-reveal>
             <div class="ui-container">

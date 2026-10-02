@@ -7,6 +7,7 @@ return [
     'loading' => 'Loading…',
     'optional' => 'optional',
     'error_prefix' => 'Error:',
+    'announcement' => 'Announcement',
     'error_summary_title' => 'There is a problem. Check the fields below',
     'select_placeholder' => 'Choose…',
     'breadcrumb' => 'Breadcrumb',

@@ -15,13 +15,17 @@ final class DashboardChrome
 {
     /** group ('home' = untitled) => [route => [lang key, icon, active route pattern]] */
     private const NAV = [
-        'home' => ['dashboard.home' => ['dashboard.command_center', 'house', 'dashboard.home']],
+        'home' => [
+            'dashboard.home' => ['dashboard.command_center', 'house', 'dashboard.home'],
+            'dashboard.live' => ['dashboard.nav.live', 'clock', 'dashboard.live'],
+        ],
         'content' => [
             'dashboard.pages.index' => ['dashboard.nav.pages', 'file-text', 'dashboard.pages.*'],
             'dashboard.media.index' => ['dashboard.nav.media', 'image', 'dashboard.media.*'],
             'dashboard.awards.index' => ['dashboard.nav.awards', 'circle-check', 'dashboard.awards.*'],
             'dashboard.team.index' => ['dashboard.nav.team', 'hand', 'dashboard.team.*'],
             'dashboard.events.index' => ['dashboard.nav.events', 'calendar', 'dashboard.events.*'],
+            'dashboard.announcements.index' => ['dashboard.nav.announcements', 'message-square-text', 'dashboard.announcements.*'],
         ],
         'requests' => [
             'dashboard.careers.index' => ['dashboard.nav.careers', 'briefcase-business', 'dashboard.careers.*'],

@@ -345,6 +345,12 @@ return [
             ['story' => 'WithoutTitle', 'props' => ['variant' => 'info'], 'slot' => $t('نص تجريبي للتنبيه بلا عنوان.', 'Sample alert text without a title.')],
         ]],
 
+        'announcement-bar' => ['stories' => [
+            ['story' => 'Default', 'props' => ['title' => $t('إعلان تجريبي', 'Sample announcement'), 'text' => $t('نص قصير تجريبي للشريط.', 'A short sample line for the bar.')]],
+            ['story' => 'WithLink', 'props' => ['title' => $t('عرض تجريبي', 'Sample offer'), 'text' => $t('نص قصير تجريبي.', 'A short sample line.'), 'href' => '#', 'link' => $t('التفاصيل', 'Details')]],
+            ['story' => 'Urgent', 'props' => ['title' => $t('تنبيه عاجل تجريبي', 'Sample urgent notice'), 'text' => $t('نص تجريبي لحالة مهمة.', 'Sample text for an important case.'), 'urgent' => true]],
+        ]],
+
         'empty-state' => ['stories' => [
             ['story' => 'Empty', 'state' => 'empty', 'props' => ['title' => $t('لا توجد عناصر بعد', 'Nothing here yet')], 'slot' => $t('عندما تضيف عنصرًا سيظهر هنا.', 'When you add an item it shows up here.')],
             ['story' => 'WithAction', 'state' => 'empty', 'props' => ['title' => $t('لا توجد نتائج', 'No results')], 'slot' => $t('جرّب كلمة أخرى أو امسح البحث.', 'Try another word or clear the search.'), 'slots' => ['actions' => $t('<x-ui.button variant="secondary">مسح البحث</x-ui.button>', '<x-ui.button variant="secondary">Clear search</x-ui.button>')]],

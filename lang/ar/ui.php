@@ -8,6 +8,7 @@ return [
     'loading' => 'جارٍ التحميل…',
     'optional' => 'اختياري',
     'error_prefix' => 'خطأ:',
+    'announcement' => 'إعلان',
     'error_summary_title' => 'يوجد خطأ، راجع الحقول التالية',
     'select_placeholder' => 'اختر…',
     'breadcrumb' => 'مسار التنقل',

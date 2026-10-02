@@ -17,6 +17,7 @@
 @import './components/category-nav.css';
 @import './components/open-status.css';
 @import './components/alert.css';
+@import './components/announcement-bar.css';
 @import './components/card.css';
 @import './components/price.css';
 @import './components/product-card.css';

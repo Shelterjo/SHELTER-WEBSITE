@@ -54,6 +54,7 @@ return [
     ],
 
     'home' => [
+        'feature' => ['announcement' => 'إعلان', 'campaign' => 'عرض', 'event' => 'فعالية'],
         'title' => 'شلتر كوفي — SHELTER COFFEE',
         'lead' => 'تصفّح المنيو، واعرف أيّ فرع مفتوح الآن ومتى يُغلق.',
         'cta_menu' => 'تصفّح المنيو',

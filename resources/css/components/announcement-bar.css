@@ -1,0 +1,48 @@
+/* Announcement bar (DX-010): one calm line above the header (inside .ui-container) — icon, the title and its short
+   text as one paragraph, then the link. On phones the paragraph wraps beside the icon; nothing scrolls sideways. */
+.ui-announcement {
+    border-block-end: var(--border-default) solid var(--color-border);
+    background: var(--color-surface);
+    color: var(--color-text);
+    font-size: var(--text-sm);
+}
+
+.ui-announcement--urgent {
+    border-block-end: var(--border-strong) solid var(--color-warning);
+}
+
+.ui-announcement__inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2) var(--space-3);
+    padding-block: var(--space-2);
+}
+
+.ui-announcement__icon {
+    flex: none;
+}
+
+.ui-announcement--urgent .ui-announcement__icon {
+    color: var(--color-warning);
+}
+
+.ui-announcement__text {
+    flex: 0 1 auto;
+    min-inline-size: 0;
+    margin: 0;
+}
+
+.ui-announcement__text strong {
+    margin-inline-end: var(--space-1);
+}
+
+.ui-announcement__link {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    gap: var(--space-1);
+    min-block-size: var(--touch-target);
+    color: var(--color-text);
+    font-weight: var(--weight-bold);
+}
