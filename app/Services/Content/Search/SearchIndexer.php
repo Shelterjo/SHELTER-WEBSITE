@@ -5,6 +5,7 @@ namespace App\Services\Content\Search;
 use App\Models\Experience;
 use App\Models\Market;
 use App\Models\MenuCategory;
+use App\Models\Page;
 use App\Models\SearchEntry;
 use App\Services\Content\Pages;
 use App\Services\Experiences\Events;
@@ -73,6 +74,10 @@ final class SearchIndexer
             foreach ([$event->starts_at, $event->ends_at] as $moment) {
                 $moments[] = $moment !== null && $moment->greaterThan($now) ? CarbonImmutable::instance($moment) : null;
             }
+        }
+        // A brand page published for a later time appears in the search at that time (FINAL-QA QA-043).
+        foreach (Page::query()->whereNull('archived_at')->where('published_at', '>', $now)->pluck('published_at') as $moment) {
+            $moments[] = CarbonImmutable::instance($moment);
         }
         $moments = array_values(array_filter($moments));
         usort($moments, fn (CarbonImmutable $a, CarbonImmutable $b): int => $a <=> $b);

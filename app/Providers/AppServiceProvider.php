@@ -5,6 +5,8 @@ namespace App\Providers;
 use App\Models\Branch;
 use App\Models\Experience;
 use App\Models\MenuCategory;
+use App\Models\Page;
+use App\Models\PageSection;
 use App\Models\Product;
 use App\Models\SearchAlias;
 use App\Models\SiteText;
@@ -69,5 +71,9 @@ class AppServiceProvider extends ServiceProvider
         Experience::saved($changed);
         Branch::saved($changed);
         SiteText::saved($changed);
+        // Brand pages and their sections are searchable too: publishing, unpublishing or editing one must not leave a
+        // result that links to a 404 (FINAL-QA QA-043).
+        Page::saved($changed);
+        PageSection::saved($changed);
     }
 }

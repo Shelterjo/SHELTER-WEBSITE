@@ -7,7 +7,7 @@
     <title>@yield('title') · {{ __('dashboard.name') }}</title>
     @vite(['resources/css/dashboard.css', 'resources/js/dashboard.ts'])
 </head>
-<body class="ui-shell">
+<body class="ui-shell" data-ui-rendered-at="{{ now()->getTimestamp() }}">
     <x-ui.skip-link :label="__('dashboard.skip_to_content')" />
     <header class="ui-shell__topbar">
         <p class="ui-shell__brand" lang="en" dir="ltr">SHELTER COFFEE</p>

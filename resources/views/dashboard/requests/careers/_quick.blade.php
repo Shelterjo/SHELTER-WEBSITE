@@ -27,7 +27,8 @@
             @endforeach
         </ul>
     @endif
-    <form class="ui-record__form" method="post" action="{{ route('dashboard.careers.status', $application) }}">
+    {{-- Rendered after the panel opened (and marked the application seen): its own moment for the stale-edit check. --}}
+    <form class="ui-record__form" method="post" action="{{ route('dashboard.careers.status', $application) }}" data-ui-rendered-at="{{ now()->getTimestamp() }}">
         @csrf
         <x-ui.field :label="__('dashboard.requests.fields.status')" :for="'quick-status-'.$application->id">
             <x-ui.select :id="'quick-status-'.$application->id" name="status" :options="collect($statuses)->mapWithKeys(fn ($s) => [$s => __('dashboard.requests.statuses.'.$s)])->all()" :selected="$application->status" />

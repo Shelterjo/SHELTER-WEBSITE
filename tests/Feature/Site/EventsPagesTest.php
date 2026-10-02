@@ -114,6 +114,24 @@ class EventsPagesTest extends TestCase
         $this->assertSame('شلتر كوفي درايف', $event['location']['name']);
     }
 
+    public function test_a_listed_event_and_the_contact_page_are_in_the_sitemap_with_share_previews(): void
+    {
+        // FINAL-QA QA-041/QA-042: event pages (indexable while valid) and Contact (SI-B04) were missing.
+        $this->event('tasting');
+        $this->app->detectEnvironment(fn (): string => 'production');
+        config(['shelter.indexing' => true]);
+
+        $xml = (string) $this->fresh('/sitemap.xml')->assertOk()->getContent();
+        $this->assertStringContainsString('<loc>http://localhost/ar/jo/events/tasting/</loc>', $xml);
+        $this->assertStringContainsString('hreflang="en" href="http://localhost/en/jo/events/tasting/"', $xml);
+        $this->assertStringContainsString('<loc>http://localhost/en/contact/</loc>', $xml);
+
+        $html = (string) $this->fresh('/en/jo/events/tasting/')->getContent();
+        $this->assertStringContainsString('<meta property="og:type" content="article">', $html);
+        $this->assertStringContainsString('<meta property="og:url" content="http://localhost/en/jo/events/tasting/">', $html);
+        $this->assertStringContainsString('<meta property="og:description" content="About the event.">', $html);
+    }
+
     public function test_hidden_states_keep_an_event_off_the_site(): void
     {
         $this->event('one-language', ['title_en' => null]);

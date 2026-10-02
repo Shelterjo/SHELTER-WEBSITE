@@ -27,6 +27,7 @@ use App\Http\Controllers\Dashboard\Requests\FeedbackController;
 use App\Http\Controllers\Dashboard\Requests\PartnershipsController;
 use App\Http\Controllers\Dashboard\SettingsController;
 use App\Http\Middleware\DashboardLocale;
+use App\Http\Middleware\PreventStaleEdits;
 use App\Services\Dashboard\ExperienceCommands;
 use Illuminate\Support\Facades\Route;
 
@@ -46,7 +47,7 @@ Route::prefix('dashboard')->middleware(DashboardLocale::class)->group(function (
         Route::post('two-factor/setup', [TwoFactorSetupController::class, 'store'])->name('two-factor.enable');
     });
 
-    Route::middleware(['auth', 'owner'])->name('dashboard.')->group(function (): void {
+    Route::middleware(['auth', 'owner', PreventStaleEdits::class])->name('dashboard.')->group(function (): void {
         Route::get('/', HomeController::class)->name('home');
 
         // Content (FINAL-ARCHITECTURE-REVIEW §10) — no code needed to change the site (M30, M50).

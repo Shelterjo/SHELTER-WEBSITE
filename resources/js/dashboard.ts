@@ -1,10 +1,12 @@
 // Owner dashboard entry. Never imported by the public site (separate Vite entry, M37 §30).
 import { installAriaDisabledGuard } from './ui/aria-disabled';
 import { installDialogs } from './ui/dialog';
+import { installFormGuard } from './ui/form-guard';
 import { installTabs } from './ui/tabs';
 
 installAriaDisabledGuard();
 installDialogs();
+installFormGuard();
 installTabs();
 
 // The page editor script loads only on the page editor (its own chunk).

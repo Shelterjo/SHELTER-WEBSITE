@@ -49,6 +49,8 @@ final class EventsController extends Controller
             ['label' => $event->title, 'href' => $event->url],
         ];
         $jsonLd = [StructuredData::breadcrumbs($crumbs)];
+        // The event's approved image, as an absolute address for schema.org and share previews (FINAL-QA QA-041).
+        $image = $event->image !== null ? url($event->image->src) : null;
         if (! $event->isEnded()) {
             $jsonLd[] = array_filter([
                 '@context' => 'https://schema.org',
@@ -60,6 +62,7 @@ final class EventsController extends Controller
                 'eventAttendanceMode' => 'https://schema.org/OfflineEventAttendanceMode',
                 'location' => $event->place !== null ? ['@type' => 'Place', 'name' => $event->place] : null,
                 'description' => $event->paragraphs[0] ?? null,
+                'image' => $image,
                 'organizer' => ['@type' => 'Organization', 'name' => 'SHELTER COFFEE', 'url' => PageUrl::route('gateway')],
                 'url' => $event->url,
                 'inLanguage' => $locale,
@@ -74,6 +77,8 @@ final class EventsController extends Controller
             'listing' => $listing,
             'noindex' => $event->isEnded(),
             'description' => $event->paragraphs[0] ?? null,
+            'ogType' => 'article',
+            'ogImage' => $image,
             'jsonLd' => $jsonLd,
         ]);
     }

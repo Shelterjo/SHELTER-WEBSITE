@@ -88,7 +88,31 @@ test.describe('owner dashboard journeys @app @journey @dashboard', () => {
     await expect(site.locator('body')).not.toContainText(marker);
     await site.close();
 
-    // 5. Sign out: Back does not bring the dashboard back (no-store), the next request asks to sign in.
+    // 5. Two tabs on one menu item (FINAL-QA QA-044): the save from the tab opened first is refused, the newer one stays.
+    await page.goto('/dashboard/data/menu');
+    const itemHref = await page.locator('a[href*="/dashboard/data/menu/"]').evaluateAll((links) => links.map((a) => a.href).find((h) => /\/dashboard\/data\/menu\/\d+$/.test(h)));
+    const tabA = page;
+    await tabA.goto(itemHref ?? '/dashboard/data/menu');
+    const sortA = tabA.locator('form[action$="/details"] #sort');
+    const originalSort = await sortA.inputValue();
+    await tabA.waitForTimeout(1100); // the next save lands in a later second than tab A's page
+    const tabB = await context.newPage();
+    await tabB.goto(itemHref ?? '/dashboard/data/menu');
+    await tabB.locator('form[action$="/details"] #sort').fill(String(Number(originalSort || '0') + 7));
+    await tabB.locator('form[action$="/details"] button[type="submit"]').click();
+    await expect(tabB.locator('.ui-shell__flash').first()).toBeVisible();
+    await sortA.fill(String(Number(originalSort || '0') + 3));
+    await tabA.locator('form[action$="/details"] button[type="submit"]').click();
+    await expect(tabA.locator('.ui-shell__flash').first()).toContainText(/(another tab|نافذة)/);
+    await tabB.reload();
+    await expect(tabB.locator('form[action$="/details"] #sort')).toHaveValue(String(Number(originalSort || '0') + 7));
+    // Put it back from a fresh page.
+    await tabB.locator('form[action$="/details"] #sort').fill(originalSort);
+    await tabB.locator('form[action$="/details"] button[type="submit"]').click();
+    await expect(tabB.locator('.ui-shell__flash').first()).toBeVisible();
+    await tabB.close();
+
+    // 6. Sign out: Back does not bring the dashboard back (no-store), the next request asks to sign in.
     await page.goto('/dashboard');
     await page.locator('form[action$="/dashboard/logout"] button').first().click();
     await page.waitForURL(/\/dashboard\/login/);

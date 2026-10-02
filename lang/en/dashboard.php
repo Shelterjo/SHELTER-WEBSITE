@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'stale_edit' => 'This record was changed in another tab or device after you opened this page, so your change was not saved and the newer one is kept. Open the page again to see the latest version, then edit again.', // FINAL-QA QA-044
     'name' => 'SHELTER Dashboard',
     'command_center' => 'Command Center',
     'skip_to_content' => 'Skip to content',

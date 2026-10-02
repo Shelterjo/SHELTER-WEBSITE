@@ -2,6 +2,7 @@
 
 // Owner-language interface strings (DASH-034). Arabic first.
 return [
+    'stale_edit' => 'تغيّر هذا السجل من نافذة أو جهاز آخر بعد أن فتحت هذه الصفحة، فلم يُحفظ تعديلك حتى لا يضيع التغيير الأحدث. افتح الصفحة من جديد لترى آخر نسخة، ثم عدّل مرة أخرى.', // FINAL-QA QA-044
     'name' => 'لوحة SHELTER',
     'command_center' => 'مركز التحكم',
     'skip_to_content' => 'انتقل إلى المحتوى',

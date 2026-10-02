@@ -66,8 +66,13 @@ class SecurityAndIndexingTest extends TestCase
         $this->app->detectEnvironment(fn (): string => 'production');
         config(['shelter.indexing' => true]);
 
-        $this->get('/ar/')->assertHeaderMissing('X-Robots-Tag')->assertDontSee('name="robots"', false);
-        $this->get('/robots.txt')->assertSee('Disallow: /dashboard/', false)->assertDontSee("Disallow: /\n", false);
+        $this->get('/ar/')->assertHeaderMissing('X-Robots-Tag')->assertDontSee('name="robots"', false)
+            // Share previews (FINAL-QA QA-041): the page's own address and language; no unapproved image.
+            ->assertSee('<meta property="og:url" content="http://localhost/ar/">', false)
+            ->assertSee('<meta property="og:locale" content="ar_AR">', false)
+            ->assertDontSee('og:image', false);
+        $this->get('/robots.txt')->assertSee("Disallow: /dashboard\n", false)->assertDontSee("Disallow: /\n", false)
+            ->assertSee('Sitemap: http://localhost/sitemap.xml', false);
     }
 
     public function test_staging_basic_auth_gate(): void

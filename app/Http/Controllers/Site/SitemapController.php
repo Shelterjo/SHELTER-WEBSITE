@@ -50,9 +50,15 @@ final class SitemapController extends Controller
                 }
             }
             array_push($clusters, ...array_values($branches));
-            // Events listing only while something is listed (an empty listing is noindex).
-            if ($events->listed($market, 'ar') !== [] || $events->listed($market, 'en') !== []) {
+            // Events listing only while something is listed (an empty listing is noindex); every listed event page too
+            // (indexable while valid, SI-M08 — both languages are required to publish; FINAL-QA QA-042).
+            $listed = [...$events->listed($market, 'ar'), ...$events->listed($market, 'en')];
+            if ($listed !== []) {
                 $clusters[] = $this->cluster('events', $locales, ['market' => $market->code]);
+                $slugs = array_unique(array_map(fn ($event): string => $event->slug, $listed));
+                foreach ($slugs as $slug) {
+                    $clusters[] = PageUrl::alternates('events.show', ['market' => $market->code, 'slug' => $slug]);
+                }
             }
         }
 
@@ -62,6 +68,7 @@ final class SitemapController extends Controller
                 $clusters[] = $this->cluster($key, $locales);
             }
         }
+        $clusters[] = $this->cluster('contact', $locales); // SI-B04: indexable (FINAL-QA QA-042)
         $clusters[] = $this->cluster('careers', $locales);
         if ($awards->published('en') !== []) {
             $clusters[] = $this->cluster('awards', $locales);

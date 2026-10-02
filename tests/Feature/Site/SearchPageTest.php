@@ -102,6 +102,29 @@ class SearchPageTest extends TestCase
         $this->assertStringContainsString('Is there parking?', $html);
     }
 
+    public function test_publishing_or_unpublishing_a_page_updates_the_search_without_a_manual_rebuild(): void
+    {
+        // FINAL-QA QA-043: a page save used to leave the index as it was — an unpublished page stayed in the results
+        // and linked to a 404; a page published for later never appeared.
+        $page = Page::query()->create(['key' => 'faq', 'type' => 'faq', 'title_ar' => 'الأسئلة', 'title_en' => 'Questions',
+            'status' => PublishStatus::Published, 'published_at' => now()->subMinute()]);
+        $page->sections()->create(['type' => 'faq', 'heading_ar' => 'هل يوجد مواقف؟', 'heading_en' => 'Is there parking?', 'body_ar' => 'جواب.', 'body_en' => 'Answer.']);
+        $search = function (): string {
+            $this->app->forgetScopedInstances();
+
+            return (string) $this->get('/en/search/?q=parking')->getContent();
+        };
+        $this->assertStringContainsString('Is there parking?', $search());
+
+        $page->update(['status' => PublishStatus::Draft]);
+        $this->assertStringNotContainsString('Is there parking?', $search(), 'unpublished: gone at once');
+
+        $page->update(['status' => PublishStatus::Published, 'published_at' => now()->addHour()]);
+        $this->assertStringNotContainsString('Is there parking?', $search(), 'not before its time');
+        $this->travel(61)->minutes();
+        $this->assertStringContainsString('Is there parking?', $search(), 'at its time, by itself');
+    }
+
     public function test_the_search_log_is_off_until_po_019_and_never_keeps_identifying_text(): void
     {
         $this->get('/en/search/?q=latte')->assertOk();

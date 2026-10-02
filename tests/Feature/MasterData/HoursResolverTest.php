@@ -52,6 +52,23 @@ class HoursResolverTest extends TestCase
         $this->assertEquals($this->amman('2026-10-02 02:00'), $state->closesAt);
     }
 
+    public function test_the_exact_minute_boundaries_and_the_year_change(): void
+    {
+        // FINAL-QA QA-045: the closing minute itself is closed, the opening minute itself is open, one second before
+        // closing is still open; Thursday's late shift hands over to Friday's later opening; the year changes inside a shift.
+        $this->assertTrue($this->resolver()->stateAt($this->amman('2026-10-02 01:59:59'))->isOpen);
+        $this->assertFalse($this->resolver()->stateAt($this->amman('2026-10-02 02:00:00'))->isOpen, 'closes AT 02:00');
+        $this->assertFalse($this->resolver()->stateAt($this->amman('2026-10-02 07:59:59'))->isOpen, 'Friday opens at 08:00, not 07:00');
+        $this->assertTrue($this->resolver()->stateAt($this->amman('2026-10-02 08:00:00'))->isOpen, 'opens AT 08:00');
+        $this->assertTrue($this->resolver()->stateAt($this->amman('2026-10-03 07:00:00'))->isOpen, 'Saturday back to 07:00');
+
+        // 2026-12-31 is a Thursday: its 07:00–02:00 shift runs into 2027-01-01 (a Friday).
+        $state = $this->resolver()->stateAt($this->amman('2027-01-01 00:30'));
+        $this->assertTrue($state->isOpen);
+        $this->assertEquals($this->amman('2027-01-01 02:00'), $state->closesAt);
+        $this->assertEquals($this->amman('2027-01-01 08:00'), $this->resolver()->stateAt($this->amman('2027-01-01 03:00'))->nextOpensAt);
+    }
+
     public function test_closed_between_intervals_reports_next_opening(): void
     {
         // Friday 02:30 → closed; Friday opens at 08:00.

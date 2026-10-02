@@ -64,7 +64,7 @@ class PagesTest extends TestCase
 
         $html = (string) $this->get('/dashboard')->assertOk()->getContent();
         $this->assertOnlyLibraryClasses($html);
-        $this->assertStringContainsString('<body class="ui-shell">', $html);
+        $this->assertMatchesRegularExpression('/<body class="ui-shell" data-ui-rendered-at="\d+">/', $html); // FINAL-QA QA-044
         $this->assertStringContainsString('aria-label="'.__('ui.main_navigation').'"', $html);
         $this->assertMatchesRegularExpression('/<a class="ui-nav-link ui-sidebar__link" href="[^"]*\/dashboard" aria-current="page"/', $html);
         $this->assertStringContainsString('<h1 class="ui-page-header__title">'.__('dashboard.command_center').'</h1>', $html);
