@@ -73,8 +73,8 @@
 | متطلبات | **1350**: REQUIREMENT 491, RULE 442, DECISION 209, DELIVERABLE 109, GATE 99 |
 | حسب الحالة | APPROVED 900, FROZEN 294, APPROVED WITH CONDITIONS 73, PENDING OWNER INPUT 34, DEFERRED 22, SUPERSEDED 18, PENDING VERIFICATION 9 |
 | حسب الأولوية | P0 691, P1 572, P2 69, P3 18 |
-| حسب التنفيذ | NOT STARTED 944, PARTIAL 192, IMPLEMENTED — NOT TESTED 126, FROZEN 43, TESTED 34, NEEDS FIX 8, IMPLEMENTED — NOT YET VERIFIED 2, CONFLICT 1 |
-| مُختبر | NO 789, N/A 347, PROTOTYPE 135, YES 79 |
+| حسب التنفيذ | NOT STARTED 936, PARTIAL 194, IMPLEMENTED — NOT TESTED 124, FROZEN 43, TESTED 42, NEEDS FIX 8, IMPLEMENTED — NOT YET VERIFIED 2, CONFLICT 1 |
+| مُختبر | NO 781, N/A 345, PROTOTYPE 135, YES 89 |
 
 ## فهرس المجالات
 | # | المجال | متطلبات | P0 | معتمد/مجمّد | معلّق | تنفيذ (منفذ أو مجمّد) |
@@ -101,7 +101,7 @@
 | 20 | [GA4 / GTM](master-requirements/20-ga4-gtm.md) | 23 | 2 | 18 | 3 | 3 |
 | 21 | [Search Console](master-requirements/21-search-console.md) | 13 | 5 | 12 | 1 | 1 |
 | 22 | [Google Business Profile & Maps](master-requirements/22-google-business-profile-maps.md) | 15 | 8 | 13 | 1 | 0 |
-| 23 | [SEO](master-requirements/23-seo.md) | 41 | 21 | 39 | 1 | 2 |
+| 23 | [SEO](master-requirements/23-seo.md) | 41 | 21 | 39 | 1 | 3 |
 | 24 | [AEO / GEO / AI Search](master-requirements/24-aeo-geo-ai-search.md) | 3 | 0 | 3 | 0 | 0 |
 | 25 | [Schema](master-requirements/25-schema.md) | 10 | 3 | 10 | 0 | 0 |
 | 26 | [Performance](master-requirements/26-performance.md) | 23 | 4 | 23 | 0 | 1 |
@@ -123,8 +123,8 @@
 | 42 | [Privacy & Legal](master-requirements/42-privacy-legal.md) | 14 | 9 | 14 | 0 | 2 |
 | 43 | [UX Principles](master-requirements/43-ux-principles.md) | 6 | 1 | 6 | 0 | 0 |
 | 44 | [Careers & Recruitment](master-requirements/44-careers-recruitment.md) | 99 | 60 | 98 | 1 | 1 |
-| 45 | [Dynamic Experience Engine](master-requirements/45-dynamic-experience-engine.md) | 38 | 14 | 38 | 0 | 0 |
-| 46 | [Platform Quality & Operations](master-requirements/46-platform-quality-operations.md) | 56 | 39 | 56 | 0 | 2 |
+| 45 | [Dynamic Experience Engine](master-requirements/45-dynamic-experience-engine.md) | 38 | 14 | 38 | 0 | 4 |
+| 46 | [Platform Quality & Operations](master-requirements/46-platform-quality-operations.md) | 56 | 39 | 56 | 0 | 3 |
 | 47 | [Master Data & Channel Sync](master-requirements/47-master-data-channel-sync.md) | 36 | 34 | 36 | 0 | 0 |
 | 48 | [Design System & UI Consistency](master-requirements/48-design-system-ui-consistency.md) | 29 | 29 | 29 | 0 | 1 |
 | 49 | [Infrastructure, Release & Operations](master-requirements/49-infrastructure-release-operations.md) | 46 | 38 | 46 | 0 | 8 |
@@ -864,7 +864,7 @@
 | `SEO-026` | كل المنتجات والأسعار في الـHTML الأولي — لا JS-only ولا Virtualization | APPROVED | P0 | NOT STARTED |
 | `SEO-027` | تحقق ما بعد البناء: Crawlability · Indexability · robots.txt · noindex … | APPROVED | P1 | NOT STARTED |
 | `SEO-028` | Staging لا يُفهرس: Authentication + noindex + blocking | APPROVED | P0 | NOT STARTED |
-| `SEO-029` | XML Sitemap: Canonical · Public · Indexable · Approved فقط | APPROVED | P1 | NOT STARTED |
+| `SEO-029` | XML Sitemap: Canonical · Public · Indexable · Approved فقط | APPROVED | P1 | TESTED |
 | `SEO-030` | إرسال الـSitemap لـGSC بعد اعتماد الموقع — Submit ≠ Success | APPROVED WITH CONDITIONS | P1 | NOT STARTED |
 | `SEO-031` | تقرير Indexing حقيقي بعد الإطلاق | APPROVED | P1 | NOT STARTED |
 | `SEO-032` | hreflang صحيح: Arabic Alternate + English Alternate لكل صفحة مترجمة | APPROVED | P1 | NOT STARTED |
@@ -979,15 +979,15 @@
 |---|---|---|---|---|
 | `MEDIA-001` | قاعدة صارمة: لا صورة أو Asset بدون موافقة الـOwner (كل صورة بموافقة منفصلة) | APPROVED | P0 | PARTIAL |
 | `MEDIA-002` | حزمة عرض الصورة المقترحة | APPROVED | P0 | PARTIAL |
-| `MEDIA-003` | كل صورة مقترحة أو مطلوبة تبدأ PENDING OWNER APPROVAL | APPROVED | P0 | PARTIAL |
+| `MEDIA-003` | كل صورة مقترحة أو مطلوبة تبدأ PENDING OWNER APPROVAL | APPROVED | P0 | TESTED |
 | `MEDIA-004` | صور Google ليست Approved Assets | APPROVED | P0 | IMPLEMENTED — NOT TESTED |
-| `MEDIA-005` | لا Stock ولا AI ولا Google ولا صور الموقع القديم تلقائيًا | APPROVED | P0 | IMPLEMENTED — NOT TESTED |
+| `MEDIA-005` | لا Stock ولا AI ولا Google ولا صور الموقع القديم تلقائيًا | APPROVED | P0 | TESTED |
 | `MEDIA-006` | نظام Approved Asset Library | APPROVED | P1 | PARTIAL |
 | `MEDIA-007` | صور المنتجات من الـOwner وربطها بالـProduct ID | PENDING OWNER INPUT | P1 | PARTIAL |
 | `MEDIA-008` | Media Architecture / Media Model | APPROVED | P1 | PARTIAL |
 | `MEDIA-009` | صورة بطاقة المنتج: كبيرة بنسبة 1:1 | FROZEN | P1 | NOT STARTED |
 | `MEDIA-010` | أداء الصور و Responsive images | APPROVED | P1 | PARTIAL |
-| `MEDIA-011` | Sharp image pipeline: بلا تكبير، الأصول الأصلية محفوظة، الاعتماد قائم | APPROVED | P1 | TESTED |
+| `MEDIA-011` | Sharp image pipeline: بلا تكبير، الأصول الأصلية محفوظة، الاعتماد قائم | APPROVED | P1 | PARTIAL |
 | `MEDIA-012` | Media Library في الـDashboard | APPROVED | P0 | NOT STARTED |
 | `MEDIA-013` | تتبع استخدام كل صورة (Usage tracking) | APPROVED | P0 | NOT STARTED |
 | `MEDIA-014` | لا ملفات مكررة في الـMedia Library | APPROVED | P1 | NOT STARTED |
@@ -1243,7 +1243,7 @@
 | ID | المتطلب | الحالة | P | التنفيذ |
 |---|---|---|---|---|
 | `CONTENT-001` | جرد محتوى الموقع القديم وتصنيفه KEEP/FIX/REMOVE/MISSING/VERIFY | APPROVED | P0 | PARTIAL |
-| `CONTENT-002` | تحقق الـOwner قبل نشر Awards/Statistics/Claims/SEO texts/FAQ/Blog | APPROVED | P0 | IMPLEMENTED — NOT TESTED |
+| `CONTENT-002` | تحقق الـOwner قبل نشر Awards/Statistics/Claims/SEO texts/FAQ/Blog | APPROVED | P0 | TESTED |
 | `CONTENT-003` | لا يكتب Claude Facts عن SHELTER — الـAI ينظم ويعيد الصياغة ويقترح فقط | APPROVED | P0 | IMPLEMENTED — NOT TESTED |
 | `CONTENT-004` | لا Product copy من Claude ولا تخمين وصف/مكونات/حساسية/قيم غذائية | APPROVED | P0 | IMPLEMENTED — NOT TESTED |
 | `CONTENT-005` | القيمتان 2018 و«منذ 2022» = OLD OR INCORRECT — لا تُستخدمان أبدًا | APPROVED | P0 | IMPLEMENTED — NOT TESTED |
@@ -1478,10 +1478,10 @@
 | ID | المتطلب | الحالة | P | التنفيذ |
 |---|---|---|---|---|
 | `DX-001` | طبقة التجربة الديناميكية: الموقع يتفاعل ولا يبقى ثابتًا | FROZEN | P1 | NOT STARTED |
-| `DX-002` | صفحة/تجربة SHELTER Family | FROZEN | P1 | NOT STARTED |
-| `DX-003` | حقول الملف العام للموظف | FROZEN | P1 | NOT STARTED |
+| `DX-002` | صفحة/تجربة SHELTER Family | FROZEN | P1 | TESTED |
+| `DX-003` | حقول الملف العام للموظف | FROZEN | P1 | TESTED |
 | `DX-004` | ممنوع عرض بيانات الموظف الخاصة | FROZEN | P0 | NOT STARTED |
-| `DX-005` | النشر بالاختيار: لا موظف علنيًا إلا بتفعيل الـOwner | FROZEN | P0 | NOT STARTED |
+| `DX-005` | النشر بالاختيار: لا موظف علنيًا إلا بتفعيل الـOwner | FROZEN | P0 | TESTED |
 | `DX-006` | إدارة SHELTER Family بلا كود | FROZEN | P1 | NOT STARTED |
 | `DX-007` | الموظف المثالي لهذا الشهر (Employee of the Month) | FROZEN | P1 | NOT STARTED |
 | `DX-008` | حالات الموظف المثالي + الأرشيف | FROZEN | P1 | NOT STARTED |
@@ -1512,7 +1512,7 @@
 | `DX-033` | سجل التدقيق للتجارب | FROZEN | P1 | NOT STARTED |
 | `DX-034` | سجل النسخ للتجارب | FROZEN | P1 | NOT STARTED |
 | `DX-035` | أحداث القياس للتجارب (بلا PII) | FROZEN | P1 | NOT STARTED |
-| `DX-036` | خصوصية الموظفين: فصل الملف العام عن سجل HR | FROZEN | P0 | NOT STARTED |
+| `DX-036` | خصوصية الموظفين: فصل الملف العام عن سجل HR | FROZEN | P0 | TESTED |
 | `DX-037` | العزل عند الفشل: الموقع الأساسي مستقل | FROZEN | P0 | NOT STARTED |
 | `DX-038` | الهدف النهائي: موقع حي وعودة نظيفة | FROZEN | P1 | NOT STARTED |
 
@@ -1551,9 +1551,9 @@
 | `OPS-029` | REVIEW RESPONSE FLOW — لا رد على Google بلا موافقة الـOwner | APPROVED | P1 | NOT STARTED |
 | `OPS-030` | VOICE OF CUSTOMER — نظام Feedback داخلي بسيط بلا PII وبلا Review Gating | APPROVED | P1 | PARTIAL |
 | `OPS-031` | FEEDBACK DASHBOARD — اتجاهات ومقارنة فروع، وتحليل AI موسوم AI ASSISTED ANALYSIS | APPROVED | P1 | NOT STARTED |
-| `OPS-032` | PRESS / MEDIA KIT ضمن Media Center — محتوى معتمد فقط | APPROVED | P1 | NOT STARTED |
-| `OPS-033` | MEDIA RIGHTS MANAGER — حقول الحقوق والموافقات لكل Asset في المكتبة الواحدة | APPROVED | P1 | NOT STARTED |
-| `OPS-034` | لا تُنشر صورة شخص بلا موافقة نشر معتمدة — وتُفرض القيود والانتهاء والنطاق | APPROVED | P0 | NOT STARTED |
+| `OPS-032` | PRESS / MEDIA KIT ضمن Media Center — محتوى معتمد فقط | APPROVED | P1 | PARTIAL |
+| `OPS-033` | MEDIA RIGHTS MANAGER — حقول الحقوق والموافقات لكل Asset في المكتبة الواحدة | APPROVED | P1 | PARTIAL |
+| `OPS-034` | لا تُنشر صورة شخص بلا موافقة نشر معتمدة — وتُفرض القيود والانتهاء والنطاق | APPROVED | P0 | TESTED |
 | `OPS-035` | SECURITY CENTER — لوحة أمان مفهومة للـOwner بلا أي Secrets | APPROVED | P0 | NOT STARTED |
 | `OPS-036` | مصادقة قوية للـOwner: Passkeys/2FA · جلسات آمنة · Rate limiting · Re-auth للإجراءات الحساسة | APPROVED | P0 | NOT STARTED |
 | `OPS-037` | PRIVACY & DATA CENTER — الخصوصية نظام مُدار وليست صفحة ثابتة | APPROVED | P0 | NOT STARTED |

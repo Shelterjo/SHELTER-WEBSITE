@@ -1,0 +1,74 @@
+/* Awards (SI-B14): verified awards as calm cards — year, title, issuer; image, text and source only when given.
+   Tokens and logical properties only. */
+
+.ui-award-grid {
+    display: grid;
+    align-items: start; /* each card keeps its own height — a card with an image never stretches the others */
+    gap: var(--space-4);
+}
+
+.ui-award {
+    display: grid;
+    align-content: start;
+    overflow: hidden;
+    border: var(--border-default) solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-surface);
+}
+
+.ui-award__image {
+    border-radius: 0;
+}
+
+.ui-award__body {
+    display: grid;
+    gap: var(--space-2);
+    padding: var(--space-6);
+}
+
+.ui-award__year {
+    margin: 0;
+    color: var(--color-muted);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+    font-variant-numeric: tabular-nums;
+}
+
+.ui-award__title {
+    margin: 0;
+    font-size: var(--text-lg);
+    font-weight: var(--weight-bold);
+    line-height: var(--leading-tight);
+}
+
+.ui-award__issuer,
+.ui-award__text {
+    margin: 0;
+    color: var(--color-muted);
+    line-height: var(--leading-normal);
+}
+
+.ui-award__link {
+    margin: var(--space-2) 0 0;
+}
+
+.ui-award__link a {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    min-block-size: var(--touch-target);
+    color: var(--color-text);
+    font-weight: var(--weight-medium);
+}
+
+@media (min-width: 600px) {
+    .ui-award-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (min-width: 1024px) {
+    .ui-award-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}

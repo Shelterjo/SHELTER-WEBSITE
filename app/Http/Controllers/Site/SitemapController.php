@@ -4,6 +4,10 @@ namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
 use App\Http\Middleware\Indexing;
+use App\Services\Content\Awards;
+use App\Services\Content\Pages;
+use App\Services\Content\Team;
+use App\Services\Experiences\Events;
 use App\Services\Site\BranchDirectory;
 use App\Services\Site\Markets;
 use App\Support\PageUrl;
@@ -17,7 +21,7 @@ use Illuminate\Http\Response;
  */
 final class SitemapController extends Controller
 {
-    public function __invoke(Markets $markets, BranchDirectory $directory): Response
+    public function __invoke(Markets $markets, BranchDirectory $directory, Pages $pages, Events $events, Awards $awards, Team $team): Response
     {
         abort_unless(Indexing::siteIndexable(), 404);
 
@@ -46,8 +50,44 @@ final class SitemapController extends Controller
                 }
             }
             array_push($clusters, ...array_values($branches));
+            // Events listing only while something is listed (an empty listing is noindex).
+            if ($events->listed($market, 'ar') !== [] || $events->listed($market, 'en') !== []) {
+                $clusters[] = $this->cluster('events', $locales, ['market' => $market->code]);
+            }
+        }
+
+        // Brand pages only once published (both languages are required to publish): content pages, franchise, Media Center.
+        foreach ([...Pages::EXPLORE, ...Pages::LEGAL, ...Pages::BUSINESS] as $key) {
+            if ($pages->published($key, 'ar') !== null && $pages->published($key, 'en') !== null) {
+                $clusters[] = $this->cluster($key, $locales);
+            }
+        }
+        $clusters[] = $this->cluster('careers', $locales);
+        if ($awards->published('en') !== []) {
+            $clusters[] = $this->cluster('awards', $locales);
+        }
+        if ($team->published('en') !== []) {
+            $clusters[] = $this->cluster('family', $locales);
         }
 
         return response()->view('site.sitemap', ['clusters' => array_values(array_filter($clusters))], 200, ['Content-Type' => 'application/xml; charset=UTF-8']);
+    }
+
+    /**
+     * @param  list<string>  $locales
+     * @param  array<string, string>  $parameters
+     * @return array<string, string>
+     */
+    private function cluster(string $route, array $locales, array $parameters = []): array
+    {
+        $cluster = [];
+        foreach ($locales as $locale) {
+            $url = SiteLinks::to($route, ['locale' => $locale] + $parameters);
+            if ($url !== null) {
+                $cluster[$locale] = $url;
+            }
+        }
+
+        return $cluster;
     }
 }

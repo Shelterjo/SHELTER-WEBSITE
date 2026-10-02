@@ -43,6 +43,22 @@ return [
 
         // Private careers files (CAREERS-037, INFRA-038): outside the public web root, never served by URL, no execute
         // bit. On Cloudways set CAREERS_STORAGE_ROOT to …/private_html/recruitment (CLOUDWAYS-RECRUITMENT-ARCHITECTURE).
+        // Media library originals (MEDIA-RIGHTS): private, never served — only approved web copies are published.
+        'media' => [
+            'driver' => 'local',
+            'root' => env('MEDIA_STORAGE_ROOT', storage_path('app/private/media')),
+            'visibility' => 'private',
+            'directory_visibility' => 'private',
+        ],
+
+        // Web copies of APPROVED assets only (MEDIA-011): resized WebP/AVIF, content-hashed names, served as static files.
+        'media_public' => [
+            'driver' => 'local',
+            'root' => env('MEDIA_PUBLIC_ROOT', public_path('media')),
+            'url' => '/media',
+            'visibility' => 'public',
+        ],
+
         'careers' => [
             'driver' => 'local',
             'root' => env('CAREERS_STORAGE_ROOT', storage_path('app/private/careers')),

@@ -22,6 +22,7 @@
 @import './components/product-card.css';
 @import './components/event-card.css';
 @import './components/media-placeholder.css';
+@import './components/picture.css';
 @import './components/empty-state.css';
 @import './components/skeleton.css';
 @import './components/table.css';

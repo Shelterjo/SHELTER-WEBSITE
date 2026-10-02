@@ -35,6 +35,13 @@ return [
     'upload_sessions' => ['class' => 'INTERNAL', 'columns' => ['ip_hash' => 'CONFIDENTIAL']],
     'applications' => ['class' => 'CONFIDENTIAL'],
     'partnership_applications' => ['class' => 'CONFIDENTIAL'],
+    // Media library (MEDIA-RIGHTS): published images are public, but the rights record names photographers and the people
+    // who consented (with where their paper consent is kept).
+    'media' => ['class' => 'INTERNAL', 'columns' => ['photographer' => 'CONFIDENTIAL', 'people_consents' => 'CONFIDENTIAL', 'original_path' => 'CONFIDENTIAL']],
+    'media_usages' => ['class' => 'INTERNAL'],
+    'awards' => ['class' => 'PUBLIC', 'columns' => ['status' => 'INTERNAL']],
+    // SHELTER Family: only what each employee agreed to show; the consent record itself stays internal.
+    'team_members' => ['class' => 'CONFIDENTIAL', 'columns' => ['publish_consent_at' => 'CONFIDENTIAL', 'publish_consent_version' => 'CONFIDENTIAL', 'consent_withdrawn_at' => 'CONFIDENTIAL']],
     // Voice of Customer: no personal fields by design; a free comment may still hold what a customer typed (redactable).
     'feedback' => ['class' => 'CONFIDENTIAL', 'columns' => ['comment' => 'CONFIDENTIAL']],
     'job_applications' => ['class' => 'CONFIDENTIAL', 'columns' => ['birth_date' => 'SENSITIVE', 'nationality_text' => 'SENSITIVE', 'marital_status' => 'SENSITIVE']],

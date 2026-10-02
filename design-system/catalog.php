@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Branch;
+use App\Services\Media\MediaImage;
 use App\Services\Site\BranchSummary;
 use App\Services\Site\ContactAction;
 use App\Services\Site\StatusSegment;
@@ -357,6 +358,12 @@ return [
 
         'media-placeholder' => ['stories' => [
             ['story' => 'Default'],
+        ]],
+
+        // Sample = the approved brand mark (D-309); real pages pass approved library images only.
+        'picture' => ['stories' => [
+            ['story' => 'Default', 'props' => ['image' => new MediaImage('/brand/logo-white-480.png', ['image/webp' => '/brand/logo-white-240.webp 240w, /brand/logo-white-480.webp 480w'], 480, 176, 'SHELTER COFFEE'), 'sizes' => '240px']],
+            ['story' => 'Square', 'props' => ['image' => new MediaImage('/brand/logo-white-480.png', ['image/webp' => '/brand/logo-white-480.webp 480w'], 480, 176, 'SHELTER COFFEE'), 'ratio' => 'square', 'sizes' => '240px']],
         ]],
 
         'table' => ['stories' => [

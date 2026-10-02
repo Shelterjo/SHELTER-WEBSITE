@@ -1,16 +1,19 @@
 <?php
 
+use App\Http\Controllers\Site\AwardsController;
 use App\Http\Controllers\Site\BranchController;
 use App\Http\Controllers\Site\CareersController;
 use App\Http\Controllers\Site\ContactController;
 use App\Http\Controllers\Site\ContentPageController;
 use App\Http\Controllers\Site\EventsController;
+use App\Http\Controllers\Site\FamilyController;
 use App\Http\Controllers\Site\FeedbackController;
 use App\Http\Controllers\Site\FranchiseController;
 use App\Http\Controllers\Site\GatewayController;
 use App\Http\Controllers\Site\HomeController;
 use App\Http\Controllers\Site\LlmsController;
 use App\Http\Controllers\Site\LocationsController;
+use App\Http\Controllers\Site\MediaCenterController;
 use App\Http\Controllers\Site\MenuController;
 use App\Http\Controllers\Site\RobotsController;
 use App\Http\Controllers\Site\SearchController;
@@ -48,6 +51,10 @@ Route::prefix('{locale}')->where(['locale' => 'ar|en'])->middleware('locale')->g
     Route::get('franchise/', [FranchiseController::class, 'show'])->name('franchise');
     Route::post('franchise/', [FranchiseController::class, 'submit'])->name('franchise.submit');
     Route::get('franchise/submitted/', [FranchiseController::class, 'submitted'])->name('franchise.submitted');
+    // Media Center + Press Kit (SI-B13), Awards (SI-B14), SHELTER Family (SI-B15): 404 until approved content exists.
+    Route::get('media/', MediaCenterController::class)->name('media');
+    Route::get('awards/', AwardsController::class)->name('awards');
+    Route::get('family/', FamilyController::class)->name('family');
     // Customer feedback (SI-B16, VOICE-OF-CUSTOMER): anonymous, noindex, linked from nowhere until PO-063; closed in production.
     Route::get('feedback/', [FeedbackController::class, 'show'])->name('feedback');
     Route::post('feedback/', [FeedbackController::class, 'submit'])->name('feedback.submit');

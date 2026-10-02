@@ -2,7 +2,9 @@
 
 namespace App\View\Composers;
 
+use App\Services\Content\Awards;
 use App\Services\Content\Pages;
+use App\Services\Content\Team;
 use App\Services\Experiences\Events;
 use App\Services\Site\ContactActions;
 use App\Services\Site\Markets;
@@ -15,8 +17,9 @@ use Illuminate\View\View;
  * Data for the public site chrome (layouts.site → x-ui.site-header / x-ui.site-footer, DS-018): navigation to the
  * pages that exist, the language switch, and the approved footer contacts (CONTACT-015: one number + WhatsApp).
  * A navigation item appears only when its route exists, so pages join the header as they ship. Content pages (About,
- * FAQ, Privacy, Terms, Franchise) are linked from the footer only while they are published (App\Services\Content\Pages),
- * Events only while there is an event to show, and Careers once its route exists; the header stays Menu + Locations
+ * FAQ, Privacy, Terms, Franchise, Media Center) are linked from the footer only while they are published
+ * (App\Services\Content\Pages), Events only while there is an event to show, Awards and SHELTER Family only while a
+ * verified award / a consenting member exists, and Careers once its route exists; the header stays Menu + Locations
  * (D-027).
  */
 final class SiteChrome
@@ -32,6 +35,8 @@ final class SiteChrome
         private readonly ContactActions $contacts,
         private readonly Pages $pages,
         private readonly Events $events,
+        private readonly Awards $awards,
+        private readonly Team $team,
         private readonly Request $request,
     ) {}
 
@@ -78,6 +83,13 @@ final class SiteChrome
             ...($careersHref !== null ? [['label' => (string) __('site.nav.careers'), 'href' => $careersHref, 'key' => 'careers']] : []),
             ...array_filter($pageLinks, $isBusiness),
         ];
+        // Awards and SHELTER Family join only while something verified / consented is there to show.
+        foreach (['awards' => [$this->awards->published($locale) !== [], 'awards.title'], 'family' => [$this->team->published($locale) !== [], 'family.title']] as $route => [$hasContent, $label]) {
+            $href = $hasContent ? SiteLinks::to($route, $parameters) : null;
+            if ($href !== null) {
+                $explore[] = ['label' => (string) __($label), 'href' => $href, 'key' => $route];
+            }
+        }
 
         $view->with('siteChrome', [
             'home' => PageUrl::route('home', ['locale' => $locale]),

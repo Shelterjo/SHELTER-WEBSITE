@@ -24,8 +24,8 @@ final class Pages
 
     public const LEGAL = ['privacy', 'terms'];
 
-    /** Business pages with their own controller and a published `pages` row (SI-B12 franchise — PO-030). */
-    public const BUSINESS = ['franchise'];
+    /** Pages with their own controller and a published `pages` row: franchise (SI-B12), Media Center (SI-B13). */
+    public const BUSINESS = ['franchise', 'media'];
 
     /** @var array<string, ContentPage|null> */
     private array $cache = [];

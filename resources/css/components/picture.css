@@ -1,0 +1,98 @@
+/* Picture (x-ui.picture): an approved library image that keeps its own proportions, or fills a fixed frame (square ·
+   portrait · landscape) cropped around its focus point. Rounded like cards; no layout shift (width/height on <img>).
+   Tokens and logical properties only. */
+
+.ui-picture {
+    display: block;
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+    background: var(--color-surface);
+}
+
+.ui-picture__img {
+    display: block;
+    inline-size: 100%;
+    block-size: auto;
+}
+
+.ui-picture--square,
+.ui-picture--portrait,
+.ui-picture--landscape {
+    aspect-ratio: 1;
+}
+
+.ui-picture--portrait {
+    aspect-ratio: 4 / 5;
+}
+
+.ui-picture--landscape {
+    aspect-ratio: 3 / 2;
+}
+
+.ui-picture--square .ui-picture__img,
+.ui-picture--portrait .ui-picture__img,
+.ui-picture--landscape .ui-picture__img {
+    block-size: 100%;
+    object-fit: cover;
+}
+
+/* Focus point, snapped (3 × 5). */
+.ui-picture--x0-y0 .ui-picture__img {
+    object-position: 0% 0%;
+}
+
+.ui-picture--x0-y25 .ui-picture__img {
+    object-position: 0% 25%;
+}
+
+.ui-picture--x0-y50 .ui-picture__img {
+    object-position: 0% 50%;
+}
+
+.ui-picture--x0-y75 .ui-picture__img {
+    object-position: 0% 75%;
+}
+
+.ui-picture--x0-y100 .ui-picture__img {
+    object-position: 0% 100%;
+}
+
+.ui-picture--x50-y0 .ui-picture__img {
+    object-position: 50% 0%;
+}
+
+.ui-picture--x50-y25 .ui-picture__img {
+    object-position: 50% 25%;
+}
+
+.ui-picture--x50-y50 .ui-picture__img {
+    object-position: 50% 50%;
+}
+
+.ui-picture--x50-y75 .ui-picture__img {
+    object-position: 50% 75%;
+}
+
+.ui-picture--x50-y100 .ui-picture__img {
+    object-position: 50% 100%;
+}
+
+.ui-picture--x100-y0 .ui-picture__img {
+    object-position: 100% 0%;
+}
+
+.ui-picture--x100-y25 .ui-picture__img {
+    object-position: 100% 25%;
+}
+
+.ui-picture--x100-y50 .ui-picture__img {
+    object-position: 100% 50%;
+}
+
+.ui-picture--x100-y75 .ui-picture__img {
+    object-position: 100% 75%;
+}
+
+.ui-picture--x100-y100 .ui-picture__img {
+    object-position: 100% 100%;
+}

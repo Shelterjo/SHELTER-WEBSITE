@@ -2,7 +2,10 @@
 
 namespace App\Providers;
 
+use App\Services\Content\Awards;
 use App\Services\Content\Pages;
+use App\Services\Content\Team;
+use App\Services\Forms\FormGuard;
 use App\Services\Site\Markets;
 use App\View\Composers\ErrorPageLocale;
 use App\View\Composers\SiteChrome;
@@ -22,6 +25,8 @@ class AppServiceProvider extends ServiceProvider
         // One market lookup per request for every component that needs it (header, footer, branches).
         $this->app->scoped(Markets::class);
         $this->app->scoped(Pages::class);
+        $this->app->scoped(Awards::class);
+        $this->app->scoped(Team::class);
     }
 
     /**
@@ -33,7 +38,7 @@ class AppServiceProvider extends ServiceProvider
         View::composer('layouts.site', SiteChrome::class);
         View::composer(['errors.404', 'errors::404'], ErrorPageLocale::class);
 
-        // Public search (SEC-007): 30 searches a minute per address. The limiter key is hashed; the address is not kept.
-        RateLimiter::for('search', fn (Request $request): Limit => Limit::perMinute(30)->by((string) $request->ip()));
+        // Public search (SEC-007): 30 searches a minute per address — counted on a keyed hash, the address is not kept.
+        RateLimiter::for('search', fn (Request $request): Limit => Limit::perMinute(30)->by(FormGuard::clientKey($request)));
     }
 }

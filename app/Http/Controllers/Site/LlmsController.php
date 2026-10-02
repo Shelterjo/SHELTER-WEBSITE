@@ -46,7 +46,7 @@ final class LlmsController extends Controller
             if ($contact !== null) {
                 $links[] = [(string) __('site.contact.title', [], $locale), $contact];
             }
-            foreach ($pages->links([...Pages::EXPLORE, ...Pages::LEGAL], $locale) as $page) {
+            foreach ($pages->links([...Pages::EXPLORE, ...Pages::LEGAL, ...Pages::BUSINESS], $locale) as $page) {
                 $links[] = [$page['label'], $page['href']];
             }
         }
