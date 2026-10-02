@@ -1,0 +1,90 @@
+/*
+ * Dashboard → Menu (M50): the item list (name in both languages, code, price), one item's screen (names, base price,
+ * a card per branch) and the review of Arabic names by category. Tokens and logical properties only.
+ */
+
+.ui-menu-table__ar,
+.ui-menu-table__code {
+    display: block;
+    margin-block-start: var(--space-1);
+    font-weight: var(--weight-regular);
+}
+
+.ui-menu-table__code {
+    color: var(--color-muted);
+    font-size: var(--text-sm);
+}
+
+.ui-menu-item,
+.ui-menu-item__branches {
+    display: grid;
+    gap: var(--space-5);
+}
+
+.ui-menu-item__branch {
+    align-content: start;
+    padding: var(--space-4);
+    border: var(--border-default) solid var(--color-border);
+    border-radius: var(--radius-md);
+}
+
+.ui-menu-item__branch > .ui-fieldset {
+    inline-size: 100%;
+}
+
+/* Price history and versions: one line per entry that wraps, not one line per part. */
+.ui-menu-item__lines li {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    column-gap: var(--space-2);
+}
+
+@media (min-width: 1280px) {
+    .ui-menu-item__branches {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+/* Review of Arabic names: one card per item; from 1024px a row (English name · Arabic name · approve). */
+.ui-review {
+    display: grid;
+    gap: var(--space-3);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.ui-review__row {
+    display: grid;
+    gap: var(--space-3);
+    min-inline-size: 0;
+    padding: var(--space-4);
+    border: var(--border-default) solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-surface);
+}
+
+.ui-review__row--done {
+    background: transparent;
+}
+
+.ui-review__en,
+.ui-review__ar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2);
+    margin: 0;
+}
+
+.ui-review__en {
+    font-weight: var(--weight-bold);
+}
+
+@media (min-width: 1024px) {
+    .ui-review__row {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr) auto;
+        align-items: center;
+    }
+}

@@ -11,6 +11,7 @@ use App\Http\Controllers\Dashboard\Content\PagesController;
 use App\Http\Controllers\Dashboard\Content\TeamController;
 use App\Http\Controllers\Dashboard\Data\BranchesController;
 use App\Http\Controllers\Dashboard\Data\ContactsController;
+use App\Http\Controllers\Dashboard\Data\MenuController;
 use App\Http\Controllers\Dashboard\HomeController;
 use App\Http\Controllers\Dashboard\RecoveryCodesController;
 use App\Http\Controllers\Dashboard\Requests\CareersController;
@@ -132,6 +133,20 @@ Route::prefix('dashboard')->middleware(DashboardLocale::class)->group(function (
             Route::get('data/contacts', [ContactsController::class, 'index'])->name('contacts.index');
             Route::put('data/contacts/{point}', [ContactsController::class, 'update'])->whereNumber('point')->name('contacts.update');
             Route::put('data/contacts/social/{platform}', [ContactsController::class, 'social'])->where('platform', '[a-z]+')->name('contacts.social');
+        });
+
+        // Business data — the menu (M33 §5, §16–§18): prices and branch values need a fresh re-confirmation; the review
+        // of Arabic names (D-137) does not change prices.
+        Route::get('data/menu', [MenuController::class, 'index'])->name('menu.index');
+        Route::whereNumber('category')->group(function (): void {
+            Route::get('data/menu/review/{category}', [MenuController::class, 'review'])->name('menu.review');
+            Route::put('data/menu/review/{category}', [MenuController::class, 'saveReview'])->name('menu.review.save');
+        });
+        Route::whereNumber(['product', 'branch'])->middleware('confirmed')->group(function (): void {
+            Route::get('data/menu/{product}', [MenuController::class, 'show'])->name('menu.show');
+            Route::put('data/menu/{product}/names', [MenuController::class, 'names'])->name('menu.names');
+            Route::post('data/menu/{product}/price', [MenuController::class, 'price'])->name('menu.price');
+            Route::put('data/menu/{product}/branches/{branch}', [MenuController::class, 'branch'])->name('menu.branch');
         });
         Route::get('recovery-codes', RecoveryCodesController::class)->name('recovery-codes');
         Route::get('confirm', [ConfirmIdentityController::class, 'show'])->name('confirm');

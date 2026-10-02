@@ -30,6 +30,7 @@ final class DashboardChrome
         ],
         'data' => [
             'dashboard.branches.index' => ['dashboard.nav.branches', 'store', 'dashboard.branches.*'],
+            'dashboard.menu.index' => ['dashboard.nav.menu', 'coffee', 'dashboard.menu.*'],
             'dashboard.contacts.index' => ['dashboard.nav.contacts', 'phone', 'dashboard.contacts.*'],
         ],
     ];

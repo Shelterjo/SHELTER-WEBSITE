@@ -24,6 +24,7 @@ const ICONS = [
     'circle-check', // success alert, status-pill SYNCED
     'circle-x', // status-pill FAILED
     'clock', // status-pill PENDING
+    'coffee', // dashboard navigation: the menu
     'external-link', // dashboard: open the live page on the site
     'file-text', // careers: an uploaded file in the list
     'hand', // status-pill MANUAL ACTION REQUIRED
