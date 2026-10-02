@@ -4,6 +4,7 @@ namespace App\Services\Menu\Page;
 
 use App\Enums\Availability;
 use App\Enums\NameStatus;
+use App\Models\Branch;
 use App\Models\Market;
 use App\Models\MenuCategory;
 use App\Models\Product;
@@ -23,10 +24,14 @@ use Illuminate\Support\Str;
  * - only approved names: an Arabic name appears only when approved, otherwise the English name leads (CF-03);
  *   category names likewise (P-01);
  * - subcategories are proposals (P-04), so they are not shown as headings yet — every product stays visible;
- * - availability stays UNKNOWN until the owner confirms a branch (CF-02): nothing about availability is shown.
+ * - per branch: the Owner's price and availability for that branch (dashboard → Menu); availability stays UNKNOWN —
+ *   and nothing is said about it — until the Owner sets it or confirms the branch (CF-02, §9.6).
  */
 final class MenuPage
 {
+    /** @var array<string, array{0: Branch, 1: bool}> branch slug => [branch, availability confirmed] */
+    private array $branchModels = [];
+
     public function __construct(
         private readonly MenuCatalog $catalog,
         private readonly BranchDirectory $directory,
@@ -36,6 +41,12 @@ final class MenuPage
     {
         $now ??= CarbonImmutable::now($market->timezone);
 
+        $summaries = $this->directory->forMarket($market, $locale, $now);
+        // Each branch's availability is a claim only once confirmed or set explicitly (D-094): one fact lookup per branch.
+        $this->branchModels = [];
+        foreach ($summaries as $summary) {
+            $this->branchModels[$summary->branch->slug] = [$summary->branch, $this->catalog->availabilityConfirmed($summary->branch)];
+        }
         $branches = array_map(
             fn (BranchSummary $branch): BranchOption => new BranchOption(
                 $branch->branch->slug,
@@ -44,14 +55,14 @@ final class MenuPage
                 [],
                 $branch->status,
             ),
-            $this->directory->forMarket($market, $locale, $now),
+            $summaries,
         );
         $slugs = array_map(fn (BranchOption $b): string => $b->slug, $branches);
         $selected = in_array($branchParameter, $slugs, true) ? (string) $branchParameter : 'all';
 
         /** @var Collection<int, MenuCategory> $categories */
         $categories = MenuCategory::query()
-            ->with(['group', 'products' => fn ($q) => $this->visibleProducts($q)->with('prices')])
+            ->with(['group', 'products' => fn ($q) => $this->visibleProducts($q)->with(['prices', 'branchOverrides'])])
             ->orderBy('sort')
             ->get();
 
@@ -153,6 +164,16 @@ final class MenuPage
                 ? ($nameAr !== null ? [$nameAr, null, $nameEn, 'en'] : [$nameEn, 'en', null, null])
                 : [$nameEn, null, $nameAr, $nameAr !== null ? 'ar' : null];
 
+            $availability = [];
+            $branchPrices = [];
+            foreach ($this->branchModels as $slug => [$branch, $confirmed]) {
+                $availability[$slug] = $this->catalog->availability($product, $branch, $confirmed);
+                $branchPrice = $this->catalog->price($product, $branch, $now);
+                if ($branchPrice !== null && $branchPrice->fils !== $price->fils) {
+                    $branchPrices[$slug] = $branchPrice->fils;
+                }
+            }
+
             $items[] = new MenuItem(
                 code: (string) $product->code,
                 slug: Str::slug($nameEn).'-'.strtolower(substr((string) $product->code, -3)),
@@ -168,8 +189,8 @@ final class MenuPage
                 subcategoryCode: null,
                 sectionId: $category->slug ?? Str::slug((string) $category->name_en),
                 location: $location,
-                availability: [],
-                branchPrices: [],
+                availability: $availability,
+                branchPrices: $branchPrices,
                 searchTerms: array_values(array_filter([
                     $nameEn,
                     $nameAr,
@@ -182,7 +203,7 @@ final class MenuPage
         return $items;
     }
 
-    /** Kept for the availability rules of spec §9.6 once a branch is confirmed (today every value is UNKNOWN). */
+    /** Spec §9.6: UNKNOWN is never shown as a claim. */
     public static function showsAvailability(Availability $state): bool
     {
         return $state !== Availability::Unknown;

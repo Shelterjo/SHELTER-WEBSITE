@@ -14,6 +14,14 @@ interface IndexItem {
     terms: string[];
 }
 
+/** What a card shows for one branch choice (Menu IA §9.6), rendered by the server: hidden · status · faded · price. */
+interface BranchView {
+    h: boolean;
+    s: string | null;
+    u: boolean;
+    p: number;
+}
+
 interface Messages {
     results: Record<string, string>;
     noResults: string;
@@ -73,13 +81,21 @@ export function installMenuPage(root: HTMLElement): void {
         let visible = 0;
         for (const element of items) {
             const item = byId.get(element.dataset.uiMenuItem ?? '');
-            const show =
+            const matched =
                 q === '' || (item !== undefined && matches(q, [item.name, item.secondary ?? '', ...item.terms]));
+            // An item hidden at the chosen branch (UNAVAILABLE_HIDE) stays hidden whatever the search.
+            const show = matched && element.dataset.branchHidden !== 'true';
             element.hidden = !show;
             if (show) visible++;
         }
         for (const section of sections) {
-            section.hidden = q !== '' && section.querySelector('[data-ui-menu-item]:not([hidden])') === null;
+            section.hidden = section.querySelector('[data-ui-menu-item]:not([hidden])') === null;
+            // A section with nothing at the chosen branch loses its chip too; a search never hides chips.
+            const empty = section.querySelector('[data-ui-menu-item]:not([data-branch-hidden="true"])') === null;
+            const chip = root
+                .querySelector<HTMLElement>(`[data-ui-menu-nav="${CSS.escape(section.id)}"]`)
+                ?.closest('li');
+            if (chip !== null && chip !== undefined) chip.hidden = empty;
         }
         if (count !== null) {
             count.hidden = q === '';
@@ -183,6 +199,40 @@ export function installMenuPage(root: HTMLElement): void {
     root.querySelector('[data-ui-menu-clear]')?.addEventListener('click', reset);
 
     // ── Branch selector (spec §9.2–9.3) ─────────────────────────────────────────────────────────────────────
+    // Items that differ by branch carry their view for every choice; switching only swaps text, price and visibility.
+    const views = new Map<HTMLElement, Record<string, BranchView>>();
+    for (const element of items) {
+        if (element.dataset.uiMenuBranches === undefined) continue;
+        try {
+            views.set(element, JSON.parse(element.dataset.uiMenuBranches) as Record<string, BranchView>);
+        } catch {
+            // Malformed data: the card keeps what the server rendered.
+        }
+    }
+    const showBranch = (value: string): void => {
+        views.forEach((byBranch, element) => {
+            const view = byBranch[value] ?? byBranch['all'];
+            if (view === undefined) return;
+            if (view.h) element.dataset.branchHidden = 'true';
+            else delete element.dataset.branchHidden;
+            const card = element.querySelector<HTMLElement>('.ui-product-card');
+            if (card === null) return;
+            card.classList.toggle('ui-product-card--unavailable', view.u);
+            const status = card.querySelector<HTMLElement>('.ui-product-card__status');
+            const text = status?.querySelector('span');
+            if (status !== null && text !== null && text !== undefined) {
+                text.textContent = view.s ?? '';
+                status.hidden = view.s === null;
+            }
+            const amount = (view.p / 1000).toFixed(2);
+            card.querySelectorAll('.ui-product-card__price bdi').forEach((node) => {
+                node.textContent = amount;
+            });
+            const spoken = card.querySelector('.ui-product-card__price .ui-visually-hidden');
+            if (spoken?.textContent) spoken.textContent = spoken.textContent.replace(/^[\d.]+/, amount);
+        });
+        filter(input?.value ?? '');
+    };
     const segmented = root.querySelector<HTMLElement>('[data-ui-menu-branch]');
     const applyBranch = (value: string, remember: boolean): void => {
         if (segmented === null) return;
@@ -193,6 +243,7 @@ export function installMenuPage(root: HTMLElement): void {
             line.hidden = value !== 'all' && line.dataset.uiMenuStatus !== value;
         });
         root.dataset.branch = value;
+        showBranch(value);
         const url = new URL(window.location.href);
         if (value === 'all') url.searchParams.delete('branch');
         else url.searchParams.set('branch', value);

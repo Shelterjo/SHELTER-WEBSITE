@@ -39,7 +39,7 @@
     $describedBy = implode(' ', array_filter([
         filled($secondary) ? $cardId.'-secondary' : null,
         filled($badge) ? $cardId.'-badge' : null,
-        filled($status) ? $cardId.'-status' : null,
+        $status !== null ? $cardId.'-status' : null,
         $price !== null ? $cardId.'-price' : null,
     ])) ?: null;
     // merge() escapes every value (CMS text such as the label or href is never trusted).
@@ -83,8 +83,9 @@
         @if (filled($badge))
             <p class="ui-product-card__badge" id="{{ $cardId }}-badge"><x-ui.badge>{{ $badge }}</x-ui.badge></p>
         @endif
-        @if (filled($status))
-            <p class="ui-product-card__status" id="{{ $cardId }}-status">
+        @if ($status !== null)
+            {{-- An empty status is kept (hidden) when the page script may fill it, e.g. on a branch change. --}}
+            <p class="ui-product-card__status" id="{{ $cardId }}-status" @if (! filled($status)) hidden @endif>
                 <x-ui.icon name="info" size="sm" />
                 <span>{{ $status }}</span>
             </p>
