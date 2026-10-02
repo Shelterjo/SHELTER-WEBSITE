@@ -107,7 +107,7 @@
 | البنية التحتية (Cloudways · Cloudflare · DNS · البريد) | **DEFERRED — INFRASTRUCTURE NOT CONNECTED** | PO-064 · PO-072 · PO-073 |
 | صورة المشاركة (D-330/D-331) · وصف Google لـ9 صفحات + سطر الجذر AR/EN (D-332، المسودات: [`META-DESCRIPTIONS-DRAFT-01`](copy/META-DESCRIPTIONS-DRAFT-01.md)) | **TESTED** | `SecurityAndIndexingTest` · `ApprovedMetaTextsTest` · Lighthouse meta-description = 1 (SEO محليًا 0.61 → 0.69؛ الباقي noindex مقصود خارج الإنتاج) · سطر الجذر على 20 مقاسًا بلا overflow |
 | SEO محلي لإربد (M57 / D-333): بحث حقيقي AR/EN (86 بحثًا، 17 منافسًا) ← خريطة كلمات/صفحات ← عناوين فريدة بالعلامة وإربد · سطر النوع والمدينة · وصف الموقع (حقل) · Schema مترابط + أيام الاستثناء · Hooks قياس بلا خدمة · شاشة «الظهور في Google» | **TESTED** | [`docs/seo/`](seo/LOCAL-SEO-MAP.md) · `LocalSeoTest` 6 · `SeoHealthTest` 3 · `track.test.ts` 4 · Lighthouse SEO 1.0 (5 صفحات، نسخة إنتاج محلية) · مصفوفة الموقع 598/598 · لوحة التحكم 60 فحصًا على 20 مقاسًا بلا overflow وaxe 0 |
-| أسئلة جديدة لك | ~~PO-077~~ ✅ · ~~وصف Google~~ ✅ · PO-078 قاعدة اسم العلامة · ~~PO-079~~ ✅ D-334 · PO-010 روابط Google Business ✅ D-336 (العنوان النصي والإحداثيات لاحقًا) · PO-080 كلمة «كافيه» · PO-081 وصف DRIVE بالإنجليزي | [`PENDING-OWNER-INPUT`](PENDING-OWNER-INPUT.md) |
+| أسئلة جديدة لك | ~~PO-077~~ ✅ · ~~وصف Google~~ ✅ · PO-078 قاعدة اسم العلامة · ~~PO-079~~ ✅ D-334 · PO-010 روابط Google Business ✅ D-336 · نص العنوان يدخله الـOwner من اللوحة (D-337، بعد الـStaging) · PO-080 كلمة «كافيه» · PO-081 وصف DRIVE بالإنجليزي | [`PENDING-OWNER-INPUT`](PENDING-OWNER-INPUT.md) |
 
 ## المراحل التالية
 | المرحلة | الحالة | ما ينتظر منك |

@@ -1,0 +1,32 @@
+{
+  "group": "G48",
+  "notes": "M61: جواب الـOwner على تكملة PO-010 (نص العنوان من Google Business): «ب» — يُدخله الـOwner بنفسه من لوحة التحكم.",
+  "requirements": [],
+  "updates_to_existing": [
+    {
+      "id": "PO-010",
+      "type": "UPDATE",
+      "source": "M61",
+      "change": "«ب» (D-337): نص العنوان AR/EN لكل فرع يُدخله الـOwner بنفسه من لوحة التحكم ← الفروع والساعات ← بيانات الفرع، كما هو في Google Business (الحفظ = اعتماد؛ يظهر في الصفحة وstreetAddress فورًا). اللوحة متاحة له بعد تشغيل الـStaging (PO-064). يبقى البند مفتوحًا حتى الحفظ."
+    }
+  ],
+  "conflicts": [],
+  "new_decisions": [
+    {
+      "temp_id": "G48-ND-01",
+      "area": "Branches / Master Data",
+      "decision": "نص عنوان كل فرع (AR/EN) يُدخله الـOwner بنفسه من لوحة التحكم مطابقًا لـGoogle Business؛ لا يُدخله Claude. الحفظ في المحرر = اعتماد، ويظهر في صفحة الفرع وفي streetAddress بالبيانات المنظمة.",
+      "sources": [
+        "M61"
+      ],
+      "status": "APPROVED",
+      "reason": "Owner: «ب» — يدخله بنفسه",
+      "impact": "PO-010 · PO-064 (الوصول للوحة) · SEO-008",
+      "date": "2026-10-02"
+    }
+  ],
+  "pending_owner": [],
+  "technical_flags": [],
+  "cost_api_dependencies": [],
+  "dropped": []
+}

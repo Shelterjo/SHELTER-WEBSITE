@@ -9,7 +9,7 @@
 >
 > **المعرّفات:**
 > - **`D-xxx`:** سجل القرارات.
->   - **D-150…D-336:** قرارات صريحة من الـOwner في الرسائل M01–M27 لم تكن مسجلة، وأُضيفت في هذا التدقيق.
+>   - **D-150…D-337:** قرارات صريحة من الـOwner في الرسائل M01–M27 لم تكن مسجلة، وأُضيفت في هذا التدقيق.
 > - **`F-xx` / `R-xx`:** المنيو.
 > - **`DB-xx`:** القرارات المفتوحة قبل التصميم.
 > - **`GEP-§n` / `GIO-§n`:** سياسة Google وملكية التنفيذ.
@@ -20,14 +20,14 @@
 | الفئة | العدد |
 |---|---|
 | FROZEN | 81 |
-| APPROVED | 281 |
+| APPROVED | 282 |
 | APPROVED WITH CONDITIONS | 45 |
 | PENDING OWNER INPUT | 18 |
 | PENDING VERIFICATION | 8 |
 | DEFERRED | 4 |
 | REJECTED | 0 |
 | SUPERSEDED | 22 |
-| **المجموع** | **459** |
+| **المجموع** | **460** |
 
 ## FROZEN — مجمّد — لا يُفتح إلا بتعارض حقيقي (81)
 
@@ -115,7 +115,7 @@
 | `F-22` | Products | هوية الأصناف: كل قرارات D-109 → D-134 كما هي |  |  | F #22 · 2026-10-01 (موجز Menu IA/UX/Wireframe — D-142) | PROD-009…016/021/022 |
 | `F-23` | Governance | Production: لا كود Production · لا نشر · لا Redirects · لا تغييرات Google · لا صور غير معتمدة · لا نصوص منتجات من عندنا |  |  | F #23 · 2026-10-01 (موجز Menu IA/UX/Wireframe — D-142) | GOV-026، GOV-047، CONTENT-004 |
 
-## APPROVED — معتمد (281)
+## APPROVED — معتمد (282)
 
 | Decision ID | Area | القرار الحالي المعتمد | القرار القديم (إن وجد) | السبب | الترتيب في المحادثة | أثر التنفيذ |
 |---|---|---|---|---|---|---|
@@ -351,6 +351,7 @@
 | `D-333` | SEO / Local | M57 — SEO المحلي لإربد: (1) خريطة كلمات ← صفحات بلا تكرار من بحث حقيقي (docs/seo/LOCAL-SEO-MAP.md)؛ (2) عنوان Google فريد لكل صفحة يحمل اسم العلامة وإربد من حقائق معتمدة وعبارة D-332، قابل للتعديل مع تنبيه؛ (3) صفحة الفرع وبطاقته تعرض نوع الفرع والمدينة ووصف الموقع من Master Data (يظهر فقط بعد الاعتماد)؛ (4) البيانات المنظمة مترابطة بـ@id (Organization ← WebSite وكل فرع) مع العنوان على مستوى المدينة وأيام الاستثناء القادمة؛ (5) Hooks قياس تدفع إلى dataLayer فقط إن وُجد، بلا PII؛ (6) شاشة «الظهور في Google» للـOwner للقراءة فقط. ممنوع: Doorway pages، صفحات أحياء/جامعات، «أفضل/أول» بلا دليل، «كوفي شوب»، مقالات ترتيب المنافسين. |  | توجيه صريح من الـOwner (M57) | M57 · 2026-10-02 (سُجّل في التدقيق) | SEO-008 · PO-009 · PO-010 · PO-011 · PO-020 · PO-041 · PO-043 · PO-079 · PO-080 · docs/seo/* · tests/Feature/Site/LocalSeoTest.php · tests/Feature/Dashboard/SeoHealthTest.php |
 | `D-334` | Branches / Master Data | اعتماد بيانات الموقع كما كتبها الـOwner في M57 §1 وإدخالها في Master Data: وصف موقع DRIVE «بجانب منطقة قصر النخيل / أرابيلا»؛ وصف موقع HOUSE «إربد سيتي سنتر، الطابق الأول، بجانب البنك الإسلامي الأردني» / «Irbid City Center, First Floor, next to Jordan Islamic Bank»؛ كتابة المدينة «إربد». وصف الموقع معلم قريب وليس العنوان التفصيلي (PO-010) ولا يُستخدم streetAddress. |  | Owner: «أ» — اعتماد القيم كما هي | M57, M58 · 2026-10-02 (سُجّل في التدقيق) | PO-079 (RESOLVED) · CF-M-036 (RESOLVED) · SEO-008 · database/seeders/data/master-data.php · صفحتا الفرعين وبطاقاتهما |
 | `D-336` | Branches / Google Business | الموقع والاسم لكل فرع حسب Google Business: SHELTER COFFEE DRIVE ← https://maps.app.goo.gl/zNfDbkxcT1aMdQiWA · SHELTER COFFEE HOUSE ← https://maps.app.goo.gl/k31BVoaAb1fcAF9e6 (يحل محل D-335). الاسمان كما هما (D-020) ومطابقان لـGBP. الرابط يشغّل زر «الاتجاهات» وhasMap. |  | توجيه صريح من الـOwner (M60) | M60 · 2026-10-02 (سُجّل في التدقيق) | D-335 (SUPERSEDED) · GBP-013 · PO-010 · docs/google/GOOGLE-BUSINESS-PROFILE-SOURCE-OF-TRUTH.md · database/seeders/data/master-data.php |
+| `D-337` | Branches / Master Data | نص عنوان كل فرع (AR/EN) يُدخله الـOwner بنفسه من لوحة التحكم مطابقًا لـGoogle Business؛ لا يُدخله Claude. الحفظ في المحرر = اعتماد، ويظهر في صفحة الفرع وفي streetAddress بالبيانات المنظمة. |  | Owner: «ب» — يدخله بنفسه | M61 · 2026-10-02 (سُجّل في التدقيق) | PO-010 · PO-064 (الوصول للوحة) · SEO-008 |
 | `DB-01` | Brand | حُسم: الاسم (D-007)، الفروع (D-008، D-020)، سنة التأسيس 2019 (D-018) | الحقائق التأسيسية مطلوبة قبل أي Sitemap |  | #1 of 22 in DECISION-LOG open table (P0/P1/P2 priority in 05) · P0 | BRAND-001، ABOUT-003 |
 | `DB-10` | Products | البنية تدعم العرض الكامل للأسعار (D-078) |  |  | #12 of 22 in DECISION-LOG open table (P0/P1/P2 priority in 05) · P2 | MENU-014 |
 | `DB-21` | CMS | المصدر الوحيد للمنيو: A الآن + جاهزية C (حُسم بـD-085) | سؤال مفتوح: مصدر المنيو SSOT |  | #13 of 22 in DECISION-LOG open table (P0/P1/P2 priority in 05) | CMS-003 |
