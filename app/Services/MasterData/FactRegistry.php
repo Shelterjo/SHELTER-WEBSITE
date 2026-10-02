@@ -201,13 +201,19 @@ final class FactRegistry
         return true;
     }
 
-    /** VERIFIED facts past expires_at fall back to APPROVED (still shown) + a review signal (FR-T6). */
+    /**
+     * VERIFIED facts past expires_at fall back to APPROVED (still shown) + a review signal (FR-T6). The scheduled job
+     * changes a status, so each change is in the audit with the system as its actor (AUDIT-002).
+     */
     public function expireVerified(): int
     {
         $count = 0;
         Fact::query()->where('status', FactStatus::Verified->value)->whereNotNull('expires_at')->where('expires_at', '<=', now())
             ->each(function (Fact $fact) use (&$count): void {
                 $fact->forceFill(['status' => FactStatus::Approved])->save();
+                $this->audit->system('facts.verification_expired', 'facts:expire-verified', $fact,
+                    ['before' => ['status' => FactStatus::Verified->value], 'after' => ['status' => FactStatus::Approved->value]],
+                    ['key' => $fact->key, 'expired_at' => $fact->expires_at?->toIso8601String()]);
                 $this->signals->raise(
                     SignalKind::Issue, SignalCategory::DataConsistency, Severity::Medium, Priority::Important, 'facts',
                     'معلومة تحتاج مراجعة: انتهت صلاحية التحقق', 'Fact needs review: verification expired',

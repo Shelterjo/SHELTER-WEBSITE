@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\Media;
+use App\Services\Core\AuditLogger;
 use App\Services\Media\MediaLibrary;
 use Illuminate\Console\Command;
 use InvalidArgumentException;
@@ -10,7 +11,7 @@ use InvalidArgumentException;
 /**
  * Brings an image the Owner sent into the media library (until the Owner Dashboard's Media Center exists). It arrives
  * PENDING OWNER APPROVAL with no channel allowed (MEDIA-003) — importing never publishes. The same file twice is the
- * same asset (sha256).
+ * same asset (sha256). A new asset is in the change history with the system as its actor (AUDIT-002).
  */
 final class MediaImport extends Command
 {
@@ -25,7 +26,7 @@ final class MediaImport extends Command
 
     protected $description = 'Import an image into the media library as PENDING OWNER APPROVAL';
 
-    public function handle(MediaLibrary $library): int
+    public function handle(MediaLibrary $library, AuditLogger $audit): int
     {
         try {
             $media = $library->import((string) $this->argument('file'), [
@@ -41,6 +42,9 @@ final class MediaImport extends Command
             $this->error($e->getMessage());
 
             return self::FAILURE;
+        }
+        if ($media->wasRecentlyCreated) {
+            $audit->system('media.imported', 'media:import', $media, ['after' => ['code' => $media->code, 'status' => $media->approval_status, 'source' => $media->source]]);
         }
         $this->info("{$media->code} · {$media->width}×{$media->height} · {$media->approval_status}");
 

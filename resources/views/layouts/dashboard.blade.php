@@ -41,6 +41,10 @@
             @if (session('warning'))
                 <x-ui.alert variant="warning" class="ui-shell__flash">{{ session('warning') }}</x-ui.alert>
             @endif
+            {{-- This screen's change history (AUDIT-003, DashboardChrome): an item's own history, or its area's. --}}
+            @if (! empty($dashboardHistory))
+                <p class="ui-cluster"><x-ui.button variant="ghost" size="sm" :href="$dashboardHistory" icon="rotate-cw">{{ __('dashboard.history.this_screen') }}</x-ui.button></p>
+            @endif
             @yield('content')
         </div>
     </main>

@@ -134,9 +134,10 @@ final class SiteTexts
      * Saves one page's texts. Empty = back to the original wording; each placeholder of the original must stay.
      *
      * @param  array<string, mixed>  $input  texts[key][locale] => text
+     * @param  string|null  $reason  why, kept with each new version (a restore says which version it brought back)
      * @return array{errors: array<string, string>, changed: int}
      */
-    public function save(string $group, array $input, User $owner): array
+    public function save(string $group, array $input, User $owner, ?string $reason = null): array
     {
         $keys = self::GROUPS[$group] ?? [];
         $texts = is_array($input['texts'] ?? null) ? $input['texts'] : [];
@@ -173,7 +174,7 @@ final class SiteTexts
             return ['errors' => $errors, 'changed' => 0];
         }
         $changed = [];
-        DB::transaction(function () use ($values, $owner, &$changed): void {
+        DB::transaction(function () use ($values, $owner, $reason, &$changed): void {
             foreach ($values as $key => $byLocale) {
                 foreach ($byLocale as $locale => $value) {
                     $row = SiteText::query()->firstOrNew(['key' => $key, 'locale' => $locale]);
@@ -182,7 +183,7 @@ final class SiteTexts
                     }
                     $before = $row->exists ? $row->value : null;
                     $row->forceFill(['value' => $value, 'updated_by' => $owner->id])->save();
-                    $this->versions->record($row, 'published', ['key' => $key, 'locale' => $locale, 'value' => $value], null, $owner);
+                    $this->versions->record($row, 'published', ['key' => $key, 'locale' => $locale, 'value' => $value], $reason, $owner);
                     $changed[] = ['key' => $key, 'locale' => $locale, 'before' => $before, 'after' => $value];
                 }
             }

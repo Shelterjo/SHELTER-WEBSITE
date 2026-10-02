@@ -43,9 +43,10 @@ final class PageEditor
 
     /**
      * @param  array<string, mixed>  $input
+     * @param  string  $reason  why, kept with the version (a restore says which version it brought back)
      * @return array<string, string> errors (field => message); empty = saved
      */
-    public function save(string $key, array $input, User $owner): array
+    public function save(string $key, array $input, User $owner, string $reason = 'dashboard'): array
     {
         $text = fn (mixed $value): ?string => is_string($value) && trim($value) !== '' ? trim(str_replace(["\r\n", "\r"], "\n", $value)) : null;
         $status = ($input['status'] ?? '') === 'published' ? PublishStatus::Published : PublishStatus::Draft;
@@ -134,7 +135,7 @@ final class PageEditor
             return $errors;
         }
 
-        DB::transaction(function () use ($key, $fields, $status, $rows, $owner): void {
+        DB::transaction(function () use ($key, $fields, $status, $rows, $owner, $reason): void {
             $page = Page::query()->where('key', $key)->first() ?? new Page(['key' => $key]);
             $wasPublished = $page->exists && $page->status === PublishStatus::Published;
             $page->fill($fields + [
@@ -165,7 +166,7 @@ final class PageEditor
             $this->versions->record($page, $status->value, [
                 'page' => $page->only(['key', 'type', 'title_ar', 'title_en', 'name_ar', 'name_en', 'description_ar', 'description_en']),
                 'sections' => $page->sections->map(fn (PageSection $s): array => $s->only(['id', 'type', 'heading_ar', 'heading_en', 'body_ar', 'body_en', 'is_visible', 'media_id', 'sort']))->all(),
-            ], 'dashboard', $owner);
+            ], $reason, $owner);
             $this->audit->record('pages.saved', $page, ['after' => ['key' => $key, 'status' => $status->value, 'was_published' => $wasPublished]], actor: $owner);
         });
         $this->search->rebuild();

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Support\Carbon;
 
@@ -19,6 +20,7 @@ use Illuminate\Support\Carbon;
  * @property array<string, mixed>|null $guard_result
  * @property Carbon|null $scheduled_at
  * @property int|null $user_id
+ * @property Carbon|null $created_at
  */
 class ContentVersion extends Model
 {
@@ -35,5 +37,15 @@ class ContentVersion extends Model
     public function versionable(): MorphTo
     {
         return $this->morphTo();
+    }
+
+    /**
+     * Who saved this version (null: the system).
+     *
+     * @return BelongsTo<User, $this>
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 }
