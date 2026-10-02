@@ -14,7 +14,13 @@
     display: grid;
     gap: var(--space-4);
     inline-size: 100%;
-    padding: var(--space-4);
+    padding: var(--space-2);
+}
+
+@media (min-width: 600px) {
+    .ui-branch-preview__frame {
+        padding: var(--space-4);
+    }
 }
 
 .ui-branch-preview__place {

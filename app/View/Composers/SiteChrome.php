@@ -154,9 +154,16 @@ final class SiteChrome
         ];
     }
 
-    /** The branch a page is about — its own page, or the menu chosen for it (?branch=drive) — else null. */
+    /**
+     * The branch a page is about — its own page (or the Owner's preview of it, BRANCH-010), the menu chosen for it
+     * (?branch=drive) — else null.
+     */
     private function branchInView(): ?int
     {
+        $previewed = $this->request->routeIs('dashboard.branches.details.preview') ? $this->request->route('branch') : null;
+        if ($previewed instanceof Branch) {
+            return $previewed->id;
+        }
         $slug = match (true) {
             $this->request->routeIs('locations.branch') => $this->request->route('branch'),
             $this->request->routeIs('menu') => $this->request->query('branch'),

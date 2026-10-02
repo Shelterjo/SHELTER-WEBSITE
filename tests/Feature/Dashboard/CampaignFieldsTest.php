@@ -162,6 +162,12 @@ class CampaignFieldsTest extends TestCase
         $this->assertNull($this->bar($this->page('/ar/jo/locations/irbid/house/')), 'never on the other branch’s page');
         $this->assertNull($this->bar($this->page('/ar/jo/menu/?branch=house')), 'nor on its menu');
         $this->get('/dashboard/content/announcements')->assertSee('فقط في:');
+        // The Owner's full-page preview of a branch (BRANCH-010) shows the bar that branch's page would show.
+        $preview = fn (Branch $branch): string => (string) $this->put('/dashboard/data/branches/'.$branch->id.'/details/preview/ar', [
+            'name_ar' => (string) $branch->name_ar, 'name_en' => (string) $branch->name_en, 'is_public' => '1',
+        ])->assertOk()->getContent();
+        $this->assertNull($this->bar($preview($this->house)));
+        $this->assertStringContainsString('عرض تجريبي', (string) $this->bar($preview($this->drive)));
 
         // The other branch's page takes the next one meant for it (an announcement for every branch, lower priority).
         $this->post('/dashboard/content/announcements', $this->form(['type' => 'announcement', 'title_ar' => 'إعلان للجميع', 'title_en' => 'For everyone']))->assertSessionHasNoErrors();
