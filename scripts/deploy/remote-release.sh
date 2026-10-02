@@ -13,7 +13,8 @@
 # folder the web server would hand out as a file):
 #   stage <id> <tarball>   unpack a release; on the very first run also create a placeholder current/public
 #   discard <id>           remove a staged release (used when the web-root check fails)
-#   activate <id>          link .env + storage, migrate, seed once, cache, switch `current`, keep the last 3
+#   activate <id>          link .env + storage + media, back up the database (not on the first run), migrate, seed
+#                          once, cache, switch `current`, keep the last 3
 #   has-env                exit 0 when the shared .env exists
 set -euo pipefail
 umask 027
@@ -78,6 +79,10 @@ case "$cmd" in
         rm -rf public/media
         ln -s "$SHARED/media-public" public/media
 
+        if [ -f "$SHARED/.seeded" ]; then
+            # DEPLOY-005: a copy of the database before any migration; a failed backup stops the release here.
+            php artisan ops:backup-db --reason=pre-deploy --no-interaction
+        fi
         php artisan migrate --force --no-interaction
         if [ ! -f "$SHARED/.seeded" ]; then
             # Approved master data and the menu, once per environment (the seeders never overwrite an Owner edit).
