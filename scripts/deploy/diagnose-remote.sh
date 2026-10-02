@@ -4,7 +4,15 @@
 set -uo pipefail
 cd "${SHELTER_APP_ROOT:-.}" || exit 2
 app="$(pwd)"
-echo "== public_html"; ls -la public_html | awk 'NR>1 {print $1, $9, $10, $11}'
+echo "== who: $(id)"
+echo "== web server users: nginx=$(ps -o user= -C nginx 2>/dev/null | sort -u | tr '\n' ' ') php-fpm=$(ps -o user= -C php-fpm8.3,php-fpm 2>/dev/null | sort -u | tr '\n' ' ')"
+echo "== owners and modes"
+for p in . public_html public_html/releases public_html/current/ public_html/current/public public_html/current/public/index.php \
+    public_html/current/bootstrap/cache private_html private_html/shelter public_html/public_html; do
+    [ -e "$p" ] && stat -c '%a %U:%G %n' "$p"
+done
+echo "== public_html/public_html (should not exist)"; find public_html/public_html -maxdepth 3 2>/dev/null | head -n 10
+echo "== public_html"; ls -la public_html | awk 'NR>1 {print $1, $3":"$4, $9, $10, $11}'
 echo "== current → $(readlink public_html/current 2>/dev/null || echo 'not a link')"
 echo "== current/public"; ls -la public_html/current/public 2>&1 | awk 'NR>1 {print $1, $9, $10, $11}' | head -n 20
 echo "== php: $(php -v | head -n 1)"
