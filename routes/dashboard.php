@@ -4,6 +4,7 @@ use App\Http\Controllers\Dashboard\Auth\ConfirmIdentityController;
 use App\Http\Controllers\Dashboard\Auth\LoginController;
 use App\Http\Controllers\Dashboard\Auth\TwoFactorChallengeController;
 use App\Http\Controllers\Dashboard\Auth\TwoFactorSetupController;
+use App\Http\Controllers\Dashboard\Content\MediaController;
 use App\Http\Controllers\Dashboard\Content\PagesController;
 use App\Http\Controllers\Dashboard\HomeController;
 use App\Http\Controllers\Dashboard\RecoveryCodesController;
@@ -33,6 +34,16 @@ Route::prefix('dashboard')->middleware(DashboardLocale::class)->group(function (
         Route::get('content/pages', [PagesController::class, 'index'])->name('pages.index');
         Route::get('content/pages/{key}', [PagesController::class, 'edit'])->name('pages.edit');
         Route::put('content/pages/{key}', [PagesController::class, 'update'])->name('pages.update');
+        Route::get('content/media', [MediaController::class, 'index'])->name('media.index');
+        Route::get('content/media/upload', [MediaController::class, 'create'])->name('media.create');
+        Route::post('content/media', [MediaController::class, 'store'])->name('media.store');
+        Route::whereNumber('media')->group(function (): void {
+            Route::get('content/media/{media}', [MediaController::class, 'edit'])->name('media.edit');
+            Route::put('content/media/{media}', [MediaController::class, 'update'])->name('media.update');
+            Route::get('content/media/{media}/preview', [MediaController::class, 'preview'])->name('media.preview');
+            Route::post('content/media/{media}/archive', [MediaController::class, 'archive'])->name('media.archive');
+            Route::post('content/media/{media}/restore', [MediaController::class, 'restore'])->name('media.restore');
+        });
         Route::get('recovery-codes', RecoveryCodesController::class)->name('recovery-codes');
         Route::get('confirm', [ConfirmIdentityController::class, 'show'])->name('confirm');
         Route::post('confirm', [ConfirmIdentityController::class, 'store'])->name('confirm.store');

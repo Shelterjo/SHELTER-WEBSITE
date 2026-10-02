@@ -126,6 +126,50 @@ final class MediaLibrary
     }
 
     /**
+     * Takes the public web copies down (rejected, archived, consent withdrawn, rights ended): the copies are derived
+     * data, so they are removed — the original and the record stay.
+     */
+    public function removeVariants(Media $media): void
+    {
+        $disk = Storage::disk('media_public');
+        foreach ($media->variants ?? [] as $copies) {
+            foreach ($copies as $copy) {
+                $disk->delete($copy['path']);
+            }
+        }
+        $media->forceFill(['variants' => null, 'variants_generated_at' => null])->save();
+    }
+
+    /**
+     * A small private preview for the Owner Dashboard (any status — it is never public): WebP, 480px wide at most,
+     * made once from the original and kept on the private disk. Returns its absolute path.
+     */
+    public function preview(Media $media): string
+    {
+        $disk = Storage::disk('media');
+        $name = 'previews/'.substr($media->sha256, 0, 2).'/'.substr($media->sha256, 0, 16).'-480.webp';
+        if (! $disk->exists($name)) {
+            $original = $disk->path($media->original_path);
+            $image = match ($media->mime) {
+                'image/jpeg' => imagecreatefromjpeg($original),
+                'image/png' => imagecreatefrompng($original),
+                'image/webp' => imagecreatefromwebp($original),
+                default => false,
+            };
+            if ($image === false) {
+                throw new RuntimeException("Cannot read the original of {$media->code}.");
+            }
+            $width = imagesx($image);
+            $copy = $width > 480 ? imagescale($image, 480, (int) round(imagesy($image) * 480 / $width), IMG_BICUBIC) : $image;
+            ob_start();
+            imagewebp($copy === false ? $image : $copy, null, 75);
+            $disk->put($name, (string) ob_get_clean());
+        }
+
+        return $disk->path($name);
+    }
+
+    /**
      * The approved image for a page, or null — the caller then shows nothing (no empty frame — DX-012). An image needs
      * its alternative text in the page language (MEDIA-006) unless the caller names one (a person's own name).
      */

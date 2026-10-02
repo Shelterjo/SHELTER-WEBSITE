@@ -20,32 +20,60 @@ final class MediaRights
 
     public static function canUse(?Media $media, string $channel = 'website', ?CarbonImmutable $now = null): bool
     {
-        if ($media === null || ! in_array($channel, self::CHANNELS, true)) {
-            return false;
-        }
-        $now ??= CarbonImmutable::now();
-
-        return $media->approval_status === Media::APPROVED && $media->archived_at === null
-            && ($channel === 'website' ? $media->ok_website : $media->ok_ads)
-            && ($media->rights_expires_at === null || $media->rights_expires_at->greaterThan($now))
-            && self::peopleConsented($media, $channel)
-            && (! in_array($media->source, Media::RESTRICTED_SOURCES, true) || $media->source_explicitly_approved);
+        return $media !== null && in_array($channel, self::CHANNELS, true) && self::problems($media, $channel, $now) === [];
     }
 
-    private static function peopleConsented(Media $media, string $channel): bool
+    /**
+     * Why the asset may not be used on the channel — the same five checks, as reasons the Owner Dashboard can name
+     * (empty = usable): not_approved · rejected · archived · channel_off · expired · people_not_recorded ·
+     * people_scope · people_withdrawn · source_restricted.
+     *
+     * @return list<string>
+     */
+    public static function problems(Media $media, string $channel = 'website', ?CarbonImmutable $now = null): array
+    {
+        $now ??= CarbonImmutable::now();
+        $problems = [];
+        if ($media->archived_at !== null) {
+            $problems[] = 'archived';
+        }
+        if ($media->approval_status !== Media::APPROVED) {
+            $problems[] = $media->approval_status === Media::REJECTED ? 'rejected' : 'not_approved';
+        }
+        if (! ($channel === 'website' ? $media->ok_website : $media->ok_ads)) {
+            $problems[] = 'channel_off';
+        }
+        if ($media->rights_expires_at !== null && ! $media->rights_expires_at->greaterThan($now)) {
+            $problems[] = 'expired';
+        }
+        $people = self::peopleProblem($media, $channel);
+        if ($people !== null) {
+            $problems[] = $people;
+        }
+        if (in_array($media->source, Media::RESTRICTED_SOURCES, true) && ! $media->source_explicitly_approved) {
+            $problems[] = 'source_restricted';
+        }
+
+        return $problems;
+    }
+
+    private static function peopleProblem(Media $media, string $channel): ?string
     {
         if ($media->people_consent === 'none') {
-            return true;
+            return null;
         }
         if ($media->people_consent !== 'recorded' || $media->people_consents === null || $media->people_consents === []) {
-            return false;
+            return 'people_not_recorded';
         }
         foreach ($media->people_consents as $person) {
-            if (! empty($person['withdrawn_at']) || ! in_array($channel, $person['scopes'] ?? [], true)) {
-                return false;
+            if (! empty($person['withdrawn_at'])) {
+                return 'people_withdrawn';
+            }
+            if (! in_array($channel, $person['scopes'] ?? [], true)) {
+                return 'people_scope';
             }
         }
 
-        return true;
+        return null;
     }
 }

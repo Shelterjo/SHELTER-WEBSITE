@@ -53,6 +53,19 @@ class Media extends Model
 
     public const APPROVED = 'APPROVED';
 
+    public const PENDING = 'PENDING OWNER APPROVAL';
+
+    public const REJECTED = 'REJECTED';
+
+    /** full · website_only · time_limited (needs an end date) · other */
+    public const LICENSES = ['full', 'website_only', 'time_limited', 'other'];
+
+    /** none (nobody in it) · recorded (every person's consent on file) · not_recorded */
+    public const PEOPLE = ['none', 'recorded', 'not_recorded'];
+
+    /** Where a person's consent lets the asset appear. */
+    public const SCOPES = ['website', 'ads', 'social'];
+
     protected $table = 'media';
 
     protected $guarded = ['id'];

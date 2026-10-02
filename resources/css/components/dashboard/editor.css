@@ -115,6 +115,28 @@
     background: var(--color-bg);
 }
 
+/* Two short fields side by side from 600px. */
+.ui-editor__pair {
+    display: grid;
+    gap: var(--space-4);
+}
+
+@media (min-width: 600px) {
+    .ui-editor__pair {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    }
+}
+
+/* A secondary form under the editor (archive / bring back). */
+.ui-editor__aside {
+    display: grid;
+    gap: var(--space-3);
+    justify-items: start;
+    margin-block-start: var(--space-8);
+    padding-block-start: var(--space-6);
+    border-block-start: var(--border-default) solid var(--color-border);
+}
+
 /* Arabic | English. */
 .ui-bilingual {
     display: grid;
