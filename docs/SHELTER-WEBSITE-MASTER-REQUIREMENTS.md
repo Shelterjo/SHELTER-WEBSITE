@@ -73,8 +73,8 @@
 | متطلبات | **1350**: REQUIREMENT 491, RULE 442, DECISION 209, DELIVERABLE 109, GATE 99 |
 | حسب الحالة | APPROVED 900, FROZEN 294, APPROVED WITH CONDITIONS 73, PENDING OWNER INPUT 34, DEFERRED 22, SUPERSEDED 18, PENDING VERIFICATION 9 |
 | حسب الأولوية | P0 691, P1 572, P2 69, P3 18 |
-| حسب التنفيذ | NOT STARTED 890, PARTIAL 212, IMPLEMENTED — NOT TESTED 124, TESTED 70, FROZEN 43, NEEDS FIX 8, IMPLEMENTED — NOT YET VERIFIED 2, CONFLICT 1 |
-| مُختبر | NO 735, N/A 343, YES 137, PROTOTYPE 135 |
+| حسب التنفيذ | NOT STARTED 870, PARTIAL 218, IMPLEMENTED — NOT TESTED 124, TESTED 84, FROZEN 43, NEEDS FIX 8, IMPLEMENTED — NOT YET VERIFIED 2, CONFLICT 1 |
+| مُختبر | NO 720, N/A 341, YES 158, PROTOTYPE 131 |
 
 ## فهرس المجالات
 | # | المجال | متطلبات | P0 | معتمد/مجمّد | معلّق | تنفيذ (منفذ أو مجمّد) |
@@ -89,13 +89,13 @@
 | 08 | [Products](master-requirements/08-products.md) | 36 | 19 | 34 | 1 | 19 |
 | 09 | [Search](master-requirements/09-search.md) | 9 | 1 | 9 | 0 | 0 |
 | 10 | [Branches & Locations](master-requirements/10-branches-locations.md) | 31 | 13 | 26 | 4 | 1 |
-| 11 | [Hours](master-requirements/11-hours.md) | 13 | 6 | 13 | 0 | 0 |
+| 11 | [Hours](master-requirements/11-hours.md) | 13 | 6 | 13 | 0 | 5 |
 | 12 | [Campaigns & Events](master-requirements/12-campaigns-events.md) | 7 | 4 | 7 | 0 | 0 |
 | 13 | [About](master-requirements/13-about.md) | 4 | 2 | 3 | 1 | 0 |
-| 14 | [Contact](master-requirements/14-contact.md) | 30 | 11 | 25 | 4 | 0 |
+| 14 | [Contact](master-requirements/14-contact.md) | 30 | 11 | 25 | 4 | 2 |
 | 15 | [Blog / Coffee Knowledge](master-requirements/15-blog-coffee-knowledge.md) | 6 | 2 | 6 | 0 | 0 |
 | 16 | [Franchise](master-requirements/16-franchise.md) | 108 | 50 | 105 | 1 | 28 |
-| 17 | [CMS](master-requirements/17-cms.md) | 35 | 25 | 34 | 1 | 3 |
+| 17 | [CMS](master-requirements/17-cms.md) | 35 | 25 | 34 | 1 | 5 |
 | 18 | [Owner Dashboard](master-requirements/18-owner-dashboard.md) | 35 | 22 | 33 | 0 | 1 |
 | 19 | [Analytics](master-requirements/19-analytics.md) | 45 | 15 | 43 | 2 | 3 |
 | 20 | [GA4 / GTM](master-requirements/20-ga4-gtm.md) | 23 | 2 | 18 | 3 | 3 |
@@ -125,7 +125,7 @@
 | 44 | [Careers & Recruitment](master-requirements/44-careers-recruitment.md) | 99 | 60 | 98 | 1 | 16 |
 | 45 | [Dynamic Experience Engine](master-requirements/45-dynamic-experience-engine.md) | 38 | 14 | 38 | 0 | 5 |
 | 46 | [Platform Quality & Operations](master-requirements/46-platform-quality-operations.md) | 56 | 39 | 56 | 0 | 3 |
-| 47 | [Master Data & Channel Sync](master-requirements/47-master-data-channel-sync.md) | 36 | 34 | 36 | 0 | 0 |
+| 47 | [Master Data & Channel Sync](master-requirements/47-master-data-channel-sync.md) | 36 | 34 | 36 | 0 | 5 |
 | 48 | [Design System & UI Consistency](master-requirements/48-design-system-ui-consistency.md) | 29 | 29 | 29 | 0 | 1 |
 | 49 | [Infrastructure, Release & Operations](master-requirements/49-infrastructure-release-operations.md) | 46 | 38 | 46 | 0 | 8 |
 | 50 | [Build Mode & Delivery Governance](master-requirements/50-build-mode-delivery-governance.md) | 26 | 19 | 26 | 0 | 5 |
@@ -415,7 +415,7 @@
 | `BRANCH-007` | مشغل الحلويات = NON-PUBLIC LOCATION | APPROVED | P0 | NOT STARTED |
 | `BRANCH-008` | صفحة الفروع (Locations) + صفحة مستقلة لكل فرع | APPROVED | P0 | NOT STARTED |
 | `BRANCH-009` | نموذج بيانات الفرع (Branch data model) — الحقول | APPROVED | P1 | NOT STARTED |
-| `BRANCH-010` | Branch Editor في الـOwner Dashboard مع Preview قبل Publish | APPROVED | P0 | NOT STARTED |
+| `BRANCH-010` | Branch Editor في الـOwner Dashboard مع Preview قبل Publish | APPROVED | P0 | PARTIAL |
 | `BRANCH-011` | إمكانية إضافة فرع Coming Soon بدون إطلاق صفحة كاملة | APPROVED | P2 | NOT STARTED |
 | `BRANCH-012` | خدمات الفروع: Data Model فقط — لا استنتاج ولا نشر True/False قبل تأكيد الـOwner | APPROVED | P0 | NOT STARTED |
 | `BRANCH-013` | قيم خدمات DRIVE وHOUSE = MISSING — OWNER INPUT REQUIRED | PENDING OWNER INPUT | P1 | NOT STARTED |
@@ -446,14 +446,14 @@
 | `HOURS-002` | ساعات HOUSE العادية: السبت–الأربعاء 09:00–22:00 · الخميس–الجمعة 09:00–23:00 | APPROVED | P0 | NOT STARTED |
 | `HOURS-003` | لا فرق بين ساعات الدرايف ثرو والجلسات في DRIVE إلا بمعلومة موثقة وسؤال الـOwner | APPROVED | P1 | NOT STARTED |
 | `HOURS-004` | ساعات المول المختلفة أو الخاصة لـHOUSE تُعرض كتعارض ولا تُغيَّر تلقائيًا | APPROVED | P1 | NOT STARTED |
-| `HOURS-005` | بنية الساعات: Regular + Special/Holiday + Temporary Closure + Emergency Closure | APPROVED WITH CONDITIONS | P0 | NOT STARTED |
-| `HOURS-006` | تعديل رمضان/العيد لا يغيّر الساعات العادية | APPROVED | P1 | NOT STARTED |
-| `HOURS-007` | أولوية الحالة الخاصة/المؤقتة على الساعات العادية | APPROVED WITH CONDITIONS | P0 | NOT STARTED |
-| `HOURS-008` | تعديل الساعات بسهولة من الـDashboard (Regular ثم Special) | APPROVED | P1 | NOT STARTED |
+| `HOURS-005` | بنية الساعات: Regular + Special/Holiday + Temporary Closure + Emergency Closure | APPROVED WITH CONDITIONS | P0 | TESTED |
+| `HOURS-006` | تعديل رمضان/العيد لا يغيّر الساعات العادية | APPROVED | P1 | TESTED |
+| `HOURS-007` | أولوية الحالة الخاصة/المؤقتة على الساعات العادية | APPROVED WITH CONDITIONS | P0 | TESTED |
+| `HOURS-008` | تعديل الساعات بسهولة من الـDashboard (Regular ثم Special) | APPROVED | P1 | TESTED |
 | `HOURS-009` | حالة الفرع تُحسب ديناميكيًا: Open Now · Closed Now · Closing Soon · Next Opening | FROZEN | P0 | NOT STARTED |
 | `HOURS-010` | عرض الحالة مع معلومات ساعات اليوم داخل محدد الفرع (ونصوص AR/EN) | APPROVED | P1 | NOT STARTED |
 | `HOURS-011` | يغلق قريبًا: آخر 60 دقيقة قبل الإغلاق مع العد | FROZEN | P1 | NOT STARTED |
-| `HOURS-012` | التعامل الصحيح مع ساعات تمتد بعد منتصف الليل ("نقطة مهمة جدًا") | FROZEN | P0 | NOT STARTED |
+| `HOURS-012` | التعامل الصحيح مع ساعات تمتد بعد منتصف الليل ("نقطة مهمة جدًا") | FROZEN | P0 | TESTED |
 | `HOURS-013` | Google Special Hours تُقارن مع الموقع ولا تغيير تلقائي على Production | APPROVED | P1 | NOT STARTED |
 
 ## 12 · Campaigns & Events — [التفاصيل](master-requirements/12-campaigns-events.md)
@@ -506,8 +506,8 @@
 | `CONTACT-023` | البريد info@shelterjo.com = PENDING OWNER VERIFICATION — لا يُنشر بعد | PENDING VERIFICATION | P1 | NOT STARTED |
 | `CONTACT-024` | دعم مستقبلي لبريد منفصل: Careers · Franchise · Business inquiries | APPROVED | P2 | NOT STARTED |
 | `CONTACT-025` | ممنوع إنشاء أو نشر أي بريد غير موجود فعليًا | APPROVED | P0 | NOT STARTED |
-| `CONTACT-026` | الحسابات الاجتماعية: لا اعتماد لأي حساب حتى الآن ولا اعتماد تلقائي من البحث | PENDING VERIFICATION | P1 | NOT STARTED |
-| `CONTACT-027` | جدول التحقق من الحسابات الاجتماعية وعرضها واحدًا واحدًا | APPROVED | P1 | PARTIAL |
+| `CONTACT-026` | الحسابات الاجتماعية: لا اعتماد لأي حساب حتى الآن ولا اعتماد تلقائي من البحث | PENDING VERIFICATION | P1 | TESTED |
+| `CONTACT-027` | جدول التحقق من الحسابات الاجتماعية وعرضها واحدًا واحدًا | APPROVED | P1 | TESTED |
 | `CONTACT-028` | youtube.com/@sheltercoffee لا يُعتبر رسميًا حتى يؤكده الـOwner | APPROVED | P1 | NOT STARTED |
 | `CONTACT-029` | لا افتراض لقرار تغيير اسم Instagram أو أي Handle قبل النقاش | APPROVED | P1 | NOT STARTED |
 | `CONTACT-030` | Snapchat Place ليس حسابًا اجتماعيًا رسميًا | APPROVED | P2 | NOT STARTED |
@@ -652,7 +652,7 @@
 | `CMS-010` | Page Editor بسيط مبني على Sections/Blocks (ليس Page Builder مثل Elementor) | APPROVED | P0 | TESTED |
 | `CMS-011` | Design Lock: الـCMS لا يسمح بكسر الـDesign System | APPROVED | P0 | PARTIAL |
 | `CMS-012` | Global Components تُدار من مكان واحد | APPROVED | P1 | NOT STARTED |
-| `CMS-013` | نظام Special Hours في الـCMS (Regular · Special/Holiday · Closure/Emergency) | APPROVED | P0 | NOT STARTED |
+| `CMS-013` | نظام Special Hours في الـCMS (Regular · Special/Holiday · Closure/Emergency) | APPROVED | P0 | TESTED |
 | `CMS-014` | مناقشة UX والـCMS لنظام الساعات الخاصة مع الـOwner قبل التنفيذ | PENDING OWNER INPUT | P1 | NOT STARTED |
 | `CMS-015` | التوفر لكل Product × Branch: Available · Unavailable + Show · Unavailable + Hide | FROZEN | P0 | NOT STARTED |
 | `CMS-016` | ترتيب المنتجات بـsort_order يدوي من الـCMS — ممنوع Random Algorithm | FROZEN | P1 | NOT STARTED |
@@ -661,15 +661,15 @@
 | `CMS-019` | حالة المحتوى في الـDashboard: صفحات تحتاج تحديث + Drafts تنتظر النشر | APPROVED | P1 | TESTED |
 | `CMS-020` | لا تعديل يدوي لقاعدة البيانات: كل Business Content اليومي له UI | APPROVED | P0 | NOT STARTED |
 | `CMS-021` | CMS Data Model والتخزين (CMS-DATA-MODEL.md) — Supabase مشروط بقرار DB-08 | APPROVED WITH CONDITIONS | P1 | PARTIAL |
-| `CMS-022` | المنيو بلا كود: كل حقول المنتج والتوفر والنشر | FROZEN | P0 | NOT STARTED |
+| `CMS-022` | المنيو بلا كود: كل حقول المنتج والتوفر والنشر | FROZEN | P0 | PARTIAL |
 | `CMS-023` | الوسائط بلا كود | FROZEN | P0 | PARTIAL |
 | `CMS-024` | الصفحات بلا كود | FROZEN | P0 | TESTED |
-| `CMS-025` | الفروع والساعات بلا كود | FROZEN | P0 | NOT STARTED |
-| `CMS-026` | الحملات والفعاليات بلا كود | FROZEN | P0 | NOT STARTED |
+| `CMS-025` | الفروع والساعات بلا كود | FROZEN | P0 | PARTIAL |
+| `CMS-026` | الحملات والفعاليات بلا كود | FROZEN | P0 | PARTIAL |
 | `CMS-027` | المدونة / المعرفة بلا كود | FROZEN | P1 | NOT STARTED |
 | `CMS-028` | التوظيف بلا كود | FROZEN | P0 | NOT STARTED |
 | `CMS-029` | الشراكات / الفرنشايز بلا كود | FROZEN | P1 | NOT STARTED |
-| `CMS-030` | معلومات التواصل بلا كود | FROZEN | P0 | NOT STARTED |
+| `CMS-030` | معلومات التواصل بلا كود | FROZEN | P0 | TESTED |
 | `CMS-031` | الـSEO بلا كود (والمتقدم محمي) | FROZEN | P0 | NOT STARTED |
 | `CMS-032` | الإعدادات العامة للموقع بلا كود | FROZEN | P0 | NOT STARTED |
 | `CMS-033` | قاعدة لا-كود: أي تغيير عادي يحتاج كودًا = مشكلة معمارية | FROZEN | P0 | NOT STARTED |
@@ -1489,8 +1489,8 @@
 | `DX-010` | نظام الإعلانات الديناميكي وأنواع العرض | FROZEN | P1 | NOT STARTED |
 | `DX-011` | حقول التجربة/الإعلان | FROZEN | P1 | NOT STARTED |
 | `DX-012` | لا حالة فارغة: لا شيء نشط = لا مكون | FROZEN | P0 | NOT STARTED |
-| `DX-013` | بدء وانتهاء تلقائي + تجاوز يدوي + إيقاف طارئ | FROZEN | P0 | NOT STARTED |
-| `DX-014` | المشاركة في الفعاليات وأسطح الظهور | FROZEN | P1 | NOT STARTED |
+| `DX-013` | بدء وانتهاء تلقائي + تجاوز يدوي + إيقاف طارئ | FROZEN | P0 | PARTIAL |
+| `DX-014` | المشاركة في الفعاليات وأسطح الظهور | FROZEN | P1 | PARTIAL |
 | `DX-015` | محرك التجارب الموسمية القابل للإعداد | FROZEN | P1 | NOT STARTED |
 | `DX-016` | مثال عيد الاستقلال الأردني — حدود المعالجة | FROZEN | P1 | NOT STARTED |
 | `DX-017` | مثال الكريسماس — حدود المعالجة | FROZEN | P1 | NOT STARTED |
@@ -1586,12 +1586,12 @@
 | `MDH-003` | SHELTER MASTER DATA HUB في الـDashboard — مخزن واحد يضم Global Data Registry | FROZEN | P0 | NOT STARTED |
 | `MDH-004` | كيان BRAND: الاسمان · سنة التأسيس · السنوية · الأوصاف الرسمية | FROZEN | P0 | NOT STARTED |
 | `MDH-005` | كيان BRANCH (BR-DRIVE · BR-HOUSE) بحقوله المركزية | FROZEN | P0 | NOT STARTED |
-| `MDH-006` | كيان HOURS مركزي بخمسة أنواع — مصدر جدول واحد لكل القنوات | FROZEN | P0 | NOT STARTED |
-| `MDH-007` | أولوية Emergency > Temporary > Special/Holiday > Regular + effective_hours واحدة | FROZEN | P0 | NOT STARTED |
-| `MDH-008` | CONTACT + SOCIAL Registry: الأرقام حسب الدور · واتساب · البريد · روابط السوشال | FROZEN | P0 | NOT STARTED |
-| `MDH-009` | MENU Master واحد — الموقع لا يحمل نسخة منفصلة من الأسعار | FROZEN | P0 | NOT STARTED |
-| `MDH-010` | Branch-specific overrides: Inherited / Overridden + Reset to Master | FROZEN | P0 | NOT STARTED |
-| `MDH-011` | EVENTS / CAMPAIGNS Registry من محرك التجارب — بلا مخزن ثانٍ | FROZEN | P1 | NOT STARTED |
+| `MDH-006` | كيان HOURS مركزي بخمسة أنواع — مصدر جدول واحد لكل القنوات | FROZEN | P0 | TESTED |
+| `MDH-007` | أولوية Emergency > Temporary > Special/Holiday > Regular + effective_hours واحدة | FROZEN | P0 | TESTED |
+| `MDH-008` | CONTACT + SOCIAL Registry: الأرقام حسب الدور · واتساب · البريد · روابط السوشال | FROZEN | P0 | TESTED |
+| `MDH-009` | MENU Master واحد — الموقع لا يحمل نسخة منفصلة من الأسعار | FROZEN | P0 | TESTED |
+| `MDH-010` | Branch-specific overrides: Inherited / Overridden + Reset to Master | FROZEN | P0 | TESTED |
+| `MDH-011` | EVENTS / CAMPAIGNS Registry من محرك التجارب — بلا مخزن ثانٍ | FROZEN | P1 | PARTIAL |
 | `MDH-012` | طبقة الحقائق فوق قيم الـHub: فقط APPROVED / VERIFIED تصل لأي قناة | FROZEN | P0 | NOT STARTED |
 | `MDH-013` | كل Channel يقرأ من Master Data — بما فيها SEO metadata وأسطح الموقع | FROZEN | P0 | NOT STARTED |
 | `MDH-014` | MASTER DATA → CHANNEL ADAPTERS مستقلة — لا Point-to-point spaghetti | FROZEN | P0 | NOT STARTED |
