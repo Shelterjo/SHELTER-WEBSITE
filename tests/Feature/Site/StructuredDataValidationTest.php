@@ -196,7 +196,7 @@ class StructuredDataValidationTest extends TestCase
         $event = $blocks['/en/jo/events/at-drive/ Event'];
         $this->assertSame(['@type' => 'Place', 'name' => 'SHELTER COFFEE DRIVE', 'url' => 'http://localhost/en/jo/locations/irbid/drive/',
             'address' => ['@type' => 'PostalAddress', 'addressLocality' => 'Irbid', 'addressCountry' => 'JO']], $event['location']);
-        $this->assertStringStartsWith('http://localhost/storage/', (string) $event['image'], 'the approved image, absolute');
+        $this->assertMatchesRegularExpression('#^http://localhost/\S+\.(webp|avif)$#', (string) $event['image'], 'the approved image, absolute');
         $this->assertSame('http://localhost/#organization', $event['organizer']['@id']);
         $both = $blocks['/ar/jo/events/at-both/ Event'];
         $this->assertSame(['شلتر كوفي درايف', 'شلتر كوفي هاوس'], array_column($both['location'], 'name'), 'one Place per branch, approved Arabic names');
