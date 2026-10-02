@@ -4,6 +4,7 @@ use App\Http\Controllers\Dashboard\Auth\ConfirmIdentityController;
 use App\Http\Controllers\Dashboard\Auth\LoginController;
 use App\Http\Controllers\Dashboard\Auth\TwoFactorChallengeController;
 use App\Http\Controllers\Dashboard\Auth\TwoFactorSetupController;
+use App\Http\Controllers\Dashboard\ConsentsController;
 use App\Http\Controllers\Dashboard\Content\AnnouncementsController;
 use App\Http\Controllers\Dashboard\Content\AwardsController;
 use App\Http\Controllers\Dashboard\Content\EventsController;
@@ -172,6 +173,8 @@ Route::prefix('dashboard')->middleware(DashboardLocale::class)->group(function (
         Route::middleware('confirmed')->group(function (): void {
             Route::get('settings', [SettingsController::class, 'index'])->name('settings');
             Route::put('settings', [SettingsController::class, 'update'])->name('settings.update');
+            Route::get('settings/consents', [ConsentsController::class, 'index'])->name('consents');
+            Route::post('settings/consents/{scope}', [ConsentsController::class, 'publish'])->where('scope', '[a-z_]+')->name('consents.publish');
         });
 
         // Business data — contact numbers and social accounts (CMS-030). Central facts: a fresh re-confirmation.

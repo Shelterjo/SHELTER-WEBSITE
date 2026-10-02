@@ -12,7 +12,12 @@
         $bag = $errors->getBag('settings');
         $v = fn (string $field, string $value): string => $bag->any() ? (string) old($field) : $value;
     @endphp
-    <x-ui.page-header :title="__($S.'title')" :description="__($S.'description')" />
+    <x-ui.page-header :title="__($S.'title')" :description="__($S.'description')">
+        <x-slot:actions>
+            <x-ui.button variant="secondary" :href="route('dashboard.consents')">{{ __($S.'consents_link') }}</x-ui.button>
+            <x-ui.button variant="ghost" :href="route('dashboard.texts.index')">{{ __('dashboard.texts.title') }}</x-ui.button>
+        </x-slot:actions>
+    </x-ui.page-header>
     @if ($bag->any())
         <x-ui.error-summary :errors="$bag" :title="__('dashboard.pages.errors.summary')" id="settings-errors" />
     @endif
