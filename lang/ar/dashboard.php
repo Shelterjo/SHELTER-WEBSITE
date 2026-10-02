@@ -23,6 +23,7 @@ return [
     ],
     'nav' => [
         'groups' => ['content' => 'المحتوى', 'requests' => 'الطلبات', 'data' => 'البيانات'],
+        'all_sections' => 'كل الأقسام',
         'pages' => 'الصفحات',
         'media' => 'الصور',
         'awards' => 'الجوائز',
@@ -212,6 +213,7 @@ return [
         'add' => 'إضافة جائزة',
         'new_title' => 'جائزة جديدة',
         'empty' => 'لا توجد جوائز بعد.',
+        'empty_hint' => 'صفحة الجوائز لا تظهر على الموقع حتى تُنشر أول جائزة تؤكد أنها حقيقية.',
         'show_archived' => 'المؤرشفة',
         'show_current' => 'الحالية',
         'states' => ['live' => 'منشورة على الموقع', 'draft' => 'مسودة', 'unconfirmed' => 'بانتظار تأكيدك', 'incomplete' => 'منشورة لكن ناقصة', 'archived' => 'مؤرشفة'],
@@ -252,6 +254,7 @@ return [
         'add' => 'إضافة شخص',
         'new_title' => 'شخص جديد',
         'empty' => 'لا يوجد أحد بعد.',
+        'empty_hint' => 'صفحة SHELTER Family لا تظهر على الموقع حتى يظهر أول شخص وافق كتابيًا على النشر.',
         'states' => ['live' => 'ظاهر على الموقع', 'hidden' => 'مخفي', 'incomplete' => 'مفعّل لكن ناقص', 'withdrawn' => 'سحب موافقته', 'archived' => 'مؤرشف'],
         'groups' => ['profile' => 'الملف', 'work' => 'العمل', 'bio' => 'نبذة', 'photo' => 'الصورة', 'consent' => 'موافقة الشخص على النشر'],
         'fields' => [
@@ -456,6 +459,7 @@ return [
         'public' => ['received' => 'تم استلام الطلب', 'under_review' => 'قيد المراجعة', 'shortlisted' => 'تم اختيارك للمقابلة', 'closed' => 'تم إغلاق الطلب'],
         'new' => 'جديد',
         'cards' => ['new' => 'طلبات جديدة', 'total' => 'إجمالي الطلبات', 'under_review' => 'قيد المراجعة', 'interview_shortlisted' => 'مرشحون للمقابلة', 'interviewed' => 'تمت مقابلتهم', 'accepted' => 'مقبولون', 'rejected' => 'مرفوضون', 'archived' => 'مؤرشفة'],
+        'cards_none' => 'لا توجد طلبات توظيف في «:period».',
         'periods' => ['today' => 'اليوم', 'week' => 'آخر 7 أيام', 'days30' => 'آخر 30 يومًا', 'month' => 'هذا الشهر', 'all' => 'كل الفترات'],
         'period_label' => 'الفترة',
         'columns' => ['reference' => 'رقم الطلب', 'phone' => 'الهاتف', 'email' => 'البريد', 'education' => 'المؤهل', 'gender' => 'الجنس', 'nationality' => 'الجنسية', 'updated' => 'آخر تحديث', 'name' => 'الاسم', 'job' => 'الوظيفة', 'city' => 'المدينة', 'experience' => 'سنوات الخبرة', 'salary' => 'الراتب المتوقع', 'date' => 'تاريخ التقديم', 'status' => 'الحالة'],

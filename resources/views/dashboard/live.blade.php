@@ -30,7 +30,7 @@
                     <div class="ui-live-item">
                         <p class="ui-record__status">
                             <x-ui.badge variant="success" icon="circle-check">{{ __($L.'showing') }}</x-ui.badge>
-                            <a href="{{ $edit($w) }}">{{ $name($w) }}</a>
+                            <a class="ui-action-link" href="{{ $edit($w) }}">{{ $name($w) }}</a>
                             <span>{{ __($L.'until', ['at' => $at($w->ends_at)]) }}</span>
                         </p>
                         <form method="post" action="{{ route('dashboard.live.disable', $w) }}">
@@ -42,7 +42,7 @@
                         <div class="ui-live-item">
                             <p class="ui-record__status">
                                 <x-ui.badge variant="warning" icon="triangle-alert">{{ __($L.'waiting') }}</x-ui.badge>
-                                <a href="{{ $edit($other) }}">{{ $name($other) }}</a>
+                                <a class="ui-action-link" href="{{ $edit($other) }}">{{ $name($other) }}</a>
                                 <span>{{ __($L.'waiting_help') }}</span>
                             </p>
                             <form method="post" action="{{ route('dashboard.live.disable', $other) }}">
@@ -61,7 +61,7 @@
                 <div class="ui-live-item">
                     <p class="ui-record__status">
                         <x-ui.badge variant="success" icon="calendar">{{ __($L.'on_now') }}</x-ui.badge>
-                        <a href="{{ $edit($event) }}">{{ $name($event) }}</a>
+                        <a class="ui-action-link" href="{{ $edit($event) }}">{{ $name($event) }}</a>
                         <span>{{ __($L.'until', ['at' => $at($event->ends_at)]) }}</span>
                     </p>
                     <form method="post" action="{{ route('dashboard.live.disable', $event) }}">
@@ -79,7 +79,7 @@
             @forelse ($exceptions as $exception)
                 <p class="ui-record__status">
                     <x-ui.badge :variant="in_array($exception->kind->value, ['emergency', 'temporary'], true) ? 'warning' : 'info'" icon="store">{{ __('dashboard.hours.kinds.'.$exception->kind->value) }}</x-ui.badge>
-                    <a href="{{ route('dashboard.branches.show', $exception->branch_id) }}">{{ $branchNames[$exception->branch_id] ?? '' }}</a>
+                    <a class="ui-action-link" href="{{ route('dashboard.branches.show', $exception->branch_id) }}">{{ $branchNames[$exception->branch_id] ?? '' }}</a>
                     <span>{{ __($L.'until', ['at' => $exception->ends_on->format('Y-m-d')]) }}</span>
                 </p>
             @empty
@@ -99,7 +99,7 @@
                             <span>{{ __($L.'until', ['at' => $season['category']->season_ends_on->format('Y-m-d')]) }}</span>
                         @endif
                     </p>
-                    <a href="{{ route('dashboard.menu.season') }}#season-{{ $season['category']->id }}">{{ __($L.'season_manage') }}</a>
+                    <a class="ui-action-link" href="{{ route('dashboard.menu.season') }}#season-{{ $season['category']->id }}">{{ __($L.'season_manage') }}</a>
                 </div>
             @endforeach
         </section>
@@ -109,7 +109,7 @@
             @forelse ($upcoming as $next)
                 <p class="ui-record__status">
                     <x-ui.badge variant="info" icon="calendar">{{ __('dashboard.announcements.types.'.(($next->details['urgent'] ?? false) === true ? 'urgent' : $next->type)) }}</x-ui.badge>
-                    <a href="{{ $edit($next) }}">{{ $name($next) }}</a>
+                    <a class="ui-action-link" href="{{ $edit($next) }}">{{ $name($next) }}</a>
                     <span><bdi>{{ $at($next->starts_at) }}</bdi></span>
                 </p>
             @empty

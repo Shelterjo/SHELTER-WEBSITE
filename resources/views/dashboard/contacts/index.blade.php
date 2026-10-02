@@ -45,7 +45,7 @@
                 </div>
                 <x-ui.checkbox :label="__($C.'public')" name="is_public" value="1" :id="'c'.$p->id.'-public'" :checked="$fresh ? (bool) old('is_public') : $p->is_public" />
                 <div class="ui-record__archive">
-                    <x-ui.button type="submit">{{ __($C.'save') }}</x-ui.button>
+                    <x-ui.button type="submit" variant="secondary">{{ __($C.'save') }}</x-ui.button>
                 </div>
             </form>
         @endforeach

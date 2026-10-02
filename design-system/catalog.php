@@ -495,6 +495,7 @@ return [
             ['story' => 'Default', 'props' => ['label' => $t('مؤشر تجريبي', 'Sample metric'), 'value' => '12']],
             ['story' => 'TrendUp', 'props' => ['label' => $t('مؤشر تجريبي', 'Sample metric'), 'value' => '12', 'trend' => 'up', 'trendText' => $t('+3 عن الأسبوع الماضي (مثال)', '+3 vs last week (sample)')]],
             ['story' => 'TrendDown', 'props' => ['label' => $t('مؤشر تجريبي', 'Sample metric'), 'value' => '7', 'trend' => 'down', 'trendText' => $t('−2 عن الأسبوع الماضي (مثال)', '−2 vs last week (sample)'), 'hint' => $t('بيانات تجريبية', 'Sample data')]],
+            ['story' => 'Empty', 'props' => ['label' => $t('مؤشر تجريبي', 'Sample metric'), 'value' => null, 'empty' => $t('لا قيمة بعد (مثال)', 'No value yet (sample)'), 'hint' => $t('بيانات تجريبية', 'Sample data')]],
             ['story' => 'Link', 'props' => ['label' => $t('مؤشر تجريبي', 'Sample metric'), 'value' => '12', 'href' => '#']],
             ['story' => 'Hover', 'state' => 'hover', 'props' => ['label' => $t('مؤشر تجريبي', 'Sample metric'), 'value' => '12', 'href' => '#']],
             ['story' => 'Focus', 'state' => 'focus', 'props' => ['label' => $t('مؤشر تجريبي', 'Sample metric'), 'value' => '12', 'href' => '#']],

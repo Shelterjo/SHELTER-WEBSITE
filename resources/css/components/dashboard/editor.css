@@ -8,6 +8,27 @@
     gap: var(--space-4);
 }
 
+/* The Command Center row (UX-006 DR-47: a fifth tile sat alone on a second row): fixed columns instead of auto-fill —
+   two per row on phones, three from 600px, then all of them side by side from 1440px, where each label still fits on
+   one line. */
+.ui-tiles--row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+@media (min-width: 600px) {
+    .ui-tiles--row {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+@media (min-width: 1440px) {
+    .ui-tiles--row {
+        grid-template-columns: none;
+        grid-auto-columns: minmax(0, 1fr);
+        grid-auto-flow: column;
+    }
+}
+
 /* Lists: one row per item — title, state badges, actions. */
 .ui-item-list {
     display: grid;
@@ -49,6 +70,14 @@
 
 .ui-item-list__title a:hover {
     text-decoration: underline;
+}
+
+/* A text link that stands on its own as an action (open an item, review, manage): the same full-height touch target,
+   still looking like a link (UX-006 DR-22). Links inside a sentence keep the inline exception. */
+.ui-action-link {
+    display: inline-flex;
+    align-items: center;
+    min-block-size: var(--touch-target);
 }
 
 .ui-item-list__meta {
@@ -176,8 +205,8 @@
     scroll-margin-block-start: var(--space-16);
 }
 
+/* A blank card to fill in: a solid hairline on the page background, not a dashed "wireframe" edge (UX-006 DR-15). */
 .ui-section-card--new {
-    border-style: dashed;
     background: var(--color-bg);
 }
 

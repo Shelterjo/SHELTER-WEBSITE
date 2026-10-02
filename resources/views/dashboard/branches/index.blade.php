@@ -25,7 +25,7 @@
                     </p>
                 </div>
                 <div class="ui-item-list__actions">
-                    <x-ui.button size="sm" :href="route('dashboard.branches.show', $row['branch'])" icon="clock">{{ __('dashboard.branches.manage') }}</x-ui.button>
+                    <x-ui.button size="sm" variant="secondary" :href="route('dashboard.branches.show', $row['branch'])" icon="clock">{{ __('dashboard.branches.manage') }}</x-ui.button>
                 </div>
             </li>
         @endforeach

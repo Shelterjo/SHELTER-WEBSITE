@@ -20,7 +20,15 @@
     </nav>
 
     @if ($rows === [])
-        <x-ui.empty-state :title="__('dashboard.team.empty')" icon="hand" />
+        {{-- The one empty-state pattern (UX-006 DR-56): title · what it means · the next step (secondary: one primary). --}}
+        <x-ui.empty-state :title="__('dashboard.team.empty')" icon="hand">
+            @unless ($archived)
+                {{ __('dashboard.team.empty_hint') }}
+                <x-slot:actions>
+                    <x-ui.button variant="secondary" :href="route('dashboard.team.create')" icon="hand">{{ __('dashboard.team.add') }}</x-ui.button>
+                </x-slot:actions>
+            @endunless
+        </x-ui.empty-state>
     @else
         <ul class="ui-item-list" role="list">
             @foreach ($rows as $row)
@@ -36,7 +44,7 @@
                         </p>
                     </div>
                     <div class="ui-item-list__actions">
-                        <x-ui.button size="sm" :href="route('dashboard.team.edit', $m)" icon="file-text">{{ __('dashboard.edit') }}</x-ui.button>
+                        <x-ui.button size="sm" variant="secondary" :href="route('dashboard.team.edit', $m)" icon="file-text">{{ __('dashboard.edit') }}</x-ui.button>
                     </div>
                 </li>
             @endforeach

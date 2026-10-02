@@ -64,7 +64,7 @@
                 @foreach ($texts as $row)
                     <tr role="row">
                         <th scope="row" role="rowheader" data-label="{{ __($S.'columns.page') }}">
-                            <a href="{{ route('dashboard.texts.index', ['page' => $row['group']]) }}">{{ __($S.'pages.'.$row['page']) }}</a>
+                            <a class="ui-action-link" href="{{ route('dashboard.texts.index', ['page' => $row['group']]) }}">{{ __($S.'pages.'.$row['page']) }}</a>
                             <span class="ui-note">{{ __($S.'languages.'.$row['locale']) }}</span>
                         </th>
                         <td role="cell" data-label="{{ __($S.'columns.title') }}"><span lang="{{ $row['locale'] }}" dir="{{ $row['locale'] === 'ar' ? 'rtl' : 'ltr' }}">{{ $row['title'] }}</span></td>

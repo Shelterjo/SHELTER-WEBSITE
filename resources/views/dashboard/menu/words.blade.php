@@ -33,7 +33,7 @@
                         @foreach ($hits as $hit)
                             <li class="ui-live-item">
                                 <span><bdi @if ($hit->titleLang) lang="{{ $hit->titleLang }}" @endif>{{ $hit->title }}</bdi>@if ($hit->meta) · <bdi @if ($hit->metaLang) lang="{{ $hit->metaLang }}" @endif>{{ $hit->meta }}</bdi>@endif</span>
-                                <a href="{{ $hit->url }}" target="_blank" rel="noopener">{{ __($W.'open') }}</a>
+                                <a class="ui-action-link" href="{{ $hit->url }}" target="_blank" rel="noopener">{{ __($W.'open') }}</a>
                             </li>
                         @endforeach
                     </ul>
@@ -56,7 +56,7 @@
                                 @endforeach
                             </span>
                             @if ($item['product'] !== null)
-                                <a href="{{ route('dashboard.menu.show', $item['product']) }}#search-words">{{ __($W.'edit') }}</a>
+                                <a class="ui-action-link" href="{{ route('dashboard.menu.show', $item['product']) }}#search-words">{{ __($W.'edit') }}</a>
                             @endif
                         </li>
                     @endforeach

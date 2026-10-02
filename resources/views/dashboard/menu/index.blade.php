@@ -22,14 +22,15 @@
         </x-slot:actions>
     </x-ui.page-header>
 
-    <form class="ui-inbox-filters" method="get" action="{{ route('dashboard.menu.index') }}" role="search">
+    {{-- The search button sits beside the field from 768px (UX-006 DR-49); secondary: "New item" is the primary. --}}
+    <form class="ui-inbox-filters ui-menu-search" method="get" action="{{ route('dashboard.menu.index') }}" role="search">
         <div class="ui-inbox-filters__main">
             <x-ui.field :label="__($M.'search')" for="q">
                 <x-ui.input type="search" id="q" name="q" :value="$q" maxlength="100" autocomplete="off" />
             </x-ui.field>
         </div>
         <div class="ui-inbox-filters__actions">
-            <x-ui.button type="submit" icon="search">{{ __($M.'search_button') }}</x-ui.button>
+            <x-ui.button type="submit" variant="secondary" icon="search">{{ __($M.'search_button') }}</x-ui.button>
         </div>
     </form>
 
@@ -44,7 +45,7 @@
         <p class="ui-record__status">
             <x-ui.badge :variant="$waiting > 0 ? 'warning' : 'success'" :icon="$waiting > 0 ? 'hand' : 'circle-check'">{{ trans_choice($M.'pending_names', $waiting, ['count' => $waiting]) }}</x-ui.badge>
             @if ($waiting > 0)
-                <a href="{{ route('dashboard.menu.review', $category) }}">{{ __($M.'review_names') }}</a>
+                <a class="ui-action-link" href="{{ route('dashboard.menu.review', $category) }}">{{ __($M.'review_names') }}</a>
             @endif
         </p>
     @endif
@@ -80,7 +81,7 @@
                                 aria-label="{{ __($M.'bulk.select_one', ['name' => $p->display_name_en]) }}"></label>
                         </td>
                         <th scope="row" role="rowheader" data-label="{{ __($M.'columns.item') }}">
-                            <a href="{{ route('dashboard.menu.show', $p) }}" lang="en" dir="ltr">{{ $p->display_name_en }}</a>
+                            <a class="ui-action-link" href="{{ route('dashboard.menu.show', $p) }}" lang="en" dir="ltr">{{ $p->display_name_en }}</a>
                             <span class="ui-menu-table__ar">
                                 @if ($row['arabic'] !== null)
                                     <span lang="ar" dir="rtl">{{ $row['arabic'] }}</span>

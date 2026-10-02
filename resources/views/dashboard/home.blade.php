@@ -5,7 +5,7 @@
 @section('content')
     {{-- Command Center: what needs a look, as plain numbers that open their screen. --}}
     <x-ui.page-header :title="__('dashboard.command_center')" :description="__('dashboard.home.description')" />
-    <div class="ui-tiles">
+    <div class="ui-tiles ui-tiles--row">
         @foreach ($tiles as $tile)
             <x-ui.stat-tile :label="$tile['label']" :value="$tile['value']" :href="$tile['href']" />
         @endforeach

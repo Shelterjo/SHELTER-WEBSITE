@@ -48,7 +48,8 @@
                             </div>
                         </x-ui.fieldset>
                     @endforeach
-                    <x-ui.button type="submit">{{ __($T.'save') }}</x-ui.button>
+                    {{-- One save per page of texts: secondary, so the screen keeps no competing primary (UX-006 DR-19). --}}
+                    <x-ui.button type="submit" variant="secondary">{{ __($T.'save') }}</x-ui.button>
                 </form>
             </x-ui.disclosure>
         @endforeach
