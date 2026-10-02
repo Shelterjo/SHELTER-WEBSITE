@@ -18,12 +18,17 @@ class RoutingTest extends TestCase
             ->assertSee('<html lang="ar" dir="rtl">', false)
             ->assertSee('hreflang="x-default" href="http://localhost/"', false)
             ->assertSee('hreflang="ar" href="http://localhost/ar/"', false)
-            ->assertSee('hreflang="en" href="http://localhost/en/"', false);
+            ->assertSee('hreflang="en" href="http://localhost/en/"', false)
+            // FINAL-QA QA-020: its own title and the brand entity (SI-B01); two language doors.
+            ->assertSee('<title>SHELTER COFFEE · شلتر كوفي</title>', false)
+            ->assertSee('"@type":"Organization"', false)
+            ->assertSee('class="ui-page ui-gateway"', false);
     }
 
     public function test_locale_home_sets_language_and_direction(): void
     {
-        $this->get('/ar/')->assertOk()->assertSee('<html lang="ar" dir="rtl">', false)->assertHeader('Content-Language', 'ar');
+        $this->get('/ar/')->assertOk()->assertSee('<html lang="ar" dir="rtl">', false)->assertHeader('Content-Language', 'ar')
+            ->assertSee('hreflang="x-default" href="http://localhost/"', false); // the same cluster as the gateway (FINAL-QA QA-021)
         $this->get('/en/')->assertOk()->assertSee('<html lang="en" dir="ltr">', false)
             ->assertSee('<link rel="canonical" href="http://localhost/en/">', false);
     }

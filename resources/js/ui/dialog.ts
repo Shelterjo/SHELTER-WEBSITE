@@ -24,9 +24,22 @@ export function supportsClosedBy(): boolean {
     return typeof HTMLDialogElement !== 'undefined' && 'closedBy' in HTMLDialogElement.prototype;
 }
 
+/** aria-expanded on a button that opens a dialog follows the dialog's state (FINAL-QA QA-017). */
+function syncExpanded(doc: Document): void {
+    if (typeof MutationObserver === 'undefined') return;
+    doc.querySelectorAll<HTMLElement>('[aria-controls][aria-expanded]').forEach((trigger) => {
+        const dialog = doc.getElementById(trigger.getAttribute('aria-controls') ?? '');
+        if (!(dialog instanceof HTMLDialogElement)) return;
+        const sync = (): void => trigger.setAttribute('aria-expanded', String(dialog.open));
+        new MutationObserver(sync).observe(dialog, { attributes: true, attributeFilter: ['open'] });
+        sync();
+    });
+}
+
 export function installDialogs(doc: Document = document): void {
     if (installed.has(doc)) return;
     installed.add(doc);
+    syncExpanded(doc);
     if (!supportsInvokerCommands()) {
         doc.addEventListener('click', (event) => {
             if (!(event.target instanceof Element)) return;

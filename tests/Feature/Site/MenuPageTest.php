@@ -37,6 +37,9 @@ class MenuPageTest extends TestCase
         $active = Product::query()->where('status', 'active')->whereNull('merged_into_id')->count();
         $this->assertSame($active, substr_count($html, 'data-ui-menu-item="'));
         $this->assertMatchesRegularExpression('/data-value="drive" aria-pressed="true"/', $html);
+        // FINAL-QA QA-016: the language switch keeps the chosen branch; hreflang above stays clean.
+        $this->assertStringContainsString('href="http://localhost/en/jo/menu/?branch=drive"', $html);
+        $this->assertStringNotContainsString('hreflang="en" href="http://localhost/en/jo/menu/?branch', $html);
     }
 
     public function test_arabic_page_shows_an_arabic_name_only_when_it_is_approved(): void

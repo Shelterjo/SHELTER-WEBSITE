@@ -248,6 +248,13 @@ export function installMenuPage(root: HTMLElement): void {
         if (value === 'all') url.searchParams.delete('branch');
         else url.searchParams.set('branch', value);
         window.history.replaceState(window.history.state, '', url);
+        // The language switch keeps the branch too (FINAL-QA QA-016): the server only knows the ?branch it was asked for.
+        document.querySelectorAll<HTMLAnchorElement>('a[hreflang]').forEach((link) => {
+            const target = new URL(link.href);
+            if (value === 'all') target.searchParams.delete('branch');
+            else target.searchParams.set('branch', value);
+            link.href = target.toString();
+        });
         if (remember) {
             try {
                 window.localStorage.setItem(STORAGE_KEY, value);

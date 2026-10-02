@@ -24,6 +24,14 @@ class SearchPageTest extends TestCase
         $this->seed([MasterDataSeeder::class, MenuSeeder::class]);
     }
 
+    public function test_the_language_switch_keeps_the_query_and_hreflang_stays_clean(): void
+    {
+        // FINAL-QA QA-016.
+        $html = (string) $this->get('/en/search/?q=latte')->assertOk()->getContent();
+        $this->assertStringContainsString('<link rel="alternate" hreflang="ar" href="http://localhost/ar/search/">', $html);
+        $this->assertStringContainsString('href="http://localhost/ar/search/?q=latte"', $html);
+    }
+
     public function test_empty_search_shows_the_form_only_and_stays_out_of_the_index(): void
     {
         $html = (string) $this->get('/ar/search/')->assertOk()->getContent();

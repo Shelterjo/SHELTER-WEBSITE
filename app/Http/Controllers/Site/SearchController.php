@@ -26,14 +26,16 @@ final class SearchController extends Controller
         if ($results !== null) {
             $log->record('site', $locale, $query, $results->total);
         }
-        $alternates = [];
-        foreach (PageUrl::alternates('search') as $code => $url) {
-            $alternates[$code] = $query === '' ? $url : $url.'?'.http_build_query(['q' => $query]);
+        $alternates = PageUrl::alternates('search');
+        $languageLinks = [];
+        foreach ($alternates as $code => $url) {
+            $languageLinks[$code] = $query === '' ? $url : $url.'?'.http_build_query(['q' => $query]);
         }
 
         return view('site.search', [
             'canonical' => PageUrl::route('search'),
             'alternates' => $alternates,
+            'languageLinks' => $languageLinks, // the switch keeps the query; hreflang stays clean (FINAL-QA QA-016)
             'noindexFollow' => true,
             'query' => $query,
             'results' => $results,

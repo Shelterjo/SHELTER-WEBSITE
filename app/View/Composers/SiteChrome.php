@@ -61,8 +61,10 @@ final class SiteChrome
             }
         }
 
+        // The language switch keeps the visitor's context (?branch, ?q) through `languageLinks`; the hreflang tags in
+        // <head> stay on the clean `alternates` (FINAL-QA QA-016).
         /** @var array<string, string> $alternates */
-        $alternates = $view->getData()['alternates'] ?? [];
+        $alternates = $view->getData()['languageLinks'] ?? $view->getData()['alternates'] ?? [];
         $languages = [];
         /** @var list<string> $locales */
         $locales = config('shelter.locales');

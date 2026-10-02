@@ -10,7 +10,9 @@
     --ui-mix-hover: 10%;
     --ui-mix-active: 20%;
     --ui-disabled-opacity: 0.55;
-    color-scheme: light;
+    /* The brand surfaces are dark (#131313): native controls (date and time pickers, selects, scrollbars, autofill)
+       must render for a dark page (FINAL-QA QA-019). */
+    color-scheme: dark;
 }
 
 *,
@@ -176,5 +178,13 @@ html:has(dialog:modal) {
     *::after {
         animation-iteration-count: 1 !important;
         scroll-behavior: auto !important;
+    }
+}
+
+/* Printing shows every section, revealed on screen or not (FINAL-QA QA-018). */
+@media print {
+    [data-ui-reveal] {
+        opacity: 1 !important;
+        transform: none !important;
     }
 }

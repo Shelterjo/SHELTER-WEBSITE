@@ -28,7 +28,8 @@ final class HomeController extends Controller
 
         return view('site.home', [
             'canonical' => PageUrl::route('home'),
-            'alternates' => PageUrl::alternates('home'),
+            // The same cluster as the gateway and the sitemap: x-default is the gateway (D-052; FINAL-QA QA-021).
+            'alternates' => PageUrl::alternates('home') + ['x-default' => PageUrl::route('gateway')],
             'branches' => $market !== null ? $directory->forMarket($market, $locale) : [],
             'feature' => $market !== null ? $placements->current($market, Placements::HOME_FEATURE, $locale) : null,
             'menuUrl' => $market !== null ? SiteLinks::to('menu', $parameters) : null,

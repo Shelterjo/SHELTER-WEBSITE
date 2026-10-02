@@ -44,7 +44,9 @@ export async function installReveal(doc: Document = document): Promise<void> {
                     },
                 );
             },
-            { amount: 0.15 },
+            // Any visible part starts the reveal (FINAL-QA QA-018): with a share (0.15) a section taller than ~6.7 screens
+            // never reached it and stayed invisible.
+            { amount: 0 },
         );
     }
 }

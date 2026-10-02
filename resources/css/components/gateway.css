@@ -1,0 +1,17 @@
+/* Root gateway (D-052, D-066): the brand in both languages and the two language doors, centred in the first screen
+   (FINAL-QA QA-020). Tokens only. */
+.ui-gateway {
+    display: grid;
+    min-block-size: 70dvh;
+    align-content: center;
+}
+
+.ui-gateway__intro {
+    justify-items: center;
+    text-align: center;
+}
+
+.ui-gateway__doors {
+    justify-content: center;
+    gap: var(--space-4);
+}

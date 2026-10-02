@@ -44,6 +44,9 @@ final class MenuController extends Controller
         return view('site.menu', [
             'canonical' => $canonical,
             'alternates' => PageUrl::alternates('menu'),
+            // The language switch keeps the chosen branch (FINAL-QA QA-016); hreflang and canonical stay clean.
+            'languageLinks' => $menu->branch === 'all' ? null
+                : array_map(fn (string $url): string => $url.'?'.http_build_query(['branch' => $menu->branch]), PageUrl::alternates('menu')),
             'menu' => $menu,
             'market' => $market,
             'crumbs' => $crumbs,

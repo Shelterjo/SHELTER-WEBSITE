@@ -104,6 +104,7 @@ export function installCareersForm(form: HTMLFormElement): void {
         const button = document.createElement('button');
         button.type = 'button';
         button.className = 'ui-button ui-button--ghost ui-button--icon-only ui-button--sm';
+        button.dataset.careersRemove = ''; // the same hook as the server-rendered buttons
         button.setAttribute('aria-label', withName(labels.remove, name));
         const svg = icon('x');
         if (svg !== null) button.append(svg);
