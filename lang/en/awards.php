@@ -5,4 +5,5 @@ return [
     'title' => 'Awards & recognition',
     'issuer' => 'Awarded by',
     'source' => 'Source',
+    'lead' => '', // optional line under the heading — the Owner's (dashboard → Site texts)
 ];

@@ -162,4 +162,7 @@ return [
         'retry' => 'Try again',
         'links' => 'Useful links',
     ],
+    // Google descriptions (meta description) per page: empty until the Owner writes them (dashboard → Site texts).
+    'meta' => ['home' => '', 'menu' => '', 'locations' => '', 'branch' => '', 'contact' => '', 'events' => '', 'careers' => '', 'awards' => '', 'family' => ''],
+    'gateway' => ['lead' => ''],
 ];

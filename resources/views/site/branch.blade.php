@@ -1,4 +1,5 @@
 @extends('layouts.site')
+@php($description = filled($description ?? null) ? $description : __('site.meta.branch', ['name' => $branch->name]))
 
 @section('title', __('site.branch.title', ['name' => $branch->name]))
 

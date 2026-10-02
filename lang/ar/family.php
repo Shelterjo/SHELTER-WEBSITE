@@ -4,4 +4,5 @@
 return [
     'title' => 'SHELTER Family',
     'joined' => 'معنا منذ :date',
+    'lead' => '', // optional line under the heading — the Owner's (dashboard → Site texts)
 ];

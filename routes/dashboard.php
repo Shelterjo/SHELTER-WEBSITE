@@ -10,6 +10,7 @@ use App\Http\Controllers\Dashboard\Content\EventsController;
 use App\Http\Controllers\Dashboard\Content\MediaController;
 use App\Http\Controllers\Dashboard\Content\PagesController;
 use App\Http\Controllers\Dashboard\Content\TeamController;
+use App\Http\Controllers\Dashboard\Content\TextsController;
 use App\Http\Controllers\Dashboard\Data\BranchesController;
 use App\Http\Controllers\Dashboard\Data\ContactsController;
 use App\Http\Controllers\Dashboard\Data\MenuBulkController;
@@ -159,6 +160,10 @@ Route::prefix('dashboard')->middleware(DashboardLocale::class)->group(function (
             Route::put('data/branches/{branch}/exceptions/{exception}', [BranchesController::class, 'updateException'])->name('branches.exceptions.update');
             Route::post('data/branches/{branch}/exceptions/{exception}/archive', [BranchesController::class, 'archiveException'])->name('branches.exceptions.archive');
         });
+
+        // Content — the site's fixed texts, page titles and Google descriptions (M50): the Owner's wording on top.
+        Route::get('content/texts', [TextsController::class, 'index'])->name('texts.index');
+        Route::put('content/texts/{group}', [TextsController::class, 'update'])->where('group', '[a-z]+')->name('texts.update');
 
         // Business data — contact numbers and social accounts (CMS-030). Central facts: a fresh re-confirmation.
         Route::middleware('confirmed')->group(function (): void {

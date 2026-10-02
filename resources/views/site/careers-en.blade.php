@@ -1,4 +1,5 @@
 @extends('layouts.site')
+@php($description = filled($description ?? null) ? $description : __('site.meta.careers'))
 
 @section('title', __('careers.title').' — '.__('site.brand'))
 

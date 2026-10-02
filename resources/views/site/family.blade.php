@@ -1,4 +1,5 @@
 @extends('layouts.site')
+@php($description = filled($description ?? null) ? $description : __('site.meta.family'))
 
 @section('title', __('family.title').' — '.__('site.brand'))
 
@@ -13,6 +14,9 @@
             <x-ui.breadcrumb :items="$crumbs" />
             <header class="ui-page-intro">
                 <h1 class="ui-page-intro__title"><span lang="en" dir="ltr">{{ __('family.title') }}</span></h1>
+                @if (filled(__('family.lead')))
+                    <p class="ui-page-intro__lead">{{ __('family.lead') }}</p>
+                @endif
             </header>
             <ul class="ui-team" role="list">
                 @foreach ($members as $member)

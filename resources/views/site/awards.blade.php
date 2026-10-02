@@ -1,4 +1,5 @@
 @extends('layouts.site')
+@php($description = filled($description ?? null) ? $description : __('site.meta.awards'))
 
 @section('title', __('awards.title').' — '.__('site.brand'))
 
@@ -9,6 +10,9 @@
             <x-ui.breadcrumb :items="$crumbs" />
             <header class="ui-page-intro">
                 <h1 class="ui-page-intro__title">{{ __('awards.title') }}</h1>
+                @if (filled(__('awards.lead')))
+                    <p class="ui-page-intro__lead">{{ __('awards.lead') }}</p>
+                @endif
             </header>
             <div class="ui-award-grid">
                 @foreach ($awards as $award)

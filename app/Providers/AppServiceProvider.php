@@ -7,16 +7,20 @@ use App\Models\Experience;
 use App\Models\MenuCategory;
 use App\Models\Product;
 use App\Models\SearchAlias;
+use App\Models\SiteText;
 use App\Services\Content\Awards;
 use App\Services\Content\Pages;
 use App\Services\Content\Search\SearchFreshness;
+use App\Services\Content\SiteTexts;
 use App\Services\Content\Team;
 use App\Services\Forms\FormGuard;
 use App\Services\Site\Markets;
+use App\Support\OverridingTranslationLoader;
 use App\View\Composers\DashboardChrome;
 use App\View\Composers\ErrorPageLocale;
 use App\View\Composers\SiteChrome;
 use Illuminate\Cache\RateLimiting\Limit;
+use Illuminate\Contracts\Translation\Loader;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\View;
@@ -34,6 +38,9 @@ class AppServiceProvider extends ServiceProvider
         $this->app->scoped(Pages::class);
         $this->app->scoped(Awards::class);
         $this->app->scoped(Team::class);
+
+        // The Owner's wording for the listed site texts, laid on top of the language files (M50 — SiteTexts).
+        $this->app->extend('translation.loader', fn (Loader $files): Loader => new OverridingTranslationLoader($files, SiteTexts::overrides(...)));
     }
 
     /**
@@ -58,5 +65,6 @@ class AppServiceProvider extends ServiceProvider
         SearchAlias::saved($changed);
         Experience::saved($changed);
         Branch::saved($changed);
+        SiteText::saved($changed);
     }
 }

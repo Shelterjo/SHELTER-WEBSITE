@@ -5,4 +5,5 @@ return [
     'title' => 'الجوائز والتقدير',
     'issuer' => 'الجهة المانحة',
     'source' => 'المصدر',
+    'lead' => '', // optional line under the heading — the Owner's (dashboard → Site texts)
 ];
