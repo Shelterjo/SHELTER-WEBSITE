@@ -97,7 +97,13 @@ jobs:
           HOST: ${{ secrets.STAGING_SSH_HOST }}
         run: |
           install -m 700 -d ~/.ssh
-          printf '%s\n' "$KEY" > ~/.ssh/staging && chmod 600 ~/.ssh/staging
+          # A key copied on Windows arrives with CRLF line endings, which OpenSSH refuses ("error in libcrypto").
+          printf '%s\n' "$KEY" | tr -d '\r' > ~/.ssh/staging && chmod 600 ~/.ssh/staging
+          if ! ssh-keygen -y -f ~/.ssh/staging > /dev/null 2>&1; then
+            echo "::error::STAGING_SSH_KEY is not a readable private key — paste the PRIVATE key (shelter_staging, not shelter_staging.pub), from -----BEGIN to -----END."
+            exit 1
+          fi
+          echo "deploy key OK: $(ssh-keygen -lf ~/.ssh/staging | cut -d' ' -f2) (fingerprint only)"
           ssh-keyscan -T 15 -t ed25519,rsa "$HOST" > ~/.ssh/known_hosts 2>/dev/null
           echo "Server host key fingerprints (trust on first use; compare on later runs):"
           ssh-keygen -lf ~/.ssh/known_hosts
