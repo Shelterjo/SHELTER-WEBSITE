@@ -97,10 +97,11 @@ jobs:
           HOST: ${{ secrets.STAGING_SSH_HOST }}
         run: |
           install -m 700 -d ~/.ssh
-          # A key copied on Windows arrives with CRLF line endings, which OpenSSH refuses ("error in libcrypto").
-          printf '%s\n' "$KEY" | tr -d '\r' > ~/.ssh/staging && chmod 600 ~/.ssh/staging
-          if ! ssh-keygen -y -f ~/.ssh/staging > /dev/null 2>&1; then
-            echo "::error::STAGING_SSH_KEY is not a readable private key — paste the PRIVATE key (shelter_staging, not shelter_staging.pub), from -----BEGIN to -----END."
+          # A key pasted from Windows can arrive with CRLF endings, joined lines or quotes: prepare-key.py repairs the
+          # armour, or names what is wrong with it (public key, passphrase, cut) without printing anything from it.
+          python3 scripts/deploy/prepare-key.py ~/.ssh/staging
+          if ! err="$(ssh-keygen -y -P '' -f ~/.ssh/staging 2>&1 > /dev/null)"; then
+            echo "::error::STAGING_SSH_KEY is not usable: ${err} — paste the PRIVATE key file shelter_staging (no .pub), from -----BEGIN to -----END."
             exit 1
           fi
           echo "deploy key OK: $(ssh-keygen -lf ~/.ssh/staging | cut -d' ' -f2) (fingerprint only)"
