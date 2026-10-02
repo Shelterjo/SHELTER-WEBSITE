@@ -15,9 +15,9 @@
 | الحالة | العدد |
 |---|---|
 | `OWNER DECISION REQUIRED` | 20 |
-| `RESOLVED` (حُسم من المحادثة بقاعدة موثقة) | 163 |
+| `RESOLVED` (حُسم من المحادثة بقاعدة موثقة) | 166 |
 | `DOC FIX NEEDED` (وثيقة متأخرة عن قرار لاحق) | 33 |
-| **المجموع** | **216** |
+| **المجموع** | **219** |
 
 > **عمود Refs:** يربط كل تعارض بمجموعة التدقيق التي وجدته (G1…G8)، لأن التعارض الواحد قد يظهر في أكثر من مجال.
 > **معرّفات المنيو القديمة** (CF-01…CF-11 في `menu-ia/MENU-DECISION-REGISTER.md`) و**VQ / OBS** مربوطة في الملاحظات.
@@ -47,7 +47,7 @@
 | `CF-M-147` | Real User Monitoring مقابل قواعد الخصوصية والموافقة | أي Tracking يراعي Privacy Policy · Cookie Policy · Consent (PRIV-008)؛ لا تتبع يحتاج إفصاحًا قبل تحديث صفحات الخصوصية (PRIV-009)؛ قرار الـConsent مفتوح (GOOGLE-022، PO-019)<br>_(M01 §82 · M12 §22–§23)_ | اجمع Privacy-safe Web Vitals من الزوار بلا PII (RUM)<br>_(M32 §11)_ | الجزء التقني محسوم: RUM First-party بلا Cookies ولا معرفات ولا IP مخزن ومجمّع، ويُذكر في سياسة الخصوصية قبل تفعيله على Production (PRIV-009). هل يحتاج موافقة Cookie/Analytics أم يكفي الإفصاح؟ = قرار الـOwner/القانوني (PO-019) | لا تعارض في الهدف، لكن متطلب الموافقة قانوني ولم يُحسم؛ البناء غير متوقف (التفعيل فقط) | OPS-025 · PRIV-008/009 · PO-019 | docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §A22 §A23 | **OWNER DECISION REQUIRED** |
 | `CF-M-209` | 6 أسماء عربية للكيك والكوكيز: المعتمد (D-132) مقابل ملف Menu List الجديد | D-132: الأسماء العربية الـ26 المقترحة معتمدة كما هي — كيكة الجزر · جيرمان شوكليت · ريد فيلفيت كيك · تشيز كيك مانجو · تشيز كيك باشن فروت · كوكيز فستق<br>_(D-132)_ | ملف Menu List: كاروت كيك · جيرمن شوكليت · ريد فلفيت كيك · مانجو تشيز كيك · باشن فروت تشيز كيك · كوكيز فستق حلبي<br>_(OWNER-MENU-LIST-RECEIVED-2026-10-01.xlsx)_ |  | لا يتضح هل الملف قرار تسمية صريح أم قائمة تشغيلية (POS) — M38 §6: عرض A/B والسؤال | الاسم العربي لستة أصناف في المنيو والـSchema | docs/phase-01-discovery/23-menu-list-reconciliation.md | **OWNER DECISION REQUIRED** |
 
-## RESOLVED (163)
+## RESOLVED (166)
 
 | Conflict ID | Topic | Old instruction | New instruction | Which one wins | Why | Impact | Files/code affected | Status |
 |---|---|---|---|---|---|---|---|---|
@@ -214,6 +214,9 @@
 | `CF-M-214` | شكل إقرار «الطلب ليس التزامًا» (PF-02) | تصميم تقني سابق: نص Disclaimer يظهر فوق الموافقة (قيمة Setting معتمدة عبر الـFact Registry) بلا Checkbox خاص<br>_(بناء PHASE 4 (b380ebf) — قرار تقني لا قرار Owner)_ | Checkbox إلزامي منفصل non_binding_acknowledgement، غير محدد مسبقًا، وتُخزن نسخة النص ووقت القبول<br>_(M47 §3)_ | قرار الـOwner (M47) | قرار Owner صريح يعلو على الاقتراح التقني | FRAN-048 · consent_versions scope partnership_ack · application_consents (سطر لكل نص) · حُذف config franchise.disclaimer_keys | app/Services/Franchise/FranchiseForm.php · database/migrations/2026_10_01_000800_create_recruitment_tables.php | **RESOLVED** |
 | `CF-M-215` | حقل «نوع الاهتمام بالشراكة» | نص حر قصير حتى اعتماد الخيارات (PF-06)<br>_(Field Matrix (docs/franchise/03) — مؤقت)_ | 6 خيارات ثابتة + «أخرى» مع وصف مشروط؛ تُخزن القيمة الثابتة لا النص الظاهر<br>_(M47 §4)_ | قرار الـOwner (M47) | حسم البند المؤقت | FRAN-042 · partnership_applications.partnership_interest_type/other | database/migrations/2026_10_01_000900_create_partnership_applications_table.php | **RESOLVED** |
 | `CF-M-216` | مكان تخزين مرادفات البحث المعتمدة | settings (search.aliases)<br>_(docs/platform/GLOBAL-SEARCH.md §3 و§6، docs/platform/CONTENT-SOURCE-OF-TRUTH.md)_ | جدول search_alias (قيمة، لغة، صنف، حالة اعتماد)<br>_(Menu IA §19 (data model v0.5)، CMS-018)_ | جدول search_aliases | قرار تقني: الكلمة مرتبطة بصنف ولها حالة اعتماد وسجل تدقيق وأرشفة؛ الإعداد العام لا يحمل ذلك. ليس قرارًا تجاريًا. | لا أثر على الـOwner؛ وُحّدت الوثيقتان. | d · o · c · s · / · p · l · a · t · f · o · r · m · / · G · L · O · B · A · L · - · S · E · A · R · C · H · . · m · d ·   · · ·   · d · o · c · s · / · p · l · a · t · f · o · r · m · / · C · O · N · T · E · N · T · - · S · O · U · R · C · E · - · O · F · - · T · R · U · T · H · . · m · d | **RESOLVED** |
+| `CF-M-217` | طريقة اعتماد عناوين Google وسطور الربط المحلي | D-068 / PO-020: كل نص يصوغه Claude يُعرض بثلاثة خيارات ويُعتمد قبل الإدخال (ومنه لاحقة العناوين وTitle المنيو P-07)<br>_(D-068، PO-020)_ | M57 §15، §51: نفّذ مباشرة التحسينات الآمنة المبنية على الحقائق المعتمدة: titles, metadata, headings, internal links, branch copy… بلا ادعاءات غير معتمدة<br>_(M57 (2026-10-02))_ | M57 للعناوين وسطور الربط المحلي المبنية فقط من حقائق Master Data وعبارة D-332 المعتمدة؛ D-068/PO-020 يبقى حاكمًا لأي صياغة تسويقية أو ادعاء أو نص جديد. كل ما نُفذ قابل للتعديل من نصوص الموقع ومعروض على الـOwner في التقرير. | قاعدة الأولوية 1: آخر قرار صريح من الـOwner؛ النطاق محصور في الحقائق المعتمدة | lang/{ar,en}/site.php (titles, home.title/lead, branches_title, locations.lead, branch.title)، lang/{ar,en}/menu.php (page_title) | docs/seo/LOCAL-SEO-CHANGELOG.md | **RESOLVED** |
+| `CF-M-218` | طابق فرع HOUSE وساعات الفرعين في المصادر العامة | الموقع القديم (الرئيسية) «اربد ستي سنتر الطابق الثاني»؛ ساعات متعددة على الموقع القديم وSnapchat وfoodyas<br>_(shelterjo.com (قديم) وقوائم خارجية — رُصدت 2026-10-02)_ | D-020 وM57 §1: الطابق الأول، بجانب البنك الإسلامي الأردني؛ الساعات المعتمدة D-020<br>_(D-020، M57 §1)_ | قرار الـOwner (D-020، M57) للموقع الجديد؛ الموقع القديم مصدر معلومات فقط. تصحيح القوائم الخارجية من حسابات الـOwner (PO-041). | قاعدة الأولوية 1–2؛ لا يُغيّر الموقع أي حقيقة بلا مصدر معتمد | القوائم الخارجية وGBP (PO-009، PO-041) | docs/seo/LOCAL-COMPETITOR-MATRIX.md | **RESOLVED** |
+| `CF-M-219` | اسم حدث الاتصال في القياس | GA4-MEASUREMENT-PLAN: phone_click (مع phone_purpose)<br>_(GA4-MEASUREMENT-PLAN، D-149)_ | M57 §47: «events such as … call_click»<br>_(M57 §47)_ | phone_click (الاسم المعتمد في الخطة)؛ M57 يذكر أمثلة («such as») — التسمية قرار تقني (M38) | اسم واحد لكل حدث عبر الوثائق والتقارير | resources/js/ui/track.ts | docs/google/GA4-MEASUREMENT-PLAN.md | **RESOLVED** |
 
 ## DOC FIX NEEDED (33)
 

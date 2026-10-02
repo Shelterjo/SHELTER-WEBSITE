@@ -25,7 +25,7 @@ def write(rel, text):
 # ---------------------------------------------------------------- load
 G = {g: J(f'cons/{g}.json') for g in [f'G{i}' for i in range(1, 9)]}
 G9 = J('cons/G9.json')
-EXTRA = {g: J(f'cons/{g}.json') for g in ['G10', 'G11', 'G12', 'G13', 'G14', 'G15', 'G16', 'G17', 'G18', 'G19', 'G20', 'G21', 'G22', 'G23', 'G24', 'G25', 'G26', 'G27', 'G28', 'G29', 'G30', 'G31', 'G32', 'G33', 'G34', 'G35', 'G36', 'G37', 'G38', 'G39', 'G40', 'G41', 'G42', 'G43'] if os.path.exists(os.path.join(AUD, f'cons/{g}.json'))}
+EXTRA = {g: J(f'cons/{g}.json') for g in ['G10', 'G11', 'G12', 'G13', 'G14', 'G15', 'G16', 'G17', 'G18', 'G19', 'G20', 'G21', 'G22', 'G23', 'G24', 'G25', 'G26', 'G27', 'G28', 'G29', 'G30', 'G31', 'G32', 'G33', 'G34', 'G35', 'G36', 'G37', 'G38', 'G39', 'G40', 'G41', 'G42', 'G43', 'G44'] if os.path.exists(os.path.join(AUD, f'cons/{g}.json'))}
 I = J('out/I-docs-registry.json')
 MSGS = J('msgs-stats.json')  # counts only — the raw Owner messages are not kept in the repo
 RAW = {r['key']: r for f in sorted(glob.glob(os.path.join(AUD, 'out/[A-H]-*.json'))) for r in json.load(open(f))['items']}

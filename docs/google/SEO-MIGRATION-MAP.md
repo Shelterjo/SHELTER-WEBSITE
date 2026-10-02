@@ -18,9 +18,10 @@
 | `/` | #2 "shelter coffee drive" | KEEP / REBUILD | حسب ROOT-01 |
 | `/menu` | 42 رابطًا خارجيًا | REDIRECT 301 (M1 مقترح) | `/ar/jo/menu/` |
 | `/القائمة-شلتر-كافية-محافظة-اربد/` | 6 كلمات | REDIRECT 301 | `/ar/jo/menu/` |
-| `/best-cafes-irbid-2026/` | #4 "كافيهات اربد" (2,400) | ⏳ R7-03 | — |
+| `/best-cafes-irbid-2026/` | #4 "كافيهات اربد" (2,400) | ⏳ R7-03 — M57 §26: لا يُعاد إنشاء مقال «أفضل كافيهات إربد» (ترتيب منافسين)؛ المقترح REDIRECT 301 إلى `/ar/jo/locations/` | — |
 | `/coffee-house-vs-cafe/` | ~27 زيارة/شهر + مصر ولبنان | REBUILD | `/ar/{hub}/{slug}/` |
 | `/city-centre-branch/` | مفهرسة | REDIRECT 301 | `/ar/jo/locations/irbid/house/` (URL-02) |
 | `/drive-thru/` · `/drive-thru-shelter-irbid-how-it-works/` | مفهرسة | REDIRECT 301 | `/ar/jo/locations/irbid/drive/` (URL-02) |
+| `/blog/` | يظهر في نتائج عربية لاستعلامات إربد (M57 — `docs/seo/LOCAL-KEYWORD-RESEARCH.md` §7.1) | ⏳ مقترح: REDIRECT 301 إلى قسم المعرفة عند إنشائه (PO-035)، وإلا إلى `/ar/` | يُقرّ في بوابة PHASE 7 بموافقة الـOwner |
 
 الخريطة الكاملة لكل URL تُبنى هنا بعد الفحص المباشر.

@@ -17,7 +17,7 @@
 |---|---|
 | **التخطيط** | CLOSED (M36) |
 | **المرحلة الحالية** | **PHASE 3 — Owner Dashboard** (IN PROGRESS — M50 / D-327: أبسط Dashboard بلا كود). **D1–D7 جاهزة ومختبرة محليًا** (الصفحات، الصور، الجوائز، الفريق، الطلبات، الفروع والساعات، التواصل، الفعاليات، المنيو والأسعار وكلمات البحث والموسم، الإعلانات والحملات، «يحدث الآن»). PHASE 1 **COMPLETE** · صفحات PHASE 2/4 **TESTED** محليًا · الـStaging ينتظر Cloudways (PO-064) |
-| **اختبارات التطبيق** | **355 PHPUnit** · Vitest 56 · Playwright: مصفوفة الموقع (40 صفحة × 20 مقاسًا + axe + الروابط) + **رحلات حقيقية**: المنيو 40 · الموقع 39 · لوحة التحكم 1 · Larastan المستوى 8 بلا أخطاء · Pint · Semgrep 0 · Gitleaks 0 · composer/npm audit 0 · Lighthouse 0.99–1.0 |
+| **اختبارات التطبيق** | **364 PHPUnit** · Vitest 60 · Playwright: مصفوفة الموقع (40 صفحة × 20 مقاسًا + axe + الروابط) + **رحلات حقيقية**: المنيو 40 · الموقع 39 · لوحة التحكم 1 · Larastan المستوى 8 بلا أخطاء · Pint · Semgrep 0 · Gitleaks 0 · composer/npm audit 0 · Lighthouse 0.99–1.0 |
 | **CI** | `.github/workflows/quality.yml` يعمل على GitHub (سرعة + أمان + بناء) |
 | **Blockers للعمل المحلي** | لا يوجد |
 | **Blockers للـStaging والإطلاق** | - تطبيق Cloudways للـStaging (PO-064).<br>- ملفات الهوية (M-10).<br>- الوصول إلى Google وCloudflare (PO-011…013). |
@@ -106,7 +106,8 @@
 | بناء نظيف من الصفر + كل مجموعات الاختبار + فحوص أمان حية + WCAG 2.2 + 20 مقاسًا + SEO + أداء + حدود الوقت + نافذتان | **TESTED** — 51 بندًا: 39 خللًا وُجد وأُصلح (9 منها P1)، 0 P0، 0 P1 مفتوح ضمن ما بُني | [`FINAL-QA-MATRIX`](FINAL-QA-MATRIX.md) · [`FINAL-QA-REPORT`](FINAL-QA-REPORT.md) |
 | البنية التحتية (Cloudways · Cloudflare · DNS · البريد) | **DEFERRED — INFRASTRUCTURE NOT CONNECTED** | PO-064 · PO-072 · PO-073 |
 | صورة المشاركة (D-330/D-331) · وصف Google لـ9 صفحات + سطر الجذر AR/EN (D-332، المسودات: [`META-DESCRIPTIONS-DRAFT-01`](copy/META-DESCRIPTIONS-DRAFT-01.md)) | **TESTED** | `SecurityAndIndexingTest` · `ApprovedMetaTextsTest` · Lighthouse meta-description = 1 (SEO محليًا 0.61 → 0.69؛ الباقي noindex مقصود خارج الإنتاج) · سطر الجذر على 20 مقاسًا بلا overflow |
-| أسئلة جديدة لك | ~~PO-077~~ ✅ · ~~وصف Google~~ ✅ · PO-078 قاعدة اسم العلامة | [`PENDING-OWNER-INPUT`](PENDING-OWNER-INPUT.md) |
+| SEO محلي لإربد (M57 / D-333): بحث حقيقي AR/EN (86 بحثًا، 17 منافسًا) ← خريطة كلمات/صفحات ← عناوين فريدة بالعلامة وإربد · سطر النوع والمدينة · وصف الموقع (حقل) · Schema مترابط + أيام الاستثناء · Hooks قياس بلا خدمة · شاشة «الظهور في Google» | **TESTED** | [`docs/seo/`](seo/LOCAL-SEO-MAP.md) · `LocalSeoTest` 6 · `SeoHealthTest` 3 · `track.test.ts` 4 · Lighthouse SEO 1.0 (5 صفحات، نسخة إنتاج محلية) · مصفوفة الموقع 598/598 · لوحة التحكم 60 فحصًا على 20 مقاسًا بلا overflow وaxe 0 |
+| أسئلة جديدة لك | ~~PO-077~~ ✅ · ~~وصف Google~~ ✅ · PO-078 قاعدة اسم العلامة · PO-079 بيانات موقع الفرعين وكتابة «إربد» · PO-080 كلمة «كافيه» | [`PENDING-OWNER-INPUT`](PENDING-OWNER-INPUT.md) |
 
 ## المراحل التالية
 | المرحلة | الحالة | ما ينتظر منك |
