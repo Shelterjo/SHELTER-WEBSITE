@@ -28,7 +28,7 @@
 |---|---|
 | [`MASTER-DECISION-REGISTER.md`](MASTER-DECISION-REGISTER.md) | الحالة الحالية لكل قرار (450 قرارًا) |
 | [`governance/DECISION-LOG.md`](governance/DECISION-LOG.md) | السجل الزمني (D-000 ← D-327) |
-| [`CONFLICT-REGISTER.md`](CONFLICT-REGISTER.md) | 215 تعارضًا وطريقة حسمها |
+| [`CONFLICT-REGISTER.md`](CONFLICT-REGISTER.md) | 216 تعارضًا وطريقة حسمها |
 | [`PENDING-OWNER-INPUT.md`](PENDING-OWNER-INPUT.md) | 63 بندًا فقط تحتاجك |
 | [`REQUIREMENTS-TRACEABILITY-MATRIX.md`](REQUIREMENTS-TRACEABILITY-MATRIX.md) | متطلب ← قرار ← تصميم ← كود ← اختبار |
 | [`IMPLEMENTATION-GAP-ANALYSIS.md`](IMPLEMENTATION-GAP-ANALYSIS.md) | ما الموجود وما الناقص |
@@ -73,8 +73,8 @@
 | متطلبات | **1350**: REQUIREMENT 491, RULE 442, DECISION 209, DELIVERABLE 109, GATE 99 |
 | حسب الحالة | APPROVED 900, FROZEN 294, APPROVED WITH CONDITIONS 73, PENDING OWNER INPUT 34, DEFERRED 22, SUPERSEDED 18, PENDING VERIFICATION 9 |
 | حسب الأولوية | P0 691, P1 572, P2 69, P3 18 |
-| حسب التنفيذ | NOT STARTED 844, PARTIAL 224, IMPLEMENTED — NOT TESTED 124, TESTED 104, FROZEN 43, NEEDS FIX 8, IMPLEMENTED — NOT YET VERIFIED 2, CONFLICT 1 |
-| مُختبر | NO 694, N/A 341, YES 184, PROTOTYPE 131 |
+| حسب التنفيذ | NOT STARTED 838, PARTIAL 224, IMPLEMENTED — NOT TESTED 124, TESTED 110, FROZEN 43, NEEDS FIX 8, IMPLEMENTED — NOT YET VERIFIED 2, CONFLICT 1 |
+| مُختبر | NO 689, N/A 340, YES 190, PROTOTYPE 131 |
 
 ## فهرس المجالات
 | # | المجال | متطلبات | P0 | معتمد/مجمّد | معلّق | تنفيذ (منفذ أو مجمّد) |
@@ -85,9 +85,9 @@
 | 04 | [Responsive Design](master-requirements/04-responsive-design.md) | 29 | 7 | 29 | 0 | 1 |
 | 05 | [Navigation](master-requirements/05-navigation.md) | 15 | 1 | 12 | 3 | 1 |
 | 06 | [Homepage](master-requirements/06-homepage.md) | 5 | 1 | 4 | 1 | 0 |
-| 07 | [Menu](master-requirements/07-menu.md) | 62 | 27 | 53 | 6 | 24 |
+| 07 | [Menu](master-requirements/07-menu.md) | 62 | 27 | 53 | 6 | 25 |
 | 08 | [Products](master-requirements/08-products.md) | 36 | 19 | 34 | 1 | 19 |
-| 09 | [Search](master-requirements/09-search.md) | 9 | 1 | 9 | 0 | 0 |
+| 09 | [Search](master-requirements/09-search.md) | 9 | 1 | 9 | 0 | 2 |
 | 10 | [Branches & Locations](master-requirements/10-branches-locations.md) | 31 | 13 | 26 | 4 | 1 |
 | 11 | [Hours](master-requirements/11-hours.md) | 13 | 6 | 13 | 0 | 5 |
 | 12 | [Campaigns & Events](master-requirements/12-campaigns-events.md) | 7 | 4 | 7 | 0 | 0 |
@@ -95,7 +95,7 @@
 | 14 | [Contact](master-requirements/14-contact.md) | 30 | 11 | 25 | 4 | 2 |
 | 15 | [Blog / Coffee Knowledge](master-requirements/15-blog-coffee-knowledge.md) | 6 | 2 | 6 | 0 | 0 |
 | 16 | [Franchise](master-requirements/16-franchise.md) | 108 | 50 | 105 | 1 | 28 |
-| 17 | [CMS](master-requirements/17-cms.md) | 35 | 25 | 34 | 1 | 6 |
+| 17 | [CMS](master-requirements/17-cms.md) | 35 | 25 | 34 | 1 | 8 |
 | 18 | [Owner Dashboard](master-requirements/18-owner-dashboard.md) | 35 | 22 | 33 | 0 | 1 |
 | 19 | [Analytics](master-requirements/19-analytics.md) | 45 | 15 | 43 | 2 | 3 |
 | 20 | [GA4 / GTM](master-requirements/20-ga4-gtm.md) | 23 | 2 | 18 | 3 | 3 |
@@ -122,7 +122,7 @@
 | 41 | [Tooling](master-requirements/41-tooling.md) | 47 | 19 | 40 | 1 | 11 |
 | 42 | [Privacy & Legal](master-requirements/42-privacy-legal.md) | 14 | 9 | 14 | 0 | 2 |
 | 43 | [UX Principles](master-requirements/43-ux-principles.md) | 6 | 1 | 6 | 0 | 0 |
-| 44 | [Careers & Recruitment](master-requirements/44-careers-recruitment.md) | 99 | 60 | 98 | 1 | 27 |
+| 44 | [Careers & Recruitment](master-requirements/44-careers-recruitment.md) | 99 | 60 | 98 | 1 | 28 |
 | 45 | [Dynamic Experience Engine](master-requirements/45-dynamic-experience-engine.md) | 38 | 14 | 38 | 0 | 12 |
 | 46 | [Platform Quality & Operations](master-requirements/46-platform-quality-operations.md) | 56 | 39 | 56 | 0 | 3 |
 | 47 | [Master Data & Channel Sync](master-requirements/47-master-data-channel-sync.md) | 36 | 34 | 36 | 0 | 5 |
@@ -327,7 +327,7 @@
 | `MENU-041` | SPRING: الأصناف الخمسة متاحة حاليًا — مع بقاء Seasonal Metadata | APPROVED | P1 | FROZEN |
 | `MENU-042` | تواريخ موسم SPRING = MISSING (لا تمنع العرض) | PENDING OWNER INPUT | P2 | NOT STARTED |
 | `MENU-043` | SPRING قسم موسمي مستقل عمودي مضغوط أعلى المنيو (لا Carousel) | FROZEN | P1 | NOT STARTED |
-| `MENU-044` | عند انتهاء الموسم يختفي القسم ولا تُحذف البيانات | APPROVED | P1 | NOT STARTED |
+| `MENU-044` | عند انتهاء الموسم يختفي القسم ولا تُحذف البيانات | APPROVED | P1 | TESTED |
 | `MENU-045` | الأقسام الفرعية: داخل HOT وCOLD وFIZZY فقط وعند تحسين سرعة الوصول | FROZEN | P1 | NOT STARTED |
 | `MENU-046` | مقترح الأقسام الفرعية وجدول التوزيع (Phase C) | PENDING OWNER INPUT | P1 | IMPLEMENTED — NOT TESTED |
 | `MENU-047` | MENU INVENTORY v1.0 = APPROVED BASELINE (تجميد المعرّفات والـLineage) | FROZEN | P0 | FROZEN |
@@ -343,7 +343,7 @@
 | `MENU-057` | لا Favorites ولا Heart Icons في V1 | FROZEN | P2 | NOT STARTED |
 | `MENU-058` | لا زر مشاركة للصنف في V1 (#p-{slug} للـHistory فقط) | FROZEN | P2 | NOT STARTED |
 | `MENU-059` | أي Intelligent Recommendation System لاحقًا وليس في V1 | DEFERRED | P3 | NOT STARTED |
-| `MENU-060` | Menu Editor في الـDashboard | APPROVED | P0 | NOT STARTED |
+| `MENU-060` | Menu Editor في الـDashboard | APPROVED | P0 | PARTIAL |
 | `MENU-061` | إدارة التوفر لكل صنف في DRIVE وHOUSE من الـMenu Editor | APPROVED | P0 | NOT STARTED |
 | `MENU-062` | Bulk Actions للمنيو | APPROVED | P1 | NOT STARTED |
 
@@ -397,8 +397,8 @@
 | `SRCH-003` | اقتراحات سريعة + فلترة مباشرة للشبكة أثناء الكتابة | FROZEN | P1 | NOT STARTED |
 | `SRCH-004` | Jump to Product: الانتقال للصنف وإبرازه بلطف بدون Reload | FROZEN | P1 | NOT STARTED |
 | `SRCH-005` | البحث بالعربي والإنجليزي بغض النظر عن لغة الصفحة | FROZEN | P0 | NOT STARTED |
-| `SRCH-006` | مطابقة البحث: حالة الأحرف · تطبيع العربية · الأخطاء الشائعة · Aliases معتمدة | APPROVED | P1 | NOT STARTED |
-| `SRCH-007` | لا synonyms مخترعة أو غير موثوقة | FROZEN | P1 | NOT STARTED |
+| `SRCH-006` | مطابقة البحث: حالة الأحرف · تطبيع العربية · الأخطاء الشائعة · Aliases معتمدة | APPROVED | P1 | TESTED |
+| `SRCH-007` | لا synonyms مخترعة أو غير موثوقة | FROZEN | P1 | TESTED |
 | `SRCH-008` | بحث بلا نتائج: رسالة + مسح البحث (+ أقرب فئة إن كان منطقيًا) | APPROVED | P1 | NOT STARTED |
 | `SRCH-009` | Sticky Search: حقل كامل في البداية ثم أيقونة مضغوطة داخل شريط الفئات | FROZEN | P1 | NOT STARTED |
 
@@ -648,7 +648,7 @@
 | `CMS-006` | Workflow لكل المحتوى: DRAFT · IN REVIEW · SCHEDULED · PUBLISHED · ARCHIVED | APPROVED | P0 | PARTIAL |
 | `CMS-007` | لا يصل أي تعديل للعميل قبل Publish — لا تعديل مباشر على Production | APPROVED | P0 | NOT STARTED |
 | `CMS-008` | Preview قبل Publish: Desktop · Mobile (+ Arabic · English إذا أمكن) | APPROVED | P0 | NOT STARTED |
-| `CMS-009` | Scheduling والنشر الموسمي: تفعيل/انتهاء تلقائي · تجاوز يدوي · Audit trail | FROZEN | P1 | NOT STARTED |
+| `CMS-009` | Scheduling والنشر الموسمي: تفعيل/انتهاء تلقائي · تجاوز يدوي · Audit trail | FROZEN | P1 | TESTED |
 | `CMS-010` | Page Editor بسيط مبني على Sections/Blocks (ليس Page Builder مثل Elementor) | APPROVED | P0 | TESTED |
 | `CMS-011` | Design Lock: الـCMS لا يسمح بكسر الـDesign System | APPROVED | P0 | PARTIAL |
 | `CMS-012` | Global Components تُدار من مكان واحد | APPROVED | P1 | NOT STARTED |
@@ -657,7 +657,7 @@
 | `CMS-015` | التوفر لكل Product × Branch: Available · Unavailable + Show · Unavailable + Hide | FROZEN | P0 | NOT STARTED |
 | `CMS-016` | ترتيب المنتجات بـsort_order يدوي من الـCMS — ممنوع Random Algorithm | FROZEN | P1 | NOT STARTED |
 | `CMS-017` | FEATURED = خاصية CMS داخلية — لا Badge 'Featured' للعميل | FROZEN | P1 | TESTED |
-| `CMS-018` | Search Alias Dictionary قابل للإدارة من الـCMS | FROZEN | P1 | NOT STARTED |
+| `CMS-018` | Search Alias Dictionary قابل للإدارة من الـCMS | FROZEN | P1 | TESTED |
 | `CMS-019` | حالة المحتوى في الـDashboard: صفحات تحتاج تحديث + Drafts تنتظر النشر | APPROVED | P1 | TESTED |
 | `CMS-020` | لا تعديل يدوي لقاعدة البيانات: كل Business Content اليومي له UI | APPROVED | P0 | NOT STARTED |
 | `CMS-021` | CMS Data Model والتخزين (CMS-DATA-MODEL.md) — Supabase مشروط بقرار DB-08 | APPROVED WITH CONDITIONS | P1 | PARTIAL |
@@ -1433,7 +1433,7 @@
 | `CAREERS-058` | Global Quick Search حي أثناء الكتابة (مع Debounce) | FROZEN | P1 | TESTED |
 | `CAREERS-059` | Advanced Filters (10 على الأقل) مع دمج عدة Filters | FROZEN | P1 | TESTED |
 | `CAREERS-060` | Saved Filters بأسماء يحددها الـOwner | FROZEN | P1 | TESTED |
-| `CAREERS-061` | تخصيص الأعمدة: Show/Hide · Drag & Drop · Reset — مع حفظ التفضيل | FROZEN | P1 | PARTIAL |
+| `CAREERS-061` | تخصيص الأعمدة: Show/Hide · Drag & Drop · Reset — مع حفظ التفضيل | FROZEN | P1 | TESTED |
 | `CAREERS-062` | كثافة الجدول Comfortable/Compact + عرض مناسب للهاتف | FROZEN | P1 | TESTED |
 | `CAREERS-063` | عدد الصفوف: 25 / 50 / 100 — الافتراضي على Desktop = 50 مع تذكر آخر اختيار | FROZEN | P1 | TESTED |
 | `CAREERS-064` | Traditional Pagination — لا Infinite Scroll لقائمة الإدارة | FROZEN | P1 | TESTED |

@@ -1,0 +1,238 @@
+{
+ "group": "G37",
+ "notes": "M50 / D-327: Dashboard D6 — قاموس كلمات البحث، الموسم، صنف جديد والنقل بين الأقسام، فهرس بحث يتحدث وحده؛ وترتيب أعمدة التوظيف بالسحب (CAREERS-061).",
+ "requirements": [],
+ "updates_to_existing": [
+  {
+   "id": "CMS-018",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D6 (M50)",
+   "change": "قاموس كلمات البحث من الـDashboard: لكل صنف كلمات أخرى بالعربي أو الإنجليزي (جدول search_aliases: القيمة، اللغة، الصنف، الحالة). يضيفها الـOwner فقط (= اعتماد)، وتُؤرشف ولا تُحذف، وكل إضافة/إزالة في سجل التدقيق. تعمل فورًا في بحث المنيو وبحث الموقع. صفحة «كلمات البحث»: تجربة البحث كما يكتبه الزبون، وكل الكلمات حسب الصنف، وكلمات بلا نتائج عند تفعيل العدّ (PO-019).",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Services/Dashboard/MenuManager.php",
+    "app/Services/Menu/MenuEditor.php",
+    "app/Http/Controllers/Dashboard/Data/MenuController.php",
+    "app/Models/SearchAlias.php",
+    "resources/views/dashboard/menu/words.blade.php",
+    "resources/views/dashboard/menu/show.blade.php",
+    "app/Services/Menu/Page/MenuPage.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/MenuSearchSeasonTest.php"
+   ]
+  },
+  {
+   "id": "SRCH-006",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D6 (M50)",
+   "change": "+ الكلمات المعتمدة (Aliases) من القاموس تدخل في نفس المطابقة والتطبيع (أ=ا، ة=ه، الأرقام…) في بحث المنيو وبحث الموقع — محرك واحد.",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Services/Menu/Page/MenuPage.php",
+    "app/Services/Content/Search/SearchIndexer.php",
+    "app/Services/Content/Search/Normalizer.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/MenuSearchSeasonTest.php"
+   ]
+  },
+  {
+   "id": "SRCH-007",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D6 (M50)",
+   "change": "لا مرادف إلا ما أضافه الـOwner بنفسه لصنف محدد؛ لا شيء يُضاف تلقائيًا. اسم الصنف في ملف المنيو يُعرض كاقتراح بزر لكل صنف على حدة، وPO-042 (إضافتها كلها) يبقى مفتوحًا.",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Services/Dashboard/MenuManager.php",
+    "app/Services/Menu/MenuEditor.php",
+    "app/Http/Controllers/Dashboard/Data/MenuController.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/MenuSearchSeasonTest.php"
+   ]
+  },
+  {
+   "id": "CMS-009",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D6 (M50)",
+   "change": "الموسم: حسب التواريخ (يظهر من أول يوم ويختفي وحده بعد آخر يوم، بتوقيت السوق) · ظاهر الآن · مخفي الآن (تجاوز يدوي، والتواريخ تُحفظ في كل الحالات) · نسخة وسجل تدقيق لكل حفظ. قاعدة واحدة (MenuSeason) للمنيو والبحث والـDashboard و«يحدث الآن». صنف جديد بسعر يبدأ بتاريخ قادم لا يظهر قبل ذلك اليوم. تواريخ SPRING لم تُملأ (MENU-042).",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Services/Menu/MenuSeason.php",
+    "resources/views/dashboard/menu/season.blade.php",
+    "app/Services/Dashboard/MenuManager.php",
+    "app/Services/Menu/MenuEditor.php",
+    "app/Http/Controllers/Dashboard/Data/MenuController.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/MenuSearchSeasonTest.php"
+   ]
+  },
+  {
+   "id": "MENU-044",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D6 (M50)",
+   "change": "عند انتهاء الموسم بتواريخه أو إخفائه يختفي القسم من المنيو والبحث، والأصناف لا تُحذف (اختبار يمر بالتاريخ).",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Services/Menu/MenuSeason.php",
+    "app/Services/Menu/Page/MenuPage.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/MenuSearchSeasonTest.php"
+   ]
+  },
+  {
+   "id": "MENU-060",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D6 (M50)",
+   "change": "مبني: إضافة صنف (يبدأ من PRD-00193 ولا يعيد رقمًا متقاعدًا) · تعديل · إخفاء (أرشفة لا حذف) · السعر · الاسمان · نقل لقسم آخر · الصورة المعتمدة · جديد · موسمي (النقل لقسم الموسم) · التوفر لكل فرع · الترتيب. المتبقي: القسم الفرعي (غير مستخدم في عرض المنيو الحالي).",
+   "new_impl": "PARTIAL",
+   "tested": "YES",
+   "code_refs": [
+    "app/Services/Dashboard/MenuManager.php",
+    "app/Services/Menu/MenuEditor.php",
+    "app/Http/Controllers/Dashboard/Data/MenuController.php",
+    "resources/views/dashboard/menu/create.blade.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/MenuSearchSeasonTest.php"
+   ]
+  },
+  {
+   "id": "CMS-022",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D6 (M50)",
+   "change": "+ كلمات البحث لكل صنف، إضافة صنف جديد، النقل بين الأقسام، إدارة الموسم. المتبقي: الإجراءات الجماعية (MENU-062)، القسم الفرعي، حالات النشر المجدولة لغير الموسم.",
+   "new_impl": "PARTIAL",
+   "tested": "YES",
+   "code_refs": [
+    "app/Services/Dashboard/MenuManager.php",
+    "app/Services/Menu/MenuEditor.php",
+    "app/Http/Controllers/Dashboard/Data/MenuController.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/MenuSearchSeasonTest.php"
+   ]
+  },
+  {
+   "id": "CAREERS-061",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D6 (M50)",
+   "change": "+ السحب والإفلات بالماوس لترتيب الأعمدة الظاهرة، ويُحفظ فورًا؛ زرّا أعلى/أسفل باقيان للوحة المفاتيح واللمس؛ Reset يعيد الافتراضي.",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "resources/js/dashboard/careers-list.ts",
+    "app/Services/Requests/CareersView.php",
+    "resources/views/dashboard/requests/careers/index.blade.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/CareersListToolsTest.php",
+    "resources/js/dashboard/careers-list.test.ts"
+   ]
+  }
+ ],
+ "conflicts": [
+  {
+   "topic": "مكان تخزين مرادفات البحث المعتمدة",
+   "old_instruction": "settings (search.aliases)",
+   "old_source": "docs/platform/GLOBAL-SEARCH.md §3 و§6، docs/platform/CONTENT-SOURCE-OF-TRUTH.md",
+   "new_instruction": "جدول search_alias (قيمة، لغة، صنف، حالة اعتماد)",
+   "new_source": "Menu IA §19 (data model v0.5)، CMS-018",
+   "winner": "جدول search_aliases",
+   "why": "قرار تقني: الكلمة مرتبطة بصنف ولها حالة اعتماد وسجل تدقيق وأرشفة؛ الإعداد العام لا يحمل ذلك. ليس قرارًا تجاريًا.",
+   "impact": "لا أثر على الـOwner؛ وُحّدت الوثيقتان.",
+   "files": "docs/platform/GLOBAL-SEARCH.md · docs/platform/CONTENT-SOURCE-OF-TRUTH.md",
+   "status": "RESOLVED"
+  }
+ ],
+ "new_decisions": [],
+ "pending_owner": [],
+ "technical_flags": [
+  {
+   "id": "G37-TF-01",
+   "topic": "تخزين كلمات البحث",
+   "detail": "جدول search_aliases مرتبط بالصنف (لا settings.search.aliases): كل كلمة لها صنف ولغة وحالة وسجل تدقيق، وتُؤرشف ولا تُحذف. وُحّدت الوثائق (GLOBAL-SEARCH، CONTENT-SOURCE-OF-TRUTH).",
+   "recommendation": "قرار تقني منفذ ومختبر",
+   "needs_owner": false,
+   "refs": [
+    "CMS-018",
+    "SRCH-007"
+   ]
+  },
+  {
+   "id": "G37-TF-02",
+   "topic": "قواعد الكلمة",
+   "detail": "2–40 حرفًا؛ اللغة تُقرأ من الكلمة نفسها؛ تُطبّع بنفس قواعد البحث؛ لا تكون اسم الصنف نفسه ولا مكررة؛ حتى 20 كلمة للصنف؛ نفس الكلمة مسموحة لعدة أصناف مع تنبيه بأسمائها.",
+   "recommendation": "قرار تقني منفذ ومختبر",
+   "needs_owner": false,
+   "refs": [
+    "CMS-018"
+   ]
+  },
+  {
+   "id": "G37-TF-03",
+   "topic": "اقتراح اسم ملف المنيو",
+   "detail": "اسم الصنف العربي في ملف المنيو يظهر كاقتراح بزر في صفحة الصنف فقط، ولا يُضاف شيء بلا ضغطة الـOwner لهذا الصنف؛ قرار PO-042 العام يبقى مفتوحًا.",
+   "recommendation": "قرار تقني منفذ ومختبر",
+   "needs_owner": false,
+   "refs": [
+    "SRCH-007",
+    "PO-042"
+   ]
+  },
+  {
+   "id": "G37-TF-04",
+   "topic": "تحديث فهرس البحث",
+   "detail": "أي حفظ لصنف أو قسم أو كلمة أو فعالية أو فرع يعلّم الفهرس كمتغير، والفهرس ينتهي عند بداية/نهاية الموسم أو فعالية؛ أول بحث بعدها يعيد بناءه تحت قفل (طلب واحد في كل مرة). لا حاجة لمهمة ليلية لصحة النتائج.",
+   "recommendation": "قرار تقني منفذ ومختبر",
+   "needs_owner": false,
+   "refs": [
+    "SRCH-006",
+    "CMS-009"
+   ]
+  },
+  {
+   "id": "G37-TF-05",
+   "topic": "أوضاع الموسم",
+   "detail": "ثلاثة: حسب التواريخ (يلزم اليومان) · ظاهر الآن · مخفي الآن (season_override). موسم منشور بلا تواريخ ولا اختيار = ظاهر (الوضع الحالي F-17). التواريخ أيام بتوقيت السوق وتُحفظ في كل الأوضاع.",
+   "recommendation": "قرار تقني منفذ ومختبر",
+   "needs_owner": false,
+   "refs": [
+    "CMS-009",
+    "MENU-044",
+    "F-17"
+   ]
+  },
+  {
+   "id": "G37-TF-06",
+   "topic": "الصنف الجديد",
+   "detail": "الرقم التالي بعد أعلى رقم PRD (لا يقل عن PRD-00193، ولا يُعاد رقم متقاعد)؛ الاسم الإنجليزي مطلوب، والعربي اختياري ويظهر كما كتبه الـOwner (كتابته = اعتماده)؛ السعر الأول بتاريخ بدء؛ لا يُكتب شيء في ملف المنيو المصدري؛ صنف بنفس الاسم في نفس القسم مرفوض (ضغطة مكررة).",
+   "recommendation": "قرار تقني منفذ ومختبر",
+   "needs_owner": false,
+   "refs": [
+    "MENU-060",
+    "D-136"
+   ]
+  },
+  {
+   "id": "G37-TF-07",
+   "topic": "السحب والإفلات",
+   "detail": "بالماوس فقط (HTML drag and drop)، مع بقاء أعلى/أسفل كبديل للوحة المفاتيح واللمس؛ الإفلات يرسل النموذج فورًا مثل الزرين.",
+   "recommendation": "قرار تقني منفذ ومختبر",
+   "needs_owner": false,
+   "refs": [
+    "CAREERS-061"
+   ]
+  }
+ ],
+ "cost_api_dependencies": [],
+ "dropped": []
+}
