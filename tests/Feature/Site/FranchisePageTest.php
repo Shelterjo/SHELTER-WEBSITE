@@ -232,6 +232,7 @@ class FranchisePageTest extends TestCase
             $this->assertStringContainsString($text, $done);
         }
         $this->assertStringContainsString('<meta name="robots" content="noindex', $done);
+        $this->assertStringContainsString('<title>Thank You for Your Interest in Partnering With SHELTER COFFEE</title>', $done, 'the brand once (copy audit F28)');
         $this->get('/en/franchise/submitted/')->assertRedirect('http://localhost/en/franchise/');
     }
 
