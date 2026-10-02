@@ -7,6 +7,7 @@
 #   public_html/current -> releases/<id>  the live release; the Cloudways web root is public_html/current/public
 #   private_html/shelter/.env             the environment's own secrets (written once by the pipeline, never in Git)
 #   private_html/shelter/storage/         uploads, sessions, logs, cache — shared by every release
+#   private_html/shelter/media-public/    approved image variants served at /media/ (public/media of every release)
 #
 # Steps (the pipeline checks the web root between `stage` and `activate`, so no secret is ever linked into a
 # folder the web server would hand out as a file):
@@ -72,7 +73,10 @@ case "$cmd" in
         rm -rf storage
         ln -s "$SHARED/storage" storage
         ln -sfn "$SHARED/.env" .env
-        mkdir -p bootstrap/cache
+        mkdir -p bootstrap/cache "$SHARED/media-public"
+        # Approved image variants are made on the server (MediaLibrary): one shared folder, so a release keeps them.
+        rm -rf public/media
+        ln -s "$SHARED/media-public" public/media
 
         php artisan migrate --force --no-interaction
         if [ ! -f "$SHARED/.seeded" ]; then

@@ -201,6 +201,15 @@ jobs:
             code="$(curl -s -o /dev/null -w '%{http_code}' --max-time 30 -u "$AUTH_USER:$AUTH_PASS" "$URL/$path")"
             echo "/$path → $code"; [ "$code" = "200" ] || fail=1
           done
-          curl -s --max-time 30 -u "$AUTH_USER:$AUTH_PASS" "$URL/ar/" | grep -q 'name="robots" content="noindex' \
+          page="$(curl -s --max-time 30 -u "$AUTH_USER:$AUTH_PASS" "$URL/ar/")"
+          grep -q 'name="robots" content="noindex' <<< "$page" \
             && echo "noindex present" || { echo "::error::staging page is not noindex"; fail=1; }
+          # The built assets and the brand files must be readable by the web server too (not only by PHP).
+          assets="$(grep -oE '/build/assets/[A-Za-z0-9._-]+\.(css|js)' <<< "$page" | sort -u | head -n 3 || true)
+          $(grep -oE '/brand/[A-Za-z0-9._/-]+\.(svg|webp|png)' <<< "$page" | sort -u | head -n 2 || true)"
+          [ -n "$(tr -d '[:space:]' <<< "$assets")" ] || { echo "::error::no built assets linked from /ar/"; fail=1; }
+          for asset in $assets; do
+            code="$(curl -s -o /dev/null -w '%{http_code}' --max-time 30 -u "$AUTH_USER:$AUTH_PASS" "$URL$asset")"
+            echo "$asset → $code"; [ "$code" = "200" ] || fail=1
+          done
           exit $fail
