@@ -21,9 +21,15 @@ composer install --no-dev --no-interaction --no-progress --prefer-dist --optimiz
 npm ci --no-audit --no-fund
 npm run build
 
-# Runtime only: no tests, tooling, docs, sources of the build or Node modules on the server.
+# Runtime only: no tests, tooling, docs, sources of the build or Node modules on the server — except the menu files the
+# seeder reads on the first release (named in database/seeders/data/menu.php, so the list cannot drift).
+keep="$(mktemp -d)"
+for file in $(php -r '$m = require "database/seeders/data/menu.php"; echo $m["inventory_csv"], "\n", $m["subcategory_csv"], "\n";'); do
+    mkdir -p "$keep/$(dirname "$file")" && cp "$file" "$keep/$file"
+done
 rm -rf node_modules tests tooling docs .github .githooks .storybook storybook-static design-system/stories \
     scripts/registers reports public/hot
+cp -R "$keep/docs" docs && rm -rf "$keep"
 find . -maxdepth 1 -type f \( -name '*.md' -o -name 'phpunit.xml' -o -name 'phpstan*.neon*' -o -name 'pint.json' \
     -o -name '.semgrepignore' -o -name '.gitleaks*' -o -name 'vitest.config.*' -o -name 'eslint.config.*' \) -delete
 
