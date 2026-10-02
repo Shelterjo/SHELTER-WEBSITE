@@ -96,6 +96,7 @@
 | **FAST** | `composer lint` (Pint --test) · `composer analyse` (Larastan) · `composer test` (PHPUnit) · `npm run lint` · `npm run typecheck` · `npm run test:unit` | محليًا قبل كل Commit، وفي CI عند كل دفع |
 | **CI** | البناء + ميزانية الحزمة · Playwright (Chromium) + axe · فحص الـHeaders · `seo:audit` · Gitleaks · Semgrep · composer/npm audit · بناء Storybook + a11y | كل دفع |
 | **FULL** | Firefox + WebKit · Visual regression · Lighthouse CI · Trivy · Knip | يدويًا (`workflow_dispatch`) + قبل كل إصدار |
+| **APP QA (محلي/Staging)** | `cd tooling && SHELTER_BASE_URL=http://127.0.0.1:8000 npx playwright test tests/app` — كل صفحة عامة AR/EN × 20 عرضًا: الحالة، lang/dir، H1 واحد، بلا تمدد، بلا أخطاء JS · axe على 390 و1440 · الروابط والأصول. للبحث محليًا: `SHELTER_SEARCH_PER_MINUTE` أعلى في `.env` المحلي فقط · `SHELTER_BASE_URL=… node scripts/lighthouse.mjs /ar/ /ar/jo/menu/` | قبل كل إصدار وبعد إنشاء Staging |
 | **STAGING** | ZAP baseline (passive) · فحص ZAP نشط **بموافقة** · الزحف الكامل · `e2e-seo-assistant` | بعد إنشاء Staging |
 
 **بوابات الإصدار الحرجة (تمنع الإصدار):**

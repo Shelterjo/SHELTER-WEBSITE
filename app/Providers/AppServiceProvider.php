@@ -53,8 +53,8 @@ class AppServiceProvider extends ServiceProvider
         View::composer('layouts.dashboard', DashboardChrome::class);
         View::composer(['errors.404', 'errors::404'], ErrorPageLocale::class);
 
-        // Public search (SEC-007): 30 searches a minute per address — counted on a keyed hash, the address is not kept.
-        RateLimiter::for('search', fn (Request $request): Limit => Limit::perMinute(30)->by(FormGuard::clientKey($request)));
+        // Public search (SEC-007): 30 searches a minute per address (config shelter.search_per_minute — raised only for local QA runs) — counted on a keyed hash, the address is not kept.
+        RateLimiter::for('search', fn (Request $request): Limit => Limit::perMinute((int) config('shelter.search_per_minute', 30))->by(FormGuard::clientKey($request)));
 
         // A saved change to anything the search shows marks the derived index as changed (rebuilt on the next search).
         $changed = function (): void {

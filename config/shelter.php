@@ -16,6 +16,9 @@ return [
     // Only production with SHELTER_INDEXING=true may be indexed (ENVIRONMENTS.md). Everything else is noindex.
     'indexing' => $bool('SHELTER_INDEXING', false),
 
+    // Public search rate limit per address and minute (SEC-007). 30 everywhere; a local QA run may raise it in its own .env.
+    'search_per_minute' => (int) env('SHELTER_SEARCH_PER_MINUTE', 30),
+
     // Release channel for build/brand guards: local | staging | production.
     'release' => $str('SHELTER_RELEASE', 'local'),
 

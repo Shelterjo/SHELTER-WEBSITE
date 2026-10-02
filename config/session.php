@@ -169,7 +169,8 @@ return [
     |
     */
 
-    'secure' => env('SESSION_SECURE_COOKIE'),
+    // HTTPS-only session cookie: on by default on staging and production (both served over HTTPS behind Cloudflare).
+    'secure' => env('SESSION_SECURE_COOKIE', in_array(env('APP_ENV'), ['production', 'staging'], true)),
 
     /*
     |--------------------------------------------------------------------------

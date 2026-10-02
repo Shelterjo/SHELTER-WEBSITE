@@ -9,7 +9,7 @@
 
 .ui-error__code {
     margin: 0;
-    color: var(--color-border);
+    color: var(--color-muted); /* large text: readable contrast (axe color-contrast, WCAG 1.4.3) */
     font-family: var(--font-en);
     font-size: var(--text-display);
     font-weight: var(--weight-bold);
