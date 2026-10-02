@@ -155,6 +155,8 @@ return [
         '404_text' => 'The link may have changed or the page was removed. Here are some good places to start:',
         '500_title' => 'Something went wrong',
         '500_text' => 'We couldn’t show this page right now. Please try again in a moment.',
+        '503_title' => 'We are improving the site',
+        '503_text' => 'We will be back shortly. Thank you for your patience.',
         'retry' => 'Try again',
         'links' => 'Useful links',
     ],

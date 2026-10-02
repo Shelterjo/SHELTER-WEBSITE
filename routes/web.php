@@ -6,6 +6,7 @@ use App\Http\Controllers\Site\ContentPageController;
 use App\Http\Controllers\Site\EventsController;
 use App\Http\Controllers\Site\GatewayController;
 use App\Http\Controllers\Site\HomeController;
+use App\Http\Controllers\Site\LlmsController;
 use App\Http\Controllers\Site\LocationsController;
 use App\Http\Controllers\Site\MenuController;
 use App\Http\Controllers\Site\RobotsController;
@@ -23,6 +24,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/robots.txt', RobotsController::class)->name('robots');
 Route::get('/sitemap.xml', SitemapController::class)->name('sitemap');
+Route::get('/llms.txt', LlmsController::class)->name('llms');
 Route::get('/', GatewayController::class)->name('gateway');
 
 Route::prefix('{locale}')->where(['locale' => 'ar|en'])->middleware('locale')->group(function (): void {
