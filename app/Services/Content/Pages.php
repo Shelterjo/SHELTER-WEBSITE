@@ -7,12 +7,15 @@ use App\Models\Page;
 use App\Models\PageSection;
 use App\Support\SiteLinks;
 use Carbon\CarbonImmutable;
+use Illuminate\Support\Facades\Log;
 
 /**
  * The one public read path for brand content pages (CONTENT-SOURCE-OF-TRUTH). A page is public only when it is
  * published (and its publish time has come), not archived, has both languages for its title and every visible
  * section (G-02/G-03, LANGUAGE-PARITY), uses approved section types only, and carries no unconfirmed AI text (G-20).
- * Otherwise it does not exist for visitors (404, no link) — never an empty shell or invented text.
+ * A page that contains a phrase blocked for it (config content.blocked_phrases — e.g. guaranteed profit on the franchise
+ * page, D-323) is kept offline too. Otherwise it does not exist for visitors (404, no link) — never an empty shell or
+ * invented text.
  */
 final class Pages
 {
@@ -51,7 +54,7 @@ final class Pages
             $page = $this->published($key, $locale);
             $href = $page !== null ? SiteLinks::to($key, ['locale' => $locale]) : null;
             if ($page !== null && $href !== null) {
-                $links[] = ['label' => $page->title, 'href' => $href, 'key' => $key];
+                $links[] = ['label' => $page->name, 'href' => $href, 'key' => $key];
             }
         }
 
@@ -111,7 +114,7 @@ final class Pages
 
     private function build(Page $page, string $locale, CarbonImmutable $now): ?ContentPage
     {
-        if (! $this->isLive($page, $now) || blank($page->title_ar) || blank($page->title_en)) {
+        if (! $this->isLive($page, $now) || blank($page->title_ar) || blank($page->title_en) || $this->isBlocked($page)) {
             return null;
         }
 
@@ -128,15 +131,41 @@ final class Pages
         }
 
         $description = $locale === 'ar' ? $page->description_ar : $page->description_en;
+        $titleLines = self::items((string) ($locale === 'ar' ? $page->title_ar : $page->title_en));
+        $title = implode(' ', $titleLines);
+        $name = $locale === 'ar' ? $page->name_ar : $page->name_en;
 
         return new ContentPage(
             $page->key,
             $page->type,
-            (string) ($locale === 'ar' ? $page->title_ar : $page->title_en),
+            $title,
+            $titleLines,
+            filled($name) ? trim((string) $name) : $title,
             filled($description) ? (string) $description : null,
             $sections,
             $page->content_updated_at ?? $page->published_at,
         );
+    }
+
+    /** Both languages are checked: one blocked phrase in either keeps the whole page offline. */
+    private function isBlocked(Page $page): bool
+    {
+        /** @var list<string> $phrases */
+        $phrases = config('content.blocked_phrases.'.$page->key, []);
+        if ($phrases === []) {
+            return false;
+        }
+        $text = implode("\n", [$page->title_ar, $page->title_en, $page->name_ar, $page->name_en, $page->description_ar, $page->description_en,
+            ...$page->sections->flatMap(fn (PageSection $s): array => [$s->heading_ar, $s->heading_en, $s->body_ar, $s->body_en])->all()]);
+        foreach ($phrases as $phrase) {
+            if (mb_stripos($text, $phrase) !== false) {
+                Log::warning('content.blocked_phrase', ['page' => $page->key]);
+
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private function isLive(Page $page, CarbonImmutable $now): bool

@@ -34,6 +34,21 @@
     gap: var(--space-12);
 }
 
+.ui-franchise__title-line {
+    display: block;
+}
+
+.ui-franchise__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+}
+
+/* Stacked on a phone, the two CTAs share one width. */
+.ui-franchise__actions > * {
+    flex: 1 1 auto;
+}
+
 .ui-franchise__body {
     display: grid;
     gap: var(--space-12);
@@ -82,12 +97,72 @@
     color: var(--color-success);
 }
 
+/* The current SHELTER experiences (DRIVE, HOUSE): two quiet cards, side by side from 600px. */
+.ui-franchise__cards {
+    display: grid;
+    gap: var(--space-4);
+}
+
+.ui-franchise__card {
+    display: grid;
+    align-content: start;
+    gap: var(--space-2);
+    padding: var(--space-6);
+    border: var(--border-default) solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-surface);
+}
+
+.ui-franchise__card-title {
+    margin: 0;
+    font-size: var(--text-lg);
+    font-weight: var(--weight-bold);
+}
+
+.ui-franchise__card-text {
+    margin: 0;
+    color: var(--color-muted);
+    line-height: var(--leading-normal);
+}
+
 /* Mid-page CTA: a calm hairline band, never a banner. */
 .ui-franchise__band {
     display: flex;
     flex-wrap: wrap;
     padding-block: var(--space-6);
     border-block: var(--border-default) solid var(--color-border);
+}
+
+/* Closing call to act: one centred moment before the application. */
+.ui-franchise__closing {
+    display: grid;
+    justify-items: center;
+    gap: var(--space-4);
+    margin-block-start: var(--space-16);
+    padding: var(--space-10) var(--space-6);
+    border-radius: var(--radius-xl);
+    background: var(--color-surface);
+    text-align: center;
+}
+
+.ui-franchise__closing-title {
+    max-inline-size: var(--measure-reading);
+    margin: 0;
+    font-size: var(--text-3xl);
+    font-weight: var(--weight-bold);
+    line-height: var(--leading-tight);
+    text-wrap: balance;
+}
+
+.ui-franchise__closing-text {
+    max-inline-size: calc(var(--measure-reading) * 0.8);
+    margin: 0;
+    color: var(--color-muted);
+    font-size: var(--text-lg);
+}
+
+.ui-franchise__closing-action {
+    margin: var(--space-2) 0 0;
 }
 
 /* Phones reach the application through the hero, the band and the bar; the side column carries its own CTA. */
@@ -150,6 +225,10 @@
 @media (min-width: 600px) {
     .ui-franchise__title {
         font-size: var(--text-5xl);
+    }
+
+    .ui-franchise__cards {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }
 

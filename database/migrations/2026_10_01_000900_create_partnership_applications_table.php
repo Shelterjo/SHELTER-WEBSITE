@@ -24,7 +24,8 @@ return new class extends Migration
             $table->char('country_code', 2)->index();
             $table->string('city_text', 120);
             $table->string('market_interest', 200);
-            $table->string('partnership_interest', 200);
+            $table->string('partnership_interest_type', 30); // stable value (PF-06): single_location · multi_location · …
+            $table->string('partnership_interest_other', 300)->nullable(); // only when the type is `other`
             $table->string('experience_band', 10);
             $table->string('experience_text', 300)->nullable();
             $table->boolean('owns_business');

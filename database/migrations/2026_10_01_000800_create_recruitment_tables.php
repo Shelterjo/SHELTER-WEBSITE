@@ -34,7 +34,7 @@ return new class extends Migration
 
         Schema::create('consent_versions', function (Blueprint $table) {
             $table->id();
-            $table->string('scope', 20)->default('careers'); // careers · partnerships · inquiries · feedback
+            $table->string('scope', 20)->default('careers'); // careers · partnerships · partnership_ack · inquiries · feedback
             $table->string('version', 40)->unique();
             $table->text('text_ar');
             $table->text('text_en')->nullable(); // bilingual forms (partnerships); careers is Arabic-only
@@ -127,12 +127,15 @@ return new class extends Migration
             $table->timestamps();
         });
 
+        // One row per accepted text: careers = its consent; partnerships = the non-binding acknowledgement (PF-02) and the
+        // data-processing consent (PF-03) — each with the exact version and time it was accepted.
         Schema::create('application_consents', function (Blueprint $table) {
-            $table->foreignId('application_id')->primary()->constrained('applications')->cascadeOnDelete();
+            $table->foreignId('application_id')->constrained('applications')->cascadeOnDelete();
             $table->foreignId('consent_version_id')->constrained('consent_versions')->restrictOnDelete();
             $table->boolean('accepted');
             $table->timestamp('accepted_at');
             $table->timestamps();
+            $table->primary(['application_id', 'consent_version_id']);
         });
 
         Schema::create('application_status_history', function (Blueprint $table) {

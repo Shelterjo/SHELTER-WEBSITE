@@ -1,10 +1,13 @@
 <?php
 
-// Franchise / partnerships (docs/franchise/02 §2, §5 and 03). Page content comes from the published page (PO-030);
-// here: field labels from the field matrix, the Owner's CTA and after-submit wording, and functional UI text only.
+// Franchise / partnerships (docs/franchise/02–03). Page content comes from the published page (`pages` — Owner V1, M47).
+// Here: the Owner's CTA labels, field labels and options (PF-06), after-submit wording (M47 Part 5) and functional UI
+// text only. The acknowledgement (PF-02) and consent (PF-03) texts are versioned in consent_versions.
 return [
     'eyebrow' => 'FRANCHISE & PARTNERSHIPS',
     'cta' => 'ابدأ طلب الشراكة',
+    'secondary_cta' => 'تعرّف على SHELTER',
+    'final_cta' => 'ابدأ طلب الشراكة',
     'faq_title' => 'الأسئلة الشائعة',
     'form_title' => 'طلب الشراكة',
     'form_note' => 'الحقول المعلّمة بـ* مطلوبة.',
@@ -24,15 +27,25 @@ return [
         'country' => 'الدولة',
         'city' => 'المدينة',
         'market' => 'السوق / المنطقة المهتم بها',
-        'interest' => 'نوع الاهتمام بالشراكة',
+        'partnership_interest_type' => 'نوع اهتمامك بالشراكة',
+        'partnership_interest_other' => 'وضح نوع اهتمامك بالشراكة',
         'experience_band' => 'الخبرة في الأعمال',
         'experience_text' => 'نبذة قصيرة عن خبرتك (اختياري)',
         'owns_business' => 'هل تملك أو تدير عملًا حاليًا؟',
         'location_status' => 'حالة الموقع المقترح',
         'introduction' => 'رسالة تعريفية قصيرة',
-        'consent' => 'الموافقة على معالجة البيانات',
+        'non_binding_acknowledgement' => 'إقرار طبيعة الطلب',
+        'data_processing_consent' => 'الموافقة على معالجة البيانات',
     ],
     'options' => [
+        'partnership_interest_type' => [
+            'single_location' => 'امتياز لفرع واحد',
+            'multi_location' => 'تطوير أكثر من فرع',
+            'market_development' => 'تطوير SHELTER في سوق أو مدينة',
+            'proposed_location' => 'لدي موقع مقترح وأرغب بدراسة ملاءمته',
+            'general_interest' => 'أرغب بالتعرف على فرص الشراكة المتاحة',
+            'other' => 'أخرى',
+        ],
         'experience_band' => [
             'none' => 'بدون خبرة', 'lt1' => 'أقل من سنة', 'y1_2' => '1–2 سنة', 'y3_5' => '3–5 سنوات', 'y6_10' => '6–10 سنوات', 'gt10' => 'أكثر من 10 سنوات',
         ],
@@ -40,7 +53,6 @@ return [
         'location_status' => ['has_site' => 'لدي موقع محدد', 'searching' => 'أبحث عن موقع', 'not_started' => 'لم أبدأ البحث بعد'],
     ],
     'choose' => 'اختر',
-    'consent_label' => 'أوافق على ما سبق',
     'submit' => 'إرسال طلب الشراكة',
     'submitting' => 'جارٍ الإرسال…',
     'errors' => [
@@ -50,15 +62,18 @@ return [
         'too_long' => 'النص أطول من المسموح (:max حرفًا).',
         'phone' => 'أدخل رقم هاتف صحيحًا.',
         'email' => 'أدخل بريدًا إلكترونيًا صحيحًا.',
+        'acknowledgement' => 'يجب تأكيد هذا الإقرار لإرسال الطلب.',
         'consent' => 'يجب الموافقة لإرسال الطلب.',
         'generic' => 'تعذر إرسال الطلب الآن. حاول مرة أخرى بعد قليل.',
         'expired' => 'انتهت صلاحية النموذج. حدّث الصفحة وأعد المحاولة؛ بياناتك محفوظة.',
         'rate' => 'تم إرسال طلبات كثيرة خلال وقت قصير. حاول لاحقًا.',
     ],
     'success' => [
-        'title' => 'شكرًا لاهتمامك بالشراكة مع SHELTER COFFEE',
-        'number' => 'رقم الطلب',
-        'text' => 'سيقوم فريق SHELTER بمراجعة الطلب والتواصل عند الانتقال إلى المرحلة التالية.',
+        'title' => 'شكراً لاهتمامك بالشراكة مع SHELTER COFFEE',
+        'received' => 'تم استلام طلبك بنجاح.',
+        'number' => 'رقم الطلب:',
+        'text' => 'سيتم مراجعة المعلومات المقدمة، وسيتم التواصل معك إذا انتقل الطلب إلى مرحلة لاحقة.',
+        'keep' => 'يرجى الاحتفاظ برقم الطلب للرجوع إليه عند الحاجة.',
         'back' => 'العودة إلى الموقع',
     ],
 ];

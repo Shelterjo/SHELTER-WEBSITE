@@ -52,6 +52,12 @@
     gap: var(--space-2) var(--space-6);
 }
 
+/* Long answers (sentences, not words) read best one per line. */
+.ui-apply__options--stack {
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+
 .ui-apply__date {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -64,7 +70,8 @@
 }
 
 .ui-apply__form:has(#nationality_type-jordanian:checked) [data-when='jordanian'],
-.ui-apply__form:has(#nationality_type-non_jordanian:checked) [data-when='non_jordanian'] {
+.ui-apply__form:has(#nationality_type-non_jordanian:checked) [data-when='non_jordanian'],
+.ui-apply__form:has(#partnership_interest_type-other:checked) [data-when='interest_other'] {
     display: grid;
     gap: var(--space-6);
 }

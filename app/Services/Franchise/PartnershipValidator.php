@@ -6,13 +6,17 @@ use App\Services\Recruitment\ApplicantInput;
 use App\Support\Countries;
 
 /**
- * Server-side validation of the partnership form (docs/franchise/03-APPLICATION-FIELD-MATRIX.md fields 1–11 + consent).
- * Free text keeps any script; phone and email follow the careers rules; the country is an ISO 3166 code; the interest
- * type stays free short text until its options are approved (PF-06). No investment question (field 14).
+ * Server-side validation of the partnership form (docs/franchise/03-APPLICATION-FIELD-MATRIX.md fields 1–11, the
+ * non-binding acknowledgement PF-02 and the data-processing consent PF-03 — two separate required boxes). Free text keeps
+ * any script; phone and email follow the careers rules; the country is an ISO 3166 code; the interest type is one of the
+ * Owner's six stable values (PF-06) and "other" needs a description — which is dropped for any other type, so a hidden
+ * stale value is never stored. No investment question (field 14).
  */
 final class PartnershipValidator
 {
     public const EXPERIENCE = ['none', 'lt1', 'y1_2', 'y3_5', 'y6_10', 'gt10'];
+
+    public const INTEREST = ['single_location', 'multi_location', 'market_development', 'proposed_location', 'general_interest', 'other'];
 
     public const LOCATION = ['has_site', 'searching', 'not_started'];
 
@@ -40,7 +44,7 @@ final class PartnershipValidator
             'email' => $text('email'),
             'city' => $text('city'),
             'market' => $text('market'),
-            'interest' => $text('interest'),
+            'partnership_interest_other' => $text('partnership_interest_other', multiline: true),
             'experience_text' => $text('experience_text'),
             'introduction' => $text('introduction', multiline: true),
         ];
@@ -66,7 +70,16 @@ final class PartnershipValidator
 
         $required('city', $data['city'], $max['city']);
         $required('market', $data['market'], $max['market']);
-        $required('interest', $data['interest'], $max['interest']);
+
+        $data['partnership_interest_type'] = in_array($input['partnership_interest_type'] ?? null, self::INTEREST, true) ? $input['partnership_interest_type'] : null;
+        if ($data['partnership_interest_type'] === null) {
+            $errors['partnership_interest_type'] = (string) __(($input['partnership_interest_type'] ?? '') === '' ? 'franchise.errors.required' : 'franchise.errors.choose');
+        }
+        if ($data['partnership_interest_type'] === 'other') {
+            $required('partnership_interest_other', $data['partnership_interest_other'], $max['partnership_interest_other']);
+        } else {
+            $data['partnership_interest_other'] = null;
+        }
 
         $data['experience_band'] = in_array($input['experience_band'] ?? null, self::EXPERIENCE, true) ? $input['experience_band'] : null;
         if ($data['experience_band'] === null) {
@@ -92,8 +105,12 @@ final class PartnershipValidator
 
         $required('introduction', $data['introduction'], $max['introduction']);
 
-        if (! in_array($input['consent'] ?? null, ['1', 'on', 'yes', true], true)) {
-            $errors['consent'] = (string) __('franchise.errors.consent');
+        // Two separate boxes, never pre-checked, neither one a marketing opt-in.
+        if (! in_array($input['non_binding_acknowledgement'] ?? null, ['1', 'on', 'yes', true], true)) {
+            $errors['non_binding_acknowledgement'] = (string) __('franchise.errors.acknowledgement');
+        }
+        if (! in_array($input['data_processing_consent'] ?? null, ['1', 'on', 'yes', true], true)) {
+            $errors['data_processing_consent'] = (string) __('franchise.errors.consent');
         }
 
         return ['data' => $data, 'errors' => $errors];

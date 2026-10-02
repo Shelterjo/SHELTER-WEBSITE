@@ -155,14 +155,14 @@ final class SearchIndexer
                 if ($section->type === 'faq') {
                     // Each published answer is its own result, linked to its question (#q-N on the FAQ page).
                     $anchor = '#q-'.($position + 1);
-                    $this->add('faq', $key.':'.($position + 1), $section->heading, $answer?->heading, $ar->title, $en->title,
+                    $this->add('faq', $key.':'.($position + 1), $section->heading, $answer?->heading, $ar->name, $en->name,
                         $urlAr.$anchor, $urlEn.$anchor, [...$section->paragraphs, ...($answer->paragraphs ?? [])], 0);
 
                     continue;
                 }
                 $text = [...$text, (string) $section->heading, (string) $answer?->heading, ...$section->paragraphs, ...($answer->paragraphs ?? [])];
             }
-            $this->add('page', $key, $ar->title, $en->title, null, null, $urlAr, $urlEn, [(string) $ar->description, (string) $en->description, ...$text], 1);
+            $this->add('page', $key, $ar->name, $en->name, null, null, $urlAr, $urlEn, [$ar->title, $en->title, (string) $ar->description, (string) $en->description, ...$text], 1);
         }
     }
 

@@ -22,6 +22,8 @@
 
 .ui-check__text {
     min-inline-size: 0;
+    /* A statement label (consent, acknowledgement) keeps the Owner's paragraph breaks. */
+    white-space: pre-line;
 }
 
 .ui-check:has(.ui-check__input:disabled) {

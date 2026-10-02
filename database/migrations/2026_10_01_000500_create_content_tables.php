@@ -21,8 +21,10 @@ return new class extends Migration
             $table->id();
             $table->string('key', 40)->unique();
             $table->string('type', 20);
-            $table->string('title_ar')->nullable();
+            $table->string('title_ar')->nullable(); // the H1 (a line break is kept as the Owner wrote it)
             $table->string('title_en')->nullable();
+            $table->string('name_ar', 120)->nullable(); // page name: <title>, breadcrumb, footer, search (null = the title)
+            $table->string('name_en', 120)->nullable();
             $table->string('description_ar', 300)->nullable();
             $table->string('description_en', 300)->nullable();
             $table->string('status', 20)->default('draft');

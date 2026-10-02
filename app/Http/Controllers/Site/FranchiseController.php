@@ -25,8 +25,9 @@ use Throwable;
 
 /**
  * Franchise & partnerships (SI-B12, docs/franchise/*, M29). The page exists only once its content is published by the
- * Owner (PO-030 — until then 404, never an empty or invented page). The partnership form (FR) opens only with its
- * approved consent (PF-03) and disclaimer (PF-02); before that the page offers the franchise inquiries contact (D-071).
+ * Owner (content V1 approved in M47 — unpublished: 404, never an empty or invented page). The partnership form (FR)
+ * opens only with its approved acknowledgement (PF-02) and consent (PF-03); before that the page offers the franchise
+ * inquiries contact (D-071).
  * Same protections as careers: CSRF, honeypot, minimum time, idempotency, rate limits; nothing personal in a URL.
  * Structured data: WebPage, BreadcrumbList and FAQPage for published answers only — never Offer, Price or Rating.
  */
@@ -45,12 +46,12 @@ final class FranchiseController extends Controller
         $canonical = PageUrl::route('franchise');
         $crumbs = [
             ['label' => (string) __('site.nav.home'), 'href' => PageUrl::route('home')],
-            ['label' => (string) __('site.nav.franchise'), 'href' => $canonical],
+            ['label' => $page->name, 'href' => $canonical],
         ];
         $faq = array_values(array_filter($page->sections, fn (ContentSection $s): bool => $s->type === 'faq'));
         $jsonLd = [
             StructuredData::breadcrumbs($crumbs),
-            ['@context' => 'https://schema.org', '@type' => 'WebPage', 'name' => $page->title, 'url' => $canonical, 'inLanguage' => $locale],
+            ['@context' => 'https://schema.org', '@type' => 'WebPage', 'name' => $page->name, 'url' => $canonical, 'inLanguage' => $locale],
         ];
         if ($faq !== []) {
             $jsonLd[] = ['@context' => 'https://schema.org', '@type' => 'FAQPage', 'mainEntity' => array_map(fn (ContentSection $item): array => [
@@ -67,8 +68,8 @@ final class FranchiseController extends Controller
             'description' => $page->description,
             'crumbs' => $crumbs,
             'open' => $open,
+            'acknowledgement' => $open ? $this->form->acknowledgement() : null,
             'consent' => $open ? $this->form->consent() : null,
-            'disclaimer' => $open ? $this->form->disclaimer($locale) : null,
             'countries' => $open ? Countries::options($locale) : [],
             'inquiries' => $contacts->intent(ContactKind::ComplaintsFeedbackFranchise, $locale),
             'formToken' => FormGuard::token($request, $this->maxFormAge()),
@@ -115,10 +116,11 @@ final class FranchiseController extends Controller
             return redirect()->to($back)->withInput($input)->withErrors(['form' => __('franchise.errors.rate')]);
         }
 
+        $acknowledgement = $this->form->acknowledgement();
         $consent = $this->form->consent();
-        abort_if($consent === null, 404);
+        abort_if($acknowledgement === null || $consent === null, 404);
         try {
-            $application = $submitter->submit($result['data'], $this->attribution($request, fromForm: true), $locale, $idempotencyKey, $consent);
+            $application = $submitter->submit($result['data'], $this->attribution($request, fromForm: true), $locale, $idempotencyKey, $acknowledgement, $consent);
         } catch (Throwable $e) {
             report($e);
 

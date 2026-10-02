@@ -13,7 +13,8 @@ use Illuminate\Support\Facades\DB;
 /**
  * Turns a validated partnership form into one FR application (franchise field matrix, PLATFORM-ARCHITECTURE §3.4), in
  * one transaction: the Applications Core row with its server-generated FR-YYYY-NNNNN number, the partnership record
- * with privacy-safe attribution, the consent (version + time), the first status, links to earlier partnership
+ * with privacy-safe attribution, both accepted texts (the non-binding acknowledgement and the data-processing consent,
+ * each with its version + time), the first status, links to earlier partnership
  * applications by exact phone / email — never merged — and an audit entry labelled by the number only. The same
  * idempotency key always returns the same application.
  */
@@ -25,14 +26,14 @@ final class PartnershipSubmitter
      * @param  array<string, mixed>  $data  PartnershipValidator output
      * @param  array<string, ?string>  $attribution  utm_source, utm_medium, utm_campaign, landing_path, referrer_domain
      */
-    public function submit(array $data, array $attribution, string $locale, string $idempotencyKey, ConsentVersion $consent): Application
+    public function submit(array $data, array $attribution, string $locale, string $idempotencyKey, ConsentVersion $acknowledgement, ConsentVersion $consent): Application
     {
         $existing = Application::query()->where('idempotency_key', $idempotencyKey)->first();
         if ($existing !== null) {
             return $existing;
         }
 
-        return DB::transaction(function () use ($data, $attribution, $locale, $idempotencyKey, $consent): Application {
+        return DB::transaction(function () use ($data, $attribution, $locale, $idempotencyKey, $acknowledgement, $consent): Application {
             $application = Application::query()->create([
                 'type' => 'FR',
                 'reference_number' => $this->numbers->next('FR'),
@@ -53,7 +54,8 @@ final class PartnershipSubmitter
                 'country_code' => $data['country'],
                 'city_text' => $data['city'],
                 'market_interest' => $data['market'],
-                'partnership_interest' => $data['interest'],
+                'partnership_interest_type' => $data['partnership_interest_type'],
+                'partnership_interest_other' => $data['partnership_interest_other'],
                 'experience_band' => $data['experience_band'],
                 'experience_text' => $data['experience_text'] !== '' ? $data['experience_text'] : null,
                 'owns_business' => $data['owns_business'],
@@ -61,10 +63,12 @@ final class PartnershipSubmitter
                 'introduction' => $data['introduction'],
             ] + $attribution);
 
-            DB::table('application_consents')->insert([
-                'application_id' => $application->id, 'consent_version_id' => $consent->id, 'accepted' => true,
-                'accepted_at' => now(), 'created_at' => now(), 'updated_at' => now(),
-            ]);
+            foreach ([$acknowledgement, $consent] as $text) {
+                DB::table('application_consents')->insert([
+                    'application_id' => $application->id, 'consent_version_id' => $text->id, 'accepted' => true,
+                    'accepted_at' => now(), 'created_at' => now(), 'updated_at' => now(),
+                ]);
+            }
             DB::table('application_status_history')->insert([
                 'application_id' => $application->id, 'old_status' => null, 'new_status' => 'received',
                 'actor_id' => null, 'changed_at' => now(), 'created_at' => now(), 'updated_at' => now(),

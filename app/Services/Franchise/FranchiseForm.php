@@ -3,36 +3,38 @@
 namespace App\Services\Franchise;
 
 use App\Models\Recruitment\ConsentVersion;
-use App\Services\MasterData\MasterData;
 
 /**
- * Is the partnership form open? Only when its approved texts exist — the consent (PF-03, both languages) and the
- * non-commitment disclaimer (PF-02, both languages, approved through the Fact Registry) — and, in production, only once
- * switched on after the release gates. Until then the page (when published) shows the franchise inquiries contact.
+ * Is the partnership form open? Only when both approved texts are active in both languages — the non-binding
+ * application acknowledgement (PF-02, scope partnership_ack) and the data-processing consent (PF-03, scope
+ * partnerships) — and, in production, only once switched on after the release gates. Until then the page (when
+ * published) shows the franchise inquiries contact.
  */
 final class FranchiseForm
 {
-    public function __construct(private readonly MasterData $data) {}
+    public const SCOPE_CONSENT = 'partnerships';
+
+    public const SCOPE_ACKNOWLEDGEMENT = 'partnership_ack';
 
     public function isOpen(): bool
     {
-        return $this->consent() !== null
-            && $this->disclaimer('ar') !== null && $this->disclaimer('en') !== null
+        return $this->consent() !== null && $this->acknowledgement() !== null
             && (! app()->isProduction() || config('franchise.form_enabled_in_production') === true);
     }
 
     public function consent(): ?ConsentVersion
     {
-        return ConsentVersion::query()->where('scope', 'partnerships')->where('is_active', true)
-            ->whereNotNull('text_en')->orderByDesc('active_from')->first();
+        return $this->active(self::SCOPE_CONSENT);
     }
 
-    public function disclaimer(string $locale): ?string
+    public function acknowledgement(): ?ConsentVersion
     {
-        /** @var array<string, string> $keys */
-        $keys = config('franchise.disclaimer_keys');
-        $value = isset($keys[$locale]) ? $this->data->setting($keys[$locale]) : null;
+        return $this->active(self::SCOPE_ACKNOWLEDGEMENT);
+    }
 
-        return is_string($value) && trim($value) !== '' ? $value : null;
+    private function active(string $scope): ?ConsentVersion
+    {
+        return ConsentVersion::query()->where('scope', $scope)->where('is_active', true)
+            ->where('active_from', '<=', now())->whereNotNull('text_en')->orderByDesc('active_from')->first();
     }
 }

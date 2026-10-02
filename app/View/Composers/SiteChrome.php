@@ -69,18 +69,15 @@ final class SiteChrome
             ? [['label' => (string) __('site.events.title'), 'href' => $eventsHref, 'key' => 'events']]
             : [];
 
-        // One query for the footer pages; then Careers, then Franchise under its short navigation label (not its H1).
+        // One query for the footer pages (each labelled with its approved page name); Careers sits before the business pages.
         $pageLinks = $this->pages->links([...Pages::EXPLORE, ...Pages::BUSINESS], $locale);
-        $explore = array_values(array_filter($pageLinks, fn (array $link): bool => ! in_array($link['key'], Pages::BUSINESS, true)));
+        $isBusiness = fn (array $link): bool => in_array($link['key'], Pages::BUSINESS, true);
         $careersHref = SiteLinks::to('careers', $parameters);
-        if ($careersHref !== null) {
-            $explore[] = ['label' => (string) __('site.nav.careers'), 'href' => $careersHref, 'key' => 'careers'];
-        }
-        foreach ($pageLinks as $link) {
-            if (in_array($link['key'], Pages::BUSINESS, true)) {
-                $explore[] = ['label' => (string) __('site.nav.'.$link['key']), 'href' => $link['href'], 'key' => $link['key']];
-            }
-        }
+        $explore = [
+            ...array_filter($pageLinks, fn (array $link): bool => ! $isBusiness($link)),
+            ...($careersHref !== null ? [['label' => (string) __('site.nav.careers'), 'href' => $careersHref, 'key' => 'careers']] : []),
+            ...array_filter($pageLinks, $isBusiness),
+        ];
 
         $view->with('siteChrome', [
             'home' => PageUrl::route('home', ['locale' => $locale]),

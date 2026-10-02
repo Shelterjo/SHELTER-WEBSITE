@@ -1,13 +1,15 @@
 {{--
-    The partnership application (FR — docs/franchise/03 field matrix, fields 1–11 + consent): five short groups in one
-    reading column, the approved non-commitment disclaimer (PF-02) right above the approved consent (PF-03). No
-    investment question, no upload. Attribution travels in hidden fields: UTM values, the landing path and the
-    referrer's domain only — never an IP or a full URL.
+    The partnership application (FR — docs/franchise/03 field matrix, fields 1–11; M47): five short groups in one reading
+    column. The interest type is one of the Owner's six options, one per line (PF-06); "other" opens a description (pure
+    CSS :has — no JavaScript needed; the server drops it for any other choice). Two separate required boxes, never
+    pre-checked: the non-binding acknowledgement (PF-02) and the data-processing consent (PF-03) — each label is the
+    approved text itself. No investment question, no upload, no marketing opt-in. Attribution travels in hidden fields:
+    UTM values, the landing path and the referrer's domain only — never an IP or a full URL.
 --}}
 @php
     $field = fn (string $key): string => (string) __('franchise.fields.'.$key);
     $o = fn (string $key): array => (array) __('franchise.options.'.$key);
-    $consentText = $consent === null ? null : (app()->getLocale() === 'ar' ? $consent->text_ar : $consent->text_en);
+    $statement = fn ($version): string => implode("\n\n", \App\Services\Content\Pages::paragraphs((string) (app()->getLocale() === 'ar' ? $version?->text_ar : $version?->text_en)));
     $max = fn (string $key): int => (int) config('franchise.limits.'.$key);
 @endphp
 <section id="apply" class="ui-franchise__apply" aria-labelledby="apply-title">
@@ -75,9 +77,13 @@
 
         <fieldset class="ui-apply__group">
             <legend class="ui-apply__legend">{{ __('franchise.groups.opportunity') }}</legend>
-            <x-ui.field :label="$field('interest')" for="interest" :error="$errors->first('interest')" required>
-                <x-ui.input id="interest" name="interest" :value="old('interest')" dir="auto" :maxlength="$max('interest')" />
-            </x-ui.field>
+            @include('site.partials.choice', ['name' => 'partnership_interest_type', 'legend' => $field('partnership_interest_type'), 'options' => $o('partnership_interest_type'), 'stack' => true])
+            <div class="ui-apply__when" data-when="interest_other">
+                <x-ui.field :label="$field('partnership_interest_other')" for="partnership_interest_other" :error="$errors->first('partnership_interest_other')" required>
+                    <x-ui.textarea id="partnership_interest_other" name="partnership_interest_other" :value="old('partnership_interest_other')" rows="3" dir="auto"
+                        :maxlength="$max('partnership_interest_other')" data-franchise-other />
+                </x-ui.field>
+            </div>
             @include('site.partials.choice', ['name' => 'location_status', 'legend' => $field('location_status'), 'options' => $o('location_status')])
             <x-ui.field :label="$field('introduction')" for="introduction" :error="$errors->first('introduction')" required>
                 <x-ui.textarea id="introduction" name="introduction" :value="old('introduction')" rows="5" dir="auto" :maxlength="$max('introduction')" />
@@ -86,14 +92,10 @@
 
         <fieldset class="ui-apply__group">
             <legend class="ui-apply__legend">{{ __('franchise.groups.consent') }}</legend>
-            @if ($disclaimer !== null)
-                <p class="ui-franchise__disclaimer" id="disclaimer-text"><x-ui.icon name="info" size="sm" /><span>{{ $disclaimer }}</span></p>
-            @endif
-            @if ($consentText !== null)
-                <p class="ui-apply__consent-text" id="consent-text">{{ $consentText }}</p>
-            @endif
-            <x-ui.checkbox :label="__('franchise.consent_label')" name="consent" value="1" id="consent" :checked="old('consent') === '1'"
-                :error="$errors->first('consent')" aria-describedby="disclaimer-text consent-text" />
+            <x-ui.checkbox :label="$statement($acknowledgement)" name="non_binding_acknowledgement" value="1" id="non_binding_acknowledgement"
+                :checked="old('non_binding_acknowledgement') === '1'" :error="$errors->first('non_binding_acknowledgement')" />
+            <x-ui.checkbox :label="$statement($consent)" name="data_processing_consent" value="1" id="data_processing_consent"
+                :checked="old('data_processing_consent') === '1'" :error="$errors->first('data_processing_consent')" />
         </fieldset>
 
         @error('form')

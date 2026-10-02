@@ -15,9 +15,9 @@
 | الحالة | العدد |
 |---|---|
 | `OWNER DECISION REQUIRED` | 20 |
-| `RESOLVED` (حُسم من المحادثة بقاعدة موثقة) | 159 |
+| `RESOLVED` (حُسم من المحادثة بقاعدة موثقة) | 162 |
 | `DOC FIX NEEDED` (وثيقة متأخرة عن قرار لاحق) | 33 |
-| **المجموع** | **212** |
+| **المجموع** | **215** |
 
 > **عمود Refs:** يربط كل تعارض بمجموعة التدقيق التي وجدته (G1…G8)، لأن التعارض الواحد قد يظهر في أكثر من مجال.
 > **معرّفات المنيو القديمة** (CF-01…CF-11 في `menu-ia/MENU-DECISION-REGISTER.md`) و**VQ / OBS** مربوطة في الملاحظات.
@@ -47,7 +47,7 @@
 | `CF-M-147` | Real User Monitoring مقابل قواعد الخصوصية والموافقة | أي Tracking يراعي Privacy Policy · Cookie Policy · Consent (PRIV-008)؛ لا تتبع يحتاج إفصاحًا قبل تحديث صفحات الخصوصية (PRIV-009)؛ قرار الـConsent مفتوح (GOOGLE-022، PO-019)<br>_(M01 §82 · M12 §22–§23)_ | اجمع Privacy-safe Web Vitals من الزوار بلا PII (RUM)<br>_(M32 §11)_ | الجزء التقني محسوم: RUM First-party بلا Cookies ولا معرفات ولا IP مخزن ومجمّع، ويُذكر في سياسة الخصوصية قبل تفعيله على Production (PRIV-009). هل يحتاج موافقة Cookie/Analytics أم يكفي الإفصاح؟ = قرار الـOwner/القانوني (PO-019) | لا تعارض في الهدف، لكن متطلب الموافقة قانوني ولم يُحسم؛ البناء غير متوقف (التفعيل فقط) | OPS-025 · PRIV-008/009 · PO-019 | docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §A22 §A23 | **OWNER DECISION REQUIRED** |
 | `CF-M-209` | 6 أسماء عربية للكيك والكوكيز: المعتمد (D-132) مقابل ملف Menu List الجديد | D-132: الأسماء العربية الـ26 المقترحة معتمدة كما هي — كيكة الجزر · جيرمان شوكليت · ريد فيلفيت كيك · تشيز كيك مانجو · تشيز كيك باشن فروت · كوكيز فستق<br>_(D-132)_ | ملف Menu List: كاروت كيك · جيرمن شوكليت · ريد فلفيت كيك · مانجو تشيز كيك · باشن فروت تشيز كيك · كوكيز فستق حلبي<br>_(OWNER-MENU-LIST-RECEIVED-2026-10-01.xlsx)_ |  | لا يتضح هل الملف قرار تسمية صريح أم قائمة تشغيلية (POS) — M38 §6: عرض A/B والسؤال | الاسم العربي لستة أصناف في المنيو والـSchema | docs/phase-01-discovery/23-menu-list-reconciliation.md | **OWNER DECISION REQUIRED** |
 
-## RESOLVED (159)
+## RESOLVED (162)
 
 | Conflict ID | Topic | Old instruction | New instruction | Which one wins | Why | Impact | Files/code affected | Status |
 |---|---|---|---|---|---|---|---|---|
@@ -210,6 +210,9 @@
 | `CF-M-210` | shadcn و21st (React) مقابل منصة Blade (ADR-001) | ADR-001: Laravel + Blade، وTailwind/shadcn/Radix مرفوضة لأنها React-only<br>_(ADR-001 · D-300)_ | M40: استخدم shadcn كـprimitive factory و21st كمصدر إلهام ومكونات<br>_(M40 §01–§02)_ | كلاهما: M40 نفسه يقول shadcn «primitive factory لا final design» و21st «لا Copy/Paste». يُستخدمان كمرجع بنية وسلوك ووصولية ويُعاد البناء كمكونات Blade x-ui | لا تعارض في القصد؛ إدخال React يكسر ADR-001 والأداء (M40 §44–§45) | لا React في الحزمة العامة | docs/adr/ADR-001-platform.md · docs/TOOLCHAIN.md | **RESOLVED** |
 | `CF-M-211` | «لا صور من الموقع القديم» (F-11) مقابل «خذ الشعارات من الموقع القديم» (D-309) | F-11: فقط OWNER APPROVED · لا Stock/Google/AI/صور الموقع القديم<br>_(F-11)_ | خذ الالوان والشعارات والخطوط من الموقع القديم<br>_(M39 §2)_ | D-309 للشعار والألوان والخطوط فقط (آخر قرار صريح)؛ F-11 يبقى لكل الصور الأخرى | القرار الجديد محدد بعناصر الهوية | الشعار معتمد؛ الصور الحقيقية ما زالت MEDIA PENDING OWNER APPROVAL | docs/governance/APPROVED-ASSET-LIBRARY.md | **RESOLVED** |
 | `CF-M-212` | قائمة «المدينة» في نموذج التوظيف: مدن أم محافظات | M28: Dropdown لمدن الأردن، «ولا تُستبدل المدينة بالمحافظة بصمت»<br>_(M28 §06 · CAREERS-020 · RECRUITMENT-DATA-MODEL §2.12)_ | الـOwner أرسل القائمة صراحة: عمان · إربد · الزرقاء · البلقاء · المفرق · جرش · عجلون · مادبا · الكرك · الطفيلة · معان · العقبة (أسماء المحافظات الـ12)<br>_(M45 §1)_ | قرار الـOwner الأحدث الصريح (M45): القائمة كما أرسلها، وبنفس ترتيبه | قاعدة السلطة 1: آخر قرار صريح من الـOwner. ليس استبدالًا صامتًا — الـOwner اختار القائمة بنفسه بعد عرض الخيارات (PO-074) | CAREERS-020 محدّث · jordan_cities = 12 بندًا · تسمية الحقل تبقى «المدينة» (نص الـOwner المعتمد) | database/seeders/RecruitmentSeeder.php · docs/RECRUITMENT-DATA-MODEL.md | **RESOLVED** |
+| `CF-M-213` | نص صفحة نجاح طلب الشراكة | «شكرًا لاهتمامك بالشراكة مع SHELTER COFFEE» + «سيقوم فريق SHELTER بمراجعة الطلب والتواصل عند الانتقال إلى المرحلة التالية.»<br>_(M29 (docs/franchise/02 §5) — مطبّق في lang/*/franchise.php)_ | «شكراً لاهتمامك بالشراكة مع SHELTER COFFEE» + «تم استلام طلبك بنجاح.» + رقم الطلب + «سيتم مراجعة المعلومات المقدمة، وسيتم التواصل معك إذا انتقل الطلب إلى مرحلة لاحقة.» + «يرجى الاحتفاظ برقم الطلب للرجوع إليه عند الحاجة.» (وما يقابله EN)<br>_(M47 §5)_ | قرار الـOwner الأحدث (M47 Part 5) | قاعدة السلطة 1 | FRAN-047 · lang/ar\|en/franchise.php · الصياغة القديمة SUPERSEDED | lang/ar/franchise.php · lang/en/franchise.php · resources/views/site/franchise-submitted.blade.php | **RESOLVED** |
+| `CF-M-214` | شكل إقرار «الطلب ليس التزامًا» (PF-02) | تصميم تقني سابق: نص Disclaimer يظهر فوق الموافقة (قيمة Setting معتمدة عبر الـFact Registry) بلا Checkbox خاص<br>_(بناء PHASE 4 (b380ebf) — قرار تقني لا قرار Owner)_ | Checkbox إلزامي منفصل non_binding_acknowledgement، غير محدد مسبقًا، وتُخزن نسخة النص ووقت القبول<br>_(M47 §3)_ | قرار الـOwner (M47) | قرار Owner صريح يعلو على الاقتراح التقني | FRAN-048 · consent_versions scope partnership_ack · application_consents (سطر لكل نص) · حُذف config franchise.disclaimer_keys | app/Services/Franchise/FranchiseForm.php · database/migrations/2026_10_01_000800_create_recruitment_tables.php | **RESOLVED** |
+| `CF-M-215` | حقل «نوع الاهتمام بالشراكة» | نص حر قصير حتى اعتماد الخيارات (PF-06)<br>_(Field Matrix (docs/franchise/03) — مؤقت)_ | 6 خيارات ثابتة + «أخرى» مع وصف مشروط؛ تُخزن القيمة الثابتة لا النص الظاهر<br>_(M47 §4)_ | قرار الـOwner (M47) | حسم البند المؤقت | FRAN-042 · partnership_applications.partnership_interest_type/other | database/migrations/2026_10_01_000900_create_partnership_applications_table.php | **RESOLVED** |
 
 ## DOC FIX NEEDED (33)
 
@@ -249,7 +252,7 @@
 | `CF-M-074` | 03 VQ-16 / VQ-22 / VQ-23 ⬜ رغم قرارات المنيو | VQ-16 '⬜ لم يُحسم'؛ VQ-22 وVQ-23 بلا تحديث<br>_(03)_ | D-076، D-089، D-117، D-122، D-135، D-140<br>_(DECISION-LOG)_ | القرارات المعتمدة | لم يُحدّث 03 | تحديث الحالات (VQ-23 يبقى جزئيًا لـSnacks/Pastries) | docs/phase-01-discovery/03-verify-with-owner.md | **DOC FIX NEEDED** |
 | `CF-M-141` | مسودة إجابة FAQ «التقديم من خارج الأردن» تقرر سياسة سوق | مسودة Claude (docs/franchise/02 §4 س2): «نعم، يمكن إرسال الطلب من أي دولة، وتتم مراجعته وفق نفس الأسس.» — موسومة «✅ محايدة»<br>_(docs/franchise/02-PAGE-IA-AND-CONTENT.md §4 (DRAFT))_ | لا تخترع Answers تجارية؛ Approved Market سؤال تجاري للـOwner؛ لا إعلان توفر أسواق<br>_(M29 §04, §25, §95)_ | M29 | إمكانية الإرسال من أي دولة مقبولة تقنيًا (حقل Country دولي)، لكن «وفق نفس الأسس» التزام سياسة؛ الصياغة يجب أن تكون محايدة مثل س1 («لا يعني استلام الطلب توفر فرصة في سوق محدد») حتى قرار الأسواق | تعديل المسودة + PO-054 | docs/franchise/02-PAGE-IA-AND-CONTENT.md §4 | **DOC FIX NEEDED** |
 
-## Technical flags من المواصفات الجديدة (M28–M30) — 117
+## Technical flags من المواصفات الجديدة (M28–M30) — 122
 
 > قيود تقنية أو أمنية أو قانونية **تُبلَّغ ولا تعيد فتح القرارات المجمّدة**. ما يحتاج الـOwner منها مربوط ببند في `PENDING-OWNER-INPUT.md`.
 
@@ -372,6 +375,11 @@
 | G23-TF-01 | رقم الهوية لا يُحفظ في الجلسة بعد خطأ تحقق | بعد أي خطأ تُعاد كل المدخلات للنموذج ما عدا الرقم الوطني/رقم الوثيقة (يُعاد كتابته) حتى لا يُخزن في جدول الجلسات (RECRUITMENT-SECURITY §5). الملفات تبقى في مسودة الرفع على الخادم. | قرار تقني منفذ ومختبر | — |
 | G23-TF-02 | زمن التعبئة الأدنى يُحسب من أول فتح للنموذج | اكتُشف في اختبار المتصفح: بعد خطأ تحقق كان النموذج يأخذ رمزًا زمنيًا جديدًا فيُرفض تصحيح سريع كأنه Bot. أصبح الرمز الأصلي ينتقل مع إعادة العرض. | مصلح ومختبر | — |
 | G23-TF-03 | حدود الرفع قبل Cloudways audit | حد الملف = min(upload_max_filesize, post_max_size) − 10% من إعدادات PHP الفعلية (المعادلة المعتمدة)، ويُضبط رقم صريح بعد A-07. فحص الفيروسات غير متوفر محليًا (scan_unavailable) والحماية بالمنع الصارم حسب التوقيع. | مراجعة عند Cloudways audit | — |
+| G26-TF-01 | زر «تعرّف على SHELTER» ينزل لقسم «من هي SHELTER؟» في نفس الصفحة | يبقي الزائر في صفحة التحويل بدل نقله لصفحة «من نحن» (غير منشورة بعد). | قرار تقني منفذ ومختبر | — |
+| G26-TF-02 | النصان الإلزاميان مخزنان كنسخ (consent_versions) وكل طلب يحفظ سطرًا لكل نص | partnership-ack-v1 (scope partnership_ack) وpartnership-consent-v1 (scope partnerships)؛ application_consents بمفتاح (الطلب، النسخة) مع وقت القبول. تسمية الـCheckbox هي النص المعتمد نفسه. privacy_policy_version غير منطبق حتى نشر سياسة الخصوصية بنسخ. | قرار تقني منفذ ومختبر | — |
+| G26-TF-03 | نوع الاهتمام: قائمة Radio عمودية (6 خيارات) | كل الخيارات ظاهرة بضغطة واحدة على الهاتف؛ وصف «أخرى» يظهر بـCSS :has بلا JavaScript، والـJS يعطله عند تغيير الاختيار، والخادم يحذف أي وصف مع خيار غير «أخرى». | قرار تقني منفذ ومختبر | — |
+| G26-TF-04 | حارس العبارات التجارية المحظورة | config/content.php: عبارة مثل «أرباح مضمونة» أو «Guaranteed ROI» في أي نص من الصفحة (بأي لغة) تُبقيها غير منشورة وتسجل تحذيرًا بلا بيانات شخصية. شبكة أمان خلف مراجعة الـOwner. | قرار تقني منفذ ومختبر | — |
+| G26-TF-05 | اسم الصفحة مقابل الـH1 | pages.name_ar/en = اسم الصفحة (العنوان، الـBreadcrumb، الـFooter، البحث)؛ title = الـH1 بسطريه كما كتبه الـOwner. | قرار تقني منفذ ومختبر | — |
 
 ## ملاحظات الربط (المعرفات القديمة ← الجديدة)
 

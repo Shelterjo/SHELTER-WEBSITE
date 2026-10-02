@@ -26,10 +26,10 @@
 ## الملفات المرتبطة
 | الملف | الدور |
 |---|---|
-| [`MASTER-DECISION-REGISTER.md`](MASTER-DECISION-REGISTER.md) | الحالة الحالية لكل قرار (439 قرارًا) |
-| [`governance/DECISION-LOG.md`](governance/DECISION-LOG.md) | السجل الزمني (D-000 ← D-316) |
-| [`CONFLICT-REGISTER.md`](CONFLICT-REGISTER.md) | 212 تعارضًا وطريقة حسمها |
-| [`PENDING-OWNER-INPUT.md`](PENDING-OWNER-INPUT.md) | 67 بندًا فقط تحتاجك |
+| [`MASTER-DECISION-REGISTER.md`](MASTER-DECISION-REGISTER.md) | الحالة الحالية لكل قرار (446 قرارًا) |
+| [`governance/DECISION-LOG.md`](governance/DECISION-LOG.md) | السجل الزمني (D-000 ← D-323) |
+| [`CONFLICT-REGISTER.md`](CONFLICT-REGISTER.md) | 215 تعارضًا وطريقة حسمها |
+| [`PENDING-OWNER-INPUT.md`](PENDING-OWNER-INPUT.md) | 65 بندًا فقط تحتاجك |
 | [`REQUIREMENTS-TRACEABILITY-MATRIX.md`](REQUIREMENTS-TRACEABILITY-MATRIX.md) | متطلب ← قرار ← تصميم ← كود ← اختبار |
 | [`IMPLEMENTATION-GAP-ANALYSIS.md`](IMPLEMENTATION-GAP-ANALYSIS.md) | ما الموجود وما الناقص |
 | [`IMPLEMENTATION-PLAN.md`](IMPLEMENTATION-PLAN.md) | الخطة الموحدة P00 ← P12 والبوابات |
@@ -73,8 +73,8 @@
 | متطلبات | **1350**: REQUIREMENT 491, RULE 442, DECISION 209, DELIVERABLE 109, GATE 99 |
 | حسب الحالة | APPROVED 900, FROZEN 294, APPROVED WITH CONDITIONS 73, PENDING OWNER INPUT 34, DEFERRED 22, SUPERSEDED 18, PENDING VERIFICATION 9 |
 | حسب الأولوية | P0 691, P1 572, P2 69, P3 18 |
-| حسب التنفيذ | NOT STARTED 969, PARTIAL 189, IMPLEMENTED — NOT TESTED 126, FROZEN 43, TESTED 12, NEEDS FIX 8, IMPLEMENTED — NOT YET VERIFIED 2, CONFLICT 1 |
-| مُختبر | NO 814, N/A 347, PROTOTYPE 135, YES 54 |
+| حسب التنفيذ | NOT STARTED 948, PARTIAL 191, IMPLEMENTED — NOT TESTED 126, FROZEN 43, TESTED 31, NEEDS FIX 8, IMPLEMENTED — NOT YET VERIFIED 2, CONFLICT 1 |
+| مُختبر | NO 793, N/A 347, PROTOTYPE 135, YES 75 |
 
 ## فهرس المجالات
 | # | المجال | متطلبات | P0 | معتمد/مجمّد | معلّق | تنفيذ (منفذ أو مجمّد) |
@@ -94,7 +94,7 @@
 | 13 | [About](master-requirements/13-about.md) | 4 | 2 | 3 | 1 | 0 |
 | 14 | [Contact](master-requirements/14-contact.md) | 30 | 11 | 25 | 4 | 0 |
 | 15 | [Blog / Coffee Knowledge](master-requirements/15-blog-coffee-knowledge.md) | 6 | 2 | 6 | 0 | 0 |
-| 16 | [Franchise](master-requirements/16-franchise.md) | 108 | 50 | 105 | 1 | 0 |
+| 16 | [Franchise](master-requirements/16-franchise.md) | 108 | 50 | 105 | 1 | 19 |
 | 17 | [CMS](master-requirements/17-cms.md) | 35 | 25 | 34 | 1 | 0 |
 | 18 | [Owner Dashboard](master-requirements/18-owner-dashboard.md) | 35 | 22 | 33 | 0 | 0 |
 | 19 | [Analytics](master-requirements/19-analytics.md) | 45 | 15 | 43 | 2 | 3 |
@@ -527,7 +527,7 @@
 
 | ID | المتطلب | الحالة | P | التنفيذ |
 |---|---|---|---|---|
-| `FRAN-001` | صفحة Franchise الكاملة: قدرة مستقبلية — غير منشورة حتى اعتماد المحتوى | APPROVED WITH CONDITIONS | P1 | NOT STARTED |
+| `FRAN-001` | صفحة Franchise الكاملة: قدرة مستقبلية — غير منشورة حتى اعتماد المحتوى | APPROVED WITH CONDITIONS | P1 | TESTED |
 | `FRAN-002` | خيار «Franchise Inquiries / استفسارات الفرنشايز» في صفحة التواصل من يوم الإطلاق | APPROVED | P1 | NOT STARTED |
 | `FRAN-003` | ممنوع نشر رسوم أو شروط أو ادعاءات Franchise من عندنا | APPROVED | P0 | NOT STARTED |
 | `FRAN-004` | M29 = المرجع التنفيذي الحالي لصفحة الفرنشايز + طلب الشراكة + وحدة الـDashboard | APPROVED | P0 | NOT STARTED |
@@ -537,49 +537,49 @@
 | `FRAN-008` | المبدأ التجاري: بيع العلامة والنظام — لا وعود مالية | APPROVED | P1 | NOT STARTED |
 | `FRAN-009` | هدف الصفحة: تجربة شراكة Premium + قصة + فرصة + تأهيل + طلب + Pipeline | APPROVED | P1 | NOT STARTED |
 | `FRAN-010` | الصفحة رحلة: DISCOVER → UNDERSTAND → TRUST → QUALIFY → APPLY | APPROVED | P1 | NOT STARTED |
-| `FRAN-011` | عنوان الصفحة: «كن شريكًا مع SHELTER COFFEE» — والتوصيف الثانوي FRANCHISE | APPROVED | P1 | NOT STARTED |
-| `FRAN-012` | الـHero: قوي جدًا — عنوان + جملة اتجاه (ليست التزامًا قانونيًا) | APPROVED WITH CONDITIONS | P1 | NOT STARTED |
-| `FRAN-013` | استراتيجية الـCTA: «ابدأ طلب الشراكة» في 3 مواضع بلا إزعاج | APPROVED | P1 | NOT STARTED |
+| `FRAN-011` | عنوان الصفحة: «كن شريكًا مع SHELTER COFFEE» — والتوصيف الثانوي FRANCHISE | APPROVED | P1 | TESTED |
+| `FRAN-012` | الـHero: قوي جدًا — عنوان + جملة اتجاه (ليست التزامًا قانونيًا) | APPROVED WITH CONDITIONS | P1 | TESTED |
+| `FRAN-013` | استراتيجية الـCTA: «ابدأ طلب الشراكة» في 3 مواضع بلا إزعاج | APPROVED | P1 | TESTED |
 | `FRAN-014` | حقائق العلامة المعتمدة للصفحة: 2019 · 20/04 · إربد · DRIVE/HOUSE | APPROVED | P0 | NOT STARTED |
-| `FRAN-015` | قسم «من هي SHELTER؟»: حقائق معتمدة فقط — بلا ادعاءات تفوق | APPROVED | P0 | NOT STARTED |
-| `FRAN-016` | DRIVE/HOUSE = «نماذج تجربة SHELTER الحالية» — وليست باقات فرنشايز | APPROVED | P0 | NOT STARTED |
+| `FRAN-015` | قسم «من هي SHELTER؟»: حقائق معتمدة فقط — بلا ادعاءات تفوق | APPROVED | P0 | TESTED |
+| `FRAN-016` | DRIVE/HOUSE = «نماذج تجربة SHELTER الحالية» — وليست باقات فرنشايز | APPROVED | P0 | TESTED |
 | `FRAN-017` | Global-ready بلا إعلان أي دولة/مدينة/Territory متاحة | APPROVED | P0 | NOT STARTED |
 | `FRAN-018` | الصفحة كاملة AR (RTL) وEN (LTR) — بلا ترجمة حرفية | APPROVED | P0 | NOT STARTED |
 | `FRAN-019` | الروابط: /ar/franchise/ و /en/franchise/ (طبقة العلامة — مبدئي) | APPROVED WITH CONDITIONS | P1 | NOT STARTED |
 | `FRAN-020` | محتوى قديم يُحذف ولا يُعاد استخدامه (9 بنود) | APPROVED | P0 | NOT STARTED |
 | `FRAN-021` | محتوى قديم يبقى كفكرة ويُعاد كتابته (8 بنود) — بعد المطابقة | APPROVED WITH CONDITIONS | P1 | NOT STARTED |
-| `FRAN-022` | حظر نشر الشروط المالية (19 بندًا) بدون موافقة من مشروع Franchise | APPROVED | P0 | NOT STARTED |
+| `FRAN-022` | حظر نشر الشروط المالية (19 بندًا) بدون موافقة من مشروع Franchise | APPROVED | P0 | TESTED |
 | `FRAN-023` | الـIA الأساسية للصفحة: 13 قسمًا | APPROVED | P1 | NOT STARTED |
 | `FRAN-024` | قصة بصرية متسلسلة — لا Section dump | APPROVED | P1 | NOT STARTED |
 | `FRAN-025` | صور الـHero والصفحة: صور SHELTER حقيقية معتمدة فقط | APPROVED | P0 | NOT STARTED |
-| `FRAN-026` | «لماذا تصبح شريكًا مع SHELTER؟»: 9 ركائز = PENDING VERIFICATION حتى المطابقة | APPROVED WITH CONDITIONS | P0 | NOT STARTED |
+| `FRAN-026` | «لماذا تصبح شريكًا مع SHELTER؟»: 9 ركائز = PENDING VERIFICATION حتى المطابقة | APPROVED WITH CONDITIONS | P0 | PARTIAL |
 | `FRAN-027` | Visual hierarchy متنوع — لا 9 بطاقات متطابقة ولا شكل Admin Dashboard | APPROVED | P1 | NOT STARTED |
-| `FRAN-028` | قسم «أكثر من مجرد اسم على الواجهة» — منظومة لا ترخيص شعار | APPROVED WITH CONDITIONS | P1 | NOT STARTED |
+| `FRAN-028` | قسم «أكثر من مجرد اسم على الواجهة» — منظومة لا ترخيص شعار | APPROVED WITH CONDITIONS | P1 | TESTED |
 | `FRAN-029` | رحلة الدعم (Support Journey) — 9 مراحل — Franchise Master Process يفوز | APPROVED WITH CONDITIONS | P1 | NOT STARTED |
-| `FRAN-030` | «ما الذي نبحث عنه في الشريك؟»: 7 معايير عامة قابلة للعرض | APPROVED WITH CONDITIONS | P1 | NOT STARTED |
-| `FRAN-031` | ممنوع نشر اشتراطات الشريك المحددة حتى اعتمادها | APPROVED | P0 | NOT STARTED |
-| `FRAN-032` | رحلة الشراكة العامة (9 خطوات) — تُطابق مع Franchise Master قبل النشر | APPROVED WITH CONDITIONS | P1 | NOT STARTED |
+| `FRAN-030` | «ما الذي نبحث عنه في الشريك؟»: 7 معايير عامة قابلة للعرض | APPROVED WITH CONDITIONS | P1 | PARTIAL |
+| `FRAN-031` | ممنوع نشر اشتراطات الشريك المحددة حتى اعتمادها | APPROVED | P0 | TESTED |
+| `FRAN-032` | رحلة الشراكة العامة (9 خطوات) — تُطابق مع Franchise Master قبل النشر | APPROVED WITH CONDITIONS | P1 | TESTED |
 | `FRAN-033` | لا وعد بمدة رد (لا SLA) — الصياغة البديلة المعتمدة | APPROVED | P0 | NOT STARTED |
-| `FRAN-034` | قسم «أسواق النمو / Where We Grow» عام — Jordan + International Growth بلا Territories | APPROVED WITH CONDITIONS | P1 | NOT STARTED |
-| `FRAN-035` | FAQ خاص بالفرنشايز — 10 مواضيع | APPROVED | P1 | NOT STARTED |
-| `FRAN-036` | إجابات FAQ: لا إجابات تجارية مخترعة — الصياغة المحايدة المعتمدة | APPROVED | P0 | NOT STARTED |
+| `FRAN-034` | قسم «أسواق النمو / Where We Grow» عام — Jordan + International Growth بلا Territories | APPROVED WITH CONDITIONS | P1 | TESTED |
+| `FRAN-035` | FAQ خاص بالفرنشايز — 10 مواضيع | APPROVED | P1 | TESTED |
+| `FRAN-036` | إجابات FAQ: لا إجابات تجارية مخترعة — الصياغة المحايدة المعتمدة | APPROVED | P0 | TESTED |
 | `FRAN-037` | الروابط الداخلية: About · Locations · Menu · Coffee Knowledge · Contact | APPROVED | P2 | NOT STARTED |
 | `FRAN-038` | SHELTER PARTNERSHIP APPLICATION أصلي: لا HubSpot/Google Forms/Airtable/CRM — Cloudways | APPROVED | P0 | NOT STARTED |
 | `FRAN-039` | لا قاعدة بيانات محلية — لا Falcon — كل البيانات Server-side | APPROVED | P0 | NOT STARTED |
 | `FRAN-040` | Cloudways audit قبل التنفيذ — بلا عبث بـWordPress القديم أو Production DB | APPROVED | P0 | NOT STARTED |
 | `FRAN-041` | فلسفة النموذج: Lead Qualification محترف — ليس طويلًا ولا استجوابًا ماليًا | APPROVED | P1 | NOT STARTED |
-| `FRAN-042` | بيانات الطلب الأولية (11 حقلًا) — النموذج ثنائي اللغة | APPROVED WITH CONDITIONS | P1 | NOT STARTED |
+| `FRAN-042` | بيانات الطلب الأولية (11 حقلًا) — النموذج ثنائي اللغة | APPROVED WITH CONDITIONS | P1 | TESTED |
 | `FRAN-043` | حقول مستقبلية (5) — أي حقل مالي/استثماري لا يُنشر بلا موافقة | DEFERRED | P3 | NOT STARTED |
 | `FRAN-044` | FRANCHISE APPLICATION FIELD MATRIX قبل التنفيذ النهائي للنموذج | APPROVED | P0 | PARTIAL |
 | `FRAN-045` | Single Structured Form مقابل Short Multi-step — يُختار الأقل Friction بالاختبار | APPROVED | P1 | NOT STARTED |
-| `FRAN-046` | رقم طلب فريد FR-YYYY-NNNNN — يُولد في الخادم، قابل للبحث، بلا PII | APPROVED | P0 | NOT STARTED |
-| `FRAN-047` | صفحة النجاح: شكر + رقم الطلب + المراجعة — بلا أي وعد | APPROVED | P0 | NOT STARTED |
-| `FRAN-048` | Disclaimer قانوني: الإرسال ليس موافقة ولا التزامًا تعاقديًا — الصياغة النهائية معلقة | PENDING OWNER INPUT | P0 | NOT STARTED |
+| `FRAN-046` | رقم طلب فريد FR-YYYY-NNNNN — يُولد في الخادم، قابل للبحث، بلا PII | APPROVED | P0 | TESTED |
+| `FRAN-047` | صفحة النجاح: شكر + رقم الطلب + المراجعة — بلا أي وعد | APPROVED | P0 | TESTED |
+| `FRAN-048` | Disclaimer قانوني: الإرسال ليس موافقة ولا التزامًا تعاقديًا — الصياغة النهائية معلقة | PENDING OWNER INPUT | P0 | TESTED |
 | `FRAN-049` | أمان النموذج العام (8 ضوابط) — بلا CAPTCHA خارجي تلقائيًا | APPROVED | P0 | NOT STARTED |
-| `FRAN-050` | الخصوصية: لا تحويل للنشرة، لا Marketing opt-in افتراضي، موافقة واضحة | APPROVED | P0 | NOT STARTED |
+| `FRAN-050` | الخصوصية: لا تحويل للنشرة، لا Marketing opt-in افتراضي، موافقة واضحة | APPROVED | P0 | TESTED |
 | `FRAN-051` | المرفقات: مستقبلية واختيارية — غير إلزامية في V1 — تخزين خاص فقط | DEFERRED | P2 | NOT STARTED |
 | `FRAN-052` | لا وثائق داخلية في الحزمة العامة للموقع | APPROVED | P0 | NOT STARTED |
-| `FRAN-053` | Attribution آمن للخصوصية يُخزن مع الطلب | APPROVED | P1 | NOT STARTED |
+| `FRAN-053` | Attribution آمن للخصوصية يُخزن مع الطلب | APPROVED | P1 | TESTED |
 | `FRAN-054` | وحدة «Franchise & Partnerships» أصلية في الـOwner Dashboard — ليست iframe | APPROVED | P1 | NOT STARTED |
 | `FRAN-055` | IA مبدئية للوحدة (11 عنصرًا) — ليست الحالات النهائية؛ Franchise Master يفوز | APPROVED WITH CONDITIONS | P1 | NOT STARTED |
 | `FRAN-056` | أعمدة قائمة الطلبات المبدئية (7) | APPROVED | P1 | NOT STARTED |

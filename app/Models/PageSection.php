@@ -23,7 +23,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class PageSection extends Model
 {
-    public const TYPES = ['text', 'faq', 'list', 'steps'];
+    public const TYPES = ['text', 'faq', 'list', 'steps', 'cards', 'cta'];
 
     protected $guarded = ['id'];
 

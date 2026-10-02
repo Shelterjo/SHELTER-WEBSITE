@@ -2,17 +2,14 @@
 
 namespace Tests\Feature\Site;
 
-use App\Enums\FactSource;
-use App\Enums\FactStatus;
 use App\Enums\PublishStatus;
 use App\Models\Page;
+use App\Models\PageSection;
 use App\Models\Recruitment\Application;
 use App\Models\Recruitment\ConsentVersion;
 use App\Models\Recruitment\PartnershipApplication;
-use App\Models\User;
 use App\Services\Content\Search\SearchIndexer;
-use App\Services\Core\Settings;
-use App\Services\MasterData\FactRegistry;
+use Database\Seeders\FranchiseSeeder;
 use Database\Seeders\MasterDataSeeder;
 use Illuminate\Foundation\Http\Middleware\ValidateCsrfToken;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -24,8 +21,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
 
 /**
- * SI-B12 franchise & partnerships (docs/franchise/02–05): hidden until the Owner publishes its content (PO-030); the FR
- * form opens only with the approved consent (PF-03) and disclaimer (PF-02). Test texts below are fixtures, not content.
+ * SI-B12 franchise & partnerships with the Owner's content V1 (M47): the page, its two required form texts (PF-02
+ * acknowledgement, PF-03 consent), the interest types (PF-06), the success wording and the commercial-safety guard.
  */
 class FranchisePageTest extends TestCase
 {
@@ -38,40 +35,10 @@ class FranchisePageTest extends TestCase
         $this->withoutMiddleware(ValidateCsrfToken::class);
     }
 
-    private function publishPage(): Page
+    private function seedFranchise(): void
     {
-        $page = Page::query()->create([
-            'key' => 'franchise', 'type' => 'landing', 'title_ar' => 'عنوان تجريبي', 'title_en' => 'Test title',
-            'description_ar' => 'وصف تجريبي.', 'description_en' => 'Test description.',
-            'status' => PublishStatus::Published, 'published_at' => now()->subMinute(),
-        ]);
-        $page->sections()->createMany([
-            ['type' => 'text', 'heading_ar' => 'قسم', 'heading_en' => 'Section', 'body_ar' => 'فقرة.', 'body_en' => 'Paragraph.', 'sort_order' => 1],
-            ['type' => 'list', 'heading_ar' => 'قائمة', 'heading_en' => 'List', 'body_ar' => "أ\nب", 'body_en' => "First point\nSecond point", 'sort_order' => 2],
-            ['type' => 'steps', 'heading_ar' => 'خطوات', 'heading_en' => 'Steps', 'body_ar' => "١\n٢", 'body_en' => "Apply\nMeet", 'sort_order' => 3],
-            ['type' => 'faq', 'heading_ar' => 'سؤال؟', 'heading_en' => 'Is there a fee question?', 'body_ar' => 'جواب.', 'body_en' => 'Fixture answer.', 'sort_order' => 4],
-        ]);
+        $this->seed(FranchiseSeeder::class);
         $this->app->forgetScopedInstances();
-
-        return $page;
-    }
-
-    private function openForm(): ConsentVersion
-    {
-        $owner = User::factory()->create();
-        $settings = app(Settings::class);
-        $facts = app(FactRegistry::class);
-        foreach (['ar' => 'نص إخلاء مسؤولية تجريبي.', 'en' => 'Fixture disclaimer text.'] as $locale => $text) {
-            $key = 'franchise.disclaimer_'.$locale;
-            $settings->set($key, $text, $owner, 'test');
-            $facts->register($key, 'franchise', $text, FactStatus::Approved, FactSource::OwnerDecision, decisionRef: 'D-TEST');
-        }
-        $this->app->forgetScopedInstances();
-
-        return ConsentVersion::query()->create([
-            'scope' => 'partnerships', 'version' => 'partnerships-test-v1', 'text_ar' => 'نص موافقة تجريبي.',
-            'text_en' => 'Fixture consent text.', 'active_from' => now()->subDay(), 'is_active' => true,
-        ]);
     }
 
     /**
@@ -82,8 +49,9 @@ class FranchisePageTest extends TestCase
     {
         return $overrides + [
             'full_name' => 'Test Partner', 'phone' => '0791234567', 'email' => 'Partner.Test@Example.com', 'country' => 'jo',
-            'city' => 'Irbid', 'market' => 'North', 'interest' => 'Single unit', 'experience_band' => 'y3_5', 'experience_text' => '',
-            'owns_business' => 'yes', 'location_status' => 'searching', 'introduction' => "Hello.\nA short note.", 'consent' => '1',
+            'city' => 'Irbid', 'market' => 'North', 'partnership_interest_type' => 'single_location', 'experience_band' => 'y3_5',
+            'experience_text' => '', 'owns_business' => 'yes', 'location_status' => 'searching', 'introduction' => "Hello.\nA short note.",
+            'non_binding_acknowledgement' => '1', 'data_processing_consent' => '1',
             'attr_utm_source' => 'instagram', 'attr_utm_medium' => 'social', 'attr_utm_campaign' => 'launch',
             'attr_landing_path' => '/en/franchise/', 'attr_referrer_domain' => 'l.instagram.com',
             'form_token' => Crypt::encryptString((string) (now()->getTimestamp() - 30)), 'idempotency_key' => (string) Str::uuid(),
@@ -98,110 +66,182 @@ class FranchisePageTest extends TestCase
         return $this->get($url);
     }
 
-    public function test_the_page_does_not_exist_until_published_and_nothing_links_to_it(): void
+    /** @return array<int, array<string, mixed>> */
+    private function jsonLd(string $html): array
+    {
+        preg_match_all('#<script type="application/ld\+json">(.*?)</script>#s', $html, $matches);
+
+        return array_map(fn (string $json): array => json_decode($json, true, flags: JSON_THROW_ON_ERROR), $matches[1]);
+    }
+
+    public function test_without_published_content_the_page_does_not_exist_and_nothing_links_to_it(): void
     {
         $this->get('/ar/franchise/')->assertNotFound();
-        $this->get('/en/franchise/')->assertNotFound();
         $this->post('/en/franchise/', $this->validInput())->assertNotFound();
 
         $contact = (string) $this->fresh('/ar/contact/')->assertOk()->getContent();
         $this->assertStringNotContainsString('/ar/franchise/', $contact, 'the inquiries card shows its number only');
         $this->assertStringContainsString('href="tel:+962799338445"', $contact);
-        $footer = (string) $this->fresh('/en/')->getContent();
-        $this->assertStringNotContainsString('/en/franchise/', $footer);
-        $this->assertStringContainsString('href="http://localhost/en/careers/"', $footer);
+        $home = (string) $this->fresh('/en/')->getContent();
+        $this->assertStringNotContainsString('/en/franchise/', $home);
+        $this->assertStringContainsString('href="http://localhost/en/careers/"', $home);
+    }
 
-        // A draft never shows.
-        $this->publishPage()->update(['status' => PublishStatus::Draft]);
+    public function test_the_owner_content_v1_renders_in_arabic(): void
+    {
+        $this->seedFranchise();
+        $html = (string) $this->get('/ar/franchise/')->assertOk()->getContent();
+
+        $this->assertStringContainsString('<title>كن شريكًا مع SHELTER COFFEE</title>', $html);
+        $this->assertMatchesRegularExpression('#<h1 class="ui-franchise__title">\s*<span class="ui-franchise__title-line">كن شريكًا في نمو</span>\s*<span class="ui-franchise__title-line">SHELTER COFFEE</span>\s*</h1>#u', $html);
+        $this->assertStringContainsString('انطلقت SHELTER COFFEE من إربد، الأردن عام 2019.', $html);
+        $this->assertStringContainsString('ابدأ طلب الشراكة', $html);
+        $this->assertMatchesRegularExpression('#href="\#s-1"[^>]*>\s*تعرّف على SHELTER#u', $html);
+        foreach (['من هي SHELTER؟', 'نماذج تجربة SHELTER الحالية', 'أكثر من مجرد اسم على الواجهة', 'رحلة الشراكة', 'أسواق النمو', 'مهتم ببناء SHELTER في سوقك؟'] as $heading) {
+            $this->assertStringContainsString($heading, $html);
+        }
+        $this->assertSame(2, substr_count($html, 'class="ui-franchise__card"'), 'DRIVE and HOUSE as current experiences');
+        $this->assertStringContainsString('SHELTER COFFEE DRIVE</h3>', $html);
+        $this->assertSame(9, substr_count($html, 'class="ui-steps__item"'));
+        $this->assertSame(7, substr_count($html, 'ui-prose__faq'));
+        $this->assertStringContainsString('تقديم الطلب لا يعني أن السوق أو المنطقة المطلوبة متاحة أو محجوزة.', $html);
+
+        // Arabic-only sections and the unverified pillars stay hidden (language parity, PENDING VERIFICATION).
+        foreach (['لماذا تصبح شريكًا مع SHELTER؟', 'ما الذي نبحث عنه في الشريك؟', 'التوريد والمشتريات', 'الجدية في الاستثمار والتشغيل'] as $hidden) {
+            $this->assertStringNotContainsString($hidden, $html);
+        }
+
+        $ld = collect($this->jsonLd($html));
+        $this->assertSame('كن شريكًا مع SHELTER COFFEE', $ld->firstWhere('@type', 'WebPage')['name'] ?? null);
+        $this->assertCount(7, $ld->firstWhere('@type', 'FAQPage')['mainEntity'] ?? []);
+        foreach (['Offer', 'Product', 'AggregateRating', 'Review', 'PriceSpecification'] as $forbidden) {
+            $this->assertNull($ld->firstWhere('@type', $forbidden));
+        }
+
+        // Linked once published: the footer under the page name, the contact card, search.
+        $this->assertMatchesRegularExpression('#href="http://localhost/ar/franchise/"\s*>كن شريكًا مع SHELTER COFFEE</a>#u', (string) $this->fresh('/ar/')->getContent());
+        $this->assertStringContainsString('href="http://localhost/ar/franchise/"', (string) $this->fresh('/ar/contact/')->getContent());
+    }
+
+    public function test_the_owner_content_v1_renders_in_english_and_is_searchable(): void
+    {
+        $this->seedFranchise();
+        $html = (string) $this->get('/en/franchise/')->assertOk()->getContent();
+
+        $this->assertStringContainsString('<span class="ui-franchise__title-line">Grow With</span>', $html);
+        $this->assertStringContainsString('Start Your Partnership Application', $html);
+        $this->assertStringContainsString('Discover SHELTER', $html);
+        $this->assertStringContainsString('Start Your Application', $html);
+        $this->assertStringContainsString('Interested in Bringing SHELTER to Your Market?', $html);
+        $this->assertStringContainsString('No profit or specific return is guaranteed.', $html);
+
+        app(SearchIndexer::class)->rebuild();
+        $search = (string) $this->fresh('/en/search/?q=cost')->assertOk()->getContent();
+        $this->assertMatchesRegularExpression('#href="/en/franchise/\#q-\d+"#', $search);
+        $this->assertStringContainsString('How much does a SHELTER franchise cost?', $search);
+    }
+
+    public function test_a_blocked_commercial_claim_keeps_the_page_offline(): void
+    {
+        $this->seedFranchise();
+        PageSection::query()->where('type', 'cta')->update(['body_ar' => 'فرصة بأرباح مضمونة.']);
+
+        $this->fresh('/ar/franchise/')->assertNotFound();
         $this->fresh('/en/franchise/')->assertNotFound();
     }
 
-    public function test_published_without_approved_texts_shows_the_content_and_the_inquiries_contact_not_the_form(): void
+    public function test_without_both_approved_texts_the_page_offers_the_inquiries_contact(): void
     {
-        $this->publishPage();
-        $html = (string) $this->get('/en/franchise/')->assertOk()->getContent();
-
-        $this->assertStringContainsString('<h1 class="ui-franchise__title">Test title</h1>', $html);
-        $this->assertStringContainsString('FRANCHISE &amp; PARTNERSHIPS', $html);
-        $this->assertStringContainsString('<li class="ui-steps__item">Apply</li>', $html);
-        $this->assertMatchesRegularExpression('#<li class="ui-franchise__list-item">.*?<span>Second point</span></li>#s', $html);
-        $this->assertStringContainsString('id="q-4"', $html, 'FAQ anchors follow the section position (search links)');
-        $this->assertStringNotContainsString('data-franchise-form', $html);
-        $this->assertStringContainsString('href="#franchise-contact"', $html);
-        $this->assertStringContainsString('id="franchise-contact"', $html);
-        $this->assertStringContainsString('href="tel:+962799338445"', $html);
-
-        preg_match_all('#<script type="application/ld\+json">(.*?)</script>#s', $html, $matches);
-        $types = array_map(fn (string $json): string => (string) (json_decode($json, true)['@type'] ?? ''), $matches[1]);
-        $this->assertContains('FAQPage', $types);
-        $this->assertContains('WebPage', $types);
-        foreach (['Offer', 'Product', 'AggregateRating', 'Review'] as $forbidden) {
-            $this->assertStringNotContainsString('"@type":"'.$forbidden.'"', $html);
-        }
-
-        // Linked once published: footer (short label), the contact card, search.
-        $footer = (string) $this->fresh('/en/')->getContent();
-        $this->assertMatchesRegularExpression('#href="http://localhost/en/franchise/"\s*>Franchise</a>#', $footer);
-        $this->assertStringContainsString('href="http://localhost/ar/franchise/"', (string) $this->fresh('/ar/contact/')->getContent());
-        app(SearchIndexer::class)->rebuild();
-        $search = (string) $this->fresh('/en/search/?q=fee')->assertOk()->getContent();
-        $this->assertStringContainsString('href="/en/franchise/#q-4"', $search);
-    }
-
-    public function test_with_approved_consent_and_disclaimer_a_partnership_application_is_received(): void
-    {
-        $this->publishPage();
-        $consent = $this->openForm();
+        $this->seedFranchise();
+        ConsentVersion::query()->where('scope', 'partnership_ack')->update(['is_active' => false]);
 
         $html = (string) $this->fresh('/en/franchise/')->assertOk()->getContent();
-        $this->assertStringContainsString('data-franchise-form', $html);
-        $this->assertStringContainsString('href="#apply"', $html);
-        $this->assertStringContainsString('Fixture disclaimer text.', $html);
-        $this->assertStringContainsString('Fixture consent text.', $html);
-        $this->assertStringNotContainsString('نص موافقة تجريبي', $html, 'the consent follows the page language');
-        $this->assertMatchesRegularExpression('#<option value="JO"\s*>Jordan</option>#', $html, 'Jordan first');
-        $this->assertStringNotContainsString('investment', strtolower(strip_tags($html)), 'no investment question (field 14)');
+        $this->assertStringNotContainsString('data-franchise-form', $html);
+        $this->assertStringContainsString('href="#franchise-contact"', $html);
+        $this->assertStringContainsString('href="tel:+962799338445"', $html);
+        $this->post('/en/franchise/', $this->validInput())->assertNotFound();
+    }
 
-        $this->post('/en/franchise/', $this->validInput())->assertRedirect('http://localhost/en/franchise/submitted/');
+    public function test_the_form_shows_the_six_interest_types_and_two_unchecked_boxes(): void
+    {
+        $this->seedFranchise();
+        $html = (string) $this->get('/ar/franchise/')->assertOk()->getContent();
+
+        $this->assertStringContainsString('نوع اهتمامك بالشراكة', $html);
+        foreach (['single_location', 'multi_location', 'market_development', 'proposed_location', 'general_interest', 'other'] as $value) {
+            $this->assertStringContainsString('id="partnership_interest_type-'.$value.'"', $html);
+        }
+        $this->assertStringContainsString('لدي موقع مقترح وأرغب بدراسة ملاءمته', $html);
+        $this->assertStringContainsString('وضح نوع اهتمامك بالشراكة', $html);
+        $this->assertStringContainsString(e(FranchiseSeeder::ACKNOWLEDGEMENT_AR), $html);
+        $this->assertStringContainsString('لا تعتبر هذه الموافقة اشتراكًا في الرسائل التسويقية.', $html);
+        preg_match_all('#<input[^>]*name="(non_binding_acknowledgement|data_processing_consent)"[^>]*>#', $html, $boxes);
+        $this->assertCount(2, $boxes[0]);
+        foreach ($boxes[0] as $box) {
+            $this->assertStringNotContainsString('checked', $box, 'never pre-checked');
+        }
+        $this->assertStringNotContainsString('investment', strtolower(strip_tags((string) preg_replace('#<main.*?<form#s', '<form', $html))), 'no investment question in the form');
+    }
+
+    public function test_a_partnership_application_is_received_with_both_accepted_texts(): void
+    {
+        $this->seedFranchise();
+
+        $this->post('/en/franchise/', $this->validInput(['partnership_interest_other' => 'stale text from an earlier choice']))
+            ->assertRedirect('http://localhost/en/franchise/submitted/');
         $application = Application::query()->sole();
         $partner = PartnershipApplication::query()->sole();
         $this->assertSame('FR', $application->type);
         $this->assertMatchesRegularExpression('/^FR-\d{4}-00101$/', $application->reference_number, 'D-316');
+        $this->assertSame('single_location', $partner->partnership_interest_type);
+        $this->assertNull($partner->partnership_interest_other, 'a hidden stale description is never stored');
         $this->assertSame('+962791234567', $partner->phone_normalized);
-        $this->assertSame('partner.test@example.com', $partner->email_normalized);
         $this->assertSame('JO', $partner->country_code);
         $this->assertSame('instagram', $partner->utm_source);
         $this->assertSame('l.instagram.com', $partner->referrer_domain);
-        $this->assertNull($partner->experience_text);
-        $this->assertSame($consent->id, (int) DB::table('application_consents')->where('application_id', $application->id)->value('consent_version_id'));
+
+        $accepted = DB::table('application_consents')->join('consent_versions', 'consent_versions.id', '=', 'application_consents.consent_version_id')
+            ->where('application_id', $application->id)->orderBy('consent_versions.scope')->get(['scope', 'version', 'accepted', 'accepted_at']);
+        $this->assertSame(['partnership_ack', 'partnerships'], $accepted->pluck('scope')->all());
+        $this->assertSame(['partnership-ack-v1', 'partnership-consent-v1'], $accepted->pluck('version')->all());
+        $this->assertNotContains(null, $accepted->pluck('accepted_at')->all(), 'each text keeps the time it was accepted');
         $this->assertNotContains('ip', array_keys((array) DB::table('partnership_applications')->first()), 'attribution never keeps an IP');
 
         $done = (string) $this->get('/en/franchise/submitted/')->assertOk()->getContent();
-        $this->assertStringContainsString($application->reference_number, $done);
-        $this->assertStringContainsString('Thank you for your interest in partnering with SHELTER COFFEE', $done);
+        foreach (['Thank You for Your Interest in Partnering With SHELTER COFFEE', 'Your application has been received successfully.', 'Application Number:',
+            $application->reference_number, 'you will be contacted if the application proceeds to a further stage.', 'Please keep your application number for future reference.'] as $text) {
+            $this->assertStringContainsString($text, $done);
+        }
         $this->assertStringContainsString('<meta name="robots" content="noindex', $done);
         $this->get('/en/franchise/submitted/')->assertRedirect('http://localhost/en/franchise/');
     }
 
-    public function test_validation_keeps_answers_and_names_each_field(): void
+    public function test_other_needs_a_description_and_each_box_is_required_on_its_own(): void
     {
-        $this->publishPage();
-        $this->openForm();
+        $this->seedFranchise();
 
-        $this->post('/ar/franchise/', $this->validInput(['email' => 'not-an-email', 'country' => 'XX', 'experience_band' => 'lots', 'introduction' => '', 'consent' => '']))
+        $this->post('/ar/franchise/', $this->validInput(['partnership_interest_type' => 'other', 'non_binding_acknowledgement' => '', 'email' => 'not-an-email']))
             ->assertRedirect('http://localhost/ar/franchise/');
         $html = (string) $this->fresh('/ar/franchise/')->getContent();
-        foreach (['البريد الإلكتروني: أدخل بريدًا إلكترونيًا صحيحًا.', 'الدولة: اختر قيمة من القائمة.', 'الخبرة في الأعمال: اختر قيمة من القائمة.', 'رسالة تعريفية قصيرة: هذا الحقل مطلوب.', 'يجب الموافقة لإرسال الطلب.'] as $line) {
+        foreach (['وضح نوع اهتمامك بالشراكة: هذا الحقل مطلوب.', 'إقرار طبيعة الطلب: يجب تأكيد هذا الإقرار لإرسال الطلب.', 'البريد الإلكتروني: أدخل بريدًا إلكترونيًا صحيحًا.'] as $line) {
             $this->assertStringContainsString($line, $html);
         }
+        $this->assertMatchesRegularExpression('#id="partnership_interest_type-other"[^>]*checked#', $html, 'the choice survives the error');
         $this->assertStringContainsString('value="Test Partner"', $html);
         $this->assertSame(0, Application::query()->count());
+
+        $this->post('/en/franchise/', $this->validInput(['data_processing_consent' => '']))->assertRedirect('http://localhost/en/franchise/');
+        $this->post('/en/franchise/', $this->validInput(['partnership_interest_type' => 'franchise_rights']))->assertRedirect('http://localhost/en/franchise/');
+        $this->assertSame(0, DB::table('applications')->count(), 'only the six approved values');
+
+        $this->post('/en/franchise/', $this->validInput(['partnership_interest_type' => 'other', 'partnership_interest_other' => 'A kiosk partnership']))
+            ->assertRedirect('http://localhost/en/franchise/submitted/');
+        $this->assertSame('A kiosk partnership', PartnershipApplication::query()->sole()->partnership_interest_other);
     }
 
     public function test_the_same_submission_is_received_once_and_bots_are_turned_away(): void
     {
-        $this->publishPage();
-        $this->openForm();
+        $this->seedFranchise();
         $input = $this->validInput();
 
         $this->post('/en/franchise/', $input)->assertRedirect('http://localhost/en/franchise/submitted/');
@@ -212,5 +252,16 @@ class FranchisePageTest extends TestCase
         $this->post('/en/franchise/', $this->validInput(['form_token' => Crypt::encryptString((string) now()->getTimestamp())]))->assertRedirect('http://localhost/en/franchise/');
         $this->post('/en/franchise/', $this->validInput(['idempotency_key' => 'not-a-uuid']))->assertRedirect('http://localhost/en/franchise/');
         $this->assertSame(1, Application::query()->count());
+    }
+
+    public function test_the_seeder_never_overwrites_owner_edits(): void
+    {
+        $this->seedFranchise();
+        Page::query()->where('key', 'franchise')->update(['status' => PublishStatus::Draft]);
+        $this->seed(FranchiseSeeder::class);
+
+        $this->assertSame(PublishStatus::Draft, Page::query()->where('key', 'franchise')->sole()->status);
+        $this->assertSame(17, PageSection::query()->count());
+        $this->assertSame(2, ConsentVersion::query()->whereIn('scope', ['partnerships', 'partnership_ack'])->count());
     }
 }
