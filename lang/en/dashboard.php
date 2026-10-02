@@ -731,6 +731,16 @@ return [
         'safe_banner' => 'Safe Mode is on: announcements and offers are stopped.',
         'errors' => ['year' => 'Write a 4-digit year between 1950 and :max.'],
     ],
+    // Database backup (DEPLOY-005, OPS-041): one line on "Needs attention".
+    'backup' => [
+        'label' => 'Last database backup',
+        'states' => [
+            'ok' => 'OK',
+            'overdue' => 'Overdue — none in the last :hours hours',
+            'failed' => 'The last attempt failed',
+            'none' => 'No backup yet',
+        ],
+    ],
     'branch' => [
         'title' => 'Branch details',
         'help' => 'The name, address and map link as customers and Google see them. Saving a value approves it. The branch page address stays fixed.',

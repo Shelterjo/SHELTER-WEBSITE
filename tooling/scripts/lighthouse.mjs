@@ -1,10 +1,12 @@
 // Repeatable Lighthouse audits with root-cause output (not just scores). Mobile emulation + simulated throttling (Lighthouse defaults).
 // Usage: node scripts/lighthouse.mjs [--assert] [url ...]
 //   No URLs → audits the low-fi menu prototype (served locally). With the real app: SHELTER_BASE_URL=https://preview… node scripts/lighthouse.mjs /ar/jo/menu/
+//   Never the live site by accident (INFRA-002, TEST-024): a production address needs SHELTER_ALLOW_PRODUCTION=1.
 import lighthouse from 'lighthouse';
 import * as chromeLauncher from 'chrome-launcher';
 import { mkdir, writeFile } from 'node:fs/promises';
 import { serve } from './serve-static.mjs';
+import { assertNotProduction } from './base-url-guard.mjs';
 
 const args = process.argv.slice(2);
 const ASSERT = args.includes('--assert');
@@ -13,9 +15,10 @@ const CHROME = process.env.CHROME_PATH || '/opt/pw-browsers/chromium';
 // Gates from docs/menu-ia/PERFORMANCE-BUDGET.md
 const GATES = { performance: 0.9, accessibility: 0.95, 'best-practices': 0.9, seo: 0.9, lcp: 2500, cls: 0.1, tbt: 200 };
 
-let server, base = process.env.SHELTER_BASE_URL;
+let server, base = assertNotProduction(process.env.SHELTER_BASE_URL);
 if (!base) { server = await serve('../docs/menu-ia/wireframes/html', 4174); base = 'http://127.0.0.1:4174/'; }
-const targets = (paths.length ? paths : ['m-ar-default.html', 'm-en-default.html']).map(p => new URL(p, base).href);
+// An absolute URL argument bypasses the base, so every target is checked too (before Chrome starts).
+const targets = (paths.length ? paths : ['m-ar-default.html', 'm-en-default.html']).map(p => assertNotProduction(new URL(p, base).href, process.env, 'URL'));
 
 await mkdir('reports/lighthouse', { recursive: true });
 const chrome = await chromeLauncher.launch({ chromePath: CHROME, chromeFlags: ['--headless=new', '--no-sandbox'] });

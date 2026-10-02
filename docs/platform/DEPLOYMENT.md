@@ -3,7 +3,7 @@
 | البند | القيمة |
 |---|---|
 | **الغرض** | لا نشر عشوائي: كل إصدار له رقم وتغييرات ونتيجة اختبار وحالة ومرجع تراجع، ويعرف الـOwner دائمًا **"ماذا تغيّر في هذا الإصدار؟"** |
-| **الحالة** | `SPEC — READY FOR BUILD` · التنفيذ: `NOT STARTED` |
+| **الحالة** | `SPEC — READY FOR BUILD` · التنفيذ: `PARTIAL` — جاهز في التطبيق (`IMPLEMENTED — NOT YET VERIFIED` على Cloudways): `ops:backup-db` (§5 الخطوة 4) · `/up` يفحص القاعدة والـCache والتخزين · `TRUSTED_PROXIES` يُقرأ من `.env` · حارس الإنتاج في أدوات الاختبار. سكربت النشر وسجل `releases` وصفحة "الإصدارات": `NOT STARTED` |
 | **مرحلة البناء (M36 §6)** | **PHASE 7** (production release process). حوكمة الـMigrations من **PHASE 1** (database). خطة المشروع: P06 · P08 · P11 |
 | **المتطلبات** | M35 §2 · §51 · §58 · §59 · M36 §11 · §17 · OPS-039 · G14-CF-16 · DEPLOY-001 · DEPLOY-002 · DEPLOY-003 · DEPLOY-004 · DEPLOY-005 · DEPLOY-008 · DEPLOY-009 · D-172 · CW-06 · CF-005 · TEST-024 |
 | **المراجع الملزمة** | [`PLATFORM-ARCHITECTURE`](../architecture/PLATFORM-ARCHITECTURE.md) §3.5 (`releases`) · [`FINAL-ARCHITECTURE-REVIEW`](../FINAL-ARCHITECTURE-REVIEW.md) §13 · [`CI-CD-QUALITY-GATES`](CI-CD-QUALITY-GATES.md) · [`ROLLBACK`](ROLLBACK.md) · [`RELEASE-CHECKLIST`](RELEASE-CHECKLIST.md) |
@@ -84,7 +84,7 @@ applications/<app>/
 1. **فحص مسبق:** مستخدم SSH على مستوى التطبيق، والمساحة، و`APP_DEBUG=false`، والحالة `APPROVED` (للإنتاج).
 2. رفع الـArtifact ← تحقق الـchecksum ← فك إلى `releases/<id>`.
 3. ربط `.env` و`storage` المشتركين.
-4. **Backup لقاعدة البيانات** (`ops:backup-db --reason=pre-deploy`). **فشله يوقف النشر** (DEPLOY-005).
+4. **Backup لقاعدة البيانات:** `php artisan ops:backup-db --reason=pre-deploy`. **فشله يوقف النشر** (DEPLOY-005): الأمر يخرج بـexit ≠ 0 (التفاصيل في §10).
 5. `php artisan migrate --force` باتصال مستخدم الـMigrations (Expand فقط — §6).
 6. `php artisan optimize` (config · route · view · event cache).
 7. **التبديل الذري:** symlink مؤقت ثم `mv -T` إلى `current`.
@@ -117,7 +117,15 @@ applications/<app>/
 - لكل Migration دالة `down()`. Migration **غير قابلة للعكس** = موافقة صريحة منك (DEPLOY-008).
 - **Backup قبل كل Migration** (آلي في الخطوة 4). **Staging أولًا** مع قياس المدة والأقفال.
 - مستخدم Migrations منفصل يُستخدم أثناء النشر فقط. مستخدم التطبيق بلا `DROP` ولا `GRANT` (CW-06).
-- الـCI يشغّل الـMigrations على MySQL، ويختبر `migrate:rollback` لآخر دفعة، ويشغّل **اختبارات الإصدار السابق على المخطط الجديد** (ضمان التراجع).
+- **ما يشغّله الـCI اليوم** (`.github/workflows/quality.yml`، مع كل push):
+  - **fast:** Pint · Larastan (level 8) · PHPUnit على **SQLite في الذاكرة** (الـMigrations تُشغَّل هنا على SQLite فقط) · TypeScript · ESLint/Prettier · Vitest.
+  - **build:** `npm run build` مع ميزانية الحزمة.
+  - **design-system:** Storybook × axe × 360/768/1280 × AR/EN.
+  - **security:** Gitleaks · Semgrep · `composer audit` · `npm audit`.
+  - **full** (تشغيل يدوي فقط): Trivy · Knip.
+- **ما لا يشغّله الـCI بعد** (`NOT STARTED`): الـMigrations على MySQL/MariaDB، واختبار `migrate:rollback` لآخر دفعة، و**اختبارات الإصدار السابق على المخطط الجديد** (ضمان التراجع). حتى تُبنى:
+  - `migrate --force` على **Staging** (MariaDB) قبل Production هو التحقق الوحيد على المحرك الحقيقي.
+  - مع Backup قبله (الخطوة 4) ومراجعة `down()` لكل Migration جديدة.
 
 ## 7. V1 مقابل لاحقًا
 | V1 | لاحقًا |
@@ -144,3 +152,89 @@ applications/<app>/
 - لا Cloudways API Key، ولا مطالبة الـOwner باستخدام GitHub أو SQL أو الكود أو مدير ملفات Cloudways أو Terminal (M35 §59).
 - لا تحديثات Major تلقائية على Production (OPS-043).
 - لا وضع صيانة كامل في نشر عادي (AC-5: الصيانة الكاملة لترحيل أو حادثة أمنية فقط، وبموافقتك).
+
+## 10. نسخ قاعدة البيانات من التطبيق — `ops:backup-db` (DEPLOY-005، OPS-041)
+**الحالة:** `IMPLEMENTED — NOT YET VERIFIED` على Cloudways. تحقق محلي: MariaDB 10.11 (نسخ ثم استرجاع في قاعدة ثانية بنفس عدد الجداول والصفوف) وSQLite (اختبارات `DatabaseBackupTest`).
+
+| البند | القيمة |
+|---|---|
+| **متى** | يوميًا 03:00 بتوقيت عمّان من الـScheduler (§11)، وفي كل نشر قبل الـMigrations (§5 الخطوة 4). يدويًا: `php artisan ops:backup-db --reason=manual`. [`DISASTER-RECOVERY`](DISASTER-RECOVERY.md) §1 يقترح كل 6 ساعات: التغيير سطر واحد في `routes/console.php` مع رفع `BACKUP_KEEP` (56 = 14 يومًا) |
+| **MySQL/MariaDB** | `mysqldump --single-transaction --quick --no-tablespaces --hex-blob`: نسخة متسقة بلا قفل للموقع |
+| **كلمة المرور** | في **ملف خيارات مؤقت 0600** داخل مجلد النسخ (`--defaults-extra-file`)، يُحذف فور انتهاء الـdump حتى عند الفشل. **لا شيء على سطر الأوامر** (لا يظهر في `ps`) |
+| **SQLite** (محلي) | `VACUUM INTO` (نسخة متسقة حتى أثناء الكتابة)، ثم `PRAGMA integrity_check` |
+| **لا تُحسب النسخة قبل فحصها** | الـdump كامل (ينتهي بسطر `-- Dump completed`) أو نسخة SQLite سليمة، ثم الـ`.gz` يُقرأ كاملًا ويعطي نفس الحجم |
+| **المكان** | `BACKUP_ROOT` (فارغ = `storage/app/private/backups`). المجلد 0700 والملفات 0600. **يرفض** مسارًا نسبيًا أو داخل `public/` (ولو عبر symlink). Cloudways: `…/private_html/backups` (يُتحقق في الـAudit أنه ضمن نسخ Cloudways، A-08) |
+| **اسم الملف** | `db-<UTC yyyymmdd-hhmmss>-<السبب>-<6 أحرف عشوائية>.sql.gz` (أو `.sqlite.gz`) |
+| **الاحتفاظ** | أحدث `BACKUP_KEEP` نسخة (الافتراضي 14). الأقدم يُحذف بعد كل نسخة ناجحة. لا يلمس أي ملف آخر في المجلد |
+| **السجل والتنبيه** | كل تشغيل سطر في `scheduled_job_runs` (`JobRuns`): اسم الملف وحجمه وSHA-256. الفشل: exit 1، وإشارة HIGH "تعذّر تشغيل مهمة مجدولة: ops:backup-db" في **يحتاج انتباهك**، تُغلق وحدها بأول نسخة ناجحة. `--reason` خاطئ = exit 2 بلا تسجيل |
+| **ما يراه الـOwner** | سطر **"آخر نسخة احتياطية لقاعدة البيانات"** أعلى شاشة **يحتاج انتباهك**: الوقت (عمّان) والحجم والحالة: سليمة · متأخرة (أقدم من 36 ساعة: ربما توقف الـCron) · فشلت آخر محاولة (مع وقتها) · لا توجد نسخة بعد |
+| **الاسترجاع** | يدوي، وعلى Production **بموافقتك فقط**: `zcat db-….sql.gz \| mysql --defaults-extra-file=<ملف 0600> <قاعدة>`، ثم التحقق. لم يُجرَّب على Cloudways بعد. خطة التراجع الكاملة في [`ROLLBACK`](ROLLBACK.md) |
+| **مكمّل لا بديل** | نسخ Cloudways للسيرفر تبقى كما هي. هذه النسخ على السيرفر نفسه، فلا تحمي من فقدانه. نسخة خارج السيرفر قرار لاحق (قد تكون خدمة مدفوعة: تُعرض عليك أولًا) |
+
+## 11. الـCron والمهام المجدولة (شرط للنشر)
+بدون الـCron لا نسخ يومية، ولا حذف لملفات التقديم غير المرسلة بعد 24 ساعة (خصوصية)، ولا تنبيهات الشاشة.
+
+**سطر واحد لكل تطبيق** (Staging وProduction كلٌّ لنفسه): Cloudways ← Application ← Cron Job Management ← Advanced. تأكد من المجلد بـ`pwd` عبر SSH، ومن أن `/usr/bin/php -v` هو 8.3:
+```
+* * * * * cd /home/master/applications/<APP_FOLDER>/public_html/current && /usr/bin/php artisan schedule:run >> /dev/null 2>&1
+```
+بدون تخطيط `current` الذري (§5): احذف `/current`.
+
+| المهمة | متى (عمّان) | ماذا تفعل |
+|---|---|---|
+| `ops:backup-db` | يوميًا 03:00 | نسخة قاعدة البيانات (§10)، قبل أي مهمة تغيّر البيانات |
+| `facts:expire-verified` | يوميًا 03:10 | المعلومات الموثّقة المنتهية تعود إلى "معتمدة" مع تنبيه للمراجعة |
+| `monitors:daily` | يوميًا 03:20 | تنبيهات "يحتاج انتباهك": حقوق صور تنتهي خلال 30 يومًا، أسئلة شلتور المتكررة بلا جواب. ويحذف أسئلة شلتور الأقدم من 90 يومًا |
+| `careers:prune-drafts` | كل ساعة | يحذف ملفات التقديم **غير المرسلة** الأقدم من 24 ساعة. الطلبات المرسلة لا تُلمس |
+
+- كل مهمة تُسجَّل في `scheduled_job_runs` وكل فشل يرفع إشارة HIGH. كلها `withoutOverlapping`.
+- **التحقق بعد الإعداد:** `php artisan schedule:list`، ثم في صباح اليوم التالي: سطر "آخر نسخة احتياطية" = سليمة.
+- إذا توقف الـCron لا تستطيع مهمة أن تنبّه عن نفسها: سطر النسخة الاحتياطية يصبح "متأخرة" بعد 36 ساعة، وهذا هو المؤشر.
+
+## 12. متغيرات البيئة على الخادم
+- **المرجع الكامل:** [`.env.example`](../../.env.example). يغطي كل متغير تقرؤه الإعدادات، و`EnvExampleTest` يفشل إذا نقص متغير أو بقي متغير لا يُقرأ.
+- **ملف `.env` لكل بيئة:** `private_html/shared/.env` (600)، مربوط بكل إصدار.
+- **لا قيم سرية هنا ولا في Git ولا في المحادثة.**
+- **الأسرار:** `APP_KEY` و`DB_PASSWORD` و`RECRUITMENT_ID_*`، ومعها `SHELTER_BASIC_AUTH_PASSWORD` على Staging. تُولَّد على السيرفر، **مختلفة بين Staging وProduction**.
+
+| المتغير | Production | Staging | ملاحظة |
+|---|---|---|---|
+| `APP_ENV` | `production` | `staging` | |
+| `APP_DEBUG` | `false` | `false` | الكود يفرض `false` هنا أيضًا |
+| `APP_URL` | المضيف الرسمي https (DB-11: www)، بلا `/` في النهاية | مضيف Staging https | الموقع يرد فقط على نطاق `APP_URL` (غيره = 400، حتى `/up`) |
+| `APP_KEY` | سر جديد | سر جديد آخر | `php artisan key:generate --show` |
+| `DB_CONNECTION` | `mysql` أو `mariadb` حسب محرك Cloudways | نفسه | |
+| `DB_HOST` · `DB_PORT` · `DB_DATABASE` · `DB_USERNAME` · `DB_PASSWORD` | من Cloudways ← Access details | قاعدة منفصلة | |
+| `SESSION_LIFETIME` | `30` | `30` | **إلزامي صراحة:** افتراضي الكود 120 |
+| `SESSION_ENCRYPT` | `true` | `true` | **إلزامي صراحة:** افتراضي الكود `false` |
+| `LOG_STACK` · `LOG_LEVEL` · `LOG_DAILY_DAYS` | `daily` · `warning` · `14` | نفسها | الافتراضي `single` (ملف يكبر بلا حد) و`debug` |
+| `TRUSTED_PROXIES` | `127.0.0.1,::1`، ومع Cloudflare: + كل نطاقاته من https://www.cloudflare.com/ips/ | نفسه | يُقرأ من `.env` (`config/trustedproxy.php`). تحقق على Staging أن عنوان الزائر يظهر لا عنوان Cloudflare. لا `*` |
+| `SHELTER_INDEXING` | `false` حتى موافقة الإطلاق، ثم `true` | `false` دائمًا | |
+| `SHELTER_BASIC_AUTH_USER` · `_PASSWORD` | فارغان | مطلوبان | كل الموقع خلفها عدا `/up` |
+| `CAREERS_STORAGE_ROOT` | `…/private_html/recruitment` | مثله في تطبيق Staging | خارج الـwebroot |
+| `MEDIA_STORAGE_ROOT` | `…/private_html/media` | مثله | الأصول الخاصة |
+| `MEDIA_PUBLIC_ROOT` | فارغ | فارغ | `public/media` symlink إلى مجلد مشترك ليبقى بين الإصدارات |
+| `BACKUP_ROOT` · `BACKUP_KEEP` | `…/private_html/backups` · `14` | مثله | §10 |
+| `CAREERS_FORM_ENABLED` · `FRANCHISE_FORM_ENABLED` · `FEEDBACK_FORM_ENABLED` | `false` حتى موافقتك على كل نموذج | لا أثر | على Staging تفتح النماذج متى توفرت متطلباتها: بيانات اختبار فقط |
+| `RECRUITMENT_ID_ENC_KEY` · `RECRUITMENT_ID_HMAC_KEY` | أسرار جديدة | أسرار أخرى | نسخة offline عند الـOwner. فقدانها = أرقام هوية لا تُقرأ |
+| `CACHE_STORE` · `SESSION_DRIVER` · `QUEUE_CONNECTION` | `database` | `database` | لا Queue worker مطلوب اليوم |
+| `MAIL_MAILER` | `log` | `log` | لا بريد صادر في V1 |
+| `AI_PROVIDER` | `none` | `none` | خدمة مدفوعة: لا تُفعَّل إلا بموافقتك |
+| `SHELTER_RELEASE` | — | — | **ليس في `.env`:** يُمرَّر في shell البناء (`SHELTER_RELEASE=production npm run build`) |
+
+- **حُذف من `.env.example`** (لا يقرؤه شيء): `APP_TIMEZONE` (التطبيق يعمل بـUTC وتوقيت عمّان صريح في الكود) و`VITE_APP_NAME`.
+
+## 13. فحص الجاهزية `/up`
+- يرد **200** فقط إذا:
+  - أقلع التطبيق.
+  - أجابت قاعدة البيانات.
+  - احتفظ الـCache بقيمة.
+  - قَبِل `storage/framework` و`storage/logs` الكتابة.
+- غير ذلك: **500**. الاستجابة تقول "يعمل" أو "لا يعمل" فقط (JSON: `{"status":"up"}` / `{"status":"down"}`)، والسبب يُكتب في الـlog فقط.
+- **مستثنى من:** Basic auth (Staging) ووضع الصيانة.
+- **يخضع لـ`trustHosts`:** مراقب التشغيل يطلبه بالمضيف الحقيقي، لا برابط `*.cloudwaysapps.com`.
+- **التحقق بعد النشر (§5 الخطوة 11):** `/up` + الصفحات الأساسية (`/ar/` · `/ar/jo/menu/` · `/en/jo/locations/`) + `robots.txt` و`sitemap.xml`.
+- **أدوات الاختبار لا تعمل على الموقع الحي بالخطأ (INFRA-002، TEST-024):**
+  - Playwright وLighthouse يرفضان `shelterjo.com` و`www.shelterjo.com`.
+  - إلا مع `SHELTER_ALLOW_PRODUCTION=1`، لتحقق قراءة فقط بعد موافقتك.
+  - الفحص الذاتي: `npm --prefix tooling run guard:selftest`.

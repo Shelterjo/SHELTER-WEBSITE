@@ -3,9 +3,13 @@
 // (docs/careers/wireframes/html) as "prototype contracts".
 // When the real app exists, set SHELTER_BASE_URL and the app suites in tests/app/ take over.
 // Viewports: viewports.mjs (mandatory responsive matrix). Firefox + WebKit run only where installed (CI): SHELTER_ALL_BROWSERS=1.
+// Never the live site by accident (INFRA-002, TEST-024): a production SHELTER_BASE_URL needs SHELTER_ALLOW_PRODUCTION=1.
 import { defineConfig, devices } from '@playwright/test';
 import { VIEWPORTS } from './viewports.mjs';
+import { assertNotProduction } from './scripts/base-url-guard.mjs';
 
+assertNotProduction(process.env.SHELTER_BASE_URL);
+assertNotProduction(process.env.SHELTER_DASHBOARD_EN_URL, process.env, 'SHELTER_DASHBOARD_EN_URL');
 const BASE = process.env.SHELTER_BASE_URL || 'http://127.0.0.1:4173';
 const ALL_BROWSERS = process.env.SHELTER_ALL_BROWSERS === '1';
 const engines = [['chromium', devices['Desktop Chrome']], ...(ALL_BROWSERS ? [['firefox', devices['Desktop Firefox']], ['webkit', devices['Desktop Safari']]] : [])];
