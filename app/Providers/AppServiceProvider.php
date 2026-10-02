@@ -15,6 +15,7 @@ use App\Services\Content\Pages;
 use App\Services\Content\Search\SearchFreshness;
 use App\Services\Content\SiteTexts;
 use App\Services\Content\Team;
+use App\Services\Core\HealthCheck;
 use App\Services\Forms\FormGuard;
 use App\Services\Site\Markets;
 use App\Support\CanonicalHost;
@@ -24,7 +25,9 @@ use App\View\Composers\ErrorPageLocale;
 use App\View\Composers\SiteChrome;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Contracts\Translation\Loader;
+use Illuminate\Foundation\Events\DiagnosingHealth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
@@ -52,6 +55,9 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         CanonicalHost::apply((string) $this->app->environment(), (string) config('app.url'));
+
+        // /up checks the database, the cache and storage too, not only that the framework boots (deploy-facts §f).
+        Event::listen(DiagnosingHealth::class, HealthCheck::class);
 
         // Public site chrome (header, footer) and localized error pages (SITE-INVENTORY §D).
         View::composer('layouts.site', SiteChrome::class);
