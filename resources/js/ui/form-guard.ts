@@ -10,18 +10,26 @@ export function renderedAt(form: Element): string | null {
     return form.closest<HTMLElement>('[data-ui-rendered-at]')?.dataset['uiRenderedAt'] ?? null;
 }
 
+/** A button that opens its result in another tab (formtarget="_blank" — a page preview) leaves this page as it is. */
+export function opensElsewhere(submitter: Pick<Element, 'getAttribute'> | null): boolean {
+    return submitter?.getAttribute('formtarget') === '_blank';
+}
+
 export function installFormGuard(doc: Document = document): void {
     doc.addEventListener('submit', (event) => {
         const form = event.target;
         // A submit another script already stopped (its own checks) is not a send.
         if (event.defaultPrevented || !(form instanceof HTMLFormElement) || form.method.toLowerCase() !== 'post')
             return;
-        const last = Number(form.dataset['uiSubmittedAt'] ?? '0');
-        if (Date.now() - last < RESUBMIT_MS) {
-            event.preventDefault();
-            return;
+        // Opening a preview in a new tab is not the save: it never blocks the «Publish» that follows.
+        if (!opensElsewhere((event as SubmitEvent).submitter)) {
+            const last = Number(form.dataset['uiSubmittedAt'] ?? '0');
+            if (Date.now() - last < RESUBMIT_MS) {
+                event.preventDefault();
+                return;
+            }
+            form.dataset['uiSubmittedAt'] = String(Date.now());
         }
-        form.dataset['uiSubmittedAt'] = String(Date.now());
         const seen = renderedAt(form);
         if (seen === null) return;
         let input = form.querySelector<HTMLInputElement>(`input[name="${SEEN_FIELD}"]`);

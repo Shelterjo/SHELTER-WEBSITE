@@ -4,8 +4,9 @@
 
 @section('content')
     {{--
-        One branch's hours (HoursEditor): the regular week (preview → reason → publish, BRANCH-010) and the exceptions
-        (special hours, holidays, temporary and emergency closures — CMS-013). The preview uses the site's own week rows.
+        One branch: its details (BranchEditor — preview of the card and the page in both languages → publish, BRANCH-010),
+        its hours (HoursEditor): the regular week (preview → reason → publish) and the exceptions (special hours,
+        holidays, temporary and emergency closures — CMS-013). Each preview uses the site's own components.
     --}}
     @php
         $H = 'dashboard.hours.';
@@ -35,13 +36,17 @@
     @php
         $B = 'dashboard.branch.';
         $detailsBag = $errors->getBag('details');
-        $dv = fn (string $field, $value) => $detailsBag->any() ? old($field) : $value;
+        // The form shows what was typed: after an error (old input) or on the preview (BRANCH-010), else the saved value.
+        $dv = fn (string $field, $value) => $detailsBag->any() ? old($field) : ($detailsPreview !== null ? data_get($detailsPreview['input'], $field, $value) : $value);
     @endphp
     <section class="ui-record__section" id="details" aria-labelledby="details-title">
         <h2 id="details-title" class="ui-record__title">{{ __($B.'title') }}</h2>
         <p class="ui-note">{{ __($B.'help') }}</p>
         @if ($detailsBag->any())
             <x-ui.error-summary :errors="$detailsBag" :title="__('dashboard.pages.errors.summary')" id="details-errors" />
+        @endif
+        @if ($detailsPreview !== null && $detailsPreview['errors'] !== [])
+            <x-ui.error-summary :errors="collect($detailsPreview['errors'])->mapWithKeys(fn ($m, $k) => [$k === 'preview' ? 'details-preview' : $k => $m])->all()" :title="__('dashboard.pages.errors.summary')" id="details-preview-errors" />
         @endif
         <form class="ui-record__form" method="post" action="{{ route('dashboard.branches.details', $branch) }}">
             @csrf
@@ -98,10 +103,40 @@
                     @endforeach
                 </x-ui.fieldset>
             @endforeach
-            <x-ui.field :label="__($B.'reason')" for="details-reason" :hint="__('dashboard.settings.reason_hint')" optional>
-                <x-ui.input id="details-reason" name="reason" maxlength="300" />
-            </x-ui.field>
-            <x-ui.button type="submit">{{ __($B.'save') }}</x-ui.button>
+            <div class="ui-record__archive">
+                <x-ui.button type="submit" name="action" value="preview" icon="search" :variant="$detailsPreview === null ? 'primary' : 'outline'">{{ __($B.'preview') }}</x-ui.button>
+            </div>
+
+            @if ($detailsPreview !== null)
+                {{-- BRANCH-010: what visitors will see, both languages, from the values above — nothing is saved until «publish». --}}
+                <section class="ui-preview" id="details-preview" aria-labelledby="details-preview-title">
+                    <h3 class="ui-record__subtitle" id="details-preview-title">{{ __($B.'preview_title') }}</h3>
+                    <p class="ui-note">{{ __($B.'preview_help') }}</p>
+                    <p class="ui-record__status">
+                        <x-ui.badge :variant="$detailsPreview['changed'] === [] ? 'neutral' : 'warning'" icon="circle-alert">{{ __('dashboard.hours.changed') }}</x-ui.badge>
+                        <span>{{ $detailsPreview['changed'] === [] ? __('dashboard.hours.nothing_changed') : implode('، ', $detailsPreview['changed']) }}</span>
+                    </p>
+                    @if (! $detailsPreview['public'])
+                        <x-ui.alert variant="warning">{{ __($B.'preview_hidden') }}</x-ui.alert>
+                    @endif
+                    <div class="ui-preview__compare">
+                        @foreach (['ar' => 'rtl', 'en' => 'ltr'] as $locale => $dir)
+                            <div class="ui-branch-preview">
+                                <p class="ui-bilingual__language">{{ __('dashboard.pages.'.($locale === 'ar' ? 'arabic' : 'english')) }}</p>
+                                <div class="ui-preview__frame ui-branch-preview__frame" lang="{{ $locale }}" dir="{{ $dir }}">
+                                    {{ $detailsPreview['views'][$locale] }}
+                                </div>
+                                <x-ui.button type="submit" size="sm" variant="outline" icon="external-link" formaction="{{ route('dashboard.branches.details.preview', [$branch, $locale]) }}" formtarget="_blank">{{ __($B.'preview_page_'.$locale) }}</x-ui.button>
+                            </div>
+                        @endforeach
+                    </div>
+                    <input type="hidden" name="previewed" value="{{ $detailsPreview['fingerprint'] }}">
+                    <x-ui.field :label="__($B.'reason')" for="details-reason" :hint="__('dashboard.settings.reason_hint')" optional>
+                        <x-ui.input id="details-reason" name="reason" maxlength="300" :value="data_get($detailsPreview['input'], 'reason')" />
+                    </x-ui.field>
+                    <x-ui.button type="submit" name="action" value="publish" icon="circle-check">{{ __($B.'publish') }}</x-ui.button>
+                </section>
+            @endif
         </form>
     </section>
 

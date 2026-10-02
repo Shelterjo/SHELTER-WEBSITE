@@ -56,6 +56,21 @@ final class BranchDirectory
         return $branch === null ? null : $this->summary($branch, $market, $locale, $now ?? CarbonImmutable::now());
     }
 
+    /**
+     * The branch as its card and page will show it once the Owner publishes these details (BRANCH-010 preview, nothing
+     * saved): the values typed in the dashboard stand in for the approved ones — publishing approves them — while the
+     * hours, the state now, the contacts and the city stay the approved ones. Hidden or shown is the caller's to say.
+     *
+     * @param  array<string, string|null>  $values  BranchEditor::FIELDS => value
+     * @param  array<string, list<string>>  $said  group => the keys answered yes
+     */
+    public function preview(Branch $branch, Market $market, string $locale, array $values, array $said, ?CarbonImmutable $now = null): ?BranchSummary
+    {
+        $branch->loadMissing(['city', 'branchAttributes']);
+
+        return $this->summary($branch, $market, $locale, $now ?? CarbonImmutable::now(), $values, $said);
+    }
+
     /** @return Builder<Branch> */
     private function query(Market $market): Builder
     {
@@ -63,14 +78,19 @@ final class BranchDirectory
             ->whereHas('city.country', fn (Builder $q) => $q->where('market_id', $market->id));
     }
 
-    private function summary(Branch $branch, Market $market, string $locale, CarbonImmutable $now): ?BranchSummary
+    /**
+     * @param  array<string, string|null>|null  $draft  unsaved details standing in for the approved ones (preview only)
+     * @param  array<string, list<string>>|null  $said  unsaved services / payments answered yes (preview only)
+     */
+    private function summary(Branch $branch, Market $market, string $locale, CarbonImmutable $now, ?array $draft = null, ?array $said = null): ?BranchSummary
     {
-        $name = $this->data->branchField($branch, 'name_'.$locale);
+        $field = fn (string $name): mixed => $draft !== null && array_key_exists($name, $draft) ? $draft[$name] : $this->data->branchField($branch, $name);
+        $name = $field('name_'.$locale);
         if (! is_string($name) || $name === '') {
             return null;
         }
         $altLocale = $locale === 'ar' ? 'en' : 'ar';
-        $altName = $this->data->branchField($branch, 'name_'.$altLocale);
+        $altName = $field('name_'.$altLocale);
 
         $week = $today = $status = null;
         $special = [];
@@ -102,16 +122,16 @@ final class BranchDirectory
             status: $status,
             phone: $this->contacts->phone($locale),
             whatsapp: $this->contacts->whatsapp($locale),
-            address: self::text($this->data->branchField($branch, 'address_'.$locale)),
-            mapsUrl: self::text($this->data->branchField($branch, 'maps_url')),
-            latitude: self::text($this->data->branchField($branch, 'latitude')),
-            longitude: self::text($this->data->branchField($branch, 'longitude')),
-            services: $this->said($branch, 'service'),
-            payments: $this->said($branch, 'payment'),
+            address: self::text($field('address_'.$locale)),
+            mapsUrl: self::text($field('maps_url')),
+            latitude: self::text($field('latitude')),
+            longitude: self::text($field('longitude')),
+            services: $said['service'] ?? $this->said($branch, 'service'),
+            payments: $said['payment'] ?? $this->said($branch, 'payment'),
             kind: self::kind($branch->type, $locale),
             titleKind: self::kind($branch->type, $locale, 'site.branch.title_kinds'),
             city: $this->data->cityName($branch->city, $locale),
-            landmark: self::text($this->data->branchField($branch, 'landmark_'.$locale)),
+            landmark: self::text($field('landmark_'.$locale)),
             special: $special,
         );
     }

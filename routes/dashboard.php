@@ -179,6 +179,8 @@ Route::prefix('dashboard')->middleware(DashboardLocale::class)->group(function (
         Route::whereNumber(['branch', 'exception'])->middleware('confirmed')->group(function (): void {
             Route::get('data/branches/{branch}', [BranchesController::class, 'show'])->name('branches.show');
             Route::put('data/branches/{branch}/details', [BranchesController::class, 'details'])->name('branches.details');
+            // BRANCH-010: the branch page with the details not published yet, in one language (a new tab; nothing saved).
+            Route::put('data/branches/{branch}/details/preview/{locale}', [BranchesController::class, 'previewPage'])->whereIn('locale', ['ar', 'en'])->name('branches.details.preview');
             Route::post('data/branches/{branch}/hours', [BranchesController::class, 'hours'])->name('branches.hours');
             Route::post('data/branches/{branch}/exceptions', [BranchesController::class, 'storeException'])->name('branches.exceptions.store');
             Route::put('data/branches/{branch}/exceptions/{exception}', [BranchesController::class, 'updateException'])->name('branches.exceptions.update');

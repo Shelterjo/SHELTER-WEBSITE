@@ -11,8 +11,12 @@ use Illuminate\Support\Facades\DB;
 /**
  * A branch's details (M50, MDH-005, PO-010 — the Owner's own facts, no code): its names in both languages, the address
  * and the location description (a nearby landmark, M57) in each language, the Google Maps link and the coordinates, whether it shows on the site, and its services and
- * payment methods (yes · no · not said). Saving a value approves it (FACT-REGISTRY: dashboard edit = approval). The
+ * payment methods (yes · no · not said). Like the hours (HoursEditor), the details are published only after a preview of
+ * exactly what visitors will see (BRANCH-010): the preview saves nothing, and publishing refuses details other than the
+ * ones previewed (fingerprint). Publishing a value approves it (FACT-REGISTRY: dashboard edit = approval). The
  * fixed address of its page (slug, city — D-053) does not change. Every change is versioned and audited.
+ *
+ * @phpstan-type Details array{values: array<string, string|null>, public: bool, attributes: array<string, array<string, string>>, reason: string|null, errors: array<string, string>}
  */
 final class BranchEditor
 {
@@ -20,16 +24,22 @@ final class BranchEditor
 
     public const ADDRESS_MAX = 300;
 
+    /** The text details of a branch, in the form's order (latitude and longitude as the site reads them, 7 decimals). */
+    public const FIELDS = ['name_ar', 'name_en', 'address_ar', 'address_en', 'landmark_ar', 'landmark_en', 'maps_url', 'latitude', 'longitude'];
+
     /** Google Maps link hosts accepted (a share link or a maps page). */
     private const MAP_HOSTS = ['maps.app.goo.gl', 'share.google', 'goo.gl', 'www.google.com', 'google.com', 'maps.google.com', 'www.google.jo', 'google.jo'];
 
     public function __construct(private readonly OwnerApproval $approval, private readonly Versions $versions, private readonly AuditLogger $audit) {}
 
     /**
+     * Reads the form — nothing is saved: the values as the site will show them, shown or hidden, and the answer for every
+     * service and payment method (an answer not sent keeps the current one).
+     *
      * @param  array<string, mixed>  $input
-     * @return array<string, string> errors; empty = saved
+     * @return Details
      */
-    public function save(Branch $branch, array $input, User $owner): array
+    public function parse(Branch $branch, array $input): array
     {
         $errors = [];
         $text = fn (string $field): ?string => is_string($input[$field] ?? null) && trim($input[$field]) !== ''
@@ -65,14 +75,99 @@ final class BranchEditor
         } elseif ($lat !== '' && (! is_numeric($lat) || abs((float) $lat) > 90 || ! is_numeric($lng) || abs((float) $lng) > 180)) {
             $errors['latitude'] = (string) __('dashboard.branch.errors.coordinates');
         }
-        $attributes = is_array($input['attributes'] ?? null) ? $input['attributes'] : [];
-        if ($errors !== []) {
-            return $errors;
+        $values['latitude'] = $errors === [] && $lat !== '' ? number_format((float) $lat, 7, '.', '') : null;
+        $values['longitude'] = $errors === [] && $lng !== '' ? number_format((float) $lng, 7, '.', '') : null;
+
+        $sent = is_array($input['attributes'] ?? null) ? $input['attributes'] : [];
+        $attributes = [];
+        foreach ($branch->branchAttributes()->orderBy('id')->get() as $attribute) {
+            $choice = is_array($sent[$attribute->group] ?? null) ? ($sent[$attribute->group][$attribute->key] ?? null) : null;
+            $attributes[$attribute->group][$attribute->key] = in_array($choice, ['yes', 'no', 'unknown'], true)
+                ? $choice : ($attribute->value === null ? 'unknown' : ($attribute->value ? 'yes' : 'no'));
         }
-        $values['latitude'] = $lat === '' ? null : number_format((float) $lat, 7, '.', '');
-        $values['longitude'] = $lng === '' ? null : number_format((float) $lng, 7, '.', '');
-        $public = ($input['is_public'] ?? '1') !== '0';
-        $reason = is_string($input['reason'] ?? null) && trim($input['reason']) !== '' ? mb_substr(trim($input['reason']), 0, 300) : null;
+        ksort($attributes);
+
+        return [
+            'values' => $values,
+            'public' => ($input['is_public'] ?? '1') !== '0',
+            'attributes' => $attributes,
+            'reason' => is_string($input['reason'] ?? null) && trim($input['reason']) !== '' ? mb_substr(trim($input['reason']), 0, 300) : null,
+            'errors' => $errors,
+        ];
+    }
+
+    /**
+     * What the preview stands for: these exact details, so "publish" publishes what was seen (as HoursEditor does).
+     *
+     * @param  Details  $details
+     */
+    public static function fingerprint(Branch $branch, array $details): string
+    {
+        return hash('sha256', $branch->code.'|'.json_encode([$details['values'], $details['public'], $details['attributes']]));
+    }
+
+    /**
+     * The services and payment methods the site will list: the ones answered yes.
+     *
+     * @param  Details  $details
+     * @return array<string, list<string>> group => keys
+     */
+    public static function said(array $details): array
+    {
+        $said = ['service' => [], 'payment' => []];
+        foreach ($details['attributes'] as $group => $answers) {
+            $said[$group] = array_keys(array_filter($answers, fn (string $choice): bool => $choice === 'yes'));
+        }
+
+        return $said;
+    }
+
+    /**
+     * The fields these details change, named as the form names them (the preview lists them for the Owner to check).
+     *
+     * @param  Details  $details
+     * @return list<string>
+     */
+    public function changes(Branch $branch, array $details): array
+    {
+        $now = self::snapshot($branch, self::FIELDS);
+        $changed = [];
+        foreach ($details['values'] as $field => $value) {
+            if ($now[$field] !== $value) {
+                $changed[] = (string) __('dashboard.branch.'.$field);
+            }
+        }
+        if ($branch->is_public !== $details['public']) {
+            $changed[] = (string) __('dashboard.branch.is_public');
+        }
+        foreach ($branch->branchAttributes()->orderBy('id')->get() as $attribute) {
+            $choice = $attribute->value === null ? 'unknown' : ($attribute->value ? 'yes' : 'no');
+            if (($details['attributes'][$attribute->group][$attribute->key] ?? $choice) !== $choice) {
+                $changed[] = (string) __('site.attributes.'.$attribute->group.'.'.$attribute->key);
+            }
+        }
+
+        return $changed;
+    }
+
+    /**
+     * Publishes the previewed details: refused when they are not the ones previewed.
+     *
+     * @param  Details  $details
+     * @return array<string, string> errors; empty = published
+     */
+    public function publish(Branch $branch, array $details, string $previewed, User $owner): array
+    {
+        if ($details['errors'] !== []) {
+            return $details['errors'];
+        }
+        if (! hash_equals(self::fingerprint($branch, $details), $previewed)) {
+            return ['preview' => (string) __('dashboard.branch.errors.preview')];
+        }
+        $values = $details['values'];
+        $public = $details['public'];
+        $attributes = $details['attributes'];
+        $reason = $details['reason'];
 
         DB::transaction(function () use ($branch, $values, $public, $attributes, $reason, $owner): void {
             $fields = [...array_keys($values), 'is_public'];
@@ -87,7 +182,7 @@ final class BranchEditor
             $changedAttributes = [];
             foreach ($branch->branchAttributes()->get() as $attribute) {
                 $choice = $attributes[$attribute->group][$attribute->key] ?? null;
-                if (! in_array($choice, ['yes', 'no', 'unknown'], true)) {
+                if ($choice === null) {
                     continue;
                 }
                 $value = $choice === 'unknown' ? null : $choice === 'yes';
