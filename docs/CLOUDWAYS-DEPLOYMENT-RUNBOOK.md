@@ -59,8 +59,8 @@
 | 4 | Cloudways ← Server ← Settings & Packages / Security: **SSH Shell Access** مفعّل للتطبيق | ✅ (تحقق في التشغيل #11) |
 | 5 | Cloudways ← `shelter-staging` ← Application Settings: **Varnish OFF** (كل صفحة لها جلسة وحالة "مفتوح الآن" حية) | ✅ (الـOwner) |
 | 6 | Cloudways ← `shelter-staging` ← Application Settings ← General ← **WEBROOT**: الحقل يبدأ بـ`public_html/` ثابتة، فيُكتب فيه **`current/public` فقط** (كتابة `public_html/current/public` تجعله `public_html/public_html/current/public` فيرد كل شيء 404) — بعد أول تشغيل `stage` | ✅ (الـOwner، 2026-10-02) |
-| 7 | Cloudways ← Cron Job Management ← Advanced: `* * * * * cd <مجلد التطبيق>/public_html/current && php artisan schedule:run >> /dev/null 2>&1` | بعد أول `full` |
-| 8 | حساب الـOwner على Staging: عبر SSH Terminal في Cloudways، داخل `public_html/current`: `php artisan shelter:owner info@shelterjo.com` — كلمة المرور يكتبها الـOwner بنفسه ولا تمر بالمحادثة | بعد أول `full` |
+| 7 | Cloudways ← Cron Job Management ← Advanced: `* * * * * cd <مجلد التطبيق>/public_html/current && php artisan schedule:run >> /dev/null 2>&1` | ✅ (الـOwner، 2026-10-02؛ المسار الكامل `/home/1550095.cloudwaysapps.com/<app>/public_html/current`) |
+| 8 | حساب الـOwner على Staging: عبر SSH من جهاز الـOwner (`ssh -i …\shelter_staging <app-user>@<server-ip>`؛ الجلسة تبدأ داخل `~/public_html`) ثم `cd ~/public_html/current`: `php artisan shelter:owner info@shelterjo.com` — كلمة المرور يكتبها الـOwner بنفسه ولا تمر بالمحادثة | ✅ (2026-10-02: `Owner created`) |
 
 ## 4. نشر إصدار
 GitHub ← Actions ← **Deploy staging** ← Run workflow:
