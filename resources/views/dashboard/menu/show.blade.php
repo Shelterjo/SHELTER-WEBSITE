@@ -4,8 +4,9 @@
 
 @section('content')
     {{--
-        One menu item: its names (the Arabic one reaches the site only once approved), the base price (a new price
-        starts on a date; the history stays), and each branch — its own price and availability, or the base.
+        One menu item: its names (the Arabic one reaches the site only once approved), the other words customers may
+        search it by (CMS-018), its details and section, the base price (a new price starts on a date; the history
+        stays), and each branch — its own price and availability, or the base.
     --}}
     @php
         $M = 'dashboard.menu.';
@@ -13,6 +14,7 @@
         $namesBag = $errors->getBag('names');
         $priceBag = $errors->getBag('price');
         $detailsBag = $errors->getBag('details');
+        $wordsBag = $errors->getBag('words');
         $d = fn (string $field, $value) => $detailsBag->any() ? old($field) : $value;
     @endphp
     <x-ui.page-header :title="(string) $product->display_name_en">
@@ -50,6 +52,45 @@
             </form>
         </section>
 
+        <section class="ui-record__section" id="search-words" aria-labelledby="words-title">
+            <h2 id="words-title" class="ui-record__title">{{ __($M.'groups.words') }}</h2>
+            @if ($wordsBag->any())
+                <x-ui.error-summary :errors="$wordsBag" :title="__('dashboard.pages.errors.summary')" id="words-errors" />
+            @endif
+            @if ($words->isEmpty())
+                <p class="ui-note">{{ __($M.'words_empty') }}</p>
+            @else
+                <ul class="ui-record__lines ui-menu-item__lines" role="list">
+                    @foreach ($words as $word)
+                        <li class="ui-live-item">
+                            <bdi lang="{{ $word->locale }}">{{ $word->value }}</bdi>
+                            <form method="post" action="{{ route('dashboard.menu.words.archive', [$product, $word]) }}">
+                                @csrf
+                                <x-ui.button type="submit" size="sm" variant="ghost" icon="x">{{ __($M.'remove_word', ['word' => $word->value]) }}</x-ui.button>
+                            </form>
+                        </li>
+                    @endforeach
+                </ul>
+            @endif
+            @if ($suggestion !== null)
+                <div class="ui-live-item">
+                    <p class="ui-note">{{ __($M.'suggest', ['name' => $suggestion]) }}</p>
+                    <form method="post" action="{{ route('dashboard.menu.words.add', $product) }}">
+                        @csrf
+                        <input type="hidden" name="word" value="{{ $suggestion }}">
+                        <x-ui.button type="submit" size="sm" variant="secondary">{{ __($M.'suggest_add') }}</x-ui.button>
+                    </form>
+                </div>
+            @endif
+            <form class="ui-record__form" method="post" action="{{ route('dashboard.menu.words.add', $product) }}">
+                @csrf
+                <x-ui.field :label="__($M.'fields.word')" for="word" :hint="__($M.'fields.word_hint')" :error="$wordsBag->first('word')">
+                    <x-ui.input id="word" name="word" maxlength="40" autocomplete="off" :value="$wordsBag->any() ? old('word') : null" />
+                </x-ui.field>
+                <x-ui.button type="submit">{{ __($M.'add_word') }}</x-ui.button>
+            </form>
+        </section>
+
         <section class="ui-record__section" id="details" aria-labelledby="details-title">
             <h2 id="details-title" class="ui-record__title">{{ __($M.'groups.details') }}</h2>
             @if ($detailsBag->any())
@@ -59,6 +100,9 @@
                 @csrf
                 @method('PUT')
                 @php $visible = (string) $d('visible', $product->publish_status === \App\Enums\PublishStatus::Archived ? '0' : '1'); @endphp
+                <x-ui.field :label="__($M.'fields.category')" for="category" :hint="__($M.'fields.category_hint')" :error="$detailsBag->first('category')">
+                    <x-ui.select id="category" name="category" :options="$categories" :selected="(string) $d('category', $product->menu_category_id)" />
+                </x-ui.field>
                 <x-ui.fieldset :legend="__($M.'fields.visible')" id="visible">
                     <div class="ui-editor__options">
                         <x-ui.radio :label="__($M.'visibility.shown')" name="visible" value="1" id="visible-1" :checked="$visible !== '0'" />
@@ -177,7 +221,9 @@
                         @php $snap = $version->snapshot; @endphp
                         <li>
                             <bdi>{{ $version->created_at?->setTimezone('Asia/Amman')->format('Y-m-d H:i') }}</bdi> ·
-                            @if (isset($snap['price_fils']))
+                            @if (array_key_exists('category', $snap) && array_key_exists('display_name_en', $snap))
+                                {{ __($M.'version.created') }}
+                            @elseif (isset($snap['price_fils']))
                                 {{ __($M.'version.price', ['price' => \App\Services\Dashboard\MenuManager::dinars((int) $snap['price_fils']), 'date' => $snap['valid_from'] ?? '']) }}
                             @elseif (array_key_exists('override', $snap))
                                 @php $branchName = $branchByCode[$snap['branch'] ?? ''] ?? ($snap['branch'] ?? ''); @endphp
@@ -189,6 +235,8 @@
                                         isset($snap['override']['availability']) ? __($M.'states.'.$snap['override']['availability']) : null,
                                     ]))]) }}
                                 @endif
+                            @elseif (array_key_exists('category', $snap))
+                                {{ __($M.'version.moved') }}
                             @elseif (array_key_exists('publish_status', $snap))
                                 {{ __($M.'version.details') }}
                             @else

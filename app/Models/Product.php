@@ -105,6 +105,12 @@ class Product extends Model
         return $this->hasMany(ProductBranchOverride::class);
     }
 
+    /** @return HasMany<SearchAlias, $this> the approved search words (archived ones stay in the table) */
+    public function searchAliases(): HasMany
+    {
+        return $this->hasMany(SearchAlias::class)->where('status', SearchAlias::STATUS_APPROVED)->orderBy('id');
+    }
+
     /** @return HasMany<MenuSourceRow, $this> */
     public function sourceRows(): HasMany
     {

@@ -9,6 +9,7 @@ use App\Models\MenuCategory;
 use App\Models\Product;
 use App\Models\ProductBranchOverride;
 use App\Models\ProductPrice;
+use App\Models\SearchAlias;
 use App\Models\User;
 use App\Services\Core\AuditLogger;
 use App\Services\Core\Versions;
@@ -195,6 +196,169 @@ final class MenuEditor
                 $this->audit->record('menu.category_name_saved', $category, ['before' => $before, 'after' => $after], [], self::CHANNELS, $owner);
             }
         });
+    }
+
+    /**
+     * A new menu item (MENU-060): the next product number (never a retired one — PRD-00193 onwards), the Owner's names
+     * (typing them = approving them), its section, its first base price from a date, shown or hidden. The source menu
+     * file (menu_source_rows) is not touched: the item's origin is the dashboard.
+     *
+     * @param  array{category: MenuCategory, name_en: string, name_ar: ?string, price_fils: int, starts_on: CarbonImmutable, visible: bool}  $values
+     */
+    public function createProduct(User $owner, array $values, ?string $reason = null): Product
+    {
+        $this->assertOwner($owner);
+        if (trim($values['name_en']) === '' || $values['price_fils'] <= 0) {
+            throw new InvalidArgumentException('A new item needs its English name and a price.');
+        }
+
+        return DB::transaction(function () use ($owner, $values, $reason): Product {
+            $last = Product::query()->lockForUpdate()->pluck('code')
+                ->map(fn (string $code): int => preg_match('/^PRD-(\d+)$/', $code, $m) === 1 ? (int) $m[1] : 0)->max() ?? 0;
+            $code = sprintf('PRD-%05d', max((int) $last, 192) + 1);
+            $stamp = 'OWNER-DASHBOARD '.CarbonImmutable::now('Asia/Amman')->toDateString();
+            $category = $values['category'];
+            $nameAr = $values['name_ar'] !== null && trim($values['name_ar']) !== '' ? $values['name_ar'] : null;
+            $product = Product::query()->create([
+                'code' => $code,
+                'menu_category_id' => $category->id,
+                'status' => Product::STATUS_ACTIVE,
+                'normalized_name_en' => $values['name_en'],
+                'normalized_name_ar' => $nameAr,
+                'display_name_en' => $values['name_en'],
+                'display_name_ar' => $nameAr,
+                'name_en_status' => 'APPROVED — OWNER DASHBOARD',
+                'name_en_decision' => $stamp,
+                'name_ar_status' => $nameAr !== null ? 'APPROVED — OWNER DASHBOARD' : 'MISSING — OWNER INPUT REQUIRED',
+                'name_ar_decision' => $nameAr !== null ? $stamp : null,
+                'availability' => Availability::Available,
+                'publish_status' => $values['visible'] ? PublishStatus::Published : PublishStatus::Archived,
+                'is_seasonal' => $category->type === 'seasonal',
+                'data_quality_status' => 'CLEAN',
+                'sort' => (int) Product::query()->where('menu_category_id', $category->id)->max('sort') + 1,
+            ]);
+            $product->prices()->create([
+                'price_fils' => $values['price_fils'],
+                'currency' => 'JOD',
+                'tax_inclusive' => true,
+                'valid_from' => $values['starts_on']->toDateString(),
+                'source' => 'owner_dashboard',
+                'created_by' => $owner->id,
+            ]);
+            $after = ['code' => $code, 'category' => $category->code, 'display_name_en' => $values['name_en'], 'display_name_ar' => $nameAr,
+                'price_fils' => $values['price_fils'], 'valid_from' => $values['starts_on']->toDateString(), 'publish_status' => $product->publish_status->value];
+            $this->versions->record($product, 'published', $after, $reason, $owner);
+            $this->audit->record('menu.product_created', $product, ['before' => null, 'after' => $after], $reason === null ? [] : ['reason' => $reason], self::CHANNELS, $owner);
+
+            return $product;
+        });
+    }
+
+    /** Moves an item to another section (the season included — MENU-060 "Set Seasonal"); it goes to the end there. */
+    public function moveProduct(Product $product, MenuCategory $category, User $owner): void
+    {
+        $this->assertOwner($owner);
+        if ($product->menu_category_id === $category->id) {
+            return;
+        }
+        DB::transaction(function () use ($product, $category, $owner): void {
+            $from = $product->category->code;
+            $product->forceFill([
+                'menu_category_id' => $category->id,
+                'menu_subcategory_id' => null,
+                'is_seasonal' => $category->type === 'seasonal',
+                'sort' => (int) Product::query()->where('menu_category_id', $category->id)->max('sort') + 1,
+            ])->save();
+            $this->versions->record($product, 'published', ['code' => $product->code, 'category' => $category->code], null, $owner);
+            $this->audit->record('menu.product_moved', $product, ['before' => ['category' => $from], 'after' => ['category' => $category->code]], [], self::CHANNELS, $owner);
+        });
+    }
+
+    /** Another word customers may type for this item (CMS-018) — added by the Owner, so approved (F-15: never invented). */
+    public function addSearchWord(Product $product, User $owner, string $value, string $normalized, string $locale): SearchAlias
+    {
+        $this->assertOwner($owner);
+        if (trim($value) === '' || $normalized === '' || ! in_array($locale, ['ar', 'en'], true)) {
+            throw new InvalidArgumentException('A search word cannot be empty.');
+        }
+
+        return DB::transaction(function () use ($product, $owner, $value, $normalized, $locale): SearchAlias {
+            $word = SearchAlias::query()->create([
+                'product_id' => $product->id, 'value' => $value, 'normalized' => $normalized, 'locale' => $locale,
+                'status' => SearchAlias::STATUS_APPROVED, 'created_by' => $owner->id,
+            ]);
+            $this->audit->record('menu.search_word_added', $product, ['before' => null, 'after' => ['word' => $value, 'locale' => $locale]], [], self::CHANNELS, $owner);
+
+            return $word;
+        });
+    }
+
+    /** Takes a search word out of the search; it stays in the table (archived — never deleted). */
+    public function archiveSearchWord(SearchAlias $word, User $owner): void
+    {
+        $this->assertOwner($owner);
+        if ($word->status === SearchAlias::STATUS_ARCHIVED) {
+            return;
+        }
+        DB::transaction(function () use ($word, $owner): void {
+            $word->forceFill(['status' => SearchAlias::STATUS_ARCHIVED, 'archived_at' => now()])->save();
+            $this->audit->record('menu.search_word_archived', $word->product, ['before' => ['word' => $word->value], 'after' => null], [], self::CHANNELS, $owner);
+        });
+    }
+
+    /**
+     * The seasonal section (Menu IA §10, CMS-009, MENU-044): by its dates, shown now or hidden; its dates (market
+     * days); its names (the Arabic one shows once approved — P-01). Hiding or ending never deletes an item.
+     *
+     * @param  array{mode: string, starts_on: ?string, ends_on: ?string, name_en: string, name_ar: ?string, approve_ar: bool}  $values
+     */
+    public function saveSeason(MenuCategory $season, User $owner, array $values, ?string $reason = null): void
+    {
+        $this->assertOwner($owner);
+        if ($season->type !== 'seasonal' || ! in_array($values['mode'], MenuSeason::MODES, true) || trim($values['name_en']) === '') {
+            throw new InvalidArgumentException('Not a valid season.');
+        }
+        DB::transaction(function () use ($season, $owner, $values, $reason): void {
+            $fields = ['name_en', 'name_ar', 'name_ar_status', 'season_override', 'season_starts_on', 'season_ends_on', 'status'];
+            $before = self::seasonSnapshot($season, $fields);
+            $wasApproved = str_starts_with($season->name_ar_status, 'APPROVED');
+            $approve = $values['approve_ar'] && $values['name_ar'] !== null;
+            $season->forceFill([
+                'name_en' => $values['name_en'],
+                'name_ar' => $approve ? $values['name_ar'] : null,
+                'name_ar_status' => match (true) {
+                    $approve && (! $wasApproved || $values['name_ar'] !== $season->name_ar) => 'APPROVED — OWNER DASHBOARD',
+                    ! $approve && $wasApproved => 'PENDING OWNER REVIEW — APPROVAL WITHDRAWN',
+                    default => $season->name_ar_status,
+                },
+                'season_override' => $values['mode'] === 'dates' ? null : $values['mode'],
+                'season_starts_on' => $values['starts_on'],
+                'season_ends_on' => $values['ends_on'],
+                'status' => 'published',
+            ])->save();
+            $after = self::seasonSnapshot($season->refresh(), $fields);
+            if ($after === $before) {
+                return;
+            }
+            $this->versions->record($season, 'published', ['code' => $season->code] + $after, $reason, $owner);
+            $this->audit->record('menu.season_saved', $season, ['before' => array_diff_assoc($before, $after), 'after' => array_diff_assoc($after, $before)],
+                $reason === null ? [] : ['reason' => $reason], self::CHANNELS, $owner);
+        });
+    }
+
+    /**
+     * @param  list<string>  $fields
+     * @return array<string, string|null>
+     */
+    private static function seasonSnapshot(MenuCategory $season, array $fields): array
+    {
+        $out = [];
+        foreach ($fields as $field) {
+            $value = $season->getAttribute($field);
+            $out[$field] = $value instanceof \DateTimeInterface ? $value->format('Y-m-d') : ($value === null ? null : (string) $value);
+        }
+
+        return $out;
     }
 
     /**

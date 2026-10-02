@@ -84,6 +84,23 @@
             @endforelse
         </section>
 
+        <section class="ui-record__section" aria-labelledby="live-season">
+            <h2 id="live-season" class="ui-record__title">{{ __($L.'season_title') }}</h2>
+            @foreach ($seasons as $season)
+                @php $shown = in_array($season['state'], ['shown', 'live'], true); @endphp
+                <div class="ui-live-item">
+                    <p class="ui-record__status">
+                        <x-ui.badge :variant="$shown ? 'success' : 'neutral'" :icon="$shown ? 'circle-check' : 'pause'">{{ __('dashboard.menu.season.states.'.$season['state']) }}</x-ui.badge>
+                        <span lang="en" dir="ltr">{{ $season['category']->name_en }}</span>
+                        @if ($season['category']->season_ends_on !== null && $season['state'] === 'live')
+                            <span>{{ __($L.'until', ['at' => $season['category']->season_ends_on->format('Y-m-d')]) }}</span>
+                        @endif
+                    </p>
+                    <a href="{{ route('dashboard.menu.season') }}#season-{{ $season['category']->id }}">{{ __($L.'season_manage') }}</a>
+                </div>
+            @endforeach
+        </section>
+
         <section class="ui-record__section" aria-labelledby="live-next">
             <h2 id="live-next" class="ui-record__title">{{ __($L.'next_title') }}</h2>
             @forelse ($upcoming as $next)

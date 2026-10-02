@@ -2,22 +2,26 @@
 
 namespace App\Services\Content\Search;
 
+use App\Models\Experience;
 use App\Models\Market;
+use App\Models\MenuCategory;
 use App\Models\SearchEntry;
 use App\Services\Content\Pages;
 use App\Services\Experiences\Events;
+use App\Services\Menu\MenuSeason;
 use App\Services\Menu\Page\MenuItem;
 use App\Services\Menu\Page\MenuPage;
 use App\Services\Menu\Page\MenuSection;
 use App\Services\Site\BranchDirectory;
 use App\Support\SiteLinks;
+use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\DB;
 
 /**
  * Builds the PUBLIC search index from what visitors can already see (GLOBAL-SEARCH §2): menu items by their approved
  * display names (English leads where no Arabic name is approved — CF-03; unapproved source names stay out — PO-042),
  * menu categories, active branches, events on now or coming up, the published content pages and their FAQ answers,
- * and the fixed pages (menu, locations, contact). Ended events drop out at the next rebuild (nightly — PHASE 6). Deterministic: empty then rebuild gives the same rows. Run by `php artisan search:rebuild`.
+ * and the fixed pages (menu, locations, contact). Saved changes and the moments the season or an event starts or ends trigger the next rebuild (SearchFreshness). Deterministic: empty then rebuild gives the same rows. Run by `php artisan search:rebuild`.
  */
 final class SearchIndexer
 {
@@ -29,10 +33,12 @@ final class SearchIndexer
         private readonly BranchDirectory $branches,
         private readonly Pages $pages,
         private readonly Events $events,
+        private readonly SearchFreshness $freshness,
     ) {}
 
     public function rebuild(): int
     {
+        $startedAt = microtime(true);
         $this->rows = [];
         foreach (Market::query()->where('is_active', true)->orderBy('id')->get() as $market) {
             $this->indexMarket($market);
@@ -47,8 +53,31 @@ final class SearchIndexer
                 SearchEntry::query()->insert(array_map(fn (array $row): array => $row + ['updated_at' => $now], $chunk));
             }
         });
+        $this->freshness->built($startedAt, $this->nextChange());
 
         return count($this->rows);
+    }
+
+    /** The next moment the season or an event starts or ends — the index is rebuilt then (SearchFreshness). */
+    private function nextChange(): ?CarbonImmutable
+    {
+        $now = CarbonImmutable::now();
+        $moments = [];
+        foreach (Market::query()->where('is_active', true)->get() as $market) {
+            $local = $now->setTimezone($market->timezone !== '' ? $market->timezone : 'Asia/Amman');
+            foreach (MenuCategory::query()->where('type', 'seasonal')->get() as $season) {
+                $moments[] = MenuSeason::nextChange($season, $local);
+            }
+        }
+        foreach (Experience::query()->where('type', 'event')->whereNull('archived_at')->whereIn('status', ['scheduled', 'active'])->get(['starts_at', 'ends_at']) as $event) {
+            foreach ([$event->starts_at, $event->ends_at] as $moment) {
+                $moments[] = $moment !== null && $moment->greaterThan($now) ? CarbonImmutable::instance($moment) : null;
+            }
+        }
+        $moments = array_values(array_filter($moments));
+        usort($moments, fn (CarbonImmutable $a, CarbonImmutable $b): int => $a <=> $b);
+
+        return $moments[0] ?? null;
     }
 
     private function indexMarket(Market $market): void

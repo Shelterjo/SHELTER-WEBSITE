@@ -7,10 +7,12 @@ use App\Models\Branch;
 use App\Models\Experience;
 use App\Models\HoursException;
 use App\Models\Market;
+use App\Models\MenuCategory;
 use App\Models\User;
 use App\Services\Dashboard\ExperienceCommands;
 use App\Services\Experiences\Placements;
 use App\Services\MasterData\MasterData;
+use App\Services\Menu\MenuSeason;
 use Carbon\CarbonImmutable;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -18,7 +20,7 @@ use Illuminate\Http\Request;
 
 /**
  * Active now (DX-020, OPS-021/024): everything that changes the site at this moment — what each place shows and what
- * waits behind it (DX-021), live events, special hours and closures today — each with its end time and a "Stop now"
+ * waits behind it (DX-021), live events, special hours and closures today, the menu's seasonal section — each with its end time and a "Stop now"
  * button; then what starts in the next 7 days. One source: the same resolver the site uses.
  */
 final class LiveController extends Controller
@@ -51,6 +53,8 @@ final class LiveController extends Controller
                 ->where('starts_at', '>', $now->utc())->where('starts_at', '<=', $now->addDays(7)->utc())->orderBy('starts_at')->get(),
             'branchNames' => $names,
             'timezone' => $timezone,
+            'seasons' => MenuCategory::query()->where('type', 'seasonal')->orderBy('sort')->get()
+                ->map(fn (MenuCategory $c): array => ['category' => $c, 'state' => MenuSeason::state($c, $now->setTimezone($timezone))])->all(),
         ]);
     }
 

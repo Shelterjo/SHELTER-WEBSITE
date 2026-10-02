@@ -11,15 +11,23 @@ use App\Models\ContentVersion;
 use App\Models\MenuCategory;
 use App\Models\MenuSourceRow;
 use App\Models\Product;
+use App\Models\SearchAlias;
 use App\Models\User;
 use App\Services\Content\Search\Normalizer;
+use App\Services\Content\Search\Search;
+use App\Services\Content\Search\SearchLog;
+use App\Services\Core\FeatureFlags;
 use App\Services\Dashboard\MenuManager;
 use App\Services\MasterData\MasterData;
 use App\Services\Menu\MenuCatalog;
+use App\Services\Menu\MenuEditor;
+use App\Services\Menu\MenuSeason;
+use Carbon\CarbonImmutable;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Business data → Menu (dashboard, M50, M33 §5, §16–§18): the products by category with their price and branch
@@ -86,11 +94,20 @@ final class MenuController extends Controller
             ];
         }
 
+        $source = MenuSourceRow::query()->where('product_id', $product->id)->orderBy('id')->value('source_name_ar');
+        $words = $product->searchAliases()->get();
+        $taken = array_map(Normalizer::normalize(...), array_filter([$product->display_name_en, $product->normalized_name_en, $product->display_name_ar, ...$words->pluck('value')->all()]));
+
         return view('dashboard.menu.show', [
             'product' => $product,
+            'words' => $words,
+            // The name in the source menu file, offered as a search word when the site does not show it (PO-042 stays
+            // open: nothing is added without the Owner pressing the button for this item).
+            'suggestion' => is_string($source) && ! in_array(Normalizer::normalize($source), $taken, true) ? $source : null,
+            'categories' => self::categoryOptions(),
             'current' => $catalog->basePrice($product),
             'history' => $product->prices()->orderByDesc('valid_from')->orderByDesc('id')->limit(8)->get(),
-            'source' => MenuSourceRow::query()->where('product_id', $product->id)->orderBy('id')->value('source_name_ar'),
+            'source' => $source,
             'approved' => NameStatus::fromInventory($product->name_ar_status) === NameStatus::Approved,
             'images' => AwardsController::usableImages(),
             'branches' => $branches,
@@ -166,6 +183,101 @@ final class MenuController extends Controller
 
         return redirect()->route('dashboard.menu.review', $category)
             ->with('status', trans_choice('dashboard.menu.review_done', $result['approved'], ['count' => $result['approved']]));
+    }
+
+    public function create(Request $request): View
+    {
+        return view('dashboard.menu.create', ['categories' => self::categoryOptions(), 'selected' => $request->integer('category') ?: null]);
+    }
+
+    public function store(Request $request, MenuManager $menu): RedirectResponse
+    {
+        $result = $menu->createProduct($request->all(), $this->owner($request));
+        if ($result['product'] === null) {
+            return redirect()->route('dashboard.menu.create')->withInput()->withErrors($result['errors'], 'create');
+        }
+
+        return redirect()->route('dashboard.menu.show', $result['product'])->with('status', __('dashboard.menu.created'));
+    }
+
+    public function searchWord(Request $request, Product $product, MenuManager $menu): RedirectResponse
+    {
+        $result = $menu->addSearchWord($product, $request->all(), $this->owner($request));
+        if ($result['errors'] !== []) {
+            return $this->back($product, 'search-words', $result['errors'], 'words');
+        }
+
+        return redirect()->to(route('dashboard.menu.show', $product).'#search-words')->with('status', $result['others'] === []
+            ? __('dashboard.saved') : __('dashboard.menu.word_shared', ['items' => implode(' · ', $result['others'])]));
+    }
+
+    public function archiveWord(Request $request, Product $product, SearchAlias $word, MenuEditor $editor): RedirectResponse
+    {
+        abort_unless($word->product_id === $product->id, 404);
+        $editor->archiveSearchWord($word, $this->owner($request));
+
+        return redirect()->to(route('dashboard.menu.show', $product).'#search-words')->with('status', __('dashboard.menu.word_removed', ['word' => $word->value]));
+    }
+
+    /**
+     * The search words in one place (CMS-018): a box to try what customers would find, every word by item, and — once
+     * anonymous search counting is switched on (PO-019) — what people searched for and did not find.
+     */
+    public function words(Request $request, Search $search, FeatureFlags $flags): View
+    {
+        $q = mb_substr(trim($request->string('q')->toString()), 0, 60);
+        $logging = $flags->enabled(SearchLog::FLAG);
+
+        return view('dashboard.menu.words', [
+            'q' => $q,
+            'hits' => $q === '' ? null : ($search->search($q, app()->getLocale())->groups['menu'] ?? []),
+            'items' => SearchAlias::query()->where('status', SearchAlias::STATUS_APPROVED)->with('product')->orderBy('product_id')->orderBy('id')->get()
+                ->groupBy('product_id')->map(fn ($words) => ['product' => $words->first()?->product, 'words' => $words])->values(),
+            'logging' => $logging,
+            'missed' => ! $logging ? collect() : DB::table('search_query_daily')->where('day', '>=', now()->subDays(30)->toDateString())->where('zero_results', '>', 0)
+                ->where('query_norm', '!=', '[redacted]')->groupBy('query_norm')->selectRaw('query_norm, sum(zero_results) as times')->orderByDesc('times')->limit(20)->get(),
+        ]);
+    }
+
+    /** The seasonal section (CMS-009, MENU-044, F-17): what customers see now, the Owner's choice, its dates and items. */
+    public function season(): View
+    {
+        $now = CarbonImmutable::now('Asia/Amman');
+
+        return view('dashboard.menu.season', [
+            'seasons' => MenuCategory::query()->where('type', 'seasonal')->orderBy('sort')->get()->map(fn (MenuCategory $c): array => [
+                'category' => $c,
+                'state' => MenuSeason::state($c, $now),
+                'mode' => MenuSeason::mode($c),
+                'approved' => NameStatus::fromInventory($c->name_ar_status) === NameStatus::Approved,
+                'products' => Product::query()->where('menu_category_id', $c->id)->where('status', Product::STATUS_ACTIVE)->whereNull('merged_into_id')->orderBy('sort')->get(),
+            ])->all(),
+        ]);
+    }
+
+    public function saveSeason(Request $request, MenuCategory $category, MenuManager $menu): RedirectResponse
+    {
+        abort_unless($category->type === 'seasonal', 404);
+        $errors = $menu->saveSeason($category, $request->all(), $this->owner($request));
+        $url = route('dashboard.menu.season').'#season-'.$category->id;
+        if ($errors !== []) {
+            return redirect()->to($url)->withInput()->withErrors($errors, 'season'.$category->id);
+        }
+
+        return redirect()->to($url)->with('status', __('dashboard.saved'));
+    }
+
+    /** @return array<int, string> every section by its shown name; the season says so */
+    public static function categoryOptions(): array
+    {
+        $ar = app()->getLocale() === 'ar';
+        $options = [];
+        foreach (MenuCategory::query()->orderBy('sort')->get() as $c) {
+            $name = $ar && NameStatus::fromInventory($c->name_ar_status) === NameStatus::Approved && filled($c->name_ar) ? (string) $c->name_ar : (string) $c->name_en;
+            $options[$c->id] = $c->type === 'seasonal' ? $name.' — '.__('dashboard.menu.season.label') : $name;
+        }
+
+        return $options;
     }
 
     /** @param  array<string, string>  $errors */

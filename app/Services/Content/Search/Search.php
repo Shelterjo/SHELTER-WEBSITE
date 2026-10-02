@@ -31,7 +31,7 @@ final class Search
     /** @var array<string, Collection<int, SearchEntry>> */
     private array $rows = [];
 
-    public function __construct(private readonly SearchIndexer $indexer) {}
+    public function __construct(private readonly SearchIndexer $indexer, private readonly SearchFreshness $freshness) {}
 
     public function search(string $query, string $locale, string $scope = 'PUBLIC'): SearchResults
     {
@@ -125,8 +125,9 @@ final class Search
     private function rows(string $scope): Collection
     {
         if (! isset($this->rows[$scope])) {
-            if ($scope === 'PUBLIC' && ! SearchEntry::query()->where('scope', $scope)->exists()) {
-                $this->indexer->rebuild(); // derived data: an empty index (fresh deploy) is simply built
+            // Derived data: an empty index (fresh deploy) is simply built, and a changed or expired one rebuilt.
+            if ($scope === 'PUBLIC' && (! SearchEntry::query()->where('scope', $scope)->exists() || $this->freshness->stale())) {
+                $this->freshness->rebuild(fn (): int => $this->indexer->rebuild());
             }
             $this->rows[$scope] = SearchEntry::query()->where('scope', $scope)->orderBy('sort')->get();
         }

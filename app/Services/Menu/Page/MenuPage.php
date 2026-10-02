@@ -11,6 +11,7 @@ use App\Models\MenuCategory;
 use App\Models\Product;
 use App\Services\Media\MediaLibrary;
 use App\Services\Menu\MenuCatalog;
+use App\Services\Menu\MenuSeason;
 use App\Services\Site\BranchDirectory;
 use App\Services\Site\BranchSummary;
 use Carbon\CarbonImmutable;
@@ -65,7 +66,7 @@ final class MenuPage
 
         /** @var Collection<int, MenuCategory> $categories */
         $categories = MenuCategory::query()
-            ->with(['group', 'products' => fn ($q) => $this->visibleProducts($q)->with(['prices', 'branchOverrides', 'media'])])
+            ->with(['group', 'products' => fn ($q) => $this->visibleProducts($q)->with(['prices', 'branchOverrides', 'media', 'searchAliases'])])
             ->orderBy('sort')
             ->get();
 
@@ -74,7 +75,7 @@ final class MenuPage
         $grouped = [];
         foreach ($categories as $category) {
             if ($category->type === 'seasonal') {
-                if ($this->seasonActive($category, $now)) {
+                if (MenuSeason::active($category, $now)) {
                     $season = $this->section($category->slug ?? Str::slug((string) $category->name_en), (string) $category->code, $this->categoryName($category, $locale), [
                         new MenuGroup(null, null, null, null, $this->items($category, $locale, $now, seasonal: true)),
                     ]);
@@ -118,17 +119,6 @@ final class MenuPage
     {
         // An item the Owner hid from the menu (dashboard → Menu: "Hidden") is left out everywhere, search included.
         return $query->where('status', 'active')->whereNull('merged_into_id')->where('publish_status', '!=', PublishStatus::Archived->value)->orderBy('sort');
-    }
-
-    private function seasonActive(MenuCategory $category, CarbonImmutable $now): bool
-    {
-        if (! in_array($category->status, ['active', 'published'], true)) {
-            return false;
-        }
-        $today = $now->toDateString();
-
-        return ($category->season_starts_on === null || $category->season_starts_on->toDateString() <= $today)
-            && ($category->season_ends_on === null || $category->season_ends_on->toDateString() >= $today);
     }
 
     /** @return array{0: string, 1: ?string} name and its language when it differs from the page */
@@ -200,6 +190,7 @@ final class MenuPage
                     $nameAr,
                     $product->normalized_name_en,
                     $product->normalized_name_ar,
+                    ...$product->searchAliases->pluck('value')->all(), // the Owner's search words (CMS-018)
                 ])),
                 description: filled($product->description_ar) && filled($product->description_en) ? (string) $product->{'description_'.$locale} : null,
                 image: $this->media->image($product->media, $locale, $name),

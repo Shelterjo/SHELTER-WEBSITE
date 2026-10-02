@@ -174,7 +174,14 @@ Route::prefix('dashboard')->middleware(DashboardLocale::class)->group(function (
             Route::put('data/menu/review/{category}', [MenuController::class, 'saveReview'])->name('menu.review.save');
             Route::put('data/menu/review/{category}/name', [MenuController::class, 'categoryName'])->name('menu.category.name');
         });
-        Route::whereNumber(['product', 'branch'])->middleware('confirmed')->group(function (): void {
+        Route::get('data/menu/words', [MenuController::class, 'words'])->name('menu.words');
+        Route::whereNumber(['product', 'branch', 'word', 'category'])->middleware('confirmed')->group(function (): void {
+            Route::get('data/menu/new', [MenuController::class, 'create'])->name('menu.create');
+            Route::post('data/menu', [MenuController::class, 'store'])->name('menu.store');
+            Route::get('data/menu/season', [MenuController::class, 'season'])->name('menu.season');
+            Route::put('data/menu/season/{category}', [MenuController::class, 'saveSeason'])->name('menu.season.save');
+            Route::post('data/menu/{product}/words', [MenuController::class, 'searchWord'])->name('menu.words.add');
+            Route::post('data/menu/{product}/words/{word}/archive', [MenuController::class, 'archiveWord'])->name('menu.words.archive');
             Route::get('data/menu/{product}', [MenuController::class, 'show'])->name('menu.show');
             Route::put('data/menu/{product}/names', [MenuController::class, 'names'])->name('menu.names');
             Route::put('data/menu/{product}/details', [MenuController::class, 'details'])->name('menu.details');

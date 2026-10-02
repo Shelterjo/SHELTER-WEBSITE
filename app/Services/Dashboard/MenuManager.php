@@ -3,14 +3,18 @@
 namespace App\Services\Dashboard;
 
 use App\Enums\Availability;
+use App\Enums\NameStatus;
 use App\Models\Branch;
 use App\Models\Media;
 use App\Models\MenuCategory;
 use App\Models\Product;
+use App\Models\SearchAlias;
 use App\Models\User;
+use App\Services\Content\Search\Normalizer;
 use App\Services\Media\MediaRights;
 use App\Services\Menu\MenuCatalog;
 use App\Services\Menu\MenuEditor;
+use App\Services\Menu\MenuSeason;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\DB;
 use InvalidArgumentException;
@@ -36,6 +40,11 @@ final class MenuManager
     private const MAX_FILS = 100000;
 
     public const BRANCH_STATES = ['inherit', 'available', 'unavailable_show', 'unavailable_hide'];
+
+    /** A search word: 2–40 letters; at most 20 words per item (CMS-018). */
+    public const WORD_MAX = 40;
+
+    public const WORDS_PER_ITEM = 20;
 
     public function __construct(private readonly MenuEditor $editor, private readonly MenuCatalog $catalog) {}
 
@@ -192,8 +201,18 @@ final class MenuManager
         if ($label !== null && mb_strlen($label) > self::NAME_MAX) {
             $errors['aria_label_en'] = (string) __('dashboard.pages.errors.too_long', ['max' => self::NAME_MAX]);
         }
+        $category = null;
+        if (is_numeric($input['category'] ?? null) && (int) $input['category'] !== $product->menu_category_id) {
+            $category = MenuCategory::query()->find((int) $input['category']);
+            if ($category === null) {
+                $errors['category'] = (string) __('dashboard.menu.errors.category');
+            }
+        }
         if ($errors !== []) {
             return $errors;
+        }
+        if ($category !== null) {
+            $this->editor->moveProduct($product, $category, $owner);
         }
         $this->editor->setDetails($product, $owner, [
             'visible' => ($input['visible'] ?? '1') !== '0',
@@ -257,6 +276,143 @@ final class MenuManager
         });
 
         return ['approved' => $products->count(), 'errors' => []];
+    }
+
+    /**
+     * Another word customers may type for the item (CMS-018): 2–40 letters, Arabic or English (the language is read
+     * from the word), not the item's own name, not twice, at most 20 per item. The same word may serve several items —
+     * the Owner is told which.
+     *
+     * @param  array<string, mixed>  $input
+     * @return array{errors: array<string, string>, others: list<string>}
+     */
+    public function addSearchWord(Product $product, array $input, User $owner): array
+    {
+        $value = self::name($input['word'] ?? null);
+        $normalized = $value === null ? '' : Normalizer::normalize($value);
+        $error = match (true) {
+            $value === null => 'word_required',
+            mb_strlen($value) < 2 || mb_strlen($value) > self::WORD_MAX || $normalized === '' || mb_strlen($normalized) > 60 => 'word_length',
+            in_array($normalized, array_map(Normalizer::normalize(...), array_filter([$product->display_name_en, $product->normalized_name_en,
+                NameStatus::fromInventory($product->name_ar_status) === NameStatus::Approved ? $product->display_name_ar : null])), true) => 'word_is_name',
+            $product->searchAliases()->where('normalized', $normalized)->exists() => 'word_exists',
+            $product->searchAliases()->count() >= self::WORDS_PER_ITEM => 'word_limit',
+            default => null,
+        };
+        if ($error !== null || $value === null) {
+            return ['errors' => ['word' => (string) __('dashboard.menu.errors.'.$error, ['max' => self::WORD_MAX, 'limit' => self::WORDS_PER_ITEM])], 'others' => []];
+        }
+        $this->editor->addSearchWord($product, $owner, $value, $normalized, preg_match('/\p{Arabic}/u', $value) === 1 ? 'ar' : 'en');
+        $others = array_values(array_unique(SearchAlias::query()->where('normalized', $normalized)->where('status', SearchAlias::STATUS_APPROVED)
+            ->where('product_id', '!=', $product->id)->with('product')->get()->map(fn (SearchAlias $w): string => (string) $w->product->display_name_en)->all()));
+
+        return ['errors' => [], 'others' => $others];
+    }
+
+    /**
+     * A new item (MENU-060): its section, English name (required) and Arabic name (optional — typed by the Owner, so
+     * approved), its first price and the day it starts (today or later), shown or hidden. A second item with the same
+     * English name in the same section is refused (a double press).
+     *
+     * @param  array<string, mixed>  $input
+     * @return array{product: Product|null, errors: array<string, string>}
+     */
+    public function createProduct(array $input, User $owner, ?CarbonImmutable $today = null): array
+    {
+        $today ??= CarbonImmutable::now('Asia/Amman')->startOfDay();
+        $errors = [];
+        $category = is_numeric($input['category'] ?? null) ? MenuCategory::query()->find((int) $input['category']) : null;
+        if ($category === null) {
+            $errors['category'] = (string) __('dashboard.menu.errors.category');
+        }
+        $en = self::name($input['name_en'] ?? null);
+        $ar = self::name($input['name_ar'] ?? null);
+        if ($en === null) {
+            $errors['name_en'] = (string) __('dashboard.menu.errors.name_required');
+        }
+        foreach (['name_en' => $en, 'name_ar' => $ar] as $key => $value) {
+            if ($value !== null && mb_strlen($value) > self::NAME_MAX) {
+                $errors[$key] = (string) __('dashboard.pages.errors.too_long', ['max' => self::NAME_MAX]);
+            }
+        }
+        $fils = self::fils($input['price'] ?? null);
+        if ($fils === null) {
+            $errors['price'] = (string) __('dashboard.menu.errors.price', ['min' => self::dinars(self::MIN_FILS), 'max' => self::dinars(self::MAX_FILS)]);
+        }
+        $from = self::date($input['starts_on'] ?? null) ?? $today;
+        if ($from->lessThan($today)) {
+            $errors['starts_on'] = (string) __('dashboard.menu.errors.past');
+        }
+        if ($category !== null && $en !== null && Product::query()->where('menu_category_id', $category->id)->where('status', Product::STATUS_ACTIVE)
+            ->get(['display_name_en'])->contains(fn (Product $p): bool => Normalizer::normalize((string) $p->display_name_en) === Normalizer::normalize($en))) {
+            $errors['name_en'] ??= (string) __('dashboard.menu.errors.duplicate_item');
+        }
+        $reason = is_string($input['reason'] ?? null) && trim($input['reason']) !== '' ? mb_substr(trim($input['reason']), 0, self::REASON_MAX) : null;
+        if ($errors !== [] || $category === null || $en === null || $fils === null) {
+            return ['product' => null, 'errors' => $errors];
+        }
+        $product = $this->editor->createProduct($owner, [
+            'category' => $category, 'name_en' => $en, 'name_ar' => $ar, 'price_fils' => $fils, 'starts_on' => $from,
+            'visible' => ($input['visible'] ?? '1') !== '0',
+        ], $reason);
+
+        return ['product' => $product, 'errors' => []];
+    }
+
+    /**
+     * The seasonal section (CMS-009, MENU-044): by its dates (both needed, the last day today or later), shown now, or
+     * hidden; its dates are kept in every mode. Its English name, and the Arabic one once approved (P-01).
+     *
+     * @param  array<string, mixed>  $input
+     * @return array<string, string> errors; empty = saved
+     */
+    public function saveSeason(MenuCategory $season, array $input, User $owner, ?CarbonImmutable $today = null): array
+    {
+        $today ??= CarbonImmutable::now('Asia/Amman')->startOfDay();
+        $errors = [];
+        $mode = is_string($input['mode'] ?? null) && in_array($input['mode'], MenuSeason::MODES, true) ? $input['mode'] : null;
+        if ($mode === null) {
+            $errors['mode'] = (string) __('dashboard.menu.errors.state');
+        }
+        $dates = [];
+        foreach (['starts_on', 'ends_on'] as $field) {
+            $raw = is_string($input[$field] ?? null) ? trim($input[$field]) : '';
+            $dates[$field] = $raw === '' ? null : self::date($raw);
+            if ($raw !== '' && $dates[$field] === null) {
+                $errors[$field] = (string) __('dashboard.hours.errors.date');
+            } elseif ($mode === 'dates' && $raw === '') {
+                $errors[$field] = (string) __('dashboard.menu.errors.season_dates', ['field' => __('dashboard.menu.season.'.$field)]);
+            }
+        }
+        if ($dates['starts_on'] !== null && $dates['ends_on'] !== null && $dates['ends_on']->lessThan($dates['starts_on'])) {
+            $errors['ends_on'] ??= (string) __('dashboard.events.errors.order');
+        } elseif ($mode === 'dates' && $dates['ends_on'] !== null && $dates['ends_on']->lessThan($today)) {
+            $errors['ends_on'] ??= (string) __('dashboard.menu.errors.past');
+        }
+        $en = self::name($input['name_en'] ?? null);
+        $ar = self::name($input['name_ar'] ?? null);
+        $approve = ! empty($input['approve_ar']);
+        if ($en === null) {
+            $errors['name_en'] = (string) __('dashboard.menu.errors.name_required');
+        }
+        if ($approve && $ar === null) {
+            $errors['name_ar'] = (string) __('dashboard.menu.errors.name_required');
+        }
+        foreach (['name_en' => $en, 'name_ar' => $ar] as $key => $value) {
+            if ($value !== null && mb_strlen($value) > self::NAME_MAX) {
+                $errors[$key] = (string) __('dashboard.pages.errors.too_long', ['max' => self::NAME_MAX]);
+            }
+        }
+        $reason = is_string($input['reason'] ?? null) && trim($input['reason']) !== '' ? mb_substr(trim($input['reason']), 0, self::REASON_MAX) : null;
+        if ($errors !== [] || $mode === null || $en === null) {
+            return $errors;
+        }
+        $this->editor->saveSeason($season, $owner, [
+            'mode' => $mode, 'starts_on' => $dates['starts_on']?->toDateString(), 'ends_on' => $dates['ends_on']?->toDateString(),
+            'name_en' => $en, 'name_ar' => $ar, 'approve_ar' => $approve,
+        ], $reason);
+
+        return [];
     }
 
     /**

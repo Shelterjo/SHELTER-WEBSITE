@@ -23,6 +23,7 @@ use Illuminate\Support\Carbon;
  * @property string $type
  * @property Carbon|null $season_starts_on
  * @property Carbon|null $season_ends_on
+ * @property string|null $season_override null = by the dates · on · off (CMS-009)
  * @property int $sort
  * @property string $status
  */

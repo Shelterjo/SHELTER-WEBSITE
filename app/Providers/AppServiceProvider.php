@@ -2,8 +2,14 @@
 
 namespace App\Providers;
 
+use App\Models\Branch;
+use App\Models\Experience;
+use App\Models\MenuCategory;
+use App\Models\Product;
+use App\Models\SearchAlias;
 use App\Services\Content\Awards;
 use App\Services\Content\Pages;
+use App\Services\Content\Search\SearchFreshness;
 use App\Services\Content\Team;
 use App\Services\Forms\FormGuard;
 use App\Services\Site\Markets;
@@ -42,5 +48,15 @@ class AppServiceProvider extends ServiceProvider
 
         // Public search (SEC-007): 30 searches a minute per address — counted on a keyed hash, the address is not kept.
         RateLimiter::for('search', fn (Request $request): Limit => Limit::perMinute(30)->by(FormGuard::clientKey($request)));
+
+        // A saved change to anything the search shows marks the derived index as changed (rebuilt on the next search).
+        $changed = function (): void {
+            app(SearchFreshness::class)->invalidate();
+        };
+        Product::saved($changed);
+        MenuCategory::saved($changed);
+        SearchAlias::saved($changed);
+        Experience::saved($changed);
+        Branch::saved($changed);
     }
 }

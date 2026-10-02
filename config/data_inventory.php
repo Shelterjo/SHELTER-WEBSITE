@@ -27,6 +27,8 @@ return [
     // Search (GLOBAL-SEARCH): the index is derived from published data; the daily log is anonymous counters only.
     'search_index' => ['class' => 'PUBLIC', 'per_row' => 'scope'],
     'search_query_daily' => ['class' => 'INTERNAL'],
+    // The Owner's search words for menu items (CMS-018): public once approved (they feed the public search).
+    'search_aliases' => ['class' => 'PUBLIC', 'columns' => ['created_by' => 'INTERNAL']],
 
     // Careers & recruitment (RECRUITMENT-DATA-MODEL, DATA-CLASSIFICATION): applicant data is CONFIDENTIAL, identity
     // numbers and attachments SENSITIVE; Owner-only in the Dashboard, never in analytics or logs.

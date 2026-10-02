@@ -13,7 +13,13 @@
         $ar = app()->getLocale() === 'ar';
         $catName = fn ($c): string => ($ar && \App\Enums\NameStatus::fromInventory((string) $c->name_ar_status) === \App\Enums\NameStatus::Approved && filled($c->name_ar)) ? (string) $c->name_ar : (string) $c->name_en;
     @endphp
-    <x-ui.page-header :title="__($M.'title')" :description="__($M.'description')" />
+    <x-ui.page-header :title="__($M.'title')" :description="__($M.'description')">
+        <x-slot:actions>
+            <x-ui.button :href="route('dashboard.menu.create', $category !== null ? ['category' => $category->id] : [])">{{ __($M.'add_item') }}</x-ui.button>
+            <x-ui.button variant="secondary" :href="route('dashboard.menu.season')">{{ __($M.'season_link') }}</x-ui.button>
+            <x-ui.button variant="ghost" :href="route('dashboard.menu.words')" icon="search">{{ __($M.'words_link') }}</x-ui.button>
+        </x-slot:actions>
+    </x-ui.page-header>
 
     <form class="ui-inbox-filters" method="get" action="{{ route('dashboard.menu.index') }}" role="search">
         <div class="ui-inbox-filters__main">
