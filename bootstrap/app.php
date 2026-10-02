@@ -45,10 +45,8 @@ return Application::configure(basePath: dirname(__DIR__))
 
             return $host === '' ? [] : ['^(.+\.)?'.preg_quote((string) preg_replace('/^www\./', '', $host)).'$'];
         }, subdomains: false);
-        // Trust only known proxies (Cloudways local stack + Cloudflare ranges set in TRUSTED_PROXIES on the server),
-        // so a client cannot spoof X-Forwarded-For to dodge rate limits. Never '*'.
-        $proxies = env('TRUSTED_PROXIES', '127.0.0.1,::1');
-        $middleware->trustProxies(at: array_values(array_filter(array_map('trim', explode(',', is_string($proxies) ? $proxies : '')))));
+        // Trusted proxies come from config/trustedproxy.php (TRUSTED_PROXIES), read by the framework's TrustProxies at
+        // request time. No list here on purpose: this callback runs before .env is loaded (deploy-facts F-1).
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->shouldRenderJsonWhen(
