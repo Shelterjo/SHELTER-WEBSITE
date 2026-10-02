@@ -52,6 +52,8 @@ return [
     'application_notes' => ['class' => 'CONFIDENTIAL'],
     'interview_locations' => ['class' => 'INTERNAL'],
     'application_interviews' => ['class' => 'CONFIDENTIAL'],
+    'application_meetings' => ['class' => 'CONFIDENTIAL'],
+    'pipeline_stages' => ['class' => 'INTERNAL'],
     'application_links' => ['class' => 'CONFIDENTIAL'],
     'recruitment_saved_filters' => ['class' => 'INTERNAL'],
     'user_preferences' => ['class' => 'INTERNAL'],

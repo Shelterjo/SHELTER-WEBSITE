@@ -73,8 +73,8 @@
 | متطلبات | **1350**: REQUIREMENT 491, RULE 442, DECISION 209, DELIVERABLE 109, GATE 99 |
 | حسب الحالة | APPROVED 900, FROZEN 294, APPROVED WITH CONDITIONS 73, PENDING OWNER INPUT 34, DEFERRED 22, SUPERSEDED 18, PENDING VERIFICATION 9 |
 | حسب الأولوية | P0 691, P1 572, P2 69, P3 18 |
-| حسب التنفيذ | NOT STARTED 923, PARTIAL 202, IMPLEMENTED — NOT TESTED 124, TESTED 47, FROZEN 43, NEEDS FIX 8, IMPLEMENTED — NOT YET VERIFIED 2, CONFLICT 1 |
-| مُختبر | NO 767, N/A 344, PROTOTYPE 135, YES 104 |
+| حسب التنفيذ | NOT STARTED 890, PARTIAL 212, IMPLEMENTED — NOT TESTED 124, TESTED 70, FROZEN 43, NEEDS FIX 8, IMPLEMENTED — NOT YET VERIFIED 2, CONFLICT 1 |
+| مُختبر | NO 735, N/A 343, YES 137, PROTOTYPE 135 |
 
 ## فهرس المجالات
 | # | المجال | متطلبات | P0 | معتمد/مجمّد | معلّق | تنفيذ (منفذ أو مجمّد) |
@@ -94,9 +94,9 @@
 | 13 | [About](master-requirements/13-about.md) | 4 | 2 | 3 | 1 | 0 |
 | 14 | [Contact](master-requirements/14-contact.md) | 30 | 11 | 25 | 4 | 0 |
 | 15 | [Blog / Coffee Knowledge](master-requirements/15-blog-coffee-knowledge.md) | 6 | 2 | 6 | 0 | 0 |
-| 16 | [Franchise](master-requirements/16-franchise.md) | 108 | 50 | 105 | 1 | 21 |
+| 16 | [Franchise](master-requirements/16-franchise.md) | 108 | 50 | 105 | 1 | 28 |
 | 17 | [CMS](master-requirements/17-cms.md) | 35 | 25 | 34 | 1 | 3 |
-| 18 | [Owner Dashboard](master-requirements/18-owner-dashboard.md) | 35 | 22 | 33 | 0 | 0 |
+| 18 | [Owner Dashboard](master-requirements/18-owner-dashboard.md) | 35 | 22 | 33 | 0 | 1 |
 | 19 | [Analytics](master-requirements/19-analytics.md) | 45 | 15 | 43 | 2 | 3 |
 | 20 | [GA4 / GTM](master-requirements/20-ga4-gtm.md) | 23 | 2 | 18 | 3 | 3 |
 | 21 | [Search Console](master-requirements/21-search-console.md) | 13 | 5 | 12 | 1 | 1 |
@@ -122,7 +122,7 @@
 | 41 | [Tooling](master-requirements/41-tooling.md) | 47 | 19 | 40 | 1 | 11 |
 | 42 | [Privacy & Legal](master-requirements/42-privacy-legal.md) | 14 | 9 | 14 | 0 | 2 |
 | 43 | [UX Principles](master-requirements/43-ux-principles.md) | 6 | 1 | 6 | 0 | 0 |
-| 44 | [Careers & Recruitment](master-requirements/44-careers-recruitment.md) | 99 | 60 | 98 | 1 | 1 |
+| 44 | [Careers & Recruitment](master-requirements/44-careers-recruitment.md) | 99 | 60 | 98 | 1 | 16 |
 | 45 | [Dynamic Experience Engine](master-requirements/45-dynamic-experience-engine.md) | 38 | 14 | 38 | 0 | 5 |
 | 46 | [Platform Quality & Operations](master-requirements/46-platform-quality-operations.md) | 56 | 39 | 56 | 0 | 3 |
 | 47 | [Master Data & Channel Sync](master-requirements/47-master-data-channel-sync.md) | 36 | 34 | 36 | 0 | 0 |
@@ -580,18 +580,18 @@
 | `FRAN-051` | المرفقات: مستقبلية واختيارية — غير إلزامية في V1 — تخزين خاص فقط | DEFERRED | P2 | NOT STARTED |
 | `FRAN-052` | لا وثائق داخلية في الحزمة العامة للموقع | APPROVED | P0 | NOT STARTED |
 | `FRAN-053` | Attribution آمن للخصوصية يُخزن مع الطلب | APPROVED | P1 | TESTED |
-| `FRAN-054` | وحدة «Franchise & Partnerships» أصلية في الـOwner Dashboard — ليست iframe | APPROVED | P1 | NOT STARTED |
-| `FRAN-055` | IA مبدئية للوحدة (11 عنصرًا) — ليست الحالات النهائية؛ Franchise Master يفوز | APPROVED WITH CONDITIONS | P1 | NOT STARTED |
-| `FRAN-056` | أعمدة قائمة الطلبات المبدئية (7) | APPROVED | P1 | NOT STARTED |
-| `FRAN-057` | Quick Side Panel + Full Application Page | APPROVED | P1 | NOT STARTED |
-| `FRAN-058` | ملاحظات داخلية متعددة — الكاتب والوقت والمحتوى — بلا Overwrite صامت | APPROVED | P1 | NOT STARTED |
-| `FRAN-059` | إدارة الاجتماعات — الملاحظات الداخلية لا تُعرض للمتقدم | APPROVED | P1 | NOT STARTED |
-| `FRAN-060` | الطلبات المكررة: لا منع تلقائي، كشف بالهاتف/البريد/اسم الشركة، بلا دمج | APPROVED | P1 | NOT STARTED |
-| `FRAN-061` | لا قبول ولا رفض آلي — لا تأهيل أو تقييم استثماري آلي | APPROVED | P0 | NOT STARTED |
-| `FRAN-062` | الصلاحيات: بيانات تجارية حساسة — V1 للـOwner فقط — Server-side | FROZEN | P0 | NOT STARTED |
-| `FRAN-063` | تحليلات الوحدة: القيمة التشغيلية أولًا — لا 30 رسمًا | APPROVED | P2 | NOT STARTED |
-| `FRAN-064` | البحث والفلاتر في وحدة الشراكات | APPROVED | P1 | NOT STARTED |
-| `FRAN-065` | Audit Log للوحدة: 8 أنواع إجراءات + 6 حقول | APPROVED | P0 | NOT STARTED |
+| `FRAN-054` | وحدة «Franchise & Partnerships» أصلية في الـOwner Dashboard — ليست iframe | APPROVED | P1 | PARTIAL |
+| `FRAN-055` | IA مبدئية للوحدة (11 عنصرًا) — ليست الحالات النهائية؛ Franchise Master يفوز | APPROVED WITH CONDITIONS | P1 | TESTED |
+| `FRAN-056` | أعمدة قائمة الطلبات المبدئية (7) | APPROVED | P1 | TESTED |
+| `FRAN-057` | Quick Side Panel + Full Application Page | APPROVED | P1 | PARTIAL |
+| `FRAN-058` | ملاحظات داخلية متعددة — الكاتب والوقت والمحتوى — بلا Overwrite صامت | APPROVED | P1 | TESTED |
+| `FRAN-059` | إدارة الاجتماعات — الملاحظات الداخلية لا تُعرض للمتقدم | APPROVED | P1 | TESTED |
+| `FRAN-060` | الطلبات المكررة: لا منع تلقائي، كشف بالهاتف/البريد/اسم الشركة، بلا دمج | APPROVED | P1 | PARTIAL |
+| `FRAN-061` | لا قبول ولا رفض آلي — لا تأهيل أو تقييم استثماري آلي | APPROVED | P0 | TESTED |
+| `FRAN-062` | الصلاحيات: بيانات تجارية حساسة — V1 للـOwner فقط — Server-side | FROZEN | P0 | TESTED |
+| `FRAN-063` | تحليلات الوحدة: القيمة التشغيلية أولًا — لا 30 رسمًا | APPROVED | P2 | PARTIAL |
+| `FRAN-064` | البحث والفلاتر في وحدة الشراكات | APPROVED | P1 | TESTED |
+| `FRAN-065` | Audit Log للوحدة: 8 أنواع إجراءات + 6 حقول | APPROVED | P0 | PARTIAL |
 | `FRAN-066` | النسخ الاحتياطي: DB + مرفقات خاصة + إجراء استعادة — يُتحقق ولا يُفترض | APPROVED | P0 | NOT STARTED |
 | `FRAN-067` | الصفحة قابلة للتحرير بالكامل من الـOwner Dashboard بلا كود (16 عنصرًا) | APPROVED | P1 | PARTIAL |
 | `FRAN-068` | Design System Lock: المحتوى قابل للتحرير — التصميم مضبوط | APPROVED | P0 | NOT STARTED |
@@ -704,7 +704,7 @@
 | `DASH-022` | Data freshness indicators + زر Refresh (مع Caching من جهة الخادم) | APPROVED | P1 | NOT STARTED |
 | `DASH-023` | Graceful degradation: الـDashboard لا تنهار إذا توقفت خدمة خارجية | APPROVED | P0 | NOT STARTED |
 | `DASH-024` | Labels واضحة: DEMO DATA مقابل LIVE DATA — ممنوع الخلط | APPROVED | P0 | NOT STARTED |
-| `DASH-025` | لا أرقام مزيفة: أي Score يوضح طريقة حسابه | APPROVED | P0 | NOT STARTED |
+| `DASH-025` | لا أرقام مزيفة: أي Score يوضح طريقة حسابه | APPROVED | P0 | TESTED |
 | `DASH-026` | Summary Health Score اختياري — فقط بقواعد واضحة؛ الـIssues أهم من الرقم | SUPERSEDED | P2 | NOT STARTED |
 | `DASH-027` | الـOwner Dashboard كاملة الوظائف على Mobile و Desktop | APPROVED | P0 | PARTIAL |
 | `DASH-028` | 9 مهام Owner يجب أن تكون سهلة على الهاتف | APPROVED | P1 | NOT STARTED |
@@ -1418,34 +1418,34 @@
 | `CAREERS-043` | لا تعديل للطلب من المتقدم — التصحيح الإداري Owner only + Audit Log | FROZEN | P0 | NOT STARTED |
 | `CAREERS-044` | المتقدمون المكررون: التقديم المتعدد مسموح + ربط بلا دمج | FROZEN | P1 | NOT STARTED |
 | `CAREERS-045` | حماية الرقم الوطني ورقم جواز السفر/الوثيقة (Sensitive Data) | APPROVED | P0 | NOT STARTED |
-| `CAREERS-046` | الحالات الداخلية السبع + سجل كل تغيير حالة | FROZEN | P0 | NOT STARTED |
-| `CAREERS-047` | Public Status Mapping — المتقدم لا يرى الحالة الداخلية دائمًا | FROZEN | P0 | NOT STARTED |
-| `CAREERS-048` | إدارة المقابلات: تاريخ · وقت · مكان (Dropdown: DRIVE / HOUSE) · ملاحظات داخلية | FROZEN | P1 | NOT STARTED |
-| `CAREERS-049` | لا نظام تقييم: لا Score ولا نجوم ولا AI ranking | FROZEN | P1 | NOT STARTED |
-| `CAREERS-050` | وحدة التوظيف OWNER ONLY — Server-side Owner Authorization | FROZEN | P0 | NOT STARTED |
+| `CAREERS-046` | الحالات الداخلية السبع + سجل كل تغيير حالة | FROZEN | P0 | TESTED |
+| `CAREERS-047` | Public Status Mapping — المتقدم لا يرى الحالة الداخلية دائمًا | FROZEN | P0 | TESTED |
+| `CAREERS-048` | إدارة المقابلات: تاريخ · وقت · مكان (Dropdown: DRIVE / HOUSE) · ملاحظات داخلية | FROZEN | P1 | TESTED |
+| `CAREERS-049` | لا نظام تقييم: لا Score ولا نجوم ولا AI ranking | FROZEN | P1 | TESTED |
+| `CAREERS-050` | وحدة التوظيف OWNER ONLY — Server-side Owner Authorization | FROZEN | P0 | TESTED |
 | `CAREERS-051` | قسم «التوظيف / Careers / Recruitment» داخل SHELTER OWNER DASHBOARD (IA مقترحة) | FROZEN | P1 | NOT STARTED |
-| `CAREERS-052` | Recruitment Overview: 8 بطاقات قابلة للنقر — تشغيلية أولًا | FROZEN | P1 | NOT STARTED |
-| `CAREERS-053` | الفترة الزمنية: افتراضي «هذا الشهر» — بلا نسب مقارنة | FROZEN | P1 | NOT STARTED |
-| `CAREERS-054` | شارة «جديد»: فصل Application Status عن Read Status | FROZEN | P1 | NOT STARTED |
-| `CAREERS-055` | إشعارات الطلب الجديد: داخل الـDashboard فقط (لا Email ولا WhatsApp) | FROZEN | P1 | NOT STARTED |
-| `CAREERS-056` | جدول الطلبات: 7 أعمدة افتراضية والترتيب الأحدث أولًا | FROZEN | P1 | NOT STARTED |
-| `CAREERS-057` | الترتيب المتقدم: 6 خيارات | FROZEN | P1 | NOT STARTED |
-| `CAREERS-058` | Global Quick Search حي أثناء الكتابة (مع Debounce) | FROZEN | P1 | NOT STARTED |
-| `CAREERS-059` | Advanced Filters (10 على الأقل) مع دمج عدة Filters | FROZEN | P1 | NOT STARTED |
+| `CAREERS-052` | Recruitment Overview: 8 بطاقات قابلة للنقر — تشغيلية أولًا | FROZEN | P1 | TESTED |
+| `CAREERS-053` | الفترة الزمنية: افتراضي «هذا الشهر» — بلا نسب مقارنة | FROZEN | P1 | TESTED |
+| `CAREERS-054` | شارة «جديد»: فصل Application Status عن Read Status | FROZEN | P1 | TESTED |
+| `CAREERS-055` | إشعارات الطلب الجديد: داخل الـDashboard فقط (لا Email ولا WhatsApp) | FROZEN | P1 | PARTIAL |
+| `CAREERS-056` | جدول الطلبات: 7 أعمدة افتراضية والترتيب الأحدث أولًا | FROZEN | P1 | TESTED |
+| `CAREERS-057` | الترتيب المتقدم: 6 خيارات | FROZEN | P1 | TESTED |
+| `CAREERS-058` | Global Quick Search حي أثناء الكتابة (مع Debounce) | FROZEN | P1 | PARTIAL |
+| `CAREERS-059` | Advanced Filters (10 على الأقل) مع دمج عدة Filters | FROZEN | P1 | TESTED |
 | `CAREERS-060` | Saved Filters بأسماء يحددها الـOwner | FROZEN | P1 | NOT STARTED |
 | `CAREERS-061` | تخصيص الأعمدة: Show/Hide · Drag & Drop · Reset — مع حفظ التفضيل | FROZEN | P1 | NOT STARTED |
-| `CAREERS-062` | كثافة الجدول Comfortable/Compact + عرض مناسب للهاتف | FROZEN | P1 | NOT STARTED |
+| `CAREERS-062` | كثافة الجدول Comfortable/Compact + عرض مناسب للهاتف | FROZEN | P1 | PARTIAL |
 | `CAREERS-063` | عدد الصفوف: 25 / 50 / 100 — الافتراضي على Desktop = 50 مع تذكر آخر اختيار | FROZEN | P1 | NOT STARTED |
-| `CAREERS-064` | Traditional Pagination — لا Infinite Scroll لقائمة الإدارة | FROZEN | P1 | NOT STARTED |
+| `CAREERS-064` | Traditional Pagination — لا Infinite Scroll لقائمة الإدارة | FROZEN | P1 | TESTED |
 | `CAREERS-065` | Quick View (Side Panel) — الحد الأدنى للمحتوى | FROZEN | P1 | NOT STARTED |
-| `CAREERS-066` | صفحة الطلب الكاملة بترتيب UX واضح (ليست Dump لحقول DB) | FROZEN | P1 | NOT STARTED |
-| `CAREERS-067` | الملاحظات الداخلية: ملاحظات متعددة مستقلة — بلا Overwrite | FROZEN | P1 | NOT STARTED |
+| `CAREERS-066` | صفحة الطلب الكاملة بترتيب UX واضح (ليست Dump لحقول DB) | FROZEN | P1 | TESTED |
+| `CAREERS-067` | الملاحظات الداخلية: ملاحظات متعددة مستقلة — بلا Overwrite | FROZEN | P1 | TESTED |
 | `CAREERS-068` | Bulk Actions: تغيير الحالة · Archive · Export · Download Attachments — بلا Bulk Permanent Delete | FROZEN | P1 | NOT STARTED |
 | `CAREERS-069` | Bulk Status Change: تأكيد واحد واضح + Audit Log | FROZEN | P1 | NOT STARTED |
-| `CAREERS-070` | Archive ثم Permanent Delete (Owner only، تأكيد قوي، Tombstone) — لا حذف تلقائي | FROZEN | P0 | NOT STARTED |
+| `CAREERS-070` | Archive ثم Permanent Delete (Owner only، تأكيد قوي، Tombstone) — لا حذف تلقائي | FROZEN | P0 | TESTED |
 | `CAREERS-071` | الطلبات القديمة: Last Updated + تنبيه اختياري — بلا حذف تلقائي | FROZEN | P2 | NOT STARTED |
 | `CAREERS-072` | Export: Excel · CSV · PDF — والهوية Masked افتراضيًا | FROZEN | P1 | NOT STARTED |
-| `CAREERS-073` | تنزيل المرفقات: Action منفصل يجمعها في ZIP — Owner only ومسجل | FROZEN | P1 | NOT STARTED |
+| `CAREERS-073` | تنزيل المرفقات: Action منفصل يجمعها في ZIP — Owner only ومسجل | FROZEN | P1 | PARTIAL |
 | `CAREERS-074` | Audit Log للتوظيف: 13 حدثًا × 7 حقول — بلا محتوى ملفات حساس | APPROVED | P0 | NOT STARTED |
 | `CAREERS-075` | Settings للتوظيف: قوائم قابلة للإدارة (المدن · أماكن المقابلة) | APPROVED | P2 | NOT STARTED |
 | `CAREERS-076` | ممنوع إرسال PII إلى GA4 · GTM · Google Analytics · Search Console · أي Analytics خارجية | APPROVED | P0 | NOT STARTED |
@@ -1550,7 +1550,7 @@
 | `OPS-028` | REPUTATION CENTER — سمعة الفروع عبر Google Business Profile الرسمي | APPROVED | P1 | NOT STARTED |
 | `OPS-029` | REVIEW RESPONSE FLOW — لا رد على Google بلا موافقة الـOwner | APPROVED | P1 | NOT STARTED |
 | `OPS-030` | VOICE OF CUSTOMER — نظام Feedback داخلي بسيط بلا PII وبلا Review Gating | APPROVED | P1 | PARTIAL |
-| `OPS-031` | FEEDBACK DASHBOARD — اتجاهات ومقارنة فروع، وتحليل AI موسوم AI ASSISTED ANALYSIS | APPROVED | P1 | NOT STARTED |
+| `OPS-031` | FEEDBACK DASHBOARD — اتجاهات ومقارنة فروع، وتحليل AI موسوم AI ASSISTED ANALYSIS | APPROVED | P1 | PARTIAL |
 | `OPS-032` | PRESS / MEDIA KIT ضمن Media Center — محتوى معتمد فقط | APPROVED | P1 | PARTIAL |
 | `OPS-033` | MEDIA RIGHTS MANAGER — حقول الحقوق والموافقات لكل Asset في المكتبة الواحدة | APPROVED | P1 | PARTIAL |
 | `OPS-034` | لا تُنشر صورة شخص بلا موافقة نشر معتمدة — وتُفرض القيود والانتهاء والنطاق | APPROVED | P0 | TESTED |

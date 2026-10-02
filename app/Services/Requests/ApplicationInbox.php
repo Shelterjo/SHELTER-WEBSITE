@@ -4,10 +4,12 @@ namespace App\Services\Requests;
 
 use App\Models\Recruitment\Application;
 use App\Models\Recruitment\ApplicationInterview;
+use App\Models\Recruitment\ApplicationMeeting;
 use App\Models\Recruitment\ApplicationNote;
 use App\Models\Recruitment\ApplicationStatusChange;
 use App\Models\Recruitment\InterviewLocation;
 use App\Models\Recruitment\JobApplication;
+use App\Models\Recruitment\PipelineStage;
 use App\Models\User;
 use App\Services\Core\AuditLogger;
 use App\Services\Recruitment\IdentityVault;
@@ -24,7 +26,7 @@ use InvalidArgumentException;
  */
 final class ApplicationInbox
 {
-    /** Partnership stages (FRAN-055, docs/franchise/04 §2) — proposed; the Franchise Master may change them (PO-048). */
+    /** Partnership stages when the settings table is empty (docs/franchise/04 §2); the table `pipeline_stages` wins (TD-FR-01). */
     public const FR_STATUSES = ['received', 'qualified', 'meeting', 'market_review', 'site_review', 'approved', 'contract', 'closed', 'archived'];
 
     private const NOTE_MAX = 3000;
@@ -34,7 +36,34 @@ final class ApplicationInbox
     /** @return list<string> */
     public static function statuses(string $type): array
     {
-        return $type === 'FR' ? self::FR_STATUSES : JobApplication::STATUSES;
+        if ($type !== 'FR') {
+            return JobApplication::STATUSES;
+        }
+        $codes = PipelineStage::query()->where('module', 'FR')->where('is_active', true)->orderBy('sort')->pluck('code')->all();
+        $codes = $codes === [] ? self::FR_STATUSES : array_values(array_diff($codes, ['archived']));
+
+        return array_values(array_unique([...$codes, 'archived']));
+    }
+
+    /**
+     * Stage labels in the dashboard language (FR from the settings table; careers from the language files).
+     *
+     * @return array<string, string>
+     */
+    public static function labels(string $type, string $locale): array
+    {
+        if ($type === 'FR') {
+            $stages = PipelineStage::query()->where('module', 'FR')->get()->keyBy('code');
+            $labels = [];
+            foreach (self::statuses('FR') as $code) {
+                $stage = $stages->get($code);
+                $labels[$code] = $stage instanceof PipelineStage ? $stage->label($locale) : $code;
+            }
+
+            return $labels;
+        }
+
+        return array_combine(JobApplication::STATUSES, array_map(fn (string $s): string => (string) __('dashboard.requests.statuses.'.$s), JobApplication::STATUSES));
     }
 
     /** Opening an application the first time marks it as seen — it does not change its status (CAREERS-054). */
@@ -136,6 +165,32 @@ final class ApplicationInbox
 
             return $interview;
         });
+    }
+
+    /** A partnership meeting (FRAN-059) — internal only. */
+    public function scheduleMeeting(Application $application, CarbonImmutable $at, string $channel, ?string $place, ?string $notes, User $owner): ApplicationMeeting
+    {
+        if (! in_array($channel, ApplicationMeeting::CHANNELS, true)) {
+            throw new InvalidArgumentException("Unknown channel [{$channel}].");
+        }
+        $meeting = ApplicationMeeting::query()->create([
+            'application_id' => $application->id, 'meeting_at' => $at->utc(), 'channel' => $channel,
+            'place' => $place !== null && trim($place) !== '' ? mb_substr(trim($place), 0, 150) : null,
+            'internal_notes' => $this->cleanNote($notes), 'state' => 'planned', 'created_by' => $owner->id,
+        ]);
+        $this->audit->record('meeting.created', $meeting, [], ['reference' => $application->reference_number], actor: $owner);
+
+        return $meeting;
+    }
+
+    public function setMeetingState(ApplicationMeeting $meeting, string $state, User $owner): void
+    {
+        if (! in_array($state, ApplicationMeeting::STATES, true) || $state === $meeting->state) {
+            return;
+        }
+        $before = $meeting->state;
+        $meeting->forceFill(['state' => $state])->save();
+        $this->audit->record('meeting.changed', $meeting, ['before' => ['state' => $before], 'after' => ['state' => $state]], actor: $owner);
     }
 
     /**

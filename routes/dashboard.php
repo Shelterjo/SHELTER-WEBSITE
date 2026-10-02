@@ -11,6 +11,8 @@ use App\Http\Controllers\Dashboard\Content\TeamController;
 use App\Http\Controllers\Dashboard\HomeController;
 use App\Http\Controllers\Dashboard\RecoveryCodesController;
 use App\Http\Controllers\Dashboard\Requests\CareersController;
+use App\Http\Controllers\Dashboard\Requests\FeedbackController;
+use App\Http\Controllers\Dashboard\Requests\PartnershipsController;
 use App\Http\Middleware\DashboardLocale;
 use Illuminate\Support\Facades\Route;
 
@@ -81,6 +83,26 @@ Route::prefix('dashboard')->middleware(DashboardLocale::class)->group(function (
                 Route::get('requests/careers/{application}/delete', [CareersController::class, 'confirmDelete'])->name('careers.delete');
                 Route::delete('requests/careers/{application}', [CareersController::class, 'destroy'])->name('careers.destroy');
             });
+        });
+
+        // Requests — partnerships (docs/franchise/04): stage, notes, meetings; archive only, never deleted.
+        Route::get('requests/partnerships', [PartnershipsController::class, 'index'])->name('partnerships.index');
+        Route::whereNumber(['application', 'note', 'meeting'])->group(function (): void {
+            Route::get('requests/partnerships/{application}', [PartnershipsController::class, 'show'])->name('partnerships.show');
+            Route::post('requests/partnerships/{application}/status', [PartnershipsController::class, 'status'])->name('partnerships.status');
+            Route::post('requests/partnerships/{application}/restore', [PartnershipsController::class, 'restore'])->name('partnerships.restore');
+            Route::post('requests/partnerships/{application}/notes', [PartnershipsController::class, 'addNote'])->name('partnerships.notes.store');
+            Route::put('requests/partnerships/{application}/notes/{note}', [PartnershipsController::class, 'editNote'])->name('partnerships.notes.update');
+            Route::post('requests/partnerships/{application}/meetings', [PartnershipsController::class, 'meeting'])->name('partnerships.meetings.store');
+            Route::put('requests/partnerships/{application}/meetings/{meeting}', [PartnershipsController::class, 'meetingState'])->name('partnerships.meetings.update');
+        });
+
+        // Requests — customer feedback (VOICE-OF-CUSTOMER §5): the board and the comments.
+        Route::get('requests/feedback', [FeedbackController::class, 'index'])->name('feedback.index');
+        Route::whereNumber('feedback')->group(function (): void {
+            Route::post('requests/feedback/{feedback}/archive', [FeedbackController::class, 'archive'])->name('feedback.archive');
+            Route::post('requests/feedback/{feedback}/restore', [FeedbackController::class, 'restore'])->name('feedback.restore');
+            Route::put('requests/feedback/{feedback}', [FeedbackController::class, 'redact'])->name('feedback.redact');
         });
         Route::get('recovery-codes', RecoveryCodesController::class)->name('recovery-codes');
         Route::get('confirm', [ConfirmIdentityController::class, 'show'])->name('confirm');

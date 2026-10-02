@@ -85,6 +85,12 @@ class Application extends Model
         return $this->hasMany(ApplicationInterview::class, 'application_id')->orderByDesc('id');
     }
 
+    /** @return HasMany<ApplicationMeeting, $this> */
+    public function meetings(): HasMany
+    {
+        return $this->hasMany(ApplicationMeeting::class, 'application_id')->orderByDesc('meeting_at');
+    }
+
     public function isNew(): bool
     {
         return $this->first_viewed_at === null;
