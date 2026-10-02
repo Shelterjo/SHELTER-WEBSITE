@@ -41,7 +41,7 @@
     @endphp
     {{-- SI-M02 · Menu IA spec: one page, approved names and VAT-inclusive prices only; availability only where the Owner
          set it (UNKNOWN says nothing — CF-02, §9.6). Without JavaScript the full menu is readable and every link works. --}}
-    <div class="ui-page ui-menu" data-ui-menu data-branch="{{ $menu->branch }}">
+    <div class="ui-page ui-menu" data-ui-menu data-branch="{{ $menu->branch }}" data-track-view="menu_view">
         <div class="ui-container">
             <x-ui.breadcrumb :items="$crumbs" />
             <header class="ui-page-intro">

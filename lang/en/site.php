@@ -48,18 +48,19 @@ return [
 
     'home' => [
         'feature' => ['announcement' => 'Announcement', 'campaign' => 'Offer', 'event' => 'Event'],
-        'title' => 'SHELTER COFFEE',
-        'lead' => 'Browse the menu and see which branch is open right now — and until when.',
+        // M57: the approved positioning line (D-332) in the Google title and the opening line; one short sentence.
+        'title' => 'SHELTER COFFEE — Specialty Coffee & Drive-Thru in Irbid',
+        'lead' => 'Specialty coffee and a drive-thru in Irbid. Browse the menu and see which branch is open right now — and until when.',
         'cta_menu' => 'View the menu',
         'cta_locations' => 'Locations & hours',
-        'branches_title' => 'Locations',
+        'branches_title' => 'Our branches in Irbid',
         'branches_lead' => 'Status updates automatically from the opening hours.',
         'branches_link' => 'All details',
     ],
 
     'locations' => [
         'title' => 'Locations',
-        'lead' => 'Opening hours and live status for each branch.',
+        'lead' => 'SHELTER COFFEE branches in Irbid, with opening hours and each branch’s live status.',
         'details' => 'Hours & details',
         'empty' => 'No branches to show right now.',
     ],
@@ -70,7 +71,7 @@ return [
         'directions_short' => 'Directions',
         'services' => 'Services',
         'payments' => 'Payment methods',
-        'title' => ':name — Opening hours',
+        'title' => ':name — :kind in Irbid | Opening Hours',
         'contact' => 'Contact the branch',
         'call' => 'Call',
         'whatsapp' => 'Message us on WhatsApp', // D-063 (provisional)
@@ -78,6 +79,9 @@ return [
         'actions' => 'Quick actions',
         'menu' => 'This branch’s menu',
         'back' => 'All locations',
+        // What kind of branch (master-data type, D-008) and where: “Drive-thru in Irbid”.
+        'kinds' => ['drive_thru' => 'Drive-thru', 'coffee_house' => 'Coffee house'],
+        'kind_in_city' => ':kind in :city',
     ],
 
     // Contact by intent (D-059; titles from the approved intent map, docs/phase-01-discovery/14 §1 / §4).
@@ -178,6 +182,13 @@ return [
     ],
     // Google descriptions (meta description) per page and the root gateway line: Owner-approved wording, batch 01 (D-332,
     // docs/copy/META-DESCRIPTIONS-DRAFT-01.md). The Owner may reword any of them (dashboard → Site texts); empty = this text.
+    // Google titles (M57 §15) for pages whose on-page heading stays short; Owner-editable in Site texts.
+    'titles' => [
+        'locations' => 'SHELTER COFFEE Locations in Irbid — Opening Hours',
+        'contact' => 'Contact SHELTER COFFEE — Irbid',
+        'events' => 'SHELTER COFFEE Events in Irbid',
+        'careers' => 'Careers at SHELTER COFFEE, Irbid',
+    ],
     'meta' => [
         'home' => 'SHELTER COFFEE in Irbid: specialty coffee, V60, hot and cold drinks and desserts, at a drive-thru and a coffee house. See the menu and opening hours.',
         'menu' => 'SHELTER COFFEE menu in Irbid: specialty coffee and V60, espresso and lattes, cold drinks, frappés, smoothies, tea, cake and cookies, with prices per branch.',

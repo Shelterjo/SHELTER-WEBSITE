@@ -26,6 +26,8 @@ use Illuminate\Support\Carbon;
  * @property string|null $name_en
  * @property string|null $address_ar
  * @property string|null $address_en
+ * @property string|null $landmark_ar
+ * @property string|null $landmark_en
  * @property string|null $latitude
  * @property string|null $longitude
  * @property string|null $maps_url

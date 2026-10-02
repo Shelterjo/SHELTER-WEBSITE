@@ -1,10 +1,10 @@
 @extends('layouts.site')
 @php($description = filled($description ?? null) ? $description : __('site.meta.branch', ['name' => $branch->name]))
 
-@section('title', __('site.branch.title', ['name' => $branch->name]))
+@section('title', __('site.branch.title', ['name' => $branch->name, 'kind' => $branch->kind ?? '']))
 
 @section('content')
-    <div class="ui-page ui-page--with-bar">
+    <div class="ui-page ui-page--with-bar" data-track-view="branch_view" data-track-branch="{{ $branch->branch->slug }}" data-track-placement="branch_page">
         <div class="ui-container">
             <x-ui.breadcrumb :items="$crumbs" />
             <header class="ui-page-intro">
@@ -12,6 +12,9 @@
                     <p class="ui-eyebrow"><span lang="{{ $branch->altLocale }}" dir="{{ $branch->altLocale === 'ar' ? 'rtl' : 'ltr' }}">{{ $branch->altName }}</span></p>
                 @endif
                 <h1 class="ui-page-intro__title">{{ $branch->name }}</h1>
+                @if ($branch->kindInCity() !== null)
+                    <p class="ui-page-intro__lead">{{ $branch->kindInCity() }}</p>
+                @endif
                 @if ($branch->status !== null)
                     <x-ui.open-status :timeline="$branch->status" size="lg" />
                     @if ($branch->status->exception !== null)
@@ -28,9 +31,12 @@
                         <p class="ui-note">{{ __('site.hours.timezone', ['market' => $market->name()]) }}</p>
                     </section>
                 @endif
-                @if ($branch->address !== null || $branch->mapsUrl !== null || $branch->services !== [] || $branch->payments !== [])
+                @if ($branch->landmark !== null || $branch->address !== null || $branch->mapsUrl !== null || $branch->services !== [] || $branch->payments !== [])
                     <section class="ui-split__aside" aria-labelledby="branch-place" data-ui-reveal>
                         <h2 class="ui-split__title" id="branch-place">{{ __('site.branch.place') }}</h2>
+                        @if ($branch->landmark !== null)
+                            <p>{{ $branch->landmark }}</p>
+                        @endif
                         @if ($branch->address !== null)
                             <p>{{ $branch->address }}</p>
                         @endif
@@ -73,7 +79,7 @@
 
         @if ($branch->phone !== null || $branch->whatsapp !== null || $branch->mapsUrl !== null)
             {{-- D-061: [Directions] [Call] [WhatsApp] — Directions shows once the Owner saves the Maps link (PO-010). --}}
-            <x-ui.action-bar :label="__('site.branch.actions')">
+            <x-ui.action-bar :label="__('site.branch.actions')" data-track-placement="action_bar">
                 @if ($branch->mapsUrl !== null)
                     <x-ui.button variant="secondary" icon="map-pin" :href="$branch->mapsUrl" rel="noopener" target="_blank">{{ __('site.branch.directions_short') }}</x-ui.button>
                 @endif

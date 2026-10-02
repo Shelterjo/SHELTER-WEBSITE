@@ -56,6 +56,31 @@ final class HoursResolver
             ->all());
     }
 
+    /**
+     * The days in the next $days (from $from's local date) whose hours come from a published exception — holiday,
+     * special hours, emergency or temporary closure — with the hours that apply then (none = closed). The same rule as
+     * the page (one priority order), so search engines never get a second copy of the hours (M57 §19, §21).
+     *
+     * @return list<array{date: string, intervals: list<array{opens: string, closes: string}>}>
+     */
+    public function specialDays(CarbonImmutable $from, int $days): array
+    {
+        $start = $from->setTimezone($this->timezone)->startOfDay();
+        $out = [];
+        for ($i = 0; $i < $days; $i++) {
+            $day = $start->addDays($i);
+            if ($this->exceptionFor($day) === null) {
+                continue;
+            }
+            $out[] = ['date' => $day->format('Y-m-d'), 'intervals' => array_map(
+                fn (array $interval): array => ['opens' => $interval[0]->format('H:i'), 'closes' => $interval[1]->format('H:i')],
+                $this->intervalsOn($day),
+            )];
+        }
+
+        return $out;
+    }
+
     public function stateAt(CarbonImmutable $at): OpenState
     {
         $local = $at->setTimezone($this->timezone);

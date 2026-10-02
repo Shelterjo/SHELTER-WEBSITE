@@ -36,7 +36,7 @@
                 </nav>
             @endif
             @if ($phone !== null || $whatsapp !== null || $contact !== null)
-                <div class="ui-site-footer__group">
+                <div class="ui-site-footer__group" data-track-placement="footer" data-track-purpose="general">
                     <h2 class="ui-site-footer__title">{{ __('ui.footer.contact') }}</h2>
                     <ul class="ui-site-footer__list" role="list">
                         @if ($phone !== null)

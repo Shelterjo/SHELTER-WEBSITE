@@ -33,7 +33,7 @@ return [
             ),
             'hours_ref' => 'D-020',
             // D-020: detailed address, official place name and Maps link are NOT approved (PO-010).
-            'missing' => ['address_ar' => 'PO-010', 'address_en' => 'PO-010', 'maps_url' => 'PO-010', 'latitude' => 'PO-010', 'longitude' => 'PO-010'],
+            'missing' => ['address_ar' => 'PO-010', 'address_en' => 'PO-010', 'landmark_ar' => 'PO-010', 'landmark_en' => 'PO-010', 'maps_url' => 'PO-010', 'latitude' => 'PO-010', 'longitude' => 'PO-010'],
         ],
         [
             'code' => 'BR-HOUSE', 'slug' => 'house', 'type' => 'coffee_house', 'sort' => 2, 'is_public' => true,
@@ -44,7 +44,7 @@ return [
                 array_map(fn (int $d): array => [$d, '09:00', '23:00'], [4, 5]),
             ),
             'hours_ref' => 'D-020',
-            'missing' => ['address_ar' => 'PO-010', 'address_en' => 'PO-010', 'maps_url' => 'PO-010', 'latitude' => 'PO-010', 'longitude' => 'PO-010'],
+            'missing' => ['address_ar' => 'PO-010', 'address_en' => 'PO-010', 'landmark_ar' => 'PO-010', 'landmark_en' => 'PO-010', 'maps_url' => 'PO-010', 'latitude' => 'PO-010', 'longitude' => 'PO-010'],
         ],
     ],
     // D-033 services and D-034 payment methods: data model ready, every value MISSING until the owner confirms.

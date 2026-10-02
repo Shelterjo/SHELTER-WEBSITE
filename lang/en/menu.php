@@ -3,7 +3,7 @@
 // Mirror of lang/ar/menu.php (Arabic is primary). Proposed wording P-05 / P-07 is PENDING OWNER APPROVAL.
 return [
     'title' => 'Menu',
-    'page_title' => 'Menu — :brand',
+    'page_title' => 'SHELTER COFFEE Menu in Irbid — Coffee, Drinks & Prices', // P-07 title, M57 §15
     'prices_note' => 'Prices in JOD, VAT included',
     'search_label' => 'Search',
     'search_placeholder' => 'Search the menu',

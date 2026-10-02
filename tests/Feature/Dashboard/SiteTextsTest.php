@@ -65,13 +65,18 @@ class SiteTextsTest extends TestCase
     {
         $this->put('/dashboard/content/texts/locations', ['texts' => ['site.branch.title' => ['ar' => 'فرع بدون اسم', 'en' => '']]])
             ->assertSessionHasErrors([SiteTexts::fieldId('site.branch.title', 'ar')], null, 'texts-locations');
+        $this->put('/dashboard/content/texts/locations', ['texts' => ['site.branch.title' => ['ar' => ':name — شلتر كوفي إربد', 'en' => '']]])
+            ->assertSessionHasErrors([SiteTexts::fieldId('site.branch.title', 'ar')], null, 'texts-locations');
         $this->put('/dashboard/content/texts/locations', ['texts' => [
-            'site.branch.title' => ['ar' => ':name — شلتر كوفي إربد', 'en' => ''],
+            'site.branch.title' => ['ar' => ':name (:kind) — شلتر كوفي إربد', 'en' => ''],
+            'site.titles.locations' => ['ar' => 'فروعنا في إربد', 'en' => 'Our branches in Irbid'],
             'site.locations.title' => ['ar' => 'فروعنا', 'en' => 'Our branches'],
         ]])->assertSessionHasNoErrors();
-        $this->assertStringContainsString('<title>فروعنا — ', $this->page('/ar/jo/locations/'));
-        $this->assertStringContainsString('<title>Our branches — ', $this->page('/en/jo/locations/'));
-        $this->assertMatchesRegularExpression('#<title>[^<]+ — شلتر كوفي إربد</title>#u', $this->page('/ar/jo/locations/irbid/drive/'));
+        $ar = $this->page('/ar/jo/locations/');
+        $this->assertStringContainsString('<title>فروعنا في إربد</title>', $ar, 'the Google title has its own text (M57)');
+        $this->assertStringContainsString('<h1 class="ui-page-intro__title">فروعنا</h1>', $ar, 'the heading stays its own text');
+        $this->assertStringContainsString('<title>Our branches in Irbid</title>', $this->page('/en/jo/locations/'));
+        $this->assertStringContainsString('<title>شلتر كوفي درايف (درايف ثرو) — شلتر كوفي إربد</title>', $this->page('/ar/jo/locations/irbid/drive/'));
     }
 
     public function test_a_missing_table_never_breaks_the_site(): void

@@ -2,6 +2,7 @@
 
 namespace App\Services\Site;
 
+use App\Enums\BranchType;
 use App\Models\Branch;
 use App\Models\BranchHour;
 use App\Models\Market;
@@ -25,6 +26,9 @@ final class BranchDirectory
 {
     /** Week order of the hours table: Saturday first, as the hours decision lists them (D-020). Carbon weekdays. */
     public const WEEK = [6, 0, 1, 2, 3, 4, 5];
+
+    /** How far ahead exception days (holidays, special hours, closures) go into the branch structured data. */
+    private const SPECIAL_DAYS = 60;
 
     public function __construct(
         private readonly MasterData $data,
@@ -69,6 +73,7 @@ final class BranchDirectory
         $altName = $this->data->branchField($branch, 'name_'.$altLocale);
 
         $week = $today = $status = null;
+        $special = [];
         $regular = $this->data->regularHours($branch);
         if ($regular !== null) {
             $local = $now->setTimezone($market->timezone);
@@ -79,6 +84,7 @@ final class BranchDirectory
                 $resolver->intervalsOn($local),
             );
             $status = $this->status->timeline($resolver, $now, $market->timezone, $locale);
+            $special = $resolver->specialDays($local, self::SPECIAL_DAYS);
         }
 
         return new BranchSummary(
@@ -102,7 +108,22 @@ final class BranchDirectory
             longitude: self::text($this->data->branchField($branch, 'longitude')),
             services: $this->said($branch, 'service'),
             payments: $this->said($branch, 'payment'),
+            kind: self::kind($branch->type, $locale),
+            city: $this->data->cityName($branch->city, $locale),
+            landmark: self::text($this->data->branchField($branch, 'landmark_'.$locale)),
+            special: $special,
         );
+    }
+
+    private static function kind(?BranchType $type, string $locale): ?string
+    {
+        if ($type === null) {
+            return null;
+        }
+        $key = 'site.branch.kinds.'.$type->value;
+        $label = __($key, [], $locale);
+
+        return is_string($label) && $label !== $key ? $label : null;
     }
 
     private static function text(mixed $value): ?string

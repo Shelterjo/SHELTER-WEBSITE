@@ -39,5 +39,23 @@ final readonly class BranchSummary
         public array $services = [],
         /** @var list<string> the payment methods the Owner said yes to (D-034) */
         public array $payments = [],
+        /** what kind of branch it is, from its master-data type (D-008): «درايف ثرو» / «Drive-thru» … */
+        public ?string $kind = null,
+        /** the city in the page's language (null while its spelling is not approved) */
+        public ?string $city = null,
+        /** the approved location description — a nearby landmark (M57), never the street address */
+        public ?string $landmark = null,
+        /** @var list<array{date: string, intervals: list<array{opens: string, closes: string}>}> exception days ahead */
+        public array $special = [],
     ) {}
+
+    /** «درايف ثرو في إربد» / “Drive-thru in Irbid”, or whichever half is known; null when neither is. */
+    public function kindInCity(): ?string
+    {
+        if ($this->kind !== null && $this->city !== null) {
+            return (string) __('site.branch.kind_in_city', ['kind' => $this->kind, 'city' => $this->city], $this->locale);
+        }
+
+        return $this->kind ?? $this->city;
+    }
 }

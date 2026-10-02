@@ -1,7 +1,7 @@
 @extends('layouts.site')
 @php($description = filled($description ?? null) ? $description : __('site.meta.careers'))
 
-@section('title', __('careers.title').' — '.__('site.brand'))
+@section('title', __('site.titles.careers'))
 
 @section('content')
     {{-- /en/careers/ (CAREERS-REQUIREMENTS §2): content in English; Apply leads to THE Arabic form — no English form. --}}

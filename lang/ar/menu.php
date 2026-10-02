@@ -4,7 +4,7 @@
 // from Master Data, never from here. Texts marked P-05 / P-07 are proposed wording PENDING OWNER APPROVAL.
 return [
     'title' => 'المنيو',
-    'page_title' => 'المنيو — :brand', // P-07: this title wording is pending owner approval (the menu description is approved: D-332)
+    'page_title' => 'منيو شلتر كوفي في إربد — القهوة والمشروبات والأسعار', // P-07 title, M57 §15 (the description: D-332)
     'prices_note' => 'الأسعار بالدينار الأردني وشاملة الضريبة', // P-05 (fact approved in F-01; wording pending)
     'search_label' => 'بحث',
     'search_placeholder' => 'ابحث في المنيو',

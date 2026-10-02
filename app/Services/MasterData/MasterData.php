@@ -5,6 +5,7 @@ namespace App\Services\MasterData;
 use App\Enums\ContactKind;
 use App\Models\Branch;
 use App\Models\BranchHour;
+use App\Models\City;
 use App\Models\ContactPoint;
 use App\Models\Market;
 use App\Services\Core\Settings;
@@ -34,6 +35,19 @@ final class MasterData
         $live = $this->settings->get($key);
 
         return $live !== null && $this->facts->isPublishable($key, $live) ? $live : null;
+    }
+
+    /**
+     * The city's name for a page in that language. Arabic is a fact of its own (CF-M-036 spelling) and shows only once
+     * approved; the English name is the one in the fixed address of every branch page (D-008, D-053).
+     */
+    public function cityName(City $city, string $locale): ?string
+    {
+        if ($locale !== 'ar') {
+            return $city->name_en !== '' ? $city->name_en : null;
+        }
+
+        return $city->name_ar !== '' && $this->facts->isPublishable("city.{$city->slug}.name_ar", $city->name_ar) ? $city->name_ar : null;
     }
 
     public function branchField(Branch $branch, string $field): mixed

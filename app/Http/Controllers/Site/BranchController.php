@@ -51,6 +51,8 @@ final class BranchController extends Controller
                     $summary,
                     $phone?->show_on_branch_cards === true && $phone->value !== null ? PhoneNumber::international($phone->value) : null,
                     asset('brand/logo-white-480.png'),
+                    PageUrl::route('gateway'),
+                    $menuUrl,
                 ),
             ],
         ]);

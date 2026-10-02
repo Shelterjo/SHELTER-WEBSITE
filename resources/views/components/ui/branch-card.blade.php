@@ -1,6 +1,6 @@
 {{--
     Branch card (DS §8 Branch card, BRANCH-016): approved name (+ the approved name in the other language), live open
-    state, today's hours, call and WhatsApp (D-062 — icon-only links carry a descriptive name, CONTACT-016) and a
+    state, what kind of branch and where (+ its approved location description), today's hours, call and WhatsApp (D-062 — icon-only links carry a descriptive name, CONTACT-016) and a
     link to the branch page that covers the whole card (one tab stop; the contact links sit above it).
     Variants: `row` — an editorial list row (home), `panel` — a framed panel with labelled buttons (locations).
     `branch` = App\Services\Site\BranchSummary. Nothing is rendered for a value that is not approved.
@@ -18,6 +18,7 @@
     $level = max(2, min(4, (int) $level));
     // Plain variables keep component attributes free of "->" (the localization test strips tags by their brackets).
     $statusTimeline = $branch->status;
+    $kindInCity = $branch->kindInCity();
     $phoneHref = $branch->phone?->href;
     $whatsappHref = $branch->whatsapp?->href;
     // Icon-only actions name the branch (FINAL-QA QA-034): two cards on one page must not share one label.
@@ -27,7 +28,7 @@
         ? __('ui.hours.closed')
         : collect($branch->today)->map(fn (array $i): string => $i['opens'].' – '.$i['closes'])->implode(' · '));
 @endphp
-<article {{ $attributes->class(['ui-branch', 'ui-branch--'.$variant]) }}>
+<article {{ $attributes->class(['ui-branch', 'ui-branch--'.$variant])->merge(['data-track-branch' => $branch->branch->slug, 'data-track-placement' => $variant === 'row' ? 'home_card' : 'locations_card']) }}>
     <div class="ui-branch__head">
         <h{{ $level }} class="ui-branch__name"><a class="ui-stretched" href="{{ $branch->url }}">{{ $branch->name }}</a></h{{ $level }}>
         @if ($branch->altName !== null)
@@ -35,6 +36,12 @@
         @endif
     </div>
     <div class="ui-branch__info">
+        @if ($kindInCity !== null || $branch->landmark !== null)
+            <p class="ui-branch__place">
+                <x-ui.icon name="map-pin" size="sm" />
+                <span>{{ $kindInCity }}@if ($kindInCity !== null && $branch->landmark !== null) · @endif{{ $branch->landmark }}</span>
+            </p>
+        @endif
         @if ($branch->status !== null)
             <x-ui.open-status :timeline="$statusTimeline" />
         @endif

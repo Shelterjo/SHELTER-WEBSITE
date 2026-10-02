@@ -25,6 +25,7 @@ use App\Http\Controllers\Dashboard\Requests\CareersController;
 use App\Http\Controllers\Dashboard\Requests\CareersSettingsController;
 use App\Http\Controllers\Dashboard\Requests\FeedbackController;
 use App\Http\Controllers\Dashboard\Requests\PartnershipsController;
+use App\Http\Controllers\Dashboard\SeoController;
 use App\Http\Controllers\Dashboard\SettingsController;
 use App\Http\Middleware\DashboardLocale;
 use App\Http\Middleware\PreventStaleEdits;
@@ -83,6 +84,7 @@ Route::prefix('dashboard')->middleware(DashboardLocale::class)->group(function (
             Route::post('content/team/{member}/restore', [TeamController::class, 'restore'])->name('team.restore');
         });
         Route::get('live', LiveController::class)->name('live');
+        Route::get('seo', SeoController::class)->name('seo');
         Route::post('live/{experience}/disable', [LiveController::class, 'disable'])->whereNumber('experience')->name('live.disable');
         Route::get('content/announcements', [AnnouncementsController::class, 'index'])->name('announcements.index');
         Route::get('content/announcements/new', [AnnouncementsController::class, 'create'])->name('announcements.create');

@@ -55,18 +55,19 @@ return [
 
     'home' => [
         'feature' => ['announcement' => 'إعلان', 'campaign' => 'عرض', 'event' => 'فعالية'],
-        'title' => 'شلتر كوفي — SHELTER COFFEE',
-        'lead' => 'تصفّح المنيو، واعرف أيّ فرع مفتوح الآن ومتى يُغلق.',
+        // M57: the approved positioning line (D-332) in the Google title and the opening line; one short sentence.
+        'title' => 'شلتر كوفي — قهوة مختصة ودرايف ثرو في إربد',
+        'lead' => 'قهوة مختصة ودرايف ثرو في إربد. تصفّح المنيو، واعرف أيّ فرع مفتوح الآن ومتى يُغلق.',
         'cta_menu' => 'تصفّح المنيو',
         'cta_locations' => 'الفروع والمواعيد',
-        'branches_title' => 'الفروع',
+        'branches_title' => 'فروعنا في إربد',
         'branches_lead' => 'الحالة تتحدث تلقائيًا بحسب ساعات الدوام.',
         'branches_link' => 'كل التفاصيل',
     ],
 
     'locations' => [
         'title' => 'الفروع',
-        'lead' => 'ساعات الدوام وحالة كل فرع الآن.',
+        'lead' => 'فروع شلتر كوفي في إربد، مع ساعات الدوام وحالة كل فرع الآن.',
         'details' => 'الساعات والتفاصيل',
         'empty' => 'لا توجد فروع للعرض حاليًا.',
     ],
@@ -77,7 +78,7 @@ return [
         'directions_short' => 'الاتجاهات',
         'services' => 'الخدمات',
         'payments' => 'طرق الدفع',
-        'title' => ':name — ساعات الدوام',
+        'title' => ':name — :kind في إربد | ساعات الدوام',
         'contact' => 'تواصل مع الفرع',
         'call' => 'اتصال',
         'whatsapp' => 'راسلنا على واتساب', // D-063 (provisional)
@@ -85,6 +86,9 @@ return [
         'actions' => 'إجراءات سريعة',
         'menu' => 'منيو هذا الفرع',
         'back' => 'كل الفروع',
+        // What kind of branch (master-data type, D-008) and where: «درايف ثرو في إربد».
+        'kinds' => ['drive_thru' => 'درايف ثرو', 'coffee_house' => 'كوفي هاوس'],
+        'kind_in_city' => ':kind في :city',
     ],
 
     // Contact by intent (D-059; titles from the approved intent map, docs/phase-01-discovery/14 §1 / §4).
@@ -185,6 +189,13 @@ return [
     ],
     // Google descriptions (meta description) per page and the root gateway line: Owner-approved wording, batch 01 (D-332,
     // docs/copy/META-DESCRIPTIONS-DRAFT-01.md). The Owner may reword any of them (dashboard → Site texts); empty = this text.
+    // Google titles (M57 §15) for pages whose on-page heading stays short; Owner-editable in Site texts.
+    'titles' => [
+        'locations' => 'فروع شلتر كوفي في إربد — ساعات الدوام',
+        'contact' => 'تواصل مع شلتر كوفي — إربد',
+        'events' => 'فعاليات شلتر كوفي في إربد',
+        'careers' => 'وظائف شلتر كوفي في إربد',
+    ],
     'meta' => [
         'home' => 'شلتر كوفي في إربد: قهوة مختصة وV60 ومشروبات ساخنة وباردة وحلويات، في فرع درايف ثرو وفرع كوفي هاوس. تصفّح المنيو وساعات الدوام.',
         'menu' => 'منيو شلتر كوفي في إربد: قهوة مختصة وV60، إسبريسو ولاتيه، مشروبات باردة، فرابيه، سموذي، شاي، كيك وكوكيز، مع الأسعار لكل فرع.',

@@ -50,9 +50,13 @@ class LocationsPagesTest extends TestCase
         $shop = collect($this->jsonLd($html))->firstWhere('@type', 'CafeOrCoffeeShop');
         $this->assertNotNull($shop);
         $this->assertSame('+962799009436', $shop['telephone']);
-        $this->assertArrayNotHasKey('address', $shop, 'Address stays out until PO-010 is approved');
+        // M57 §18: the city and country are fixed facts (D-008); the street address stays out until PO-010 is approved.
+        $this->assertSame(['@type' => 'PostalAddress', 'addressLocality' => 'Irbid', 'addressCountry' => 'JO'], $shop['address']);
         $this->assertArrayNotHasKey('geo', $shop);
+        $this->assertArrayNotHasKey('hasMap', $shop);
         $this->assertCount(2, $shop['openingHoursSpecification']);
+        $this->assertSame('http://localhost/#organization', $shop['parentOrganization']['@id']);
+        $this->assertSame('http://localhost/ar/jo/menu/', $shop['hasMenu']);
         $this->assertNotNull(collect($this->jsonLd($html))->firstWhere('@type', 'BreadcrumbList'));
     }
 

@@ -1,7 +1,7 @@
 @extends('layouts.site')
 @php($description = filled($description ?? null) ? $description : __('site.meta.locations'))
 
-@section('title', __('site.locations.title').' — '.__('site.brand'))
+@section('title', __('site.titles.locations'))
 
 @section('content')
     <div class="ui-page">

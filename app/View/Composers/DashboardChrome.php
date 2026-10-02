@@ -18,6 +18,7 @@ final class DashboardChrome
         'home' => [
             'dashboard.home' => ['dashboard.command_center', 'house', 'dashboard.home'],
             'dashboard.live' => ['dashboard.nav.live', 'clock', 'dashboard.live'],
+            'dashboard.seo' => ['dashboard.nav.seo', 'search', 'dashboard.seo'],
         ],
         'content' => [
             'dashboard.pages.index' => ['dashboard.nav.pages', 'file-text', 'dashboard.pages.*'],

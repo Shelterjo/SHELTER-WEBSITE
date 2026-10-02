@@ -1,7 +1,7 @@
 @extends('layouts.site')
 @php($description = filled($description ?? null) ? $description : __('site.meta.events'))
 
-@section('title', __('site.events.title').' — '.__('site.brand'))
+@section('title', __('site.titles.events'))
 
 @section('content')
     {{-- SI-M07: what is on now, then what is coming. Empty → a calm empty state and noindex (never an empty grid). --}}

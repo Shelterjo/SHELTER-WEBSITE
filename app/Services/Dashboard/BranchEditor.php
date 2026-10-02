@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 
 /**
  * A branch's details (M50, MDH-005, PO-010 — the Owner's own facts, no code): its names in both languages, the address
- * in each language, the Google Maps link and the coordinates, whether it shows on the site, and its services and
+ * and the location description (a nearby landmark, M57) in each language, the Google Maps link and the coordinates, whether it shows on the site, and its services and
  * payment methods (yes · no · not said). Saving a value approves it (FACT-REGISTRY: dashboard edit = approval). The
  * fixed address of its page (slug, city — D-053) does not change. Every change is versioned and audited.
  */
@@ -39,6 +39,8 @@ final class BranchEditor
             'name_en' => $text('name_en'),
             'address_ar' => $text('address_ar'),
             'address_en' => $text('address_en'),
+            'landmark_ar' => $text('landmark_ar'),
+            'landmark_en' => $text('landmark_en'),
             'maps_url' => $text('maps_url'),
         ];
         foreach (['name_ar', 'name_en'] as $field) {
@@ -48,7 +50,7 @@ final class BranchEditor
                 $errors[$field] = (string) __('dashboard.pages.errors.too_long', ['max' => self::NAME_MAX]);
             }
         }
-        foreach (['address_ar', 'address_en'] as $field) {
+        foreach (['address_ar', 'address_en', 'landmark_ar', 'landmark_en'] as $field) {
             if ($values[$field] !== null && mb_strlen($values[$field]) > self::ADDRESS_MAX) {
                 $errors[$field] = (string) __('dashboard.pages.errors.too_long', ['max' => self::ADDRESS_MAX]);
             }

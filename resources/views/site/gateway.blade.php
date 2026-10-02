@@ -1,4 +1,6 @@
 @extends('layouts.site')
+{{-- Its Google description is the approved root line (D-332), when written. --}}
+@php($description = filled($description ?? null) ? $description : (filled(__('site.gateway.lead')) ? __('site.gateway.lead') : null))
 
 @section('title', __('site.brand').' · '.__('site.brand_ar'))
 

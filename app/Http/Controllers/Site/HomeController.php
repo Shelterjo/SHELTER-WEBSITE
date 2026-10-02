@@ -37,7 +37,7 @@ final class HomeController extends Controller
             'jsonLd' => [StructuredData::organization(
                 'SHELTER COFFEE', 'شلتر كوفي', PageUrl::route('gateway'), asset('brand/logo-white-480.png'),
                 is_int($founded) ? ['foundingDate' => (string) $founded] : [],
-            )],
+            ), StructuredData::website('SHELTER COFFEE', 'شلتر كوفي', PageUrl::route('gateway'), ['ar', 'en'])],
         ]);
     }
 }

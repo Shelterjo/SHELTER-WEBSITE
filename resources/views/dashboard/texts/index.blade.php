@@ -27,6 +27,7 @@
                         @php
                             [$file, $path] = explode('.', $key, 2);
                             $isMeta = str_starts_with($key, 'site.meta.');
+                            $isTitle = str_starts_with($key, 'site.titles.') || in_array($key, ['site.home.title', 'menu.page_title', 'site.branch.title'], true);
                         @endphp
                         <x-ui.fieldset :legend="__($T.'labels.'.str_replace('.', '_', $key))" :id="'f-'.str_replace(['.', '_'], '-', $key)">
                             <div class="ui-bilingual">
@@ -36,7 +37,7 @@
                                         $original = \App\Services\Content\SiteTexts::original($key, $locale);
                                         $changed = isset($overrides[$locale][$file][$path]);
                                         $value = $bag->any() ? data_get(old('texts', []), [$key, $locale]) : \App\Services\Content\SiteTexts::current($key, $locale);
-                                        $hint = ($original === '' ? __($T.'original_empty') : __($T.'original', ['text' => $original])).($isMeta ? ' '.__($T.'meta_hint') : '');
+                                        $hint = ($original === '' ? __($T.'original_empty') : __($T.'original', ['text' => $original])).($isMeta ? ' '.__($T.'meta_hint') : '').($isTitle ? ' '.__($T.'title_hint') : '');
                                     @endphp
                                     <div class="ui-bilingual__column">
                                         <x-ui.field :label="__('dashboard.pages.'.($locale === 'ar' ? 'arabic' : 'english')).($changed ? ' — '.__($T.'changed') : '')" :for="$id" :hint="$hint" :error="$bag->first($id)" optional>

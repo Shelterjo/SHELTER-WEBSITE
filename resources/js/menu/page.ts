@@ -1,6 +1,7 @@
 // Menu page behaviour (Menu IA spec §7–§9, M40 §12): search with suggestions and live filtering, the branch selector
 // (?branch= via replaceState + last choice on this device), the product detail dialog with browser Back, and the
 // current category in the category bar. Everything here is an enhancement: the server-rendered menu works without it.
+import { track } from '../ui/track';
 import { matches } from './search';
 
 interface IndexItem {
@@ -31,6 +32,8 @@ interface Messages {
 const STORAGE_KEY = 'shelter.menu.branch';
 const MAX_SUGGESTIONS = 5;
 const LOCATE_MS = 1500;
+/** A search counts once typing has paused this long (MENU-MEASUREMENT-PLAN: one event per finished search). */
+const SEARCH_REPORT_MS = 1000;
 
 function readJson<T>(id: string): T | null {
     const node = document.getElementById(id);
@@ -76,6 +79,26 @@ export function installMenuPage(root: HTMLElement): void {
         active = -1;
     };
 
+    // menu_search / zero_result_search (D-149): once per finished search, never per key. The typed text itself is
+    // not sent (privacy; the cleaning rules for search_term are not built yet) — only its language and result count.
+    let reported = '';
+    let reportTimer = 0;
+    const reportSearch = (q: string, visible: number): void => {
+        window.clearTimeout(reportTimer);
+        if (q === '' || q === reported) return;
+        reportTimer = window.setTimeout(() => {
+            reported = q;
+            const params = {
+                results_count: visible,
+                search_input_language: /[\u0600-\u06FF]/u.test(q) ? 'ar' : 'en',
+                branch_context: root.dataset.branch ?? 'all',
+                menu_language: locale,
+            };
+            track('menu_search', params);
+            if (visible === 0) track('zero_result_search', params);
+        }, SEARCH_REPORT_MS);
+    };
+
     const filter = (query: string): void => {
         const q = query.trim();
         let visible = 0;
@@ -107,6 +130,7 @@ export function installMenuPage(root: HTMLElement): void {
             if (title !== null) title.textContent = messages.noResults.replace(':query', q);
         }
         if (clear !== null) clear.hidden = q === '';
+        reportSearch(q, visible);
     };
 
     const renderOptions = (query: string): void => {

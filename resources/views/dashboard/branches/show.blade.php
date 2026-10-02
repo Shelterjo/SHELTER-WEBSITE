@@ -55,6 +55,9 @@
                         <x-ui.field :label="__($B.'address_'.$locale)" :for="'address_'.$locale" :hint="__($B.'address_hint')" :error="$detailsBag->first('address_'.$locale)" optional>
                             <x-ui.textarea :id="'address_'.$locale" :name="'address_'.$locale" rows="2" maxlength="300" :lang="$locale" :dir="$dir" :value="$dv('address_'.$locale, $branch->{'address_'.$locale})" />
                         </x-ui.field>
+                        <x-ui.field :label="__($B.'landmark_'.$locale)" :for="'landmark_'.$locale" :hint="__($B.'landmark_hint')" :error="$detailsBag->first('landmark_'.$locale)" optional>
+                            <x-ui.input :id="'landmark_'.$locale" :name="'landmark_'.$locale" maxlength="300" :lang="$locale" :dir="$dir" :value="$dv('landmark_'.$locale, $branch->{'landmark_'.$locale})" />
+                        </x-ui.field>
                     </div>
                 @endforeach
             </div>
