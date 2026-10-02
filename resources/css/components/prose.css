@@ -48,3 +48,56 @@
     gap: var(--space-3);
     color: var(--color-muted);
 }
+
+.ui-prose__list {
+    display: grid;
+    gap: var(--space-2);
+    margin: 0;
+    padding-inline-start: var(--space-6);
+    line-height: var(--leading-normal);
+}
+
+/* Steps (a journey, in order): numbered markers on a quiet vertical line; no scroll effects (M29 — no hijack). */
+.ui-steps {
+    display: grid;
+    gap: var(--space-4);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    counter-reset: ui-steps;
+}
+
+.ui-steps__item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    min-block-size: var(--control-lg);
+    counter-increment: ui-steps;
+    line-height: var(--leading-normal);
+}
+
+.ui-steps__item::before {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    inline-size: var(--control-lg);
+    block-size: var(--control-lg);
+    border: var(--border-default) solid var(--color-border);
+    border-radius: var(--radius-pill);
+    background: var(--color-bg);
+    color: var(--color-text);
+    font-weight: var(--weight-bold);
+    font-variant-numeric: tabular-nums;
+    content: counter(ui-steps);
+}
+
+.ui-steps__item:not(:last-child)::after {
+    position: absolute;
+    inset-block: calc(var(--control-lg) + var(--space-1)) calc(var(--space-4) * -1 + var(--space-1));
+    inset-inline-start: calc(var(--control-lg) / 2);
+    inline-size: var(--border-default);
+    background: var(--color-border);
+    content: '';
+}

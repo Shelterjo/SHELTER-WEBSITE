@@ -1,0 +1,158 @@
+/* Application form pattern (careers JOB · partnerships FR — RECRUITMENT-SECURITY §6, franchise field matrix):
+   premium, minimal, fast — clarity before beauty. One reading column, groups separated by hairlines, 44px targets,
+   errors as icon + text (never colour alone). Conditional fields follow a chosen option with :has() — no JavaScript
+   needed. Tokens and logical properties only. */
+
+.ui-apply__form {
+    display: grid;
+    gap: var(--space-10);
+}
+
+/* Honeypot: off-screen for people, present for bots (never display: none). */
+.ui-apply__hp {
+    position: absolute;
+    inline-size: var(--border-default);
+    block-size: var(--border-default);
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+}
+
+.ui-apply__group {
+    display: grid;
+    gap: var(--space-6);
+    min-inline-size: 0;
+    margin: 0;
+    padding: var(--space-8) 0 0;
+    border: 0;
+    border-block-start: var(--border-default) solid var(--color-border);
+}
+
+.ui-apply__legend {
+    float: inline-start;
+    inline-size: 100%;
+    margin-block-end: var(--space-2);
+    padding: 0;
+    font-size: var(--text-xl);
+    font-weight: var(--weight-bold);
+}
+
+.ui-apply__choice {
+    min-inline-size: 0;
+}
+
+/* The error summary takes focus after a failed submit; keep it clear of the top edge when scrolled to. */
+.ui-apply__summary {
+    scroll-margin-block-start: var(--space-6);
+}
+
+.ui-apply__options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-6);
+}
+
+.ui-apply__date {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-3);
+}
+
+/* Conditional fields: hidden until their nationality is chosen; required once shown (checked on the server). */
+.ui-apply__when {
+    display: none;
+}
+
+.ui-apply__form:has(#nationality_type-jordanian:checked) [data-when='jordanian'],
+.ui-apply__form:has(#nationality_type-non_jordanian:checked) [data-when='non_jordanian'] {
+    display: grid;
+    gap: var(--space-6);
+}
+
+.ui-apply__money {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+}
+
+.ui-apply__money .ui-input {
+    flex: 1 1 auto;
+    min-inline-size: 0;
+}
+
+.ui-apply__suffix {
+    flex: none;
+    color: var(--color-muted);
+    font-weight: var(--weight-medium);
+}
+
+.ui-apply__consent-text {
+    margin: 0;
+    padding: var(--space-4);
+    border-radius: var(--radius-md);
+    background: var(--color-surface);
+    line-height: var(--leading-normal);
+}
+
+.ui-apply__actions .ui-button {
+    inline-size: 100%;
+}
+
+@media (min-width: 768px) {
+    .ui-apply__actions .ui-button {
+        inline-size: auto;
+    }
+}
+
+/* ── After submit: received + the reference number + a way back (careers JOB, partnerships FR) ──────────────── */
+.ui-apply-done {
+    display: grid;
+    justify-items: center;
+    gap: var(--space-3);
+    max-inline-size: calc(var(--measure-reading) * 0.75);
+    margin-inline: auto;
+    padding-block: var(--space-10);
+    text-align: center;
+}
+
+.ui-apply-done__icon {
+    color: var(--color-success);
+}
+
+.ui-apply-done__title {
+    margin: 0;
+    font-size: var(--text-3xl);
+    font-weight: var(--weight-bold);
+}
+
+.ui-apply-done__title:focus {
+    outline: none;
+}
+
+.ui-apply-done__label {
+    margin: var(--space-4) 0 0;
+    color: var(--color-muted);
+    font-size: var(--text-sm);
+}
+
+.ui-apply-done__number {
+    margin: 0;
+    font-size: var(--text-2xl);
+    font-weight: var(--weight-bold);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: var(--tracking-en-eyebrow);
+    unicode-bidi: isolate;
+}
+
+.ui-apply-done__text {
+    margin: 0;
+    color: var(--color-muted);
+}
+
+.ui-apply-done__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-3);
+    margin-block-start: var(--space-4);
+}

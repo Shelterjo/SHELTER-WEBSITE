@@ -21,8 +21,9 @@
     padding-inline-start: var(--space-6);
 }
 
+/* Block links keep each bullet on the first line of a message that wraps. */
 .ui-error-summary__list a {
-    display: inline-block;
+    display: block;
     padding-block: var(--space-1);
     color: var(--color-danger);
     font-weight: var(--weight-bold);

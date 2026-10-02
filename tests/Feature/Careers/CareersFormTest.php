@@ -72,7 +72,7 @@ class CareersFormTest extends TestCase
 
         $en = (string) $this->get('/en/careers/')->assertOk()->getContent();
         $this->assertStringContainsString('href="http://localhost/ar/careers/#apply"', $en);
-        $this->assertStringNotContainsString('<form class="ui-careers__form"', $en, 'no English form');
+        $this->assertStringNotContainsString('<form class="ui-apply__form"', $en, 'no English form');
     }
 
     public function test_the_form_is_closed_without_verified_cities(): void
@@ -149,7 +149,7 @@ class CareersFormTest extends TestCase
 
         // The same refusal through the no-JavaScript path keeps every typed value (except the identity number).
         $response = $this->post('/ar/careers/', $this->validInput() + $this->formFields() + ['files' => [UploadedFile::fake()->createWithContent('big.txt', str_repeat('a', 4096))]]);
-        $response->assertRedirect('http://localhost/ar/careers/#apply');
+        $response->assertRedirect('http://localhost/ar/careers/');
         $response->assertSessionHasErrors('files');
         $this->assertSame('متقدم تجريبي Test', session()->getOldInput('full_name'));
         $this->assertNull(session()->getOldInput('national_id'));
@@ -220,10 +220,10 @@ class CareersFormTest extends TestCase
     public function test_server_side_validation_reports_every_problem_in_form_order(): void
     {
         $response = $this->post('/ar/careers/', $this->formFields());
-        $response->assertRedirect('http://localhost/ar/careers/#apply');
+        $response->assertRedirect('http://localhost/ar/careers/');
         // The summary lists the problems top to bottom, each linked to its field.
         $html = (string) $this->get('/ar/careers/')->getContent();
-        $this->assertStringContainsString('class="ui-error-summary ui-careers__summary"', $html);
+        $this->assertStringContainsString('class="ui-error-summary ui-apply__summary"', $html);
         $positions = array_map(fn (string $id): int|false => strpos($html, '<a href="#'.$id.'">'), ['full_name', 'birth_date', 'city_id', 'notes', 'files', 'consent']);
         $this->assertNotContains(false, $positions);
         $sorted = $positions;
@@ -238,7 +238,7 @@ class CareersFormTest extends TestCase
     {
         $this->uploadFile($this->pdf())->assertCreated();
         $fields = $this->formFields();
-        $this->post('/ar/careers/', $this->validInput(['area' => '']) + $fields)->assertRedirect('http://localhost/ar/careers/#apply');
+        $this->post('/ar/careers/', $this->validInput(['area' => '']) + $fields)->assertRedirect('http://localhost/ar/careers/');
 
         // The page after the error carries the ORIGINAL token, so an immediate resend passes the minimum-time check.
         $html = (string) $this->get('/ar/careers/')->getContent();

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Site;
 
 use App\Enums\ContactKind;
 use App\Http\Controllers\Controller;
+use App\Services\Content\Pages;
 use App\Services\Site\BranchDirectory;
 use App\Services\Site\ContactActions;
 use App\Services\Site\Markets;
@@ -21,7 +22,7 @@ use Illuminate\Contracts\View\View;
  */
 final class ContactController extends Controller
 {
-    public function __invoke(Markets $markets, BranchDirectory $directory, ContactActions $contacts): View
+    public function __invoke(Markets $markets, BranchDirectory $directory, ContactActions $contacts, Pages $pages): View
     {
         $locale = app()->getLocale();
         $market = $markets->current();
@@ -42,7 +43,8 @@ final class ContactController extends Controller
             'complaints' => $contacts->intent(ContactKind::ComplaintsFeedbackFranchise, $locale),
             'catering' => $contacts->intent(ContactKind::CateringB2bEvents, $locale),
             'email' => $contacts->intent(ContactKind::Email, $locale),
-            'franchiseUrl' => SiteLinks::to('franchise', $parameters),
+            // The card links to the franchise page only once that page is published (PO-030); until then: number only.
+            'franchiseUrl' => $pages->published('franchise', $locale) !== null ? SiteLinks::to('franchise', $parameters) : null,
             'locationsUrl' => $market !== null ? SiteLinks::to('locations', $parameters) : null,
             'jsonLd' => [
                 StructuredData::breadcrumbs($crumbs),

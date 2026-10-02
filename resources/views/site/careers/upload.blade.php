@@ -31,7 +31,7 @@
     </ul>
     <div data-careers-cv-choice @if ($cv['state'] !== 'needs_choice') hidden @endif>
         <x-ui.fieldset :legend="__('careers.upload.which_cv')" id="primary_attachment" :hint="__('careers.upload.which_cv_hint')">
-            <div class="ui-careers__options" data-careers-cv-options>
+            <div class="ui-apply__options" data-careers-cv-options>
                 @foreach ($drafts as $file)
                     <x-ui.radio :label="$file->original_filename" name="primary_attachment" :value="$file->id" :id="'cv-'.$file->id"
                         :checked="(string) old('primary_attachment') === (string) $file->id" />

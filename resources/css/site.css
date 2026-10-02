@@ -12,7 +12,9 @@
 @import './components/prose.css';
 @import './components/search-page.css';
 @import './components/events.css';
+@import './components/apply-form.css';
 @import './components/careers.css';
+@import './components/franchise.css';
 @import './components/open-status.css';
 @import './components/hours-table.css';
 @import './components/action-bar.css';

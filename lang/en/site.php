@@ -11,6 +11,8 @@ return [
         'label' => 'Main navigation',
         'home' => 'Home',
         'menu' => 'Menu',
+        'careers' => 'Careers',
+        'franchise' => 'Franchise',
         'locations' => 'Locations',
     ],
     'language' => [

@@ -15,8 +15,9 @@ use Illuminate\View\View;
  * Data for the public site chrome (layouts.site → x-ui.site-header / x-ui.site-footer, DS-018): navigation to the
  * pages that exist, the language switch, and the approved footer contacts (CONTACT-015: one number + WhatsApp).
  * A navigation item appears only when its route exists, so pages join the header as they ship. Content pages (About,
- * FAQ, Privacy, Terms) are linked from the footer only while they are published (App\Services\Content\Pages), and
- * Events only while there is an event to show; the header stays Menu + Locations (D-027).
+ * FAQ, Privacy, Terms, Franchise) are linked from the footer only while they are published (App\Services\Content\Pages),
+ * Events only while there is an event to show, and Careers once its route exists; the header stays Menu + Locations
+ * (D-027).
  */
 final class SiteChrome
 {
@@ -68,10 +69,23 @@ final class SiteChrome
             ? [['label' => (string) __('site.events.title'), 'href' => $eventsHref, 'key' => 'events']]
             : [];
 
+        // One query for the footer pages; then Careers, then Franchise under its short navigation label (not its H1).
+        $pageLinks = $this->pages->links([...Pages::EXPLORE, ...Pages::BUSINESS], $locale);
+        $explore = array_values(array_filter($pageLinks, fn (array $link): bool => ! in_array($link['key'], Pages::BUSINESS, true)));
+        $careersHref = SiteLinks::to('careers', $parameters);
+        if ($careersHref !== null) {
+            $explore[] = ['label' => (string) __('site.nav.careers'), 'href' => $careersHref, 'key' => 'careers'];
+        }
+        foreach ($pageLinks as $link) {
+            if (in_array($link['key'], Pages::BUSINESS, true)) {
+                $explore[] = ['label' => (string) __('site.nav.'.$link['key']), 'href' => $link['href'], 'key' => $link['key']];
+            }
+        }
+
         $view->with('siteChrome', [
             'home' => PageUrl::route('home', ['locale' => $locale]),
             'nav' => $nav,
-            'footerNav' => [...$nav, ...array_map($withCurrent, [...$events, ...$this->pages->links(Pages::EXPLORE, $locale)])],
+            'footerNav' => [...$nav, ...array_map($withCurrent, [...$events, ...$explore])],
             'legal' => array_map($withCurrent, $this->pages->links(Pages::LEGAL, $locale)),
             'languages' => $languages,
             'phone' => $this->contacts->phone($locale),

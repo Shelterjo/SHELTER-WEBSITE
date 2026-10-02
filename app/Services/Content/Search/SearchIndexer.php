@@ -141,7 +141,7 @@ final class SearchIndexer
                 null, null, $contactAr, $contactEn, $intents, 1);
         }
 
-        foreach ([...Pages::EXPLORE, ...Pages::LEGAL] as $key) {
+        foreach ([...Pages::EXPLORE, ...Pages::LEGAL, ...Pages::BUSINESS] as $key) {
             $ar = $this->pages->published($key, 'ar');
             $en = $this->pages->published($key, 'en');
             $urlAr = SiteLinks::to($key, ['locale' => 'ar']);

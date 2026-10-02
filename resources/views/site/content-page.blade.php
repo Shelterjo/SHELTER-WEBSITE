@@ -20,11 +20,31 @@
             <div class="ui-prose">
                 @foreach ($page->sections as $section)
                     @if ($section->type === 'faq')
-                        <x-ui.disclosure :summary="(string) $section->heading" class="ui-prose__faq" data-ui-reveal>
+                        {{-- #q-N = the section's position: search links straight to one answer (SearchIndexer). --}}
+                        <x-ui.disclosure :summary="(string) $section->heading" class="ui-prose__faq" :id="'q-'.$loop->iteration" data-ui-reveal>
                             @foreach ($section->paragraphs as $paragraph)
                                 <p>{{ $paragraph }}</p>
                             @endforeach
                         </x-ui.disclosure>
+                    @elseif (in_array($section->type, ['list', 'steps'], true))
+                        <section class="ui-prose__section" data-ui-reveal>
+                            @if ($section->heading !== null)
+                                <h2 class="ui-prose__heading">{{ $section->heading }}</h2>
+                            @endif
+                            @if ($section->type === 'steps')
+                                <ol class="ui-steps" role="list">
+                                    @foreach ($section->paragraphs as $item)
+                                        <li class="ui-steps__item">{{ $item }}</li>
+                                    @endforeach
+                                </ol>
+                            @else
+                                <ul class="ui-prose__list">
+                                    @foreach ($section->paragraphs as $item)
+                                        <li>{{ $item }}</li>
+                                    @endforeach
+                                </ul>
+                            @endif
+                        </section>
                     @else
                         <section class="ui-prose__section" data-ui-reveal>
                             @if ($section->heading !== null)

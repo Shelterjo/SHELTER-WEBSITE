@@ -14,6 +14,8 @@ return [
         'label' => 'التنقل الرئيسي',
         'home' => 'الرئيسية',
         'menu' => 'المنيو',
+        'careers' => 'التوظيف',
+        'franchise' => 'الفرنشايز',
         'locations' => 'الفروع',
     ],
     'language' => [

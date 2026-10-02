@@ -5,6 +5,7 @@ use App\Http\Controllers\Site\CareersController;
 use App\Http\Controllers\Site\ContactController;
 use App\Http\Controllers\Site\ContentPageController;
 use App\Http\Controllers\Site\EventsController;
+use App\Http\Controllers\Site\FranchiseController;
 use App\Http\Controllers\Site\GatewayController;
 use App\Http\Controllers\Site\HomeController;
 use App\Http\Controllers\Site\LlmsController;
@@ -42,6 +43,10 @@ Route::prefix('{locale}')->where(['locale' => 'ar|en'])->middleware('locale')->g
     Route::delete('careers/uploads/{attachment}/', [CareersController::class, 'removeUpload'])->whereNumber('attachment')->name('careers.upload.remove');
     Route::get('careers/submitted/', [CareersController::class, 'submitted'])->name('careers.submitted');
     Route::match(['get', 'post'], 'careers/track/', [CareersController::class, 'track'])->name('careers.track');
+    // Franchise & partnerships (SI-B12): 404 until its content is published (PO-030); the FR form needs its approved texts.
+    Route::get('franchise/', [FranchiseController::class, 'show'])->name('franchise');
+    Route::post('franchise/', [FranchiseController::class, 'submit'])->name('franchise.submit');
+    Route::get('franchise/submitted/', [FranchiseController::class, 'submitted'])->name('franchise.submitted');
     // Site search (SI-B08): noindex, rate-limited (SEC-007 — the address only counts toward the limit, hashed).
     Route::get('search/', SearchController::class)->middleware('throttle:search')->name('search');
 

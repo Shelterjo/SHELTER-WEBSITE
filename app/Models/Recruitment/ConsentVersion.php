@@ -13,6 +13,7 @@ use Illuminate\Support\Carbon;
  * @property string $scope careers | partnerships | inquiries | feedback
  * @property string $version
  * @property string $text_ar
+ * @property string|null $text_en
  * @property Carbon $active_from
  * @property bool $is_active
  */

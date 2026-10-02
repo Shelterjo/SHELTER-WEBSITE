@@ -49,6 +49,12 @@ class Application extends Model
         return $this->hasOne(JobApplication::class, 'application_id');
     }
 
+    /** @return HasOne<PartnershipApplication, $this> */
+    public function partnership(): HasOne
+    {
+        return $this->hasOne(PartnershipApplication::class, 'application_id');
+    }
+
     /** @return HasMany<ApplicationAttachment, $this> */
     public function attachments(): HasMany
     {

@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * One block of a page from an approved section type (Design lock): `text` = optional heading + paragraphs,
- * `faq` = question (heading) + answer (body). Plain text only — rendered escaped, paragraphs split on blank lines.
+ * `faq` = question (heading) + answer (body), `list` = heading + items, `steps` = heading + ordered steps (one item per
+ * line — e.g. the franchise criteria and partnership journey). Plain text only — rendered escaped.
  *
  * @property int $id
  * @property int $page_id
@@ -22,7 +23,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class PageSection extends Model
 {
-    public const TYPES = ['text', 'faq'];
+    public const TYPES = ['text', 'faq', 'list', 'steps'];
 
     protected $guarded = ['id'];
 

@@ -37,6 +37,7 @@ return new class extends Migration
             $table->string('scope', 20)->default('careers'); // careers · partnerships · inquiries · feedback
             $table->string('version', 40)->unique();
             $table->text('text_ar');
+            $table->text('text_en')->nullable(); // bilingual forms (partnerships); careers is Arabic-only
             $table->timestamp('active_from');
             $table->boolean('is_active')->default(false);
             $table->timestamps();

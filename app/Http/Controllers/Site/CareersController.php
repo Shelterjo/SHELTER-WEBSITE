@@ -7,6 +7,7 @@ use App\Models\Recruitment\Application;
 use App\Models\Recruitment\ApplicationAttachment;
 use App\Models\Recruitment\JobApplication;
 use App\Models\Recruitment\UploadSession;
+use App\Services\Forms\FormGuard;
 use App\Services\Recruitment\ApplicationSubmitter;
 use App\Services\Recruitment\ApplicationTracker;
 use App\Services\Recruitment\ApplicationValidator;
@@ -20,7 +21,6 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
 use Throwable;
@@ -50,7 +50,6 @@ final class CareersController extends Controller
         ];
         $open = $this->form->isOpen();
         $session = $locale === 'ar' && $open ? $this->currentUploadSession($request) : null;
-        $oldKey = $request->old('idempotency_key');
         $drafts = $session !== null ? ApplicationSubmitter::drafts($session) : [];
 
         return view($locale === 'ar' ? 'site.careers' : 'site.careers-en', [
@@ -63,8 +62,8 @@ final class CareersController extends Controller
             'years' => ApplicationValidator::birthYears(),
             'drafts' => $drafts,
             'cv' => CvDetector::decide($drafts),
-            'formToken' => $this->carriedFormToken($request) ?? Crypt::encryptString((string) now()->getTimestamp()),
-            'idempotencyKey' => is_string($oldKey) && Str::isUuid($oldKey) ? $oldKey : (string) Str::uuid(),
+            'formToken' => FormGuard::token($request, $this->maxFormAge()),
+            'idempotencyKey' => FormGuard::idempotencyKey($request),
             'applyUrl' => PageUrl::route('careers', ['locale' => 'ar']).'#apply',
             'jsonLd' => [StructuredData::breadcrumbs($crumbs)],
         ]);
@@ -73,20 +72,18 @@ final class CareersController extends Controller
     public function submit(Request $request, ApplicationValidator $validator, AttachmentStore $store, ApplicationSubmitter $submitter): RedirectResponse
     {
         abort_unless(app()->getLocale() === 'ar' && $this->form->isOpen(), 404);
-        $back = PageUrl::route('careers').'#apply';
+        // No #fragment: browsers skip `autofocus` when the URL targets an element, and the error summary must take focus.
+        $back = PageUrl::route('careers');
         // Kept for the form after an error — except the identity number, which never sits in session storage (it is
         // re-typed; RECRUITMENT-SECURITY §5). Files stay in the draft session on the server.
         // The form token travels back too: the minimum-time check counts from the FIRST time the form was opened, so a
         // person who fixes one field and resends quickly is never taken for a bot.
-        $input = $request->except(['files', 'website', '_token', 'national_id', 'document_number']);
+        $input = $request->except(['files', FormGuard::HONEYPOT, '_token', 'national_id', 'document_number']);
 
         // Bots: a filled honeypot or a form sent faster than a person can fill it → a generic refusal (F-09).
-        $age = $this->formTokenAge($request);
-        if (filled($request->input('website')) || ($age !== null && $age < (int) config('careers.abuse.min_fill_seconds'))) {
-            return redirect()->to($back)->withInput($input)->withErrors(['form' => __('careers.errors.generic')]);
-        }
-        if ($age === null || $age > (int) config('careers.abuse.max_form_age_hours') * 3600) {
-            return redirect()->to($back)->withInput($input)->withErrors(['form' => __('careers.errors.expired')]);
+        $guard = FormGuard::check($request, (int) config('careers.abuse.min_fill_seconds'), $this->maxFormAge());
+        if ($guard !== 'ok') {
+            return redirect()->to($back)->withInput($input)->withErrors(['form' => $guard === 'bot' ? __('careers.errors.generic') : __('careers.errors.expired')]);
         }
         $ip = (string) $request->ip();
         foreach ([['careers-submit-hour:'.$ip, 'submit_per_hour', 3600], ['careers-submit-day:'.$ip, 'submit_per_day', 86400]] as [$key, $limit, $decay]) {
@@ -288,30 +285,9 @@ final class CareersController extends Controller
         return $session;
     }
 
-    /** The token of the form as first opened, when coming back after an error (only a genuine, unexpired token). */
-    private function carriedFormToken(Request $request): ?string
+    private function maxFormAge(): int
     {
-        $old = $request->old('form_token');
-        if (! is_string($old)) {
-            return null;
-        }
-        try {
-            $age = now()->getTimestamp() - (int) Crypt::decryptString($old);
-        } catch (Throwable) {
-            return null;
-        }
-
-        return $age >= 0 && $age <= (int) config('careers.abuse.max_form_age_hours') * 3600 ? $old : null;
-    }
-
-    /** Seconds since the form was rendered (signed + encrypted timestamp), or null when the token is missing or forged. */
-    private function formTokenAge(Request $request): ?int
-    {
-        try {
-            return now()->getTimestamp() - (int) Crypt::decryptString((string) $request->input('form_token'));
-        } catch (Throwable) {
-            return null;
-        }
+        return (int) config('careers.abuse.max_form_age_hours') * 3600;
     }
 
     /**

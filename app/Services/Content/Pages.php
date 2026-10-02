@@ -21,6 +21,9 @@ final class Pages
 
     public const LEGAL = ['privacy', 'terms'];
 
+    /** Business pages with their own controller and a published `pages` row (SI-B12 franchise — PO-030). */
+    public const BUSINESS = ['franchise'];
+
     /** @var array<string, ContentPage|null> */
     private array $cache = [];
 
@@ -68,6 +71,16 @@ final class Pages
     }
 
     /**
+     * List and step sections: one item per line.
+     *
+     * @return list<string>
+     */
+    public static function items(string $text): array
+    {
+        return array_values(array_filter(array_map('trim', preg_split('/\R/u', trim($text)) ?: []), fn (string $item): bool => $item !== ''));
+    }
+
+    /**
      * One query for every key not read yet in this request (the footer asks for four pages on every page view).
      *
      * @param  list<string>  $keys
@@ -107,7 +120,8 @@ final class Pages
             if (! $this->isComplete($section)) {
                 return null; // a visible section that is not ready keeps the whole page offline (BLOCKING, not partial)
             }
-            $sections[] = new ContentSection($section->type, $section->heading($locale), self::paragraphs((string) $section->body($locale)));
+            $body = (string) $section->body($locale);
+            $sections[] = new ContentSection($section->type, $section->heading($locale), in_array($section->type, ['list', 'steps'], true) ? self::items($body) : self::paragraphs($body));
         }
         if ($sections === []) {
             return null;

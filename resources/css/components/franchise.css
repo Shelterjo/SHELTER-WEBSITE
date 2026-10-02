@@ -1,0 +1,174 @@
+/* Franchise & partnerships (SI-B12, docs/franchise/02): an editorial page in the brand's quiet voice — hero, the
+   Owner's sections (text, check lists, a numbered journey, FAQ), a mid-page CTA band, then the application. On phones
+   a compact CTA bar slides in between the hero and the application (UX-F-03); from 1024px the CTA and the inquiries
+   number sit in a sticky side column instead. No figures, no promises, no images until approved. Tokens and logical
+   properties only. */
+
+/* On phones the CTA bar closes the page, so the page drops its own bottom padding (no empty band above the footer). */
+.ui-franchise {
+    padding-block-end: 0;
+}
+
+.ui-franchise__hero {
+    display: grid;
+    justify-items: start;
+    gap: var(--space-4);
+    margin-block: var(--space-6) var(--space-12);
+}
+
+.ui-franchise__hero > p {
+    margin: 0;
+}
+
+.ui-franchise__title {
+    max-inline-size: var(--measure-reading);
+    margin: 0;
+    font-size: var(--text-4xl);
+    font-weight: var(--weight-bold);
+    line-height: var(--leading-tight);
+    text-wrap: balance;
+}
+
+.ui-franchise__layout {
+    display: grid;
+    gap: var(--space-12);
+}
+
+.ui-franchise__body {
+    display: grid;
+    gap: var(--space-12);
+    min-inline-size: 0;
+    max-inline-size: var(--measure-reading);
+}
+
+.ui-franchise__aside {
+    display: grid;
+    align-content: start;
+    gap: var(--space-4);
+    max-inline-size: calc(var(--measure-reading) * 0.75);
+    scroll-margin-block-start: var(--space-6);
+}
+
+.ui-franchise__section {
+    display: grid;
+    gap: var(--space-4);
+}
+
+.ui-franchise__heading {
+    margin: 0;
+    font-size: var(--text-2xl);
+    font-weight: var(--weight-bold);
+    line-height: var(--leading-tight);
+}
+
+.ui-franchise__list {
+    display: grid;
+    gap: var(--space-3);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.ui-franchise__list-item {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+    line-height: var(--leading-normal);
+}
+
+.ui-franchise__list-item > .ui-icon {
+    flex: none;
+    margin-block-start: var(--space-1);
+    color: var(--color-success);
+}
+
+/* Mid-page CTA: a calm hairline band, never a banner. */
+.ui-franchise__band {
+    display: flex;
+    flex-wrap: wrap;
+    padding-block: var(--space-6);
+    border-block: var(--border-default) solid var(--color-border);
+}
+
+/* Phones reach the application through the hero, the band and the bar; the side column carries its own CTA. */
+.ui-franchise__aside-cta {
+    display: none;
+}
+
+.ui-franchise__apply {
+    display: grid;
+    gap: var(--space-6);
+    max-inline-size: calc(var(--measure-reading) * 0.75);
+    margin-block-start: var(--space-16);
+    scroll-margin-block-start: var(--space-6);
+}
+
+.ui-franchise__disclaimer {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+    margin: 0;
+    padding: var(--space-4);
+    border-radius: var(--radius-md);
+    background: var(--color-surface);
+    color: var(--color-text);
+    font-size: var(--text-sm);
+    line-height: var(--leading-normal);
+}
+
+.ui-franchise__disclaimer > .ui-icon {
+    flex: none;
+    margin-block-start: var(--space-1);
+    color: var(--color-muted);
+}
+
+/* The phone CTA bar keeps its place in the flow (no layout shift); it only slides out of sight while hidden. */
+.ui-franchise__bar {
+    transition:
+        transform var(--motion-normal) var(--easing-standard),
+        opacity var(--motion-normal) var(--easing-standard),
+        visibility var(--motion-normal) step-start;
+}
+
+.ui-franchise__bar[data-state='hidden'] {
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(100%);
+    transition:
+        transform var(--motion-fast) var(--easing-exit),
+        opacity var(--motion-fast) var(--easing-exit),
+        visibility var(--motion-fast) step-end;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .ui-franchise__bar,
+    .ui-franchise__bar[data-state='hidden'] {
+        transition: none;
+    }
+}
+
+@media (min-width: 600px) {
+    .ui-franchise__title {
+        font-size: var(--text-5xl);
+    }
+}
+
+@media (min-width: 1024px) {
+    .ui-franchise {
+        padding-block-end: var(--space-16);
+    }
+
+    .ui-franchise__layout {
+        grid-template-columns: minmax(0, 1fr) minmax(0, calc(var(--measure-reading) * 0.5));
+        gap: var(--space-16);
+    }
+
+    .ui-franchise__aside {
+        position: sticky;
+        inset-block-start: var(--space-8);
+    }
+
+    .ui-franchise__aside-cta {
+        display: flex;
+    }
+}
