@@ -4,6 +4,8 @@
 @import './fonts.css';
 @import './ui.css';
 @import './components/dashboard/shell.css';
+@import './components/search-page.css';
+@import './components/dashboard/search.css';
 @import './components/dashboard/sidebar.css';
 @import './components/dashboard/page-header.css';
 @import './components/dashboard/toolbar.css';

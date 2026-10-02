@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
 use App\Services\Experiences\Placements;
+use App\Services\Experiences\Recognitions;
 use App\Services\MasterData\MasterData;
 use App\Services\Site\BranchDirectory;
 use App\Services\Site\Markets;
@@ -15,11 +16,12 @@ use Illuminate\Contracts\View\View;
 /**
  * Localized home (/ar/, /en/ — SI-B02): brand hero (typography only: no approved photos, MEDIA PENDING OWNER
  * APPROVAL) with the two top visitor actions (D-013, NAV-006: Menu, then Locations), then the branches with today's
- * hours and live open state; between them, the home feature placement when the engine has something live (DX-010). Copy is functional DRAFT wording until the homepage copy options (D-068).
+ * hours and live open state; between them, the home feature placement when the engine has something live (DX-010) and
+ * the Employee of the Month when the Owner placed one here (DX-009). Copy is functional DRAFT wording until the homepage copy options (D-068).
  */
 final class HomeController extends Controller
 {
-    public function __invoke(Markets $markets, BranchDirectory $directory, MasterData $data, Placements $placements): View
+    public function __invoke(Markets $markets, BranchDirectory $directory, MasterData $data, Placements $placements, Recognitions $recognitions): View
     {
         $locale = app()->getLocale();
         $market = $markets->current();
@@ -32,6 +34,7 @@ final class HomeController extends Controller
             'alternates' => PageUrl::alternates('home') + ['x-default' => PageUrl::route('gateway')],
             'branches' => $market !== null ? $directory->forMarket($market, $locale) : [],
             'feature' => $market !== null ? $placements->current($market, Placements::HOME_FEATURE, $locale) : null,
+            'recognition' => $recognitions->current('home', $locale),
             'menuUrl' => $market !== null ? SiteLinks::to('menu', $parameters) : null,
             'locationsUrl' => $market !== null ? SiteLinks::to('locations', $parameters) : null,
             'jsonLd' => [StructuredData::organization(

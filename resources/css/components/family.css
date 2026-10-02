@@ -71,3 +71,81 @@
         grid-template-columns: repeat(4, minmax(0, 1fr));
     }
 }
+
+/* Employee of the Month (DX-007/009): one calm card — the approved portrait, then the month, the Owner's title, the
+   person (name · job title, as on their profile) and the short text. Stacked on phones; photo beside the text from
+   768px. Drawn only when the engine returned one (no empty frame). On SHELTER Family it sits above the team. */
+
+.ui-recognition {
+    display: grid;
+    overflow: hidden;
+    border: var(--border-default) solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-surface);
+}
+
+.ui-recognition__photo {
+    border-radius: 0;
+}
+
+.ui-recognition__body {
+    display: grid;
+    align-content: center;
+    gap: var(--space-2);
+    min-inline-size: 0;
+    padding: var(--space-6);
+}
+
+.ui-recognition__eyebrow {
+    margin: 0;
+    color: var(--color-muted);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+}
+
+.ui-recognition__title {
+    margin: 0;
+    font-size: var(--text-2xl);
+    font-weight: var(--weight-bold);
+    line-height: var(--leading-tight);
+    overflow-wrap: anywhere;
+}
+
+.ui-recognition__person {
+    margin: 0;
+    overflow-wrap: anywhere;
+}
+
+.ui-recognition__name {
+    font-weight: var(--weight-bold);
+}
+
+.ui-recognition__text {
+    margin: var(--space-2) 0 0;
+    max-inline-size: var(--measure-reading);
+    color: var(--color-muted);
+    line-height: var(--leading-normal);
+    white-space: pre-line;
+}
+
+.ui-family__month {
+    margin-block-end: var(--space-12);
+}
+
+@media (min-width: 768px) {
+    .ui-recognition {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+        align-items: stretch;
+    }
+
+    .ui-recognition__body {
+        padding: var(--space-8);
+    }
+}
+
+/* Wide screens: a smaller portrait beside more room for the words. */
+@media (min-width: 1024px) {
+    .ui-recognition {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 3fr);
+    }
+}

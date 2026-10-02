@@ -56,6 +56,10 @@
                     </section>
                 @endif
 
+                @if ($recognition !== null)
+                    @include('site.partials.recognition', ['recognition' => $recognition])
+                @endif
+
                 @if ($highlights !== [])
                     <section class="ui-press__section" aria-labelledby="press-awards">
                         <h2 class="ui-press__heading" id="press-awards">{{ __('press.awards_title') }}</h2>

@@ -7,6 +7,7 @@ use App\Models\MediaUsage;
 use App\Models\Page;
 use App\Services\Content\Awards;
 use App\Services\Content\Pages;
+use App\Services\Experiences\Recognitions;
 use App\Services\MasterData\MasterData;
 use App\Services\Media\MediaImage;
 use App\Services\Media\MediaLibrary;
@@ -21,11 +22,12 @@ use Illuminate\Contracts\View\View;
  * publishes its page (G14-PO-01 → PO-062); then it shows the page's own text, the approved key facts (official names,
  * founding year, branches by approved name), press photos that pass MediaRights (press_kit usages of this page),
  * the latest verified awards (PO-032) — and nothing that is MISSING or PENDING: no story until PO-017, no logo until
- * the brand files, no press contact until the Owner names one (never an invented email).
+ * the brand files, no press contact until the Owner names one (never an invented email). The Employee of the Month
+ * shows here only when the Owner placed it here (DX-009) and its person and photo may appear (Recognitions).
  */
 final class MediaCenterController extends Controller
 {
-    public function __invoke(Pages $pages, Awards $awards, MediaLibrary $library, Markets $markets, BranchDirectory $directory, MasterData $data): View
+    public function __invoke(Pages $pages, Awards $awards, MediaLibrary $library, Markets $markets, BranchDirectory $directory, MasterData $data, Recognitions $recognitions): View
     {
         $locale = app()->getLocale();
         $page = $pages->published('media', $locale);
@@ -62,6 +64,7 @@ final class MediaCenterController extends Controller
             'facts' => $facts,
             'photos' => $photos,
             'highlights' => array_slice($allAwards, 0, 3),
+            'recognition' => $recognitions->current('media', $locale),
             'awardsUrl' => $allAwards !== [] ? PageUrl::route('awards') : null,
             'crumbs' => $crumbs,
             'canonical' => $canonical,

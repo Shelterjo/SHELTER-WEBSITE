@@ -27,6 +27,7 @@ final class DashboardChrome
             'dashboard.media.index' => ['dashboard.nav.media', 'image', 'dashboard.media.*'],
             'dashboard.awards.index' => ['dashboard.nav.awards', 'circle-check', 'dashboard.awards.*'],
             'dashboard.team.index' => ['dashboard.nav.team', 'hand', 'dashboard.team.*'],
+            'dashboard.recognition.index' => ['dashboard.recognition.nav', 'award', 'dashboard.recognition.*'],
             'dashboard.events.index' => ['dashboard.nav.events', 'calendar', 'dashboard.events.*'],
             'dashboard.announcements.index' => ['dashboard.nav.announcements', 'message-square-text', 'dashboard.announcements.*'],
             'dashboard.texts.index' => ['dashboard.nav.texts', 'file-text', 'dashboard.texts.*'],

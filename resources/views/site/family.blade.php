@@ -18,6 +18,11 @@
                     <p class="ui-page-intro__lead">{{ __('family.lead') }}</p>
                 @endif
             </header>
+            @if ($recognition !== null)
+                <div class="ui-family__month">
+                    @include('site.partials.recognition', ['recognition' => $recognition])
+                </div>
+            @endif
             <ul class="ui-team" role="list">
                 @foreach ($members as $member)
                     <li class="ui-team__member">
