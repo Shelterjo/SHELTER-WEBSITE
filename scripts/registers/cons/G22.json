@@ -1,0 +1,456 @@
+{
+ "group": "G22",
+ "notes": "M39 follow-up (brand from old site, D-309) + M40 Premium UI/UX/Motion directive + Cloudflare read audit (2026-10-01).",
+ "requirements": [
+  {
+   "id": "BRAND-021",
+   "area": "01 Brand & Design System",
+   "type": "DECISION",
+   "title": "الهوية البصرية من الموقع القديم: الألوان والشعار والخطوط — نفس الثيم",
+   "requirement": "بقرار الـOwner (2026-10-01): «خذ الالوان والشعارات والخطوط من الموقع القديم — نفس الثيم». الألوان: خلفية #131313، عناوين بيضاء، رمادي #DDDDDE للأزرار الأساسية مع نص #58595B، #9A9B9C للنص الثانوي وحدود الحقول، #272727 للفواصل. الشعار الأبيض من رأس الموقع القديم والأيقونة. الخطوط: GE SS Two (Bold للعناوين وLight للنص) للعربي وPoppins للإنجليزي والأزرار. نصف القطر 8px للأزرار والحقول.",
+   "details": [
+    "design-system/tokens/tokens.json (brand) ← design-system/build/tokens-brand.css للتطبيق؛ الـWireframes تبقى على القيم المحايدة",
+    "كل أزواج النص ≥4.5:1 وحدود الحقول ≥3:1 على الخلفية الداكنة (محسوبة)",
+    "البرتقالي #FF5900 في الموقع القديم هو لون زر Talabat وليس من ألوان SHELTER",
+    "الصور الحقيقية (منتجات، فروع، أشخاص) ليست ضمن هذا القرار وتبقى بموافقة منفصلة (F-11، M40 §56)"
+   ],
+   "sources": [
+    "M39 §2"
+   ],
+   "decision_refs": [
+    "G22-ND-01"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "IMPLEMENTED — NOT YET VERIFIED",
+   "tested": "NO",
+   "existing_impl": "tokens-brand.css · resources/css/fonts.css · public/brand/ · layouts/site.blade.php",
+   "missing_work": "اختبار Storybook على الثيم الداكن + مراجعة الـOwner",
+   "dependencies": [],
+   "test_required": "Storybook 432 (axe + overflow) على الثيم الداكن",
+   "design_refs": [
+    "docs/DESIGN-SYSTEM-STANDARD.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P05",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "UX-006",
+   "area": "43 UX Principles",
+   "type": "GATE",
+   "title": "مراجعة تصميم قبل اعتبار أي صفحة مكتملة (ui-ux-pro-max)",
+   "requirement": "قبل اعتبار أي صفحة Complete: مراجعة كـSenior Product Designer بقواعد ui-ux-pro-max: Hierarchy · Spacing · Typography · Contrast · CTA · Consistency · Responsiveness · Interaction · Motion · Content density، ثم إصلاح المشاكل.",
+   "details": [
+    "التسلسل لكل صفحة (M40 §57): المتطلبات ← ui-ux-pro-max ← الـDesign System ← المكونات الموجودة ← shadcn/21st كمرجع ← التكييف لـSHELTER ← Motion ← AR/EN متجاوب ← مراجعة"
+   ],
+   "sources": [
+    "M40 §47",
+    "M40 §57"
+   ],
+   "decision_refs": [
+    "G22-ND-02"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "قائمة المراجعة موثقة لكل صفحة في PROGRESS",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "TOOL-047",
+   "area": "41 Tooling",
+   "type": "RULE",
+   "title": "أدوار أدوات التصميم: THINK · DISCOVER · PRIMITIVES · ANIMATE — والـDesign System هو المرجع النهائي",
+   "requirement": "ui-ux-pro-max = التفكير (UX/UI)؛ 21st = الإلهام واكتشاف الأنماط؛ shadcn = مصدر أنماط الـPrimitives؛ Motion = الحركة والتفاعل؛ SHELTER Design System = السلطة النهائية. لا تصمم الأدوات العلامة، ولا يُنسخ Component كما هو. إذا تعطلت أداة أو MCP: لا يتوقف المشروع، ويُستخدم الموجود والمعرفة الرسمية وتُسجل المشكلة.",
+   "details": [
+    "المنصة Blade (ADR-001): shadcn و21st (React) يُستخدمان كمرجع بنية وسلوك ووصولية، ويُعاد بناؤهما كمكونات x-ui، بلا React في الحزمة العامة",
+    "Motion: نسخة JavaScript العادية (`motion`)، استيراد الدوال المطلوبة فقط (M40 §45)، تُسجل في TOOLCHAIN قبل التثبيت",
+    "انتقالات الصفحات: CSS View Transitions (بلا JavaScript وبلا انتظار للتنقل، M40 §31)"
+   ],
+   "sources": [
+    "M40 §01",
+    "M40 §02",
+    "M40 §03",
+    "M40 §45",
+    "M40 §58"
+   ],
+   "decision_refs": [
+    "G22-ND-02"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "",
+   "design_refs": [
+    "docs/TOOLCHAIN.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "MOTION-014",
+   "area": "28 Motion",
+   "type": "REQUIREMENT",
+   "title": "حركة Premium هادفة: الأزرار والتنقل والأقسام والـSheets والصفحات — مع بدائل reduced-motion",
+   "requirement": "الحركة تجيب دائمًا عن «لماذا يتحرك هذا؟». Micro-interactions للأزرار (scale خفيف، حركة الأيقونة، انتقال الخلفية، ضغط)، Reveal للأقسام والصور، Stagger للنص في Hero/الحملات/القصة فقط، فتح وإغلاق الـDrawer/Sheet/Modal من مصدرها، انتقالات صفحات خفيفة لا تؤخر التنقل، Parallax خفيف فقط، لا Scroll hijacking، لا Custom cursor، لا 3D/WebGL للإبهار، لا Glassmorphism مفرط ولا Gradients عامة. الهاتف أخف. كل حركة تعمل RTL/LTR وتحترم prefers-reduced-motion. أي حركة تضر LCP/INP/CLS تُبسط أو تُحذف.",
+   "details": [
+    "Dashboard: حركة أخف (drawer · panel · filter · status · modal · dropdown · confirm · reorder)",
+    "Seasonal Experiences: تحميل مشروط (dynamic import) ولا تحميل لأصول تجربة غير فعالة"
+   ],
+   "sources": [
+    "M40 §06",
+    "M40 §09",
+    "M40 §15",
+    "M40 §18",
+    "M40 §20",
+    "M40 §25–§33",
+    "M40 §41–§44",
+    "M40 §50"
+   ],
+   "decision_refs": [
+    "G22-ND-02"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "DS-029",
+   "area": "48 Design System & UI Consistency",
+   "type": "RULE",
+   "title": "الموقع يجب ألا يبدو Template أو AI أو SaaS — Premium = الوضوح والطباعة والتكوين والتفاصيل",
+   "requirement": "Premium = Clarity · Typography · Composition · Photography · Spacing · Details · Interaction · Motion quality، وليس كثرة الحركات والتدرجات والبطاقات العائمة. Cards فقط حين تكون أفضل نمط (Editorial · Full-width imagery · Split · Timelines · Sticky storytelling · Grids). لكل Hero مهم تصميم خاص بصفحته بنفس اللغة. الجوائز ليست شبكة بطاقات مملة (Featured · Timeline · Recognition wall). الألوان محدودة وهادئة. Typography: Display · H1–H4 · Body Large · Body · Small · Caption · Button · Navigation فقط.",
+   "details": [
+    "نقاط الاختبار M40 §40: 320 · 360 · 375 · 390 · 412 · 430 · 768 · 820 · 1024 · 1280 · 1366 · 1440 · 1536 · 1920"
+   ],
+   "sources": [
+    "M40 §00",
+    "M40 §08",
+    "M40 §10",
+    "M40 §11",
+    "M40 §16",
+    "M40 §23",
+    "M40 §38",
+    "M40 §40",
+    "M40 §53",
+    "M40 §54"
+   ],
+   "decision_refs": [
+    "G22-ND-02"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  }
+ ],
+ "updates_to_existing": [
+  {
+   "id": "BRAND-002",
+   "type": "SUPERSEDE",
+   "source": "M39 §2",
+   "change": "بقرار الـOwner D-309: الهوية (الألوان والشعار والخطوط) تؤخذ من الموقع القديم بدل انتظار ملفات الهوية (BRAND-021)"
+  },
+  {
+   "id": "PO-002",
+   "type": "RESOLVE",
+   "source": "M39 §2",
+   "change": "✅ 2026-10-01: الـOwner: «خذ الالوان والشعارات والخطوط من الموقع القديم — نفس الثيم» (D-309). المتبقي: ترخيص GE SS Two (PO-071)، ونسخة SVG من الشعار عند توفرها (تحسين، غير مانع)"
+  },
+  {
+   "id": "F-11",
+   "type": "UPDATE",
+   "source": "M39 §2",
+   "change": "D-309 يسمح بالشعار والألوان والخطوط من الموقع القديم فقط؛ صور المنتجات والموقع القديم ما زالت ممنوعة دون موافقة منفصلة"
+  },
+  {
+   "id": "MOTION-007",
+   "type": "UPDATE",
+   "source": "M40 §03",
+   "change": "على منصة Blade: مكتبة `motion` بنسخة JavaScript العادية (MIT، استيراد الدوال المطلوبة فقط) + CSS transitions للـMicro-interactions + View Transitions للصفحات"
+  },
+  {
+   "id": "DS-014",
+   "type": "UPDATE",
+   "source": "M40 §05–§07",
+   "change": "الأزرار من أجمل عناصر الموقع وموحدة بالكامل: Primary · Secondary · Outline · Ghost · Text · Icon · Danger × S/M/L × Default/Hover/Focus/Pressed/Loading/Disabled، مع Micro-interactions راقية غير طفولية"
+  },
+  {
+   "id": "DS-012",
+   "type": "UPDATE",
+   "source": "M40 §39",
+   "change": "مكتبة أيقونات واحدة (Lucide)؛ لا خلط مكتبات"
+  },
+  {
+   "id": "CF-004",
+   "type": "UPDATE",
+   "source": "M39 §1",
+   "change": "✅ تدقيق قراءة كامل 2026-10-01: docs/phase-01-discovery/25-cloudflare-audit-2026-10-01.md (DNS · الإعدادات · القواعد · الشهادة). لا تغيير"
+  },
+  {
+   "id": "PO-070",
+   "type": "UPDATE",
+   "source": "M39 §1",
+   "change": "تدقيق Cloudflare: المصدر سجل Wildcard `*.shelterjo.com` مع `order` و`sweet`، كلها DNS-only إلى نفس السيرفر. القرار يشمل الثلاثة: A حذف غير المستخدم · B تمريرها عبر Cloudflare · C إبقاؤها"
+  },
+  {
+   "id": "PO-070",
+   "type": "RESOLVE",
+   "source": "M41 §1",
+   "change": "✅ 2026-10-01: الـOwner اختار A (حذف السجلات). التنفيذ: `*.shelterjo.com` أولًا (أُنشئ 2024-02-22). `order` (أُنشئ 2026-05-14) و`sweet` (أُنشئ 2026-09-22) حديثان، فيُسأل عن استخدامهما قبل الحذف. التنفيذ من الـOwner في لوحة Cloudflare (الصلاحية قراءة فقط)، ثم تحقق بالقراءة. التراجع: إعادة سجل A بنفس عنوان www (DNS-only) · ✅ نُفذ 2026-10-01: الـOwner حذف السجلات الثلاثة (`*` · `order` · `sweet`)، وتحقق القراءة عبر الـAPI: 9 سجلات متبقية (A للجذر وwww Proxied، وMX ×5، وTXT، و_acme-challenge)؛ www يعمل (200) والجذر يحوّل (301)."
+  },
+  {
+   "id": "PO-072",
+   "type": "RESOLVE",
+   "source": "M42 §1",
+   "change": "✅ 2026-10-01: الـOwner اختار C (لا يعرف إن كان نظام آخر يرسل). البدء بـSPF `v=spf1 include:_spf.google.com ~all` + DMARC بوضع المراقبة `v=DMARC1; p=none; rua=mailto:info@shelterjo.com` + DKIM من Google Admin (2048-bit، المحدد `google`). التنفيذ من الـOwner (الصلاحية قراءة فقط)، ثم تحقق بالقراءة. بعد أسبوعين: مراجعة تقارير DMARC ثم رفع السياسة إلى quarantine بموافقة. · ✅ نُفذ 2026-10-01: الـOwner أضاف SPF وDMARC (p=none) وDKIM (`google._domainkey`، مفتاح RSA 2048-bit صالح)؛ تحقق القراءة عبر Cloudflare API. المتبقي: «Start authentication» في Google Admin (حتى 48 ساعة)، ومراجعة تقارير DMARC بعد أسبوعين."
+  },
+  {
+   "id": "PO-073",
+   "type": "RESOLVE",
+   "source": "M43 §1",
+   "change": "✅ 2026-10-01: الـOwner وافق على B («موافق»): Minimum TLS 1.2 الآن، وSSL Full (strict) بعد التأكد من شهادة السيرفر في Cloudways (حتى لا يتوقف الموقع بخطأ 526)، وDNSSEC لاحقًا بعد معرفة مسجّل الدومين. التنفيذ من الـOwner، ثم تحقق بالقراءة. · ✅ TLS 1.2 نُفذ 2026-10-01 (تحقق API: min_tls_version=1.2، والموقع 200). شهادة Let's Encrypt في Cloudways تُظهر `shelterjo.com` فقط في قائمة الدومينات: تُضاف `www.shelterjo.com` ثم يُفعّل Full (strict) مع فحص فوري (التراجع إلى Full عند 526). · ⏸ 2026-10-01: الـOwner: «انتقل الى المرحلة الثانية واترك كلاود ويز» — إضافة www للشهادة وFull (strict) وDNSSEC مؤجلة حتى يعيد الـOwner فتحها. الوضع الحالي آمن: SSL Full + TLS 1.2."
+  }
+ ],
+ "conflicts": [
+  {
+   "id": "G22-CF-01",
+   "topic": "shadcn و21st (React) مقابل منصة Blade (ADR-001)",
+   "old_instruction": "ADR-001: Laravel + Blade، وTailwind/shadcn/Radix مرفوضة لأنها React-only",
+   "old_source": "ADR-001 · D-300",
+   "new_instruction": "M40: استخدم shadcn كـprimitive factory و21st كمصدر إلهام ومكونات",
+   "new_source": "M40 §01–§02",
+   "winner": "كلاهما: M40 نفسه يقول shadcn «primitive factory لا final design» و21st «لا Copy/Paste». يُستخدمان كمرجع بنية وسلوك ووصولية ويُعاد البناء كمكونات Blade x-ui",
+   "why": "لا تعارض في القصد؛ إدخال React يكسر ADR-001 والأداء (M40 §44–§45)",
+   "impact": "لا React في الحزمة العامة",
+   "files": [
+    "docs/adr/ADR-001-platform.md",
+    "docs/TOOLCHAIN.md"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "id": "G22-CF-02",
+   "topic": "«لا صور من الموقع القديم» (F-11) مقابل «خذ الشعارات من الموقع القديم» (D-309)",
+   "old_instruction": "F-11: فقط OWNER APPROVED · لا Stock/Google/AI/صور الموقع القديم",
+   "old_source": "F-11",
+   "new_instruction": "خذ الالوان والشعارات والخطوط من الموقع القديم",
+   "new_source": "M39 §2",
+   "winner": "D-309 للشعار والألوان والخطوط فقط (آخر قرار صريح)؛ F-11 يبقى لكل الصور الأخرى",
+   "why": "القرار الجديد محدد بعناصر الهوية",
+   "impact": "الشعار معتمد؛ الصور الحقيقية ما زالت MEDIA PENDING OWNER APPROVAL",
+   "files": [
+    "docs/governance/APPROVED-ASSET-LIBRARY.md"
+   ],
+   "status": "RESOLVED"
+  }
+ ],
+ "new_decisions": [
+  {
+   "temp_id": "G22-ND-01",
+   "area": "01 Brand & Design System",
+   "decision": "الهوية البصرية تؤخذ من الموقع القديم www.shelterjo.com: الألوان والشعار والخطوط — «نفس الثيم». الصور الحقيقية خارج هذا القرار.",
+   "sources": [
+    "M39 §2"
+   ],
+   "status": "APPROVED",
+   "reason": "Owner: «خذ الالوان والشعارات والخطوط من الموقع القديم — نفس الثيم»",
+   "impact": "BRAND-021 · BRAND-002 (SUPERSEDED) · PO-002 (RESOLVED) · PO-071"
+  },
+  {
+   "temp_id": "G22-ND-02",
+   "area": "48 Design System & UI Consistency",
+   "decision": "M40 PREMIUM UI / UX / MOTION MASTER DIRECTIVE — OWNER APPROVED: ui-ux-pro-max للتفكير، 21st للإلهام، shadcn للـPrimitives، Motion للحركة، وSHELTER Design System هو السلطة النهائية؛ الموقع Premium وحي وسريع ومتسق، لا Template ولا AI ولا SaaS.",
+   "sources": [
+    "M40 §00",
+    "M40 FINAL"
+   ],
+   "status": "APPROVED",
+   "reason": "M40 — OWNER APPROVED",
+   "impact": "UX-006 · TOOL-047 · MOTION-014 · DS-029"
+  },
+  {
+   "temp_id": "G22-ND-03",
+   "area": "34 Cloudflare, Hosting & DNS",
+   "decision": "PO-070 → A: حذف سجلات DNS المكشوفة (`*.shelterjo.com` · `order` · `sweet`). الـWildcard فورًا، و`order`/`sweet` بعد تأكيد عدم استخدامهما (حديثا الإنشاء).",
+   "sources": [
+    "M41 §1"
+   ],
+   "status": "APPROVED",
+   "reason": "Owner: «A»",
+   "impact": "PO-070 · CF-004 · docs/phase-01-discovery/25-cloudflare-audit-2026-10-01.md"
+  },
+  {
+   "temp_id": "G22-ND-04",
+   "area": "34 Cloudflare, Hosting & DNS",
+   "decision": "PO-072 → C: حماية بريد @shelterjo.com تبدأ بـSPF (Google) وDKIM (Google Workspace) وDMARC بوضع المراقبة p=none والتقارير إلى info@shelterjo.com؛ لا رفض لأي بريد في هذه المرحلة.",
+   "sources": [
+    "M42 §1"
+   ],
+   "status": "APPROVED",
+   "reason": "Owner: «C»",
+   "impact": "PO-072 · docs/phase-01-discovery/25-cloudflare-audit-2026-10-01.md"
+  },
+  {
+   "temp_id": "G22-ND-05",
+   "area": "34 Cloudflare, Hosting & DNS",
+   "decision": "PO-073 → B: Minimum TLS 1.2 وSSL Full (strict) الآن (Strict بعد التحقق من شهادة الـOrigin)، وDNSSEC مؤجل حتى معرفة مسجّل الدومين.",
+   "sources": [
+    "M43 §1"
+   ],
+   "status": "APPROVED",
+   "reason": "Owner: «موافق» على توصية B",
+   "impact": "PO-073 · docs/phase-01-discovery/25-cloudflare-audit-2026-10-01.md"
+  },
+  {
+   "temp_id": "G22-ND-06",
+   "area": "50 Build Mode & Delivery Governance",
+   "decision": "ترتيب العمل: إكمال بناء كل صفحات الموقع أولًا، وما تبقى من Cloudways وCloudflare (شهادة www وFull strict وDNSSEC والـStaging) في النهاية.",
+   "sources": [
+    "M44 §1"
+   ],
+   "status": "APPROVED",
+   "reason": "Owner: «اكمل بناء كل الصفحات واخر اشي بنعالج كلاود ويز و كلاود فلير»",
+   "impact": "PROGRESS · PO-073 · PO-064"
+  }
+ ],
+ "pending_owner": [
+  {
+   "id": "G22-PO-01",
+   "item": "ترخيص خط GE SS Two (© Boutros International — كل الحقوق محفوظة) للاستخدام على الموقع: نسخة الموقع القديم مصدرها موقع تحميل خطوط مجاني (ARBFONTS). A: لديكم ترخيص Web (أرسل الإثبات) · B: شراء ترخيص Web · C: خط عربي مجاني قريب الشكل (OFL)",
+   "category": "NON-BLOCKING",
+   "type": "BUSINESS DECISION",
+   "blocks": "إطلاق Production فقط (brand-guard)؛ التطوير يستمر بالخط",
+   "refs": [
+    "BRAND-021",
+    "D-309"
+   ],
+   "count": "",
+   "notes": "الملفات غير مرفوعة إلى Git"
+  },
+  {
+   "id": "G22-PO-02",
+   "item": "بريد @shelterjo.com بلا SPF ولا DKIM ولا DMARC: إضافة السجلات بقيم Google Workspace (DMARC بوضع المراقبة أولًا). يحتاج: هل يرسل أي نظام آخر بريدًا باسم @shelterjo.com (الموقع القديم، أنظمة أخرى)؟",
+   "category": "NON-BLOCKING",
+   "type": "BUSINESS DECISION",
+   "blocks": "حماية البريد من الانتحال وتسليم رسائل الموقع",
+   "refs": [
+    "docs/phase-01-discovery/25-cloudflare-audit-2026-10-01.md"
+   ],
+   "count": "",
+   "notes": "تغيير DNS = موافقة صريحة"
+  },
+  {
+   "id": "G22-PO-03",
+   "item": "دفعة تحسين Cloudflare: SSL Full (strict) · Minimum TLS 1.2 · DNSSEC (سجل DS عند مسجّل الدومين)",
+   "category": "NON-BLOCKING",
+   "type": "BUSINESS DECISION",
+   "blocks": "تحسين أمان؛ لا يمنع البناء",
+   "refs": [
+    "docs/phase-01-discovery/25-cloudflare-audit-2026-10-01.md"
+   ],
+   "count": "",
+   "notes": "تغيير Production = موافقة صريحة"
+  }
+ ],
+ "technical_flags": [
+  {
+   "id": "G22-TF-01",
+   "topic": "أدوات M40 غير المتصلة بهذه الجلسة",
+   "detail": "shadcn MCP و21st MCP وMotion AI Kit غير متصلة؛ skill ui-ux-pro-max متاح بقواعده فقط (بلا قاعدة بحثه scripts/search.py). حسب M40 §58: لا توقف، تُطبق القواعد والمعرفة الرسمية.",
+   "recommendation": "ربطها لاحقًا إن رغب الـOwner (شرح التكلفة والصلاحيات أولًا)",
+   "needs_owner": false,
+   "refs": [
+    "TOOL-047"
+   ]
+  },
+  {
+   "id": "G22-TF-02",
+   "topic": "Page Rules في Cloudflare غير مقروءة بـAccount token",
+   "detail": "خطأ 1011: Page Rules endpoint does not support account owned tokens.",
+   "recommendation": "لقطة شاشة من Rules ← Page Rules عند جرد التحويلات (PHASE 7)",
+   "needs_owner": false,
+   "refs": [
+    "CF-004",
+    "SEO-013"
+   ]
+  },
+  {
+   "id": "G22-TF-03",
+   "topic": "رصيد Cloudways متأخر",
+   "detail": "لوحة Cloudways (لقطة الـOwner 2026-10-01): «past due balance $29.00 — pay before Sunday Oct 11 to prevent account suspension». الإيقاف يوقف الموقع الحالي ويمنع الـStaging.",
+   "recommendation": "إبلاغ الـOwner فورًا؛ الدفع قراره",
+   "needs_owner": true,
+   "refs": [
+    "PO-064",
+    "PO-046"
+   ]
+  }
+ ],
+ "cost_api_dependencies": [
+  {
+   "feature": "Motion (حركة)",
+   "service": "مكتبة motion (npm، MIT)",
+   "why": "M40",
+   "free_alternative": "CSS فقط",
+   "cost_or_quota": "مجانية",
+   "needs_approval": "لا"
+  }
+ ],
+ "dropped": []
+}

@@ -1,0 +1,326 @@
+{
+ "group": "G32",
+ "notes": "M50 / D-327: Dashboard D2 — الصور (الرفع والحقوق والاعتماد) · الجوائز (تأكيد الـOwner = Fact Registry) · SHELTER Family (موافقة الشخص). + سد فجوات تسجيل D1 (CMS-010/024/006/011).",
+ "requirements": [],
+ "updates_to_existing": [
+  {
+   "id": "CMS-023",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D2 (M50)",
+   "change": "الوسائط بلا كود (D2a): رفع حتى 20 صورة مع حقوقها؛ شاشة لكل صورة: هل تظهر الآن ولماذا لا؛ الاعتماد/الرفض، القنوات، آخر يوم للحقوق، الوصف باللغتين، نقطة التركيز، الأشخاص وموافقاتهم، Press Kit، أين تُستخدم، أرشفة/إرجاع. استبدال الصورة وقصّها يدويًا لاحقًا.",
+   "new_impl": "PARTIAL",
+   "tested": "YES",
+   "code_refs": [
+    "app/Services/Dashboard/MediaEditor.php",
+    "app/Http/Controllers/Dashboard/Content/MediaController.php",
+    "app/Services/Media/MediaRights.php",
+    "app/Services/Media/MediaLibrary.php",
+    "resources/views/dashboard/media/edit.blade.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/MediaEditorTest.php",
+    "tests/Feature/Media/MediaLibraryTest.php"
+   ]
+  },
+  {
+   "id": "DX-024",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D2 (M50)",
+   "change": "ارفع مرة واستخدم في كل مكان: الجوائز وSHELTER Family يختاران من الصور المعتمدة القابلة للاستخدام فقط (منتقي صور مشترك)؛ «أين تُستخدم» يظهر في شاشة الصورة.",
+   "new_impl": "PARTIAL",
+   "tested": "YES",
+   "code_refs": [
+    "app/Services/Dashboard/MediaEditor.php",
+    "app/Http/Controllers/Dashboard/Content/MediaController.php",
+    "app/Services/Media/MediaRights.php",
+    "app/Services/Media/MediaLibrary.php",
+    "resources/views/dashboard/media/edit.blade.php",
+    "resources/views/dashboard/media/_picker.blade.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/MediaEditorTest.php",
+    "tests/Feature/Media/MediaLibraryTest.php",
+    "tests/Feature/Dashboard/AwardEditorTest.php",
+    "tests/Feature/Dashboard/TeamEditorTest.php"
+   ]
+  },
+  {
+   "id": "OPS-032",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D2 (M50)",
+   "change": "Press Kit من الـDashboard: مربع «ضمن صور الصحافة» في شاشة الصورة (صفحة المركز الإعلامي المسودة تحتفظ بالاختيار حتى تُكتب).",
+   "new_impl": "PARTIAL",
+   "tested": "YES",
+   "code_refs": [
+    "app/Services/Dashboard/MediaEditor.php",
+    "app/Http/Controllers/Dashboard/Content/MediaController.php",
+    "app/Services/Media/MediaRights.php",
+    "app/Services/Media/MediaLibrary.php",
+    "resources/views/dashboard/media/edit.blade.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/MediaEditorTest.php",
+    "tests/Feature/Media/MediaLibraryTest.php"
+   ]
+  },
+  {
+   "id": "OPS-033",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D2 (M50)",
+   "change": "مكتبة الوسائط الآن تُدار من الـDashboard (لم تعد الأوامر وحدها): الاعتماد يُسجَّل باسم الـOwner (approval_ref = OWNER-DASHBOARD)، والنسخ العامة تُنشأ عند السماح وتُحذف عند المنع.",
+   "new_impl": "PARTIAL",
+   "tested": "YES",
+   "code_refs": [
+    "app/Services/Dashboard/MediaEditor.php",
+    "app/Http/Controllers/Dashboard/Content/MediaController.php",
+    "app/Services/Media/MediaRights.php",
+    "app/Services/Media/MediaLibrary.php",
+    "resources/views/dashboard/media/edit.blade.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/MediaEditorTest.php",
+    "tests/Feature/Media/MediaLibraryTest.php"
+   ]
+  },
+  {
+   "id": "OPS-034",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D2 (M50)",
+   "change": "سحب موافقة شخص في صورة يحذف نسخها العامة فورًا؛ وفي SHELTER Family تسجيل تاريخ السحب يخفي الملف تلقائيًا بلا خطوة ثانية.",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Services/Dashboard/MediaEditor.php",
+    "app/Http/Controllers/Dashboard/Content/MediaController.php",
+    "app/Services/Media/MediaRights.php",
+    "app/Services/Media/MediaLibrary.php",
+    "resources/views/dashboard/media/edit.blade.php",
+    "app/Services/Dashboard/TeamEditor.php",
+    "app/Http/Controllers/Dashboard/Content/TeamController.php",
+    "resources/views/dashboard/team/form.blade.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/MediaEditorTest.php",
+    "tests/Feature/Media/MediaLibraryTest.php",
+    "tests/Feature/Dashboard/TeamEditorTest.php"
+   ]
+  },
+  {
+   "id": "MEDIA-003",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D2 (M50)",
+   "change": "من الـDashboard أيضًا: كل صورة مرفوعة تبدأ «بانتظار اعتمادك» ولا نسخ عامة لها.",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Services/Dashboard/MediaEditor.php",
+    "app/Http/Controllers/Dashboard/Content/MediaController.php",
+    "app/Services/Media/MediaRights.php",
+    "app/Services/Media/MediaLibrary.php",
+    "resources/views/dashboard/media/edit.blade.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/MediaEditorTest.php",
+    "tests/Feature/Media/MediaLibraryTest.php"
+   ]
+  },
+  {
+   "id": "MEDIA-005",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D2 (M50)",
+   "change": "المصادر المقيدة (Stock/AI/Google/الموقع القديم): تحذير + تأكيد صريح مطلوب لاعتماد الصورة نفسها.",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Services/Dashboard/MediaEditor.php",
+    "app/Http/Controllers/Dashboard/Content/MediaController.php",
+    "app/Services/Media/MediaRights.php",
+    "app/Services/Media/MediaLibrary.php",
+    "resources/views/dashboard/media/edit.blade.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/MediaEditorTest.php",
+    "tests/Feature/Media/MediaLibraryTest.php"
+   ]
+  },
+  {
+   "id": "MEDIA-006",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D2 (M50)",
+   "change": "لا وصف لا صورة: اعتماد صورة للموقع يتطلب الوصف بالعربية والإنجليزية.",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Services/Dashboard/MediaEditor.php",
+    "app/Http/Controllers/Dashboard/Content/MediaController.php",
+    "app/Services/Media/MediaRights.php",
+    "app/Services/Media/MediaLibrary.php",
+    "resources/views/dashboard/media/edit.blade.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/MediaEditorTest.php",
+    "tests/Feature/Media/MediaLibraryTest.php"
+   ]
+  },
+  {
+   "id": "CONTENT-002",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D2 (M50)",
+   "change": "الجوائز من الـDashboard: النشر يتطلب تأكيد الـOwner الصريح أنها حقيقية وصحيحة ← Fact `award.{id}` APPROVED (OWNER-DASHBOARD)؛ أي تعديل لاحق على الاسم/الجهة/السنة/الرابط يتطلب تأكيدًا جديدًا (SUPERSEDED ثم APPROVED) وإلا يُرفض الحفظ.",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Services/Dashboard/AwardEditor.php",
+    "app/Http/Controllers/Dashboard/Content/AwardsController.php",
+    "resources/views/dashboard/awards/form.blade.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/AwardEditorTest.php"
+   ]
+  },
+  {
+   "id": "DX-006",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D2 (M50)",
+   "change": "إدارة SHELTER Family بلا كود: الاسم والمسمى باللغتين، الفرع (بالاسم المعتمد فقط)، القسم، النبذة وتاريخ الانضمام (كل منهما بمفتاح)، الصورة (معتمدة وبموافقة الشخص)، موافقة النشر (تاريخ + مرجع) وسحبها، أرشفة/إرجاع؛ السجل بلا أسماء.",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Services/Dashboard/TeamEditor.php",
+    "app/Http/Controllers/Dashboard/Content/TeamController.php",
+    "resources/views/dashboard/team/form.blade.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/TeamEditorTest.php"
+   ]
+  },
+  {
+   "id": "CMS-010",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D1 (M50)",
+   "change": "D1: محرر صفحات مبني على أقسام بأنواع ثابتة (نص، أسئلة، قائمة، خطوات، بطاقات، دعوة) — ليس Page Builder.",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Services/Dashboard/PageEditor.php",
+    "app/Http/Controllers/Dashboard/Content/PagesController.php",
+    "resources/views/dashboard/pages/edit.blade.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/PageEditorTest.php",
+    "resources/js/dashboard/page-editor.test.ts"
+   ]
+  },
+  {
+   "id": "CMS-024",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D1 (M50)",
+   "change": "D1: الصفحات الست بلا كود (العنوان/الاسم/الوصف + الأقسام باللغتين، إضافة/ترتيب/إخفاء/أرشفة، نسخة + سجل لكل حفظ).",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Services/Dashboard/PageEditor.php",
+    "app/Http/Controllers/Dashboard/Content/PagesController.php",
+    "resources/views/dashboard/pages/edit.blade.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/PageEditorTest.php",
+    "resources/js/dashboard/page-editor.test.ts"
+   ]
+  },
+  {
+   "id": "CMS-011",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D1/D2 (M50)",
+   "change": "Design Lock: المحررات لا تقبل HTML ولا تنسيقًا حرًا — نص + أنواع أقسام ثابتة، والعرض من مكونات نظام التصميم فقط.",
+   "new_impl": "PARTIAL",
+   "tested": "YES",
+   "code_refs": [
+    "app/Services/Dashboard/PageEditor.php",
+    "app/Http/Controllers/Dashboard/Content/PagesController.php",
+    "resources/views/dashboard/pages/edit.blade.php",
+    "app/Services/Dashboard/AwardEditor.php",
+    "app/Http/Controllers/Dashboard/Content/AwardsController.php",
+    "resources/views/dashboard/awards/form.blade.php",
+    "app/Services/Dashboard/TeamEditor.php",
+    "app/Http/Controllers/Dashboard/Content/TeamController.php",
+    "resources/views/dashboard/team/form.blade.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/PageEditorTest.php",
+    "resources/js/dashboard/page-editor.test.ts"
+   ]
+  },
+  {
+   "id": "CMS-006",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D1/D2 (M50)",
+   "change": "حالات مبسطة الآن: مسودة · منشورة · مؤرشفة (للصفحات والجوائز والصور والفريق). IN REVIEW وSCHEDULED لم تُبنَ بعد.",
+   "new_impl": "PARTIAL",
+   "tested": "YES",
+   "code_refs": [
+    "app/Services/Dashboard/PageEditor.php",
+    "app/Http/Controllers/Dashboard/Content/PagesController.php",
+    "resources/views/dashboard/pages/edit.blade.php",
+    "app/Services/Dashboard/AwardEditor.php",
+    "app/Http/Controllers/Dashboard/Content/AwardsController.php",
+    "resources/views/dashboard/awards/form.blade.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/PageEditorTest.php",
+    "resources/js/dashboard/page-editor.test.ts",
+    "tests/Feature/Dashboard/AwardEditorTest.php"
+   ]
+  }
+ ],
+ "conflicts": [],
+ "new_decisions": [],
+ "pending_owner": [],
+ "technical_flags": [
+  {
+   "id": "G32-TF-01",
+   "topic": "اعتماد الـOwner من الـDashboard = موافقته المسجلة",
+   "detail": "زر «أعتمدها» في شاشة الصورة، ومربع «أؤكد أن هذه الجائزة حقيقية…»، وتاريخ/مرجع موافقة الشخص في SHELTER Family — كلها أفعال الـOwner نفسه بعد الدخول بالتحقق الثنائي، وتُسجَّل باسمه (approved_by / Fact Registry / Audit). Claude لا يعتمد شيئًا.",
+   "recommendation": "قرار تقني منفذ ومختبر",
+   "needs_owner": false,
+   "refs": [
+    "MEDIA-003",
+    "CONTENT-002",
+    "DX-006"
+   ]
+  },
+  {
+   "id": "G32-TF-02",
+   "topic": "MediaRights::problems — قاعدة واحدة بأسباب",
+   "detail": "canUse أصبحت = problems() فارغة؛ الـDashboard يعرض الأسباب نفسها التي يطبقها الموقع (مؤرشفة، غير معتمدة/مرفوضة، القناة مغلقة، انتهت الحقوق، أشخاص بلا موافقة/خارج النطاق/سحبوا، مصدر مقيد).",
+   "recommendation": "قرار تقني منفذ ومختبر",
+   "needs_owner": false,
+   "refs": [
+    "OPS-034"
+   ]
+  },
+  {
+   "id": "G32-TF-03",
+   "topic": "النسخ العامة تتبع الحق",
+   "detail": "عند الاعتماد تُنشأ نسخ WebP/AVIF؛ عند الرفض أو الأرشفة أو سحب الموافقة أو انتهاء الحقوق تُحذف النسخ العامة (بيانات مشتقة) ويبقى الأصل الخاص والسجل. المعاينة في الـDashboard من القرص الخاص (Cache-Control: private).",
+   "recommendation": "قرار تقني منفذ ومختبر",
+   "needs_owner": false,
+   "refs": [
+    "MEDIA-011"
+   ]
+  },
+  {
+   "id": "G32-TF-04",
+   "topic": "قائمة التنقل على الهاتف",
+   "detail": "صف واحد قابل للتمرير بدل قائمتين متجاورتين كل منهما تتمرر وحدها (كان «مركز التحكم» مقصوصًا)، والعنصر الحالي يُعرض تلقائيًا في المنتصف (RTL وLTR).",
+   "recommendation": "قرار تقني منفذ ومختبر",
+   "needs_owner": false,
+   "refs": [
+    "RESP-025",
+    "DASH-027"
+   ]
+  }
+ ],
+ "cost_api_dependencies": [],
+ "dropped": []
+}

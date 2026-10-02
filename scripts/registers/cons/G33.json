@@ -1,0 +1,628 @@
+{
+ "group": "G33",
+ "notes": "M50 / D-327: Dashboard D3 — صندوق الطلبات: التوظيف (M28) · الشراكات (docs/franchise/04) · آراء العملاء (VOICE-OF-CUSTOMER §5).",
+ "requirements": [],
+ "updates_to_existing": [
+  {
+   "id": "CAREERS-046",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D3 (M50)",
+   "change": "الحالات السبع + سجل لكل تغيير (القديمة، الجديدة، من، متى، ملاحظة داخلية اختيارية)؛ أي حالة ← أي حالة؛ الأرشفة تحفظ الحالة السابقة والإرجاع يعيدها.",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Dashboard/Requests/CareersController.php",
+    "app/Services/Requests/CareersQuery.php",
+    "app/Services/Requests/ApplicationInbox.php",
+    "resources/views/dashboard/requests/careers/show.blade.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/CareersInboxTest.php"
+   ]
+  },
+  {
+   "id": "CAREERS-047",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D3 (M50)",
+   "change": "الشاشة تعرض «ما يراه المتقدم الآن» من نفس جدول المطابقة؛ «مقبول» يظهر للمتقدم «قيد المراجعة»؛ تنبيه قبل أرشفة طلب مقبول.",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Dashboard/Requests/CareersController.php",
+    "app/Services/Requests/CareersQuery.php",
+    "app/Services/Requests/ApplicationInbox.php",
+    "resources/views/dashboard/requests/careers/show.blade.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/CareersInboxTest.php"
+   ]
+  },
+  {
+   "id": "CAREERS-048",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D3 (M50)",
+   "change": "المقابلة: التاريخ والوقت ومكان من القائمة فقط وملاحظات؛ إعادة الجدولة تحفظ المواعيد السابقة؛ لا تظهر في التتبع.",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Dashboard/Requests/CareersController.php",
+    "app/Services/Requests/CareersQuery.php",
+    "app/Services/Requests/ApplicationInbox.php",
+    "resources/views/dashboard/requests/careers/show.blade.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/CareersInboxTest.php"
+   ]
+  },
+  {
+   "id": "CAREERS-049",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D3 (M50)",
+   "change": "لا أي تقييم أو ترتيب آلي في الصندوق.",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Dashboard/Requests/CareersController.php",
+    "app/Services/Requests/CareersQuery.php",
+    "app/Services/Requests/ApplicationInbox.php",
+    "resources/views/dashboard/requests/careers/show.blade.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/CareersInboxTest.php"
+   ]
+  },
+  {
+   "id": "CAREERS-050",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D3 (M50)",
+   "change": "كل مسارات الصندوق خلف auth + owner؛ بلا جلسة ← صفحة الدخول.",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Dashboard/Requests/CareersController.php",
+    "app/Services/Requests/CareersQuery.php",
+    "app/Services/Requests/ApplicationInbox.php",
+    "resources/views/dashboard/requests/careers/show.blade.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/CareersInboxTest.php"
+   ]
+  },
+  {
+   "id": "CAREERS-052",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D3 (M50)",
+   "change": "8 بطاقات قابلة للنقر (جديد، الإجمالي، وكل حالة) تفتح القائمة مفلترة.",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Dashboard/Requests/CareersController.php",
+    "app/Services/Requests/CareersQuery.php",
+    "app/Services/Requests/ApplicationInbox.php",
+    "resources/views/dashboard/requests/careers/show.blade.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/CareersInboxTest.php"
+   ]
+  },
+  {
+   "id": "CAREERS-053",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D3 (M50)",
+   "change": "الفترة: اليوم · 7 أيام · 30 يومًا · هذا الشهر (افتراضي) · الكل — بتوقيت الأردن وبلا نسب مقارنة.",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Dashboard/Requests/CareersController.php",
+    "app/Services/Requests/CareersQuery.php",
+    "app/Services/Requests/ApplicationInbox.php",
+    "resources/views/dashboard/requests/careers/show.blade.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/CareersInboxTest.php"
+   ]
+  },
+  {
+   "id": "CAREERS-054",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D3 (M50)",
+   "change": "«جديد» = لم يُفتح بعد (first_viewed_at) — منفصل عن الحالة؛ الفتح الأول يُسجل ولا يغير الحالة؛ عداد الشاشة الأولى صُحح ليعد غير المفتوح.",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Dashboard/Requests/CareersController.php",
+    "app/Services/Requests/CareersQuery.php",
+    "app/Services/Requests/ApplicationInbox.php",
+    "resources/views/dashboard/requests/careers/show.blade.php",
+    "app/Http/Controllers/Dashboard/HomeController.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/CareersInboxTest.php"
+   ]
+  },
+  {
+   "id": "CAREERS-055",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D3 (M50)",
+   "change": "داخل الـDashboard فقط: عداد الطلبات الجديدة في الشاشة الأولى وشارة «جديد» — بلا بريد ولا WhatsApp. قائمة «يحتاج انتباه» لاحقًا.",
+   "new_impl": "PARTIAL",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Dashboard/Requests/CareersController.php",
+    "app/Services/Requests/CareersQuery.php",
+    "app/Services/Requests/ApplicationInbox.php",
+    "resources/views/dashboard/requests/careers/show.blade.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/CareersInboxTest.php"
+   ]
+  },
+  {
+   "id": "CAREERS-056",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D3 (M50)",
+   "change": "الأعمدة السبعة، الأحدث أولًا؛ جدول من 1200px وبطاقات تحتها (لا جدول مضغوط على الهاتف).",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Dashboard/Requests/CareersController.php",
+    "app/Services/Requests/CareersQuery.php",
+    "app/Services/Requests/ApplicationInbox.php",
+    "resources/views/dashboard/requests/careers/show.blade.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/CareersInboxTest.php"
+   ]
+  },
+  {
+   "id": "CAREERS-057",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D3 (M50)",
+   "change": "الترتيبات الستة (الأحدث/الأقدم، الراتب، الخبرة بترتيب النطاقات).",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Dashboard/Requests/CareersController.php",
+    "app/Services/Requests/CareersQuery.php",
+    "app/Services/Requests/ApplicationInbox.php",
+    "resources/views/dashboard/requests/careers/show.blade.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/CareersInboxTest.php"
+   ]
+  },
+  {
+   "id": "CAREERS-058",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D3 (M50)",
+   "change": "بحث بالاسم والهاتف (أي صيغة) والبريد ورقم الطلب والوظيفة والمدينة — ليس برقم الهوية. البحث الحي أثناء الكتابة (Debounce) لم يُبنَ بعد: البحث بزر «عرض النتائج».",
+   "new_impl": "PARTIAL",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Dashboard/Requests/CareersController.php",
+    "app/Services/Requests/CareersQuery.php",
+    "app/Services/Requests/ApplicationInbox.php",
+    "resources/views/dashboard/requests/careers/show.blade.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/CareersInboxTest.php"
+   ]
+  },
+  {
+   "id": "CAREERS-059",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D3 (M50)",
+   "change": "الفلاتر: الحالة (و«جديد») · المدينة · الجنس · الجنسية · المؤهل · الخبرة · الوظيفة · من/إلى تاريخ + الاسم والهاتف عبر البحث — قابلة للدمج.",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Dashboard/Requests/CareersController.php",
+    "app/Services/Requests/CareersQuery.php",
+    "app/Services/Requests/ApplicationInbox.php",
+    "resources/views/dashboard/requests/careers/show.blade.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/CareersInboxTest.php"
+   ]
+  },
+  {
+   "id": "CAREERS-062",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D3 (M50)",
+   "change": "العرض المناسب للهاتف (بطاقات) جاهز؛ مفتاح الكثافة Comfortable/Compact لم يُبنَ بعد.",
+   "new_impl": "PARTIAL",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Dashboard/Requests/CareersController.php",
+    "app/Services/Requests/CareersQuery.php",
+    "app/Services/Requests/ApplicationInbox.php",
+    "resources/views/dashboard/requests/careers/show.blade.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/CareersInboxTest.php"
+   ]
+  },
+  {
+   "id": "CAREERS-064",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D3 (M50)",
+   "change": "ترقيم تقليدي 25/50/100 (افتراضي 50).",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Dashboard/Requests/CareersController.php",
+    "app/Services/Requests/CareersQuery.php",
+    "app/Services/Requests/ApplicationInbox.php",
+    "resources/views/dashboard/requests/careers/show.blade.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/CareersInboxTest.php"
+   ]
+  },
+  {
+   "id": "CAREERS-066",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D3 (M50)",
+   "change": "صفحة الطلب بترتيب واضح: الحالة، الملخص، الشخص (الهوية مقنّعة)، السكن والمؤهل، المرفقات (السيرة أولًا)، ملاحظات المتقدم، الموافقة، المقابلة، الملاحظات الداخلية، سجل الحالة، الطلبات السابقة.",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Dashboard/Requests/CareersController.php",
+    "app/Services/Requests/CareersQuery.php",
+    "app/Services/Requests/ApplicationInbox.php",
+    "resources/views/dashboard/requests/careers/show.blade.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/CareersInboxTest.php"
+   ]
+  },
+  {
+   "id": "CAREERS-067",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D3 (M50)",
+   "change": "ملاحظات متعددة؛ التعديل والحذف مسجلان (ما قبل/ما بعد)؛ الحذف ناعم.",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Dashboard/Requests/CareersController.php",
+    "app/Services/Requests/CareersQuery.php",
+    "app/Services/Requests/ApplicationInbox.php",
+    "resources/views/dashboard/requests/careers/show.blade.php",
+    "resources/views/dashboard/requests/_notes.blade.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/CareersInboxTest.php"
+   ]
+  },
+  {
+   "id": "CAREERS-070",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D3 (M50)",
+   "change": "الحذف النهائي من الأرشيف فقط، بعد إعادة التأكيد، بكتابة رقم الطلب، واحدًا واحدًا؛ تُحذف الملفات ويبقى Tombstone بلا بيانات شخصية.",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Dashboard/Requests/CareersController.php",
+    "app/Services/Requests/CareersQuery.php",
+    "app/Services/Requests/ApplicationInbox.php",
+    "resources/views/dashboard/requests/careers/show.blade.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/CareersInboxTest.php"
+   ]
+  },
+  {
+   "id": "CAREERS-073",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D3 (M50)",
+   "change": "تنزيل كل ملف على حدة بأمان (attachment · nosniff · CSP sandbox · no-store · مسجل). تجميع ZIP لم يُبنَ بعد.",
+   "new_impl": "PARTIAL",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Dashboard/Requests/CareersController.php",
+    "app/Services/Requests/CareersQuery.php",
+    "app/Services/Requests/ApplicationInbox.php",
+    "resources/views/dashboard/requests/careers/show.blade.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/CareersInboxTest.php"
+   ]
+  },
+  {
+   "id": "FRAN-054",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D3 (M50)",
+   "change": "وحدة الشراكات أصلية في الـDashboard: نظرة عامة، القائمة، الطلب الكامل. شاشة الإعدادات (المراحل، القنوات) لاحقًا.",
+   "new_impl": "PARTIAL",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Dashboard/Requests/PartnershipsController.php",
+    "app/Services/Requests/PartnershipsQuery.php",
+    "app/Services/Requests/ApplicationInbox.php",
+    "database/migrations/2026_10_02_000200_create_pipeline_stages_and_meetings_tables.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/PartnershipsInboxTest.php"
+   ]
+  },
+  {
+   "id": "FRAN-055",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D3 (M50)",
+   "change": "المراحل في جدول إعداد pipeline_stages (TD-FR-01) بالقيم المقترحة في الوثيقة؛ تغيير المرحلة يدوي مع ملاحظة وسجل؛ «جديد» حالة قراءة.",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Dashboard/Requests/PartnershipsController.php",
+    "app/Services/Requests/PartnershipsQuery.php",
+    "app/Services/Requests/ApplicationInbox.php",
+    "database/migrations/2026_10_02_000200_create_pipeline_stages_and_meetings_tables.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/PartnershipsInboxTest.php"
+   ]
+  },
+  {
+   "id": "FRAN-056",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D3 (M50)",
+   "change": "الأعمدة السبعة: المتقدم · الدولة · المدينة · السوق · تاريخ الطلب · المرحلة · آخر تحديث.",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Dashboard/Requests/PartnershipsController.php",
+    "app/Services/Requests/PartnershipsQuery.php",
+    "app/Services/Requests/ApplicationInbox.php",
+    "database/migrations/2026_10_02_000200_create_pipeline_stages_and_meetings_tables.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/PartnershipsInboxTest.php"
+   ]
+  },
+  {
+   "id": "FRAN-057",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D3 (M50)",
+   "change": "الصفحة الكاملة جاهزة؛ العرض السريع الجانبي لم يُبنَ بعد.",
+   "new_impl": "PARTIAL",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Dashboard/Requests/PartnershipsController.php",
+    "app/Services/Requests/PartnershipsQuery.php",
+    "app/Services/Requests/ApplicationInbox.php",
+    "database/migrations/2026_10_02_000200_create_pipeline_stages_and_meetings_tables.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/PartnershipsInboxTest.php"
+   ]
+  },
+  {
+   "id": "FRAN-058",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D3 (M50)",
+   "change": "ملاحظات متعددة مسجلة (نفس مكون التوظيف).",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Dashboard/Requests/PartnershipsController.php",
+    "app/Services/Requests/PartnershipsQuery.php",
+    "app/Services/Requests/ApplicationInbox.php",
+    "database/migrations/2026_10_02_000200_create_pipeline_stages_and_meetings_tables.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/PartnershipsInboxTest.php"
+   ]
+  },
+  {
+   "id": "FRAN-059",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D3 (M50)",
+   "change": "الاجتماعات: التاريخ والوقت، الطريقة (حضوري · فيديو · هاتف)، المكان، ملاحظات، الحالة (مخطط · تم · أُلغي) — لا تظهر للمتقدم.",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Dashboard/Requests/PartnershipsController.php",
+    "app/Services/Requests/PartnershipsQuery.php",
+    "app/Services/Requests/ApplicationInbox.php",
+    "database/migrations/2026_10_02_000200_create_pipeline_stages_and_meetings_tables.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/PartnershipsInboxTest.php"
+   ]
+  },
+  {
+   "id": "FRAN-060",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D3 (M50)",
+   "change": "الطلبات السابقة بالهاتف والبريد بلا دمج (لا حقل اسم شركة في النموذج الحالي).",
+   "new_impl": "PARTIAL",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Dashboard/Requests/PartnershipsController.php",
+    "app/Services/Requests/PartnershipsQuery.php",
+    "app/Services/Requests/ApplicationInbox.php",
+    "database/migrations/2026_10_02_000200_create_pipeline_stages_and_meetings_tables.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/PartnershipsInboxTest.php"
+   ]
+  },
+  {
+   "id": "FRAN-061",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D3 (M50)",
+   "change": "لا أي قرار أو تقييم آلي؛ النص في الشاشة: «الانتقال بين المراحل قرارك أنت».",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Dashboard/Requests/PartnershipsController.php",
+    "app/Services/Requests/PartnershipsQuery.php",
+    "app/Services/Requests/ApplicationInbox.php",
+    "database/migrations/2026_10_02_000200_create_pipeline_stages_and_meetings_tables.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/PartnershipsInboxTest.php"
+   ]
+  },
+  {
+   "id": "FRAN-062",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D3 (M50)",
+   "change": "الوحدة للـOwner فقط Server-side.",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Dashboard/Requests/PartnershipsController.php",
+    "app/Services/Requests/PartnershipsQuery.php",
+    "app/Services/Requests/ApplicationInbox.php",
+    "database/migrations/2026_10_02_000200_create_pipeline_stages_and_meetings_tables.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/PartnershipsInboxTest.php"
+   ]
+  },
+  {
+   "id": "FRAN-063",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D3 (M50)",
+   "change": "النظرة العامة V1: جديد · الإجمالي · كل مرحلة · أين الطلب (الدول/المدن/الأسواق) — جدول بسيط بلا رسوم. معدل الإكمال والتسرب لاحقًا.",
+   "new_impl": "PARTIAL",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Dashboard/Requests/PartnershipsController.php",
+    "app/Services/Requests/PartnershipsQuery.php",
+    "app/Services/Requests/ApplicationInbox.php",
+    "database/migrations/2026_10_02_000200_create_pipeline_stages_and_meetings_tables.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/PartnershipsInboxTest.php"
+   ]
+  },
+  {
+   "id": "FRAN-064",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D3 (M50)",
+   "change": "البحث (الاسم، الهاتف، البريد، الدولة، المدينة، السوق، رقم الطلب) + الفلاتر (المرحلة، الدولة، التاريخ).",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Dashboard/Requests/PartnershipsController.php",
+    "app/Services/Requests/PartnershipsQuery.php",
+    "app/Services/Requests/ApplicationInbox.php",
+    "database/migrations/2026_10_02_000200_create_pipeline_stages_and_meetings_tables.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/PartnershipsInboxTest.php"
+   ]
+  },
+  {
+   "id": "FRAN-065",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D3 (M50)",
+   "change": "مسجّل: تغيير المرحلة، الملاحظات، الاجتماعات، الأرشفة — بلا أسماء. التصدير والمستندات لم تُبنَ بعد.",
+   "new_impl": "PARTIAL",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Dashboard/Requests/PartnershipsController.php",
+    "app/Services/Requests/PartnershipsQuery.php",
+    "app/Services/Requests/ApplicationInbox.php",
+    "database/migrations/2026_10_02_000200_create_pipeline_stages_and_meetings_tables.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/PartnershipsInboxTest.php"
+   ]
+  },
+  {
+   "id": "OPS-031",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D3 (M50)",
+   "change": "لوحة الآراء: الفترة والفرع، متوسط كل سؤال مع n، مقارنة الفروع، آخر 8 أسابيع، المواضيع (إن وُجدت)، التعليقات (منخفضة فقط، المؤرشفة، أرشفة، إخفاء بيانات شخصية بلا حفظ النص المحذوف). «تحويل إلى استفسار» ينتظر وحدة الاستفسارات، والوسوم الآلية لم تُبنَ.",
+   "new_impl": "PARTIAL",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Dashboard/Requests/FeedbackController.php",
+    "app/Services/Requests/FeedbackBoard.php",
+    "resources/views/dashboard/requests/feedback/index.blade.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/FeedbackBoardTest.php"
+   ]
+  },
+  {
+   "id": "DASH-025",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D3 (M50)",
+   "change": "كل متوسط في لوحة الآراء يظهر معه عدد التقييمات (n)؛ لا أي Score.",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Dashboard/Requests/FeedbackController.php",
+    "app/Services/Requests/FeedbackBoard.php",
+    "resources/views/dashboard/requests/feedback/index.blade.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/FeedbackBoardTest.php"
+   ]
+  }
+ ],
+ "conflicts": [],
+ "new_decisions": [],
+ "pending_owner": [],
+ "technical_flags": [
+  {
+   "id": "G33-TF-01",
+   "topic": "إظهار رقم الهوية",
+   "detail": "صفحة مستقلة خلف إعادة التأكيد (كلمة المرور + الرمز؛ الدخول نفسه خلال آخر 10 دقائق يُحتسب تأكيدًا — RECRUITMENT-PERMISSIONS §3)، Cache-Control: no-store، والسجل identity.revealed بلا الرقم. القوائم والصفحة تعرض ********1234 فقط.",
+   "recommendation": "قرار تقني منفذ ومختبر",
+   "needs_owner": false,
+   "refs": [
+    "CAREERS-050"
+   ]
+  },
+  {
+   "id": "G33-TF-02",
+   "topic": "مراحل الشراكة واجتماعاتها",
+   "detail": "pipeline_stages (module=FR) بقيم الوثيقة المقترحة — تُستبدل عند اعتماد Franchise Master بلا كود. الاجتماعات في جدول application_meetings؛ طرق الاجتماع (حضوري/فيديو/هاتف) قائمة تقنية عامة وليست بيان عمل.",
+   "recommendation": "قرار تقني منفذ ومختبر",
+   "needs_owner": false,
+   "refs": [
+    "FRAN-055",
+    "FRAN-059"
+   ]
+  },
+  {
+   "id": "G33-TF-03",
+   "topic": "جدول بطاقات حتى 1200px + ترويسات الأمان",
+   "detail": "x-ui.table stack=\"wide\" (قصة Storybook جديدة) حتى لا يتمرر جدول من 7 أعمدة جانبيًا بجانب القائمة. طبقة ترويسات الأمان لم تعد تكرر ترويسة وضعها المسار نفسه (nosniff، CSP sandbox للتنزيلات).",
+   "recommendation": "قرار تقني منفذ ومختبر",
+   "needs_owner": false,
+   "refs": [
+    "DS-013",
+    "SEC-007"
+   ]
+  },
+  {
+   "id": "G33-TF-04",
+   "topic": "لوحة الآراء",
+   "detail": "الأرشفة تخفي التعليق فقط والتقييم يبقى في الأرقام؛ إخفاء البيانات الشخصية يستبدل النص ولا يُحفظ المحذوف حتى في السجل. «تحويل إلى استفسار» و«الوسوم الآلية» مؤجلان حتى وحدة الاستفسارات.",
+   "recommendation": "قرار تقني منفذ ومختبر",
+   "needs_owner": false,
+   "refs": [
+    "OPS-031"
+   ]
+  },
+  {
+   "id": "G33-TF-05",
+   "topic": "المتبقي من D3 (مطلوب ومجمّد في M28 — للبناء لاحقًا)",
+   "detail": "العرض السريع الجانبي (CAREERS-065، FRAN-057) · الفلاتر المحفوظة (060) · تخصيص الأعمدة والكثافة (061/062) · التغيير الجماعي (069) · التصدير Excel/CSV/PDF (072) وتجميع ZIP (073) · البحث الحي (058) · تنبيه الطلبات القديمة (071) · شاشة الإعدادات (المدن، أماكن المقابلة، المراحل).",
+   "recommendation": "تُبنى بعد D4 أو قبلها حسب أولوية الـOwner",
+   "needs_owner": false,
+   "refs": [
+    "CAREERS-060",
+    "CAREERS-072"
+   ]
+  }
+ ],
+ "cost_api_dependencies": [],
+ "dropped": []
+}

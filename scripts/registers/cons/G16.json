@@ -1,0 +1,2253 @@
+{
+ "group": "G16",
+ "requirements": [
+  {
+   "id": "DS-001",
+   "area": "48 Design System & UI Consistency",
+   "type": "RULE",
+   "title": "ONE DESIGN SYSTEM · ONE VISUAL LANGUAGE · NO PAGE-SPECIFIC CHAOS — الموقع + الـDashboard",
+   "requirement": "توحيد كامل لكل عناصر الواجهة في SHELTER Website + Owner Dashboard بمبدأ: ONE DESIGN SYSTEM · ONE VISUAL LANGUAGE · NO PAGE-SPECIFIC CHAOS. أي صفحة أو Feature جديدة تستخدم نفس: Typography · Buttons · Inputs · Cards · Spacing · Radius · Colors · Icons · Shadows · Motion · States · Grid · Responsive Rules، ولا يُنشأ Styling خاص بكل صفحة بدون سبب واضح. الرسالة كلها معلّمة: OWNER APPROVED · FROZEN · P0 · GLOBAL DESIGN SYSTEM.",
+   "details": [
+    "الأسس الثلاثة عشر أعلاه = نطاق النظام؛ كل واحد منها متطلب مستقل: DS-003…DS-019.",
+    "النطاق: الموقع العام + الـOwner Dashboard + أي تطبيق مستقبلي (DS-002) — منتج واحد (DS-028).",
+    "السبب الواضح للخروج عن النظام = Design Exception موثقة فقط (DS-023).",
+    "M36 §8 (DESIGN SYSTEM FIRST — يُسجل في مجموعته) يؤكد: يُثبَّت الـDesign System قبل تكاثر الصفحات (Phase 1 Foundation).",
+    "التنفيذ حسب ADR-001: Laravel + Blade، مكتبة مكونات مشتركة واحدة x-ui.* (DS-013)، Tokens → CSS variables، بلا Tailwind ولا React.",
+    "الوضع الحالي (2026-10-01): Standard + tokens v0.1 + wireframe-kit مشترك؛ مجموعات الـWireframes الأربع (المنيو 30 · التوظيف 44 · الشراكات 41 · الـDashboard 54 = 169 شاشة) على tokens.css + wireframe-kit.css (ترحيل المنيو والتوظيف في شجرة العمل، لم يُلتزم بعد) — ds-audit: 0 مخالفات حقيقية في أحجام الخط والـRadius والمسافات والألوان."
+   ],
+   "sources": [
+    "M34 §00",
+    "M34 §26"
+   ],
+   "decision_refs": [
+    "G16-ND-01",
+    "ADR-001",
+    "D-192"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "PARTIAL",
+   "tested": "PROTOTYPE",
+   "existing_impl": "docs/DESIGN-SYSTEM-STANDARD.md (القواعد) + design-system/tokens/tokens.json v0.1 + design-system/build/tokens.css + design-system/wireframe-kit.css + tooling/scripts/ds-audit.mjs → docs/DESIGN-SYSTEM-HEALTH.md",
+   "missing_work": "قيم الهوية (PO-002) · مكتبة x-ui الفعلية · Storybook · بوابة ds-audit على CSS التطبيق · المخالفات غير المكتشفة (Breakpoints · الأيقونات · RTL — G16-TF-02)",
+   "dependencies": [
+    "PO-002",
+    "M-10",
+    "BRAND-002",
+    "ADR-001",
+    "DS-013",
+    "DS-023"
+   ],
+   "test_required": "ds-audit = 0 مخالفات حقيقية لكل مجموعة واجهات (بعد استبعاد تعريفات الـTokens) · كل شاشة تستخدم x-ui فقط · مراجعة عبور الصفحات (DS-028) · Visual regression (DS-025)",
+   "design_refs": [
+    "docs/DESIGN-SYSTEM-STANDARD.md",
+    "docs/adr/ADR-001-platform.md",
+    "docs/FINAL-ARCHITECTURE-REVIEW.md §4"
+   ],
+   "code_refs": [
+    "design-system/tokens/tokens.json",
+    "design-system/wireframe-kit.css",
+    "tooling/scripts/ds-audit.mjs"
+   ],
+   "test_refs": [
+    "tooling/tests/prototype/dashboard.spec.mjs (one design system (M34) — 5 شاشات عينة)"
+   ],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P05",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "DS-002",
+   "area": "48 Design System & UI Consistency",
+   "type": "DECISION",
+   "title": "Design Tokens مركزية — مصدر واحد للموقع والـDashboard والتطبيق المستقبلي",
+   "requirement": "تُجمع كل الـTokens مركزيًا في مصدر واحد: Typography · Colors · Spacing · Radius · Shadows · Motion · Breakpoints · Z-index · Borders (+ أحجام التحكم والأيقونات والحاويات)، ويستخدمها الموقع والـDashboard والتطبيق المستقبلي قدر الإمكان. المصدر: design-system/tokens/tokens.json (W3C DTCG) ← تُولَّد منه CSS variables؛ لا تُكتب القيم يدويًا في أي مكان آخر، وتغيير قيمة واحدة يغيّر كل الواجهات دون تعديل أي صفحة.",
+   "details": [
+    "tokens.json v0.1.0: font (family ar/en/wireframe · size xs…5xl · weight · lineHeight · letterSpacing · measure) · space 0…20 · radius sm/md/lg/xl/pill · border (width default 1px/strong 1.5px · focus 3px) · shadow none/sm/md/lg · motion (duration/easing/reduced) · size (touchTarget 44 · control 36/44/52 · icon 16/20/24 + stroke 1.75 · container) · breakpoint · z · color (12 دورًا).",
+    "المولّد: tooling/scripts/tokens-css.mjs (npm run tokens:css) → design-system/build/tokens.css = 84 Custom property + prefers-reduced-motion. \"do not edit by hand\".",
+    "Z-index ثابت: base 0 · sticky 20 · header 30 · dropdown 40 · overlay 50 · modal 60 · toast 70 · safeMode 80.",
+    "في التطبيق (ADR-001 + PLATFORM-ARCHITECTURE §2): resources/css/tokens.css مولّد من نفس tokens.json، ويُبنى عبر Vite؛ الموقع والـDashboard يقرآن نفس الملف.",
+    "التطبيق المستقبلي: نفس tokens.json (DTCG) قابل للتصدير لاحقًا (P3) — لا أداة إضافية الآن (M37 §29).",
+    "قيم الخطوط والألوان = MISSING حتى ملفات الهوية (PO-002)؛ قيم wireframe الرمادية للنماذج فقط ولا تُشحن أبدًا."
+   ],
+   "sources": [
+    "M34 §20"
+   ],
+   "decision_refs": [
+    "G16-ND-01",
+    "G16-ND-02",
+    "ADR-001"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "PARTIAL",
+   "tested": "PROTOTYPE",
+   "existing_impl": "design-system/tokens/tokens.json v0.1.0 + tooling/scripts/tokens-css.mjs → design-system/build/tokens.css (84 متغيرًا)؛ مضمّن في Wireframes المنيو والشراكات والـDashboard",
+   "missing_work": "قيم الهوية · توليد resources/css/tokens.css في بناء Laravel/Vite · فحص Drift في CI · فشل بناء Production إن بقي أي Token هوية MISSING (G16-TF-11)",
+   "dependencies": [
+    "PO-002",
+    "ADR-001",
+    "BRAND-010"
+   ],
+   "test_required": "إعادة التوليد = الملف الملتزم (لا Drift) · بناء Production يفشل عند وجود MISSING · grep: لا قيم خام خارج tokens.css (ds-audit)",
+   "design_refs": [
+    "docs/DESIGN-SYSTEM-STANDARD.md §1",
+    "design-system/README.md",
+    "docs/architecture/PLATFORM-ARCHITECTURE.md §2"
+   ],
+   "code_refs": [
+    "design-system/tokens/tokens.json",
+    "tooling/scripts/tokens-css.mjs",
+    "design-system/build/tokens.css"
+   ],
+   "test_refs": [
+    "tooling/tests/prototype/dashboard.spec.mjs (one design system (M34) — 5 شاشات عينة)"
+   ],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P05",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "DS-003",
+   "area": "48 Design System & UI Consistency",
+   "type": "REQUIREMENT",
+   "title": "Typography System موحد للعربي والإنجليزي — Tokens لا أحجام عشوائية",
+   "requirement": "Typography System واحد للعربية والإنجليزية يحدد: Primary Arabic Font · Primary English Font · Font Fallbacks · Heading scale · Body scale · Caption scale · Button typography · Navigation typography · Dashboard typography، عبر Tokens (font-family-ar · font-family-en · text-xs … text-4xl وما بعدها) مع font-weight وline-height وletter-spacing. لا Font Size عشوائي داخل أي Component.",
+   "details": [
+    "العائلات: --font-ar / --font-en = خطوط الهوية MISSING (PO-002). الاحتياطي العربي: Noto Sans Arabic → Segoe UI → Tahoma → system-ui؛ الإنجليزي: system-ui → -apple-system → Segoe UI → Roboto.",
+    "السلّم: xs 12 · sm 14 · base 16 · lg 18 · xl 20 · 2xl 24 · 3xl clamp 26→30 · 4xl clamp 28→36 · 5xl clamp 32→48 (Hero فقط).",
+    "الأوزان 400/500/700 فقط · ارتفاع السطر: عربي 1.7 · إنجليزي 1.5 · عناوين 1.25.",
+    "Letter-spacing: صفر على العربي دائمًا (يكسر اتصال الحروف)؛ 0.02em للأحرف اللاتينية الكبيرة فقط (أسماء ALL CAPS).",
+    "أصغر نص واجهة 12px · نص المتن 16px على الموبايل · طول سطر القراءة ≤ 68ch.",
+    "الاستخدامات: الأزرار --text-sm عريض (حجم الزر يربط الحجم: sm→xs · md→sm · lg→base) · التنقل --text-sm/--text-base · جداول الـDashboard --text-sm.",
+    "إن لم يحتوِ دليل الهوية خطوطًا: يعرض Claude أزواجًا عربية/لاتينية كخيارات للـOwner (قرار Brand — M38 §5، CF-11) ولا يختار بنفسه.",
+    "أداء الخطوط: Self-hosted WOFF2 مقسّم، عائلتان كحد أقصى (G16-TF-10، PERF-013)."
+   ],
+   "sources": [
+    "M34 §01"
+   ],
+   "decision_refs": [
+    "G16-ND-02",
+    "CF-11",
+    "M-10"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "PARTIAL",
+   "tested": "PROTOTYPE",
+   "existing_impl": "design-system/tokens/tokens.json font.* (السلّم والأوزان وارتفاع السطر والتباعد مقررة) · design-system/wireframe-kit.css (h1–h3، .ds-caption، .ds-label)",
+   "missing_work": "ملفات الخطوط وتراخيصها (PO-002) · Self-hosting + subset · ربط السلّم بمكونات x-ui",
+   "dependencies": [
+    "PO-002",
+    "BRAND-002",
+    "PERF-013",
+    "RESP-010",
+    "RESP-011"
+   ],
+   "test_required": "ds-audit: 0 font-size خارج السلّم · Playwright: نص الواجهة ≥ 12px والمتن 16px على الموبايل (موجود في responsive.spec) · لا letter-spacing على [lang=ar] · LCP/CLS ضمن الميزانية بعد الخطوط",
+   "design_refs": [
+    "docs/DESIGN-SYSTEM-STANDARD.md §2",
+    "docs/menu-ia/PERFORMANCE-BUDGET.md"
+   ],
+   "code_refs": [
+    "design-system/tokens/tokens.json",
+    "design-system/wireframe-kit.css"
+   ],
+   "test_refs": [
+    "tooling/tests/prototype/responsive.spec.mjs"
+   ],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P05",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "DS-004",
+   "area": "48 Design System & UI Consistency",
+   "type": "REQUIREMENT",
+   "title": "Color Tokens دلالية — لا Hex خام ولا لون جديد خارج النظام",
+   "requirement": "كل ألوان الموقع والـDashboard Design Tokens بأسماء أدوار (مثال الـOwner: brand-bg · brand-surface · brand-text · brand-muted · brand-border · brand-accent · success · warning · danger · info). لا ألوان Hardcoded داخل الصفحات، ولا يُستخدم Hex جديد بدون إضافته للنظام كـToken.",
+   "details": [
+    "الأدوار المقررة (أسماء التنفيذ --color-*): bg · surface · text · muted · border · accent · on-accent · focus · success · warning · danger · info (أسماء الـOwner أمثلة — نفس الأدوار).",
+    "القيم: brand = MISSING (PO-002) · wireframe = رمادي محايد للنماذج فقط (كل أزواج النص ≥ 4.5:1) ولا يُشحن.",
+    "لون جديد = Token جديد باسم دور وليس باسم قيمة؛ لون Brand جديد = قرار Owner (BRAND-011 مضيّق — G16-CF-06).",
+    "التباين: نص ≥ 4.5:1 · كبير ≥ 3:1 · إطارات وأيقونات ≥ 3:1 — يُفحص آليًا (axe) لكل ثيم بما فيه ثيمات التجارب الموسمية (DX-015).",
+    "Minimal color usage (BRAND-005).",
+    "مخالفات حالية: لا ألوان خام في CSS الصفحات بعد الترحيل (كان التوظيف 22 لونًا قبل الترحيل)؛ الـKit نفسه: خلفية الـOverlay rgb(0 0 0 / .5) خام → Token (scrim) مطلوب."
+   ],
+   "sources": [
+    "M34 §04"
+   ],
+   "decision_refs": [
+    "G16-ND-02",
+    "CF-11",
+    "M-10"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "PARTIAL",
+   "tested": "PROTOTYPE",
+   "existing_impl": "design-system/tokens/tokens.json color.* (12 دورًا: brand MISSING + wireframe) → --color-* في design-system/build/tokens.css",
+   "missing_work": "قيم الهوية (PO-002) + ألوان الحالات · Token للـscrim · بوابة ds-audit على CSS التطبيق",
+   "dependencies": [
+    "PO-002",
+    "BRAND-005",
+    "A11Y-006",
+    "DX-015"
+   ],
+   "test_required": "ds-audit: 0 Hex/rgb خارج tokens.css · axe color-contrast = 0 لكل ثيم (عادي + كل ثيم موسمي) · AR/EN",
+   "design_refs": [
+    "docs/DESIGN-SYSTEM-STANDARD.md §1 §5"
+   ],
+   "code_refs": [
+    "design-system/tokens/tokens.json",
+    "design-system/build/tokens.css"
+   ],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P05",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "DS-005",
+   "area": "48 Design System & UI Consistency",
+   "type": "REQUIREMENT",
+   "title": "Spacing Scale موحد — margin/padding/gap من النظام فقط",
+   "requirement": "Spacing Scale واحدة (مثال الـOwner: space-1 · 2 · 3 · 4 · 6 · 8 · 12 · 16)، وكل margin وpadding وgap يستخدمها. ممنوع 17px هنا و23px هناك و31px في صفحة ثانية بدون سبب.",
+   "details": [
+    "السلّم المقرر: أساس 4px — space-0…20 = 0 · 4 · 8 · 12 · 16 · 20 · 24 · 32 · 40 · 48 · 64 · 80 (يشمل أمثلة الـOwner).",
+    "الاستثناء الوحيد: Design Exception موثقة (DS-023).",
+    "الحالة: 0 مسافات خارج السلّم في المجموعات الأربع بعد الترحيل (كان التوظيف 9 قيم مثل 10 · 6 · 14 · 18 · 22 · 7 · 180px، والمنيو 7)."
+   ],
+   "sources": [
+    "M34 §05"
+   ],
+   "decision_refs": [
+    "G16-ND-02"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "PARTIAL",
+   "tested": "PROTOTYPE",
+   "existing_impl": "design-system/tokens/tokens.json space.* → --space-*؛ design-system/wireframe-kit.css يستخدمها حصريًا",
+   "missing_work": "بوابة على CSS التطبيق وقوالب Blade",
+   "dependencies": [
+    "DS-002",
+    "DS-026"
+   ],
+   "test_required": "ds-audit: 0 مسافات px خارج السلّم في كل مجموعة",
+   "design_refs": [
+    "docs/DESIGN-SYSTEM-STANDARD.md §6"
+   ],
+   "code_refs": [
+    "design-system/tokens/tokens.json",
+    "design-system/wireframe-kit.css",
+    "tooling/scripts/ds-audit.mjs"
+   ],
+   "test_refs": [
+    "tooling/tests/prototype/dashboard.spec.mjs (one design system (M34) — 5 شاشات عينة)"
+   ],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P05",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "DS-006",
+   "area": "48 Design System & UI Consistency",
+   "type": "REQUIREMENT",
+   "title": "Radius Tokens + Primary Radius للعلامة — زوايا مستديرة لا حادة",
+   "requirement": "Radius Tokens موحدة (radius-sm · radius-md · radius-lg · radius-xl · radius-pill) لا تُستخدم عشوائيًا، مع تحديد Primary Radius للـBrand. تفضيل SHELTER: rounded / curved corners، بلا واجهة حادة. ممنوع زوايا مختلفة لكل وحدة أو صفحة.",
+   "details": [
+    "sm 6px (الشارات، عناصر الجداول الكثيفة) · md 10px = PRIMARY للعلامة (الأزرار، الحقول، القوائم، محدد الفرع) · lg 14px (البطاقات، اللوحات، صور البطاقات) · xl 20px (Bottom sheet أعلى، Modal، صور Hero) · pill (Chips فقط).",
+    "القيم قرار تقني مفوَّض (M34 §3 \"حدد\" · M38 §4 radius = قرار تقني) — G16-ND-02؛ إن حدد دليل الهوية شكل الزوايا فهو الفائز.",
+    "الحالة: 0 قيم خارج الـTokens بعد الترحيل (كان التوظيف 6 قيم: 12 · 4 · 16 · 18 · 22 · 8px، والمنيو 6)."
+   ],
+   "sources": [
+    "M34 §03"
+   ],
+   "decision_refs": [
+    "G16-ND-02",
+    "BRAND-005"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "PARTIAL",
+   "tested": "PROTOTYPE",
+   "existing_impl": "design-system/tokens/tokens.json radius.* → --radius-*؛ design-system/wireframe-kit.css (الأزرار md، البطاقات lg، Sheet/Modal xl، Chips pill)",
+   "missing_work": "تأكيد المظهر في اعتماد التصميم المرئي (P05) · بوابة على CSS التطبيق",
+   "dependencies": [
+    "DS-002",
+    "BRAND-005"
+   ],
+   "test_required": "ds-audit: 0 radius خارج الـTokens · قصص Storybook تُظهر نفس الـradius لكل الأزرار والحقول",
+   "design_refs": [
+    "docs/DESIGN-SYSTEM-STANDARD.md §4"
+   ],
+   "code_refs": [
+    "design-system/tokens/tokens.json",
+    "design-system/wireframe-kit.css"
+   ],
+   "test_refs": [
+    "tooling/tests/prototype/dashboard.spec.mjs (one design system (M34) — 5 شاشات عينة)"
+   ],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P05",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "DS-007",
+   "area": "48 Design System & UI Consistency",
+   "type": "REQUIREMENT",
+   "title": "Shadow Tokens محدودة — clean / subtle / premium بلا Glow",
+   "requirement": "Shadow Tokens محدودة (shadow-none · shadow-sm · shadow-md · shadow-lg) ولا ظلال عشوائية. الاتجاه البصري: clean / subtle / premium، ولا heavy glow.",
+   "details": [
+    "none · sm 0 1px 2px rgb(0 0 0/.06) · md 0 4px 12px rgb(0 0 0/.08) · lg 0 12px 32px rgb(0 0 0/.12) = للـModal والـSheet فقط.",
+    "متسق مع منع Glowing Cards (BRAND-006).",
+    "الحالة: لا ظلال خام في أي مجموعة Wireframes (كلها var(--shadow-*))."
+   ],
+   "sources": [
+    "M34 §09"
+   ],
+   "decision_refs": [
+    "G16-ND-02",
+    "BRAND-006"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "PARTIAL",
+   "tested": "PROTOTYPE",
+   "existing_impl": "design-system/tokens/tokens.json shadow.* · design-system/wireframe-kit.css (.ds-card--raised = sm، Sheet/Modal = lg)",
+   "missing_work": "تأكيد المظهر في التصميم المرئي · بوابة على CSS التطبيق",
+   "dependencies": [
+    "DS-002",
+    "BRAND-006"
+   ],
+   "test_required": "ds-audit: 0 box-shadow خارج الـTokens · مراجعة بصرية: لا Glow",
+   "design_refs": [
+    "docs/DESIGN-SYSTEM-STANDARD.md §7"
+   ],
+   "code_refs": [
+    "design-system/tokens/tokens.json",
+    "design-system/wireframe-kit.css"
+   ],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P05",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "DS-008",
+   "area": "48 Design System & UI Consistency",
+   "type": "REQUIREMENT",
+   "title": "Motion Tokens موحدة — لا Duration عشوائي لكل Component",
+   "requirement": "Motion System موحد بـTokens: motion-fast · motion-normal · motion-slow · easing-standard · easing-enter · easing-exit؛ ولا يستخدم كل Component مدة عشوائية مختلفة.",
+   "details": [
+    "المدد: fast 120ms · normal 200ms · slow 320ms · reduced 0ms.",
+    "التسارع: standard cubic-bezier(0.2,0,0,1) · enter (0,0,0.2,1) · exit (0.4,0,1,1).",
+    "prefers-reduced-motion: tokens.css يصفّر المدد تلقائيًا + بديل ثابت (MOTION-011).",
+    "التنفيذ (ADR-001): CSS transitions بالـTokens افتراضيًا؛ مكتبة motion (vanilla) فقط حيث لا يكفي CSS وبتحميل كسول (Sheet المنيو أولًا) — G16-CF-04؛ ممنوع مكتبة حركة ثانية في نفس الصفحة.",
+    "مدد الحركة قرار تقني (M38 §4)؛ نمط حركة جديد يغيّر تجربة العلامة = قرار Owner (G16-CF-06).",
+    "بقية Motion System (Entrance/Exit/Hover/Scroll/Page transitions…) في MOTION-004."
+   ],
+   "sources": [
+    "M34 §14"
+   ],
+   "decision_refs": [
+    "G16-ND-02",
+    "ADR-001"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "PARTIAL",
+   "tested": "PROTOTYPE",
+   "existing_impl": "design-system/tokens/tokens.json motion.* → --motion-*/--easing-* + reduced-motion في design-system/build/tokens.css؛ design-system/wireframe-kit.css يستخدم --motion-fast/--easing-standard",
+   "missing_work": "فحص Durations/Easing الخام في ds-audit (غير مغطى الآن — G16-TF-02) · قصص Reduced motion",
+   "dependencies": [
+    "MOTION-004",
+    "MOTION-011",
+    "A11Y-005"
+   ],
+   "test_required": "ds-audit: 0 transition/animation بمدد أو منحنيات خام · Playwright: reduced-motion = مدد صفرية",
+   "design_refs": [
+    "docs/DESIGN-SYSTEM-STANDARD.md §7",
+    "docs/adr/ADR-001-platform.md"
+   ],
+   "code_refs": [
+    "design-system/tokens/tokens.json",
+    "design-system/build/tokens.css"
+   ],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P05",
+   "history": [
+    {
+     "old": "motion/react (React) كمكتبة الحركة الأساسية (M24 / TOOL-022)",
+     "source": "M24",
+     "superseded_by": "ADR-001: motion vanilla بتحميل كسول + CSS transitions بالـTokens"
+    }
+   ],
+   "notes": ""
+  },
+  {
+   "id": "DS-009",
+   "area": "48 Design System & UI Consistency",
+   "type": "REQUIREMENT",
+   "title": "Grid / Container — Layout Grammar واحدة لكل الصفحات",
+   "requirement": "Global Layout System يحدد: page max width · content max width · gutters · desktop columns · tablet behavior · mobile behavior؛ وكل الصفحات تتبع نفس Layout Grammar.",
+   "details": [
+    "الحاويات: الصفحة 1280 · الـDashboard 1440 · القراءة 720 (68ch).",
+    "الهوامش: 16 موبايل · 24 تابلت (≥600) · 32 ديسكتوب (≥1024).",
+    "الأعمدة: موبايل 1–2 · تابلت ≥600: 3 للشبكات · ديسكتوب ≥1024: شبكة 12 عمودًا · ≥1200: 4 أعمدة للبطاقات (شبكة المنيو RESP-026/027).",
+    "Primitive مطلوب: .ds-container موجود؛ شبكة 12 عمودًا وStack/Cluster غير موجودة في الـKit بعد."
+   ],
+   "sources": [
+    "M34 §10"
+   ],
+   "decision_refs": [
+    "G16-ND-02",
+    "R-01"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "PARTIAL",
+   "tested": "PROTOTYPE",
+   "existing_impl": "design-system/tokens/tokens.json size.container.* · design-system/wireframe-kit.css .ds-container (+ الهوامش الثلاثة) و.ds-reading",
+   "missing_work": "Grid primitive (12 عمودًا) + Stack/Cluster في x-ui · توحيد شبكات الشاشات عليها",
+   "dependencies": [
+    "RESP-019",
+    "RESP-026",
+    "RESP-027",
+    "DS-010"
+   ],
+   "test_required": "Playwright: عرض المحتوى ≤ 1280 على الشاشات العريضة (موجود) و≤1440 للـDashboard · لا Overflow على العروض الـ20 · AR/EN",
+   "design_refs": [
+    "docs/DESIGN-SYSTEM-STANDARD.md §6"
+   ],
+   "code_refs": [
+    "design-system/tokens/tokens.json",
+    "design-system/wireframe-kit.css"
+   ],
+   "test_refs": [
+    "tooling/tests/prototype/responsive.spec.mjs"
+   ],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P05",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "DS-010",
+   "area": "48 Design System & UI Consistency",
+   "type": "RULE",
+   "title": "Responsive Tokens — نقاط تحول من النظام فقط، ولا Breakpoint خاص بصفحة",
+   "requirement": "قواعد Responsive موحدة: لا Breakpoint خاص بكل صفحة بدون سبب، والمكونات تتصرف بشكل متسق على mobile · tablet · desktop.",
+   "details": [
+    "نقاط التحول المقررة (مبنية على المحتوى — Menu IA R-01): 360 · 600 · 1024 · 1200 + max-height 500 للشاشات القصيرة (R-09)؛ مكملاتها max-width 359.98/599.98/1023.98/1199.98.",
+    "داخل المكونات: Container Queries حيث تفيد؛ بلا استهداف أسماء أجهزة (RESP-023).",
+    "var() لا يعمل داخل @media ⇒ الإنفاذ بفحص القيم الحرفية ∈ مجموعة الـTokens (G16-TF-04).",
+    "مخالفات حالية لا يكشفها ds-audit: 700px في Wireframes الـDashboard (54) والشراكات (41)؛ 768px و1279.98px في الشراكات (41) (التوظيف بعد الترحيل بلا قيم شاذة).",
+    "مصفوفة الاختبار: 20 مشروعًا في tooling/viewports.mjs (14 عرضًا إلزاميًا + 2560 + 5 أفقي + Zoom 200%)."
+   ],
+   "sources": [
+    "M34 §16"
+   ],
+   "decision_refs": [
+    "G16-ND-02",
+    "R-01",
+    "R-09"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "PARTIAL",
+   "tested": "PROTOTYPE",
+   "existing_impl": "design-system/tokens/tokens.json breakpoint.* · design-system/wireframe-kit.css (600/1024 فقط)",
+   "missing_work": "فحص قيم @media في ds-audit · توحيد 700/768 → 600 أو 1024 (أو Container query) في مولدات الـWireframes",
+   "dependencies": [
+    "RESP-022",
+    "RESP-023",
+    "RESP-004",
+    "DS-026"
+   ],
+   "test_required": "ds-audit (موسّع): 0 قيم @media خارج المجموعة · Playwright على الـ20 عرضًا AR/EN: لا Overflow/Clipping/Overlap",
+   "design_refs": [
+    "docs/DESIGN-SYSTEM-STANDARD.md §6"
+   ],
+   "code_refs": [
+    "design-system/tokens/tokens.json",
+    "tooling/viewports.mjs"
+   ],
+   "test_refs": [
+    "tooling/tests/prototype/responsive.spec.mjs"
+   ],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P05",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "DS-011",
+   "area": "48 Design System & UI Consistency",
+   "type": "RULE",
+   "title": "RTL/LTR من أساس الـDesign System — لا إصلاحات منفصلة لكل صفحة",
+   "requirement": "الـDesign System يدعم RTL/LTR من الأساس، بلا fixes منفصلة لكل صفحة، ويُختبر بالعربية RTL والإنجليزية LTR خصوصًا: arrows · icons · padding · text alignment · breadcrumb · carousels · drawers · side panels · forms.",
+   "details": [
+    "Logical properties فقط في المكونات: margin-inline-* · padding-inline-* · inset-inline-* · text-align:start/end — لا left/right.",
+    "الأيقونات: تنعكس الاتجاهية (الأسهم، التالي/السابق، Breadcrumb، Carousel)؛ لا تنعكس: البحث، الإغلاق، التشغيل، الشعارات (BRAND-017: الشعار لا ينعكس أبدًا).",
+    "Drawers/Side panels: من جهة البداية (يمين في الـDashboard العربي) للتنقل، ومن جهة النهاية للعرض السريع، بثبات عبر اللغتين (اقتراح Sidebar في I18N-015 — يُعتمد مع Wireframes الـDashboard، بوابة H).",
+    "Carousels: تمرير أصلي (scroll-snap) يحترم dir بلا مكتبة افتراضيًا؛ الأسهم معكوسة.",
+    "النصوص المختلطة (الأسعار، الأرقام، الأسماء اللاتينية داخل العربي): <bdi> + lang الصحيح (A11Y-013).",
+    "كل قصة Storybook بالاتجاهين (M37 §2).",
+    "مخالفات حالية: text-align:left في 54 شاشة Dashboard (صناديق نصوص لاتينية — تحتاج dir=\"ltr\" + text-align:start)؛ التوظيف بعد الترحيل بلا خصائص فيزيائية (كان left:50% وtext-align:right)."
+   ],
+   "sources": [
+    "M34 §15"
+   ],
+   "decision_refs": [
+    "G16-ND-01"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "PARTIAL",
+   "tested": "PROTOTYPE",
+   "existing_impl": "design-system/wireframe-kit.css (Logical properties فقط) · docs/DESIGN-SYSTEM-STANDARD.md §9 · اختبارات Prototype بالعربية والإنجليزية",
+   "missing_work": "فحص الخصائص الفيزيائية في ds-audit · خريطة الأيقونات المنعكسة في x-ui.icon · تصحيح الـDashboard",
+   "dependencies": [
+    "I18N-003",
+    "I18N-015",
+    "A11Y-013",
+    "BRAND-017",
+    "DS-012"
+   ],
+   "test_required": "Playwright: كل مكون/صفحة AR/EN على الـ20 عرضًا · ds-audit: 0 left/right/text-align فيزيائية بلا استثناء · Storybook RTL/LTR لكل قصة",
+   "design_refs": [
+    "docs/DESIGN-SYSTEM-STANDARD.md §9"
+   ],
+   "code_refs": [
+    "design-system/wireframe-kit.css"
+   ],
+   "test_refs": [
+    "tooling/tests/prototype/menu-wireframe.spec.mjs",
+    "tooling/tests/prototype/dashboard.spec.mjs"
+   ],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P05",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "DS-012",
+   "area": "48 Design System & UI Consistency",
+   "type": "RULE",
+   "title": "Icon System — Lucide فقط، أحجام icon-sm/md/lg وStroke ثابت",
+   "requirement": "مكتبة أيقونات واحدة فقط: Lucide (معتمد). لا خلط Lucide مع Heroicons أو Font Awesome أو random SVGs، إلا Logo/brand-specific icons. تُحدد icon-sm · icon-md · icon-lg مع stroke ثابت.",
+   "details": [
+    "الأحجام: sm 16 · md 20 · lg 24 · Stroke 1.75 لكل الأيقونات (قرار تقني G16-ND-02).",
+    "التنفيذ (ADR-001 + TOOLCHAIN M37): SVG ثابتة من lucide-static (تطوير فقط) تُنسخ عند الحاجة فقط، عبر مكوّن Blade واحد x-ui.icon — لا حزمة أيقونات كاملة في الواجهة (M37 §30).",
+    "aria-hidden افتراضيًا؛ الأيقونة ذات المعنى لها اسم (Icon Button: aria-label إلزامي — DS-014).",
+    "الأيقونات فقط عندما تحسّن الفهم (BRAND-016).",
+    "استثناء موثق: الشعار + أيقونات العلامات الاجتماعية (WhatsApp · Instagram · Google Maps …) غير موجودة في Lucide → مجموعة brand icons رسمية بنفس أحجام الـTokens (Design Exception — G16-TF-05).",
+    "مخالفات حالية لا يكشفها ds-audit: stroke-width = 2 في كل المجموعات (لا 1.75 في أي شاشة) و2.5/3 في 14 شاشة توظيف و36 Dashboard و2 شراكات؛ أحجام 18 (الأربع) و22 (الـDashboard والشراكات) و28px (التوظيف والـDashboard) خارج 16/20/24؛ رمز ⚠ نصي في .ds-error بدل أيقونة Lucide."
+   ],
+   "sources": [
+    "M34 §06"
+   ],
+   "decision_refs": [
+    "D-190",
+    "ADR-001",
+    "G16-ND-02"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "PARTIAL",
+   "tested": "PROTOTYPE",
+   "existing_impl": "design-system/tokens/tokens.json size.icon.* (16/20/24 + stroke 1.75) · Wireframes بأيقونات SVG خطية (غير موحدة)",
+   "missing_work": "x-ui.icon + المجموعة المنسوخة + خريطة RTL · توحيد Stroke/الأحجام في المولدات · سجل استثناء أيقونات العلامات",
+   "dependencies": [
+    "TOOL-025",
+    "BRAND-016",
+    "BRAND-017",
+    "DS-011"
+   ],
+   "test_required": "فحص: كل <svg> واجهة يأتي من x-ui.icon أو من سجل الاستثناء · stroke = 1.75 · الحجم ∈ 16/20/24 · axe: أزرار الأيقونات لها اسم",
+   "design_refs": [
+    "docs/DESIGN-SYSTEM-STANDARD.md §1",
+    "docs/adr/ADR-001-platform.md",
+    "docs/TOOLCHAIN.md"
+   ],
+   "code_refs": [
+    "design-system/tokens/tokens.json"
+   ],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P05",
+   "history": [
+    {
+     "old": "lucide-react (يفترض React)",
+     "source": "M24",
+     "superseded_by": "ADR-001 / TOOLCHAIN (M37): lucide-static → SVG ثابتة عبر x-ui.icon"
+    }
+   ],
+   "notes": ""
+  },
+  {
+   "id": "DS-013",
+   "area": "48 Design System & UI Consistency",
+   "type": "DECISION",
+   "title": "مكتبة مكونات واحدة مشتركة x-ui.* للموقع والـDashboard — القائمة المعتمدة",
+   "requirement": "كل UI في الموقع والـOwner Dashboard يُبنى من مكتبة مكونات واحدة مشتركة؛ لا Component مكرر ولا نسخة ثانية لأي مكون. حسب ADR-001: مكونات Blade x-ui.* في resources/views/components/ui/ + CSS مكونات بالـTokens، بلا Tailwind ولا React/shadcn/Radix؛ الـPrimitives السلوكية = عناصر HTML أصلية (<dialog> · popover · <details>) بأنماط ARIA APG مختبرة بـaxe ولوحة المفاتيح.",
+   "details": [
+    "القائمة المعتمدة (DESIGN-SYSTEM-STANDARD §8 + M34 §21 + M37 §1): أساسيات Button · Icon Button · Link · Badge · Chip · Tag · Divider · Skeleton · Spinner — نماذج Input · Textarea · Select · Checkbox · Radio · Switch · Date · File Upload · Search · Validation message · Error summary — بطاقات Standard · Media · Product · Metric · Article · Event · Branch — تنقل Header · Mobile nav · Bottom nav · Sidebar · Breadcrumb · Tabs · Category bar · Segmented control · Pagination · Footer — طبقات Modal · Bottom Sheet · Drawer/Side panel · Dropdown · Tooltip · Toast — بيانات Table (← بطاقات على الموبايل) · List · Empty state · Alert · Status chip · Chart بسيط — أقسام Section · Hero · CTA band · Timeline · FAQ accordion.",
+    "CSS: tokens.css + components.css مشتركان؛ site.css وdashboard.css للتركيب والكثافة فقط (G16-TF-13).",
+    "مكونات الـDashboard وأي JS للحركة/الرسوم/المحررات لا تدخل حزمة الموقع العامة (M37 §30).",
+    "الـKit المؤقت للنماذج: design-system/wireframe-kit.css (.ds-*) = نفس المفردات، ليس كود إنتاج."
+   ],
+   "sources": [
+    "M34 §02",
+    "M34 §07",
+    "M34 §08",
+    "M34 §21"
+   ],
+   "decision_refs": [
+    "ADR-001",
+    "G16-ND-01",
+    "D-192"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/adr/ADR-001-platform.md · docs/architecture/PLATFORM-ARCHITECTURE.md §2 · docs/DESIGN-SYSTEM-STANDARD.md §8؛ مكافئ Prototype: design-system/wireframe-kit.css",
+   "missing_work": "بناء x-ui.* بكل الحالات (DS-019) + قصص Storybook (DS-024) + اختبارات axe/لوحة المفاتيح لكل مكون تفاعلي",
+   "dependencies": [
+    "ADR-001",
+    "DS-002",
+    "DS-019",
+    "DS-022",
+    "DS-024"
+   ],
+   "test_required": "كل شاشة/صفحة تستخدم x-ui فقط (فحص Blade: لا <button>/<input> خام خارج المكتبة) · axe 0 serious/critical لكل قصة · Keyboard (Esc/Tab trap/return) للـModal/Sheet/Drawer",
+   "design_refs": [
+    "docs/adr/ADR-001-platform.md",
+    "docs/architecture/PLATFORM-ARCHITECTURE.md §2",
+    "docs/DESIGN-SYSTEM-STANDARD.md §8"
+   ],
+   "code_refs": [
+    "design-system/wireframe-kit.css"
+   ],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [
+    {
+     "old": "shadcn/ui + Radix + Tailwind كأساس هندسي للمكونات (M24 / D-192 — مشروط بتوافق الـstack)",
+     "source": "M24",
+     "superseded_by": "ADR-001 + TOOLCHAIN (M37 audit): Blade x-ui + عناصر HTML أصلية + Tokens CSS — G16-CF-02/03"
+    }
+   ],
+   "notes": ""
+  },
+  {
+   "id": "DS-014",
+   "area": "48 Design System & UI Consistency",
+   "type": "REQUIREMENT",
+   "title": "Button System — Component واحد بسبعة Variants وثلاثة أحجام وست حالات",
+   "requirement": "كل الأزرار من Component واحد موحد. Variants: Primary · Secondary · Outline · Ghost · Danger · Text/Link · Icon Button. Sizes: Small · Medium · Large. States: Default · Hover · Pressed · Focus · Disabled · Loading. لا Button CSS جديد خاص بكل صفحة، وكل زر يحافظ على نفس radius · typography · height logic · padding system · focus treatment · animation behavior.",
+   "details": [
+    "الاستخدام: Primary فعل رئيسي واحد في الشاشة · Secondary ثانوي · Outline بديل خفيف · Ghost داخل الأشرطة والجداول · Danger حذف/أرشفة نهائية مع تأكيد · Text/Link · Icon Button بـaria-label إلزامي.",
+    "الأحجام: Small 36 (جداول الديسكتوب الكثيفة فقط، pointer:fine) · Medium 44 الافتراضي · Large 52 — G16-CF-05.",
+    "الحالات: Focus حلقة 3px offset 2px لا تُزال · Loading = aria-busy والنص لا يختفي · Disabled واضح بغير اللون وحده.",
+    "ثوابت: radius-md · خط الأزرار (عريض، الحجم مربوط بحجم الزر) · ارتفاع control-* · حشوة inline space-4 · انتقال motion-fast/easing-standard.",
+    "الـKit الحالي: .ds-btn + 7 variants + sm/lg + disabled + aria-busy؛ ينقصه Hover/Pressed (G16-TF-12).",
+    "الشكل النهائي للـCTA في UX/UI (BRAND-018)."
+   ],
+   "sources": [
+    "M34 §02"
+   ],
+   "decision_refs": [
+    "G16-ND-01"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "PARTIAL",
+   "tested": "PROTOTYPE",
+   "existing_impl": "design-system/wireframe-kit.css .ds-btn (--primary/--secondary/--outline/--ghost/--danger/--link/--icon · --sm/--lg)؛ مستخدم في الشراكات والـDashboard والمنيو",
+   "missing_work": "x-ui.button بكل الحالات + قصص Storybook (+ pseudo-states) · حراسة sm على pointer:coarse",
+   "dependencies": [
+    "DS-013",
+    "DS-019",
+    "A11Y-017",
+    "BRAND-018"
+   ],
+   "test_required": "Storybook: 7 variants × 3 أحجام × 6 حالات × AR/EN · axe: الاسم والتباين · Playwright: هدف اللمس ≥44 على الموبايل · Visual regression (DS-025) · فحص: لا أصناف أزرار خارج المكون",
+   "design_refs": [
+    "docs/DESIGN-SYSTEM-STANDARD.md §3"
+   ],
+   "code_refs": [
+    "design-system/wireframe-kit.css"
+   ],
+   "test_refs": [
+    "tooling/tests/prototype/dashboard.spec.mjs (one design system (M34) — 5 شاشات عينة)"
+   ],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P05",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "DS-015",
+   "area": "48 Design System & UI Consistency",
+   "type": "REQUIREMENT",
+   "title": "Form System — نفس المكونات ونفس القياسات والحالات لكل النماذج",
+   "requirement": "كل Forms تستخدم نفس Components: Input · Textarea · Select · Checkbox · Radio · Switch · Date Picker · File Upload · Search · Validation message — كلها بنفس: height · radius · border · label style · error state · focus state · helper text.",
+   "details": [
+    "القياسات: ارتفاع control-md 44 · radius-md · border default/strong عند الخطأ · Label --text-sm عريض ظاهر دائمًا · Helper --text-xs muted · رسالة الخطأ --text-sm بأيقونة + نص (ليس اللون وحده) + Error summary في النماذج الطويلة.",
+    "Date: متغيران معتمدان — 3 Selects لتاريخ الميلاد في التوظيف (G10-ND-05 FROZEN) وDate picker للـDashboard — G16-CF-09.",
+    "File Upload واحد (مرفقات التوظيف والشراكات والوسائط) بنفس الحالات.",
+    "Search واحد (الموقع، المنيو، بحث الـOwner).",
+    "تنطبق على: التوظيف (CAREERS-086) · الشراكات · التواصل/الاستفسارات · كل محررات الـDashboard.",
+    "الـKit الحالي: .ds-field · .ds-label · .ds-help · .ds-input/.ds-select/.ds-textarea · .ds-field--error · .ds-error · .ds-check — ينقصه Switch · Date · File · Search؛ نماذج التوظيف (44) والشراكات تستخدمه الآن."
+   ],
+   "sources": [
+    "M34 §07"
+   ],
+   "decision_refs": [
+    "G16-ND-01",
+    "G10-ND-05"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "PARTIAL",
+   "tested": "PROTOTYPE",
+   "existing_impl": "design-system/wireframe-kit.css (حقول أساسية) — التوظيف والشراكات والـDashboard عليها",
+   "missing_work": "x-ui.field/* لكل الأنواع العشرة + قصص الحالات + Switch/Date/File/Search في المكتبة",
+   "dependencies": [
+    "DS-013",
+    "DS-019",
+    "RESP-017",
+    "A11Y-016",
+    "CAREERS-086"
+   ],
+   "test_required": "Storybook لكل حقل: Default/Focus/Error/Disabled/Helper × AR/EN × موبايل · axe: labels · Playwright: لوحة المفاتيح لا تغطي الحقل · نفس الارتفاع/الـradius (Visual regression)",
+   "design_refs": [
+    "docs/DESIGN-SYSTEM-STANDARD.md §8"
+   ],
+   "code_refs": [
+    "design-system/wireframe-kit.css"
+   ],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P05",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "DS-016",
+   "area": "48 Design System & UI Consistency",
+   "type": "REQUIREMENT",
+   "title": "Card System — أساس واحد ومتغيرات بالمحتوى لا بالأسلوب",
+   "requirement": "Card primitives موحدة (مثال: Standard · Media · Product · Metric · Article · Event Card) كلها مبنية على نفس: surface · border · radius · shadow · spacing. لا 20 Card style منفصل.",
+   "details": [
+    "الأساس: .ds-card = surface/bg + border default + radius-lg + padding space-4 + shadow-none (raised = sm).",
+    "المتغيرات بالمحتوى: Standard · Media · Product (المنيو: صورة 1:1 — MEDIA-009) · Metric (Dashboard) · Article · Event · Branch.",
+    "لا تضيف المتغيرات ألوانًا أو زوايا أو ظلالًا خاصة؛ أي حاجة جديدة = متغير معتمد (DS-022)."
+   ],
+   "sources": [
+    "M34 §08"
+   ],
+   "decision_refs": [
+    "G16-ND-01"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "PARTIAL",
+   "tested": "PROTOTYPE",
+   "existing_impl": "design-system/wireframe-kit.css .ds-card · .ds-card--raised · .ds-media",
+   "missing_work": "x-ui.card + المتغيرات السبعة + قصص (مع/بلا صورة، اسم طويل) · كشف البطاقات المكررة في ds-audit",
+   "dependencies": [
+    "DS-013",
+    "MEDIA-009",
+    "DS-026"
+   ],
+   "test_required": "Storybook لكل متغير (مع/بلا صورة، اسم طويل، AR/EN، موبايل/ديسكتوب) · ds-audit: لا أنماط بطاقة خارج الأساس",
+   "design_refs": [
+    "docs/DESIGN-SYSTEM-STANDARD.md §8"
+   ],
+   "code_refs": [
+    "design-system/wireframe-kit.css"
+   ],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P05",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "DS-017",
+   "area": "48 Design System & UI Consistency",
+   "type": "REQUIREMENT",
+   "title": "Section Component موحد — eyebrow · title · description · media · CTA · variants",
+   "requirement": "Section Component واحد يدعم: eyebrow · title · description · media · CTA · background variant · spacing variant — ويبقى متوافقًا مع الـDesign System.",
+   "details": [
+    "background variant ومسافة الـSection = قيم مسماة محدودة من النظام (مثل فاتح/داكن/علامة؛ مضغوط/عادي/واسع) — لا ألوان أو مسافات حرة (DS-021).",
+    "قوالب الأقسام القابلة لإعادة الاستخدام (BRAND-014) والـBlocks في الـPage Editor (CMS-010) تُبنى فوقه.",
+    "لا يرسم المكون شيئًا إذا لا يوجد محتوى نشط على الواجهة العامة (DX-012)."
+   ],
+   "sources": [
+    "M34 §11"
+   ],
+   "decision_refs": [
+    "G16-ND-01",
+    "D-196"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/DESIGN-SYSTEM-STANDARD.md §8 (الأقسام)",
+   "missing_work": "x-ui.section + المتغيرات المسماة + قصص · ربطه بنموذج page_sections في الـCMS",
+   "dependencies": [
+    "DS-013",
+    "DS-021",
+    "BRAND-014",
+    "CMS-010",
+    "DX-012"
+   ],
+   "test_required": "Storybook: كل تركيبة (مع/بلا media/CTA/eyebrow) × variants × AR/EN × موبايل/ديسكتوب · CMS لا يقبل إلا قيم المتغيرات المسماة",
+   "design_refs": [
+    "docs/DESIGN-SYSTEM-STANDARD.md §8 §11"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P05",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "DS-018",
+   "area": "48 Design System & UI Consistency",
+   "type": "RULE",
+   "title": "Navigation موحدة — Header / Mobile Navigation / Footer بنفس المكونات",
+   "requirement": "Header وMobile Navigation وFooter تستخدم نفس: typography · button style · spacing · icons · hover states؛ ولا navigation مختلفة جذريًا لكل صفحة.",
+   "details": [
+    "التنقلات الثانوية الخاصة بالسياق (شريط فئات المنيو NAV-009/NAV-012 · Sidebar/Bottom nav للـDashboard · Breadcrumb · Tabs · بوابة الجذر D-066/D-067) = مكونات من نفس النظام وليست أنظمة تنقل منفصلة — G16-CF-10.",
+    "نفس IA عبر الموبايل والديسكتوب (NAV-005).",
+    "التصميم النهائي للـHeader/Mobile nav ينتظر IA الموقع (P03 — NAV-001/DB-05)."
+   ],
+   "sources": [
+    "M34 §12"
+   ],
+   "decision_refs": [
+    "G16-ND-01"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/DESIGN-SYSTEM-STANDARD.md §8 (التنقل)؛ Wireframes المنيو والـDashboard تستخدم مفردات الـKit",
+   "missing_work": "x-ui.header/mobile-nav/footer بعد اعتماد IA الموقع · قصص بالحالات",
+   "dependencies": [
+    "NAV-001",
+    "NAV-005",
+    "DB-05",
+    "DS-013"
+   ],
+   "test_required": "Visual regression: Header/Footer متطابقان عبر الصفحات العشر الحرجة · Storybook AR/EN · لوحة المفاتيح + hover/focus موحدة",
+   "design_refs": [
+    "docs/DESIGN-SYSTEM-STANDARD.md §8"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P05",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "DS-019",
+   "area": "48 Design System & UI Consistency",
+   "type": "RULE",
+   "title": "States موحدة لكل Component — ولا اعتماد على اللون وحده",
+   "requirement": "كل Component يدعم States موحدة: Hover · Focus · Active · Disabled · Loading · Error · Success · Empty (حسب ما ينطبق)، ولا تعتمد الحالة على اللون وحده.",
+   "details": [
+    "Focus: outline 3px solid --color-focus بـoffset 2px، لا يُزال أبدًا (:focus-visible).",
+    "الحالة تُعرف بنص أو أيقونة أو شكل إضافة للون (A11Y-016).",
+    "Empty: على الواجهة العامة المكون لا يُرسم غالبًا (DX-012)؛ في الـDashboard Empty state يشرح ما يمكن فعله (M35 §20 — مجموعته).",
+    "Loading: Skeleton للمحتوى، aria-busy للأزرار.",
+    "الـKit الحالي: focus · disabled · aria-busy · error · alerts (danger/warning/success/info) · empty · skeleton — ينقصه Hover/Active/Pressed وحالة Success للحقول (G16-TF-12).",
+    "M37 §2: كل Core Component له قصص Default · Hover · Focus · Active · Disabled · Loading · Error · Empty."
+   ],
+   "sources": [
+    "M34 §13"
+   ],
+   "decision_refs": [
+    "G16-ND-01"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "PARTIAL",
+   "tested": "PROTOTYPE",
+   "existing_impl": "design-system/wireframe-kit.css (:focus-visible · [disabled] · [aria-busy] · .ds-field--error · .ds-alert--* · .ds-empty · .ds-skeleton)",
+   "missing_work": "تعريف Hover/Active/Pressed/Success لكل مكون في x-ui + قصص pseudo-states",
+   "dependencies": [
+    "A11Y-007",
+    "A11Y-016",
+    "DX-012",
+    "DS-024"
+   ],
+   "test_required": "Storybook (pseudo-states) لكل مكون بالحالات الثماني × AR/EN · axe · مراجعة: كل حالة لها مؤشر غير لوني",
+   "design_refs": [
+    "docs/DESIGN-SYSTEM-STANDARD.md §8"
+   ],
+   "code_refs": [
+    "design-system/wireframe-kit.css"
+   ],
+   "test_refs": [
+    "tooling/tests/prototype/responsive.spec.mjs (focus ring visible)"
+   ],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P05",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "DS-020",
+   "area": "48 Design System & UI Consistency",
+   "type": "RULE",
+   "title": "الـOwner Dashboard بنفس SHELTER Design Language — أكثر Functional لا Generic SaaS",
+   "requirement": "الـOwner Dashboard يستخدم نفس SHELTER Design Language، ويمكن أن يكون أكثر Functional؛ ممنوع: website جميل + dashboard generic SaaS unrelated — يجب أن يشعر المستخدم أنهما نفس النظام.",
+   "details": [
+    "نفس: الـTokens والمكونات x-ui والخطوط والزوايا والأيقونات والحالات (ADR-001: Blade نفسه بنفس مكتبة المكونات، بلا Livewire/Filament/SPA في V1).",
+    "الفرق الوحيد: كثافة أعلى — جداول --text-sm · أزرار Small على الديسكتوب (pointer:fine) · حاوية 1440 · مكونات وظيفية (Table↔Cards، Metric card، Status chip، Chart بسيط، Sidebar، Bottom nav).",
+    "ممنوع: ثيم مكتبة افتراضي أو قالب Admin عام (BRAND-020، D-197).",
+    "الحالة: 54 شاشة Wireframe للـDashboard على tokens.css + wireframe-kit.css (0 مخالفات حقيقية في ds-audit؛ اختبار \"one design system\" على 5 شاشات عينة)."
+   ],
+   "sources": [
+    "M34 §17"
+   ],
+   "decision_refs": [
+    "D-197",
+    "ADR-001"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "PARTIAL",
+   "tested": "PROTOTYPE",
+   "existing_impl": "docs/dashboard/wireframes/html/ (54 شاشة على الـTokens والـKit) + tooling/tests/prototype/dashboard.spec.mjs (one design system (M34) — 5 شاشات عينة)",
+   "missing_work": "وضع الكثافة كـToken overrides · بناء الشاشات من x-ui · توسيع اختبار \"one design system\" لكل الشاشات",
+   "dependencies": [
+    "BRAND-019",
+    "BRAND-020",
+    "D-197",
+    "DS-013",
+    "DASH-005"
+   ],
+   "test_required": "Visual regression للـDashboard (موبايل/تابلت/ديسكتوب × AR/EN) · فحص: لا CSS خاص بالـDashboard خارج الكثافة · مراجعة جنبًا إلى جنب مع صفحات الموقع (DS-028)",
+   "design_refs": [
+    "docs/DESIGN-SYSTEM-STANDARD.md §10",
+    "docs/adr/ADR-001-platform.md"
+   ],
+   "code_refs": [
+    "design-system/wireframe-kit.css"
+   ],
+   "test_refs": [
+    "tooling/tests/prototype/dashboard.spec.mjs (one design system (M34) — 5 شاشات عينة)"
+   ],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P04",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "DS-021",
+   "area": "48 Design System & UI Consistency",
+   "type": "RULE",
+   "title": "تحرير المحتوى ≠ تحرير التصميم — سجل المتغيرات المعتمدة هو كل ما يعرضه الـCMS",
+   "requirement": "الـOwner يعدّل من الـCMS: text · images · content · order · visibility · approved variants، لكنه لا يستطيع كسر الـDesign System: لا custom CSS · custom hex colors · random font size · arbitrary button style · arbitrary spacing.",
+   "details": [
+    "عقد الـDesign System مع الـCMS: كل خيار تصميم يظهر في الـCMS = متغير مسمّى من سجل المتغيرات المعتمدة للمكتبة (مثل Section: خلفية فاتحة/داكنة، مسافة مضغوطة/عادية/واسعة؛ Hero بصورة/بلا صورة)؛ لا حقول CSS/Hex/حجم خط/نمط زر/مسافة حرة في المخطط.",
+    "إنفاذ من الخادم: قيم المتغيرات Enum يتحقق منها Laravel (Rule::in من السجل)؛ النص المنسق يُعقّم بقائمة سماح بلا style/class/font/color (G16-TF-09).",
+    "ثيمات التجارب الموسمية = مجموعات Tokens معتمدة، لا CSS لكل مناسبة (DX-015، G16-TF-14).",
+    "القاعدة نفسها مسجلة على جانب الـCMS: CMS-034 (FROZEN) · CMS-011 · BRAND-013 · FRAN-068 · D-196 — هذا البند يملك سجل المتغيرات."
+   ],
+   "sources": [
+    "M34 §18"
+   ],
+   "decision_refs": [
+    "D-196",
+    "G12-ND-01"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/DESIGN-SYSTEM-STANDARD.md §11 · docs/architecture/PLATFORM-ARCHITECTURE.md §2 (pages · page_sections: أقسام معتمدة فقط)",
+   "missing_work": "سجل المتغيرات (مصدر واحد تقرأه المكونات والـCMS) · Validation من الخادم · معقّم النص المنسق",
+   "dependencies": [
+    "CMS-034",
+    "CMS-011",
+    "BRAND-013",
+    "FRAN-068",
+    "DX-015",
+    "DS-017"
+   ],
+   "test_required": "Feature tests: رفض أي قيمة خارج السجل · رفض style/class في النص المنسق · لا حقل CSS في أي نموذج تحرير · Publish Guard لا يمرر محتوى يكسر التصميم",
+   "design_refs": [
+    "docs/DESIGN-SYSTEM-STANDARD.md §11",
+    "docs/architecture/PLATFORM-ARCHITECTURE.md §2"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P04",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "DS-022",
+   "area": "48 Design System & UI Consistency",
+   "type": "RULE",
+   "title": "Component Governance — Reuse أولًا، ثم متغير معتمد، ولا Component مكرر",
+   "requirement": "أي Developer أو Claude يريد Component جديدًا يسأل أولًا: هل يوجد Component موجود يحقق الحاجة؟ إذا نعم: Reuse. إذا لا: Add new approved variant to Design System. لا Component duplicate.",
+   "details": [
+    "البروتوكول (STANDARD §12): (1) مكون/متغير موجود ← أعد الاستخدام · (2) لا ← مقترح متغير جديد بالاسم والسبب والحالات وRTL/LTR والموبايل، يُضاف للمكتبة وقصص Storybook وليس داخل الصفحة · (3) استثناء ضروري ← سجل Design Exception (DS-023).",
+    "M37 §25 (مجموعته) يؤكد ويضيف خطوة: موجود ← REUSE · قريب ← EXTEND · غير موجود فعلًا ← CREATE APPROVED VARIANT.",
+    "من يعتمد المتغير (G16-CF-06): متغير مبني من Tokens ومكونات قائمة = قرار تقني لـClaude يُسجل ويظهر في تقرير الصحة (M38 §4 · M36 §24)؛ ما يغيّر الهوية (لون/خط جديد، نمط حركة يغيّر تجربة العلامة) = موافقة الـOwner (BRAND-011 · M38 §5).",
+    "كل متغير جديد يظهر في Health report (DS-027) ويُختبر بـVisual regression (DS-025)."
+   ],
+   "sources": [
+    "M34 §19"
+   ],
+   "decision_refs": [
+    "G16-ND-01"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "IMPLEMENTED — NOT TESTED",
+   "tested": "N/A",
+   "existing_impl": "docs/DESIGN-SYSTEM-STANDARD.md §12 (البروتوكول + جدول Design Exceptions: DE-01 لا شيء بعد)",
+   "missing_work": "تطبيقه عند بناء x-ui (قالب طلب متغير + مراجعة في Code review) · كشف التكرار آليًا (DS-026)",
+   "dependencies": [
+    "BRAND-011",
+    "BRAND-012",
+    "GOV-078",
+    "DS-027"
+   ],
+   "test_required": "مراجعة: كل مكون/متغير جديد له قصة Storybook وسطر في السجل · تقرير الصحة: Duplicate Components = 0",
+   "design_refs": [
+    "docs/DESIGN-SYSTEM-STANDARD.md §12"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P00",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "DS-023",
+   "area": "48 Design System & UI Consistency",
+   "type": "RULE",
+   "title": "No One-off Styles — ممنوع التنسيق العشوائي إلا بـDesign Exception موثقة + بوابة آلية",
+   "requirement": "ممنوع: inline arbitrary styling · random CSS · page-specific buttons · different form styles · different border radius per module — إلا إذا هناك Design Exception موثقة. ولا Hex جديد ولا قيمة مسافة/حجم خارج النظام.",
+   "details": [
+    "سجل الاستثناءات في DESIGN-SYSTEM-STANDARD §12: الرقم (DE-xx) · الاستثناء · المكان · السبب · تاريخ المراجعة.",
+    "البوابة الآلية (TOOLCHAIN — M37): ds-audit الموجود يصبح بوابة على CSS التطبيق وقوالب Blade (يغني عن Stylelint): يمنع Hex/rgb وpx خارج الـTokens وstyle=\"\" وقيم @media خارج نقاط التحول والخصائص الفيزيائية، إلا بمرجع DE.",
+    "فرق بصري غير معتمد = يمنع الإصدار (TOOLCHAIN §3، OPS-039).",
+    "الحالة: المجموعات الأربع بلا style=\"\" وبلا قيم خام في CSS الصفحة بعد الترحيل (كان التوظيف 43 style=\"\")؛ اختبار Prototype للـDashboard يفرض ذلك على 5 شاشات."
+   ],
+   "sources": [
+    "M34 §23",
+    "M34 §04",
+    "M34 §05"
+   ],
+   "decision_refs": [
+    "G16-ND-01"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "PARTIAL",
+   "tested": "PROTOTYPE",
+   "existing_impl": "docs/DESIGN-SYSTEM-STANDARD.md §12 (سجل DE) · tooling/scripts/ds-audit.mjs على الـWireframes · tooling/tests/prototype/dashboard.spec.mjs (one design system (M34) — 5 شاشات عينة)",
+   "missing_work": "توسيع ds-audit ليصبح بوابة على resources/css وresources/views (G16-TF-01/02) في CI",
+   "dependencies": [
+    "DS-026",
+    "OPS-039",
+    "BRAND-011"
+   ],
+   "test_required": "CI: ds-audit = 0 مخالفات غير مستثناة وإلا يفشل الدمج · كل استثناء له DE-xx بتاريخ مراجعة",
+   "design_refs": [
+    "docs/DESIGN-SYSTEM-STANDARD.md §12 §13",
+    "docs/TOOLCHAIN.md"
+   ],
+   "code_refs": [
+    "tooling/scripts/ds-audit.mjs"
+   ],
+   "test_refs": [
+    "tooling/tests/prototype/dashboard.spec.mjs (one design system (M34) — 5 شاشات عينة)"
+   ],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P05",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "DS-024",
+   "area": "48 Design System & UI Consistency",
+   "type": "DELIVERABLE",
+   "title": "Storybook = DESIGN SYSTEM REFERENCE — قصص مولّدة من مكونات Blade نفسها",
+   "requirement": "مكتبة Design System تعرض المكونات بحالاتها (M34 §21: Buttons · Inputs · Cards · Badges · Modals · Drawers · Tables · Tabs · Navigation · Product cards · Event cards · Alerts · Empty states · Skeletons — مع Default · Hover · Focus · Disabled · Mobile · RTL · LTR). القرار الحالي: Storybook 10 عبر @storybook/html-vite + addon-a11y + storybook-addon-pseudo-states، وقصصه مولّدة من مكونات Blade x-ui نفسها (لا نسخة ثانية من المكونات)، ويصبح مرجع الـDesign System وليس مجرد Demo.",
+   "details": [
+    "الحالات المطلوبة لكل Core Component (اتحاد M34 §21 وBRAND-015 وM37 §2): Default · Hover · Focus · Active · Disabled · Loading · Error · Empty × Arabic RTL · English LTR × Mobile · Desktop (+ مع/بلا صورة، اسم طويل، Reduced motion لما ينطبق).",
+    "تطور القرار: Storybook (M24، مشروط بالـstack) → ADR-001 الأول: معرض داخلي /_ds → M37 §2 (OWNER APPROVED، الأحدث): \"إذا Storybook غير موجود: ثبته واضبطه\" ⇒ Storybook يحل محل /_ds (G16-CF-01).",
+    "الجسر Blade → Storybook: أمر بناء يولّد HTML ثابتًا لكل مكون × متغير × حالة × اتجاه من Fixtures، والقصص تستورده؛ CI يتحقق أن الـFixtures محدّثة (G16-TF-06).",
+    "لا يُنشر على Production؛ محلي + CI (وعلى Staging خلف حماية فقط إن لزم)؛ Fixtures فقط بلا بيانات حقيقية/PII.",
+    "لا Chromatic (مدفوع) — النشر والمقارنة محليًا/CI."
+   ],
+   "sources": [
+    "M34 §21"
+   ],
+   "decision_refs": [
+    "ADR-001",
+    "D-192"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/TOOLCHAIN.md (Storybook 10 html-vite — MISSING) · docs/adr/ADR-001-platform.md (محدّث) · خطة القصص القديمة FRONTEND-TOOLING §6",
+   "missing_work": "تثبيت وضبط Storybook بعد وجود x-ui · الجسر من Blade · قصص كل Core Component بالحالات · بناء + a11y في CI",
+   "dependencies": [
+    "DS-013",
+    "DS-019",
+    "BRAND-015",
+    "TOOL-024",
+    "ADR-001"
+   ],
+   "test_required": "CI: بناء Storybook ينجح · addon-a11y بلا مخالفات serious/critical لكل قصة · كل Core Component في القائمة له القصص المطلوبة (فحص تغطية آلي)",
+   "design_refs": [
+    "docs/TOOLCHAIN.md",
+    "docs/adr/ADR-001-platform.md",
+    "docs/FRONTEND-TOOLING.md §6 (تاريخي)"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [
+    {
+     "old": "Storybook مشروط بتوافق الـstack (React) — M24/BRAND-015/TOOL-024",
+     "source": "M24",
+     "superseded_by": "ADR-001 (v1): معرض /_ds داخلي"
+    },
+    {
+     "old": "معرض مكونات داخلي /_ds (Dev/Staging) + Visual regression عليه — ADR-001 v1",
+     "source": "ADR-001",
+     "superseded_by": "M37 §2 (OWNER APPROVED): Storybook 10 @storybook/html-vite بقصص من Blade — ADR-001 محدّث + TOOLCHAIN.md"
+    }
+   ],
+   "notes": ""
+  },
+  {
+   "id": "DS-025",
+   "area": "48 Design System & UI Consistency",
+   "type": "REQUIREMENT",
+   "title": "Visual Regression للـCore Components — يظهر أثر تغيير Button أو Input قبل Production",
+   "requirement": "Visual Regression للـCore Components: إذا تغيّر Button أو Input يظهر تأثير التغيير قبل Production.",
+   "details": [
+    "الأداة: Playwright Screenshot Testing (toHaveScreenshot) على قصص Storybook — مجاني، بلا Percy/Chromatic.",
+    "التغطية: صفحة/قصة لكل Core Component تعرض حالاته معًا × AR/EN × موبايل (390) وديسكتوب (1440)؛ يكمل لقطات الصفحات الحرجة (OPS-040، M37 §5).",
+    "Baselines بعد اعتماد التصميم المرئي (قيم الهوية PO-002)؛ قبلها لقطات بنيوية اختيارية يعاد تأسيسها عند تبديل قيم الهوية.",
+    "الحتمية: حاوية Linux مثبتة + خطوط ذاتية الاستضافة + animations disabled + reduced motion؛ maxDiffPixelRatio 0.01 مضبوط حاليًا؛ لا Threshold عالٍ يخفي مشاكل (M37 §5).",
+    "تحديث الـBaseline بمراجعة صريحة فقط؛ فرق غير معتمد = يمنع الإصدار (TOOLCHAIN §3).",
+    "التشغيل: مستوى FULL (يدويًا + قبل كل إصدار) لتوفير حصة CI."
+   ],
+   "sources": [
+    "M34 §22"
+   ],
+   "decision_refs": [
+    "G16-ND-01"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "PARTIAL",
+   "tested": "NO",
+   "existing_impl": "tooling/playwright.config.mjs (toHaveScreenshot: maxDiffPixelRatio 0.01, animations disabled) + اختبار @visual واحد معطّل حتى SHELTER_VISUAL — بنية فقط، بلا قصص ولا Baselines",
+   "missing_work": "Storybook + قصص · مواصفات اللقطات للمكونات · Baselines بعد اعتماد التصميم · ربطها بخط CI",
+   "dependencies": [
+    "DS-024",
+    "OPS-040",
+    "OPS-039",
+    "PO-002"
+   ],
+   "test_required": "تغيير متعمد في x-ui.button يُظهر فرقًا في كل قصص الزر ويُفشل الخط حتى المراجعة · لا False positives على تشغيلين متتاليين بلا تغيير",
+   "design_refs": [
+    "docs/TOOLCHAIN.md",
+    "docs/FRONTEND-TOOLING.md §4 §5"
+   ],
+   "code_refs": [
+    "tooling/playwright.config.mjs"
+   ],
+   "test_refs": [
+    "tooling/tests/prototype/responsive.spec.mjs (@visual)"
+   ],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "DS-026",
+   "area": "48 Design System & UI Consistency",
+   "type": "DELIVERABLE",
+   "title": "Consistency Audit للمشروع الحالي ثم Consolidation",
+   "requirement": "Audit للمشروع الحالي يبحث عن: different button styles · different fonts · different radii · duplicated inputs · inconsistent cards · random colors · inconsistent spacing · inconsistent shadows · RTL inconsistencies — ثم Consolidate.",
+   "details": [
+    "الأداة: tooling/scripts/ds-audit.mjs (npm run ds:audit) → docs/DESIGN-SYSTEM-HEALTH.md؛ النطاق اليوم = الـWireframes (لا كود موقع).",
+    "النتيجة الحالية (تشغيل نسخة للقراءة 2026-10-01 على شجرة العمل): المجموعات الأربع (169 شاشة) = 0 أحجام خط/Radius/مسافات/ألوان خام خارج الـTokens — Consolidation الـWireframes منجز (المنيو والتوظيف غير ملتزمين بعد). قبل الترحيل: المنيو 8/6/7/20 والتوظيف 4/6/9/22 + 43 style=\"\".",
+    "الـ\"ألوان 4 / ظلال 3 / عائلات 2 / أزرار 10\" المتبقية في كل مجموعة = تعريفات الـTokens نفسها ومعدّلات .ds-btn — False positives (G16-TF-01). docs/DESIGN-SYSTEM-HEALTH.md في شجرة العمل ما زال يعرض أرقام ما قبل الترحيل للمنيو والتوظيف (يحتاج إعادة توليد).",
+    "غير مغطى بعد (G16-TF-02) وفيه مخالفات قائمة: Breakpoints (700px في 95 شاشة، 768px في 41) · الأيقونات (stroke 2/2.5/3، أحجام 18/22/28) · RTL الفيزيائية (text-align:left في 54) · style=\"\" · المدد/Z-index الخام · الحقول والبطاقات المكررة.",
+    "Consolidation التالي: تصحيح المولدات للفئات غير المكتشفة ثم تطبيق نفس التدقيق على كود التطبيق كبوابة (DS-023)."
+   ],
+   "sources": [
+    "M34 §24"
+   ],
+   "decision_refs": [
+    "G16-ND-01"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "PARTIAL",
+   "tested": "PROTOTYPE",
+   "existing_impl": "tooling/scripts/ds-audit.mjs → docs/DESIGN-SYSTEM-HEALTH.md؛ ترحيل المجموعات الأربع إلى tokens.css + wireframe-kit.css منجز (شجرة العمل)",
+   "missing_work": "التزام الترحيل وإعادة توليد HEALTH · إصلاح False positives · توسيع الفحوص الناقصة وتصحيح ما تكشفه · تشغيله على الكود",
+   "dependencies": [
+    "DS-023",
+    "DS-027",
+    "DS-010",
+    "DS-011",
+    "DS-012"
+   ],
+   "test_required": "تشغيل ds:audit: 0 مخالفات حقيقية في كل المجموعات · كل نوع من الأنواع التسعة في M34 §24 له فحص",
+   "design_refs": [
+    "docs/DESIGN-SYSTEM-HEALTH.md",
+    "docs/DESIGN-SYSTEM-STANDARD.md §13"
+   ],
+   "code_refs": [
+    "tooling/scripts/ds-audit.mjs"
+   ],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P05",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "DS-027",
+   "area": "48 Design System & UI Consistency",
+   "type": "DELIVERABLE",
+   "title": "Design System Health Report — Approved · Duplicate · Deprecated · Unused Variants · Token Violations",
+   "requirement": "تقرير Design System Health يعرض: Approved Components · Duplicate Components · Deprecated Components · Unused Variants · Token Violations.",
+   "details": [
+    "اليوم: docs/DESIGN-SYSTEM-HEALTH.md مولّد (لا يُعدّل يدويًا) — Token Violations محسوبة لكل مجموعة لكن النسخة الحالية قديمة (قبل ترحيل المنيو والتوظيف) وفيها False positives؛ صفوف Approved/Duplicate/Deprecated/Unused نص ثابت (لا مكتبة بعد) ويذكر \"Storybook (بعد DB-08)\" قديمًا.",
+    "عند البناء: يُحسب من الكود — Approved = مكون x-ui له قصص واختبارات · Unused Variants = متغير معلن بلا أي استخدام في resources/views · Deprecated = علامة في سجل المكونات مع بديل · Duplicate = أنماط/مكونات متشابهة خارج المكتبة (G16-TF-03).",
+    "يُنتج في CI كـArtifact ويُحدّث مع كل إصدار؛ يُغذي GOV-078 (لا Duplicate design systems)."
+   ],
+   "sources": [
+    "M34 §25"
+   ],
+   "decision_refs": [
+    "G16-ND-01"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "PARTIAL",
+   "tested": "PROTOTYPE",
+   "existing_impl": "docs/DESIGN-SYSTEM-HEALTH.md (مولّد بـtooling/scripts/ds-audit.mjs)",
+   "missing_work": "إعادة التوليد · حساب الصفوف الأربعة من سجل المكونات وقوالب Blade · إزالة النص القديم · Artifact في CI",
+   "dependencies": [
+    "DS-026",
+    "DS-022",
+    "GOV-078"
+   ],
+   "test_required": "التقرير يُولّد آليًا ويطابق الكود (متغير غير مستخدم مصطنع يظهر في Unused؛ مكون مكرر مصطنع يظهر في Duplicate)",
+   "design_refs": [
+    "docs/DESIGN-SYSTEM-HEALTH.md"
+   ],
+   "code_refs": [
+    "tooling/scripts/ds-audit.mjs"
+   ],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P05",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "DS-028",
+   "area": "48 Design System & UI Consistency",
+   "type": "RULE",
+   "title": "القاعدة النهائية: ONE SHELTER PRODUCT عبر Home · Menu · Locations · About · Franchise · Careers · Media · Dashboard",
+   "requirement": "إذا انتقل المستخدم بين Home · Menu · Locations · About · Franchise · Careers · Media · Dashboard يجب أن يشعر أنه داخل ONE SHELTER PRODUCT، وليس مجموعة صفحات صممها أشخاص مختلفون.",
+   "details": [
+    "يتحقق بثلاث طبقات: (1) آلية — ds-audit = 0 + كل الشاشات من x-ui (DS-023/DS-013) · (2) بصرية — Visual regression للصفحات الحرجة والمكونات (OPS-040، DS-025) · (3) مراجعة تصميم كمصمم UX/UI جنبًا إلى جنب (Hierarchy · Whitespace · Typography · Alignment · Button consistency · Density · Mobile ergonomics · CTA clarity · Empty/Loading/Error states — M37 §32، مجموعته).",
+    "يشمل الـDashboard (DS-020) والوحدات التجارية (التوظيف والشراكات والـMedia Center)."
+   ],
+   "sources": [
+    "M34 §26"
+   ],
+   "decision_refs": [
+    "G16-ND-01"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none (لا صفحات مبنية)؛ مؤشر مبكر: مجموعات الـWireframes الأربع على نفس الـTokens والـKit",
+   "missing_work": "بوابة قبول في P10 بعد بناء الصفحات الثماني",
+   "dependencies": [
+    "DS-001",
+    "DS-013",
+    "DS-020",
+    "DS-023",
+    "DS-025",
+    "OPS-040"
+   ],
+   "test_required": "جولة على الصفحات الثماني × موبايل/تابلت/ديسكتوب × AR/EN: نفس Header/Footer/الأزرار/الحقول/البطاقات (Visual regression) + مراجعة تصميم موثقة",
+   "design_refs": [
+    "docs/DESIGN-SYSTEM-STANDARD.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P10",
+   "history": [],
+   "notes": ""
+  }
+ ],
+ "updates_to_existing": [
+  {
+   "id": "BRAND-005",
+   "change": "Rounded corners = Radius tokens بـPrimary md 10px (DS-006)؛ Minimal color usage = أدوار ألوان دلالية محدودة (DS-004).",
+   "type": "UPDATE",
+   "source": "M34 §03 §04"
+  },
+  {
+   "id": "BRAND-006",
+   "change": "No heavy glow / no random shadows: Shadow tokens محدودة none/sm/md/lg (DS-007).",
+   "type": "UPDATE",
+   "source": "M34 §09"
+  },
+  {
+   "id": "BRAND-007",
+   "change": "المبدأ (لا هوية مكتبة طرف ثالث؛ SHELTER DS overrides everything — M37 §1) قائم ويتحقق بالبناء: ADR-001 + TOOLCHAIN (M37 audit) = لا shadcn/Radix (NOT NEEDED، React فقط)؛ الـPrimitives عناصر HTML أصلية بأنماط ARIA APG داخل x-ui (DS-013) — G16-CF-02.",
+   "type": "UPDATE",
+   "source": "M34 §00"
+  },
+  {
+   "id": "BRAND-008",
+   "change": "المجالات الخمسة عشر محددة الآن في DS-003…DS-019 (Tokens v0.1 مقررة؛ قيم الهوية MISSING). M34 يعلّم الـDesign System العام P0 FROZEN.",
+   "type": "UPDATE",
+   "source": "M34 §00",
+   "new_priority": "P0"
+  },
+  {
+   "id": "BRAND-009",
+   "change": "الطبقات قائمة؛ طبقة Primitives = عناصر HTML أصلية (<dialog> · popover · <details>) لا Radix/React Aria؛ Components = Blade x-ui.*؛ المرجع = Storybook (DS-024).",
+   "type": "UPDATE",
+   "source": "M34 §20"
+  },
+  {
+   "id": "BRAND-010",
+   "change": "الحد الأدنى للـTokens منفّذ في tokens.json v0.1 (يشمل z-index وline heights وأحجام الخط والحاويات وFocus) + Borders؛ مصدر مركزي واحد للموقع والـDashboard والتطبيق المستقبلي (DS-002). ملاحظة \"القالب ينقصه…\" وtokens.template.json لم تعودا صالحتين.",
+   "type": "UPDATE",
+   "source": "M34 §20",
+   "new_priority": "P0"
+  },
+  {
+   "id": "BRAND-011",
+   "change": "يُضيَّق (G16-CF-06): ما يغيّر الهوية (لون/خط جديد، نمط حركة يغيّر تجربة العلامة) = موافقة الـOwner؛ Radius/Spacing/Shadow/Durations/Breakpoints ومتغيرات مبنية من Tokens قائمة = قرار تقني لـClaude يُسجل ويظهر في تقرير الصحة (M38 §4 · M36 §24 · M34 §19)؛ أي خروج = Design Exception (DS-023).",
+   "type": "UPDATE",
+   "source": "M34 §19 §23",
+   "new_priority": "P0"
+  },
+  {
+   "id": "BRAND-012",
+   "change": "يتحقق عبر Component Governance (DS-022) وسطر Duplicate Components في تقرير الصحة (DS-027) ومكتبة x-ui الواحدة (DS-013).",
+   "type": "UPDATE",
+   "source": "M34 §19 §25",
+   "new_priority": "P0"
+  },
+  {
+   "id": "BRAND-013",
+   "change": "قائمة M34 §18: الـOwner يعدّل text · images · content · order · visibility · approved variants؛ ممنوع custom CSS · custom hex · random font size · arbitrary button style · arbitrary spacing — سجل المتغيرات المعتمدة DS-021.",
+   "type": "UPDATE",
+   "source": "M34 §18"
+  },
+  {
+   "id": "BRAND-014",
+   "change": "الأقسام القابلة لإعادة الاستخدام تُبنى على x-ui.section الموحد (eyebrow · title · description · media · CTA · background/spacing variants) — DS-017.",
+   "type": "UPDATE",
+   "source": "M34 §11"
+  },
+  {
+   "id": "BRAND-015",
+   "change": "الشرط (توافق الـstack) محسوم: Storybook 10 عبر @storybook/html-vite بقصص مولّدة من Blade (M37 §2، TOOLCHAIN) — DS-024؛ القائمة تتسع بمكونات M34 §21 (Badges · Modals · Drawers · Tables · Tabs · Alerts · Empty states · Skeletons · Event cards) وحالات M37 (Active · Loading · Error · Empty).",
+   "type": "UPDATE",
+   "source": "M34 §21",
+   "new_priority": "P0"
+  },
+  {
+   "id": "BRAND-016",
+   "change": "نظام الأيقونات: Lucide فقط كـSVG ثابتة عبر x-ui.icon، الأحجام 16/20/24 وStroke 1.75؛ استثناء الشعار وأيقونات العلامات فقط (DS-012).",
+   "type": "UPDATE",
+   "source": "M34 §06"
+  },
+  {
+   "id": "BRAND-019",
+   "change": "نفس SHELTER Design Language ونفس مكتبة x-ui؛ \"أكثر Functional\" = كثافة أعلى بالـTokens فقط (DS-020).",
+   "type": "UPDATE",
+   "source": "M34 §17"
+  },
+  {
+   "id": "BRAND-020",
+   "change": "+ ممنوع \"website جميل + dashboard generic SaaS unrelated\" — يجب أن يشعر أنهما نفس النظام (DS-020).",
+   "type": "UPDATE",
+   "source": "M34 §17"
+  },
+  {
+   "id": "MOTION-004",
+   "change": "Duration/Easing tokens مقررة: motion-fast 120 · normal 200 · slow 320ms · easing standard/enter/exit · reduced 0ms؛ قاعدة: لا Duration عشوائي لكل Component (DS-008).",
+   "type": "UPDATE",
+   "source": "M34 §14"
+  },
+  {
+   "id": "MOTION-007",
+   "change": "مكتبة الحركة = motion (vanilla) بعد ADR-001 (لا React)، بتحميل كسول وحيث لا يكفي CSS (Sheet المنيو أولًا)؛ لا مكتبة ثانية في نفس الصفحة (G16-CF-04).",
+   "type": "UPDATE",
+   "source": "M34 §14"
+  },
+  {
+   "id": "MOTION-011",
+   "change": "منفّذ على مستوى الـTokens: tokens.css يصفّر --motion-* تحت prefers-reduced-motion (DS-008) — يبقى اختبار المكونات.",
+   "type": "UPDATE",
+   "source": "M34 §14"
+  },
+  {
+   "id": "RESP-010",
+   "change": "حدود الطباعة كـTokens: أصغر نص واجهة 12px · المتن 16px موبايل · طول سطر ≤ 68ch (DS-003).",
+   "type": "UPDATE",
+   "source": "M34 §01"
+  },
+  {
+   "id": "RESP-011",
+   "change": "التحجيم المرن عبر --text-3xl/4xl/5xl بـclamp() فقط (DS-003).",
+   "type": "UPDATE",
+   "source": "M34 §01"
+  },
+  {
+   "id": "RESP-019",
+   "change": "الحاويات Tokens: 1280 صفحة · 1440 Dashboard · 720 قراءة؛ الهوامش 16/24/32 (DS-009).",
+   "type": "UPDATE",
+   "source": "M34 §10"
+  },
+  {
+   "id": "RESP-022",
+   "change": "كل مكون x-ui متجاوب بذاته ويُعرض في Storybook موبايل/ديسكتوب (DS-013، DS-024).",
+   "type": "UPDATE",
+   "source": "M34 §16"
+  },
+  {
+   "id": "RESP-023",
+   "change": "نقاط التحول = Tokens فقط (360/600/1024/1200 + max-height 500) مع فحص آلي للقيم الحرفية؛ مخالفات حالية 700px/768px في Wireframes التوظيف والـDashboard والشراكات (DS-010).",
+   "type": "UPDATE",
+   "source": "M34 §16"
+  },
+  {
+   "id": "I18N-003",
+   "change": "+ carousels · drawers · side panels (M34 §15)؛ التنفيذ على مستوى الـDesign System بـLogical properties وخريطة أيقونات منعكسة، بلا إصلاحات لكل صفحة (DS-011).",
+   "type": "UPDATE",
+   "source": "M34 §15"
+  },
+  {
+   "id": "I18N-015",
+   "change": "المقترح المعتمد في الـStandard: Drawers/Sidebar التنقل من جهة البداية (يمين في العربي)، والعرض السريع من النهاية — يُعرض ضمن Wireframes الـDashboard (بوابة H) (DS-011).",
+   "type": "UPDATE",
+   "source": "M34 §15"
+  },
+  {
+   "id": "A11Y-006",
+   "change": "التباين يُقاس لكل زوج Tokens ولكل ثيم بما فيه الثيمات الموسمية (DS-004).",
+   "type": "UPDATE",
+   "source": "M34 §04"
+  },
+  {
+   "id": "A11Y-007",
+   "change": "Focus موحد كـToken: 3px solid --color-focus بـoffset 2px، لا يُزال (DS-019).",
+   "type": "UPDATE",
+   "source": "M34 §13"
+  },
+  {
+   "id": "A11Y-016",
+   "change": "يُعمَّم على كل حالات كل المكونات (Hover · Focus · Active · Disabled · Loading · Error · Success · Empty) — DS-019.",
+   "type": "UPDATE",
+   "source": "M34 §13"
+  },
+  {
+   "id": "A11Y-017",
+   "change": "زر Small 36px مسموح فقط في جداول الديسكتوب الكثيفة (pointer:fine) ولا يظهر على اللمس؛ WCAG 2.2 Target Size (24px) متحقق (G16-CF-05، DS-014).",
+   "type": "UPDATE",
+   "source": "M34 §02"
+  },
+  {
+   "id": "NAV-005",
+   "change": "Header/Mobile nav/Footer من نفس مكونات x-ui ونفس الخط والأزرار والمسافات والأيقونات وحالات Hover (DS-018).",
+   "type": "UPDATE",
+   "source": "M34 §12"
+  },
+  {
+   "id": "CMS-010",
+   "change": "الأقسام/الـBlocks = x-ui.section بمتغيرات مسماة من سجل المتغيرات (DS-017، DS-021).",
+   "type": "UPDATE",
+   "source": "M34 §11 §18"
+  },
+  {
+   "id": "CMS-011",
+   "change": "الإنفاذ: سجل المتغيرات المعتمدة (DS-021) + Validation من الخادم + تعقيم النص المنسق (G16-TF-09).",
+   "type": "UPDATE",
+   "source": "M34 §18"
+  },
+  {
+   "id": "CMS-034",
+   "change": "قائمة M34 §18 المسموح/الممنوع حرفيًا؛ المتغيرات = سجل DS-021؛ النص المنسق بلا style/class/font/color (G16-TF-09).",
+   "type": "UPDATE",
+   "source": "M34 §18"
+  },
+  {
+   "id": "FRAN-068",
+   "change": "نفس القاعدة العامة M34 §18 (DS-021).",
+   "type": "UPDATE",
+   "source": "M34 §18"
+  },
+  {
+   "id": "CAREERS-086",
+   "change": "النموذج يُبنى من Form System الموحد (DS-015)؛ تاريخ الميلاد 3 Selects = متغير Date معتمد (G16-CF-09).",
+   "type": "UPDATE",
+   "source": "M34 §07"
+  },
+  {
+   "id": "CAREERS-095",
+   "change": "لوحة التوظيف وWireframes التوظيف (44) على tokens.css + wireframe-kit.css (رُحّلت في شجرة العمل؛ كانت 4 أحجام خط · 6 radius · 9 مسافات · 22 لونًا · 43 style=\"\") — يبقى توحيد الأيقونات (stroke 2/2.5/3، أحجام 18/28) (DS-012، DS-026).",
+   "type": "UPDATE",
+   "source": "M34 §24"
+  },
+  {
+   "id": "DX-015",
+   "change": "الثيم الموسمي = مجموعة Tokens معتمدة (لون/صور/حركة) تُطبق بسمة على الجذر، بلا CSS لكل مناسبة، وتباين axe لكل ثيم (DS-004، DS-021، G16-TF-14).",
+   "type": "UPDATE",
+   "source": "M34 §04 §18"
+  },
+  {
+   "id": "DX-030",
+   "change": "العودة للطبيعي مضمونة بالمعمارية (إزالة سمة الثيم) وتُفحص بـVisual regression (DS-025).",
+   "type": "UPDATE",
+   "source": "M34 §22"
+  },
+  {
+   "id": "OPS-039",
+   "change": "مرحلة VISUAL REGRESSION تشمل قصص المكونات الأساسية (DS-025)؛ + بوابة ds-audit على CSS/Blade (DS-023) + تقرير الصحة كـArtifact (DS-027).",
+   "type": "UPDATE",
+   "source": "M34 §22 §23 §25"
+  },
+  {
+   "id": "OPS-040",
+   "change": "+ طبقة المكونات: لقطات قصص Storybook للـCore Components (M34 §22) بجانب الصفحات الحرجة (DS-025).",
+   "type": "UPDATE",
+   "source": "M34 §22"
+  },
+  {
+   "id": "TEST-002",
+   "change": "Definition of Done يضيف: امتثال الـDesign System (ds-audit = 0 بلا استثناء موثق · الشاشة من x-ui فقط · المكون الجديد له قصة) — DS-023.",
+   "type": "UPDATE",
+   "source": "M34 §00 §23"
+  },
+  {
+   "id": "TEST-012",
+   "change": "مقارنة اللقطات تشمل قصص Storybook للمكونات (DS-025).",
+   "type": "UPDATE",
+   "source": "M34 §22"
+  },
+  {
+   "id": "TEST-020",
+   "change": "حارس الانحدار = بوابة ds-audit + Visual regression للمكونات والصفحات (DS-023، DS-025).",
+   "type": "UPDATE",
+   "source": "M34 §22 §23"
+  },
+  {
+   "id": "PERF-013",
+   "change": "استراتيجية الخطوط عند وصولها: Self-hosted WOFF2 مقسّم، عائلتان، 3 أوزان، swap + fallback معاير، بلا CDN خطوط (G16-TF-10، DS-003).",
+   "type": "UPDATE",
+   "source": "M34 §01"
+  },
+  {
+   "id": "GOV-078",
+   "change": "كشف duplicate components/design systems آليًا عبر تقرير الصحة (DS-027) وds-audit (DS-026).",
+   "type": "UPDATE",
+   "source": "M34 §25"
+  },
+  {
+   "id": "TOOL-008",
+   "change": "أدوات React المؤجلة لم تعد \"بانتظار DB-08\": ADR-001 + TOOLCHAIN (M37 audit) = shadcn/Radix/React Aria NOT NEEDED · Tailwind REDUNDANT · Storybook معتمد بـhtml-vite · motion vanilla · lucide-static.",
+   "type": "UPDATE",
+   "source": "M34 §21"
+  },
+  {
+   "id": "TOOL-010",
+   "change": "\"Storybook structure\" = Storybook html-vite بقصص من Blade (DS-024)؛ \"design-token structure\" منجز: tokens.json v0.1 + tokens-css.mjs + ds-audit.mjs.",
+   "type": "UPDATE",
+   "source": "M34 §20 §21"
+  },
+  {
+   "id": "TOOL-019",
+   "change": "shadcn/ui غير قابل للتطبيق بعد ADR-001 (Blade بلا React) وصُنّف NOT NEEDED في TOOLCHAIN (M37 audit)؛ هدفه (مكونات متسقة ومتاحة) تحققه x-ui (DS-013)؛ مبدأ \"لا هوية shadcn\" باقٍ في BRAND-007 — G16-CF-02.",
+   "type": "SUPERSEDE",
+   "source": "M34 §19"
+  },
+  {
+   "id": "TOOL-020",
+   "change": "Radix غير قابل للتطبيق (React فقط) — NOT NEEDED؛ البديل عناصر HTML أصلية (<dialog> · popover · <details>) بأنماط ARIA APG مختبرة بـaxe ولوحة المفاتيح — G16-CF-02.",
+   "type": "SUPERSEDE",
+   "source": "M34 §19"
+  },
+  {
+   "id": "TOOL-021",
+   "change": "Tailwind مرفوض/REDUNDANT (ADR-001 + TOOLCHAIN): نظاما تنسيق = One-off styling؛ القرار Tokens + CSS مكونات (M34 §23) — G16-CF-03.",
+   "type": "SUPERSEDE",
+   "source": "M34 §23"
+  },
+  {
+   "id": "TOOL-022",
+   "change": "Motion → motion (vanilla) بتحميل كسول (ADR-001)؛ CSS transitions بالـTokens افتراضيًا لبقية الاستخدامات؛ توسيع motion لاستخدام آخر من القائمة بمبرر موثق وميزانية — G16-CF-04.",
+   "type": "UPDATE",
+   "source": "M34 §14"
+  },
+  {
+   "id": "TOOL-024",
+   "change": "الشرط محسوم: Storybook 10 عبر @storybook/html-vite + addon-a11y + pseudo-states بقصص مولّدة من Blade (M37 §2، TOOLCHAIN) — يحل محل معرض /_ds (G16-CF-01، DS-024).",
+   "type": "UPDATE",
+   "source": "M34 §21"
+  },
+  {
+   "id": "TOOL-025",
+   "change": "Lucide = lucide-static (تطوير فقط) → SVG ثابتة تُنسخ عند الحاجة عبر x-ui.icon (ADR-001، TOOLCHAIN)؛ الأحجام 16/20/24 وStroke 1.75 (DS-012).",
+   "type": "UPDATE",
+   "source": "M34 §06"
+  },
+  {
+   "id": "TOOL-026",
+   "change": "React Aria غير قابل للتطبيق (لا React) — NOT NEEDED (ADR-001، TOOLCHAIN) — G16-CF-02.",
+   "type": "SUPERSEDE",
+   "source": "M34 §19"
+  },
+  {
+   "id": "TOOL-027",
+   "change": "المجموعة النهائية لم تعد مشروطة: السجل الوحيد docs/TOOLCHAIN.md (M37)؛ طبقة التصميم = Tokens CSS + Blade x-ui + Storybook html-vite + lucide-static + motion vanilla + Playwright (Visual) + axe؛ shadcn/Radix/Tailwind/React Aria خارجها.",
+   "type": "UPDATE",
+   "source": "M34 §20 §21"
+  },
+  {
+   "id": "D-190",
+   "change": "التنفيذ: Lucide SVG ثابتة عبر مكوّن واحد، الأحجام 16/20/24، Stroke 1.75، استثناء أيقونات العلامات (DS-012).",
+   "type": "UPDATE",
+   "source": "M34 §06"
+  },
+  {
+   "id": "D-192",
+   "change": "الأجزاء المفترضة لـReact استُبدلت بـADR-001 + TOOLCHAIN (M37): shadcn/Radix/React Aria NOT NEEDED · Tailwind REDUNDANT/REJECTED · Storybook معتمد بـhtml-vite · motion/react → motion vanilla · lucide-react → lucide-static؛ الباقي (Playwright · axe · Sharp · سياسة الاعتماديات) قائم، وسجل الأدوات الوحيد = TOOLCHAIN.md.",
+   "type": "UPDATE",
+   "source": "M34 §21"
+  },
+  {
+   "id": "D-196",
+   "change": "+ قائمة M34 §18 الحرفية؛ الإنفاذ بسجل المتغيرات (DS-021).",
+   "type": "UPDATE",
+   "source": "M34 §18"
+  },
+  {
+   "id": "D-197",
+   "change": "نفس Design Language ونفس مكتبة x-ui للموقع والـDashboard؛ الكثافة فقط تختلف (DS-020).",
+   "type": "UPDATE",
+   "source": "M34 §17"
+  },
+  {
+   "id": "PO-006",
+   "change": "جزء اختيار أدوات الواجهة (shadcn/Radix/Tailwind/Storybook ومكتبة الحركة) في عمود \"يمنع\" لم يعد معلقًا: ADR-001 + TOOLCHAIN (M37). إغلاق بقية PO-006 يتبع مزامنة ADR-001 نفسها.",
+   "type": "UPDATE",
+   "source": "M34 §21"
+  }
+ ],
+ "conflicts": [
+  {
+   "id": "G16-CF-01",
+   "topic": "مرجع المكونات: Storybook ↔ معرض /_ds ↔ Storybook",
+   "old_instruction": "Storybook ورشة مكونات (مشروط بتوافق الـstack)؛ ثم ADR-001 (v1): Storybook NOT APPLICABLE ويُستبدل بمعرض داخلي /_ds + Playwright visual regression",
+   "old_source": "M24 (BRAND-015 · TOOL-024) · ADR-001 v1 (قرار تقني بتفويض M36 §24)",
+   "new_instruction": "M34 §21: \"إذا Storybook موجود أو مناسب\" أنشئ مكتبة تعرض المكونات بحالاتها؛ M37 §2: \"إذا Storybook غير موجود: ثبته واضبطه… يصبح DESIGN SYSTEM REFERENCE\"",
+   "new_source": "M34 §21 · M37 §2 (OWNER APPROVED — الأحدث)",
+   "winner": "Storybook 10 عبر @storybook/html-vite + addon-a11y + pseudo-states، بقصص مولّدة من مكونات Blade نفسها؛ معرض /_ds ملغى (ADR-001 محدّث، TOOLCHAIN.md)",
+   "why": "Latest explicit Owner decision wins: M37 يطلب Storybook صراحة؛ قرار /_ds كان قرارًا تقنيًا لـClaude وأدنى في ترتيب السلطة؛ html-vite يعمل مع HTML من الخادم فيسقط سبب \"يفترض React\". ملاحظة: موجز المهمة الذي ذكر /_ds سابق لـM37",
+   "impact": "DS-024 · DS-025 · BRAND-015 · TOOL-024 · TOOL-010 · OPS-040",
+   "files": [
+    "docs/adr/ADR-001-platform.md",
+    "docs/TOOLCHAIN.md",
+    "docs/DESIGN-SYSTEM-STANDARD.md §8 §13 §14",
+    "tooling/scripts/ds-audit.mjs",
+    "docs/DESIGN-SYSTEM-HEALTH.md",
+    "docs/FRONTEND-TOOLING.md §6 (تاريخي)"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "id": "G16-CF-02",
+   "topic": "الـPrimitives السلوكية: shadcn/Radix/React Aria ↔ عناصر HTML أصلية",
+   "old_instruction": "shadcn/ui وRadix أساس هندسي (Dialog · Sheet · Popover · Tabs…) وReact Aria عند الحاجة؛ الطبقة Primitives = Radix/React Aria إن أكد DB-08 React",
+   "old_source": "M24 (TOOL-019 · TOOL-020 · TOOL-026 · BRAND-007) · design-system/README.md",
+   "new_instruction": "ADR-001: NOT APPLICABLE (تفترض React) → <dialog> · popover · <details> بأنماط ARIA APG مختبرة بـaxe ولوحة المفاتيح؛ TOOLCHAIN (M37 audit): NOT NEEDED؛ M37 §1 \"راجع واستخدم عند الحاجة… SHELTER DS overrides everything\"",
+   "new_source": "ADR-001 · M37 §1 · M37 §33",
+   "winner": "عناصر HTML أصلية داخل x-ui؛ لا shadcn/Radix/React Aria. مبدأ BRAND-007 (لا هوية مكتبة افتراضية) باقٍ ويتحقق بالبناء",
+   "why": "الشرط في M24 كان توافق الـstack؛ المنصة (Laravel/Blade بلا React) تجعلها غير قابلة للتثبيت؛ M37 جعلها \"عند الحاجة\" وطلب أداة واحدة لكل وظيفة",
+   "impact": "DS-013 · TOOL-019 · TOOL-020 · TOOL-026 · BRAND-007 · BRAND-009",
+   "files": [
+    "docs/adr/ADR-001-platform.md",
+    "docs/TOOLCHAIN.md",
+    "design-system/README.md",
+    "docs/DESIGN-SYSTEM-STANDARD.md §10"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "id": "G16-CF-03",
+   "topic": "Tailwind CSS",
+   "old_instruction": "Tailwind أساسية بشرط أن يدعمها الـstack (Design tokens · spacing · RTL/LTR · breakpoints)؛ ضمن \"المجموعة التي أريدها فعليًا\"",
+   "old_source": "M24 (TOOL-021 · TOOL-027 · D-192)",
+   "new_instruction": "ADR-001: REJECTED — CSS مكونات + Tokens؛ TOOLCHAIN: REDUNDANT (نظاما تنسيق = One-off styling)؛ M34 §23 يمنع inline arbitrary styling وrandom CSS",
+   "new_source": "M34 §23 (FROZEN) · M37 §1 §33 · M38 §4 · ADR-001",
+   "winner": "لا Tailwind؛ Tokens → CSS variables + components.css",
+   "why": "Laravel يدعم Tailwind تقنيًا، لكن M34 الأحدث (FROZEN) يمنع التنسيق العشوائي ووجود نظامي تنسيق، وM37 §1 جعلها \"عند الحاجة\" و§33 \"اختر الأفضل\"، وM38 §4 يجعل \"CSS implementation\" قرارًا تقنيًا لا يُسأل عنه ⇒ محسوم بالتفويض ويُعرض بشفافية في تقرير الـOwner (ليس صامتًا)",
+   "impact": "TOOL-021 · TOOL-027 · DS-013 · DS-023",
+   "files": [
+    "docs/adr/ADR-001-platform.md",
+    "docs/TOOLCHAIN.md",
+    "docs/FRONTEND-TOOLING.md §2 (تاريخي)"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "id": "G16-CF-04",
+   "topic": "نطاق مكتبة الحركة Motion",
+   "old_instruction": "Motion للـpage transitions · menu transitions/sheet · bottom sheets · modals · cards · hover/focus · small reveals · navigation transitions؛ GSAP فقط بمبرر ولا يجتمع مع Motion",
+   "old_source": "M24 (TOOL-022 · MOTION-007) · M31 · DESIGN-SYSTEM-STANDARD §7",
+   "new_instruction": "ADR-001: CSS transitions بالـTokens؛ motion (vanilla) فقط حيث قرار M24 (Sheet المنيو) وبتحميل كسول؛ M37 §30: لا حركة في الحزمة العامة بلا حاجة",
+   "new_source": "ADR-001 · M34 §14 · M37 §30",
+   "winner": "الافتراضي CSS transitions بـMotion tokens لكل الاستخدامات المذكورة؛ motion (vanilla) المكتبة الوحيدة لـJS animation وتُحمّل كسولًا حيث لا يكفي CSS — Sheet المنيو أولًا، وأي استخدام آخر من قائمة الـOwner (Home/DX) بمبرر موثق وميزانية أداء؛ لا مكتبة ثانية في نفس الصفحة",
+   "why": "قائمة الـOwner تحدد التأثيرات لا إلزام تحميل المكتبة؛ ADR-001 قرار تقني يضبط التحميل (MOTION-003: الأداء يغلب، M37 §30) دون إلغاء تأثير معتمد",
+   "impact": "DS-008 · TOOL-022 · MOTION-007 · MOTION-012",
+   "files": [
+    "docs/adr/ADR-001-platform.md",
+    "docs/DESIGN-SYSTEM-STANDARD.md §7"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "id": "G16-CF-05",
+   "topic": "زر Small (36px) مقابل هدف اللمس 44px",
+   "old_instruction": "Minimum touch target 44×44px (على الهاتف قدر الإمكان)",
+   "old_source": "M23/M26 (A11Y-017)",
+   "new_instruction": "Button Sizes: Small · Medium · Large",
+   "new_source": "M34 §02",
+   "winner": "Small 36px للجداول الكثيفة على الديسكتوب فقط (pointer:fine)، ويرتفع إلى 44 على pointer:coarse؛ Medium 44 الافتراضي",
+   "why": "لا تعارض جوهري: M34 يطلب أحجامًا ولا يحدد القيم؛ WCAG 2.2 Target Size (24px) متحقق، وقاعدة 44 للمس محفوظة",
+   "impact": "DS-014 · A11Y-017 · DS-020",
+   "files": [
+    "docs/DESIGN-SYSTEM-STANDARD.md §3",
+    "design-system/wireframe-kit.css"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "id": "G16-CF-06",
+   "topic": "من يعتمد الإضافات الجديدة على الـDesign System",
+   "old_instruction": "بعد اعتماد الـDesign System: لا New Color · New Font Style · New Radius · New Shadow · New Button Type · New Animation Pattern إلا بعد مناقشة الـOwner",
+   "old_source": "M01/M27 (BRAND-011)",
+   "new_instruction": "M34 §19: لا يوجد مكون ← Add new approved variant؛ M36 §24 وM38 §4 (FROZEN): لا تسألني عن spacing · breakpoint · radius · CSS · component naming · animation duration؛ M38 §5: ما يؤثر على Brand ← اعرض الخيارات واسألني",
+   "new_source": "M34 §19 · M36 §24 · M38 §4 §5",
+   "winner": "مستويان: (أ) يغيّر الهوية — لون أو خط جديد، أو نمط حركة يغيّر تجربة العلامة ← موافقة الـOwner؛ (ب) تقني — Radius/Spacing/Shadow/Durations/Breakpoints ومتغير مبني من Tokens ومكونات قائمة ← قرار Claude يُسجل في السجل وتقرير الصحة ويُختبر؛ أي خروج عن الـTokens ← Design Exception موثقة",
+   "why": "M38 الأحدث والمجمّد يحدد ما يُسأل عنه وما لا يُسأل؛ BRAND-011 يبقى نافذًا على ما يمس الهوية فقط (يُضيَّق لا يُلغى)",
+   "impact": "BRAND-011 · DS-022 · DS-023 · DS-004 · DS-008",
+   "files": [
+    "docs/DESIGN-SYSTEM-STANDARD.md §12"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "id": "G16-CF-07",
+   "topic": "علامة FROZEN على متطلب لم يُبنَ",
+   "old_instruction": "M34: \"Mark this requirement: OWNER APPROVED · FROZEN · P0\"",
+   "old_source": "M34 §26",
+   "new_instruction": "M36 §20: لا تقل DONE/COMPLETE/FROZEN إذا لم يتم Build/Test/Verify؛ غير المختبر = IMPLEMENTED — NOT YET VERIFIED",
+   "new_source": "M36 §20",
+   "winner": "status = FROZEN (حالة المتطلب كما علّمه الـOwner — لا يُعاد فتحه) منفصلة عن impl_status الذي يبقى صادقًا (PARTIAL / NOT STARTED / IMPLEMENTED — NOT TESTED)؛ لا بند DS يدّعي تنفيذًا مجمدًا أو مختبرًا بلا دليل",
+   "why": "بعدان مختلفان: تجميد المتطلب مقابل ادعاء إنجاز العمل؛ M36 §20 يمنع الثاني فقط",
+   "impact": "كل DS-*",
+   "files": [
+    "docs/DESIGN-SYSTEM-STANDARD.md"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "id": "G16-CF-08",
+   "topic": "Design System First مقابل بوابة التصميم المرئي (M-10)",
+   "old_instruction": "Visual design محجوب حتى ملفات الهوية (M-10/PO-002)؛ الخطة: P05 (Brand, DS & Visual) \"محجوبة (M-10)\" والمنصة P06 بعدها",
+   "old_source": "CLAUDE.md (البوابات) · IMPLEMENTATION-PLAN P05/P06 · BRAND-002",
+   "new_instruction": "ثبّت Design System قبل تكاثر الصفحات (M36 §8، Phase 1 Foundation)؛ M34 FROZEN P0 يطلب النظام كاملًا الآن",
+   "new_source": "M34 §00 · M36 §6 §8",
+   "winner": "الطبقة البنيوية تتقدم الآن (Tokens v0.1، مكتبة x-ui بقيم Placeholder، Storybook، البوابات، التدقيق)؛ قيم الهوية (خطوط/ألوان) واعتماد المظهر المرئي يبقيان محجوبين على PO-002، وتُبدّل لاحقًا في tokens.json دون تغيير أي صفحة؛ لا يُشحن Production بقيم Placeholder (بناء Production يفشل — G16-TF-11)",
+   "why": "M36 الأحدث يرتب البناء ويضع الـDesign System في الأساس؛ قاعدة \"لا ألوان أو خطوط من Claude\" (CF-11) محفوظة لأن القيم البصرية لا تُخترع",
+   "impact": "DS-001 · DS-002 · BRAND-002 · IMPLEMENTATION-PLAN P05 — CLAUDE.md (da9fd5b، Build mode) يعكس هذا الحسم: \"design system first\" و\"Brand files (M-10) for the final visual layer\"",
+   "files": [
+    "docs/IMPLEMENTATION-PLAN.md",
+    "CLAUDE.md",
+    "docs/DESIGN-SYSTEM-STANDARD.md §14"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "id": "G16-CF-09",
+   "topic": "Date Picker موحد مقابل 3 Selects لتاريخ الميلاد",
+   "old_instruction": "تاريخ الميلاد: 3 Selects (يوم/شهر/سنة)، العمر محسوب",
+   "old_source": "M28 (G10-ND-05 FROZEN)",
+   "new_instruction": "كل Forms تستخدم نفس Components ومنها Date Picker",
+   "new_source": "M34 §07",
+   "winner": "كلاهما مكونات من Form System: متغير Date \"3 Selects\" لتاريخ الميلاد (مجمّد) وDate picker للـDashboard — بنفس القياسات والحالات",
+   "why": "M34 يمنع اختلاف الأنماط لا تعدد المتغيرات المعتمدة؛ قرار التوظيف المجمّد لا يُعاد فتحه",
+   "impact": "DS-015 · CAREERS-086",
+   "files": [
+    "docs/DESIGN-SYSTEM-STANDARD.md §8"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "id": "G16-CF-10",
+   "topic": "تنقل موحد مقابل تنقلات سياقية معتمدة",
+   "old_instruction": "شريط فئات Sticky للمنيو (NAV-009/NAV-012 FROZEN) · بوابة الجذر / بهيكل خاص (D-066/D-067) · Sidebar/Bottom nav للـDashboard",
+   "old_source": "M19/M23 · M13/M14 · M25",
+   "new_instruction": "Header / Mobile Navigation / Footer بنفس typography · button style · spacing · icons · hover؛ لا nav مختلفة جذريًا لكل صفحة",
+   "new_source": "M34 §12",
+   "winner": "التنقلات السياقية مكونات من نفس النظام (نفس Tokens وحالات وأيقونات) وليست أنظمة تنقل منفصلة؛ الجذر يستخدم متغير Header المختصر",
+   "why": "M34 يمنع \"nav مختلفة جذريًا\"، لا الأنماط الثانوية المعتمدة؛ لا قرار سابق يُلغى",
+   "impact": "DS-018 · NAV-005 · NAV-009",
+   "files": [
+    "docs/DESIGN-SYSTEM-STANDARD.md §8"
+   ],
+   "status": "RESOLVED"
+  }
+ ],
+ "new_decisions": [
+  {
+   "temp_id": "G16-ND-01",
+   "area": "48 Design System & UI Consistency",
+   "decision": "SHELTER DESIGN SYSTEM — GLOBAL UI CONSISTENCY (M34 — OWNER APPROVED · FROZEN · P0): ONE DESIGN SYSTEM · ONE VISUAL LANGUAGE · NO PAGE-SPECIFIC CHAOS للموقع والـOwner Dashboard (والتطبيق المستقبلي)؛ Tokens مركزية (Typography · Colors · Spacing · Radius · Shadows · Motion · Breakpoints · Z-index · Borders)؛ Typography AR/EN بسلّم Tokens بلا أحجام عشوائية؛ Button واحد (7 Variants · 3 Sizes · 6 States بثوابت radius/typography/height/padding/focus/animation)؛ Radius Tokens مع Primary Radius ومظهر مستدير؛ ألوان Tokens فقط ولا Hex جديد خارج النظام؛ Spacing Scale لكل margin/padding/gap؛ مكتبة أيقونات واحدة (Lucide) إلا Logo/brand icons، بأحجام sm/md/lg وStroke ثابت؛ Form System موحد (10 مكونات بنفس height/radius/border/label/error/focus/helper)؛ Card primitives على أساس واحد؛ Shadow Tokens محدودة clean/subtle/premium بلا glow؛ Layout Grammar واحدة؛ Section Component موحد؛ Header/Mobile nav/Footer بنفس المكونات؛ States موحدة (Hover · Focus · Active · Disabled · Loading · Error · Success · Empty) لا تعتمد على اللون وحده؛ Motion Tokens؛ RTL/LTR من الأساس؛ Responsive rules موحدة بلا Breakpoint خاص بصفحة؛ الـDashboard بنفس اللغة وأكثر Functional؛ الـCMS يحرر المحتوى والترتيب والإظهار والمتغيرات المعتمدة فقط (لا CSS/Hex/حجم خط/نمط زر/مسافة حرة)؛ Component governance (Reuse ← متغير معتمد، لا تكرار)؛ مكتبة مكونات معروضة (Storybook إن مناسب) وVisual regression للمكونات الأساسية قبل Production؛ ممنوع One-off styles إلا بـDesign Exception موثقة؛ Consistency audit ثم Consolidation؛ تقرير Design System Health (Approved · Duplicate · Deprecated · Unused Variants · Token Violations)؛ القاعدة النهائية: ONE SHELTER PRODUCT عبر Home · Menu · Locations · About · Franchise · Careers · Media · Dashboard.",
+   "sources": [
+    "M34 §00",
+    "M34 §01",
+    "M34 §02",
+    "M34 §03",
+    "M34 §04",
+    "M34 §05",
+    "M34 §06",
+    "M34 §07",
+    "M34 §08",
+    "M34 §09",
+    "M34 §10",
+    "M34 §11",
+    "M34 §12",
+    "M34 §13",
+    "M34 §14",
+    "M34 §15",
+    "M34 §16",
+    "M34 §17",
+    "M34 §18",
+    "M34 §19",
+    "M34 §20",
+    "M34 §21",
+    "M34 §22",
+    "M34 §23",
+    "M34 §24",
+    "M34 §25",
+    "M34 §26"
+   ],
+   "status": "FROZEN",
+   "reason": "قرار Owner صريح معلّم OWNER APPROVED · FROZEN · P0 · GLOBAL DESIGN SYSTEM",
+   "impact": "DS-001…DS-028 · BRAND-005…020 · MOTION-004/007/011 · RESP-010/011/019/022/023 · I18N-003/015 · A11Y-006/007/016/017 · CMS-010/011/034 · OPS-039/040 · TOOL-008…027 · D-190/192/196/197"
+  },
+  {
+   "temp_id": "G16-ND-02",
+   "area": "48 Design System & UI Consistency",
+   "decision": "Design Tokens v0.1 — القيم البنيوية (قرار تقني بتفويض، ليس اعتماد Owner لقيم بصرية): سلّم الخط 12/14/16/18/20/24 + clamp 26→30 · 28→36 · 32→48؛ الأوزان 400/500/700؛ ارتفاع السطر AR 1.7 · EN 1.5 · عناوين 1.25؛ لا letter-spacing عربي و0.02em للاتيني الكبير؛ قياس 68ch؛ المسافات 4px (0…80)؛ Radius sm 6 · md 10 (PRIMARY) · lg 14 · xl 20 · pill؛ Borders 1/1.5px وFocus 3px offset 2؛ ظلال none/sm/md/lg (lg للـModal/Sheet)؛ الحركة 120/200/320ms + standard/enter/exit + reduced 0؛ أهداف اللمس 44 والتحكم 36/44/52؛ الأيقونات 16/20/24 بـStroke 1.75؛ الحاويات 1280/1440/720 والهوامش 16/24/32؛ نقاط التحول 360/600/1024/1200 + max-height 500؛ Z-index 0/20/30/40/50/60/70/80؛ أسماء أدوار الألوان الاثني عشر. قيم الخطوط والألوان MISSING (PO-002).",
+   "sources": [
+    "M34 §01",
+    "M34 §03",
+    "M34 §05",
+    "M34 §06",
+    "M34 §09",
+    "M34 §10",
+    "M34 §14",
+    "M34 §16",
+    "M34 §20"
+   ],
+   "status": "APPROVED WITH CONDITIONS",
+   "reason": "M34 يطلب من Claude أن \"يحدد\" (Primary Radius، الـScales)؛ M38 §4 (FROZEN) وM36 §24 يفوّضان قرارات spacing · breakpoint · radius · animation duration · CSS لـClaude. الشرط: إن حدد دليل الهوية (PO-002) قيمًا (زوايا/ظلال/مسافات) فهي الفائزة، والمظهر المرئي النهائي يُعتمد في P05",
+   "impact": "DS-002…DS-012 · design-system/tokens/tokens.json v0.1.0"
+  }
+ ],
+ "pending_owner": [
+  {
+   "id": "PO-002",
+   "item": "↻ M34: لإكمال الـDesign System تحديدًا نحتاج من ملفات الهوية: (1) الخط العربي الأساسي والخط الإنجليزي الأساسي كملفات مع ترخيص يسمح بالاستضافة الذاتية على الويب (WOFF2)، (2) قيم ألوان العلامة لملء الأدوار: bg · surface · text · muted · border · accent · on-accent · focus (+ ألوان الحالات success/warning/danger/info إن وُجدت في الدليل)، (3) أي قواعد في الدليل للزوايا أو الظلال أو الأيقونات. إن لم يحتوِ الدليل خطوطًا: يعرض Claude أزواجًا عربية/لاتينية كخيارات لتختار (قرار Brand — M38 §5). إن لم تحدد ألوان الحالات: يقترحها Claude متناسقة مع الهوية وبتباين ≥ 4.5:1 لاعتمادك.",
+   "category": "BLOCKING",
+   "type": "CONTENT NEEDED",
+   "blocks": "قيم الخطوط والألوان في tokens.json واعتماد التصميم المرئي وBaselines الـVisual regression (الطبقة البنيوية والمكونات لا تتوقف)",
+   "refs": [
+    "DS-003",
+    "DS-004",
+    "DS-025",
+    "BRAND-002",
+    "M-10",
+    "CF-11",
+    "M34 §01",
+    "M34 §04"
+   ],
+   "count": "خطان + لوحة ألوان + قواعد الدليل",
+   "notes": "إضافة على البند القائم PO-002 — ليس سؤالًا جديدًا"
+  }
+ ],
+ "technical_flags": [
+  {
+   "id": "G16-TF-01",
+   "topic": "ds-audit: False positives في المجموعات المرحّلة",
+   "detail": "المولّدات تضمّن tokens.css وwireframe-kit.css داخل كل صفحة، فيعدّ ds-audit تعريفات الـTokens نفسها مخالفات: 4 \"ألوان خارج اللوحة\" (rgb(0 0 0/.06/.08/.12) = قيم ظلال الـTokens + scrim الـOverlay) · 3 \"أنماط ظلال\" و2 \"عائلات خطوط\" (= var(--shadow-*) / var(--font-*)) · 10 \"أسماء أزرار مختلفة\" (= .ds-btn ومعدّلاته BEM). لذلك المنيو/الشراكات/الـDashboard تظهر بمخالفات وهي متوافقة.",
+   "recommendation": "استبعاد الكتل المولّدة بعلامات تعليق؛ اعتبار var(--token) متوافقًا؛ جمع معدّلات BEM تحت المكون الأساسي؛ تحويل scrim الـOverlay إلى Token",
+   "needs_owner": false,
+   "refs": [
+    "DS-026",
+    "DS-027",
+    "tooling/scripts/ds-audit.mjs"
+   ]
+  },
+  {
+   "id": "G16-TF-02",
+   "topic": "ds-audit: فحوص M34 §24 الناقصة ومخالفات غير مكتشفة",
+   "detail": "لا يفحص: قيم @media (700px في 95 شاشة Dashboard/شراكات، 768px و1279.98px في 41 شاشة شراكات) · الأيقونات (stroke 2/2.5/3 مقابل Token 1.75؛ أحجام 18/22/28 مقابل 16/20/24؛ ⚠ نصي في .ds-error) · RTL الفيزيائية (text-align:left في 54 شاشة Dashboard) · عدد style=\"\" (صفر الآن، لكن غير مراقب) · المدد/المنحنيات وZ-index الخام · letter-spacing على العربي · الحقول والبطاقات المكررة (يفحص أسماء الأزرار فقط).",
+   "recommendation": "إضافة الفحوص في ds-audit نفسه (بلا اعتمادية جديدة — TOOLCHAIN: ds-audit بوابة بدل Stylelint) ثم تصحيح المولدات (wf.py والمولدات في docs/*/wireframes/tools/)",
+   "needs_owner": false,
+   "refs": [
+    "DS-010",
+    "DS-011",
+    "DS-012",
+    "DS-023",
+    "DS-026"
+   ]
+  },
+  {
+   "id": "G16-TF-03",
+   "topic": "تقرير الصحة: صفوف المكونات ثابتة ونص قديم",
+   "detail": "صفوف Approved/Duplicate/Deprecated/Unused في HEALTH نص ثابت داخل ds-audit.mjs ويذكر \"Storybook (بعد DB-08)\" و\"P05\" — لا يعكس ADR-001/M37. لا يوجد سجل مكونات يمكن الحساب منه. والتقرير نفسه في شجرة العمل قديم: يعرض أرقام المنيو والتوظيف قبل ترحيلهما.",
+   "recommendation": "إعادة توليد التقرير مع كل تغيير في الواجهات (خطوة CI أو pre-commit)؛ سجل مكونات (مكوّنات x-ui + المتغيرات المعلنة + علامة deprecated/بديل) يُقرأ آليًا؛ Unused = متغير بلا استخدام في resources/views؛ Approved = له قصة واختبار؛ تحديث النص",
+   "needs_owner": false,
+   "refs": [
+    "DS-027",
+    "tooling/scripts/ds-audit.mjs",
+    "docs/DESIGN-SYSTEM-HEALTH.md"
+   ]
+  },
+  {
+   "id": "G16-TF-04",
+   "topic": "Breakpoint tokens داخل @media",
+   "detail": "CSS لا يسمح بـvar() في شروط @media، فلا يمكن استهلاك --bp-* مباشرة؛ @custom-media يحتاج معالجًا (Lightning CSS/PostCSS) = اعتمادية جديدة.",
+   "recommendation": "الإنفاذ بفحص القيم الحرفية ∈ {360, 600, 1024, 1200, max-height 500} ومكملاتها .98 في ds-audit؛ Container queries داخل المكونات؛ أي معالج إضافي يمر بسياسة الحزم (M37 §29)",
+   "needs_owner": false,
+   "refs": [
+    "DS-010",
+    "RESP-023"
+   ]
+  },
+  {
+   "id": "G16-TF-05",
+   "topic": "تنفيذ Lucide وأيقونات العلامات",
+   "detail": "Stroke الافتراضي في Lucide = 2، والـToken = 1.75؛ أحجام 16/20/24 مع Stroke نسبي تجعل 16px أرفع. Lucide لا يتضمن شعارات العلامات (WhatsApp · Instagram · Facebook · TikTok · Google Maps).",
+   "recommendation": "x-ui.icon واحد يضمّن SVG منسوخة من lucide-static (المستخدمة فقط) بـstroke-width من الـToken وقرار واحد لسماكة ثابتة/نسبية، aria-hidden افتراضيًا، وعلم flip-rtl لقائمة الأيقونات الاتجاهية؛ مجموعة brand-icons من المصادر الرسمية لكل علامة كـDesign Exception موثقة؛ الشعار لا ينعكس",
+   "needs_owner": false,
+   "refs": [
+    "DS-012",
+    "BRAND-017",
+    "TOOL-025"
+   ]
+  },
+  {
+   "id": "G16-TF-06",
+   "topic": "جسر Blade → Storybook (html-vite)",
+   "detail": "Storybook html-vite يعرض HTML في المتصفح، ومكونات x-ui تُرسم بـPHP على الخادم؛ \"القصص من Blade نفسها\" تحتاج طبقة توليد، وإلا ظهرت نسخة ثانية من المكونات (ممنوع).",
+   "recommendation": "أمر Artisan يرسم كل مكون × متغير × حالة × (ar/rtl، en/ltr) من Fixtures إلى HTML ثابت تستورده القصص؛ CI يعيد التوليد ويفشل عند الاختلاف؛ pseudo-states للـHover/Focus/Active؛ Decorator عام للـdir/lang؛ Viewport للموبايل/الديسكتوب؛ البناء الثابت لا يُنشر على Production (محلي/CI، وعلى Staging خلف حماية فقط)؛ Fixtures بلا بيانات حقيقية",
+   "needs_owner": false,
+   "refs": [
+    "DS-024",
+    "DS-013",
+    "docs/TOOLCHAIN.md"
+   ]
+  },
+  {
+   "id": "G16-TF-07",
+   "topic": "حتمية Visual regression للمكونات",
+   "detail": "لقطات المكونات تتأثر بالخطوط والحركة والمنصة؛ آلاف اللقطات (مكون × حالة × لغة × عرض) تستنزف حصة CI.",
+   "recommendation": "قصة واحدة لكل مكون تعرض حالاته معًا × AR/EN × 390/1440؛ حاوية Linux مثبتة + خطوط ذاتية الاستضافة + animations disabled + reduced motion؛ maxDiffPixelRatio 0.01 (مضبوط)؛ Baselines بعد اعتماد التصميم (لقطات بنيوية قبلها تُعاد عند تبديل الهوية)؛ تحديث الـBaseline بمراجعة صريحة؛ التشغيل في مستوى FULL",
+   "needs_owner": false,
+   "refs": [
+    "DS-025",
+    "OPS-040",
+    "PO-002"
+   ]
+  },
+  {
+   "id": "G16-TF-08",
+   "topic": "انحراف الوثائق بعد ADR-001 وM37",
+   "detail": "DESIGN-SYSTEM-STANDARD §8 (\"Storybook بعد DB-08\") · §10 (\"shadcn أساس هندسي فقط\") · §13 (\"Stylelint أو ما يناسب\" بينما TOOLCHAIN يعتمد ds-audit بوابة) · §14 (\"عند DB-08…\")؛ design-system/README.md (Primitives = Radix/React Aria، shadcn)؛ نص HEALTH/ds-audit؛ IMPLEMENTATION-PLAN (سطر 31 أدوات التصميم تنتظر المنصة، P05 محجوبة بالكامل)؛ عمود \"يمنع\" في PO-006.",
+   "recommendation": "تحديث هذه الوثائق في Commit واحد (لم تُعدّل هنا)؛ FRONTEND-TOOLING.md أصبح تاريخيًا ويحيل إلى TOOLCHAIN.md (منجز)",
+   "needs_owner": false,
+   "refs": [
+    "DS-024",
+    "DS-013",
+    "G16-CF-01",
+    "G16-CF-02",
+    "G16-CF-08"
+   ]
+  },
+  {
+   "id": "G16-TF-09",
+   "topic": "إنفاذ Design lock في Laravel",
+   "detail": "المنع لا يكفي في الواجهة: قيم المتغيرات يجب أن تُرفض من الخادم، والنص المنسق قد يحمل style/class/font/color؛ Laravel بلا معقّم HTML مدمج.",
+   "recommendation": "سجل متغيرات واحد (تقرأه المكونات والـCMS) + Rule::in في الـFormRequests؛ لا أعمدة CSS/Hex/حجم في المخطط؛ معقّم بقائمة سماح (مثل symfony/html-sanitizer — MIT) بعد أسئلة سياسة الحزم الخمسة وتسجيله في TOOLCHAIN.md؛ عرض النص عبر مكوّن prose بالـTokens",
+   "needs_owner": false,
+   "refs": [
+    "DS-021",
+    "CMS-034",
+    "CMS-011"
+   ]
+  },
+  {
+   "id": "G16-TF-10",
+   "topic": "خطوط الهوية: الأداء والترخيص",
+   "detail": "الخطوط العربية كبيرة الحجم؛ CDN خارجي (Google/Adobe Fonts) يضيف طلبات وتتبعًا؛ الترخيص قد لا يسمح بالاستضافة الذاتية.",
+   "recommendation": "WOFF2 مقسّم بـunicode-range (عربي/لاتيني)، عائلتان كحد أقصى، 3 أوزان، preload للأوزان الحرجة فقط، font-display: swap مع fallback معاير (size-adjust) لإبقاء CLS ≤ 0.1؛ بلا CDN خطوط؛ التحقق من الترخيص ضمن PO-002",
+   "needs_owner": true,
+   "refs": [
+    "DS-003",
+    "PERF-013",
+    "PO-002"
+   ]
+  },
+  {
+   "id": "G16-TF-11",
+   "topic": "خط توليد الـTokens للتطبيق",
+   "detail": "tokens-css.mjs يصدر دائمًا قيم wireframe للخطوط والألوان؛ لا آلية تمنع شحنها، ولا توليد لـresources/css/tokens.css في Laravel، ولا فحص Drift.",
+   "recommendation": "وضعان: wireframe (النماذج) وbrand (التطبيق)؛ بناء Production يفشل إذا بقي أي Token هوية MISSING؛ توليد ملف التطبيق من نفس tokens.json ضمن البناء؛ CI يتحقق أن الملف المولّد مطابق",
+   "needs_owner": false,
+   "refs": [
+    "DS-002",
+    "G16-CF-08"
+   ]
+  },
+  {
+   "id": "G16-TF-12",
+   "topic": "حالات ناقصة في الـKit",
+   "detail": "wireframe-kit.css لا يعرّف :hover/:active/Pressed للأزرار والـChips (يعرّف transition فقط)، ولا حالة Success للحقول، و.ds-btn--sm (36px) غير محروس على pointer:coarse.",
+   "recommendation": "تعريف الحالات الثماني لكل مكون في x-ui وإظهارها بـpseudo-states؛ @media (pointer:coarse) يرفع sm إلى 44",
+   "needs_owner": false,
+   "refs": [
+    "DS-014",
+    "DS-019",
+    "G16-CF-05"
+   ]
+  },
+  {
+   "id": "G16-TF-13",
+   "topic": "site.css / dashboard.css وحزم الـBundle",
+   "detail": "PLATFORM-ARCHITECTURE يقسم resources/css إلى tokens + components + site + dashboard؛ قد يصبح site.css/dashboard.css مستودعًا لتنسيق خاص بصفحات، وقد تدخل مكونات الـDashboard الحزمة العامة.",
+   "recommendation": "site.css وdashboard.css للتركيب والكثافة فقط (Density كـToken overrides عبر data-density)؛ بوابة ds-audit تشملهما؛ مدخلا Vite منفصلان يشتركان في tokens.css وcomponents.css (M37 §30)",
+   "needs_owner": false,
+   "refs": [
+    "DS-020",
+    "DS-013",
+    "DS-023"
+   ]
+  },
+  {
+   "id": "G16-TF-14",
+   "topic": "الثيمات الموسمية كـToken overrides",
+   "detail": "محرك التجارب (DX-015) يطلب معالجة بصرية مؤقتة؛ تنفيذها بـCSS لكل مناسبة يكسر M34 §18/§23.",
+   "recommendation": "كل ثيم = مجموعة Tokens مسماة (لون/صور/حركة) تُفعّل بسمة data-theme على الجذر؛ أصولها كسولة (DX-029)؛ axe للتباين لكل ثيم؛ العودة للطبيعي = إزالة السمة + لقطة Visual regression",
+   "needs_owner": false,
+   "refs": [
+    "DX-015",
+    "DX-030",
+    "DS-004",
+    "DS-021"
+   ]
+  }
+ ],
+ "cost_api_dependencies": [
+  {
+   "feature": "مرجع المكونات (DS-024)",
+   "service": "Storybook 10 (@storybook/html-vite) + @storybook/addon-a11y + storybook-addon-pseudo-states",
+   "why": "Design System Reference بالحالات AR/EN موبايل/ديسكتوب + axe لكل قصة",
+   "free_alternative": "هو نفسه مجاني؛ لا Chromatic (استضافة/مراجعة مدفوعة)",
+   "cost_or_quota": "مجاني · MIT · تطوير فقط (لا يدخل الحزمة العامة)",
+   "needs_approval": "NO"
+  },
+  {
+   "feature": "Visual regression للمكونات (DS-025)",
+   "service": "Playwright toHaveScreenshot (مثبت 1.56.1)",
+   "why": "إظهار أثر تغيير Button/Input قبل Production",
+   "free_alternative": "هو البديل المجاني لـPercy/Chromatic/Applitools (غير مستخدمة)",
+   "cost_or_quota": "مجاني · Apache-2.0 · محلي وCI",
+   "needs_approval": "NO"
+  },
+  {
+   "feature": "تشغيل بناء Storybook والـVisual regression في CI",
+   "service": "GitHub Actions",
+   "why": "بوابات الجودة عند الدفع/قبل الإصدار",
+   "free_alternative": "تشغيل محلي/Runner ذاتي؛ الـVisual في مستوى FULL يدويًا لتوفير الحصة",
+   "cost_or_quota": "حصة دقائق مجانية شهرية؛ التجاوز مدفوع",
+   "needs_approval": "YES — فقط عند تجاوز الحصة (قرار مالي — PO-039 / TOOLCHAIN §5)"
+  },
+  {
+   "feature": "الأيقونات (DS-012)",
+   "service": "Lucide عبر lucide-static (تطوير فقط)",
+   "why": "مكتبة أيقونات واحدة كـSVG ثابتة",
+   "free_alternative": "—",
+   "cost_or_quota": "مجاني · ISC",
+   "needs_approval": "NO"
+  },
+  {
+   "feature": "أيقونات العلامات الاجتماعية (DS-012)",
+   "service": "ملفات الشعارات الرسمية من صفحات موارد كل علامة (WhatsApp/Instagram/Google Maps…)",
+   "why": "Lucide لا يتضمن شعارات العلامات",
+   "free_alternative": "—",
+   "cost_or_quota": "مجاني ضمن إرشادات كل علامة",
+   "needs_approval": "NO"
+  },
+  {
+   "feature": "خطوط الهوية (DS-003)",
+   "service": "ترخيص Webfont للخط العربي والإنجليزي (حسب ما يملكه الـOwner)",
+   "why": "Self-hosting WOFF2 على الموقع",
+   "free_alternative": "خطوط OFL مجانية فقط إن اختارها الـOwner (Claude لا يختار خطوط الهوية — CF-11)",
+   "cost_or_quota": "غير معروف: قد يكون مشمولًا بترخيص الهوية أو يحتاج ترخيص ويب",
+   "needs_approval": "YES — ضمن PO-002 إن تطلب شراء ترخيص"
+  },
+  {
+   "feature": "عرض الخطوط",
+   "service": "Google Fonts / Adobe Fonts CDN",
+   "why": "—",
+   "free_alternative": "Self-hosting (مختار)",
+   "cost_or_quota": "Adobe Fonts يتطلب اشتراك CC مدفوعًا؛ Google Fonts مجاني لكن طلبات خارجية وخصوصية",
+   "needs_approval": "NO — غير مستخدمة"
+  },
+  {
+   "feature": "بوابة الـTokens (DS-023)",
+   "service": "ds-audit.mjs (موجود) كبوابة على CSS/Blade",
+   "why": "منع Hex/px/breakpoints/RTL خارج النظام",
+   "free_alternative": "Stylelint + إضافات (مجاني لكن اعتمادية إضافية — غير مطلوب)",
+   "cost_or_quota": "مجاني · بلا اعتمادية جديدة",
+   "needs_approval": "NO"
+  },
+  {
+   "feature": "تعقيم النص المنسق في الـCMS (DS-021)",
+   "service": "معقّم HTML بقائمة سماح (مثل symfony/html-sanitizer)",
+   "why": "Design lock: لا style/class/font/color في المحتوى",
+   "free_alternative": "كتابة معقّم ذاتي (غير موصى به أمنيًا)",
+   "cost_or_quota": "مجاني · MIT · Composer",
+   "needs_approval": "NO (يمر بسياسة الحزم M37 §29 ويُسجل في TOOLCHAIN.md)"
+  },
+  {
+   "feature": "الحركة (DS-008)",
+   "service": "motion (vanilla)",
+   "why": "Sheet المنيو وما لا يحققه CSS",
+   "free_alternative": "CSS transitions بالـTokens (الافتراضي)",
+   "cost_or_quota": "مجاني · MIT · تحميل كسول",
+   "needs_approval": "NO"
+  }
+ ],
+ "dropped": [],
+ "notes": "G16 = مزامنة M34 (SHELTER DESIGN SYSTEM — GLOBAL UI CONSISTENCY — OWNER APPROVED · FROZEN · P0، 26 قسمًا، قُرئت كاملة). المنطقة الجديدة \"48 Design System & UI Consistency\" بالبادئة DS (DS-001…DS-028) — يلزم إضافة 'DS': '48' إلى PREFIX_AREA و'48' إلى AREAS في build_master.py، وإضافة G16 إلى قائمة EXTRA. مفاتيح المصادر \"M34 §NN\" (§00 = المقدمة؛ علامة التجميد في نهاية §26). كل بنود DS: status FROZEN · owner_approved YES · P0 (الـOwner علّم الرسالة كاملة P0)؛ impl_status صادق حسب الأدلة (لا كود موقع؛ الموجود: Standard + tokens v0.1 + tokens.css + wireframe-kit + ds-audit + اختبار Prototype للـDashboard). ترقيم المراحل حسب IMPLEMENTATION-PLAN المنشورة (P05 = Brand/DS/Visual، P06 = Platform) مثل G10–G14؛ new_phase/new_priority في updates_to_existing بنفس الترقيم ولا تُطبق آليًا. مهم: موجز المهمة ذكر أن Storybook يُستبدل بمعرض /_ds — هذا أصبح قديمًا: M37 (DEVELOPMENT TOOLCHAIN — OWNER APPROVED، أحدث من M34) يطلب Storybook صراحة، وADR-001 وdocs/TOOLCHAIN.md حُدّثا: Storybook 10 @storybook/html-vite بقصص من Blade يحل محل /_ds (G16-CF-01). لذلك TOOL-024 وBRAND-015 = UPDATE لا SUPERSEDE، بينما TOOL-019/020/021/026 (shadcn · Radix · Tailwind · React Aria) = SUPERSEDE. M36 §8 · M37 §1 §2 §5 §25 §30 §32 · M38 §4 §5 مذكورة في التفاصيل والتعارضات فقط وليست في sources (تُسجل في مجموعاتها) — يُوصى بأن تربط مجموعة M37 بنودها بـDS-022/DS-024/DS-025 بدل تكرارها. أدلة التدقيق من تشغيل نسخة للقراءة من ds-audit.mjs تكتب إلى الـscratchpad (لم يُعدّل ملف في الـrepo) على شجرة العمل وقت الكتابة: المجموعات الأربع (169 شاشة) مرحّلة بـ0 مخالفات حقيقية (ترحيل المنيو والتوظيف غير ملتزم بعد؛ HEALTH.md في شجرة العمل ما زال بأرقام ما قبل الترحيل)؛ الفحوص اليدوية (breakpoints · icons · RTL · style=\"\") بـgrep على docs/*/wireframes/html — الأرقام قد تتغير لأن ترحيل الـWireframes جارٍ بالتوازي. pending_owner: بند واحد = إضافة على PO-002 (لا PO جديد). لم تُعدّل أي ملفات في الـrepo."
+}

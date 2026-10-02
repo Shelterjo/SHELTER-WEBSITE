@@ -1,0 +1,4933 @@
+{
+ "group": "G10",
+ "requirements": [
+  {
+   "id": "CAREERS-001",
+   "area": "44 Careers & Recruitment",
+   "type": "DECISION",
+   "title": "نظام التوظيف جزء أصلي من SHELTER WEBSITE + OWNER DASHBOARD — ليس تكاملًا خارجيًا",
+   "requirement": "نظام SHELTER COFFEE CAREERS & RECRUITMENT جزء أصلي من SHELTER WEBSITE + SHELTER OWNER DASHBOARD، وليس HubSpot integration ولا خدمة خارجية. الهدف: أن تمتلك SHELTER بيانات التوظيف بنفسها — المتقدم يقدّم بسهولة، والـOwner يشاهد ويدير كل شيء بسهولة، والبيانات تبقى داخل بنية SHELTER على Cloudways: لا HubSpot، لا اعتماد يومي على خدمات خارجية، لا Database على جهاز الـOwner، لا علاقة مع Falcon.",
+   "details": [
+    "الملف معتمد كمواصفة نهائية وموحدة: كل قراراته OWNER APPROVED / FROZEN (M28 §00، §78).",
+    "يُبنى على نفس معمارية الموقع والـDashboard (لا نظام منفصل — GOV-078 / D-227 No Duplicate Architecture).",
+    "§80 FINAL OWNER PRINCIPLE: «هذا النظام يجب أن يجعل SHELTER تمتلك بيانات التوظيف بنفسها»."
+   ],
+   "sources": [
+    "M28-§00",
+    "M28-§80"
+   ],
+   "decision_refs": [
+    "G10-ND-01",
+    "D-015",
+    "D-211"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "spec: docs/CAREERS-REQUIREMENTS.md (DRAFT)",
+   "missing_work": "معمارية الوحدة ضمن الـDashboard + التنفيذ بعد بوابة Phase 8",
+   "dependencies": [
+    "DB-08 / PO-006 (المنصة)",
+    "DASH-004 (Dashboard foundation)"
+   ],
+   "test_required": "مراجعة معمارية: لا اعتماد على أي خدمة خارجية في مسار التقديم/التخزين/الإدارة؛ DoD (CAREERS-099)",
+   "design_refs": [
+    "docs/CAREERS-REQUIREMENTS.md",
+    "docs/CLOUDWAYS-RECRUITMENT-ARCHITECTURE.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P04",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-002",
+   "area": "44 Careers & Recruitment",
+   "type": "RULE",
+   "title": "ممنوع: HubSpot · Google Forms · Airtable · CRM خارجي · Database محلية · Falcon",
+   "requirement": "طلبات التوظيف لا تستخدم: HubSpot · Google Forms · Airtable · أي CRM خارجي · أي Database على جهاز الـOwner المحلي · أي Local Database مرتبطة بجهاز العمل · Falcon · قاعدة بيانات Falcon. ممنوع تمامًا لمس Falcon أو قواعد بياناته، أو تثبيت Database محلية على جهاز الـOwner. ولا يُختبر على بيانات Falcon.",
+   "details": [
+    "Falcon نظام ذكره الـOwner لأول مرة في M28 (غير موثق في المشروع) — القاعدة: لا قراءة ولا كتابة ولا اختبار عليه.",
+    "يشمل بيئات التطوير والاختبار: لا Database محلية على Owner PC (M28 §72).",
+    "DoD: No HubSpot dependency · No local database (M28 §79)."
+   ],
+   "sources": [
+    "M28-§01",
+    "M28-§72",
+    "M28-§79",
+    "M28-§80"
+   ],
+   "decision_refs": [
+    "G10-ND-01",
+    "DB-14"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "spec: docs/CLOUDWAYS-RECRUITMENT-ARCHITECTURE.md (DRAFT)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "مراجعة الكود والـdependencies والـenv: لا مفاتيح/مكتبات HubSpot أو Google Forms أو Airtable أو اتصال Falcon؛ لا اتصال بقاعدة على جهاز محلي",
+   "design_refs": [
+    "docs/CLOUDWAYS-RECRUITMENT-ARCHITECTURE.md",
+    "docs/RECRUITMENT-SECURITY.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P04",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-003",
+   "area": "44 Careers & Recruitment",
+   "type": "DECISION",
+   "title": "المعمارية: Public Website → HTTPS → SHELTER Backend → Private DB on Cloudways → Private Storage → Owner Dashboard",
+   "requirement": "الاستضافة الحالية Cloudways؛ يُستخدم Server-side architecture على Cloudways بالمبدأ: Public Website ← HTTPS ← SHELTER Backend ← Private Website Database on Cloudways ← Private Recruitment Storage ← SHELTER Owner Dashboard. البيانات تُحفظ على Cloudways (DoD: Data saved to Cloudways).",
+   "details": [
+    "كل الاتصال عبر HTTPS؛ لا وصول مباشر من المتصفح لقاعدة البيانات أو التخزين.",
+    "قيد على قرار المنصة DB-08 (PO-006): أي Stack يُختار يجب أن يوفر Server-side runtime + Database على Cloudways للوحدة؛ ولا تُحفظ بيانات التوظيف في Supabase أو Sanity أو أي DB/Storage خارجي (انظر G10-CF-05).",
+    "الإطار نفسه غير محسوم هنا — يُحدد بعد Cloudways Audit (CAREERS-004) ضمن قرار DB-08."
+   ],
+   "sources": [
+    "M28-§01",
+    "M28-§79",
+    "M28-§80"
+   ],
+   "decision_refs": [
+    "G10-ND-01",
+    "DB-08",
+    "CF-001"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "spec: docs/CLOUDWAYS-RECRUITMENT-ARCHITECTURE.md (DRAFT)",
+   "missing_work": "CLOUDWAYS-RECRUITMENT-ARCHITECTURE.md بعد الـAudit؛ قرار DB-08 للإطار",
+   "dependencies": [
+    "CAREERS-004",
+    "DB-08 / PO-006"
+   ],
+   "test_required": "اختبار على Staging Cloudways: الإرسال يكتب في DB على Cloudways والملفات في تخزين خاص؛ لا طلبات شبكة لخدمات خارجية أثناء التقديم",
+   "design_refs": [
+    "docs/CLOUDWAYS-RECRUITMENT-ARCHITECTURE.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "G10-CF-05",
+   "business_data": false,
+   "phase": "P04",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-004",
+   "area": "44 Careers & Recruitment",
+   "type": "DELIVERABLE",
+   "title": "Cloudways Architecture Audit قبل أي Database أو Storage (17 بندًا)",
+   "requirement": "قبل تنفيذ Database أو Storage: Cloudways Architecture Audit يتحقق من: التطبيق الحالي · نوع الـstack · PHP/runtime إن وجد · Framework المستخدم للموقع الجديد · MySQL/MariaDB version · Database الحالية · Database users · SSH/SFTP capabilities · storage structure · public/private paths · backups · current WordPress application إن وجدت · application isolation · disk capacity · upload limits · web server/PHP upload limits · security configuration. ممنوع تعديل Production بشكل خطر أثناء الـAudit.",
+   "details": [
+    "مخرجاته تحدد: حدود الرفع التقنية (CAREERS-035)، مسار التخزين الخاص (CAREERS-037)، العزل (CAREERS-005)، الـBackups (CAREERS-090)، وإمكانية Malware scanning محلي (CAREERS-080).",
+    "Phase 2 في ترتيب التنفيذ (CAREERS-097).",
+    "الوصول: AC-11 الحالي = معلومات ولقطات فقط ولا Cloudways API Key (AC-RULE-04) — الـAudit يحتاج وصول قراءة أعمق بأقل صلاحية (G10-PO-01).",
+    "القراءة فقط: لا تغيير إعدادات Cloudways (CF-002 / D-002) خلال الـAudit."
+   ],
+   "sources": [
+    "M28-§02",
+    "M28-§18",
+    "M28-§77"
+   ],
+   "decision_refs": [
+    "G10-ND-02",
+    "AC-11",
+    "AC-RULE-04",
+    "D-002"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "spec: docs/CLOUDWAYS-RECRUITMENT-ARCHITECTURE.md §3 (قائمة A-01…A-13، الحالة DRAFT — AUDIT BLOCKED (ACCESS))",
+   "missing_work": "الوصول (G10-PO-01) ثم تنفيذ الـAudit وتوثيقه في CLOUDWAYS-RECRUITMENT-ARCHITECTURE.md",
+   "dependencies": [
+    "G10-PO-01 (ACCESS)",
+    "PO-037",
+    "CF-005"
+   ],
+   "test_required": "تقرير Audit يغطي البنود الـ17 بأدلة (لقطات/مخرجات أوامر قراءة)؛ لا تغيير على Production",
+   "design_refs": [
+    "docs/CLOUDWAYS-RECRUITMENT-ARCHITECTURE.md",
+    "docs/phase-01-discovery/08-access-requests.md AC-11"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P04",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-005",
+   "area": "44 Careers & Recruitment",
+   "type": "RULE",
+   "title": "Application/Database معزولة للموقع الجديد — لا استخدام قاعدة WordPress القديمة كمخزن",
+   "requirement": "إذا أمكن معماريًا: استخدام Application/Database معزولة خاصة بـSHELTER Website الجديد. لا تُستخدم قاعدة WordPress القديمة كمخزن عشوائي لنظام التوظيف إذا كان المشروع الجديد مستقلًا.",
+   "details": [
+    "الشرط «إذا أمكن معماريًا» يُحسم بنتيجة Cloudways Audit (CAREERS-004).",
+    "لا تغيير عشوائي على WordPress القديم ولا حذف بيانات موجودة (CAREERS-092)."
+   ],
+   "sources": [
+    "M28-§02",
+    "M28-§72"
+   ],
+   "decision_refs": [
+    "G10-ND-02",
+    "D-037"
+   ],
+   "status": "APPROVED WITH CONDITIONS",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "spec: docs/CLOUDWAYS-RECRUITMENT-ARCHITECTURE.md §2 (CW-01 تطبيق مستقل · CW-02 لا قاعدة WordPress القديمة) — DRAFT",
+   "missing_work": "",
+   "dependencies": [
+    "CAREERS-004"
+   ],
+   "test_required": "التحقق في الـAudit/Staging: جداول التوظيف ليست داخل قاعدة WordPress القديمة؛ مستخدم DB مستقل بأقل صلاحية",
+   "design_refs": [
+    "docs/CLOUDWAYS-RECRUITMENT-ARCHITECTURE.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P04",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-006",
+   "area": "44 Careers & Recruitment",
+   "type": "DECISION",
+   "title": "روابط التوظيف: /ar/careers/ النموذج الأساسي · /en/careers/ محتوى إنجليزي · Apply → التدفق العربي",
+   "requirement": "الموقع كاملًا Bilingual (Arabic + English)، لكن طلب التوظيف نفسه ARABIC ONLY. `/ar/careers/` = صفحة التوظيف والنموذج الأساسي. `/en/careers/` يمكن أن تعرض Careers content بالإنجليزية، وعند الضغط على Apply يُنقل المستخدم إلى Arabic Application Flow. لا يُبنى English Job Application Form منفصل: ONE APPLICATION FORM · ONE SUBMISSION FLOW · ONE SOURCE OF TRUTH.",
+   "details": [
+    "متسق مع Brand Layer (D-019) وP3 (D-031): `/ar/careers/` و`/en/careers/` موجودان في شجرة الروابط المسودة.",
+    "خريطة النقل الموجودة: `/التوظيف-في-شلتر-كافية/` · `/hiring` → `/ar/careers/` (تنفيذ 301 في P11 فقط بموافقة).",
+    "زر Apply في `/en/careers/` رابط يضغطه المستخدم — ليس Redirect تلقائيًا (WEB-017 غير متأثر).",
+    "استثناء محصور من I18N-001 (كل صفحة لها نسخة EN): النموذج وصفحة النجاح والمتابعة عربية فقط (G10-CF-02)."
+   ],
+   "sources": [
+    "M28-§03"
+   ],
+   "decision_refs": [
+    "G10-ND-04",
+    "D-015",
+    "D-019",
+    "D-031"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/phase-01-discovery/10-url-architecture-draft.md §3 (careers/ في Brand Layer) · §6 (/التوظيف-في-شلتر-كافية/ · /hiring → /ar/careers/)",
+   "missing_work": "إدراج المسارات الفرعية للنموذج/النجاح/المتابعة في URL map النهائي (PO-005)",
+   "dependencies": [
+    "PO-005 (تجميد URL Architecture)",
+    "WEB-008"
+   ],
+   "test_required": "Playwright: /en/careers/ → Apply يفتح النموذج العربي؛ لا يوجد مسار نموذج إنجليزي؛ إرسال واحد يصل لنفس الجدول",
+   "design_refs": [
+    "docs/phase-01-discovery/10-url-architecture-draft.md §3 (careers/ في Brand Layer) · §6 (/التوظيف-في-شلتر-كافية/ · /hiring → /ar/careers/)",
+    "docs/phase-01-discovery/13-root-and-international-seo-plan.md (Brand pages ar↔en)"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "G10-CF-02",
+   "business_data": false,
+   "phase": "P04",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-007",
+   "area": "44 Careers & Recruitment",
+   "type": "RULE",
+   "title": "واجهة النموذج عربية فقط — والحقول تقبل العربية والإنجليزية والخليط",
+   "requirement": "واجهة النموذج Arabic only، لكن حقول الكتابة تقبل Arabic أو English أو خليطًا منهما. لا يُمنع المستخدم من كتابة اسمه أو منطقته أو الوظيفة بالإنجليزية، ولا يُعمل Validation يمنع Script معين. Normalize technical values فقط عند الحاجة (مثل الأرقام العربية/الإنجليزية في الهاتف والراتب).",
+   "details": [
+    "dir=rtl و lang=ar للنموذج؛ الحقول النصية بـdir=auto حتى يُعرض النص الإنجليزي صحيحًا داخل واجهة RTL (قرار تقني).",
+    "لا autocorrection ولا تحويل للنص المكتوب (CAREERS-023)."
+   ],
+   "sources": [
+    "M28-§04"
+   ],
+   "decision_refs": [
+    "G10-ND-04"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/CAREERS-REQUIREMENTS.md (DRAFT)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "اختبارات Arabic text / English text / Mixed Arabic-English (M28 §73) لكل حقل نصي؛ القيمة المحفوظة = المكتوب حرفيًا",
+   "design_refs": [
+    "docs/CAREERS-REQUIREMENTS.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "G10-CF-02",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-008",
+   "area": "44 Careers & Recruitment",
+   "type": "REQUIREMENT",
+   "title": "SEO تقني للتدفق العربي فقط: noindex لصفحات النموذج الفرعية والنجاح والمتابعة",
+   "requirement": "صفحتا `/ar/careers/` و`/en/careers/` صفحتا محتوى قابلتان للفهرسة بزوج hreflang ar↔en. أي مسارات تقنية للتدفق (خطوات النموذج إن وُجدت، صفحة النجاح، صفحة متابعة الطلب) تكون noindex وخارج الـSitemap وبلا hreflang إنجليزي (لا نسخة EN لها)، ولا تحمل أي بيانات حساسة في الـURL.",
+   "details": [
+    "قرار تقني مفوض لـClaude (M28 §78) — لا يغيّر أي قرار للـOwner.",
+    "لا JobPosting Schema بدون وظائف حقيقية معتمدة (الوظيفة نص حر — CAREERS-023؛ لا ادعاءات — SCHEMA rules)."
+   ],
+   "sources": [
+    "M28-§03",
+    "M28-§23",
+    "M28-§78"
+   ],
+   "decision_refs": [
+    "D-031",
+    "D-176"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "N/A",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/CAREERS-REQUIREMENTS.md (DRAFT)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "فحص meta robots وhreflang والـSitemap للمسارات الأربعة؛ لا PII في الـURL أو الـReferrer",
+   "design_refs": [
+    "docs/phase-01-discovery/10-url-architecture-draft.md §3 (careers/ في Brand Layer) · §6 (/التوظيف-في-شلتر-كافية/ · /hiring → /ar/careers/)",
+    "docs/CAREERS-REQUIREMENTS.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P04",
+   "history": [],
+   "notes": "تفصيل تقني مشتق؛ ليس قرار Owner جديدًا."
+  },
+  {
+   "id": "CAREERS-009",
+   "area": "44 Careers & Recruitment",
+   "type": "RULE",
+   "title": "قاعدة الإلزام: كل الحقول Required — والحقل الشرطي Required بمجرد ظهوره",
+   "requirement": "كل الحقول الموجودة في النموذج النهائي REQUIRED، إلا المرفقات الإضافية بعد وجود CV أساسي (إضافية وليست مطلوبة). أي Conditional Field يصبح REQUIRED بمجرد ظهوره. ملاحظات إضافية Required لأن الـOwner قرر أن كل الحقول المدرجة إلزامية.",
+   "details": [
+    "19 عنصرًا: الاسم الكامل · رقم الهاتف · البريد الإلكتروني · الجنس · تاريخ الميلاد · الحالة الاجتماعية · الجنسية (+ الرقم الوطني أو [ما هي جنسيتك؟ + رقم جواز السفر أو رقم وثيقة الهوية]) · المدينة · المنطقة · الوظيفة المتقدم لها · المؤهل العلمي · سنوات الخبرة · خبرة سابقة في نفس المجال · هل تعمل حاليًا · الراتب المتوقع · رخصة القيادة · ملاحظات إضافية · المرفقات (CV إلزامي) · الإقرار والموافقة.",
+    "الإلزام يُفرض Server-side أيضًا (CAREERS-039)."
+   ],
+   "sources": [
+    "M28-§05",
+    "M28-§15",
+    "M28-§16"
+   ],
+   "decision_refs": [
+    "G10-ND-05"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/CAREERS-REQUIREMENTS.md (DRAFT)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "لكل حقل: إرسال فارغ يُرفض Client-side وServer-side برسالة عربية؛ المرفقات الإضافية اختيارية بعد CV",
+   "design_refs": [
+    "docs/CAREERS-REQUIREMENTS.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "G10-CF-01, G10-CF-07",
+   "business_data": false,
+   "phase": "P08",
+   "history": [
+    {
+     "old": "اقتراح Claude في PO-031: الاكتفاء بالاسم والهاتف والسيرة الذاتية بدل رقم الهوية والجنسية وتاريخ الميلاد والراتب المتوقع والصورة (اقتراح — لم يُعتمد)",
+     "source": "docs/PENDING-OWNER-INPUT.md PO-031 · 03-verify-with-owner VQ-05",
+     "superseded_by": "M28 §05–§16 (قائمة حقول الـOwner النهائية)"
+    }
+   ],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-010",
+   "area": "44 Careers & Recruitment",
+   "type": "REQUIREMENT",
+   "title": "حقل 1: الاسم الكامل",
+   "requirement": "الاسم الكامل: Required · Text · يقبل Arabic/English.",
+   "details": [
+    "لا تقسيم إلى اسم أول/أخير (لم يُطلب).",
+    "حد أقصى تقني للطول ضد الإساءة (Input size limits — CAREERS-081)."
+   ],
+   "sources": [
+    "M28-§06"
+   ],
+   "decision_refs": [
+    "G10-ND-05"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/CAREERS-REQUIREMENTS.md (DRAFT)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "أسماء عربية/إنجليزية/مختلطة تُقبل وتُحفظ كما هي",
+   "design_refs": [
+    "docs/CAREERS-REQUIREMENTS.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-011",
+   "area": "44 Careers & Recruitment",
+   "type": "REQUIREMENT",
+   "title": "حقل 2: رقم الهاتف — إدخال حر بلا Country Selector ولا فرض +962",
+   "requirement": "رقم الهاتف: Required · Free phone input · لا Country Selector · لا فرض +962 · يقبل مثل `079...` و`+962...` أو تنسيقات دولية منطقية · Normalize Arabic/English numerals where useful · Preserve a normalized searchable value internally.",
+   "details": [
+    "يُحفظ النص الأصلي + قيمة منظّمة (normalized) للبحث ومطابقة التكرار والمتابعة (CAREERS-042، CAREERS-079).",
+    "قواعد التنظيم (تقنية): تحويل الأرقام العربية-الهندية ٠-٩ إلى 0-9، إزالة المسافات والشرطات، توحيد 00962/+962/0 لأرقام الأردن — مع عدم رفض الأرقام الدولية المنطقية."
+   ],
+   "sources": [
+    "M28-§06"
+   ],
+   "decision_refs": [
+    "G10-ND-05"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/CAREERS-REQUIREMENTS.md (DRAFT)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "Phone formats (M28 §73): 079xxxxxxx · +96279xxxxxxx · 0096279… · أرقام عربية ٠٧٩… · رقم دولي؛ القيمة المنظمة صحيحة وقابلة للبحث",
+   "design_refs": [
+    "docs/CAREERS-REQUIREMENTS.md",
+    "docs/RECRUITMENT-DATA-MODEL.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-012",
+   "area": "44 Careers & Recruitment",
+   "type": "REQUIREMENT",
+   "title": "حقل 3: البريد الإلكتروني",
+   "requirement": "البريد الإلكتروني: Required · Proper email validation.",
+   "details": [
+    "لا يُرسل أي بريد للمتقدم (CAREERS-041) — البريد للتواصل اليدوي ولمطابقة التكرار فقط.",
+    "التحقق Server-side أيضًا."
+   ],
+   "sources": [
+    "M28-§06",
+    "M28-§23"
+   ],
+   "decision_refs": [
+    "G10-ND-05"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/CAREERS-REQUIREMENTS.md (DRAFT)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "Email (M28 §73): صيغ صحيحة/خاطئة؛ رفض Server-side",
+   "design_refs": [
+    "docs/CAREERS-REQUIREMENTS.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-013",
+   "area": "44 Careers & Recruitment",
+   "type": "REQUIREMENT",
+   "title": "حقل 4: الجنس — ذكر / أنثى",
+   "requirement": "الجنس: Required · الخيارات: ذكر · أنثى.",
+   "details": [
+    "Filter في الـDashboard (CAREERS-059)."
+   ],
+   "sources": [
+    "M28-§06"
+   ],
+   "decision_refs": [
+    "G10-ND-05"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/CAREERS-REQUIREMENTS.md (DRAFT)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "الخياران فقط مقبولان Server-side؛ قيمة أخرى تُرفض",
+   "design_refs": [
+    "docs/CAREERS-REQUIREMENTS.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-014",
+   "area": "44 Careers & Recruitment",
+   "type": "REQUIREMENT",
+   "title": "حقل 5: تاريخ الميلاد — 3 Selects (اليوم/الشهر/السنة) وحساب العمر تلقائيًا",
+   "requirement": "تاريخ الميلاد: Required. لا Text field عادي ولا Calendar طويل مزعج؛ يُستخدم 3 Selects: اليوم (1–31) · الشهر (أسماء الشهور بالعربية) · السنة (قائمة مناسبة descending). Validate: invalid dates · month length · leap years · 29 February. يُخزن داخليًا كـDATE بصيغة YYYY-MM-DD. يُحسب العمر تلقائيًا ولا يُطلب كحقل مستقل.",
+   "details": [
+    "نطاق السنوات قرار تقني؛ لا يُفرض شرط عمر/أهلية غير معتمد من الـOwner (انظر G10-TF-12).",
+    "صيغة أسماء الشهور (مثل كانون الثاني/شباط المستخدمة في الأردن، مع رقم الشهر اختياريًا) قرار UX موثق — لا سؤال.",
+    "العمر يُعرض في الـDashboard محسوبًا من التاريخ."
+   ],
+   "sources": [
+    "M28-§06"
+   ],
+   "decision_refs": [
+    "G10-ND-05"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/CAREERS-REQUIREMENTS.md (DRAFT)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "Birth dates + Leap year (M28 §73): 29/02 في سنة كبيسة يُقبل وفي غير كبيسة يُرفض؛ 31/04 يُرفض؛ التخزين YYYY-MM-DD؛ العمر صحيح",
+   "design_refs": [
+    "docs/CAREERS-REQUIREMENTS.md",
+    "docs/RECRUITMENT-DATA-MODEL.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-015",
+   "area": "44 Careers & Recruitment",
+   "type": "REQUIREMENT",
+   "title": "حقل 6: الحالة الاجتماعية — أعزب / متزوج / أخرى",
+   "requirement": "الحالة الاجتماعية: Required · Dropdown: أعزب · متزوج · أخرى.",
+   "details": [],
+   "sources": [
+    "M28-§06"
+   ],
+   "decision_refs": [
+    "G10-ND-05"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/CAREERS-REQUIREMENTS.md (DRAFT)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "الخيارات الثلاثة فقط مقبولة Server-side",
+   "design_refs": [
+    "docs/CAREERS-REQUIREMENTS.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-016",
+   "area": "44 Careers & Recruitment",
+   "type": "REQUIREMENT",
+   "title": "حقل 7: الجنسية — أردني / غير أردني",
+   "requirement": "الجنسية: Required · أردني · غير أردني. إذا «أردني» يظهر الرقم الوطني (Required). إذا «غير أردني» يظهر «ما هي جنسيتك؟» (Required) و«رقم جواز السفر أو رقم وثيقة الهوية» (Required) بدل الرقم الوطني. لا يُطلب تصريح عمل.",
+   "details": [
+    "المنطق الشرطي في CAREERS-032."
+   ],
+   "sources": [
+    "M28-§07"
+   ],
+   "decision_refs": [
+    "G10-ND-05"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/CAREERS-REQUIREMENTS.md (DRAFT)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "Nationality conditional fields (M28 §73)",
+   "design_refs": [
+    "docs/CAREERS-REQUIREMENTS.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-017",
+   "area": "44 Careers & Recruitment",
+   "type": "REQUIREMENT",
+   "title": "حقل شرطي: الرقم الوطني (للأردني) — Required وحساس",
+   "requirement": "إذا الجنسية = أردني: يظهر حقل «الرقم الوطني» ويكون Required. القيمة Sensitive Data وتخضع لـCAREERS-045 (تشفير/Masking/Owner-only reveal/لا Analytics/لا Logs).",
+   "details": [
+    "تحقق الصيغة: أرقام فقط بعد توحيد الأرقام العربية؛ قاعدة الطول/الصيغة الرسمية = PENDING VERIFICATION تقنيًا من مصدر رسمي قبل فرضها (G10-TF-11) — لا رفض لأرقام صحيحة.",
+    "يُستخدم Hash/Index منفصل لمطابقة التكرار بدون plaintext (CAREERS-079)."
+   ],
+   "sources": [
+    "M28-§07",
+    "M28-§27"
+   ],
+   "decision_refs": [
+    "G10-ND-05",
+    "G10-ND-09"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/CAREERS-REQUIREMENTS.md (DRAFT)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "Jordanian ID (M28 §73): يظهر فقط مع «أردني»، Required، يُخزن مشفرًا، يُعرض Masked",
+   "design_refs": [
+    "docs/CAREERS-REQUIREMENTS.md",
+    "docs/RECRUITMENT-SECURITY.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-018",
+   "area": "44 Careers & Recruitment",
+   "type": "REQUIREMENT",
+   "title": "حقل شرطي: «ما هي جنسيتك؟» (لغير الأردني) — نص حر",
+   "requirement": "إذا الجنسية = غير أردني: يظهر «ما هي جنسيتك؟» — Required · Free text Arabic/English.",
+   "details": [
+    "Filter الجنسية في الـDashboard يعمل على (أردني/غير أردني) مع إمكانية عرض النص الحر."
+   ],
+   "sources": [
+    "M28-§07"
+   ],
+   "decision_refs": [
+    "G10-ND-05"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/CAREERS-REQUIREMENTS.md (DRAFT)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "يظهر فقط مع «غير أردني»، Required، يقبل AR/EN",
+   "design_refs": [
+    "docs/CAREERS-REQUIREMENTS.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-019",
+   "area": "44 Careers & Recruitment",
+   "type": "REQUIREMENT",
+   "title": "حقل شرطي: رقم جواز السفر أو رقم وثيقة الهوية (لغير الأردني) — حساس",
+   "requirement": "إذا الجنسية = غير أردني: يظهر «رقم جواز السفر أو رقم وثيقة الهوية» بدل الرقم الوطني — Required. Sensitive Data بنفس حماية الرقم الوطني (CAREERS-045).",
+   "details": [
+    "لا تحقق صيغة صارم (الوثائق متعددة الدول) — حدود طول تقنية فقط.",
+    "لا يُطلب تصريح عمل."
+   ],
+   "sources": [
+    "M28-§07",
+    "M28-§27"
+   ],
+   "decision_refs": [
+    "G10-ND-05",
+    "G10-ND-09"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/CAREERS-REQUIREMENTS.md (DRAFT)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "Non-Jordanian document (M28 §73): يظهر فقط مع «غير أردني»، Required، مشفر/Masked",
+   "design_refs": [
+    "docs/CAREERS-REQUIREMENTS.md",
+    "docs/RECRUITMENT-SECURITY.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-020",
+   "area": "44 Careers & Recruitment",
+   "type": "REQUIREMENT",
+   "title": "حقل 8: المدينة — Dropdown لمدن الأردن (ليست كتابة حرة ولا المحافظات فقط)",
+   "requirement": "المدينة: Required · Dropdown · لا تكون كتابة حرة. قائمة كاملة لمدن الأردن المناسبة لنموذج التوظيف — لا يُكتفى بالـ12 محافظة إذا كان المطلوب مدينة، ولا يُستبدل مفهوم «المدينة» بـ«المحافظة» بصمت. القائمة مخزنة داخليًا (لا API خارجي في كل طلب) وقابلة للإدارة مستقبلًا من Settings.",
+   "details": [
+    "البيانات نفسها في CAREERS-021 (PENDING VERIFICATION إن لم يُتحقق من الاكتمال).",
+    "يمكن تجميع القائمة حسب المحافظة داخل الـDropdown لتسهيل الاختيار (UX تقني) دون تحويل الحقل إلى محافظة.",
+    "Filter المدينة + مثال Saved Filter «إربد» (CAREERS-060)."
+   ],
+   "sources": [
+    "M28-§08"
+   ],
+   "decision_refs": [
+    "G10-ND-05"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/CAREERS-REQUIREMENTS.md (DRAFT)",
+   "missing_work": "",
+   "dependencies": [
+    "CAREERS-021",
+    "CAREERS-075"
+   ],
+   "test_required": "قيمة خارج القائمة تُرفض Server-side؛ القائمة تُقرأ من DB/Settings وليس API خارجي",
+   "design_refs": [
+    "docs/CAREERS-REQUIREMENTS.md",
+    "docs/RECRUITMENT-DATA-MODEL.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-021",
+   "area": "44 Careers & Recruitment",
+   "type": "DELIVERABLE",
+   "title": "قائمة مدن الأردن (Dataset موثوق مخزن داخليًا) — PENDING DATA VERIFICATION حتى التحقق",
+   "requirement": "استخدام Dataset أردني موثوق/مراجع لمدن الأردن، ثم تخزينه داخليًا في النظام. إذا لم يمكن التحقق من اكتمال قائمة المدن: لا تُخترع، وتُوسم `PENDING DATA VERIFICATION`.",
+   "details": [
+    "مهمة Claude (تحقق من مصدر رسمي/مرجعي مثل دائرة الإحصاءات العامة) — ليست سؤالًا للـOwner (G10-TF-10).",
+    "كل مدينة بالاسم العربي (+ الإنجليزي داخليًا للتطبيع) وربطها بالمحافظة."
+   ],
+   "sources": [
+    "M28-§08"
+   ],
+   "decision_refs": [
+    "G10-ND-05"
+   ],
+   "status": "PENDING VERIFICATION",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/RECRUITMENT-DATA-MODEL.md §2.12 jordan_cities (الجدول معرّف؛ البيانات غير متحقق منها)",
+   "missing_work": "العثور على مصدر موثوق، التحقق من الاكتمال، توثيق المصدر والتاريخ؛ وإلا PENDING DATA VERIFICATION",
+   "dependencies": [],
+   "test_required": "توثيق المصدر + عدد المدن + تاريخ؛ لا مدن مخترعة",
+   "design_refs": [
+    "docs/RECRUITMENT-DATA-MODEL.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P04",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-022",
+   "area": "44 Careers & Recruitment",
+   "type": "REQUIREMENT",
+   "title": "حقل 9: المنطقة — نص حر (لا عنوان كامل)",
+   "requirement": "المنطقة: Required · Free text · يقبل Arabic/English. لا يُطلب العنوان الكامل.",
+   "details": [],
+   "sources": [
+    "M28-§08"
+   ],
+   "decision_refs": [
+    "G10-ND-05"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/CAREERS-REQUIREMENTS.md (DRAFT)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "AR/EN/Mixed تُقبل وتُحفظ كما هي",
+   "design_refs": [
+    "docs/CAREERS-REQUIREMENTS.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-023",
+   "area": "44 Careers & Recruitment",
+   "type": "REQUIREMENT",
+   "title": "حقل 10: الوظيفة المتقدم لها — نص حر بلا Autocorrection",
+   "requirement": "الوظيفة المتقدم لها: Required · Free text · ليست Dropdown · ليست مرتبطة فقط بالوظائف المفتوحة. المتقدم يكتب مثل: باريستا · محاسب تكاليف · كاشير · مشرف · Warehouse · Cost Accountant. لا Autocorrection يغيّر ما كتبه. يمكن لاحقًا داخل الـDashboard عمل normalization/tagging داخلي منفصل.",
+   "details": [
+    "الأمثلة توضيحية (ليست قائمة وظائف).",
+    "الـnormalization/tagging الداخلي لاحق ولا يكتب فوق النص الأصلي."
+   ],
+   "sources": [
+    "M28-§09"
+   ],
+   "decision_refs": [
+    "G10-ND-05"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/CAREERS-REQUIREMENTS.md (DRAFT)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "القيمة المحفوظة = المكتوب حرفيًا؛ البحث يجد «باريستا» و«Barista» كقيم مستقلة",
+   "design_refs": [
+    "docs/CAREERS-REQUIREMENTS.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-024",
+   "area": "44 Careers & Recruitment",
+   "type": "REQUIREMENT",
+   "title": "حقل 11: المؤهل العلمي — 6 خيارات فقط",
+   "requirement": "المؤهل العلمي: Required Dropdown. الخيارات المعتمدة فقط: توجيهي ناجح · توجيهي راسب · بكالوريوس · ماستر · دكتوراه · على مقاعد الدراسة. لا يُضاف «دبلوم» أو أي خيار آخر بدون Owner Approval. لا يُطلب: التخصص · الجامعة · المدرسة · جهة الدراسة.",
+   "details": [],
+   "sources": [
+    "M28-§10"
+   ],
+   "decision_refs": [
+    "G10-ND-05"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/CAREERS-REQUIREMENTS.md (DRAFT)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "الخيارات الستة فقط مقبولة Server-side؛ لا حقول تخصص/جامعة",
+   "design_refs": [
+    "docs/CAREERS-REQUIREMENTS.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-025",
+   "area": "44 Careers & Recruitment",
+   "type": "REQUIREMENT",
+   "title": "حقل 12: سنوات الخبرة — 6 فئات",
+   "requirement": "سنوات الخبرة: Required Dropdown: بدون خبرة · أقل من سنة · 1–2 سنة · 3–5 سنوات · 6–10 سنوات · أكثر من 10 سنوات.",
+   "details": [
+    "تُخزن كفئة مرتبة (ordinal) حتى يعمل الترتيب الأعلى→الأقل والعكس (CAREERS-057)."
+   ],
+   "sources": [
+    "M28-§11"
+   ],
+   "decision_refs": [
+    "G10-ND-05"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/CAREERS-REQUIREMENTS.md (DRAFT)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "الفئات الست فقط؛ الترتيب حسب الفئة صحيح",
+   "design_refs": [
+    "docs/CAREERS-REQUIREMENTS.md",
+    "docs/RECRUITMENT-DATA-MODEL.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-026",
+   "area": "44 Careers & Recruitment",
+   "type": "REQUIREMENT",
+   "title": "حقل 13: خبرة سابقة في نفس المجال أو الوظيفة — نعم / لا",
+   "requirement": "«هل لديك خبرة سابقة في نفس المجال أو الوظيفة التي تتقدم لها؟» — Required: نعم · لا.",
+   "details": [],
+   "sources": [
+    "M28-§11"
+   ],
+   "decision_refs": [
+    "G10-ND-05"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/CAREERS-REQUIREMENTS.md (DRAFT)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "نعم/لا فقط",
+   "design_refs": [
+    "docs/CAREERS-REQUIREMENTS.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-027",
+   "area": "44 Careers & Recruitment",
+   "type": "REQUIREMENT",
+   "title": "حقل 14: هل تعمل حاليًا؟ — نعم / لا",
+   "requirement": "«هل تعمل حاليًا؟» — Required: نعم · لا. لا يُطلب: آخر جهة عمل · آخر مسمى وظيفي · نبذة عن الخبرة والمهارات · موعد المباشرة.",
+   "details": [],
+   "sources": [
+    "M28-§11"
+   ],
+   "decision_refs": [
+    "G10-ND-05"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/CAREERS-REQUIREMENTS.md (DRAFT)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "نعم/لا فقط",
+   "design_refs": [
+    "docs/CAREERS-REQUIREMENTS.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-028",
+   "area": "44 Careers & Recruitment",
+   "type": "REQUIREMENT",
+   "title": "حقل 15: الراتب المتوقع — رقمي فقط بالدينار (يُعرض 450 د.أ)",
+   "requirement": "الراتب المتوقع: Required · Numeric only · العملة داخليًا JOD. المستخدم يكتب مثل `450` ولا يحتاج كتابة JOD أو دينار. داخل الـDashboard يُعرض `450 د.أ`. Validation: numeric · positive · reasonable technical upper bounds against abusive input. لا Free Text.",
+   "details": [
+    "توحيد الأرقام العربية-الهندية قبل التحقق.",
+    "الحد الأعلى تقني ضد الإساءة وليس سياسة رواتب.",
+    "صيغة العرض متسقة مع صيغة السعر العربية «د.أ» (I18N-006)."
+   ],
+   "sources": [
+    "M28-§12"
+   ],
+   "decision_refs": [
+    "G10-ND-05"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/CAREERS-REQUIREMENTS.md (DRAFT)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "Salary numeric validation (M28 §73): نص/سالب/صفر/قيمة ضخمة تُرفض؛ ٤٥٠ = 450؛ العرض 450 د.أ",
+   "design_refs": [
+    "docs/CAREERS-REQUIREMENTS.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-029",
+   "area": "44 Careers & Recruitment",
+   "type": "REQUIREMENT",
+   "title": "حقل 16: رخصة القيادة — نعم / لا (بدون نوع الرخصة)",
+   "requirement": "«هل لديك رخصة قيادة؟» — Required: نعم · لا. لا يُطلب نوع الرخصة.",
+   "details": [],
+   "sources": [
+    "M28-§13"
+   ],
+   "decision_refs": [
+    "G10-ND-05"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/CAREERS-REQUIREMENTS.md (DRAFT)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "نعم/لا فقط",
+   "design_refs": [
+    "docs/CAREERS-REQUIREMENTS.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-030",
+   "area": "44 Careers & Recruitment",
+   "type": "REQUIREMENT",
+   "title": "حقل 17: ملاحظات إضافية — Text Area إلزامي",
+   "requirement": "ملاحظات إضافية: Required · Text Area · يقبل Arabic/English — لأن الـOwner قرر أن كل الحقول المدرجة في النموذج إلزامية.",
+   "details": [
+    "لا حد أدنى للطول غير «ليس فارغًا بعد trim» (قرار تقني)؛ حد أقصى تقني للطول.",
+    "النص لا يُرسل إلى أي Analytics (CAREERS-076)."
+   ],
+   "sources": [
+    "M28-§15"
+   ],
+   "decision_refs": [
+    "G10-ND-05"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/CAREERS-REQUIREMENTS.md (DRAFT)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "فارغ يُرفض؛ AR/EN/Mixed تُقبل؛ نص طويل جدًا يُرفض بحد تقني ورسالة عربية",
+   "design_refs": [
+    "docs/CAREERS-REQUIREMENTS.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "G10-CF-07",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-031",
+   "area": "44 Careers & Recruitment",
+   "type": "RULE",
+   "title": "قائمة «لا تسأل»: حقول ممنوع إضافتها أو اقتراحها",
+   "requirement": "لا تُضاف هذه الحقول ولا يُعاد اقتراحها الآن: صورة شخصية · وسيلة مواصلات · مستوى الإنجليزية · اللغات · الفرع المفضل · نظام الشفتات · هل سبق لك العمل لدى SHELTER · تصريح العمل · معلومات صحية · إصابات · طريقة التواصل المفضلة · LinkedIn · كيف عرفت عن الوظيفة · جهة الدراسة · آخر جهة عمل · آخر وظيفة · موعد المباشرة · نبذة شخصية/مهارات.",
+   "details": [
+    "استبعادات إضافية داخل الأقسام: العمر كحقل مستقل (§06) · Country Selector للهاتف (§06) · العنوان الكامل (§08) · التخصص · الجامعة · المدرسة (§10) · آخر مسمى وظيفي · نبذة عن الخبرة والمهارات (§11) · نوع الرخصة (§13) · خيار «دبلوم» أو أي مؤهل آخر بدون موافقة (§10).",
+    "هذه القائمة هي حدود Data minimisation المعتمدة للنموذج (PRIV-004).",
+    "«لا ترجع تقترحهم الآن» — أي اقتراح لاحق = قرار جديد صريح من الـOwner."
+   ],
+   "sources": [
+    "M28-§14",
+    "M28-§06",
+    "M28-§07",
+    "M28-§08",
+    "M28-§10",
+    "M28-§11",
+    "M28-§13"
+   ],
+   "decision_refs": [
+    "G10-ND-06"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/CAREERS-REQUIREMENTS.md (DRAFT)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "فحص النموذج والـAPI والـschema: لا حقول من القائمة؛ الـAPI يرفض حقولًا غير معرّفة",
+   "design_refs": [
+    "docs/CAREERS-REQUIREMENTS.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [
+    {
+     "old": "النموذج القديم يجمع صورة شخصية + رقم الهوية + الجنسية + تاريخ الميلاد + الراتب (موقع حالي — دليل فقط)",
+     "source": "04-content-approval-register CR-091",
+     "superseded_by": "M28 §06–§14: الصورة الشخصية ممنوعة؛ بقية الحقول بقرار الـOwner مع حماية الحساسة"
+    }
+   ],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-032",
+   "area": "44 Careers & Recruitment",
+   "type": "RULE",
+   "title": "المنطق الشرطي: الإظهار/الإخفاء والإلزام والتخزين",
+   "requirement": "الحقول الشرطية: (أ) الجنسية=أردني ⇒ الرقم الوطني Required؛ (ب) الجنسية=غير أردني ⇒ «ما هي جنسيتك؟» + «رقم جواز السفر أو رقم وثيقة الهوية» Required بدل الرقم الوطني؛ (ج) إذا لم يُحدد الـCV تلقائيًا بثقة كافية ⇒ يظهر «أي ملف هو السيرة الذاتية؟» Required. أي Conditional Field يصبح Required بمجرد ظهوره.",
+   "details": [
+    "قرار تقني: عند تغيير الجنسية تُمسح قيم الفرع الآخر ولا تُرسل ولا تُخزن (لا بيانات حساسة يتيمة).",
+    "الخادم يطبق نفس المنطق الشرطي (لا اعتماد على Frontend)."
+   ],
+   "sources": [
+    "M28-§05",
+    "M28-§07",
+    "M28-§19"
+   ],
+   "decision_refs": [
+    "G10-ND-05",
+    "G10-ND-08"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/CAREERS-REQUIREMENTS.md (DRAFT)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "تبديل أردني↔غير أردني: الحقول الصحيحة تظهر/تختفي، القيم المخفية لا تُخزن؛ الخادم يرفض حالة ناقصة",
+   "design_refs": [
+    "docs/CAREERS-REQUIREMENTS.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-033",
+   "area": "44 Careers & Recruitment",
+   "type": "REQUIREMENT",
+   "title": "حقل 18: المرفقات — منطقة رفع واحدة (CV + شهادات + دورات + مستندات)",
+   "requirement": "المرفقات: Required لأن الـCV إلزامي. لا CV Upload منفصل + Attachments Upload منفصل؛ بل ONE FILE UPLOAD AREA بعنوان «المرفقات» ونص «اسحب الملفات هنا أو اضغط للرفع». يمكن رفع: CV · شهادات · دورات · مستندات داعمة · ملفات أخرى مناسبة. لا يوجد Business-level fixed number limit للملفات، لكن تُطبق Security/Resource Protection تقنية مناسبة.",
+   "details": [
+    "المرفقات الإضافية بعد وجود CV أساسي اختيارية (CAREERS-009).",
+    "حدود العدد/الحجم التقنية من Cloudways Audit (CAREERS-035).",
+    "رفع تدريجي مع Progress feedback ولا يجمّد الصفحة (CAREERS-088).",
+    "إمكانية حذف ملف قبل الإرسال؛ فشل ملف واحد لا يمسح بقية المدخلات (CAREERS-089)."
+   ],
+   "sources": [
+    "M28-§16"
+   ],
+   "decision_refs": [
+    "G10-ND-07"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/CAREERS-REQUIREMENTS.md (DRAFT)",
+   "missing_work": "",
+   "dependencies": [
+    "CAREERS-035",
+    "CAREERS-036",
+    "CAREERS-037"
+   ],
+   "test_required": "File upload: single · multiple · different safe types (M28 §73)؛ Drag & drop + ضغط + لوحة المفاتيح",
+   "design_refs": [
+    "docs/CAREERS-REQUIREMENTS.md",
+    "docs/RECRUITMENT-SECURITY.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-034",
+   "area": "44 Careers & Recruitment",
+   "type": "RULE",
+   "title": "أنواع الملفات: الواجهة غير محصورة بـPDF/DOC/DOCX — ومنع الأنواع الخطرة بفحص متعدد",
+   "requirement": "الـOwner لا يريد حصر واجهة المستخدم بـPDF/DOC/DOCX فقط، لكن «أي نوع ملف» لا يعني السماح بملفات خطرة. يجب منع: .exe · .bat · .cmd · .com · .scr · .php · .phtml · .phar · .sh · .ps1 · .js وغيرها من executable/server-side/script formats غير المناسبة. لا يُعتمد على الـextension فقط؛ يُفحص: extension · MIME type · magic bytes/signature where practical · filename sanitization. Never execute uploaded content.",
+   "details": [
+    "السياسة التفصيلية مسودة في RECRUITMENT-SECURITY.md §3: قبول بالتوقيع الفعلي لعائلات PDF · Word/ODT/RTF · جداول · عروض · TXT · صور؛ رفض دائم للتنفيذيات وملفات السيرفر والسكربت (.js .html .htm .svg .xml …) والماكرو (.docm .xlsm .pptm) والمضغوطة (.zip .rar .7z .tar .gz .iso) — قرار أمني تقني يُبلّغ للـOwner (G10-TF-03).",
+    "الواجهة لا تذكر قائمة PDF/DOC/DOCX فقط (طلب الـOwner)."
+   ],
+   "sources": [
+    "M28-§17"
+   ],
+   "decision_refs": [
+    "G10-ND-07"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/RECRUITMENT-SECURITY.md (DRAFT)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "unsafe executable rejection (M28 §73): كل امتداد ممنوع + ملف تنفيذي بامتداد مزيف (.pdf) يُرفض بالـsignature؛ أسماء ملفات خبيثة (../، null bytes) تُنظف",
+   "design_refs": [
+    "docs/RECRUITMENT-SECURITY.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-035",
+   "area": "44 Careers & Recruitment",
+   "type": "RULE",
+   "title": "حجم الملفات: لا حدود Business مخترعة — حدود تقنية آمنة من فحص البيئة",
+   "requirement": "لا يُفرض Business limit مثل 10 MB أو 20 MB أو 25 MB من عندنا. أولًا يُفحص: Cloudways · web server · PHP/runtime · framework · storage، ثم تُحدد safe technical limits. لا Unlimited Upload يستهلك السيرفر: request limits · rate limiting · upload validation · storage safeguards · graceful error handling. إذا تجاوز ملف قدرة البيئة: رسالة عربية واضحة.",
+   "details": [
+    "قيد بنيوي محتمل: حد حجم الطلب في Cloudflare Proxy أمام الموقع (G10-TF-04) — يُتحقق ويُوثق.",
+    "الحالات: oversized technical limit · storage full (CAREERS-089).",
+    "المعادلة المسودة (CLOUDWAYS-RECRUITMENT-ARCHITECTURE.md §4): حد الملف = min(upload_max_filesize، حد السيرفر، حد Cloudflare) − 10%، رفع ملف بملف، حد مساحة من A-06 — بلا أرقام قبل الـAudit."
+   ],
+   "sources": [
+    "M28-§18"
+   ],
+   "decision_refs": [
+    "G10-ND-07"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/RECRUITMENT-SECURITY.md (DRAFT)",
+   "missing_work": "",
+   "dependencies": [
+    "CAREERS-004"
+   ],
+   "test_required": "large file (M28 §73): ملف فوق الحد → رسالة عربية واضحة، بقية المدخلات محفوظة؛ لا استنزاف للذاكرة/القرص",
+   "design_refs": [
+    "docs/RECRUITMENT-SECURITY.md",
+    "docs/CLOUDWAYS-RECRUITMENT-ARCHITECTURE.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-036",
+   "area": "44 Careers & Recruitment",
+   "type": "REQUIREMENT",
+   "title": "CV Auto-Detection محلي/Server-side — وعند عدم الثقة يُسأل المتقدم",
+   "requirement": "النظام يحاول تلقائيًا تحديد أي ملف هو الـCV؛ لا يحدد المتقدم الـCV يدويًا من البداية. Local/Server-side detection قدر الإمكان بناءً على: filename · metadata · document text when safely extractable · common CV/resume structure (مؤشرات: CV · Resume · Curriculum Vitae · السيرة الذاتية). لا خدمة AI خارجية أو SaaS خارجية لهذا الغرض بدون Owner Approval. إذا الثقة غير كافية: لا تخمين؛ عندها فقط يُطلب من المتقدم تحديد «أي ملف هو السيرة الذاتية؟». الـSubmission لا يكتمل بدون Primary CV محدد.",
+   "details": [
+    "Parsing المستندات لا يكون blocking على الطلب الرئيسي إذا أمكن عمله asynchronously بأمان (CAREERS-088)؛ بيئة parsing معزولة بحدود وقت/ذاكرة (G10-TF-15).",
+    "لا External OCR (CAREERS-091) — الـCV الممسوح كصورة يذهب لمسار السؤال.",
+    "Primary CV يُخزن كعلامة على المرفق (is_primary_cv) ويظهر أولًا في الـDashboard.",
+    "مسودة RECRUITMENT-SECURITY.md §8: نقاط حتمية (اسم الملف +50، عناوين CV +15 حتى 30، بريد/هاتف +10، 1–5 صفحات +10)؛ auto_single · auto_confident (≥60 وفارق ≥20) · وإلا سؤال المتقدم."
+   ],
+   "sources": [
+    "M28-§19"
+   ],
+   "decision_refs": [
+    "G10-ND-08"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/CAREERS-REQUIREMENTS.md (DRAFT)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "CV auto-detection + CV uncertainty fallback (M28 §73): ملف باسم CV/السيرة الذاتية يُكتشف؛ ملفات مبهمة → سؤال المتقدم؛ لا إرسال بدون Primary CV",
+   "design_refs": [
+    "docs/CAREERS-REQUIREMENTS.md",
+    "docs/RECRUITMENT-SECURITY.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-037",
+   "area": "44 Careers & Recruitment",
+   "type": "REQUIREMENT",
+   "title": "تخزين خاص للـCVs والمرفقات — لا Public URL، والوصول بعد Authentication + Owner authorization",
+   "requirement": "الـCVs والمرفقات PRIVATE. ممنوع وضعها في Public URL يمكن لأي شخص الوصول إليه (مثل `/public/uploads/cv/name.pdf` كملف مفتوح). معمارية التخزين تجعل الملفات غير متاحة إلا بعد Authentication + Owner authorization، عبر controlled download/stream endpoint أو secure temporary mechanism مناسب للـstack.",
+   "details": [
+    "التخزين خارج web root (مسار private) — يُحدد من Cloudways Audit (public/private paths).",
+    "لا تُخزن مرفقات التوظيف في Media Library العامة (MEDIA-012/D-195).",
+    "DoD: Private files."
+   ],
+   "sources": [
+    "M28-§20",
+    "M28-§79"
+   ],
+   "decision_refs": [
+    "G10-ND-09"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/RECRUITMENT-SECURITY.md (DRAFT)",
+   "missing_work": "",
+   "dependencies": [
+    "CAREERS-004",
+    "CAREERS-050"
+   ],
+   "test_required": "محاولة الوصول المباشر لمسار الملف بدون جلسة/بجلسة غير Owner = 401/403/404؛ رابط مؤقت ينتهي",
+   "design_refs": [
+    "docs/RECRUITMENT-SECURITY.md",
+    "docs/CLOUDWAYS-RECRUITMENT-ARCHITECTURE.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-038",
+   "area": "44 Careers & Recruitment",
+   "type": "REQUIREMENT",
+   "title": "حقل 19: الإقرار والموافقة — Checkbox إلزامي بنص معتمد وسجل مُنسخ (versioned)",
+   "requirement": "الإقرار والموافقة: Required Checkbox بالنص الأساسي: «أقر بأن جميع المعلومات المدخلة في طلب التوظيف صحيحة، وأوافق على قيام SHELTER COFFEE بجمع واستخدام بياناتي لغرض دراسة طلب التوظيف والتواصل معي بشأنه.» لا يمكن إرسال الطلب بدون الموافقة. يُخزن: consent accepted · consent timestamp · consent text/version — حتى يُعرف أي نسخة وافق عليها المتقدم.",
+   "details": [
+    "جدول application_consents (CAREERS-078)؛ سجل الموافقة يظهر في صفحة الطلب الكاملة (CAREERS-066).",
+    "تغيير النص لاحقًا = نسخة جديدة (version) دون المساس بسجلات الموافقات السابقة.",
+    "ليس بديلًا عن Privacy Policy (PRIV-001/PO-019) ولا عن Cookie consent."
+   ],
+   "sources": [
+    "M28-§21"
+   ],
+   "decision_refs": [
+    "G10-ND-10"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/CAREERS-REQUIREMENTS.md (DRAFT)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "بدون الـCheckbox لا إرسال (Client + Server)؛ السجل يحفظ النص/النسخة والوقت",
+   "design_refs": [
+    "docs/CAREERS-REQUIREMENTS.md",
+    "docs/RECRUITMENT-DATA-MODEL.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-039",
+   "area": "44 Careers & Recruitment",
+   "type": "RULE",
+   "title": "Server-side validation إلزامي عند Submit",
+   "requirement": "عند Submit: Server-side validation إلزامي ولا يُعتمد على Frontend validation فقط.",
+   "details": [
+    "يشمل: الإلزام، الخيارات المسموحة، المنطق الشرطي، صيغ الهاتف/البريد/التاريخ/الراتب، الملفات، الموافقة، حدود الطول."
+   ],
+   "sources": [
+    "M28-§22"
+   ],
+   "decision_refs": [
+    "G10-ND-10"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/RECRUITMENT-SECURITY.md (DRAFT)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "Applicant submission validation (M28 §74) + إرسال مباشر للـAPI بقيم غير صالحة يُرفض",
+   "design_refs": [
+    "docs/RECRUITMENT-SECURITY.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-040",
+   "area": "44 Careers & Recruitment",
+   "type": "REQUIREMENT",
+   "title": "رقم طلب فريد Server-side (صيغة مقترحة JOB-2026-00125)",
+   "requirement": "بعد نجاح الحفظ يُنشأ Application Number فريد — الصيغة المقترحة `JOB-2026-00125` — ويجب أن يكون Unique · Non-colliding · Searchable، ولا يعتمد على client-side number generation.",
+   "details": [
+    "توليد ذري (atomic) داخل Transaction/Sequence لتجنب التصادم تحت التزامن.",
+    "قابل للبحث في Global Search (CAREERS-058).",
+    "الرقم متسلسل قابل للتخمين؛ الحماية في المتابعة تعتمد على الهاتف + Rate limiting (G10-TF-07)."
+   ],
+   "sources": [
+    "M28-§22"
+   ],
+   "decision_refs": [
+    "G10-ND-10"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/RECRUITMENT-DATA-MODEL.md (DRAFT)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "Application number uniqueness (M28 §73): إرسالات متزامنة لا تتصادم؛ الرقم يُولد بعد الحفظ فقط",
+   "design_refs": [
+    "docs/RECRUITMENT-DATA-MODEL.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-041",
+   "area": "44 Careers & Recruitment",
+   "type": "REQUIREMENT",
+   "title": "صفحة النجاح بالعربي — بلا Email ولا WhatsApp تلقائي",
+   "requirement": "بعد الإرسال: لا Email تلقائي ولا WhatsApp تلقائي. تُعرض Success Page بالعربي فقط تحتوي: «تم استلام طلب التوظيف بنجاح» · رقم الطلب · رسالة بأن SHELTER ستتواصل مع المتقدم عند الحاجة · زر العودة للموقع. لا تُعرض معلومات حساسة في الـURL.",
+   "details": [
+    "صياغة الرسالة الثانية (التواصل عند الحاجة) Microcopy يقترحها Claude ضمن دفعة نصوص PO-020.",
+    "Success state accessible (CAREERS-085): إعلان النجاح لقارئ الشاشة ونقل التركيز.",
+    "noindex (CAREERS-008)."
+   ],
+   "sources": [
+    "M28-§23"
+   ],
+   "decision_refs": [
+    "G10-ND-10",
+    "MON-009"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/CAREERS-REQUIREMENTS.md (DRAFT)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "Applicant submits successfully (M28 §74): الصفحة تعرض العناصر الأربعة؛ لا رسائل بريد/واتساب تُرسل؛ الـURL بلا PII",
+   "design_refs": [
+    "docs/CAREERS-REQUIREMENTS.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-042",
+   "area": "44 Careers & Recruitment",
+   "type": "REQUIREMENT",
+   "title": "متابعة طلب التوظيف بدون حساب: رقم الطلب + رقم الهاتف فقط",
+   "requirement": "صفحة «متابعة طلب التوظيف» بدون إنشاء Account للمتقدم. آلية التحقق: رقم الطلب + رقم الهاتف فقط، مع rate limiting · anti-enumeration protections · generic errors — لا يسهل على المهاجم اكتشاف أرقام الطلبات أو أرقام الهواتف. تعرض Public Status فقط (CAREERS-047).",
+   "details": [
+    "مطابقة الهاتف على القيمة المنظمة (CAREERS-011).",
+    "تفاصيل الحماية في CAREERS-082."
+   ],
+   "sources": [
+    "M28-§24",
+    "M28-§62"
+   ],
+   "decision_refs": [
+    "G10-ND-11"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/RECRUITMENT-PUBLIC-STATUS-MAPPING.md (DRAFT)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "Tracking (M28 §73): correct number + phone · wrong phone · wrong application number · brute force protection؛ Playwright: Applicant tracks application",
+   "design_refs": [
+    "docs/RECRUITMENT-PUBLIC-STATUS-MAPPING.md",
+    "docs/RECRUITMENT-SECURITY.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-043",
+   "area": "44 Careers & Recruitment",
+   "type": "RULE",
+   "title": "لا تعديل للطلب من المتقدم — التصحيح الإداري Owner only + Audit Log",
+   "requirement": "بعد Submit لا يستطيع المتقدم تعديل الطلب؛ لا يوجد Edit Application. أي تعديل إداري لاحق: Owner only + Audit Log.",
+   "details": [
+    "التصحيح الإداري يسجل Before/After (CAREERS-074)."
+   ],
+   "sources": [
+    "M28-§25"
+   ],
+   "decision_refs": [
+    "G10-ND-11"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/RECRUITMENT-PERMISSIONS.md (DRAFT)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "لا مسار/Endpoint لتعديل المتقدم؛ تعديل الـOwner يظهر في Audit Log",
+   "design_refs": [
+    "docs/RECRUITMENT-PERMISSIONS.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-044",
+   "area": "44 Careers & Recruitment",
+   "type": "RULE",
+   "title": "المتقدمون المكررون: التقديم المتعدد مسموح + ربط بلا دمج",
+   "requirement": "يُسمح للشخص بالتقديم أكثر من مرة ولا يُمنع. يُكتشف ويُربط بالطلبات السابقة اعتمادًا على إشارات: رقم الهاتف · الرقم الوطني · passport/document number · email. لا تُدمج الطلبات؛ كل Application يبقى بـApplication ID مستقل · تاريخ مستقل · حالة مستقلة · attachments مستقلة · audit history مستقلة. داخل الـDashboard يُعرض «متقدم سابق» و«لديه X طلبات».",
+   "details": [
+    "آلية المطابقة في CAREERS-079."
+   ],
+   "sources": [
+    "M28-§26"
+   ],
+   "decision_refs": [
+    "G10-ND-12"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/RECRUITMENT-DATA-MODEL.md (DRAFT)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "Duplicate applicant matching (M28 §73): طلبان بنفس الهاتف/الهوية/البريد → مرتبطان، غير مدموجين، «لديه 2 طلبات»",
+   "design_refs": [
+    "docs/RECRUITMENT-DATA-MODEL.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-045",
+   "area": "44 Careers & Recruitment",
+   "type": "RULE",
+   "title": "حماية الرقم الوطني ورقم جواز السفر/الوثيقة (Sensitive Data)",
+   "requirement": "الرقم الوطني ورقم Passport/Identity document = Sensitive Data بحماية قوية، على الأقل: لا تُرسل إلى GA4 · لا إلى GTM · لا إلى logs غير الضرورية · لا تُعرض كاملة في list views · mask value مثل `********1234` · Owner-only reveal · audit sensitive access where practical · encrypt sensitive values at rest/application layer إذا كان مناسبًا للـstack · secure hash/index منفصل عند الحاجة لاكتشاف duplicates بدون البحث في plaintext. لا تُخزن أسرار التشفير في الـfrontend أو الـrepository.",
+   "details": [
+    "جدول application_identity_secure (CAREERS-078).",
+    "التصدير Masked افتراضيًا (CAREERS-072).",
+    "Key management ونسخ المفاتيح احتياطيًا (G10-TF-05).",
+    "مسودة RECRUITMENT-SECURITY.md §5: AES-256-GCM + key_version، Blind index = HMAC-SHA256، Step-up بعد 10 دقائق قبل الإظهار."
+   ],
+   "sources": [
+    "M28-§27"
+   ],
+   "decision_refs": [
+    "G10-ND-09",
+    "D-166"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/RECRUITMENT-SECURITY.md (DRAFT)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "القيمة مشفرة في DB؛ Masked في الجدول/Quick view/Export الافتراضي؛ Reveal للـOwner فقط ويُسجل؛ لا تظهر في Logs أو dataLayer/Network لـGA4",
+   "design_refs": [
+    "docs/RECRUITMENT-SECURITY.md",
+    "docs/RECRUITMENT-DATA-MODEL.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-046",
+   "area": "44 Careers & Recruitment",
+   "type": "DECISION",
+   "title": "الحالات الداخلية السبع + سجل كل تغيير حالة",
+   "requirement": "الحالات الداخلية المعتمدة: 1 تم الاستلام · 2 قيد المراجعة · 3 مرشح للمقابلة · 4 تمت المقابلة · 5 مقبول · 6 مرفوض · 7 مؤرشف. كل Status Change يحفظ: old status · new status · actor · timestamp · optional internal note.",
+   "details": [
+    "جدول application_status_history (CAREERS-078).",
+    "فتح الطلب لا يغير الحالة (CAREERS-054).",
+    "Internal status تبقى كاملة داخل الـOwner Dashboard."
+   ],
+   "sources": [
+    "M28-§28",
+    "M28-§29"
+   ],
+   "decision_refs": [
+    "G10-ND-13"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/RECRUITMENT-PUBLIC-STATUS-MAPPING.md (DRAFT)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "Status flow (M28 §73) + Playwright: Owner changes status؛ كل تغيير له سجل بالحقول الخمسة",
+   "design_refs": [
+    "docs/RECRUITMENT-PUBLIC-STATUS-MAPPING.md",
+    "docs/RECRUITMENT-DATA-MODEL.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-047",
+   "area": "44 Careers & Recruitment",
+   "type": "DECISION",
+   "title": "Public Status Mapping — المتقدم لا يرى الحالة الداخلية دائمًا",
+   "requirement": "Applicant-facing mapping: تم الاستلام → «تم استلام الطلب» · قيد المراجعة → «قيد المراجعة» · مرشح للمقابلة → «تم اختيارك للمقابلة» (بدون تاريخ/وقت/مكان المقابلة داخل Applicant Tracking) · تمت المقابلة → Public Status محايد مناسب لا يكشف تقييمات داخلية · مقبول → لا يُعرض «مقبول»، الـTracking page ليست وسيلة قبول رسمية، التواصل يدوي من SHELTER، ولا يتحول Public Status إلى إعلان قبول صريح · مرفوض → «تم إغلاق الطلب» · مؤرشف → «تم إغلاق الطلب».",
+   "details": [
+    "اختيار الصياغة المحايدة لـ«تمت المقابلة» و«مقبول» مفوض لـClaude (M28 §29 «استخدم Public Status محايد مناسب»).",
+    "حُسم بالتفويض في RECRUITMENT-PUBLIC-STATUS-MAPPING.md: TD-PS-01 «تمت المقابلة» → «قيد المراجعة»؛ TD-PS-02 «مقبول» → «قيد المراجعة» حتى التواصل اليدوي؛ TD-PS-03 الحالة العامة تُحسب ولا تُخزن؛ TD-PS-04 أرشفة طلب مقبول تُظهر «تم إغلاق الطلب» مع تنبيه للـOwner عند الأرشفة.",
+    "لا يُعاد سؤال الـOwner عن النص المحايد (تفويض صريح في §29)."
+   ],
+   "sources": [
+    "M28-§29"
+   ],
+   "decision_refs": [
+    "G10-ND-13"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/RECRUITMENT-PUBLIC-STATUS-MAPPING.md (الجدول + TD-PS-01…04)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "Public status mapping (M28 §73): كل حالة داخلية → النص العام الصحيح؛ لا تفاصيل مقابلة ولا «مقبول» في صفحة المتابعة",
+   "design_refs": [
+    "docs/RECRUITMENT-PUBLIC-STATUS-MAPPING.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-048",
+   "area": "44 Careers & Recruitment",
+   "type": "REQUIREMENT",
+   "title": "إدارة المقابلات: تاريخ · وقت · مكان (Dropdown: DRIVE / HOUSE) · ملاحظات داخلية",
+   "requirement": "داخل الـDashboard، إذا رُشح الشخص للمقابلة يستطيع الـOwner تحديد: تاريخ المقابلة · وقت المقابلة · مكان المقابلة · ملاحظات داخلية. مكان المقابلة Dropdown فقط بالقيم المبدئية: SHELTER COFFEE DRIVE · SHELTER COFFEE HOUSE — قابلة للإدارة من Settings مستقبلًا؛ لا Free Text للمكان حاليًا.",
+   "details": [
+    "أسماء الفرعين معتمدة (BRANCH-003/004).",
+    "إنشاء/تعديل المقابلة يُسجل في Audit Log.",
+    "تفاصيل المقابلة لا تظهر في صفحة متابعة المتقدم (CAREERS-047)."
+   ],
+   "sources": [
+    "M28-§30",
+    "M28-§29"
+   ],
+   "decision_refs": [
+    "G10-ND-14"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/CAREERS-REQUIREMENTS.md (DRAFT)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "Interview fields (M28 §73) + Playwright: Owner creates interview؛ المكان من القائمة فقط",
+   "design_refs": [
+    "docs/CAREERS-REQUIREMENTS.md",
+    "docs/RECRUITMENT-DATA-MODEL.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-049",
+   "area": "44 Careers & Recruitment",
+   "type": "RULE",
+   "title": "لا نظام تقييم: لا Score ولا نجوم ولا AI ranking",
+   "requirement": "لا يُبنى: Candidate score · stars · AI ranking · competency scoring · automatic candidate evaluation · interview rating system. الـOwner رفض نظام تقييم المقابلة؛ يكفي Internal Notes + Status.",
+   "details": [],
+   "sources": [
+    "M28-§31"
+   ],
+   "decision_refs": [
+    "G10-ND-14"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "spec: docs/CAREERS-REQUIREMENTS.md (DRAFT)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "مراجعة الواجهة والـschema: لا حقول/عناصر تقييم",
+   "design_refs": [
+    "docs/CAREERS-REQUIREMENTS.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-050",
+   "area": "44 Careers & Recruitment",
+   "type": "RULE",
+   "title": "وحدة التوظيف OWNER ONLY — Server-side Owner Authorization",
+   "requirement": "Recruitment Module = OWNER ONLY؛ ليس Admin · Editor · Marketing · SEO · Content Manager. حتى لو عرف شخص الـURL: الـBackend authorization يمنع الوصول. لا اعتماد على UI hiding فقط؛ Server-side Owner Authorization إلزامي (Server-side Owner Role only).",
+   "details": [
+    "ينطبق على الصفحات والـAPIs وروابط الملفات والتصدير.",
+    "الأدوار المستقبلية (PERM-002) لا تحصل على الوصول ما لم يقرر الـOwner صراحة (G10-CF-09).",
+    "DoD: Owner-only authorization verified.",
+    "مسودة RECRUITMENT-PERMISSIONS.md §4 توسع الحالات الست إلى P-01…P-08 (رابط موقّع منتهٍ، حذف نهائي لطلب غير مؤرشف/Bulk عبر API، الوصول المباشر لمسار التخزين)."
+   ],
+   "sources": [
+    "M28-§32",
+    "M28-§63",
+    "M28-§79"
+   ],
+   "decision_refs": [
+    "G10-ND-15",
+    "D-162"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/RECRUITMENT-PERMISSIONS.md (DRAFT)",
+   "missing_work": "",
+   "dependencies": [
+    "Dashboard authentication (DASH-004 Phase I)",
+    "PERM-005"
+   ],
+   "test_required": "CAREERS-083 (6 حالات سلبية) + Owner access / Non-owner rejection (M28 §73)",
+   "design_refs": [
+    "docs/RECRUITMENT-PERMISSIONS.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "G10-CF-09",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-051",
+   "area": "44 Careers & Recruitment",
+   "type": "DECISION",
+   "title": "قسم «التوظيف / Careers / Recruitment» داخل SHELTER OWNER DASHBOARD (IA مقترحة)",
+   "requirement": "إنشاء قسم «التوظيف — Careers / Recruitment» داخل SHELTER OWNER DASHBOARD. الـArchitecture المقترحة: Recruitment ├ Overview ├ Applications ├ Interviews ├ Archived ├ Saved Filters └ Settings — ويمكن تعديل الـIA إذا كان الـUX أفضل بدون تغيير المتطلبات.",
+   "details": [
+    "Phase 3 (Recruitment IA) + Phase 7 (Dashboard wireframes) في ترتيب التنفيذ.",
+    "يضاف لقائمة وحدات الـDashboard (DASH-006) وقائمة الـWireframes (DASH-005)."
+   ],
+   "sources": [
+    "M28-§33"
+   ],
+   "decision_refs": [
+    "G10-ND-16",
+    "D-198"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/CAREERS-REQUIREMENTS.md §6 + docs/careers/wireframes/html/* (قيد الإنشاء، غير مُتتبعة في git بعد)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "Wireframes (موبايل/تابلت/ديسكتوب) + مراجعة UX قبل Phase 8",
+   "design_refs": [
+    "docs/CAREERS-REQUIREMENTS.md",
+    "docs/IMPLEMENTATION-PLAN.md P04"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P04",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-052",
+   "area": "44 Careers & Recruitment",
+   "type": "REQUIREMENT",
+   "title": "Recruitment Overview: 8 بطاقات قابلة للنقر — تشغيلية أولًا",
+   "requirement": "Summary Cards: الطلبات الجديدة · إجمالي الطلبات · قيد المراجعة · مرشحون للمقابلة · تمت المقابلة · المقبولون · المرفوضون · المؤرشفون. كل Card clickable وتفتح Applications مع الـfilter المناسب. الـOverview Operational first ولا تُملأ الشاشة بـCharts غير ضرورية.",
+   "details": [
+    "«الطلبات الجديدة» = غير المفتوحة (Read status — CAREERS-054)."
+   ],
+   "sources": [
+    "M28-§34",
+    "M28-§75"
+   ],
+   "decision_refs": [
+    "G10-ND-16"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/CAREERS-REQUIREMENTS.md (DRAFT)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "كل بطاقة تعرض العدد الصحيح للفترة وتفتح القائمة بالـfilter الصحيح",
+   "design_refs": [
+    "docs/CAREERS-REQUIREMENTS.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-053",
+   "area": "44 Careers & Recruitment",
+   "type": "REQUIREMENT",
+   "title": "الفترة الزمنية: افتراضي «هذا الشهر» — بلا نسب مقارنة",
+   "requirement": "الفترة الافتراضية: هذا الشهر. الخيارات: اليوم · آخر 7 أيام · آخر 30 يوم · هذا الشهر · كل الوقت. لا تُعرض Comparison percentages مع الفترة السابقة — الـOwner رفض أسلوب «+18% compared to last month».",
+   "details": [
+    "نطاقه وحدة التوظيف؛ لا يغيّر DASH-008/DASH-009 في Analytics Overview (G10-CF-04).",
+    "المنطقة الزمنية للحساب: توقيت الأردن (قرار تقني)."
+   ],
+   "sources": [
+    "M28-§35"
+   ],
+   "decision_refs": [
+    "G10-ND-16"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/CAREERS-REQUIREMENTS.md (DRAFT)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "الافتراضي هذا الشهر؛ الخيارات الخمسة؛ لا نسب مقارنة",
+   "design_refs": [
+    "docs/CAREERS-REQUIREMENTS.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "G10-CF-04",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-054",
+   "area": "44 Careers & Recruitment",
+   "type": "REQUIREMENT",
+   "title": "شارة «جديد»: فصل Application Status عن Read Status",
+   "requirement": "الفصل بين Application Status وRead Status. أي Application لم يفتحها الـOwner تحمل Badge «جديد»؛ عند فتحها لأول مرة: mark as viewed، ولا تتغير Internal Application Status فقط لأنه تم فتحها.",
+   "details": [
+    "«application opened first time» حدث في Audit Log (CAREERS-074).",
+    "view status يظهر في الصفحة الكاملة (CAREERS-066)."
+   ],
+   "sources": [
+    "M28-§36"
+   ],
+   "decision_refs": [
+    "G10-ND-16"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/CAREERS-REQUIREMENTS.md (DRAFT)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "Playwright: Owner sees new badge؛ الفتح الأول يزيل الشارة ولا يغير الحالة",
+   "design_refs": [
+    "docs/CAREERS-REQUIREMENTS.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-055",
+   "area": "44 Careers & Recruitment",
+   "type": "REQUIREMENT",
+   "title": "إشعارات الطلب الجديد: داخل الـDashboard فقط (لا Email ولا WhatsApp)",
+   "requirement": "عند وصول طلب جديد: Dashboard notification فقط — لا Email ولا WhatsApp. يُعرض: Badge على Recruitment · New application counter · Needs Attention / New Applications section إذا مناسب.",
+   "details": [
+    "متسق مع MON-009 (V1 إشعارات داخل الـDashboard) وMON-010 (Email/WhatsApp مستقبلًا بموافقة فقط).",
+    "يمكن أن تغذي Needs Attention (DASH-017) مع تجنب notification spam (MON-008)."
+   ],
+   "sources": [
+    "M28-§37"
+   ],
+   "decision_refs": [
+    "G10-ND-16",
+    "MON-009"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/CAREERS-REQUIREMENTS.md (DRAFT)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "طلب جديد يرفع العداد والشارة؛ لا رسائل خارجية تُرسل",
+   "design_refs": [
+    "docs/CAREERS-REQUIREMENTS.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-056",
+   "area": "44 Careers & Recruitment",
+   "type": "REQUIREMENT",
+   "title": "جدول الطلبات: 7 أعمدة افتراضية والترتيب الأحدث أولًا",
+   "requirement": "الجدول الأساسي يعرض: الاسم · الوظيفة المتقدم لها · المدينة · سنوات الخبرة · الراتب المتوقع · تاريخ التقديم · حالة الطلب. Default sorting: Newest first.",
+   "details": [
+    "الراتب يُعرض «450 د.أ» (CAREERS-028).",
+    "لا رقم هوية في الجدول (CAREERS-045)."
+   ],
+   "sources": [
+    "M28-§38"
+   ],
+   "decision_refs": [
+    "G10-ND-16"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/CAREERS-REQUIREMENTS.md (DRAFT)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "الأعمدة السبعة افتراضيًا؛ الأحدث أولًا",
+   "design_refs": [
+    "docs/CAREERS-REQUIREMENTS.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-057",
+   "area": "44 Careers & Recruitment",
+   "type": "REQUIREMENT",
+   "title": "الترتيب المتقدم: 6 خيارات",
+   "requirement": "خيارات الترتيب: الأحدث أولًا · الأقدم أولًا · الراتب الأعلى → الأقل · الراتب الأقل → الأعلى · سنوات الخبرة الأعلى → الأقل · سنوات الخبرة الأقل → الأعلى.",
+   "details": [
+    "ترتيب سنوات الخبرة حسب ترتيب الفئات (CAREERS-025)."
+   ],
+   "sources": [
+    "M28-§39"
+   ],
+   "decision_refs": [
+    "G10-ND-16"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/CAREERS-REQUIREMENTS.md (DRAFT)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "Sorting (M28 §73): الخيارات الستة صحيحة مع الـPagination",
+   "design_refs": [
+    "docs/CAREERS-REQUIREMENTS.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-058",
+   "area": "44 Careers & Recruitment",
+   "type": "REQUIREMENT",
+   "title": "Global Quick Search حي أثناء الكتابة (مع Debounce)",
+   "requirement": "Global Quick Search + Advanced Filters. البحث العام يبحث في: الاسم · الهاتف · البريد الإلكتروني · رقم الطلب · الوظيفة · المدينة. البحث Live while typing مع debounce مناسب؛ لا Query لكل keystroke بشكل عدواني.",
+   "details": [
+    "الهاتف يُبحث بالقيمة المنظمة (CAREERS-011).",
+    "الرقم الوطني/الجواز ليس ضمن البحث العام (غير مطلوب) — حماية للبيانات الحساسة.",
+    "Indexing strategy قرار تقني (M28 §78)."
+   ],
+   "sources": [
+    "M28-§40"
+   ],
+   "decision_refs": [
+    "G10-ND-16"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/CAREERS-REQUIREMENTS.md (DRAFT)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "Search (M28 §73) + Playwright: Owner searches applicant؛ عدد الطلبات للخادم محدود بالـdebounce",
+   "design_refs": [
+    "docs/CAREERS-REQUIREMENTS.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-059",
+   "area": "44 Careers & Recruitment",
+   "type": "REQUIREMENT",
+   "title": "Advanced Filters (10 على الأقل) مع دمج عدة Filters",
+   "requirement": "Advanced Filters على الأقل: الاسم · رقم الهاتف · الوظيفة · المدينة · المؤهل العلمي · سنوات الخبرة · الحالة · الجنس · الجنسية · تاريخ التقديم — مع دعم Multiple Filters معًا.",
+   "details": [],
+   "sources": [
+    "M28-§41"
+   ],
+   "decision_refs": [
+    "G10-ND-16"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/CAREERS-REQUIREMENTS.md (DRAFT)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "Filters (M28 §73) + Playwright: Owner filters؛ دمج عدة Filters يعطي التقاطع الصحيح",
+   "design_refs": [
+    "docs/CAREERS-REQUIREMENTS.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-060",
+   "area": "44 Careers & Recruitment",
+   "type": "REQUIREMENT",
+   "title": "Saved Filters بأسماء يحددها الـOwner",
+   "requirement": "الـOwner يستطيع حفظ Filter (مثال: إربد + بكالوريوس + 3–5 سنوات + قيد المراجعة) وإعطاءه اسمًا (مثل «مرشحين محاسبة إربد»)، فيظهر في Saved Filters ويفتح بضغطة.",
+   "details": [
+    "جدول recruitment_saved_filters (CAREERS-078).",
+    "المثال توضيحي."
+   ],
+   "sources": [
+    "M28-§42"
+   ],
+   "decision_refs": [
+    "G10-ND-16"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/CAREERS-REQUIREMENTS.md (DRAFT)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "Saved filters (M28 §73): حفظ/فتح/حذف؛ النتائج تطابق الفلتر الأصلي",
+   "design_refs": [
+    "docs/CAREERS-REQUIREMENTS.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-061",
+   "area": "44 Careers & Recruitment",
+   "type": "REQUIREMENT",
+   "title": "تخصيص الأعمدة: Show/Hide · Drag & Drop · Reset — مع حفظ التفضيل",
+   "requirement": "الـOwner يستطيع: Show columns · Hide columns · Drag & Drop reorder · Reset to default، ويُحفظ الـpreference للـOwner.",
+   "details": [
+    "Drag & Drop يحتاج بديلًا بلوحة المفاتيح (A11Y-007)."
+   ],
+   "sources": [
+    "M28-§43"
+   ],
+   "decision_refs": [
+    "G10-ND-16"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/CAREERS-REQUIREMENTS.md (DRAFT)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "Columns + Drag/drop (M28 §73): التفضيل يبقى بعد إعادة التحميل؛ Reset يعيد الافتراضي",
+   "design_refs": [
+    "docs/CAREERS-REQUIREMENTS.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-062",
+   "area": "44 Careers & Recruitment",
+   "type": "REQUIREMENT",
+   "title": "كثافة الجدول Comfortable/Compact + عرض مناسب للهاتف",
+   "requirement": "وفر Comfortable · Compact واحفظ الـPreference. على Mobile لا تُفرض Desktop Table بشكل سيئ؛ يُستخدم responsive cards أو adaptive table حسب الـUX الأفضل.",
+   "details": [
+    "متسق مع RESP-018 وDASH-027."
+   ],
+   "sources": [
+    "M28-§44"
+   ],
+   "decision_refs": [
+    "G10-ND-16"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/CAREERS-REQUIREMENTS.md (DRAFT)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "Comfortable/Compact (M28 §73)؛ على 320–430px بطاقات/جدول متكيف بلا Overflow أفقي",
+   "design_refs": [
+    "docs/CAREERS-REQUIREMENTS.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-063",
+   "area": "44 Careers & Recruitment",
+   "type": "REQUIREMENT",
+   "title": "عدد الصفوف: 25 / 50 / 100 — الافتراضي على Desktop = 50 مع تذكر آخر اختيار",
+   "requirement": "Page Size options: 25 · 50 · 100. Desktop default: 50. يُحفظ آخر اختيار للـOwner.",
+   "details": [
+    "الافتراضي على الهاتف قرار UX تقني (الـOwner حدد Desktop فقط)."
+   ],
+   "sources": [
+    "M28-§45"
+   ],
+   "decision_refs": [
+    "G10-ND-16"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/CAREERS-REQUIREMENTS.md (DRAFT)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "25/50/100 pagination (M28 §73)؛ الافتراضي 50 على Desktop؛ التذكر بعد إعادة التحميل",
+   "design_refs": [
+    "docs/CAREERS-REQUIREMENTS.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-064",
+   "area": "44 Careers & Recruitment",
+   "type": "REQUIREMENT",
+   "title": "Traditional Pagination — لا Infinite Scroll لقائمة الإدارة",
+   "requirement": "Traditional Pagination مع: السابق · التالي · page numbers · الانتقال مباشرة إلى رقم صفحة عندما يكون مفيدًا. لا Infinite Scroll لقائمة الإدارة الرئيسية. (الـOwner وافق على توصيات Claude المتبقية.)",
+   "details": [
+    "لا يتعارض مع D-147/MENU-054 (منع الـPagination خاص بصفحة المنيو العامة).",
+    "Pagination query strategy قرار تقني (M28 §78)."
+   ],
+   "sources": [
+    "M28-§46"
+   ],
+   "decision_refs": [
+    "G10-ND-16"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/CAREERS-REQUIREMENTS.md (DRAFT)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "التنقل بين الصفحات والقفز لرقم صفحة؛ الحالة (فلتر/ترتيب) محفوظة",
+   "design_refs": [
+    "docs/CAREERS-REQUIREMENTS.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-065",
+   "area": "44 Careers & Recruitment",
+   "type": "REQUIREMENT",
+   "title": "Quick View (Side Panel) — الحد الأدنى للمحتوى",
+   "requirement": "عند الضغط على Application يتوفر الاثنان: A. Side Panel / Quick View و B. Full Application Page. الـQuick View يعرض على الأقل: الاسم · الوظيفة · المدينة · سنوات الخبرة · الراتب · الحالة · الهاتف · البريد · attachments preview/summary · status action.",
+   "details": [
+    "على الهاتف: Drawer/Sheet لا يتجاوز الشاشة (RESP-015).",
+    "Preview المرفقات آمن ولا ينفذ HTML/SVG (CAREERS-080)."
+   ],
+   "sources": [
+    "M28-§47"
+   ],
+   "decision_refs": [
+    "G10-ND-16"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/CAREERS-REQUIREMENTS.md (DRAFT)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "Playwright: Owner opens quick panel؛ تغيير الحالة من اللوحة",
+   "design_refs": [
+    "docs/CAREERS-REQUIREMENTS.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-066",
+   "area": "44 Careers & Recruitment",
+   "type": "REQUIREMENT",
+   "title": "صفحة الطلب الكاملة بترتيب UX واضح (ليست Dump لحقول DB)",
+   "requirement": "الصفحة الكاملة تعرض: جميع بيانات النموذج · رقم الطلب · created timestamp · current status · view status · CV · attachments · notes · interview · previous applications · status history · audit trail relevant to application · consent record — بترتيب UX واضح وليس dump لحقول Database.",
+   "details": [
+    "الرقم الوطني/الجواز Masked مع Reveal للـOwner (CAREERS-045)."
+   ],
+   "sources": [
+    "M28-§48"
+   ],
+   "decision_refs": [
+    "G10-ND-16"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/CAREERS-REQUIREMENTS.md (DRAFT)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "Playwright: Owner opens full application؛ كل العناصر الثلاثة عشر ظاهرة",
+   "design_refs": [
+    "docs/CAREERS-REQUIREMENTS.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-067",
+   "area": "44 Careers & Recruitment",
+   "type": "REQUIREMENT",
+   "title": "الملاحظات الداخلية: ملاحظات متعددة مستقلة — بلا Overwrite",
+   "requirement": "الملاحظات الداخلية Multiple independent notes؛ كل Note تحفظ: content · author · created_at. لا يوجد حقل Notes واحد يتم overwrite عليه. إذا سُمح بالتعديل/الحذف: لا يتم بصمت ويُسجل Audit History.",
+   "details": [
+    "قرار السماح بتعديل/حذف الملاحظة تقني/UX — إن سُمح يُسجل (CAREERS-074)."
+   ],
+   "sources": [
+    "M28-§49"
+   ],
+   "decision_refs": [
+    "G10-ND-16"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/RECRUITMENT-DATA-MODEL.md (DRAFT)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "Notes (M28 §73) + Playwright: Owner adds note",
+   "design_refs": [
+    "docs/RECRUITMENT-DATA-MODEL.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-068",
+   "area": "44 Careers & Recruitment",
+   "type": "REQUIREMENT",
+   "title": "Bulk Actions: تغيير الحالة · Archive · Export · Download Attachments — بلا Bulk Permanent Delete",
+   "requirement": "الـOwner يستطيع تحديد عدة Applications ثم: تغيير الحالة · Archive · Export · Download Attachments. لا يُسمح بـBulk Permanent Delete.",
+   "details": [],
+   "sources": [
+    "M28-§50"
+   ],
+   "decision_refs": [
+    "G10-ND-16"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/CAREERS-REQUIREMENTS.md (DRAFT)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "Bulk actions (M28 §73)؛ لا خيار حذف نهائي جماعي في الواجهة ولا الـAPI",
+   "design_refs": [
+    "docs/CAREERS-REQUIREMENTS.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-069",
+   "area": "44 Careers & Recruitment",
+   "type": "REQUIREMENT",
+   "title": "Bulk Status Change: تأكيد واحد واضح + Audit Log",
+   "requirement": "Bulk status change بـConfirmation واحد واضح، مثال: «أنت على وشك تغيير حالة 20 طلبًا إلى قيد المراجعة.» ثم Confirm، وتُسجل العملية في Audit Log.",
+   "details": [
+    "كل طلب يحصل على سجل status_history خاص به + حدث bulk في Audit Log."
+   ],
+   "sources": [
+    "M28-§51"
+   ],
+   "decision_refs": [
+    "G10-ND-16"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/CAREERS-REQUIREMENTS.md (DRAFT)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "نص التأكيد يعرض العدد والحالة الهدف؛ Cancel لا يغير شيئًا؛ السجلات موجودة",
+   "design_refs": [
+    "docs/CAREERS-REQUIREMENTS.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-070",
+   "area": "44 Careers & Recruitment",
+   "type": "RULE",
+   "title": "Archive ثم Permanent Delete (Owner only، تأكيد قوي، Tombstone) — لا حذف تلقائي",
+   "requirement": "لا يوجد Automatic Deletion؛ طلبات التوظيف تبقى حتى يتخذ الـOwner قرارًا. Delete flow: Active → Archive → Permanent Delete. Permanent Delete: Owner only؛ لا direct permanent delete من القائمة الرئيسية؛ قبل الحذف النهائي Strong Confirmation. الحذف النهائي يتعامل مع: application data · sensitive identity data · attachments · notes · interview data وفق deletion policy واضحة، وتُسجل عملية الحذف نفسها في Audit/Audit Tombstone بالطريقة الآمنة المناسبة دون إبقاء البيانات الحساسة المحذوفة نفسها.",
+   "details": [
+    "استثناء محصور من D-218/DEPLOY-013 (Delete = Archive) لوحدة التوظيف (G10-CF-03).",
+    "الـBackups تحتفظ بنسخ حتى انتهاء دورة الاحتفاظ — يوثق في deletion policy (G10-TF-14).",
+    "DoD: Archive/Delete works."
+   ],
+   "sources": [
+    "M28-§52",
+    "M28-§79"
+   ],
+   "decision_refs": [
+    "G10-ND-17"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/RECRUITMENT-SECURITY.md (DRAFT)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "Archive + Permanent Delete (M28 §73): لا حذف إلا من الأرشيف؛ بعد الحذف لا بيانات/ملفات/ملاحظات/مقابلات متبقية؛ Tombstone بلا PII",
+   "design_refs": [
+    "docs/RECRUITMENT-SECURITY.md",
+    "docs/RECRUITMENT-DATA-MODEL.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "G10-CF-03",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-071",
+   "area": "44 Careers & Recruitment",
+   "type": "REQUIREMENT",
+   "title": "الطلبات القديمة: Last Updated + تنبيه اختياري — بلا حذف تلقائي",
+   "requirement": "يُعرض Last Updated، ويمكن تنبيه الـOwner إلى Applications القديمة، لكن لا تُحذف تلقائيًا.",
+   "details": [
+    "عتبة «قديم» قرار تقني/UX قابل للتعديل من Settings؛ التنبيه داخل الـDashboard فقط."
+   ],
+   "sources": [
+    "M28-§53"
+   ],
+   "decision_refs": [
+    "G10-ND-17"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P2",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/CAREERS-REQUIREMENTS.md (DRAFT)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "Last Updated يتحدث مع كل تغيير؛ لا مهمة حذف مجدولة",
+   "design_refs": [
+    "docs/CAREERS-REQUIREMENTS.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-072",
+   "area": "44 Careers & Recruitment",
+   "type": "REQUIREMENT",
+   "title": "Export: Excel · CSV · PDF — والهوية Masked افتراضيًا",
+   "requirement": "الـOwner يستطيع التصدير Excel · CSV · PDF بخيارات: all applications · filtered results · selected applications · status · date range · job text/filter where applicable. Sensitive identity number Masked by default، ولا يظهر كاملًا إلا إذا اختار الـOwner ذلك صراحة وعبر flow آمن.",
+   "details": [
+    "حماية CSV/Excel من Formula injection، وUTF-8 مع دعم العربية، وPDF بخط عربي وتشكيل صحيح (G10-TF-17).",
+    "كل Export يُسجل في Audit Log (CAREERS-074)؛ Owner only."
+   ],
+   "sources": [
+    "M28-§54"
+   ],
+   "decision_refs": [
+    "G10-ND-18"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/CAREERS-REQUIREMENTS.md (DRAFT)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "Exports CSV · Excel · PDF (M28 §73) + Playwright: Owner exports؛ الهوية Masked افتراضيًا",
+   "design_refs": [
+    "docs/CAREERS-REQUIREMENTS.md",
+    "docs/RECRUITMENT-SECURITY.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-073",
+   "area": "44 Careers & Recruitment",
+   "type": "REQUIREMENT",
+   "title": "تنزيل المرفقات: Action منفصل يجمعها في ZIP — Owner only ومسجل",
+   "requirement": "لا توضع الملفات داخل كل Excel/CSV/PDF export. يتوفر Action منفصل «تنزيل المرفقات» للـselected applications، يجمعها في ZIP مناسب، Owner only، ويُسجل الـexport/download في Audit Log.",
+   "details": [
+    "توليد ZIP متدفق/غير متزامن ضمن حدود Cloudways (G10-TF-18)."
+   ],
+   "sources": [
+    "M28-§55"
+   ],
+   "decision_refs": [
+    "G10-ND-18"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/RECRUITMENT-SECURITY.md (DRAFT)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "ZIP attachments (M28 §73): المحتوى صحيح، أسماء آمنة، مسجل في Audit Log، غير متاح لغير الـOwner",
+   "design_refs": [
+    "docs/RECRUITMENT-SECURITY.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-074",
+   "area": "44 Careers & Recruitment",
+   "type": "REQUIREMENT",
+   "title": "Audit Log للتوظيف: 13 حدثًا × 7 حقول — بلا محتوى ملفات حساس",
+   "requirement": "يُسجل على الأقل: application created · application opened first time · status changes · bulk status changes · note added · note changed/deleted (إذا سُمح) · interview created/changed · sensitive identity reveal where feasible · export · attachment download · archive · permanent delete · administrative corrections. حقول الـAudit: Actor · Action · Target · Timestamp · Before · After · Context. لا يُخزن sensitive file content داخل Audit Log.",
+   "details": [
+    "يوسّع AUDIT-001/D-164 (Who/What/Before/After/Date) بالحقلين Target وContext.",
+    "Before/After للحقول الحساسة تُسجل Masked (قرار تقني) — لا plaintext للهوية في السجل.",
+    "DoD: Audit works."
+   ],
+   "sources": [
+    "M28-§56",
+    "M28-§25",
+    "M28-§49",
+    "M28-§51",
+    "M28-§55"
+   ],
+   "decision_refs": [
+    "G10-ND-18",
+    "D-164"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/RECRUITMENT-DATA-MODEL.md (DRAFT)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "Audit logging (M28 §73): كل حدث من الـ13 ينتج سجلًا بالحقول السبعة؛ لا PII حساسة أو محتوى ملفات فيه",
+   "design_refs": [
+    "docs/RECRUITMENT-DATA-MODEL.md",
+    "docs/RECRUITMENT-SECURITY.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-075",
+   "area": "44 Careers & Recruitment",
+   "type": "REQUIREMENT",
+   "title": "Settings للتوظيف: قوائم قابلة للإدارة (المدن · أماكن المقابلة)",
+   "requirement": "قسم Settings في وحدة التوظيف يحفظ القوائم القابلة للإدارة مستقبلًا: قائمة المدن (§08 «قابلة للإدارة مستقبلًا من Settings إذا احتجنا») وInterview Locations (§30 «قابلة للإدارة من Settings مستقبلًا») — مع recruitment_settings في نموذج البيانات.",
+   "details": [
+    "V1: البنية جاهزة والقيم المبدئية مزروعة (DRIVE/HOUSE + قائمة المدن)؛ واجهة التحرير «مستقبلًا/إذا احتجنا».",
+    "أي تعديل على القوائم يسجل في Audit Log ولا يكسر الطلبات القديمة (القيمة المخزنة تبقى)."
+   ],
+   "sources": [
+    "M28-§08",
+    "M28-§30",
+    "M28-§33",
+    "M28-§58"
+   ],
+   "decision_refs": [
+    "G10-ND-16"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P2",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/RECRUITMENT-DATA-MODEL.md (DRAFT)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "القوائم تُقرأ من recruitment_settings؛ تعطيل قيمة لا يغير الطلبات السابقة",
+   "design_refs": [
+    "docs/RECRUITMENT-DATA-MODEL.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-076",
+   "area": "44 Careers & Recruitment",
+   "type": "RULE",
+   "title": "ممنوع إرسال PII إلى GA4 · GTM · Google Analytics · Search Console · أي Analytics خارجية",
+   "requirement": "ممنوع إرسال PII إلى: GA4 · GTM · Google Analytics · Search Console · third-party analytics. لا يُرسل: الاسم · الهاتف · البريد · national ID · passport number · CV filename إذا يحتوي اسم شخص · notes · application text.",
+   "details": [
+    "يشمل: dataLayer، URL parameters، page titles، error messages المرسلة كـparameters.",
+    "يمتد على Logs: لا Sensitive IDs في logs غير الضرورية (CAREERS-045) وError monitoring بلا PII (PRIV-013/MON-004)."
+   ],
+   "sources": [
+    "M28-§57",
+    "M28-§27"
+   ],
+   "decision_refs": [
+    "G10-ND-19",
+    "D-194"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/RECRUITMENT-SECURITY.md (DRAFT)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "فحص dataLayer وNetwork requests وGA4 DebugView أثناء تعبئة/إرسال/خطأ: صفر PII",
+   "design_refs": [
+    "docs/RECRUITMENT-SECURITY.md",
+    "docs/google/GA4-MEASUREMENT-PLAN.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-077",
+   "area": "44 Careers & Recruitment",
+   "type": "REQUIREMENT",
+   "title": "أحداث Privacy-safe: careers_page_view · application_started · application_submitted · application_error",
+   "requirement": "يمكن قياس Events عامة Privacy-safe بدون PII مثل: `careers_page_view` · `application_started` · `application_submitted` · `application_error`.",
+   "details": [
+    "تُضاف لقاموس الأحداث (ANL-008 / PO-043) بتوثيق ANL-007 (Trigger · Parameters · Privacy considerations · Key Event?).",
+    "application_error يحمل نوع الخطأ فقط (validation/upload/server/timeout…) — لا اسم حقل يحمل قيمة ولا اسم ملف.",
+    "أي تعديل تسمية تقني (مثل تداخل careers_page_view مع page_view التلقائي) يحافظ على المعنى ويوثق (ANL-010) (G10-TF-16).",
+    "تخضع لقرار الـConsent (GOOGLE-022 / PO-019) ولتنفيذ Google في P09.",
+    "المعاملات المسودة (RECRUITMENT-SECURITY.md §11): form_variant · step · error_type (قائمة ثابتة) · file_count_bucket؛ ورقم الطلب ممنوع أيضًا."
+   ],
+   "sources": [
+    "M28-§57"
+   ],
+   "decision_refs": [
+    "G10-ND-19",
+    "D-185",
+    "D-204"
+   ],
+   "status": "APPROVED WITH CONDITIONS",
+   "owner_approved": "YES",
+   "priority": "P2",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/CAREERS-REQUIREMENTS.md (DRAFT)",
+   "missing_work": "",
+   "dependencies": [
+    "PO-043",
+    "ANL-009",
+    "GOOGLE-022"
+   ],
+   "test_required": "DebugView: الأحداث الأربعة تُطلق مرة واحدة في موضعها الصحيح وبلا PII",
+   "design_refs": [
+    "docs/google/GA4-MEASUREMENT-PLAN.md",
+    "docs/CAREERS-REQUIREMENTS.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": "الصياغة «مثل» = أحداث مسموحة كمرشحة؛ الأسماء النهائية ضمن اعتماد قاموس الأحداث (PO-043)."
+  },
+  {
+   "id": "CAREERS-078",
+   "area": "44 Careers & Recruitment",
+   "type": "DELIVERABLE",
+   "title": "نموذج البيانات: Normalized schema (11 كيانًا مفاهيميًا) بلا جداول مكررة",
+   "requirement": "تصميم Normalized schema مناسب. مفاهيميًا قد نحتاج: job_applications · application_attachments · application_status_history · application_notes · application_interviews · application_consents · application_identity_secure · application_links / applicant matching · recruitment_saved_filters · recruitment_settings · audit_logs — لكن بدون جداول مكررة بلا حاجة. يُستخدم: primary keys · foreign keys · indexes · timestamps · soft archive state · secure deletion strategy.",
+   "details": [
+    "audit_logs مشترك مع بقية الـDashboard (لا جدول Audit ثانٍ — GOV-078) إذا سمحت المنصة.",
+    "read status / first_viewed_at في job_applications؛ phone_normalized؛ age محسوب لا مخزن (أو مشتق).",
+    "Phase 4 في ترتيب التنفيذ؛ Database indexes قرار تقني (M28 §78)."
+   ],
+   "sources": [
+    "M28-§58"
+   ],
+   "decision_refs": [
+    "G10-ND-20"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "PARTIAL",
+   "tested": "NO",
+   "existing_impl": "DRAFT: docs/RECRUITMENT-DATA-MODEL.md (§2.1–§2.14 الجداول، §3 رقم الطلب، §7 الحذف) — مخطط محايد MySQL 8 / MariaDB 10.6+ / PostgreSQL؛ بانتظار Audit وبوابة Phase 8",
+   "missing_work": "",
+   "dependencies": [
+    "CAREERS-004",
+    "DB-08"
+   ],
+   "test_required": "مراجعة المخطط (FK/Indexes/Constraints) + Migration على Staging + اختبارات الحذف الآمن",
+   "design_refs": [
+    "docs/RECRUITMENT-DATA-MODEL.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P04",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-079",
+   "area": "44 Careers & Recruitment",
+   "type": "RULE",
+   "title": "مطابقة التكرار: إشارات وثقة فقط — لا دمج أو حذف تلقائي",
+   "requirement": "لا Automatic Duplicate Merge. تُستخدم confidence/signals فقط، مثل: Exact national ID/document match · Exact normalized phone · Exact email. يُعرض «متقدم سابق» ثم previous applications. لا يحذف النظام أو يدمج سجلات تلقائيًا.",
+   "details": [
+    "مطابقة الهوية عبر secure hash/index (HMAC) وليس plaintext (CAREERS-045).",
+    "application_links تحفظ نوع الإشارة."
+   ],
+   "sources": [
+    "M28-§59",
+    "M28-§26",
+    "M28-§27"
+   ],
+   "decision_refs": [
+    "G10-ND-12"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/RECRUITMENT-DATA-MODEL.md (DRAFT)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "Duplicate applicant matching (M28 §73) لكل إشارة؛ لا دمج/حذف",
+   "design_refs": [
+    "docs/RECRUITMENT-DATA-MODEL.md",
+    "docs/RECRUITMENT-SECURITY.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-080",
+   "area": "44 Careers & Recruitment",
+   "type": "RULE",
+   "title": "أمان الملفات المرفوعة (Untrusted content) — 13 ضابطًا",
+   "requirement": "تُعامل uploads كـuntrusted content، ويُطبق حسب الـstack: randomized server filenames · original filename stored as metadata · path traversal protection · MIME/signature checks · blocked executable types · upload rate limiting · malware scanning إذا توفر local/appropriate solution بدون SaaS خارجي · never execute uploaded file · private storage · download authorization · Content-Disposition appropriate · safe content type headers. لا يُسمح لـuploaded HTML/SVG/script أن ينفذ داخل الـOwner Dashboard.",
+   "details": [
+    "إمكانية Malware scanning محلي على Cloudways تُحسم في الـAudit؛ أي Add-on/خدمة خارجية تحتاج موافقة (G10-TF-02).",
+    "Headers: Content-Disposition: attachment للأنواع غير الآمنة للعرض، X-Content-Type-Options: nosniff، CSP sandbox للمعاينة."
+   ],
+   "sources": [
+    "M28-§60",
+    "M28-§17",
+    "M28-§20"
+   ],
+   "decision_refs": [
+    "G10-ND-07",
+    "D-166"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/RECRUITMENT-SECURITY.md (DRAFT)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "رفع HTML/SVG بسكربت لا ينفذ عند المعاينة/التنزيل؛ path traversal يُمنع؛ أسماء الخادم عشوائية؛ الوصول بلا صلاحية مرفوض",
+   "design_refs": [
+    "docs/RECRUITMENT-SECURITY.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-081",
+   "area": "44 Careers & Recruitment",
+   "type": "RULE",
+   "title": "أمان النموذج العام (11 ضابطًا) — لا CAPTCHA خارجي تلقائيًا",
+   "requirement": "الـPublic application form يحتاج: CSRF protection where applicable · server validation · rate limiting · bot/spam protection · duplicate submission protection · replay protection where appropriate · safe SQL/database access · parameterized queries / ORM · input size limits · XSS protection · secure error messages. لا يُستخدم CAPTCHA خارجي تلقائيًا قبل تقييم الحاجة؛ إذا احتجنا خدمة خارجية: Owner Approval أولًا.",
+   "details": [
+    "حماية البوتات محليًا أولًا (honeypot، زمن التعبئة، rate limit، idempotency token) — G10-TF-08.",
+    "XSS: كل مدخلات المتقدم تُعرض escaped داخل الـDashboard."
+   ],
+   "sources": [
+    "M28-§61"
+   ],
+   "decision_refs": [
+    "G10-ND-03",
+    "D-166"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/RECRUITMENT-SECURITY.md (DRAFT)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "duplicate submit · replay · SQLi/XSS payloads · CSRF · حجم مدخلات زائد · Rate limit — كلها تُرفض/تُعالج برسائل آمنة",
+   "design_refs": [
+    "docs/RECRUITMENT-SECURITY.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-082",
+   "area": "44 Careers & Recruitment",
+   "type": "RULE",
+   "title": "أمان صفحة المتابعة: Rate limits · Progressive cooldown · رسائل عامة · Public Status فقط",
+   "requirement": "رقم الطلب + الهاتف لا يعني endpoint مفتوحًا بلا حماية. يُطبق: rate limits · progressive cooldown · generic responses بأسلوب «تعذر العثور على الطلب» · لا يُكشف أي field إضافي · لا CV · لا email · لا ID · لا notes. الـPublic tracking يعرض فقط Public Status.",
+   "details": [
+    "نفس الرسالة لـ«رقم خاطئ» و«هاتف خاطئ» (anti-enumeration)."
+   ],
+   "sources": [
+    "M28-§62",
+    "M28-§24"
+   ],
+   "decision_refs": [
+    "G10-ND-11"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/RECRUITMENT-SECURITY.md (DRAFT)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "wrong phone / wrong number يعطيان نفس الرد؛ محاولات متكررة → cooldown متصاعد؛ الاستجابة لا تحوي أي حقل غير Public Status",
+   "design_refs": [
+    "docs/RECRUITMENT-SECURITY.md",
+    "docs/RECRUITMENT-PUBLIC-STATUS-MAPPING.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-083",
+   "area": "44 Careers & Recruitment",
+   "type": "GATE",
+   "title": "اختبارات أمان الـDashboard: 6 حالات يجب أن تفشل كلها",
+   "requirement": "Recruitment authorization = Server-side Owner Role only. يُختبر: direct URL access · direct API call · modified request · expired session · non-owner session · unauthenticated request — وكلها يجب أن تفشل.",
+   "details": [
+    "يشمل روابط تنزيل الملفات والتصدير وZIP.",
+    "Playwright: Unauthorized user denied (M28 §74).",
+    "مسودة RECRUITMENT-PERMISSIONS.md §4 توسع الحالات الست إلى P-01…P-08 (رابط موقّع منتهٍ، حذف نهائي لطلب غير مؤرشف/Bulk عبر API، الوصول المباشر لمسار التخزين)."
+   ],
+   "sources": [
+    "M28-§63"
+   ],
+   "decision_refs": [
+    "G10-ND-15"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/RECRUITMENT-PERMISSIONS.md (DRAFT)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "6 اختبارات سلبية آلية على كل Endpoint/صفحة في الوحدة — صفر وصول",
+   "design_refs": [
+    "docs/RECRUITMENT-PERMISSIONS.md",
+    "docs/RECRUITMENT-TEST-PLAN.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P10",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-084",
+   "area": "44 Careers & Recruitment",
+   "type": "REQUIREMENT",
+   "title": "Responsive: النموذج والـDashboard ممتازان على 14 عرضًا — ومهام الـOwner على الهاتف",
+   "requirement": "Recruitment Form + Recruitment Owner Dashboard يعملان بشكل ممتاز على: 320 · 360 · 375 · 390 · 412 · 430 · 768 · 820 · 1024 · 1280 · 1366 · 1440 · 1536 · 1920. الـForm Mobile-first؛ الـDashboard Mobile + Tablet + Desktop. على الهاتف يستطيع الـOwner: رؤية الطلبات الجديدة · البحث · الفلترة · فتح Applicant · تغيير Status · مشاهدة CV · إضافة Note · رؤية Interview details — بدون Desktop-only UI.",
+   "details": [
+    "نفس مصفوفة D-217/RESP-004.",
+    "النموذج عربي فقط → RTL فقط؛ الـDashboard حسب I18N-015."
+   ],
+   "sources": [
+    "M28-§64"
+   ],
+   "decision_refs": [
+    "G10-ND-16",
+    "D-217",
+    "D-220"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "tooling: tooling/viewports.mjs (14 عرضًا إلزاميًا + 2560 + landscape + zoom-200) — لا صفحات توظيف بعد",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "Mobile · Tablet · Desktop · RTL (M28 §73) على 14 عرضًا؛ المهام الثماني على الهاتف",
+   "design_refs": [
+    "docs/FRONTEND-TOOLING.md",
+    "docs/RECRUITMENT-TEST-PLAN.md"
+   ],
+   "code_refs": [],
+   "test_refs": [
+    "tooling/viewports.mjs"
+   ],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P10",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-085",
+   "area": "44 Careers & Recruitment",
+   "type": "REQUIREMENT",
+   "title": "Accessibility للنموذج (12 بندًا) — والخطأ لا يعتمد على اللون وحده",
+   "requirement": "النموذج: proper labels · fieldsets where useful · error summary · inline errors · keyboard navigation · screen reader support · visible focus · Arabic RTL · 44px touch targets · correct select labels · upload accessibility · success state accessibility. لا يُعتمد على اللون وحده لعرض Error.",
+   "details": [
+    "الهدف WCAG 2.2 AA (A11Y-001)؛ axe serious/critical = 0 (A11Y-004).",
+    "الـSelects الثلاثة لتاريخ الميلاد داخل fieldset بـlegend واحد."
+   ],
+   "sources": [
+    "M28-§65"
+   ],
+   "decision_refs": [
+    "G10-ND-05",
+    "D-173"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "tooling: @axe-core/playwright 4.13.0 — لا اختبارات للنموذج",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "Accessibility (M28 §73): axe + لوحة مفاتيح + قارئ شاشة (NVDA/VoiceOver) على النموذج وحالات الخطأ والرفع والنجاح",
+   "design_refs": [
+    "docs/RECRUITMENT-TEST-PLAN.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P10",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-086",
+   "area": "44 Careers & Recruitment",
+   "type": "RULE",
+   "title": "تجربة النموذج: SHELTER Premium Minimal Arabic-first — ليس نموذجًا حكوميًا أو HubSpot",
+   "requirement": "النموذج لا يبدو: قديم · Government form · HubSpot form · generic bootstrap form. المطلوب: SHELTER COFFEE · Premium · Minimal · Clean · Fast · Very Easy · Arabic-first · Rounded · Responsive — لكن لا تُضحّى بالوضوح مقابل الجمال.",
+   "details": [
+    "الشكل البصري النهائي يعتمد على SHELTER Design System (ملفات الهوية M-10 مفقودة — BRAND-002)؛ الـWireframes منخفضة الدقة لا تنتظرها."
+   ],
+   "sources": [
+    "M28-§66"
+   ],
+   "decision_refs": [
+    "G10-ND-16",
+    "D-178"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/CAREERS-REQUIREMENTS.md (DRAFT)",
+   "missing_work": "",
+   "dependencies": [
+    "BRAND-002 / PO-002 (Design System)"
+   ],
+   "test_required": "Visual QA + مراجعة الـOwner للتصميم",
+   "design_refs": [
+    "docs/CAREERS-REQUIREMENTS.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-087",
+   "area": "44 Careers & Recruitment",
+   "type": "DECISION",
+   "title": "هيكل النموذج: مجموعات منطقية — صفحة واحدة مقابل خطوات قصيرة يُحسم بالاختبار (مفوض)",
+   "requirement": "رتّب النموذج UX-wise بأفضل طريقة مع الحفاظ على جميع البيانات، في مجموعات منطقية بدل List طويلة عشوائية. اقتراح IA: البيانات الشخصية · السكن · المؤهل والخبرة · معلومات العمل · المرفقات · الإقرار. Step Form فقط إذا أثبت اختبار UX أنه أفضل؛ لا Multi-step يزيد friction بلا سبب. يُختبر Single structured page مقابل short multi-step ثم يُختار الأسرع والأوضح — قرار تقني لا يحتاج Owner Question.",
+   "details": [
+    "Phase 6 (Careers form wireframe) — النتيجة توثق بـDecision · Reason · Test Evidence (D-176)."
+   ],
+   "sources": [
+    "M28-§06",
+    "M28-§67"
+   ],
+   "decision_refs": [
+    "G10-ND-05",
+    "D-176"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "قيد التنفيذ: wireframes form-a (صفحة واحدة) وform-b (خطوات) في docs/careers/wireframes/html — لا نتيجة اختبار موثقة بعد",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "اختبار مقارنة على Wireframes (زمن الإكمال، الأخطاء، الطول على 320–430px) وتوثيق الاختيار",
+   "design_refs": [
+    "docs/CAREERS-REQUIREMENTS.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P04",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-088",
+   "area": "44 Careers & Recruitment",
+   "type": "REQUIREMENT",
+   "title": "الأداء: نموذج خفيف — لا مكتبات Dashboard على الصفحة العامة — رفع غير مجمِّد",
+   "requirement": "الـCareers form lightweight. لا تُحمّل Dashboard libraries على Public Careers Page. واجهة الرفع لا تجمد الصفحة؛ Progressive uploads / progress feedback حيث مناسب. لا يكون document parsing blocking على الـmain request إذا أمكن عمله asynchronously safely.",
+   "details": [
+    "Code splitting (PERF-014)؛ ميزانية أداء الموقع (PERF-005)."
+   ],
+   "sources": [
+    "M28-§68"
+   ],
+   "decision_refs": [
+    "G10-ND-07",
+    "D-174"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/RECRUITMENT-TEST-PLAN.md (DRAFT)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "Lighthouse mobile على /ar/careers/ ضمن الميزانية؛ لا حزم Dashboard في الـbundle العام؛ INP جيد أثناء رفع ملفات متعددة",
+   "design_refs": [
+    "docs/menu-ia/PERFORMANCE-BUDGET.md (نمط)",
+    "docs/RECRUITMENT-TEST-PLAN.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-089",
+   "area": "44 Careers & Recruitment",
+   "type": "REQUIREMENT",
+   "title": "حالات الفشل (12 حالة) — لا ضياع لكل المدخلات بسبب ملف واحد",
+   "requirement": "تصميم الحالات: validation error · upload failed · storage full · database unavailable · duplicate submit · invalid file · unsafe file · oversized technical limit · timeout · CV not detected · submission success · network interruption. لا تفقد جميع مدخلات المستخدم بسبب فشل ملف واحد إذا أمكن تفادي ذلك بأمان.",
+   "details": [
+    "الرسائل بالعربية وواضحة وآمنة (secure error messages — CAREERS-081).",
+    "حفظ المسودة محليًا (بلا بيانات حساسة) قرار تقني يُقيّم أمنيًا."
+   ],
+   "sources": [
+    "M28-§69"
+   ],
+   "decision_refs": [
+    "G10-ND-07"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/CAREERS-REQUIREMENTS.md (DRAFT)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "failed upload (M28 §73) + محاكاة كل حالة من الـ12 (Playwright route mocking)",
+   "design_refs": [
+    "docs/CAREERS-REQUIREMENTS.md",
+    "docs/RECRUITMENT-TEST-PLAN.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-090",
+   "area": "44 Careers & Recruitment",
+   "type": "DELIVERABLE",
+   "title": "Backup Strategy لبيانات التوظيف والمرفقات — تحقق لا افتراض",
+   "requirement": "مراجعة إعداد Cloudways backup. بيانات التوظيف + المرفقات تحتاج Backup Strategy موثقة: database backup · attachment backup · restore procedure · retention available · test restore approach. لا يُفترض أن الـBackup موجود فقط لأن Cloudways يوفر الميزة — Verify.",
+   "details": [
+    "Backups تحتوي PII ومرفقات ومفاتيح تشفير منفصلة (G10-TF-05/14).",
+    "DoD: Backups reviewed."
+   ],
+   "sources": [
+    "M28-§70",
+    "M28-§79"
+   ],
+   "decision_refs": [
+    "G10-ND-02",
+    "D-172"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/CLOUDWAYS-RECRUITMENT-ARCHITECTURE.md §6 (كل البنود ⏳ غير متحققة)",
+   "missing_work": "",
+   "dependencies": [
+    "CAREERS-004"
+   ],
+   "test_required": "Restore test فعلي على Staging (DB + ملفات) وتوثيق النتيجة",
+   "design_refs": [
+    "docs/CLOUDWAYS-RECRUITMENT-ARCHITECTURE.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P11",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-091",
+   "area": "44 Careers & Recruitment",
+   "type": "RULE",
+   "title": "Self-contained: لا خدمات خارجية تلقائيًا — اعرض الحاجة والبديل المحلي أولًا",
+   "requirement": "الهدف الحالي: Self-contained within SHELTER + Cloudways. إذا احتجنا: Sentry · external malware scanner · email service · SMS · WhatsApp API · external storage · external OCR · AI parsing API — لا تُستخدم تلقائيًا؛ أولًا يُعرض على الـOwner لماذا نحتاجها وما البديل المحلي.",
+   "details": [
+    "ينطبق حتى على الخدمات المجانية (أوسع من INT-001 الخاص بالمدفوع).",
+    "يشمل CAPTCHA خارجي (CAREERS-081) وAI/SaaS لكشف الـCV (CAREERS-036).",
+    "لا اعتماد يومي على خدمات خارجية (§80)."
+   ],
+   "sources": [
+    "M28-§71",
+    "M28-§19",
+    "M28-§61",
+    "M28-§80"
+   ],
+   "decision_refs": [
+    "G10-ND-03",
+    "D-210"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "spec: docs/CLOUDWAYS-RECRUITMENT-ARCHITECTURE.md (DRAFT)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "جرد dependencies/network: لا اتصالات بخدمات خارجية غير معتمدة",
+   "design_refs": [
+    "docs/CLOUDWAYS-RECRUITMENT-ARCHITECTURE.md",
+    "docs/RECRUITMENT-SECURITY.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P04",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-092",
+   "area": "44 Careers & Recruitment",
+   "type": "RULE",
+   "title": "سلامة التطوير والإنتاج: لا Falcon · لا DB محلية · لا Migration خطرة بلا Backup · لا حذف · لا عبث بـWordPress",
+   "requirement": "لا يُختبر على بيانات Falcon. لا تُنشأ Database محلية على Owner PC. لا تُنفذ Migration خطرة على Production بدون Backup. لا تُحذف بيانات موجودة. لا يُغير WordPress القديم عشوائيًا. المسار: Audit → Architecture → Schema → Migration Plan → Staging/Test → Tests → Owner Review → Production.",
+   "details": [
+    "متسق مع D-172/DEPLOY-004/DEPLOY-005/DEPLOY-008 وD-037.",
+    "إنشاء Application/DB جديدة على Cloudways = تغيير بيئة إنتاج يحتاج موافقة (DEPLOY-001/003) بعد بوابة Phase 8.",
+    "DoD: Production safety reviewed."
+   ],
+   "sources": [
+    "M28-§72",
+    "M28-§79"
+   ],
+   "decision_refs": [
+    "G10-ND-20",
+    "D-172",
+    "D-037"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "spec: docs/CLOUDWAYS-RECRUITMENT-ARCHITECTURE.md (DRAFT)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "Checklist قبل كل Migration: Backup موثق + Staging + موافقة؛ لا بيانات Falcon في أي Fixture",
+   "design_refs": [
+    "docs/CLOUDWAYS-RECRUITMENT-ARCHITECTURE.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-093",
+   "area": "44 Careers & Recruitment",
+   "type": "GATE",
+   "title": "الاختبارات المطلوبة قبل اعتبار النظام جاهزًا (M28 §73)",
+   "requirement": "قبل اعتبار النظام جاهزًا تُنفذ: Form submission · Arabic text · English text · Mixed Arabic/English · Phone formats · Email · Birth dates · Leap year · Nationality conditional fields · Jordanian ID · Non-Jordanian document · Salary numeric validation · File upload (single · multiple · different safe types · unsafe executable rejection · large file · failed upload) · CV auto-detection · CV uncertainty fallback · Application number uniqueness · Duplicate applicant matching · Tracking (correct number + phone · wrong phone · wrong application number · brute force protection) · Owner access · Non-owner rejection · Status flow · Public status mapping · Interview fields · Notes · Search · Filters · Saved filters · Sorting · Columns · Drag/drop · Comfortable/Compact · 25/50/100 pagination · Bulk actions · Exports (CSV · Excel · PDF · ZIP attachments) · Archive · Permanent Delete · Audit logging · Mobile · Tablet · Desktop · RTL · Accessibility.",
+   "details": [
+    "يوثق في RECRUITMENT-TEST-PLAN.md مع ربط كل اختبار بمعرف CAREERS.",
+    "Phase 15 (Testing) + Phase 16 (Cloudways staging validation)."
+   ],
+   "sources": [
+    "M28-§73"
+   ],
+   "decision_refs": [
+    "G10-ND-20",
+    "D-170"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "tooling/ (Playwright 1.56.1 + @axe-core/playwright 4.13.0 + viewports.mjs: 14 عرضًا إلزاميًا) — لا توجد اختبارات للتوظيف",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "تقرير اختبار كامل على Staging Cloudways — كل البنود PASS",
+   "design_refs": [
+    "docs/RECRUITMENT-TEST-PLAN.md"
+   ],
+   "code_refs": [],
+   "test_refs": [
+    "tooling/viewports.mjs"
+   ],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P10",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-094",
+   "area": "44 Careers & Recruitment",
+   "type": "GATE",
+   "title": "Playwright للتدفقات الحرجة (15 تدفقًا)",
+   "requirement": "Playwright للـcritical user flows، على الأقل: Applicant submits successfully · Applicant submission validation · Applicant uploads files · Applicant tracks application · Owner sees new badge · Owner searches applicant · Owner filters · Owner opens quick panel · Owner opens full application · Owner changes status · Owner creates interview · Owner adds note · Owner archives · Owner exports · Unauthorized user denied.",
+   "details": [
+    "على مصفوفة العروض (CAREERS-084)؛ النموذج RTL؛ DoD: Playwright passed."
+   ],
+   "sources": [
+    "M28-§74",
+    "M28-§79"
+   ],
+   "decision_refs": [
+    "G10-ND-20"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "tooling/ (Playwright 1.56.1 + @axe-core/playwright 4.13.0 + viewports.mjs: 14 عرضًا إلزاميًا) — لا توجد اختبارات للتوظيف",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "15 Spec Playwright خضراء على Staging",
+   "design_refs": [
+    "docs/RECRUITMENT-TEST-PLAN.md"
+   ],
+   "code_refs": [],
+   "test_refs": [
+    "tooling/viewports.mjs"
+   ],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P10",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-095",
+   "area": "44 Careers & Recruitment",
+   "type": "RULE",
+   "title": "UX لوحة التوظيف: SHELTER Design System — لا Admin Template — الإجراءات الحساسة أكثر تحفظًا",
+   "requirement": "لا يُستخدم generic Admin Template بصريًا؛ يُستخدم SHELTER Design System: Rounded corners · Minimal colors · Strong hierarchy · Fast tables · Clear actions. الـSensitive actions أكثر تحفظًا بصريًا. لا تُملأ الشاشة بـCharts غير ضرورية؛ الـRecruitment Overview Operational first.",
+   "details": [
+    "متسق مع D-197 (تصميم الـOwner Dashboard)."
+   ],
+   "sources": [
+    "M28-§75"
+   ],
+   "decision_refs": [
+    "G10-ND-16",
+    "D-197"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/CAREERS-REQUIREMENTS.md (DRAFT)",
+   "missing_work": "",
+   "dependencies": [
+    "BRAND-002 / PO-002"
+   ],
+   "test_required": "Visual QA + مراجعة الـOwner؛ الإجراءات الحساسة (Reveal/Delete/Export) بتمييز وتأكيد",
+   "design_refs": [
+    "docs/CAREERS-REQUIREMENTS.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-096",
+   "area": "44 Careers & Recruitment",
+   "type": "DELIVERABLE",
+   "title": "وثائق التنفيذ السبع + إضافة القرارات إلى Master / Decision Register / Traceability",
+   "requirement": "إنشاء: docs/CAREERS-REQUIREMENTS.md · docs/RECRUITMENT-DATA-MODEL.md · docs/RECRUITMENT-SECURITY.md · docs/RECRUITMENT-PERMISSIONS.md · docs/RECRUITMENT-PUBLIC-STATUS-MAPPING.md · docs/RECRUITMENT-TEST-PLAN.md · docs/CLOUDWAYS-RECRUITMENT-ARCHITECTURE.md، وإضافة القرارات إلى MASTER REQUIREMENTS · DECISION REGISTER · TRACEABILITY MATRIX.",
+   "details": [
+    "الـMaster يبقى SSOT للمعرفات والحالات؛ CAREERS-REQUIREMENTS.md مواصفة الوحدة التفصيلية بنفس معرفات CAREERS-xxx (لا مصدرين متعارضين — GOV-073/GOV-078).",
+    "التسجيل في الـMaster = مخرجات هذه المجموعة (G10) عند الدمج."
+   ],
+   "sources": [
+    "M28-§76"
+   ],
+   "decision_refs": [
+    "G10-ND-20",
+    "D-222"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "PARTIAL",
+   "tested": "N/A",
+   "existing_impl": "الوثائق السبع موجودة بحالة DRAFT (commit 57c33c4): CAREERS-REQUIREMENTS · RECRUITMENT-DATA-MODEL · RECRUITMENT-SECURITY · RECRUITMENT-PERMISSIONS · RECRUITMENT-PUBLIC-STATUS-MAPPING · RECRUITMENT-TEST-PLAN · CLOUDWAYS-RECRUITMENT-ARCHITECTURE؛ الدمج في Master/Decision Register/Traceability = هذه المجموعة G10",
+   "missing_work": "اعتماد الـOwner (Phase 8)؛ دمج CAREERS-001…099 في الـMaster والسجلات والـTraceability؛ تحديث الوثائق بعد الـAudit",
+   "dependencies": [],
+   "test_required": "كل متطلب CAREERS له مرجع تصميم واختبار في Traceability",
+   "design_refs": [
+    "docs/CAREERS-REQUIREMENTS.md",
+    "docs/RECRUITMENT-DATA-MODEL.md",
+    "docs/RECRUITMENT-SECURITY.md",
+    "docs/RECRUITMENT-PERMISSIONS.md",
+    "docs/RECRUITMENT-PUBLIC-STATUS-MAPPING.md",
+    "docs/RECRUITMENT-TEST-PLAN.md",
+    "docs/CLOUDWAYS-RECRUITMENT-ARCHITECTURE.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P04",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-097",
+   "area": "44 Careers & Recruitment",
+   "type": "GATE",
+   "title": "ترتيب التنفيذ: 17 مرحلة — وبوابة Phase 8 قبل أي Backend",
+   "requirement": "التنفيذ بالترتيب: PHASE 1 Read current project + conversation/master decisions → 2 Cloudways/current architecture audit → 3 Recruitment IA → 4 Database/data model → 5 Security/privacy/storage architecture → 6 Careers form wireframe → 7 Recruitment Dashboard wireframes → 8 Owner-approved architecture check → 9 Backend implementation → 10 Public Careers form → 11 Applicant tracking → 12 Owner Recruitment Dashboard → 13 Upload/private storage → 14 Search/filter/export → 15 Testing → 16 Cloudways staging validation → 17 Production readiness. «ابدأ الآن بالـAudit والArchitecture.»",
+   "details": [
+    "Phases 1–7 = عمل وثائق/Audit/Wireframes (P04) يبدأ الآن بلا تجاوز أي بوابة.",
+    "Phase 9+ ينتظر: موافقة Phase 8 + قرار المنصة DB-08 (PO-006) + Dashboard foundation (DASH-004 Phase I) — G10-CF-06.",
+    "Phase 2 يحتاج وصول Cloudways (G10-PO-01)."
+   ],
+   "sources": [
+    "M28-§77",
+    "M28-§80",
+    "M28-§72"
+   ],
+   "decision_refs": [
+    "G10-ND-20",
+    "D-213"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "PARTIAL",
+   "tested": "N/A",
+   "existing_impl": "Phase 1 ✅؛ Phases 3–7 مسودات (الوثائق السبع + wireframes قيد الإنشاء)؛ Phase 2 محجوبة (الوصول)؛ Phase 8 بانتظار الـOwner (حسب CAREERS-REQUIREMENTS.md §8)",
+   "missing_work": "",
+   "dependencies": [
+    "G10-PO-01",
+    "PO-006 / DB-08",
+    "DASH-004"
+   ],
+   "test_required": "لا كود Backend قبل تسجيل موافقة Phase 8؛ كل Phase لها مخرج موثق",
+   "design_refs": [
+    "docs/IMPLEMENTATION-PLAN.md",
+    "docs/CAREERS-REQUIREMENTS.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "G10-CF-06",
+   "business_data": false,
+   "phase": "P04",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-098",
+   "area": "44 Careers & Recruitment",
+   "type": "RULE",
+   "title": "لا إعادة فتح ولا أسئلة مكررة — الاستثناءات الأربعة فقط، والتقني يقرره Claude",
+   "requirement": "كل ما ورد في مواصفة التوظيف APPROVED / FROZEN ولا يُسأل الـOwner عنه من جديد، إلا إذا اكتُشف: تعارض تقني حقيقي · مشكلة أمنية · معلومة Business غير موجودة · قيد فعلي في Cloudways يمنع التنفيذ. الاختيارات التقنية (indexing strategy · pagination query · component implementation · database indexes · responsive breakpoint) يتخذ Claude أفضل قرار موثق بنفسه. يُسأل الـOwner فقط عن: Business data · Content · Brand decision · Commercial decision · Missing factual information · Irreversible high-risk production action.",
+   "details": [
+    "متسق مع D-176 وGOV-015 وGOV-034."
+   ],
+   "sources": [
+    "M28-§00",
+    "M28-§78"
+   ],
+   "decision_refs": [
+    "G10-ND-20",
+    "D-176"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "مراجعة PENDING-OWNER-INPUT: لا بند يعيد سؤال قرار ورد في M28",
+   "design_refs": [
+    "docs/PENDING-OWNER-INPUT.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P00",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAREERS-099",
+   "area": "44 Careers & Recruitment",
+   "type": "GATE",
+   "title": "Definition of Done لنظام التوظيف (23 بندًا)",
+   "requirement": "لا يُعتبر Careers System منتهيًا فقط لأن الـForm يعمل. DONE يعني: Public form works · Arabic UX correct · Responsive · Secure · Data saved to Cloudways · No HubSpot dependency · No local database · Private files · CV detection works · Applicant tracking works · Owner Dashboard works · Owner-only authorization verified · Search works · Filters work · Exports work · Interviews work · Notes work · Audit works · Archive/Delete works · Backups reviewed · Accessibility tested · Playwright passed · Production safety reviewed.",
+   "details": [
+    "يضاف إلى DoD العام (D-170/TEST-002/GOV-086) ولا يحل محله.",
+    "النشر العام للنموذج يحتاج أيضًا Privacy Policy معتمدة (PRIV-001/PRIV-004/PO-019) ومحتوى الصفحة (PO-031)."
+   ],
+   "sources": [
+    "M28-§79"
+   ],
+   "decision_refs": [
+    "G10-ND-20",
+    "D-170"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/RECRUITMENT-TEST-PLAN.md (DRAFT)",
+   "missing_work": "",
+   "dependencies": [
+    "CAREERS-093",
+    "CAREERS-094",
+    "CAREERS-090",
+    "PO-019",
+    "PO-031"
+   ],
+   "test_required": "Checklist الـ23 بندًا بأدلة (تقارير اختبار، لقطات، سجلات) + موافقة الـOwner",
+   "design_refs": [
+    "docs/RECRUITMENT-TEST-PLAN.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P11",
+   "history": [],
+   "notes": ""
+  }
+ ],
+ "updates_to_existing": [
+  {
+   "id": "PO-031",
+   "change": "أُجيب معظمه: الحقول حسمها الـOwner (منها الرقم الوطني/الجواز، الجنسية، الجنس، الحالة الاجتماعية، تاريخ الميلاد، الراتب المتوقع؛ والصورة الشخصية ممنوعة) — اقتراح Claude (الاسم+الهاتف+CV فقط) مُستبدل؛ أين تصل الطلبات = Private DB على Cloudways + Owner Dashboard؛ من يتابعها = الـOwner وحده (لا جهة HR/أدوار)؛ لا Email/WhatsApp. المتبقي فقط: نصوص صفحة التوظيف AR/EN وعبارات بيئة العمل (CR-090) → يتحول البند إلى CONTENT NEEDED.",
+   "type": "ANSWERS",
+   "source": "M28 §05–§16, §20, §23, §32, §33"
+  },
+  {
+   "id": "PO-019",
+   "change": "أُجيب لنموذج التوظيف فقط: البيانات المسموح جمعها = قائمة M28 + قائمة «لا تسأل»؛ الوجهة = Private DB/Storage على Cloudways (Owner-only)؛ الاحتفاظ = لا حذف تلقائي، حتى قرار الـOwner (Archive → Permanent Delete)؛ نص الموافقة معتمد مع Versioning. يبقى مفتوحًا: من يكتب/يراجع Privacy Policy والشروط، Cookie banner، ونماذج التواصل/الفرنشايز/الكيترنج، والمراجعة القانونية لجمع البيانات الحساسة (G10-TF-06).",
+   "type": "ANSWERS",
+   "source": "M28 §14, §20, §21, §52, §53"
+  },
+  {
+   "id": "PO-006",
+   "change": "إجابة جزئية: الاستضافة = Cloudways (البقاء عليها)، وBackend Server-side + Private Website Database على Cloudways لبيانات التوظيف؛ لا Database على جهاز الـOwner ولا CRM خارجي. الإطار (Framework) نفسه ما زال مفتوحًا ويُدرس في Cloudways Audit — قيد جديد: الخيار يجب أن يعمل Server-side على Cloudways (G10-TF-01). سؤال «هل WordPress شرط؟» ومن يصون الموقع يبقيان.",
+   "type": "UPDATE",
+   "source": "M28 §01, §02, §80"
+  },
+  {
+   "id": "DB-08",
+   "change": "قيد جديد على قرار المنصة: Server-side على Cloudways + DB خاصة على Cloudways + تخزين خاص + Self-contained بلا خدمات خارجية لوحدة التوظيف (جزء أصلي من الموقع والـDashboard). خيارات DB-08 التي تضع البيانات في SaaS خارجي (Sanity/Supabase) أو تحتاج Runtime غير مدعوم على Cloudways تتعارض مع بيانات التوظيف؛ القرار يبقى للـOwner بعد الـAudit (لا حسم الآن).",
+   "type": "UPDATE",
+   "source": "M28 §01, §02, §71, §80"
+  },
+  {
+   "id": "CF-M-003",
+   "change": "التعارض (WordPress مقابل React stack) يبقى OWNER DECISION REQUIRED، لكن M28 أضاف قيدًا يضيّق الخيارات: Backend + DB على Cloudways؛ أي Stack يجب أن يدعمه Cloudways فعليًا (يتحقق في Phase 2 Audit).",
+   "type": "UPDATE",
+   "source": "M28 §01, §02"
+  },
+  {
+   "id": "CMS-021",
+   "change": "Supabase «إذا المشروع يستخدمه» (M25 §45) لا ينطبق على بيانات التوظيف: تبقى على Cloudways DB. إذا اختير Supabase لاحقًا للـCMS سينتج DB ثانية (audit_logs موزعة) — مخالفة محتملة لـNo Duplicate Architecture (GOV-078) تُدرس في DB-08.",
+   "type": "UPDATE",
+   "source": "M28 §01, §71, §80"
+  },
+  {
+   "id": "IA-007",
+   "change": "شروط صفحة التوظيف (مراجعة البيانات والخصوصية) حُسمت بمواصفة M28 المجمدة (CAREERS-001…099). المتبقي: محتوى الصفحة (PO-031 المضيّق) + Privacy Policy (PO-019). الحالة المقترحة: APPROVED (المواصفة FROZEN) مع اعتماد محتوى معلّق.",
+   "type": "UPDATE",
+   "source": "M28 §00–§80"
+  },
+  {
+   "id": "D-015",
+   "change": "«التوظيف (يعاد تصميمه بالكامل مع مراجعة البيانات المطلوبة والخصوصية)» → التصميم الكامل للوحدة = M28؛ لا تغيير على قائمة الصفحات.",
+   "type": "UPDATE",
+   "source": "M28 §00, §03"
+  },
+  {
+   "id": "PRIV-004",
+   "change": "Data minimisation للنموذج حسمها الـOwner: قائمة الحقول النهائية + قائمة «لا تسأل» (18 حقلًا + استبعادات داخلية) هي حدود التقليل المعتمدة؛ شرط Privacy Policy قبل الإطلاق يبقى قائمًا.",
+   "type": "ANSWERS",
+   "source": "M28 §05–§15"
+  },
+  {
+   "id": "RISK-06",
+   "change": "الموقع الجديد يعالج الخطر بالمواصفة (تخزين خاص، تشفير الهوية، Owner-only، موافقة مُنسخة، لا Analytics PII). الخطر على النموذج القديم يبقى حتى الإطلاق/قرار PO-038 (لا تعديل عشوائي على WordPress القديم — M28 §72).",
+   "type": "UPDATE",
+   "source": "M28 §20, §21, §27, §72"
+  },
+  {
+   "id": "PO-038",
+   "change": "بند «نموذج التوظيف القديم»: M28 يمنع تغيير WordPress القديم عشوائيًا واستخدام قاعدته كمخزن للنظام الجديد ولا يحذف بيانات موجودة؛ إن وجد الـAudit طلبات مخزنة في الموقع القديم يضاف سؤال مصيرها (G10-PO-02) ضمن هذا البند.",
+   "type": "UPDATE",
+   "source": "M28 §02, §72"
+  },
+  {
+   "id": "DB-14",
+   "change": "إجابة جزئية: HubSpot مستبعد تمامًا من التوظيف (لا Integration ولا Dependency — DoD «No HubSpot dependency»). قرار إبقاء/إزالة HubSpot لبقية الموقع (التتبع، الاشتراكات) يبقى مفتوحًا.",
+   "type": "ANSWERS",
+   "source": "M28 §00, §01, §79, §80"
+  },
+  {
+   "id": "PO-043",
+   "change": "يضاف لقاموس الأحداث المرشح: careers_page_view · application_started · application_submitted · application_error (Privacy-safe بلا PII) — تُعرض مع القاموس النهائي.",
+   "type": "UPDATE",
+   "source": "M28 §57"
+  },
+  {
+   "id": "ANL-008",
+   "change": "القائمة الـcanonical (14 حدثًا) + 4 أحداث توظيف مسموحة بلا PII (CAREERS-077).",
+   "type": "UPDATE",
+   "source": "M28 §57"
+  },
+  {
+   "id": "ANL-007",
+   "change": "توثيق أحداث التوظيف يجب أن يتضمن Privacy considerations صريحة: لا اسم/هاتف/بريد/هوية/جواز/اسم ملف CV/ملاحظات/نص الطلب؛ application_error يحمل نوع الخطأ فقط.",
+   "type": "UPDATE",
+   "source": "M28 §57"
+  },
+  {
+   "id": "GOOGLE-022",
+   "change": "أحداث التوظيف الأربعة تخضع لنفس قرار الـConsent/Consent Mode (لا تتبع قبل قرار الخصوصية).",
+   "type": "UPDATE",
+   "source": "M28 §57"
+  },
+  {
+   "id": "PRIV-013",
+   "change": "قاعدة «Error monitoring بدون PII» (M25) تمتد صراحة على التوظيف: لا أرقام هوية/جواز في logs غير الضرورية، ولا محتوى ملفات في Audit Log. تخزين PII في قاعدة التوظيف نفسها مسموح (القاعدة كانت عن Analytics/Monitoring) لكن محمي (CAREERS-045).",
+   "type": "UPDATE",
+   "source": "M28 §27, §56, §57"
+  },
+  {
+   "id": "MON-004",
+   "change": "Error Center يسجل أخطاء النموذج/الرفع بلا PII (لا أسماء ملفات تحمل أسماء أشخاص، لا قيم حقول).",
+   "type": "UPDATE",
+   "source": "M28 §27, §57"
+  },
+  {
+   "id": "PRIV-014",
+   "change": "Data minimization لوحدة التوظيف = الحقول التي قررها الـOwner فقط؛ لا تخزين إضافي (مثل الصورة) ولا نسخ لبيانات المتقدم إلى أنظمة أخرى.",
+   "type": "UPDATE",
+   "source": "M28 §14, §71"
+  },
+  {
+   "id": "PRIV-005",
+   "change": "إضافة نوع موافقة مستقل: موافقة المتقدم على معالجة بياناته (Checkbox بنص معتمد + timestamp + version) — منفصلة عن Cookie/Analytics/Marketing consent.",
+   "type": "UPDATE",
+   "source": "M28 §21"
+  },
+  {
+   "id": "MON-009",
+   "change": "تأكيد ونطاق: إشعارات الطلبات الجديدة داخل الـDashboard فقط (Badge + Counter + New Applications/Needs Attention).",
+   "type": "UPDATE",
+   "source": "M28 §37"
+  },
+  {
+   "id": "MON-010",
+   "change": "للتوظيف تحديدًا: لا Email ولا WhatsApp تلقائي للـOwner ولا للمتقدم؛ أي قناة خارجية مستقبلًا تمر بموافقة (CAREERS-091).",
+   "type": "UPDATE",
+   "source": "M28 §23, §37, §71"
+  },
+  {
+   "id": "INT-001",
+   "change": "لوحدة التوظيف القاعدة أوسع من «المدفوع»: أي خدمة خارجية (حتى المجانية) — Sentry · external malware scanner · email · SMS · WhatsApp API · external storage · external OCR · AI parsing · CAPTCHA خارجي — لا تُستخدم قبل عرض «لماذا نحتاجها + البديل المحلي» وموافقة الـOwner.",
+   "type": "UPDATE",
+   "source": "M28 §19, §61, §71"
+  },
+  {
+   "id": "INT-005",
+   "change": "Sentry مذكور صراحة ضمن الخدمات الخارجية التي تحتاج تبريرًا وبديلًا محليًا قبل الموافقة (يؤكد D-210).",
+   "type": "UPDATE",
+   "source": "M28 §71"
+  },
+  {
+   "id": "SEC-009",
+   "change": "Safe file uploads كان للـMedia Library؛ مرفقات المتقدمين = untrusted public uploads بضوابط أشد (13 ضابطًا: أسماء عشوائية، signature، path traversal، never execute، تخزين خاص، تنزيل مصرح، Content-Disposition، nosniff، لا تنفيذ HTML/SVG داخل الـDashboard، malware scan محلي إن توفر).",
+   "type": "UPDATE",
+   "source": "M28 §17, §20, §60"
+  },
+  {
+   "id": "SEC-007",
+   "change": "Rate limiting يشمل: إرسال طلب التوظيف، الرفع، وEndpoint المتابعة (مع progressive cooldown).",
+   "type": "UPDATE",
+   "source": "M28 §18, §24, §61, §62"
+  },
+  {
+   "id": "SEC-006",
+   "change": "CSRF protection يمتد على النموذج العام للتوظيف (where applicable) وليس عمليات الـAdmin فقط.",
+   "type": "UPDATE",
+   "source": "M28 §61"
+  },
+  {
+   "id": "SEC-002",
+   "change": "يضاف: مفاتيح تشفير بيانات الهوية لا تُخزن في الـfrontend أو الـrepository (env على Cloudways).",
+   "type": "UPDATE",
+   "source": "M28 §27"
+  },
+  {
+   "id": "SEC-005",
+   "change": "سيناريو expired session ضمن اختبارات أمان التوظيف الستة (CAREERS-083).",
+   "type": "UPDATE",
+   "source": "M28 §63"
+  },
+  {
+   "id": "SEC-001",
+   "change": "نطاق الفحص الأمني قبل الإطلاق يشمل وحدة التوظيف: الرفع، enumeration في المتابعة، IDOR على الملفات/التصدير، تشفير الهوية، الـBackups.",
+   "type": "UPDATE",
+   "source": "M28 §60–§63"
+  },
+  {
+   "id": "PERM-001",
+   "change": "وحدة التوظيف OWNER ONLY ليس فقط في V1 بل حتى بعد تفعيل الأدوار — بقرار صريح فقط يتغير.",
+   "type": "UPDATE",
+   "source": "M28 §32"
+  },
+  {
+   "id": "PERM-002",
+   "change": "الأدوار المستقبلية (ADMIN · EDITOR · SEO · MARKETING · CONTENT MANAGER) مستبعدة من Recruitment افتراضيًا؛ مصفوفة الصلاحيات يجب أن تعكس ذلك.",
+   "type": "UPDATE",
+   "source": "M28 §32"
+  },
+  {
+   "id": "PERM-004",
+   "change": "مصفوفة اختبار إلزامية للتوظيف: direct URL · direct API · modified request · expired session · non-owner session · unauthenticated — كلها تفشل.",
+   "type": "UPDATE",
+   "source": "M28 §63"
+  },
+  {
+   "id": "PERM-005",
+   "change": "يضاف مخرج RECRUITMENT-PERMISSIONS.md بجانب PERMISSIONS.md العام (بلا تعارض — مرجع واحد للأدوار).",
+   "type": "UPDATE",
+   "source": "M28 §76"
+  },
+  {
+   "id": "AUDIT-001",
+   "change": "للتوظيف: 13 حدثًا إلزاميًا (منها first open، reveal للهوية، export، attachment download، permanent delete، administrative corrections) وحقول Actor · Action · Target · Timestamp · Before · After · Context (يضيف Target وContext إلى Who/What/Before/After/Date)؛ لا محتوى ملفات حساس؛ Tombstone آمن بعد الحذف.",
+   "type": "UPDATE",
+   "source": "M28 §56, §52"
+  },
+  {
+   "id": "DEPLOY-013",
+   "change": "استثناء محصور لوحدة التوظيف: Active → Archive → Permanent Delete (Owner only، تأكيد قوي، بلا Bulk، Tombstone). قاعدة «الحذف = أرشفة» تبقى لبقية الـCMS (انظر G10-CF-03).",
+   "type": "UPDATE",
+   "source": "M28 §50, §52"
+  },
+  {
+   "id": "D-218",
+   "change": "نفس الاستثناء أعلاه: «Delete = Archive بدل hard delete» لا ينطبق على الحذف النهائي لطلبات التوظيف من الأرشيف بقرار الـOwner.",
+   "type": "UPDATE",
+   "source": "M28 §52"
+  },
+  {
+   "id": "AUDIT-008",
+   "change": "Backup strategy تمتد على بيانات التوظيف والمرفقات مع restore test موثق.",
+   "type": "UPDATE",
+   "source": "M28 §70"
+  },
+  {
+   "id": "DEPLOY-005",
+   "change": "Backup قبل أي Migration خطرة على Production لقاعدة التوظيف، والتحقق الفعلي من Backups في Cloudways (لا افتراض).",
+   "type": "UPDATE",
+   "source": "M28 §70, §72"
+  },
+  {
+   "id": "D-172",
+   "change": "مسار وحدة التوظيف: Audit → Architecture → Schema → Migration Plan → Staging/Test → Tests → Owner Review → Production.",
+   "type": "UPDATE",
+   "source": "M28 §72"
+  },
+  {
+   "id": "CF-005",
+   "change": "مراجعة Cloudways توسعت لـAudit من 17 بندًا (stack، PHP/runtime، Framework، MySQL/MariaDB، DB users، SSH/SFTP، storage، public/private paths، backups، WordPress، isolation، disk، upload limits، security) — تصبح Phase 2 من وحدة التوظيف.",
+   "type": "UPDATE",
+   "source": "M28 §02"
+  },
+  {
+   "id": "CF-002",
+   "change": "الـAudit قراءة فقط ولا يغير Production؛ إنشاء Application/DB معزولة أو Staging على Cloudways لاحقًا = تغيير يحتاج موافقة بعد بوابة Phase 8 (لا يتعارض مع D-002).",
+   "type": "UPDATE",
+   "source": "M28 §02, §72, §77"
+  },
+  {
+   "id": "AC-RULE-04",
+   "change": "الـAudit يحتاج معلومات أعمق من اللقطات (DB users، SSH/SFTP، حدود الرفع، المساحة)؛ يبقى «لا Cloudways API Key»، ويُطلب وصول قراءة بأقل صلاحية (G10-PO-01).",
+   "type": "UPDATE",
+   "source": "M28 §02"
+  },
+  {
+   "id": "PO-037",
+   "change": "معلومات Cloudways المطلوبة (المزود، الحجم، المنطقة، التطبيقات، Staging، Backups) أصبحت جزءًا من Phase 2 Audit للتوظيف — مع بنود إضافية (PHP/MySQL versions، حدود الرفع، disk، public/private paths). يرتبط بـG10-PO-01.",
+   "type": "UPDATE",
+   "source": "M28 §02, §70"
+  },
+  {
+   "id": "DASH-006",
+   "change": "يضاف إلى وحدات الـDashboard: «التوظيف / Careers / Recruitment» (Overview · Applications · Interviews · Archived · Saved Filters · Settings).",
+   "type": "UPDATE",
+   "source": "M28 §33"
+  },
+  {
+   "id": "DASH-003",
+   "change": "وحدة التوظيف غير مذكورة في أولويات M25 §68؛ بما أن صفحة التوظيف معتمدة في V1 (D-015) والنموذج لا يعمل بدون الوحدة، تُطلق الوحدة مع إطلاق النموذج (تصنيف مقترح: ضمن نطاق V1 عند نشر صفحة التوظيف).",
+   "type": "UPDATE",
+   "source": "M28 §00, §33, §79"
+  },
+  {
+   "id": "DASH-005",
+   "change": "قائمة الـWireframes تضاف إليها: Careers form (Phase 6) + Recruitment Dashboard (Overview · Applications table/cards · Quick view · Full application · Interviews · Archived · Saved filters · Settings) على الهاتف والتابلت والديسكتوب (Phase 7).",
+   "type": "UPDATE",
+   "source": "M28 §77 Phases 6–7"
+  },
+  {
+   "id": "DASH-008",
+   "change": "TOP SUMMARY مع نسب المقارنة يبقى لـAnalytics Overview؛ Recruitment Overview بلا Comparison percentages (رفض الـOwner) — انظر G10-CF-04.",
+   "type": "UPDATE",
+   "source": "M28 §35"
+  },
+  {
+   "id": "DASH-009",
+   "change": "وحدة التوظيف لها Date range خاص: افتراضي «هذا الشهر» وخيارات اليوم · آخر 7 أيام · آخر 30 يوم · هذا الشهر · كل الوقت.",
+   "type": "UPDATE",
+   "source": "M28 §35"
+  },
+  {
+   "id": "DASH-017",
+   "change": "Needs Attention يمكن أن يضم «طلبات جديدة» وتنبيه الطلبات القديمة (بدون حذف) — مجمّعة بلا Spam.",
+   "type": "UPDATE",
+   "source": "M28 §37, §53"
+  },
+  {
+   "id": "DASH-028",
+   "change": "تضاف مهام الـOwner على الهاتف للتوظيف: رؤية الطلبات الجديدة · البحث · الفلترة · فتح Applicant · تغيير Status · مشاهدة CV · إضافة Note · رؤية Interview details.",
+   "type": "UPDATE",
+   "source": "M28 §64"
+  },
+  {
+   "id": "RESP-004",
+   "change": "نموذج التوظيف ولوحة التوظيف ضمن مصفوفة الـ14 عرضًا نفسها (320…1920) — النموذج Mobile-first.",
+   "type": "UPDATE",
+   "source": "M28 §64"
+  },
+  {
+   "id": "TEST-006",
+   "change": "RESPONSIVE-QA-MATRIX يضاف إليها: /ar/careers/ (النموذج + الحالات)، /en/careers/، صفحة المتابعة، وشاشات Recruitment.",
+   "type": "UPDATE",
+   "source": "M28 §64, §73"
+  },
+  {
+   "id": "TEST-014",
+   "change": "تضاف 15 رحلة Playwright للتوظيف (CAREERS-094).",
+   "type": "UPDATE",
+   "source": "M28 §74"
+  },
+  {
+   "id": "TEST-022",
+   "change": "سيناريوهات فشل الـDashboard تضاف إليها حالات التوظيف الـ12 (storage full، database unavailable، timeout، network interruption …).",
+   "type": "UPDATE",
+   "source": "M28 §69"
+  },
+  {
+   "id": "TEST-002",
+   "change": "DoD خاص بالتوظيف (23 بندًا) يضاف فوق DoD العام (D-170) ولا يحل محله.",
+   "type": "UPDATE",
+   "source": "M28 §79"
+  },
+  {
+   "id": "A11Y-016",
+   "change": "تطبيق صريح على أخطاء النموذج: لا تعتمد على اللون وحده + error summary + inline errors.",
+   "type": "UPDATE",
+   "source": "M28 §65"
+  },
+  {
+   "id": "PERF-014",
+   "change": "Code splitting إلزامي عمليًا: لا Dashboard libraries على صفحة التوظيف العامة؛ parsing المستندات غير متزامن.",
+   "type": "UPDATE",
+   "source": "M28 §68"
+  },
+  {
+   "id": "D-197",
+   "change": "تصميم لوحة التوظيف يتبع نفس مبادئ الـDashboard + «Sensitive actions أكثر تحفظًا بصريًا» + Overview تشغيلية بلا Charts غير ضرورية.",
+   "type": "UPDATE",
+   "source": "M28 §75"
+  },
+  {
+   "id": "GOV-056",
+   "change": "تضاف 7 وثائق للوحدة: CAREERS-REQUIREMENTS · RECRUITMENT-DATA-MODEL · RECRUITMENT-SECURITY · RECRUITMENT-PERMISSIONS · RECRUITMENT-PUBLIC-STATUS-MAPPING · RECRUITMENT-TEST-PLAN · CLOUDWAYS-RECRUITMENT-ARCHITECTURE.",
+   "type": "UPDATE",
+   "source": "M28 §76"
+  },
+  {
+   "id": "DASH-004",
+   "change": "وحدة التوظيف لها تسلسل خاص (17 مرحلة) بوابته Phase 8؛ البناء (Phase 9+) يحتاج أيضًا Dashboard foundation (Phase I) والمنصة (DB-08) — انظر G10-CF-06.",
+   "type": "UPDATE",
+   "source": "M28 §77"
+  },
+  {
+   "id": "MEDIA-012",
+   "change": "مرفقات المتقدمين ليست Media Library assets: لا تُخزن ولا تُعرض فيها (تخزين خاص Owner-only).",
+   "type": "UPDATE",
+   "source": "M28 §20"
+  },
+  {
+   "id": "WEB-008",
+   "change": "تأكيد من الـOwner: /ar/careers/ (النموذج الأساسي) و/en/careers/ (محتوى إنجليزي) — متسق مع P3 وBrand Layer (D-019/D-031) وخريطة النقل /التوظيف-في-شلتر-كافية/ · /hiring → /ar/careers/.",
+   "type": "UPDATE",
+   "source": "M28 §03"
+  },
+  {
+   "id": "PO-005",
+   "change": "روابط التوظيف ثُبتت بقرار الـOwner (/ar/careers/ · /en/careers/) — مدخل جزئي لتجميد شجرة الروابط؛ المسارات الفرعية للنموذج/المتابعة تقنية (noindex).",
+   "type": "ANSWERS",
+   "source": "M28 §03"
+  },
+  {
+   "id": "I18N-001",
+   "change": "استثناء محصور: نموذج التوظيف وصفحة النجاح وصفحة المتابعة عربية فقط (لا نسخة EN)؛ صفحة /en/careers/ موجودة كمحتوى — انظر G10-CF-02.",
+   "type": "UPDATE",
+   "source": "M28 §03, §04, §23"
+  },
+  {
+   "id": "RESP-007",
+   "change": "اختبار LTR لا ينطبق على النموذج العربي فقط؛ /en/careers/ تُختبر LTR، والنموذج RTL (مع حقول إدخال mixed).",
+   "type": "UPDATE",
+   "source": "M28 §03, §64, §73"
+  },
+  {
+   "id": "UX-004",
+   "change": "Friction audit لا يحذف حقولًا ولا يجعلها اختيارية في نموذج التوظيف (قرار الـOwner)؛ التقليل يتم بالتجميع والترتيب واختبار صفحة واحدة مقابل خطوات — انظر G10-CF-07.",
+   "type": "UPDATE",
+   "source": "M28 §05, §15, §67"
+  },
+  {
+   "id": "D-147",
+   "change": "لا تغيير: منع Pagination/Infinite scroll خاص بصفحة المنيو العامة (MENU-054)؛ قائمة الإدارة في التوظيف تستخدم Traditional Pagination (25/50/100) — ملاحظة نطاق فقط، ليس تعارضًا.",
+   "type": "UPDATE",
+   "source": "M28 §45, §46"
+  },
+  {
+   "id": "CONTACT-024",
+   "change": "لا حاجة لبريد Careers لتشغيل نظام V1 (لا Email تلقائي؛ المتابعة عبر رقم الطلب + الهاتف). يبقى دعم البريد المنفصل مستقبليًا اختياريًا.",
+   "type": "UPDATE",
+   "source": "M28 §23, §37"
+  },
+  {
+   "id": "CR-092",
+   "change": "«HR / recruitment contact = MISSING» لم يعد مطلوبًا للنظام: المتقدم يتابع عبر «متابعة طلب التوظيف»، والتواصل يدوي من SHELTER؛ لا جهة HR منشورة.",
+   "type": "ANSWERS",
+   "source": "M28 §23, §24, §29"
+  },
+  {
+   "id": "CR-091",
+   "change": "حقول النموذج القديم دليل على الموقع الحالي فقط؛ الحقول المستهدفة = قائمة M28 (الصورة الشخصية والعنوان الكامل مستبعدان؛ الهوية بحماية مشددة).",
+   "type": "SUPERSEDE",
+   "source": "M28 §06–§14"
+  },
+  {
+   "id": "VQ-05",
+   "change": "أُجيب: قسم التوظيف دائم (D-015 + M28)، الطلبات إلى Owner Dashboard، والحقول المعتمدة كما في M28 (الهوية والجنسية والميلاد والراتب نعم؛ الصورة لا).",
+   "type": "ANSWERS",
+   "source": "M28 §01, §05–§14, §33"
+  },
+  {
+   "id": "R11-03",
+   "change": "أُجيب لنموذج التوظيف (البيانات · الوجهة · الاحتفاظ)؛ يبقى مفتوحًا لنماذج التواصل/الحجز/الامتياز/الرعاية.",
+   "type": "ANSWERS",
+   "source": "M28 §01, §14, §52"
+  },
+  {
+   "id": "PO-020",
+   "change": "تضاف دفعة Microcopy للتوظيف عند العرض: رسالة «سنتواصل عند الحاجة» في صفحة النجاح، رسائل الأخطاء، ومحتوى /en/careers/ — النصوص التي حددها الـOwner حرفيًا لا تُعاد صياغتها، والحالة المحايدة لـ«تمت المقابلة/مقبول» محسومة بالتفويض (TD-PS-01/02 = «قيد المراجعة») ولا تُسأل.",
+   "type": "UPDATE",
+   "source": "M28 §23, §29, §69"
+  },
+  {
+   "id": "PO-007",
+   "change": "اعتماد معمارية وWireframes الـDashboard (Gate H) يشمل الآن وحدة التوظيف — مع بوابة Phase 8 الخاصة بها (موافقة واحدة يمكن جمعها).",
+   "type": "UPDATE",
+   "source": "M28 §77 Phase 8"
+  }
+ ],
+ "conflicts": [
+  {
+   "id": "G10-CF-01",
+   "topic": "حقول نموذج التوظيف: اقتراح التقليل (الاسم+الهاتف+CV) مقابل قائمة الـOwner التي تشمل الهوية والجنسية والميلاد والراتب",
+   "old_instruction": "اقتراح Claude: الاكتفاء بالاسم والهاتف والسيرة الذاتية بدل رقم الهوية والجنسية وتاريخ الميلاد والراتب المتوقع والصورة؛ PRIV-004 Data minimisation",
+   "old_source": "PO-031 / VQ-05 (اقتراح Claude) · PRIV-004 (M03 §R1-09 → D-015)",
+   "new_instruction": "النموذج النهائي: الاسم · الهاتف · البريد · الجنس · تاريخ الميلاد · الحالة الاجتماعية · الجنسية + الرقم الوطني أو (الجنسية النصية + رقم الجواز/الوثيقة) · المدينة · المنطقة · الوظيفة · المؤهل · الخبرة · الراتب المتوقع · الرخصة · ملاحظات · المرفقات · الموافقة — والصورة الشخصية ممنوعة",
+   "new_source": "M28 §05–§16, §21",
+   "winner": "M28 (قرار الـOwner)",
+   "why": "اقتراح Claude ليس قرارًا (GOV-008)، وM28 آخر قرار صريح FROZEN؛ Data minimisation طُبقت بقائمة «لا تسأل» وبضوابط حماية مشددة للبيانات الحساسة",
+   "impact": "PO-031 يتحول إلى محتوى فقط؛ CAREERS-009…031؛ مخاطرة قانونية تُرفع كملاحظة (G10-TF-06) دون إعادة فتح الحقول",
+   "files": [
+    "docs/PENDING-OWNER-INPUT.md PO-031",
+    "docs/SHELTER-WEBSITE-MASTER-REQUIREMENTS.md PRIV-004",
+    "docs/phase-01-discovery/03-verify-with-owner.md VQ-05"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "id": "G10-CF-02",
+   "topic": "كل صفحة عامة بنسختين AR/EN واختبار RTL+LTR مقابل نموذج توظيف عربي فقط",
+   "old_instruction": "العربية أساسية والإنجليزية نسخة كاملة: كل صفحة عامة لها نسخة عربية وإنجليزية مكافئة؛ كل Layout يُختبر RTL وLTR؛ لا منع لاختيار English",
+   "old_source": "I18N-001 (M01 · M03 — D-014) · RESP-007 / I18N-004 (M01 · M26 — D-217) · WEB-017",
+   "new_instruction": "طلب التوظيف ARABIC ONLY: /en/careers/ تعرض محتوى إنجليزيًا وApply ينقل إلى التدفق العربي؛ لا English Job Application Form؛ ONE FORM / ONE FLOW / ONE SOURCE OF TRUTH؛ صفحة النجاح بالعربي فقط",
+   "new_source": "M28 §03, §04, §23",
+   "winner": "M28 — استثناء محصور بالنموذج وصفحتي النجاح والمتابعة",
+   "why": "قرار صريح أحدث ومحدد النطاق؛ /en/careers/ تبقى نسخة إنجليزية للمحتوى فلا تنكسر قاعدة الصفحات؛ زر Apply رابط بضغطة المستخدم وليس Redirect تلقائيًا فلا يمس WEB-017",
+   "impact": "hreflang لصفحتي /ar/careers/ و/en/careers/ فقط؛ مسارات النموذج noindex (CAREERS-008)؛ اختبارات النموذج RTL فقط والحقول تقبل mixed",
+   "files": [
+    "docs/SHELTER-WEBSITE-MASTER-REQUIREMENTS.md I18N-001, RESP-007, WEB-017",
+    "docs/phase-01-discovery/10-url-architecture-draft.md"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "id": "G10-CF-03",
+   "topic": "الحذف = أرشفة بدل Hard delete مقابل Permanent Delete لطلبات التوظيف",
+   "old_instruction": "Delete = Archive بدل hard delete؛ خطأ Editor لا يمسح الموقع؛ لا حذف بدون موافقة",
+   "old_source": "D-218 / DEPLOY-013 (M25 — G8 M25-164) · AUDIT-008 (M25) · SEC-011 (M10 — D-037)",
+   "new_instruction": "Active → Archive → Permanent Delete؛ Permanent Delete للـOwner فقط، ليس من القائمة الرئيسية، بتأكيد قوي، يشمل البيانات والهوية والمرفقات والملاحظات والمقابلات وفق deletion policy، مع Audit Tombstone بلا بيانات حساسة؛ لا Bulk Permanent Delete؛ لا حذف تلقائي",
+   "new_source": "M28 §50, §52, §53",
+   "winner": "M28 لوحدة التوظيف؛ D-218 يبقى لمحتوى الـCMS",
+   "why": "قرار أحدث ومحدد بالبيانات الشخصية (الحذف النهائي حاجة خصوصية)؛ الحذف يقوم به الـOwner نفسه بعد الأرشفة فيبقى متسقًا مع روح SEC-011 (لا حذف بدون موافقة) ومع منع الحذف العرضي",
+   "impact": "CAREERS-070؛ deletion policy في RECRUITMENT-SECURITY.md؛ توثيق بقاء النسخ في الـBackups حتى دورة الاحتفاظ (G10-TF-14)",
+   "files": [
+    "docs/governance/DECISION-LOG.md D-218",
+    "docs/SHELTER-WEBSITE-MASTER-REQUIREMENTS.md DEPLOY-013, AUDIT-008"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "id": "G10-CF-04",
+   "topic": "مقارنات نسب مئوية وفلتر تاريخ موحد في الـDashboard مقابل Recruitment Overview بلا مقارنات وبفترة افتراضية خاصة",
+   "old_instruction": "TOP SUMMARY: كل مؤشر يُقارن مع Yesterday · Last 7 Days · Previous Period ويعرض percentage change؛ Date Selector عام (Today · Yesterday · Last 7 Days · Last 30 Days · This Month · Previous Month · Custom Range) وكل الـDashboard تتحدث حسبه",
+   "old_source": "DASH-008 / DASH-009 / DASH-010 (M25)",
+   "new_instruction": "Recruitment Overview: افتراضي «هذا الشهر»؛ الخيارات اليوم · آخر 7 أيام · آخر 30 يوم · هذا الشهر · كل الوقت؛ لا Comparison percentages — الـOwner رفض «+18% compared to last month»",
+   "new_source": "M28 §35",
+   "winner": "M28 داخل وحدة التوظيف؛ M25 يبقى لـAnalytics Overview",
+   "why": "M28 أحدث لكنه مكتوب داخل قسم Recruitment Overview فقط؛ لا نص يلغي مقارنات الـAnalytics (M25)، والتعميم بدون نص = حسم صامت ممنوع",
+   "impact": "CAREERS-053؛ لا تغيير على DASH-008/009/010؛ إذا قصد الـOwner منع المقارنات في كل الـDashboard فيحتاج تصريحًا جديدًا (لا يُسأل الآن)",
+   "files": [
+    "docs/SHELTER-WEBSITE-MASTER-REQUIREMENTS.md DASH-008, DASH-009, DASH-010"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "id": "G10-CF-05",
+   "topic": "مكان البيانات والمنصة: خيارات DB-08 (Astro/Cloudflare، Sanity/Payload، Supabase إن استُخدم) مقابل بيانات خاصة على Cloudways وبلا خدمات خارجية",
+   "old_instruction": "DB-08: A WordPress Block Theme · B WordPress Headless + Astro/Cloudflare · C Sanity/Payload + Astro/Next؛ «إذا المشروع يستخدم Supabase: استخدمه لتخزين CMS content · audit logs …»",
+   "old_source": "DB-08 (05-decisions-before-design) · CMS-021 (M25 §45) · CF-M-003",
+   "new_instruction": "Server-side على Cloudways؛ Private Website Database on Cloudways؛ Private Recruitment Storage؛ Self-contained within SHELTER + Cloudways؛ Data saved to Cloudways؛ لا اعتماد يومي على خدمات خارجية",
+   "new_source": "M28 §01, §71, §79, §80",
+   "winner": "M28 لمكان بيانات التوظيف (محسوم)؛ اختيار الإطار يبقى في DB-08/PO-006",
+   "why": "قرار صريح أحدث بمكان البيانات؛ M25 كان مشروطًا («إذا المشروع يستخدم Supabase») وDB-08 لم يُحسم أصلًا، فلا قرار سابق ينقض. ما لم يُحسم (الإطار) مسجل مسبقًا كـPO-006 ولا يحتاج سؤالًا جديدًا",
+   "impact": "أي خيار لـDB-08 يجب أن يوفر Backend + DB على Cloudways (أو يخلق قاعدتين — مخالف لـGOV-078)؛ يُتحقق من دعم Cloudways للـRuntime في Phase 2 (G10-TF-01)؛ إذا ثبت قيد فعلي في Cloudways يمنع التنفيذ → يُرفع للـOwner (استثناء M28 §00)",
+   "files": [
+    "docs/MASTER-DECISION-REGISTER.md DB-08",
+    "docs/CONFLICT-REGISTER.md CF-M-003",
+    "docs/SHELTER-WEBSITE-MASTER-REQUIREMENTS.md CMS-021",
+    "docs/IMPLEMENTATION-PLAN.md P06"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "id": "G10-CF-06",
+   "topic": "بوابات المشروع (لا كود قبل IA/Gate H/المنصة/الهوية) مقابل «ابدأ الآن» وترتيب تنفيذ التوظيف 1–17",
+   "old_instruction": "لا Coding/Framework قبل اعتماد Pages/Nav/Sitemap/URL…؛ لا Dashboard foundation قبل Gate H؛ لا تغيير Cloudways في Phase 01؛ Visual Design محجوب حتى ملفات الهوية؛ لا Feature جديدة قبل اكتمال التدقيق",
+   "old_source": "GOV-040 · DASH-004 / D-213 · D-002 / CF-002 · BRAND-002 (M-10) · D-223 / GOV-081",
+   "new_instruction": "PHASE 1 قراءة → 2 Cloudways audit → 3 IA → 4 Data model → 5 Security → 6–7 Wireframes → 8 Owner-approved architecture check → 9 Backend … 17 Production readiness؛ «ابدأ الآن بالـAudit والArchitecture»؛ Dashboard بـSHELTER Design System",
+   "new_source": "M28 §75, §77, §80",
+   "winner": "كلاهما: Phases 1–7 تبدأ الآن كعمل وثائق/Audit/Wireframes منخفضة الدقة (P04)؛ Phase 9+ تنتظر بوابة Phase 8 + DB-08 + Dashboard foundation",
+   "why": "M28 نفسه يضع بوابة Owner-approved architecture قبل أي Backend، والبوابات السابقة لا تمنع التوثيق والـAudit القرائي (D-002 يمنع التغيير لا القراءة)؛ الوحدة «جزء أصلي» من الموقع فلا تُبنى على إطار مستقل قبل DB-08",
+   "impact": "تسلسل CAREERS-097؛ لا Backend للتوظيف قبل حسم PO-006؛ التصميم المرئي بعد M-10 (الـWireframes لا تنتظر)",
+   "files": [
+    "docs/IMPLEMENTATION-PLAN.md",
+    "docs/SHELTER-WEBSITE-MASTER-REQUIREMENTS.md GOV-040, DASH-004, BRAND-002, CF-002"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "id": "G10-CF-07",
+   "topic": "Friction audit (إزالة أي Form Field ممكن) مقابل كل الحقول إلزامية بما فيها «ملاحظات إضافية»",
+   "old_instruction": "في كل Flow: هل يمكن إزالة Form Field … بدون فقدان قيمة؟ إذا نعم تُبسّط التجربة",
+   "old_source": "UX-004 (M01 · M27) · UX-001 Simplicity wins",
+   "new_instruction": "كل الحقول المدرجة REQUIRED (إلا المرفقات الإضافية)، و«ملاحظات إضافية» Required «لأن Owner قرر أن كل الحقول المدرجة في النموذج إلزامية»",
+   "new_source": "M28 §05, §15",
+   "winner": "M28 (قرار Business صريح)",
+   "why": "اختيار البيانات المطلوبة قرار Business للـOwner (GOV-015)؛ مبدأ UX عام لا يلغي قرارًا صريحًا أحدث",
+   "impact": "التقليل يتم بالتجميع والترتيب واختبار صفحة واحدة مقابل خطوات (CAREERS-087)، لا بحذف حقول أو جعلها اختيارية",
+   "files": [
+    "docs/SHELTER-WEBSITE-MASTER-REQUIREMENTS.md UX-004"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "id": "G10-CF-08",
+   "topic": "مستوى وصول Cloudways: معلومات ولقطات فقط مقابل Audit تقني عميق",
+   "old_instruction": "AC-11: معلومات/لقطات فقط (Server Management · Application Settings · Backups)؛ لا Cloudways API Key",
+   "old_source": "AC-11 / AC-RULE-04 (08-access-requests — قاعدة فريق تطبيقًا لـLeast privilege)",
+   "new_instruction": "Cloudways Architecture Audit يتحقق من 17 بندًا منها Database users · SSH/SFTP capabilities · storage structure · public/private paths · disk capacity · web server/PHP upload limits · security configuration — دون تعديل Production بشكل خطر",
+   "new_source": "M28 §02",
+   "winner": "M28 للنطاق؛ Least privilege يبقى لطريقة الوصول",
+   "why": "M28 تعليمات Owner أحدث تحدد ما يجب فحصه؛ AC-RULE-04 قاعدة صاغها الفريق ولا تمنع وصول قراءة محدود غير الـAPI Key",
+   "impact": "طلب وصول جديد بأقل صلاحية (G10-PO-01) مع بديل اللقطات؛ لا API Key؛ لا تغييرات",
+   "files": [
+    "docs/phase-01-discovery/08-access-requests.md AC-11",
+    "docs/MASTER-DECISION-REGISTER.md AC-RULE-04"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "id": "G10-CF-09",
+   "topic": "أدوار مستقبلية بصلاحيات حسب الدور مقابل وحدة التوظيف Owner only حتى للـAdmin",
+   "old_instruction": "الـArchitecture تدعم أدوار OWNER · ADMIN · EDITOR · SEO · MARKETING · CONTENT MANAGER (Role-based permissions)",
+   "old_source": "PERM-002 / D-162 (M25 §1)",
+   "new_instruction": "Recruitment Module OWNER ONLY — ليس Admin · Editor · Marketing · SEO · Content Manager؛ Server-side Owner Role only",
+   "new_source": "M28 §32, §63",
+   "winner": "M28 (أضيق وأحدث)",
+   "why": "لا تعارض في V1 (الـOwner وحده)، لكن مصفوفة الأدوار المستقبلية كانت ستمنح ADMIN وصولًا عامًا؛ M28 يستثني التوظيف صراحة",
+   "impact": "RECRUITMENT-PERMISSIONS.md: التوظيف خارج كل الأدوار عدا OWNER حتى قرار صريح جديد",
+   "files": [
+    "docs/SHELTER-WEBSITE-MASTER-REQUIREMENTS.md PERM-002",
+    "docs/governance/DECISION-LOG.md D-162"
+   ],
+   "status": "RESOLVED"
+  }
+ ],
+ "new_decisions": [
+  {
+   "temp_id": "G10-ND-01",
+   "area": "44 Careers & Recruitment",
+   "decision": "معمارية التوظيف وملكية البيانات: وحدة أصلية في SHELTER WEBSITE + OWNER DASHBOARD (ليست HubSpot/خدمة خارجية)؛ Public Website → HTTPS → SHELTER Backend → Private Website DB on Cloudways → Private Recruitment Storage → Owner Dashboard؛ ممنوع HubSpot · Google Forms · Airtable · أي CRM خارجي · أي DB على جهاز الـOwner أو مرتبطة بجهاز العمل · Falcon وقاعدته (ممنوع لمسه)",
+   "sources": [
+    "M28-§00",
+    "M28-§01",
+    "M28-§79",
+    "M28-§80"
+   ],
+   "status": "FROZEN",
+   "reason": "مواصفة الـOwner النهائية M28",
+   "impact": "قيد على DB-08/PO-006؛ CAREERS-001…003؛ DB-14 جزئيًا"
+  },
+  {
+   "temp_id": "G10-ND-02",
+   "area": "44 Careers & Recruitment",
+   "decision": "Cloudways First: Cloudways Architecture Audit (17 بندًا) قبل أي DB/Storage بلا تعديل خطر على Production؛ Application/DB معزولة للموقع الجديد إن أمكن؛ لا استخدام قاعدة WordPress القديمة كمخزن؛ Backup strategy (DB + مرفقات + restore + retention + test restore) بالتحقق لا الافتراض",
+   "sources": [
+    "M28-§02",
+    "M28-§70"
+   ],
+   "status": "APPROVED",
+   "reason": "M28 §02/§70",
+   "impact": "CAREERS-004, 005, 090؛ CF-005؛ وصول جديد G10-PO-01"
+  },
+  {
+   "temp_id": "G10-ND-03",
+   "area": "44 Careers & Recruitment",
+   "decision": "Self-contained within SHELTER + Cloudways: لا Sentry · external malware scanner · email service · SMS · WhatsApp API · external storage · external OCR · AI parsing API · CAPTCHA خارجي تلقائيًا — أولًا عرض لماذا نحتاجها والبديل المحلي، ثم موافقة",
+   "sources": [
+    "M28-§71",
+    "M28-§19",
+    "M28-§61"
+   ],
+   "status": "FROZEN",
+   "reason": "M28 §71",
+   "impact": "يوسع INT-001/D-210 إلى الخدمات المجانية؛ CAREERS-091"
+  },
+  {
+   "temp_id": "G10-ND-04",
+   "area": "44 Careers & Recruitment",
+   "decision": "روابط ولغة التوظيف: /ar/careers/ = الصفحة والنموذج الأساسي؛ /en/careers/ محتوى إنجليزي وApply ينقل للتدفق العربي؛ لا نموذج إنجليزي؛ ONE FORM / ONE FLOW / ONE SOURCE OF TRUTH؛ واجهة عربية فقط والحقول تقبل AR/EN/خليط بلا Validation على الـScript",
+   "sources": [
+    "M28-§03",
+    "M28-§04"
+   ],
+   "status": "FROZEN",
+   "reason": "M28 §03–§04",
+   "impact": "استثناء I18N-001 (G10-CF-02)؛ مدخل لـPO-005"
+  },
+  {
+   "temp_id": "G10-ND-05",
+   "area": "44 Careers & Recruitment",
+   "decision": "حقول النموذج النهائية (19 عنصرًا) بخياراتها الحرفية وقاعدة الإلزام: الاسم الكامل · الهاتف (حر، بلا Country Selector، بلا فرض +962) · البريد · الجنس (ذكر/أنثى) · تاريخ الميلاد (3 Selects، DATE، العمر محسوب) · الحالة الاجتماعية (أعزب/متزوج/أخرى) · الجنسية (أردني → الرقم الوطني؛ غير أردني → ما هي جنسيتك؟ + رقم جواز السفر أو وثيقة الهوية) · المدينة (Dropdown مدن الأردن) · المنطقة (نص حر) · الوظيفة المتقدم لها (نص حر) · المؤهل العلمي (6 خيارات فقط) · سنوات الخبرة (6 فئات) · خبرة سابقة بنفس المجال (نعم/لا) · هل تعمل حاليًا (نعم/لا) · الراتب المتوقع (رقمي JOD، يعرض 450 د.أ) · رخصة قيادة (نعم/لا) · ملاحظات إضافية (إلزامي) · المرفقات · الإقرار والموافقة؛ كل الحقول Required والشرطي Required عند ظهوره؛ هيكل الصفحة الواحدة مقابل الخطوات يُحسم بالاختبار (مفوض)",
+   "sources": [
+    "M28-§05",
+    "M28-§06",
+    "M28-§07",
+    "M28-§08",
+    "M28-§09",
+    "M28-§10",
+    "M28-§11",
+    "M28-§12",
+    "M28-§13",
+    "M28-§15",
+    "M28-§67"
+   ],
+   "status": "FROZEN",
+   "reason": "M28 §05–§15/§67",
+   "impact": "يجيب PO-031/PRIV-004/VQ-05؛ CAREERS-009…032، 087"
+  },
+  {
+   "temp_id": "G10-ND-06",
+   "area": "44 Careers & Recruitment",
+   "decision": "قائمة «لا تسأل»: صورة شخصية · وسيلة مواصلات · مستوى الإنجليزية · اللغات · الفرع المفضل · نظام الشفتات · هل سبق لك العمل لدى SHELTER · تصريح العمل · معلومات صحية · إصابات · طريقة التواصل المفضلة · LinkedIn · كيف عرفت عن الوظيفة · جهة الدراسة · آخر جهة عمل · آخر وظيفة · موعد المباشرة · نبذة شخصية/مهارات (+ العمر المستقل · العنوان الكامل · التخصص · الجامعة · المدرسة · نوع الرخصة · دبلوم بلا موافقة) — ولا يُعاد اقتراحها",
+   "sources": [
+    "M28-§14",
+    "M28-§06",
+    "M28-§08",
+    "M28-§10",
+    "M28-§11",
+    "M28-§13"
+   ],
+   "status": "FROZEN",
+   "reason": "M28 §14",
+   "impact": "حدود Data minimisation؛ CAREERS-031"
+  },
+  {
+   "temp_id": "G10-ND-07",
+   "area": "44 Careers & Recruitment",
+   "decision": "سياسة الرفع: منطقة رفع واحدة «المرفقات» (CV + شهادات + دورات + مستندات)؛ لا حد Business لعدد الملفات أو حجمها (لا 10/20/25MB من عندنا) بل حدود تقنية آمنة بعد فحص البيئة مع رسالة عربية؛ الواجهة غير محصورة بـPDF/DOC/DOCX لكن منع الأنواع الخطرة (.exe .bat .cmd .com .scr .php .phtml .phar .sh .ps1 .js …) بفحص extension + MIME + signature + تنظيف الاسم؛ Never execute؛ 13 ضابطًا لأمان الملفات",
+   "sources": [
+    "M28-§16",
+    "M28-§17",
+    "M28-§18",
+    "M28-§60"
+   ],
+   "status": "FROZEN",
+   "reason": "M28 §16–§18/§60",
+   "impact": "CAREERS-033…035, 080؛ SEC-009"
+  },
+  {
+   "temp_id": "G10-ND-08",
+   "area": "44 Careers & Recruitment",
+   "decision": "CV Auto-Detection محلي/Server-side (filename · metadata · نص المستند · بنية الـCV؛ مؤشرات CV/Resume/Curriculum Vitae/السيرة الذاتية) بلا AI/SaaS خارجي؛ عند عدم الثقة لا تخمين ويُسأل المتقدم «أي ملف هو السيرة الذاتية؟»؛ لا إرسال بدون Primary CV",
+   "sources": [
+    "M28-§19"
+   ],
+   "status": "FROZEN",
+   "reason": "M28 §19",
+   "impact": "CAREERS-036"
+  },
+  {
+   "temp_id": "G10-ND-09",
+   "area": "44 Careers & Recruitment",
+   "decision": "تخزين خاص وحماية الهوية: CVs والمرفقات PRIVATE (لا Public URL؛ وصول بعد Authentication + Owner authorization عبر endpoint مضبوط)؛ الرقم الوطني ورقم الجواز Sensitive: لا GA4/GTM/logs، Masked (********1234)، Owner-only reveal، Audit للوصول، تشفير at rest/application layer إن ناسب الـstack، Hash/Index منفصل للتكرار، ولا أسرار في الـfrontend/repo",
+   "sources": [
+    "M28-§20",
+    "M28-§27"
+   ],
+   "status": "FROZEN",
+   "reason": "M28 §20/§27",
+   "impact": "CAREERS-037, 045"
+  },
+  {
+   "temp_id": "G10-ND-10",
+   "area": "44 Careers & Recruitment",
+   "decision": "الموافقة والإرسال والنجاح: Checkbox إلزامي بالنص المعتمد مع تخزين accepted/timestamp/text-version؛ Server-side validation إلزامي؛ رقم طلب فريد Server-side (صيغة مقترحة JOB-2026-00125)؛ لا Email ولا WhatsApp تلقائي؛ صفحة نجاح عربية (تم الاستلام · رقم الطلب · سنتواصل عند الحاجة · العودة) بلا معلومات حساسة في الـURL",
+   "sources": [
+    "M28-§21",
+    "M28-§22",
+    "M28-§23"
+   ],
+   "status": "FROZEN",
+   "reason": "M28 §21–§23",
+   "impact": "CAREERS-038…041؛ PRIV-005؛ MON-010"
+  },
+  {
+   "temp_id": "G10-ND-11",
+   "area": "44 Careers & Recruitment",
+   "decision": "متابعة الطلب بدون حساب برقم الطلب + الهاتف فقط مع rate limiting · progressive cooldown · anti-enumeration · رسائل عامة، وتعرض Public Status فقط؛ لا تعديل للطلب من المتقدم، والتصحيح الإداري Owner only + Audit",
+   "sources": [
+    "M28-§24",
+    "M28-§25",
+    "M28-§62"
+   ],
+   "status": "FROZEN",
+   "reason": "M28 §24/§25/§62",
+   "impact": "CAREERS-042, 043, 082"
+  },
+  {
+   "temp_id": "G10-ND-12",
+   "area": "44 Careers & Recruitment",
+   "decision": "المتقدمون المكررون: التقديم المتعدد مسموح؛ ربط بإشارات (الهاتف المنظم · الهوية/الوثيقة · البريد) بثقة؛ لا دمج ولا حذف تلقائي؛ كل طلب مستقل (ID/تاريخ/حالة/مرفقات/سجل)؛ عرض «متقدم سابق — لديه X طلبات»",
+   "sources": [
+    "M28-§26",
+    "M28-§59"
+   ],
+   "status": "FROZEN",
+   "reason": "M28 §26/§59",
+   "impact": "CAREERS-044, 079"
+  },
+  {
+   "temp_id": "G10-ND-13",
+   "area": "44 Careers & Recruitment",
+   "decision": "الحالات الداخلية السبع (تم الاستلام · قيد المراجعة · مرشح للمقابلة · تمت المقابلة · مقبول · مرفوض · مؤرشف) مع سجل كل تغيير، وPublic Mapping: «تم استلام الطلب» · «قيد المراجعة» · «تم اختيارك للمقابلة» (بلا تفاصيل المقابلة) · محايد لـ«تمت المقابلة» · لا «مقبول» أبدًا (التواصل يدوي) · «تم إغلاق الطلب» للمرفوض والمؤرشف",
+   "sources": [
+    "M28-§28",
+    "M28-§29"
+   ],
+   "status": "FROZEN",
+   "reason": "M28 §28/§29",
+   "impact": "CAREERS-046, 047"
+  },
+  {
+   "temp_id": "G10-ND-14",
+   "area": "44 Careers & Recruitment",
+   "decision": "المقابلات: تاريخ · وقت · مكان Dropdown (SHELTER COFFEE DRIVE / SHELTER COFFEE HOUSE، قابل للإدارة من Settings لاحقًا، بلا نص حر) · ملاحظات داخلية؛ ولا نظام تقييم (لا Score · نجوم · AI ranking · competency scoring · تقييم آلي · interview rating) — يكفي Notes + Status",
+   "sources": [
+    "M28-§30",
+    "M28-§31"
+   ],
+   "status": "FROZEN",
+   "reason": "M28 §30/§31",
+   "impact": "CAREERS-048, 049"
+  },
+  {
+   "temp_id": "G10-ND-15",
+   "area": "44 Careers & Recruitment",
+   "decision": "وحدة التوظيف OWNER ONLY (ليست لـAdmin/Editor/Marketing/SEO/Content Manager) بـServer-side Owner Authorization؛ 6 اختبارات سلبية إلزامية (direct URL · direct API · modified request · expired session · non-owner · unauthenticated)",
+   "sources": [
+    "M28-§32",
+    "M28-§63"
+   ],
+   "status": "FROZEN",
+   "reason": "M28 §32/§63",
+   "impact": "يضيّق PERM-002 (G10-CF-09)؛ CAREERS-050, 083"
+  },
+  {
+   "temp_id": "G10-ND-16",
+   "area": "44 Careers & Recruitment",
+   "decision": "تجربة لوحة التوظيف: IA مقترحة (Overview · Applications · Interviews · Archived · Saved Filters · Settings)؛ 8 بطاقات قابلة للنقر؛ فترة افتراضية «هذا الشهر» (اليوم/7/30/هذا الشهر/كل الوقت) بلا نسب مقارنة؛ شارة «جديد» بفصل Read Status عن Status؛ إشعارات داخل الـDashboard فقط؛ جدول 7 أعمدة (الأحدث أولًا) + 6 خيارات ترتيب؛ بحث حي بـdebounce؛ 10 فلاتر متعددة؛ Saved Filters؛ تخصيص أعمدة (Show/Hide/Drag&Drop/Reset)؛ Comfortable/Compact؛ 25/50/100 بافتراضي 50؛ Traditional Pagination بلا Infinite Scroll؛ Quick View + صفحة كاملة؛ ملاحظات متعددة؛ Bulk (حالة/أرشفة/تصدير/تنزيل مرفقات) بتأكيد واحد واضح؛ SHELTER Design System بلا Admin Template",
+   "sources": [
+    "M28-§33",
+    "M28-§34",
+    "M28-§35",
+    "M28-§36",
+    "M28-§37",
+    "M28-§38",
+    "M28-§39",
+    "M28-§40",
+    "M28-§41",
+    "M28-§42",
+    "M28-§43",
+    "M28-§44",
+    "M28-§45",
+    "M28-§46",
+    "M28-§47",
+    "M28-§48",
+    "M28-§49",
+    "M28-§50",
+    "M28-§51",
+    "M28-§64",
+    "M28-§75"
+   ],
+   "status": "FROZEN",
+   "reason": "M28 §33–§51/§64/§75",
+   "impact": "CAREERS-051…069, 084, 095؛ DASH-005/006/028"
+  },
+  {
+   "temp_id": "G10-ND-17",
+   "area": "44 Careers & Recruitment",
+   "decision": "الاحتفاظ والحذف: لا حذف تلقائي — الطلبات تبقى حتى قرار الـOwner؛ Active → Archive → Permanent Delete (Owner only، ليس من القائمة الرئيسية، تأكيد قوي، يشمل البيانات والهوية والمرفقات والملاحظات والمقابلات، Audit Tombstone بلا بيانات حساسة)؛ لا Bulk Permanent Delete؛ Last Updated وتنبيه الطلبات القديمة بلا حذف",
+   "sources": [
+    "M28-§50",
+    "M28-§52",
+    "M28-§53"
+   ],
+   "status": "FROZEN",
+   "reason": "M28 §50/§52/§53",
+   "impact": "استثناء من D-218 (G10-CF-03)؛ يجيب جزء الاحتفاظ في PO-019"
+  },
+  {
+   "temp_id": "G10-ND-18",
+   "area": "44 Careers & Recruitment",
+   "decision": "التصدير والتدقيق: Excel/CSV/PDF (الكل · المفلتر · المحدد · الحالة · الفترة · الوظيفة) والهوية Masked افتراضيًا؛ المرفقات في Action منفصل «تنزيل المرفقات» كـZIP (Owner only، مسجل)؛ Audit Log بـ13 حدثًا وحقول Actor · Action · Target · Timestamp · Before · After · Context بلا محتوى ملفات حساس",
+   "sources": [
+    "M28-§54",
+    "M28-§55",
+    "M28-§56"
+   ],
+   "status": "FROZEN",
+   "reason": "M28 §54–§56",
+   "impact": "CAREERS-072…074؛ AUDIT-001"
+  },
+  {
+   "temp_id": "G10-ND-19",
+   "area": "44 Careers & Recruitment / 19 Analytics",
+   "decision": "خصوصية القياس: لا PII (الاسم · الهاتف · البريد · الهوية · الجواز · اسم ملف CV · الملاحظات · نص الطلب) إلى GA4 · GTM · Google Analytics · Search Console · أي Analytics خارجية؛ أحداث مسموحة بلا PII: careers_page_view · application_started · application_submitted · application_error",
+   "sources": [
+    "M28-§57"
+   ],
+   "status": "APPROVED",
+   "reason": "M28 §57",
+   "impact": "ANL-008/PO-043؛ CAREERS-076, 077"
+  },
+  {
+   "temp_id": "G10-ND-20",
+   "area": "44 Careers & Recruitment",
+   "decision": "حوكمة التنفيذ: ترتيب 17 مرحلة ببوابة Phase 8 (Owner-approved architecture check) قبل Backend و«ابدأ الآن بالـAudit والArchitecture»؛ سلامة الإنتاج (لا Falcon · لا DB محلية · لا Migration خطرة بلا Backup · لا حذف · لا عبث بـWordPress القديم)؛ 7 وثائق تنفيذ + تسجيل في Master/Decision Register/Traceability؛ قائمة اختبارات §73 و15 تدفق Playwright؛ DoD من 23 بندًا؛ لا إعادة فتح إلا لتعارض تقني/أمني/معلومة Business ناقصة/قيد Cloudways، والتقني يقرره Claude",
+   "sources": [
+    "M28-§00",
+    "M28-§72",
+    "M28-§73",
+    "M28-§74",
+    "M28-§76",
+    "M28-§77",
+    "M28-§78",
+    "M28-§79"
+   ],
+   "status": "APPROVED",
+   "reason": "M28 §72–§79",
+   "impact": "CAREERS-092…099؛ GOV-056؛ DASH-004"
+  }
+ ],
+ "pending_owner": [
+  {
+   "id": "G10-PO-01",
+   "item": "وصول قراءة بأقل صلاحية لتنفيذ Cloudways Architecture Audit (M28 §02 — 17 بندًا): أحد الخيارات (أ) لقطات/تصدير: Server → Settings & Packages (نسخ PHP وMySQL/MariaDB)، Application Settings (حدود الرفع/الذاكرة)، Monitoring (القرص)، Backups (التكرار والاحتفاظ والـOffsite)، قائمة التطبيقات والـStaging؛ أو (ب) بيانات SFTP/SSH على مستوى التطبيق توضع في إعدادات البيئة (ليس في المحادثة) مع السماح بالـhost في Allowed domains؛ أو (ج) عضو فريق Cloudways مؤقت بصلاحيات محدودة. لا Cloudways API Key (AC-RULE-04). القراءة فقط — لا تغيير.",
+   "category": "BLOCKING",
+   "type": "ACCESS",
+   "blocks": "Phase 2 (Cloudways audit) ثم تثبيت Phase 4–5 (DB/Storage/حدود الرفع/الـBackups) لوحدة التوظيف؛ لا يمنع Phase 1/3 والوثائق",
+   "refs": [
+    "M28 §02",
+    "M28 §18",
+    "M28 §70",
+    "AC-11",
+    "AC-RULE-04",
+    "PO-037",
+    "CF-005",
+    "CAREERS-004"
+   ],
+   "count": "1 بيئة Cloudways",
+   "notes": "تحديث لـAC-11/PO-037 وليس سؤالًا عن قرار؛ الـOwner قال إن Cloudways هي الاستضافة الحالية."
+  },
+  {
+   "id": "G10-PO-02",
+   "item": "فقط إذا وجد الـAudit طلبات توظيف مخزنة في الموقع القديم (قاعدة WordPress/uploads أو أي إضافة): مصيرها — تبقى كما هي دون نقل (الافتراضي الحالي) / تُستورد إلى النظام الجديد / تُحذف بعد الإطلاق؟",
+   "category": "NON-BLOCKING",
+   "type": "BUSINESS DECISION",
+   "blocks": "خطة Migration للبيانات القديمة فقط (لا يمنع بناء النظام الجديد)",
+   "refs": [
+    "M28 §02",
+    "M28 §72",
+    "PO-038",
+    "RISK-06",
+    "CR-091"
+   ],
+   "count": "قرار واحد (مشروط)",
+   "notes": "لا يُسأل الآن؛ يُدمج في PO-038 عند ثبوت وجود بيانات. الافتراضي حسب M28 §72: لا حذف ولا تغيير على WordPress القديم."
+  },
+  {
+   "id": "PO-031",
+   "item": "(مضيّق بعد M28) محتوى صفحة التوظيف فقط: نص /ar/careers/ و/en/careers/ — عبارات بيئة العمل المسموح بها (القديمة: «بيئة محترمة، تدريب كامل ورواتب تنافسية» = PENDING) وأي وظائف/مجالات يُراد ذكرها. الحقول والوجهة والمتابعة والصلاحيات حُسمت في M28 ولا تُسأل.",
+   "category": "NON-BLOCKING",
+   "type": "CONTENT NEEDED",
+   "blocks": "نشر صفحة التوظيف (البناء لا يتوقف؛ النص Placeholder حتى الاعتماد)",
+   "refs": [
+    "PO-031",
+    "CR-090",
+    "M28 §03",
+    "PO-020"
+   ],
+   "count": "صفحة AR + صفحة EN",
+   "notes": "يمكن أن يصوغ Claude 3 خيارات (D-068) ضمن PO-020."
+  }
+ ],
+ "technical_flags": [
+  {
+   "id": "G10-TF-01",
+   "topic": "دعم Cloudways للـRuntime وأثره على اختيار إطار الموقع (DB-08)",
+   "detail": "M28 يفرض Backend Server-side وقاعدة بيانات خاصة على Cloudways. Cloudways (Flexible) بيئة PHP مُدارة (Apache/Nginx + PHP-FPM، MySQL/MariaDB، Redis/Varnish) وتطبيقاتها المعتادة WordPress/Laravel/PHP مخصص، والمستخدم الرئيسي بلا root؛ وتذكر مسودة CLOUDWAYS-RECRUITMENT-ARCHITECTURE.md §1 (من مصادر عامة، غير متحقق لحسابكم) أن Cloudways Velocity (Node.js مُدار يدعم Next.js SSR) أُعلن توفره في سبتمبر 2026 مع معلومات متضاربة عن SSH وقاعدة البيانات والقرص الدائم الخاص — يجب التحقق. خيارات DB-08 التي تضع البيانات في SaaS (Sanity/Supabase) لا تحقق «Data saved to Cloudways» لوحدة التوظيف.",
+   "recommendation": "إضافة «Runtimes المدعومة فعليًا + قيود الـroot + Cron/Queues» إلى Phase 2 Audit، وتغذية ADR المنصة (DB-08) بالنتيجة: خيارات المسودة (§5): A Flexible + Laravel ✅ نظريًا · B Velocity + Next.js ⚠️ يحتاج تحقق (DB خاصة، قرص خاص دائم، Backup للملفات) · C WordPress مستقل ⚠️ · D خدمة خارجية ❌. لا حسم الآن؛ القرار للـOwner ضمن PO-006 دون سؤال جديد، وإذا ثبت قيد فعلي يُرفع كاستثناء M28 §00.",
+   "needs_owner": true,
+   "refs": [
+    "M28 §01",
+    "M28 §02",
+    "M28 §80",
+    "DB-08",
+    "PO-006",
+    "CF-M-003",
+    "G10-CF-05",
+    "docs/CLOUDWAYS-RECRUITMENT-ARCHITECTURE.md §1, §5"
+   ]
+  },
+  {
+   "id": "G10-TF-02",
+   "topic": "Malware scanning محلي على Cloudways",
+   "detail": "M28 يطلب malware scanning «إذا توفر local/appropriate solution بدون SaaS خارجي». على خوادم Cloudways المُدارة قد لا يمكن تثبيت ClamAV daemon (لا root)، وحلول الحماية على مستوى الخادم قد تكون Add-on مدفوعًا أو خدمة طرف ثالث = تحتاج موافقة (M28 §71).",
+   "recommendation": "التحقق في الـAudit؛ وحتى ذلك دفاع متعدد الطبقات بلا AV: allowlist/blocklist بالـsignature، تخزين خارج web root، لا تنفيذ ولا عرض inline للأنواع الخطرة، Content-Disposition: attachment + nosniff، أسماء عشوائية. أي Add-on أو ماسح خارجي يُعرض بـ«لماذا + البديل المحلي + التكلفة» قبل الموافقة.",
+   "needs_owner": false,
+   "refs": [
+    "M28 §60",
+    "M28 §71",
+    "CAREERS-080"
+   ]
+  },
+  {
+   "id": "G10-TF-03",
+   "topic": "الأرشيفات وملفات الماكرو وHTML/SVG ضمن «أي نوع ملف»",
+   "detail": "zip/rar/7z قد تخفي ملفات تنفيذية وقد تكون Zip bombs؛ ملفات Office بماكرو (.docm/.xlsm/.pptm) تحمل كودًا؛ HTML/SVG/XML قد تحمل سكربتات. الـOwner طلب عدم حصر الواجهة بـPDF/DOC/DOCX مع منع الخطر.",
+   "recommendation": "حُسم تقنيًا في مسودة RECRUITMENT-SECURITY.md §3: قبول بالتوقيع لعائلات PDF/Word/ODT/RTF/جداول/عروض/TXT/صور، ورفض المضغوطة والماكرو وHTML/SVG/XML والتنفيذيات (البديل: رفع الملفات منفردة بلا حد عددي تجاري). يُبلّغ للـOwner ضمن عرض Phase 8 كقرار أمني (استثناء «مشكلة أمنية» في M28 §00) — لا يعيد فتح قراره.",
+   "needs_owner": false,
+   "refs": [
+    "M28 §16",
+    "M28 §17",
+    "M28 §60",
+    "CAREERS-034",
+    "docs/RECRUITMENT-SECURITY.md §3"
+   ]
+  },
+  {
+   "id": "G10-TF-04",
+   "topic": "حدود حجم الطلب: PHP/Web server وCloudflare أمام الموقع",
+   "detail": "M28 يمنع اختراع حدود Business ويطلب حدودًا تقنية من البيئة. إضافة لحدود PHP (upload_max_filesize/post_max_size/max_execution_time) والـweb server، الموقع خلف Cloudflare Proxy الذي يفرض حدًا لحجم جسم الطلب حسب الخطة (CF-001).",
+   "recommendation": "رفع كل ملف في طلب مستقل (أو Chunked) بدل multipart واحد ضخم؛ حد تقني لكل ملف ولكل طلب توظيف ومراقبة سعة القرص مع حالة «storage full»؛ توثيق القيم الفعلية بعد الـAudit وخطة Cloudflare (PO-013). أي تغيير على Cloudflare/PHP يحتاج موافقة.",
+   "needs_owner": false,
+   "refs": [
+    "M28 §18",
+    "CF-001",
+    "PO-013",
+    "CAREERS-035"
+   ]
+  },
+  {
+   "id": "G10-TF-05",
+   "topic": "تشفير بيانات الهوية وإدارة المفاتيح",
+   "detail": "تشفير الرقم الوطني/الجواز على مستوى التطبيق + Hash منفصل للتكرار يتطلب مفتاحين (تشفير + HMAC) خارج الكود. فقدان المفتاح = فقدان البيانات؛ الـBackups تحمل ciphertext بلا قيمة بدون المفتاح.",
+   "recommendation": "مفاتيح في متغيرات بيئة Cloudways (لا repo/frontend)، نسخة احتياطية آمنة للمفاتيح منفصلة عن نسخ الـDB، خطة تدوير موثقة، Masking في الواجهة والسجلات والتصدير، Reveal مسجل.",
+   "needs_owner": false,
+   "refs": [
+    "M28 §27",
+    "SEC-002",
+    "CAREERS-045",
+    "CAREERS-090"
+   ]
+  },
+  {
+   "id": "G10-TF-06",
+   "topic": "قانون حماية البيانات الشخصية الأردني — ملاحظة مخاطرة (لا إعادة فتح للقرارات)",
+   "detail": "النموذج يجمع الرقم الوطني/الجواز وتاريخ الميلاد والجنس والحالة الاجتماعية والراتب مع احتفاظ غير محدود حتى قرار الـOwner. قانون حماية البيانات الشخصية الأردني (القانون رقم 24 لسنة 2023) يتناول الموافقة وتحديد الغرض ومدة الاحتفاظ وحقوق صاحب البيانات (الاطلاع/التصحيح/المحو) والإبلاغ عن الاختراقات ونقل البيانات خارج المملكة — وخادم Cloudways قد يكون في منطقة خارج الأردن. النموذج القديم يجمع بيانات مشابهة بلا سياسة خصوصية (RISK-06).",
+   "recommendation": "مراجعة قانونية ضمن مسار PO-019 قبل نشر النموذج: صياغة Privacy Policy والإشارة إليها بجانب نص الموافقة (الموافقة مُنسخة فيمكن تحديثها)، آلية داخلية لطلبات الاطلاع/التصحيح/الحذف (التصحيح الإداري موجود مع Audit)، توثيق منطقة الخادم. لا تغيير على قرارات الحقول — ملاحظة مخاطرة فقط.",
+   "needs_owner": true,
+   "refs": [
+    "M28 §06",
+    "M28 §07",
+    "M28 §21",
+    "M28 §52",
+    "PO-019",
+    "PRIV-001",
+    "PRIV-004",
+    "RISK-06"
+   ]
+  },
+  {
+   "id": "G10-TF-07",
+   "topic": "Enumeration في صفحة المتابعة ورقم الطلب المتسلسل",
+   "detail": "الصيغة المقترحة JOB-2026-00125 متسلسلة وقابلة للتخمين؛ الحماية تعتمد على الهاتف كعامل ثانٍ. صيغ الهاتف متعددة (079… / +962… / 00962… / أرقام عربية).",
+   "recommendation": "مطابقة على القيمة المنظمة للهاتف بمقارنة ثابتة الزمن؛ Rate limit لكل IP ولكل رقم طلب مع cooldown متصاعد؛ رد واحد عام لكل حالات الفشل؛ عدم كشف وجود الرقم؛ تسجيل المحاولات المشبوهة. قواعد WAF على Cloudflare ممكنة لكنها تغيير Production يحتاج موافقة (CF-003). الإبقاء على صيغة الـOwner المقترحة.",
+   "needs_owner": false,
+   "refs": [
+    "M28 §22",
+    "M28 §24",
+    "M28 §62",
+    "CAREERS-040",
+    "CAREERS-082"
+   ]
+  },
+  {
+   "id": "G10-TF-08",
+   "topic": "حماية البوتات والسبام بلا CAPTCHA خارجي",
+   "detail": "M28 يمنع CAPTCHA خارجيًا تلقائيًا (reCAPTCHA/Turnstile = خدمات خارجية) ويطلب bot/spam + duplicate + replay protection.",
+   "recommendation": "طبقات محلية: honeypot، زمن تعبئة أدنى، rate limit، idempotency/one-time token للإرسال، حدود حجم، رفض الحقول غير المعرّفة. إن ثبت سبام فعلي بعد الإطلاق يُعرض خيار CAPTCHA بـ«لماذا + البديل المحلي» للموافقة.",
+   "needs_owner": false,
+   "refs": [
+    "M28 §61",
+    "M28 §71",
+    "CAREERS-081"
+   ]
+  },
+  {
+   "id": "G10-TF-09",
+   "topic": "اعتماد الوحدة على نظام مصادقة الـDashboard",
+   "detail": "Owner-only يتطلب مصادقة الـOwner Dashboard وأساسه (DASH-004 Phase I) غير موجود؛ بناء مصادقة منفصلة للتوظيف يخالف No Duplicate Architecture.",
+   "recommendation": "تصميم صلاحيات التوظيف فوق نموذج الأدوار الموحد (PERMISSIONS.md + RECRUITMENT-PERMISSIONS.md)؛ مع 2FA للـOwner وسياسة جلسات (SEC-005) كقرار تقني موثق.",
+   "needs_owner": false,
+   "refs": [
+    "M28 §32",
+    "M28 §63",
+    "DASH-004",
+    "PERM-005",
+    "GOV-078"
+   ]
+  },
+  {
+   "id": "G10-TF-10",
+   "topic": "قائمة مدن الأردن الكاملة — مصدر موثوق",
+   "detail": "المطلوب «مدن» لا محافظات، من Dataset موثوق مخزن داخليًا؛ المصادر الرسمية (مثل دائرة الإحصاءات العامة) تصنف التجمعات السكانية بمستويات إدارية متعددة وقد يصعب إثبات «الاكتمال»، ولا يوجد خيار نص حر كبديل.",
+   "recommendation": "مهمة Claude: اختيار مصدر رسمي/مرجعي، توثيقه وتاريخه، تجميع المدن حسب المحافظة داخل الـDropdown؛ إن تعذر إثبات الاكتمال → `PENDING DATA VERIFICATION` وإبلاغ الـOwner دون اختراع ودون استبدال المدينة بالمحافظة.",
+   "needs_owner": false,
+   "refs": [
+    "M28 §08",
+    "CAREERS-020",
+    "CAREERS-021"
+   ]
+  },
+  {
+   "id": "G10-TF-11",
+   "topic": "صيغة الرقم الوطني الأردني",
+   "detail": "اختبار «Jordanian ID» مطلوب، لكن M28 لم يحدد قاعدة صيغة. فرض طول/بادئة غير متحقق منها قد يرفض أرقامًا صحيحة.",
+   "recommendation": "التحقق من الصيغة الرسمية من مصدر حكومي قبل فرضها (PENDING VERIFICATION تقنيًا)؛ حتى ذلك: أرقام فقط بعد توحيد الأرقام العربية + حد طول معقول.",
+   "needs_owner": false,
+   "refs": [
+    "M28 §07",
+    "M28 §73",
+    "CAREERS-017"
+   ]
+  },
+  {
+   "id": "G10-TF-12",
+   "topic": "نطاق سنوات الميلاد وعدم فرض شرط عمر ضمني",
+   "detail": "«قائمة مناسبة descending» — أي حد أدنى/أعلى للسنة يعمل فعليًا كشرط أهلية عمرية لم يقرره الـOwner.",
+   "recommendation": "نطاق تقني واسع، عرض العمر المحسوب في الـDashboard، بلا رفض بسبب العمر. أي شرط حد أدنى للعمر قرار Business للـOwner (لا يُسأل الآن).",
+   "needs_owner": false,
+   "refs": [
+    "M28 §06",
+    "CAREERS-014"
+   ]
+  },
+  {
+   "id": "G10-TF-13",
+   "topic": "Parsing المستندات لكشف الـCV كسطح هجوم",
+   "detail": "قراءة نص PDF/DOCX على الخادم تعرض لثغرات المحللات (XXE داخل DOCX، Zip bomb، استهلاك موارد)، والـCV الممسوح كصورة لا يُكشف بلا OCR (والـOCR الخارجي ممنوع).",
+   "recommendation": "Parsing غير متزامن (Cron/Queue على Cloudways) بحدود وقت/ذاكرة/حجم، تعطيل الكيانات الخارجية في XML، الاكتفاء بمؤشرات الاسم/الـmetadata عند الشك ثم سؤال المتقدم.",
+   "needs_owner": false,
+   "refs": [
+    "M28 §19",
+    "M28 §68",
+    "CAREERS-036"
+   ]
+  },
+  {
+   "id": "G10-TF-14",
+   "topic": "الحذف النهائي والـBackups",
+   "detail": "Permanent Delete يحذف من النظام الحي فورًا، لكن نسخ Cloudways الاحتياطية تحتفظ بالبيانات حتى انتهاء دورة الاحتفاظ؛ والـTombstone يجب ألا يحمل PII.",
+   "recommendation": "Deletion policy موثقة: حذف فوري من DB والتخزين + بقاء مؤقت في الـBackups حتى التدوير (المدة من الـAudit) + Tombstone يحتوي معرفات تقنية ووقت وفاعل فقط.",
+   "needs_owner": false,
+   "refs": [
+    "M28 §52",
+    "M28 §70",
+    "CAREERS-070",
+    "CAREERS-090"
+   ]
+  },
+  {
+   "id": "G10-TF-15",
+   "topic": "Exports: العربية في PDF/Excel وحقن الصيغ في CSV والـZIP الكبير",
+   "detail": "PDF بالعربية يحتاج محرك يدعم التشكيل وRTL وخطًا مرخصًا (خطوط العلامة مفقودة M-10)؛ CSV/Excel معرض لـFormula injection (قيم تبدأ بـ= + - @)؛ ZIP لمرفقات كثيرة قد يتجاوز حدود الذاكرة/الوقت على Cloudways.",
+   "recommendation": "مكتبات Server-side تدعم العربية، UTF-8 (مع BOM لـExcel عند الحاجة)، تعقيم الخلايا، ZIP متدفق أو مولد بشكل غير متزامن مع رابط مؤقت Owner-only ومسجل.",
+   "needs_owner": false,
+   "refs": [
+    "M28 §54",
+    "M28 §55",
+    "CAREERS-072",
+    "CAREERS-073"
+   ]
+  },
+  {
+   "id": "G10-TF-16",
+   "topic": "تسمية careers_page_view مقابل page_view التلقائي",
+   "detail": "GA4 يسجل page_view تلقائيًا؛ حدث careers_page_view منفصل قد يضاعف القياس. ANL-010 يسمح بتعديل تقني مع الحفاظ على المعنى والتوثيق.",
+   "recommendation": "الإبقاء على أسماء الـOwner ما لم يثبت تعارض تقني؛ وإلا توثيق بديل (page_view مع content_group=careers) ضمن قاموس الأحداث المعروض (PO-043).",
+   "needs_owner": false,
+   "refs": [
+    "M28 §57",
+    "ANL-010",
+    "PO-043",
+    "CAREERS-077"
+   ]
+  },
+  {
+   "id": "G10-TF-17",
+   "topic": "حد يومي للتقديم لكل رقم هاتف مقابل «اسمح للشخص بالتقديم أكثر من مرة. لا تمنعه»",
+   "detail": "مسودة RECRUITMENT-SECURITY.md §6 تقترح Rate limit «3 طلبات/يوم لنفس الهاتف المطبّع» كحماية من الإغراق. M28 §26 يقول صراحة: اسمح بالتقديم المتكرر ولا تمنعه. حد يومي منخفض قد يُقرأ كمنع جزئي.",
+   "recommendation": "إبقاء الحماية ضد الإغراق كقيمة تقنية أولية تُضبط بعد المراقبة، مع: تبرير موثق بأنها ضد الإساءة وليست سياسة تقديم، رسالة عربية واضحة بإعادة المحاولة لاحقًا (لا رفض دائم)، وحد على مستوى IP/الجلسة أساسًا؛ لا تُخفض إلى ما يمنع التقديم المتكرر الطبيعي. قرار تقني ضمن M28 §78.",
+   "needs_owner": false,
+   "refs": [
+    "M28 §26",
+    "M28 §61",
+    "docs/RECRUITMENT-SECURITY.md §6",
+    "CAREERS-044",
+    "CAREERS-081"
+   ]
+  }
+ ],
+ "dropped": [],
+ "notes": "G10 = مزامنة M28 (مواصفة Careers & Recruitment النهائية، 80 قسمًا، 2103 سطرًا — قُرئت كاملة). مجال جديد في الـMaster: «44 Careers & Recruitment» بالبادئة CAREERS (99 متطلبًا). كل المتطلبات NOT STARTED (لا كود، ولم يُنفذ Cloudways Audit). مفاتيح المصادر بصيغة M28-§NN (§00 = مقدمة الرسالة قبل §01). تنبيه ترقيم المراحل: CONSOLIDATE.md يعرّف P05=Platform وP06=Brand، بينما docs/IMPLEMENTATION-PLAN.md المنشورة تعكسهما (P05=Brand، P06=Platform)؛ هذا الملف لم يستخدم P05/P06 — العمل المعماري والـAudit في P04 حسب التكليف، ومراجع DB-08 تشير إلى مرحلة المنصة. Falcon يظهر لأول مرة في M28 ولا وصف له في المشروع؛ القاعدة (لا لمس/لا اختبار عليه) لا تحتاج سؤالًا. لا تعارض حقيقي مع D-147/MENU-054 (نطاق المنيو العام). كل التعارضات التسعة RESOLVED؛ الإطار البرمجي (DB-08) يبقى في PO-006 دون سؤال جديد، ويُرفع للـOwner فقط إذا كشف الـAudit قيدًا فعليًا في Cloudways. تزامن مع جلسة موازية: الوثائق السبع لـM28 §76 أُنشئت بحالة DRAFT (commit 57c33c4) وwireframes التوظيف قيد الإنشاء (docs/careers/wireframes، غير مُتتبعة) — هذا الملف متسق معها: design_refs تشير إليها، وCAREERS-047 يعتمد TD-PS-01/02، وG10-TF-03 يعكس سياسة الملفات المسودة، وG10-TF-17 يرفع ملاحظة على حد 3 طلبات/يوم لكل هاتف. لم تُعدّل أي ملفات في الـrepo من هذه المجموعة. بنود الـOwner الجديدة: وصول Cloudways للقراءة (G10-PO-01، BLOCKING لـPhase 2)، سؤال مشروط عن الطلبات القديمة (G10-PO-02)، وPO-031 مضيّق إلى المحتوى فقط."
+}

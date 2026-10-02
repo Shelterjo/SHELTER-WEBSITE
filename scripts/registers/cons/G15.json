@@ -1,0 +1,3063 @@
+{
+ "group": "G15",
+ "requirements": [
+  {
+   "id": "MDH-001",
+   "area": "47 Master Data & Channel Sync",
+   "type": "RULE",
+   "title": "ONE SOURCE OF TRUTH → MULTIPLE CHANNELS: الـOwner يعدّل المعلومة مرة واحدة فقط",
+   "requirement": "كل Public Business Data في SHELTER موحدة ومتكاملة: ONE SOURCE OF TRUTH · MULTIPLE CHANNELS. لا تعديل يدوي لنفس المعلومة في Website · Google Business Profile · Schema · Menu · Branches · SEO · Campaigns أو أي قناة أخرى. الـOwner يعدّل المعلومة مرة واحدة فقط (مثال: CHANGE HOUSE HOURS) والنظام يتكفل بباقي القنوات — لا \"عدلت الموقع، نسيت Google\" ولا \"السعر تغير في المنيو لكن ظل القديم بمكان آخر\". SHELTER Master Data = operational source of truth لكل المعلومات العامة. الوسم: OWNER APPROVED · FROZEN REQUIREMENT · P0 · CORE ARCHITECTURE.",
+   "details": [
+    "النطاق (Public Business Data): العلامة · الفروع · الساعات · التواصل والسوشال · المنيو (المنتجات والأسعار والتوفر) · الفعاليات/الحملات · بيانات الموقع العامة (Footer/Organization/الروابط القانونية). خارج النطاق: الطلبات الخاصة (التوظيف JOB · الشراكات FR · الاستفسارات INQ) — بيانات CONFIDENTIAL في Applications Core.",
+    "تأكيد لاحق من الـOwner: M36 §9 \"MASTER DATA FIRST — ثبت Master Data architecture قبل Hardcoding البيانات داخل الصفحات؛ Website / Schema / Google / future systems تعتمد على Master Data\"، وM36 PHASE 1 FOUNDATION يضع Master Data Hub + Fact Registry في الأساس (يُجمع M36 في مجموعة لاحقة).",
+    "التحقق المعماري: كل قيمة عامة لها مالك واحد في الـHub؛ كل قناة إما تقرأ منه (Website/Schema/SEO) أو تُدفع إليها عبر محوّل (GBP/مستقبلي)."
+   ],
+   "sources": [
+    "M33 §00",
+    "M33 §30"
+   ],
+   "decision_refs": [
+    "G15-ND-01"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/MASTER-DATA-HUB.md (DRAFT — PENDING OWNER REVIEW) · docs/architecture/PLATFORM-ARCHITECTURE.md §3.2 · docs/FINAL-ARCHITECTURE-REVIEW.md §5/§12",
+   "missing_work": "بناء الـHub (P06) ثم المحولات (P08/P09) ثم اختبار E2E \"تعديل واحد ← كل القنوات\"",
+   "dependencies": [
+    "MDH-003",
+    "MDH-014",
+    "MDH-025",
+    "OPS-002",
+    "ADR-001"
+   ],
+   "test_required": "E2E على Staging: تعديل ساعات HOUSE مرة واحدة ← تتحدث صفحة HOUSE وLocations والـFooter ومكون Today Hours والـLocalBusiness Schema ويُنشأ sync_job لـGBP (dry-run) بلا أي تعديل ثانٍ؛ فحص CI: لا قيمة مركزية Hardcoded (OPS-012).",
+   "design_refs": [
+    "docs/MASTER-DATA-HUB.md §3",
+    "docs/architecture/PLATFORM-ARCHITECTURE.md §3.2",
+    "docs/FINAL-ARCHITECTURE-REVIEW.md §12"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P06",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "MDH-002",
+   "area": "47 Master Data & Channel Sync",
+   "type": "DECISION",
+   "title": "سلطة المصدر: SHELTER MASTER DATA > أي نسخة خارجية (إلا Adopt صريح)",
+   "requirement": "Default authority: SHELTER MASTER DATA > External channel copy (Google Business Profile، الأدلة، المنصات المستقبلية)، إلا إذا اختار الـOwner صراحة Adopt external change. لا تجعل Google (أو أي قناة) تكتب فوق الـMaster تلقائيًا. هذا يحل محل وصف GBP كـOFFICIAL OPERATIONAL SOURCE (D-048 / GBP-003 / GEP §3): GBP قناة تُزامَن من الـMaster، ومصدر تحقق فقط للقيم التي لم تُعتمد بعد (لقطة الاختلافات أثناء الترحيل).",
+   "details": [
+    "ترتيب D-047 (1 Owner Approved Data · 2 GBP · 3 الموقع · 4 السوشال · 5 غيرها) يبقى لتقييم القيم **غير المعتمدة** أثناء Discovery؛ بعد دخول القيمة الـHub بحالة APPROVED/VERIFIED تصبح هي المرجع، والقنوات نسخ.",
+    "أي اختلاف خارجي = EXTERNAL CHANGE DETECTED (MDH-024) — لا اعتماد تلقائي؛ Adopt = قرار Owner مسجل يحدّث الـMaster ثم يُعيد مزامنة بقية القنوات.",
+    "متسق مع GOV-001 (الـOwner المرجع النهائي): الـMaster = بيانات الـOwner المعتمدة؛ ومع CF-M-080 (بيانات GBP تدخل PENDING حتى التأكيد).",
+    "تبعات وثائقية (لا تُعدّل في هذا التدقيق): ترويسة docs/google/GOOGLE-BUSINESS-PROFILE-SOURCE-OF-TRUTH.md (D-048)، GOOGLE-ECOSYSTEM-POLICY §3، BRANCH-DATA-SYNC.md، وحالة D-048 في DECISION-LOG ← SUPERSEDED."
+   ],
+   "sources": [
+    "M33 §23",
+    "M33 §13",
+    "M33 §30"
+   ],
+   "decision_refs": [
+    "G15-ND-02",
+    "D-047",
+    "D-048",
+    "GEP-§3"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "PARTIAL",
+   "tested": "N/A",
+   "existing_impl": "docs/MASTER-DATA-HUB.md §3 (السلطة) · docs/FINAL-ARCHITECTURE-REVIEW.md §6 AC-1",
+   "missing_work": "تحديث وثائق Google الثلاث وحالة D-048 في السجل؛ تطبيق القاعدة في محوّل GBP (MDH-024)",
+   "dependencies": [
+    "GOV-001",
+    "GOV-002",
+    "GBP-003",
+    "GBP-004",
+    "MDH-024"
+   ],
+   "test_required": "مراجعة وثائقية: لا وثيقة سارية تصف GBP كمصدر أعلى من الـMaster؛ اختبار المحوّل: قيمة GBP مختلفة لا تغيّر الـMaster أبدًا دون Adopt",
+   "design_refs": [
+    "docs/MASTER-DATA-HUB.md §3",
+    "docs/FINAL-ARCHITECTURE-REVIEW.md §6 AC-1",
+    "docs/google/GOOGLE-BUSINESS-PROFILE-SOURCE-OF-TRUTH.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "G15-CF-01",
+   "business_data": false,
+   "phase": "P00",
+   "history": [
+    {
+     "old": "GBP الرسمي لكل فرع = OFFICIAL OPERATIONAL SOURCE (لا يتغلب على بيانات الـOwner المعتمدة)",
+     "source": "M11 §3 (D-048, GBP-003)",
+     "superseded_by": "M33 §23"
+    }
+   ],
+   "notes": ""
+  },
+  {
+   "id": "MDH-003",
+   "area": "47 Master Data & Channel Sync",
+   "type": "REQUIREMENT",
+   "title": "SHELTER MASTER DATA HUB في الـDashboard — مخزن واحد يضم Global Data Registry",
+   "requirement": "نظام مركزي داخل Owner Dashboard باسم SHELTER MASTER DATA HUB هو المصدر الرئيسي للمعلومات العامة، ويشمل على الأقل: BRAND · BRANCHES · HOURS (كيان مركزي) · MENU · CONTACT (+ Social) · EVENTS / CAMPAIGNS · Global Website. الـGlobal Data Registry (M32 — OPS-011) ليس نظامًا ثانيًا: هو جزء \"العلامة والتواصل والسوشال والموقع العام (copyright · footer · organization data · legal links)\" من الـHub؛ والـFact Registry (OPS-013) طبقة تحقق فوق قيمه. لا مخزن ثانٍ لنفس البيان.",
+   "details": [
+    "المعرفات الثابتة (doc §2): BRAND · BR-DRIVE / BR-HOUSE · HRS-<branch> · CT-* · SO-* · PRD-*/CAT-*/DSC- · EXP-*/EVT-* · GW-* · F-* (Fact).",
+    "الجداول الملزمة (docs/architecture/PLATFORM-ARCHITECTURE.md §3.2/§3.3): markets · countries → cities → branches · branch_hours · hours_exceptions · contact_points · social_links · facts · external_references · channel_sync_states · sync_jobs · integrations · products/product_prices/product_branch_overrides · experiences. ناقص: Brand وGlobal Website غير مسميين ككيانين (ضمنيًا في settings) وجدول channel_overrides (G15-TF-08).",
+    "موضعه في الـDashboard: مجموعة النظام ← \"البيانات العامة\" (Master Data + الاتساق) (FINAL-ARCHITECTURE-REVIEW §10)؛ الحالة المختصرة في Command Center.",
+    "الدمج مسجل: OPS-011 MERGED INTO MDH-003 (G15-CF-09، G15-ND-07)؛ وثيقة docs/GLOBAL-DATA-REGISTRY.md المطلوبة في OPS-008 تصبح قسمًا/إحالة داخل MASTER-DATA-HUB.md.",
+    "Wireframe موجود: d-global-data.html / m-global-data.html (البيانات العامة: العلامة · التواصل · الفروع · السوشال · الموقع العام، مع حالة التحقق و\"مستخدم في\")."
+   ],
+   "sources": [
+    "M33 §01"
+   ],
+   "decision_refs": [
+    "G15-ND-01",
+    "G15-ND-07",
+    "G14-ND-02"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/MASTER-DATA-HUB.md §2 · docs/architecture/PLATFORM-ARCHITECTURE.md §3.2 · wireframes docs/dashboard/wireframes/html/d-global-data.html (DEMO DATA)",
+   "missing_work": "تسمية كياني Brand وGlobal Website في المخطط؛ Migrations + Models + Services/MasterData (P06)؛ شاشة الـHub (P08)",
+   "dependencies": [
+    "OPS-011",
+    "OPS-013",
+    "CMS-012",
+    "CMS-032",
+    "ADR-001",
+    "PO-007"
+   ],
+   "test_required": "اختبار مخطط: كل بيان عام له جدول/حقل واحد فقط (لا نسختين)؛ Feature tests للقراءة بالمفاتيح؛ واجهة الـHub: Responsive إلزامي (كل عروض tooling/viewports.mjs) · RTL عربي + LTR إنجليزي · axe WCAG 2.2 AA بلا serious/critical · لوحة المفاتيح · لا overflow/clipping/overlap · حالات الخطأ والفراغ · لغة الـOwner",
+   "design_refs": [
+    "docs/MASTER-DATA-HUB.md §2",
+    "docs/architecture/PLATFORM-ARCHITECTURE.md §3.2",
+    "docs/FINAL-ARCHITECTURE-REVIEW.md §5",
+    "docs/dashboard/wireframes/html/d-global-data.html"
+   ],
+   "code_refs": [
+    "docs/dashboard/wireframes/tools/build.py"
+   ],
+   "test_refs": [
+    "tooling/tests/prototype/dashboard.spec.mjs"
+   ],
+   "conflict": "G15-CF-09",
+   "business_data": false,
+   "phase": "P06",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "MDH-004",
+   "area": "47 Master Data & Channel Sync",
+   "type": "REQUIREMENT",
+   "title": "كيان BRAND: الاسمان · سنة التأسيس · السنوية · الأوصاف الرسمية",
+   "requirement": "BRAND في الـHub: Official name · Arabic name · Founded year · Anniversary · official descriptions (AR/EN، قصير/طويل) — ومنه تُغذّى: Header/Footer · About · Organization Schema · وصف GBP (ما لم يوجد Channel override — MDH-030) · SEO.",
+   "details": [
+    "القيم المعتمدة (لا تُخترع): Official name = SHELTER COFFEE · Arabic = شلتر كوفي (BRAND-001، D-007) · Founded = 2019 (ABOUT-003، D-018) · Anniversary = 20/04 (ABOUT-004).",
+    "SUPERSEDED facts: 2018 و\"منذ 2022\" = OLD OR INCORRECT (CONTENT-005) — تُحفظ في سجل الحقائق ولا تُنشر.",
+    "official descriptions = MISSING — OWNER INPUT REQUIRED (PO-016 — لا سؤال جديد).",
+    "عدد السنوات يُحسب ديناميكيًا من founded_year (CONTENT-007)؛ logo_media_id ← ملفات الهوية MISSING (PO-002، M-10)."
+   ],
+   "sources": [
+    "M33 §01"
+   ],
+   "decision_refs": [
+    "D-007",
+    "D-018"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/MASTER-DATA-HUB.md §2 · قيم في DECISION-LOG وwireframe d-global-data.html (DEMO)",
+   "missing_work": "كيان/جدول Brand صريح + Facts للقيم الأربع + الأوصاف من PO-016",
+   "dependencies": [
+    "BRAND-001",
+    "ABOUT-003",
+    "ABOUT-004",
+    "CONTENT-005",
+    "CONTENT-007",
+    "PO-016",
+    "OPS-013"
+   ],
+   "test_required": "Feature: القيم تُقرأ من الكيان في Footer/About/Organization JSON-LD؛ لا وجود لـ2018 أو \"منذ 2022\" في أي مخرج منشور (فحص CI)",
+   "design_refs": [
+    "docs/MASTER-DATA-HUB.md §2"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P06",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "MDH-005",
+   "area": "47 Master Data & Channel Sync",
+   "type": "REQUIREMENT",
+   "title": "كيان BRANCH (BR-DRIVE · BR-HOUSE) بحقوله المركزية",
+   "requirement": "BRANCHES في الـHub: branch name (AR/EN) · branch code · address (AR/EN) · map location (إحداثيات + رابط Maps) · phone · WhatsApp · regular hours · special hours · temporary closures (عبر كيان Hours — MDH-006) · services · active/inactive status. المعرفات الثابتة BR-DRIVE · BR-HOUSE والـSlug drive/house لا يتغيران (SEO-016). الهاتف والواتساب مراجع إلى Contact registry وليست نصوصًا منسوخة.",
+   "details": [
+    "القيم: الأسماء AR/EN معتمدة (D-008، D-020) · الهاتف/واتساب الفرعين = 0799009436 (CONTACT-005/006، D-057/D-058) · العنوان التفصيلي AR/EN وروابط Maps والإحداثيات = MISSING (PO-010 — عنوان DRIVE متضارب CF-M-019؛ لا يُعاد السؤال) · الخدمات وطرق الدفع = MISSING (PO-025؛ UNKNOWN/YES/NO وفقط YES يُنشر — BRANCH-012/014).",
+    "الحالة: active / inactive (+ coming_soon / temporarily_closed — مقترح AR-02/DB-15). الفرع inactive أو coming_soon لا يظهر علنًا ولا يُرسل لأي قناة حتى التفعيل (BRANCH-011، D-010).",
+    "إيقاف فرع نهائيًا لا يدفع CLOSED_PERMANENTLY إلى Google آليًا أبدًا: MANUAL ACTION REQUIRED بتأكيد قوي.",
+    "بنية Country → City → Branch (WEB-003) · المنطقة الزمنية Asia/Amman من السوق (DX-023) · معرّف موقع GBP في external_references (MDH-015).",
+    "معمارية مزامنة الفرع (المخرج 8): آلي = الهاتف · الساعات · الإغلاق المؤقت · رابط الموقع · السمات المدعومة؛ يدوي مع تذكير وتحقق = الاسم · العنوان · الـPin (MDH-021)."
+   ],
+   "sources": [
+    "M33 §01",
+    "M33 §03"
+   ],
+   "decision_refs": [
+    "D-008",
+    "D-020",
+    "D-057",
+    "D-058",
+    "D-010"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/MASTER-DATA-HUB.md §2/§8 · docs/architecture/PLATFORM-ARCHITECTURE.md §3.2 (branches) · wireframe d-branch.html",
+   "missing_work": "Migrations/Models للفروع + Facts للقيم الناقصة + محرر الفرع المرتبط بالـHub",
+   "dependencies": [
+    "BRANCH-009",
+    "BRANCH-010",
+    "BRANCH-011",
+    "BRANCH-012",
+    "PO-010",
+    "PO-025",
+    "MDH-015"
+   ],
+   "test_required": "Feature: فرع coming_soon لا يظهر في الموقع ولا الـSchema ولا يُنشأ له sync_job؛ حقل غير معتمد = NULL ومخفي؛ صفحة الفرع تقرأ كل الحقول من الكيان",
+   "design_refs": [
+    "docs/MASTER-DATA-HUB.md §2",
+    "docs/MASTER-DATA-HUB.md §8",
+    "docs/architecture/PLATFORM-ARCHITECTURE.md §3.2",
+    "docs/dashboard/wireframes/html/d-branch.html"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P06",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "MDH-006",
+   "area": "47 Master Data & Channel Sync",
+   "type": "REQUIREMENT",
+   "title": "كيان HOURS مركزي بخمسة أنواع — مصدر جدول واحد لكل القنوات",
+   "requirement": "Hours = Entity مركزية مستقلة؛ كل Branch يحتوي: Regular Hours · Special Hours · Holiday Hours · Temporary Closure · Emergency Closure. Website وGoogle وSchema كلها تستخدم نفس Schedule Source. ممنوع hardcode ساعات العمل داخل صفحات منفصلة أو مكونات أو JSON-LD أو أدوات.",
+   "details": [
+    "النموذج (docs/architecture/PLATFORM-ARCHITECTURE.md §3.2): branch_hours (عدة فترات لكل يوم، عبور منتصف الليل) + hours_exceptions (kind: emergency / temporary / special / holiday، نطاق تاريخ، ساعات أو مغلق، سبب داخلي، رسالة عامة AR/EN للإغلاق، Publish Status) — حقول D-021: Start Date · End Date · Reason · Branch · Publish Status.",
+    "القيم: Regular = HOURS-001/002 (D-020: DRIVE السبت–الخميس 07:00–02:00 · الجمعة 08:00–02:00 · HOUSE السبت–الأربعاء 09:00–22:00 · الخميس–الجمعة 09:00–23:00)؛ لا ساعات خاصة معروفة (M-09) — سياسة العطل في PO-025.",
+    "رمضان/العيد = Special/Holiday override لا يغيّر Regular (HOURS-006) والعودة تلقائية بعد End Date.",
+    "Hardcode قائم يجب ترحيله للبذرة (MDH-035): قاموس REGULAR في docs/menu-ia/evidence/hours_logic_check.py · قيم DEMO في مولّد wireframes الـDashboard · 15 وثيقة تكرر D-020 (قيمها متسقة — لا تعارض قيم داخلي؛ قيم الأدلة الخارجية المتعارضة في CF-M-018).",
+    "لا محرر ساعات ثانٍ (MDH-019)."
+   ],
+   "sources": [
+    "M33 §06"
+   ],
+   "decision_refs": [
+    "G15-ND-04",
+    "D-020",
+    "D-021",
+    "DB-18"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/MASTER-DATA-HUB.md §7 · docs/architecture/PLATFORM-ARCHITECTURE.md §3.2 · SHELTER-MENU-IA-SPEC §19 (branch_hours + branch_hours_override) · wireframe d-branch.html",
+   "missing_work": "Migrations branch_hours/hours_exceptions + التحقق (تداخل، end>start) + الترحيل من القيم المكتوبة",
+   "dependencies": [
+    "HOURS-001",
+    "HOURS-002",
+    "HOURS-005",
+    "HOURS-006",
+    "CMS-013",
+    "MDH-007",
+    "MDH-035"
+   ],
+   "test_required": "Unit: كل نوع استثناء يُحفظ ويُسترجع بنطاقه؛ فحص CI: لا نمط ساعات (HH:MM–HH:MM) داخل القوالب/JSON-LD/المكونات خارج الـHub",
+   "design_refs": [
+    "docs/MASTER-DATA-HUB.md §7",
+    "docs/architecture/PLATFORM-ARCHITECTURE.md §3.2",
+    "docs/menu-ia/SHELTER-MENU-IA-SPEC.md §19",
+    "docs/phase-01-discovery/09-architecture-options-after-r1.md AR-07"
+   ],
+   "code_refs": [
+    "docs/menu-ia/evidence/hours_logic_check.py"
+   ],
+   "test_refs": [],
+   "conflict": "G15-CF-05",
+   "business_data": true,
+   "phase": "P06",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "MDH-007",
+   "area": "47 Master Data & Channel Sync",
+   "type": "RULE",
+   "title": "أولوية Emergency > Temporary > Special/Holiday > Regular + effective_hours واحدة",
+   "requirement": "أولوية الحساب: Emergency Closure > Temporary Closure > Special/Holiday Hours > Regular Hours. دالة واحدة effective_hours(branch, date) في الخادم بتوقيت السوق (Asia/Amman) تستخدمها كل القنوات: Website (Open Now · Closed Now · Closing Soon · Next Opening ومكون Today Hours) · Schema (openingHoursSpecification + specialOpeningHoursSpecification) · محوّل Google (regularHours · specialHours · openInfo). الموقع وGoogle وSchema يعكسون نفس المنطق قدر الإمكان.",
+   "details": [
+    "امتداد لـhours_logic_check.py (12/12 PASS) مع: ترتيب بين أنواع الاستثناء (النموذج الحالي طبقة override واحدة لكل يوم)، ونطاقات تاريخ، وإغلاق طارئ يبدأ \"الآن\" داخل اليوم.",
+    "عبور منتصف الليل (HOURS-012 FROZEN): الوردية تُنسب ليوم بدايتها؛ في Google closeDay = اليوم التالي؛ في Schema closes بعد منتصف الليل لنفس dayOfWeek.",
+    "الحالة الزمنية تُحسب عند الطلب ولا تعتمد على مهمة مجدولة وحدها (PLATFORM-ARCHITECTURE §4.3).",
+    "\"قدر الإمكان\": حيث لا تميّز قناة مستوى (Schema لا يعرف emergency) يُمثل بأقرب مكافئ (special hours مغلق لليوم).",
+    "Closing Soon = آخر 60 دقيقة (HOURS-011 FROZEN)."
+   ],
+   "sources": [
+    "M33 §07",
+    "M33 §06"
+   ],
+   "decision_refs": [
+    "G15-ND-04",
+    "D-021",
+    "F-20"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "PROTOTYPE",
+   "existing_impl": "prototype: docs/menu-ia/evidence/hours_logic_check.py (12/12 PASS — Regular + override واحد؛ REGULAR مكتوب في الكود) · wireframe d-branch.html يعرض \"الأولوية: طارئ ← مؤقت ← خاص/عطلة ← عادي\"",
+   "missing_work": "خدمة effective_hours في Services/MasterData + جدول حالات اختبار يشمل تداخل الأنواع والطارئ الجزئي",
+   "dependencies": [
+    "HOURS-007",
+    "HOURS-009",
+    "HOURS-011",
+    "HOURS-012",
+    "MDH-006",
+    "MDH-022"
+   ],
+   "test_required": "PHPUnit جدولي: حدود منتصف الليل · رمضان عابر لمنتصف الليل · طارئ داخل يوم خاص · مؤقت ينتهي منتصف الأسبوع · خاص يغلق اليوم كاملًا؛ نفس المدخلات تعطي نفس النتيجة في Website/Schema/GBP payload (snapshot)",
+   "design_refs": [
+    "docs/MASTER-DATA-HUB.md §7",
+    "docs/menu-ia/SHELTER-MENU-IA-SPEC.md §9.4"
+   ],
+   "code_refs": [
+    "docs/menu-ia/evidence/hours_logic_check.py"
+   ],
+   "test_refs": [],
+   "conflict": "G15-CF-05",
+   "business_data": false,
+   "phase": "P06",
+   "history": [
+    {
+     "old": "الحالة الخاصة/المؤقتة لها الأولوية على العادية — الترتيب التفصيلي ينتظر اعتماد الـOwner (DB-18، AR-07 بلا مستوى طارئ)",
+     "source": "M23 (M23-122 → HOURS-007) · 09 AR-07",
+     "superseded_by": "M33 §07"
+    }
+   ],
+   "notes": ""
+  },
+  {
+   "id": "MDH-008",
+   "area": "47 Master Data & Channel Sync",
+   "type": "REQUIREMENT",
+   "title": "CONTACT + SOCIAL Registry: الأرقام حسب الدور · واتساب · البريد · روابط السوشال",
+   "requirement": "CONTACT في الـHub: phone numbers · WhatsApp · emails · social links — كل نقطة تواصل بدورها (intent) وحالة نشرها، ومنها تُولّد كل الاستخدامات: Header/Footer · Contact · Branch pages/cards · روابط tel: وWhatsApp · Schema contactPoint/telephone · هاتف GBP — بلا نسخ.",
+   "details": [
+    "التوزيع الرسمي (CONTACT-004 FROZEN): 0799009436 = العام الرئيسي + واتساب + هاتف الفرعين (CONTACT-005/006) · 0799338445 = الشكاوى والاقتراحات والفرنشايز ولا يظهر في بطاقات الفروع (CONTACT-007/008) · 0799530383 = الكيترنج والأعمال والفعاليات (CONTACT-010).",
+    "info@shelterjo.com = PENDING VERIFICATION لا يُنشر (CONTACT-023) · الحسابات الاجتماعية PENDING (CONTACT-026) — كلاهما في PO-026 (لا سؤال جديد).",
+    "الصيغ تُولّد من قيمة مخزنة واحدة: عربي 0799009436 · إنجليزي +962 79 900 9436 · الروابط E.164 +962799009436 (CONTACT-020/021).",
+    "الجداول: contact_points (scope brand/branch · kind · is_public) + social_links (verified · published) — docs/architecture/PLATFORM-ARCHITECTURE.md §3.2."
+   ],
+   "sources": [
+    "M33 §01"
+   ],
+   "decision_refs": [
+    "D-057",
+    "D-058",
+    "D-065"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/MASTER-DATA-HUB.md §2 · docs/architecture/PLATFORM-ARCHITECTURE.md §3.2 · docs/phase-01-discovery/14-contact-architecture-and-whatsapp.md · wireframe d-global-data.html",
+   "missing_work": "Migrations + Facts + مولّد الصيغ والروابط",
+   "dependencies": [
+    "CONTACT-004",
+    "CONTACT-020",
+    "CONTACT-021",
+    "CONTACT-023",
+    "CONTACT-026",
+    "PO-026",
+    "MDH-012"
+   ],
+   "test_required": "Unit: صيغ العرض والروابط من قيمة واحدة؛ Feature: 0799338445 لا يظهر في أي Branch card؛ تغيير الهاتف الرئيسي مرة واحدة يحدّث كل الاستخدامات",
+   "design_refs": [
+    "docs/MASTER-DATA-HUB.md §2",
+    "docs/phase-01-discovery/14-contact-architecture-and-whatsapp.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P06",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "MDH-009",
+   "area": "47 Master Data & Channel Sync",
+   "type": "REQUIREMENT",
+   "title": "MENU Master واحد — الموقع لا يحمل نسخة منفصلة من الأسعار",
+   "requirement": "المنيو لها Master Data واحد بحقول: Product ID · Name AR · Name EN · Category · Subcategory · Price · Branch Override · Availability · Branch availability · Image · Description · Badges · Seasonality (seasonal status). Website Menu (والبحث وSchema Menu) يقرأ من هذا المصدر، والموقع لا يحمل نسخة منفصلة من الأسعار.",
+   "details": [
+    "هو نفسه Menu CMS SSOT (CMS-003، D-085) وMENU INVENTORY v1.0 المجمّد (PROD-002، MENU-047) — ليس مخزنًا ثانيًا.",
+    "الهوية: PRD-##### مجمّد · PRD-00120 متقاعد لا يُعاد · التالي PRD-00193 (PROD-001…004) · CAT-001…011 (MENU-036) · السعر price_fils بالـJOD شامل الضريبة (MENU-020) · Menu Version MV-YYYY-MM-DD (AUDIT-005).",
+    "التوفر: الحالات العامة الثلاث (CMS-015 FROZEN) + UNKNOWN داخلي افتراضي (D-094) — 382 قيمة UNKNOWN (PO-023).",
+    "الصور معتمدة فقط (0/191 — PO-021) · الأوصاف MISSING (PO-024) · الشارات NEW / SEASONAL (PROD-031) · الموسمية SPRING (MENU-041/042).",
+    "تعديل السعر: Publish Guard ← Change Impact (المنيو AR/EN، البطاقة، البحث، Schema Menu، القنوات المرتبطة) ← نسخة ← Audit (doc §6)؛ Source data لا يُعدّل (PROD-019)."
+   ],
+   "sources": [
+    "M33 §01",
+    "M33 §04"
+   ],
+   "decision_refs": [
+    "G15-ND-05",
+    "D-085",
+    "D-135",
+    "D-136",
+    "D-107"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "docs/phase-01-discovery/menu/menu-inventory-v1.0.csv (192 صفًا · 191 نشطًا — APPROVED BASELINE) · spec: docs/MASTER-DATA-HUB.md §6 · docs/architecture/PLATFORM-ARCHITECTURE.md §3.3",
+   "missing_work": "استيراد Inventory v1.0 إلى products/product_prices/product_branch_overrides مع checksum؛ صفحة المنيو تقرأ من القاعدة",
+   "dependencies": [
+    "CMS-003",
+    "MENU-005",
+    "MENU-020",
+    "PROD-001",
+    "PROD-019",
+    "AUDIT-006",
+    "MDH-010",
+    "MDH-015"
+   ],
+   "test_required": "Feature: لا أسعار داخل القوالب أو ملفات JS؛ تغيير سعر واحد يظهر في المنيو AR/EN والبحث وJSON-LD بعد النشر؛ الاستيراد = 191 منتجًا وsum(price_fils) يطابق المصدر",
+   "design_refs": [
+    "docs/MASTER-DATA-HUB.md §6",
+    "docs/architecture/PLATFORM-ARCHITECTURE.md §3.3",
+    "docs/phase-01-discovery/17-menu-data-model-draft.md",
+    "docs/menu-ia/SHELTER-MENU-IA-SPEC.md §19"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P06",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "MDH-010",
+   "area": "47 Master Data & Channel Sync",
+   "type": "REQUIREMENT",
+   "title": "Branch-specific overrides: Inherited / Overridden + Reset to Master",
+   "requirement": "Default values مركزية، ويُسمح Override صريح حسب الفرع (مثال: Cappuccino base price = X · DRIVE inherits base · HOUSE override = Y). كل قيمة على مستوى الفرع تُظهر بوضوح: Inherited أو Overridden، والـOwner يستطيع Reset to Master. القيمة الفعالة = الـOverride إن وُجد وإلا الأساس.",
+   "details": [
+    "ينطبق على: سعر المنتج وتوفره لكل فرع (product_branch_overrides — MENU-024/027) وأي حقل فرعي له قيمة أساس (مثل هاتف الفرع الموروث من 0799009436).",
+    "اليوم لا بيانات فروقات بين الفروع (D-094، MENU-026): المعمارية جاهزة فقط ولا يُملأ أي Override من عندنا.",
+    "Reset to Master = إلغاء الـOverride عبر Impact Preview + Publish + Audit (الحالة القديمة تبقى في النسخ — لا حذف تاريخ).",
+    "لا منتج ثانٍ لفرق السعر (MENU-024، D-078).",
+    "فجوة نموذج: wireframe d-impact.html لا يعرض موروث/معدّل/إرجاع لكل فرع ← يضاف في مراجعة P04 (PO-007)."
+   ],
+   "sources": [
+    "M33 §05"
+   ],
+   "decision_refs": [
+    "G15-ND-05",
+    "D-078",
+    "D-079",
+    "D-094"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/MASTER-DATA-HUB.md §2/§6 · docs/architecture/PLATFORM-ARCHITECTURE.md §3.3 (product_branch_overrides: موروث / مُعدّل / إعادة ضبط)",
+   "missing_work": "الجدول + واجهة الوسم والإرجاع في محرر المنتج والفرع + Wireframe",
+   "dependencies": [
+    "MENU-024",
+    "MENU-027",
+    "MENU-061",
+    "CMS-015",
+    "PO-023",
+    "PO-007"
+   ],
+   "test_required": "Feature: بلا Override ⇒ القيمة الأساس في الفرعين ووسم Inherited؛ Override لـHOUSE ⇒ HOUSE فقط يتغير ووسم Overridden؛ Reset ⇒ العودة للأساس + سطر Audit؛ الواجهة: Responsive إلزامي (كل عروض tooling/viewports.mjs) · RTL عربي + LTR إنجليزي · axe WCAG 2.2 AA بلا serious/critical · لوحة المفاتيح · لا overflow/clipping/overlap · حالات الخطأ والفراغ · لغة الـOwner",
+   "design_refs": [
+    "docs/MASTER-DATA-HUB.md §2",
+    "docs/architecture/PLATFORM-ARCHITECTURE.md §3.3",
+    "docs/dashboard/wireframes/html/d-impact.html"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P06",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "MDH-011",
+   "area": "47 Master Data & Channel Sync",
+   "type": "REQUIREMENT",
+   "title": "EVENTS / CAMPAIGNS Registry من محرك التجارب — بلا مخزن ثانٍ",
+   "requirement": "EVENTS / CAMPAIGNS في الـHub: active promotion · dates · branches · public copy — مصدرها كيانات محرك التجارب (experiences — DX) وحقول CAMP-004، دون مخزن ثانٍ؛ تغذي أسطح الحملات في الموقع وSchema Event (للأحداث الصحيحة فقط) وأي قناة خارجية مستقبلية.",
+   "details": [
+    "العروض والخصومات تُتحقق مع الـOwner قبل النشر (CAMP-003)؛ حقول DX-011؛ التقويم عرض فوق نفس الجدول (OPS-021).",
+    "سجل نسخ بيانات الحملات (M33 §17 → AUDIT-009).",
+    "GBP Posts (localPosts — v4) = اختياري لاحقًا وبقرار منفصل (MDH-021)؛ لا نشر آلي للحملات على Google الآن."
+   ],
+   "sources": [
+    "M33 §01",
+    "M33 §02"
+   ],
+   "decision_refs": [
+    "G15-ND-01"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/architecture/PLATFORM-ARCHITECTURE.md §3.3 (experiences) · docs/DYNAMIC-EXPERIENCE-ENGINE.md",
+   "missing_work": "ربط Schema Event وأسطح الحملات بالكيان الواحد؛ عرض الحملة النشطة في Command Center",
+   "dependencies": [
+    "DX-011",
+    "DX-013",
+    "CAMP-003",
+    "CAMP-004",
+    "OPS-021",
+    "PO-033"
+   ],
+   "test_required": "Feature: حملة منتهية لا تظهر في أي سطح ولا في JSON-LD؛ تعديل نص الحملة مرة واحدة يحدّث كل أسطحها",
+   "design_refs": [
+    "docs/DYNAMIC-EXPERIENCE-ENGINE.md",
+    "docs/architecture/PLATFORM-ARCHITECTURE.md §3.3"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "MDH-012",
+   "area": "47 Master Data & Channel Sync",
+   "type": "RULE",
+   "title": "طبقة الحقائق فوق قيم الـHub: فقط APPROVED / VERIFIED تصل لأي قناة",
+   "requirement": "كل قيمة في الـHub تحمل حالة تحقق من طبقة الحقائق (OPS-013): القابل للنشر في أي قناة = APPROVED أو VERIFIED فقط. القيم PENDING VERIFICATION · MISSING · SUPERSEDED · REJECTED لا تُعرض في الموقع، ولا تدخل الـSchema، ولا تُدفع إلى Google أو أي Adapter. الحقل غير المعتمد = NULL، يُخفى، ويُسجّل Issue.",
+   "details": [
+    "الـFact Registry طبقة تحقق على حقول الـHub (Fact لكل قيمة)، لا مخزن قيم موازٍ (OPS-002 \"no second fact source\").",
+    "قيمة مستوردة من مصدر خارجي (GBP، الموقع القديم، الأدلة) تدخل PENDING VERIFICATION حتى تأكيد الـOwner (GOV-003، CF-M-080).",
+    "Adopt External Change = تأكيد صريح يحوّل القيمة إلى APPROVED بمصدر \"GBP — adopted by Owner\" ومرجع قرار في الـAudit.",
+    "Publish Guard: نشر قيمة غير APPROVED/VERIFIED = BLOCKING (OPS-014/OPS-017)."
+   ],
+   "sources": [
+    "M33 §01",
+    "M33 §23"
+   ],
+   "decision_refs": [
+    "G15-ND-01",
+    "G14-ND-02",
+    "D-224"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/architecture/PLATFORM-ARCHITECTURE.md §3.2 (facts) و§4.4 · wireframe d-facts.html و d-global-data.html (حالات التحقق)",
+   "missing_work": "ربط facts بحقول الكيانات + حارس في كل Adapter",
+   "dependencies": [
+    "OPS-013",
+    "OPS-014",
+    "OPS-017",
+    "GOV-003",
+    "GOV-026"
+   ],
+   "test_required": "Feature: قيمة PENDING لا تظهر في HTML ولا JSON-LD ولا payload الـGBP (dry-run)؛ تحويلها APPROVED يُظهرها بعد النشر",
+   "design_refs": [
+    "docs/architecture/PLATFORM-ARCHITECTURE.md §3.2",
+    "docs/architecture/PLATFORM-ARCHITECTURE.md §4",
+    "docs/dashboard/wireframes/html/d-facts.html"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P06",
+   "history": [],
+   "notes": "يطبّق M32 §03 (Fact Registry) على قنوات M33 — M33 لا يذكر الحقائق صراحة لكنه يجعل الـMaster مصدر المعلومات العامة."
+  },
+  {
+   "id": "MDH-013",
+   "area": "47 Master Data & Channel Sync",
+   "type": "REQUIREMENT",
+   "title": "كل Channel يقرأ من Master Data — بما فيها SEO metadata وأسطح الموقع",
+   "requirement": "كل Channel يقرأ من Master Data عندما يكون ذلك ممكنًا: Website · Google Business Profile / Google Maps · Structured Data / Schema · SEO metadata · Branch pages · Contact pages · Menu pages · Event/Campaign surfaces · future POS/ERP · future ordering channels · future external platforms.",
+   "details": [
+    "داخل الموقع أيضًا: بطاقة الفرع · Locations · Footer · مكون Today Hours · روابط WhatsApp/tel: · محدد الفرع في المنيو.",
+    "SEO metadata قناة (غير مذكورة في مصفوفة doc §4 — فجوة): العناوين/الأوصاف التي تذكر اسم الفرع أو الهاتف تستخدم Tokens من الـHub (مثل {branch.name}) لا نصًا ثابتًا (SEO-035)؛ الساعات لا تُكتب في Meta description افتراضيًا لأنها تتقادم (اقتراح تقني).",
+    "قنوات بلا API (أدلة طرف ثالث: TripAdvisor · findglocal · mat3am · arabplaces · Cybo): MANUAL ACTION REQUIRED في شاشة الاتساق (PO-041) — لا scraping.",
+    "ordering channels: زر \"اطلب\" لكل فرع مستقبلي (BRANCH-031) وروابط التوصيل (PO-027) — بمعرفات ثابتة (MDH-015)."
+   ],
+   "sources": [
+    "M33 §02"
+   ],
+   "decision_refs": [
+    "G15-ND-01",
+    "G15-ND-08"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/MASTER-DATA-HUB.md §4 (بلا SEO metadata) · docs/FINAL-ARCHITECTURE-REVIEW.md §12",
+   "missing_work": "إضافة SEO metadata وأسطح الموقع الداخلية للمصفوفة؛ Tokens في محرر SEO",
+   "dependencies": [
+    "MDH-016",
+    "MDH-017",
+    "MDH-020",
+    "SEO-035",
+    "PO-041"
+   ],
+   "test_required": "فحص CI: لا اسم فرع/هاتف/ساعات حرفية في قوالب SEO؛ Feature: تغيير اسم الفرع يحدّث title/meta المولّدة",
+   "design_refs": [
+    "docs/MASTER-DATA-HUB.md §4",
+    "docs/FINAL-ARCHITECTURE-REVIEW.md §12"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "MDH-014",
+   "area": "47 Master Data & Channel Sync",
+   "type": "RULE",
+   "title": "MASTER DATA → CHANNEL ADAPTERS مستقلة — لا Point-to-point spaghetti",
+   "requirement": "Do not build point-to-point spaghetti integrations. المعمارية: MASTER DATA ↓ CHANNEL ADAPTERS (Website Adapter · Google Business Adapter · Schema Adapter · محولات مستقبلية). كل Channel integration مستقلة: لها Capability map وتحويل بيانات (mapping) وطابور مزامنة وحالة وأخطاء خاصة بها؛ فشل أو تعطيل محوّل لا يؤثر على المحولات الأخرى ولا على الـMaster.",
+   "details": [
+    "Laravel: app/Services/Channels/<Channel>Adapter (PLATFORM-ARCHITECTURE §2) بواجهة موحدة مقترحة: capabilities() · diff(entity) · push(entity, version) · read(entity) · verify(entity, version) — تفصيل تقني.",
+    "نوعان: قنوات تُولَّد وقت العرض (Website · Schema) وقنوات تُدفع إليها (GBP · مستقبلية).",
+    "إضافة قناة = محوّل جديد + صفوف external_references، بلا تعديل الـMaster أو المحولات الأخرى.",
+    "حالة الربط/الرمز في Integration registry واحد (M35 — يُجمع لاحقًا)؛ حالة كل كيان × قناة في channel_sync_states."
+   ],
+   "sources": [
+    "M33 §28"
+   ],
+   "decision_refs": [
+    "G15-ND-01"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/MASTER-DATA-HUB.md §3 · docs/FINAL-ARCHITECTURE-REVIEW.md §12 · docs/architecture/PLATFORM-ARCHITECTURE.md §2/§3.2",
+   "missing_work": "واجهة Adapter + محولات Website/Schema (P08) وGBP (P09)",
+   "dependencies": [
+    "MDH-015",
+    "MDH-026",
+    "MDH-033",
+    "ADR-001"
+   ],
+   "test_required": "Unit: تعطيل محوّل GBP (استثناء) لا يمنع نشر الـMaster ولا توليد الموقع/Schema؛ Architecture test: لا استدعاء مباشر بين قناتين",
+   "design_refs": [
+    "docs/MASTER-DATA-HUB.md §3",
+    "docs/FINAL-ARCHITECTURE-REVIEW.md §12",
+    "docs/architecture/PLATFORM-ARCHITECTURE.md §2"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P06",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "MDH-015",
+   "area": "47 Master Data & Channel Sync",
+   "type": "REQUIREMENT",
+   "title": "Stable IDs + external_references واحد — نفس هوية المنتج/الفرع في كل القنوات",
+   "requirement": "الـArchitecture قابلة للربط مستقبلًا مع SHELTER POS · SHELTER ERP · Mobile App · Delivery Channels · Google · other country platforms باستخدام stable IDs. كل Channel يستخدم نفس Product Identity (ونفس هوية الفرع والكيان) قدر الإمكان؛ لا Product جديد لكل Channel. الربط عبر جدول واحد external_references(entity, entity_id, channel, external_id).",
+   "details": [
+    "المعرفات: PRD-##### · CAT-### · BR-DRIVE/BR-HOUSE …؛ GBP: locations/{id} ↔ BR-*.",
+    "pos_item_id / external_item_id (PROD-007، INT-013) تبقى nullable وفارغة وتُمثَّل كصفوف external_references (channel = POS/ERP/DRIVE_SYSTEM) — لا آلية ربط ثانية (G15-CF-10).",
+    "اسم الـPOS = MISSING (INT-012) · منصات التوصيل لكل فرع = MISSING (INT-011، PO-027) — لا اختراع.",
+    "التكاملات نفسها مستقبلية (INT-016 P3)؛ الجاهزية (المعرفات والمحولات) P0 الآن.",
+    "إن أصبح POS/ERP مصدرًا لحقل تشغيلي (D-085 جاهزية C) فذلك قرار Owner صريح يُسجل كتغيير SYNC DIRECTION في Capability map (MDH-021)."
+   ],
+   "sources": [
+    "M33 §04",
+    "M33 §22"
+   ],
+   "decision_refs": [
+    "G15-ND-05",
+    "D-085",
+    "D-121",
+    "D-077"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/architecture/PLATFORM-ARCHITECTURE.md §3.2 (external_references) · docs/phase-01-discovery/17-menu-data-model-draft.md (external_reference) · menu-inventory-v1.0.csv (pos_item_id/external_item_id فارغة)",
+   "missing_work": "Migration external_references + ربط الحقول القديمة كصفوف",
+   "dependencies": [
+    "PROD-001",
+    "PROD-007",
+    "INT-012",
+    "INT-013",
+    "INT-016",
+    "PO-027"
+   ],
+   "test_required": "Unit: قيد فريد (channel, external_id) وقيد (entity, entity_id, channel)؛ لا إنشاء منتج عند ربط قناة جديدة",
+   "design_refs": [
+    "docs/architecture/PLATFORM-ARCHITECTURE.md §3.2",
+    "docs/phase-01-discovery/17-menu-data-model-draft.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "G15-CF-10",
+   "business_data": false,
+   "phase": "P06",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "MDH-016",
+   "area": "47 Master Data & Channel Sync",
+   "type": "REQUIREMENT",
+   "title": "Website Adapter: توليد كل أسطح الموقع من الـHub + إبطال Cache انتقائي بعد النشر",
+   "requirement": "صفحات الموقع (صفحة كل فرع · Locations · Contact · Footer · Today Hours component · Menu · أسطح الحملات) تُولّد من الـHub عند النشر/الطلب، ولا نسخة بيانات داخل القوالب. بعد Publish تعني UPDATE WEBSITE: إبطال Cache انتقائي بوسوم الكيان (لا Purge شامل) حتى لا تبقى ساعات/أسعار/إغلاقات قديمة في الـCDN.",
+   "details": [
+    "وسوم Cache لكل كيان (مثال: prd:PRD-00058 · menu:ar · menu:en · schema:menu) — PLATFORM-ARCHITECTURE §13؛ قدرة الإبطال بالوسوم حسب خطة Cloudflare (PO-013) وإلا بالروابط.",
+    "الحالات الزمنية (مفتوح الآن، انتهاء حملة) من الخادم عند الطلب.",
+    "الموقع يعرض الـMaster دائمًا حتى لو فشلت قناة خارجية (MDH-033).",
+    "قناة Website تُعلَّم SYNCED بعد VERIFY (عرض فعلي بعد الإبطال يطابق الـMaster) — G15-TF-13."
+   ],
+   "sources": [
+    "M33 §02",
+    "M33 §09"
+   ],
+   "decision_refs": [
+    "G15-ND-03"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/architecture/PLATFORM-ARCHITECTURE.md §13 · docs/FINAL-ARCHITECTURE-REVIEW.md §6/§13",
+   "missing_work": "بناء القوالب على الـHub + خدمة الإبطال + فحص ما بعد النشر",
+   "dependencies": [
+    "MDH-013",
+    "OPS-012",
+    "PO-013",
+    "MDH-029"
+   ],
+   "test_required": "E2E على Staging: نشر تغيير ساعات ⇒ الصفحات المتأثرة فقط تُبطل وتعرض القيمة الجديدة خلال حد زمني؛ لا Purge شامل؛ Responsive إلزامي (كل عروض tooling/viewports.mjs) · RTL عربي + LTR إنجليزي · axe WCAG 2.2 AA بلا serious/critical · لوحة المفاتيح · لا overflow/clipping/overlap · حالات الخطأ والفراغ · لغة الـOwner",
+   "design_refs": [
+    "docs/architecture/PLATFORM-ARCHITECTURE.md §13",
+    "docs/FINAL-ARCHITECTURE-REVIEW.md §6"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "MDH-017",
+   "area": "47 Master Data & Channel Sync",
+   "type": "RULE",
+   "title": "Schema Adapter: لا Data Entry مستقل للـStructured Data — مشتق من السجلات",
+   "requirement": "Structured Data لا يكون له Data Entry مستقل. الـSchema يأخذ من: Brand Registry · Branch Registry · Hours Registry · Contact Registry · Event Registry (+ Menu) حتى لا يوجد اختلاف بين النص الظاهر وStructured Data.",
+   "details": [
+    "الأنواع: Organization · CafeOrCoffeeShop/LocalBusiness لكل فرع · Menu · Event (للأحداث الصحيحة فقط) · BreadcrumbList (SCHEMA-001).",
+    "ممنوع: rating/reviews/offers/availability مخترعة (SCHEMA-003)؛ القيم غير المعتمدة لا تدخل (MDH-012).",
+    "SCHEMA-010 \"Schema Settings\" = إعدادات تفعيل/نوع فقط بلا حقول قيم Business (G15-CF-06).",
+    "Schema Health يقارن JSON-LD المولّد مع الـHub (\"Schema uses old phone\" — MDH-032، SEO-039)."
+   ],
+   "sources": [
+    "M33 §14"
+   ],
+   "decision_refs": [
+    "G15-ND-08"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/MASTER-DATA-HUB.md §9",
+   "missing_work": "مولّد JSON-LD من الكيانات + اختبار مطابقة النص الظاهر",
+   "dependencies": [
+    "SCHEMA-001",
+    "SCHEMA-003",
+    "SCHEMA-005",
+    "SCHEMA-008",
+    "SCHEMA-010",
+    "SEO-039",
+    "MDH-012"
+   ],
+   "test_required": "Feature: لكل صفحة فرع JSON-LD يطابق النص الظاهر (الاسم، الهاتف، الساعات) آليًا؛ لا حقل إدخال Schema لقيمة Business في الـDashboard؛ Rich Results Test يدويًا قبل الإطلاق (SCHEMA-009)",
+   "design_refs": [
+    "docs/MASTER-DATA-HUB.md §9"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "G15-CF-06",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "MDH-018",
+   "area": "47 Master Data & Channel Sync",
+   "type": "RULE",
+   "title": "اتساق NAP + الساعات عبر Website · Schema · GBP · Contact — بالبناء ثم بالكشف",
+   "requirement": "branch name · address · phone · hours متسقة قدر الإمكان عبر Website · Schema · Google Business Profile · Contact pages. لا تكرار Hardcoded لنفس البيانات: الاتساق بالبناء (مصدر واحد) ثم بالكشف (MDH-029).",
+   "details": [
+    "هاتف الفرعين في GBP والـSchema = 0799009436 (GBP-005، SCHEMA-007، D-060).",
+    "قواعد التطبيع للمقارنة: E.164 للأرقام · 24 ساعة بتوقيت الفرع · تطبيع Unicode للعربية (الهمزات/التطويل) · مكونات العنوان — لتجنب OUT OF SYNC كاذب لأن Google قد يعيد تنسيق الهاتف/العنوان (G15-TF-12)."
+   ],
+   "sources": [
+    "M33 §15"
+   ],
+   "decision_refs": [
+    "G15-ND-08",
+    "D-060",
+    "D-049"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/MASTER-DATA-HUB.md §1/§9 · docs/google/BRANCH-DATA-SYNC.md (فحص يدوي)",
+   "missing_work": "مكتبة التطبيع + ربطها بالكاشف",
+   "dependencies": [
+    "BRANCH-020",
+    "SEO-008",
+    "AEO-003",
+    "MDH-029"
+   ],
+   "test_required": "Unit: أزواج قيم متكافئة بصيغ مختلفة ⇒ SYNCED؛ اختلاف حقيقي ⇒ OUT OF SYNC",
+   "design_refs": [
+    "docs/google/BRANCH-DATA-SYNC.md",
+    "docs/MASTER-DATA-HUB.md §9"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "MDH-019",
+   "area": "47 Master Data & Channel Sync",
+   "type": "RULE",
+   "title": "No duplicate editors: نفس الـControl في أكثر من سياق — مصدر بيانات واحد",
+   "requirement": "لا Branch hours editor في Branch module ومحرر آخر في SEO ومحرر ثالث في Google settings: كلهم يشيرون لنفس Master Data. يمكن أن يظهر نفس الـcontrol في أكثر من context (الفرع، الـSEO، صفحة Google/الاتساق)، لكن Data Source واحد — نفس الحقل ونفس المسودة ونفس Publish/Audit.",
+   "details": [
+    "Wireframe متسق: d-branch.html \"الهاتف والواتساب والعنوان لا تُكتب هنا: قيمة واحدة لكل الموقع. تعديل في البيانات العامة\".",
+    "صفحة Google في الـDashboard تعرض فقط: الربط · Capability matrix · حالة المزامنة · Channel overrides (MDH-030) — لا نسخًا قابلة للتعديل.",
+    "قاعدة مراجعة كود: لا Model/عمود ثانٍ لنفس الحقيقة؛ المكوّن يُربط بمفتاح الـMaster."
+   ],
+   "sources": [
+    "M33 §21"
+   ],
+   "decision_refs": [
+    "G15-ND-08"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "PARTIAL",
+   "tested": "NO",
+   "existing_impl": "prototype: docs/dashboard/wireframes/html/d-branch.html (الحقول المشتركة إحالة للبيانات العامة) · spec غير موجود في MASTER-DATA-HUB.md (فجوة)",
+   "missing_work": "إضافة القاعدة لوثيقة الـHub وWireframes P04؛ اختبار تطبيقي",
+   "dependencies": [
+    "DASH-006",
+    "OPS-049",
+    "PO-007",
+    "BRANCH-010",
+    "HOURS-008",
+    "SEO-035"
+   ],
+   "test_required": "Feature: تعديل الساعات من سياق الفرع يظهر فورًا في سياق الاتساق/Google (نفس المسودة)؛ مراجعة IA في Gate H: لا محرر ثانٍ لنفس الحقل؛ Responsive إلزامي (كل عروض tooling/viewports.mjs) · RTL عربي + LTR إنجليزي · axe WCAG 2.2 AA بلا serious/critical · لوحة المفاتيح · لا overflow/clipping/overlap · حالات الخطأ والفراغ · لغة الـOwner",
+   "design_refs": [
+    "docs/dashboard/wireframes/html/d-branch.html",
+    "docs/FINAL-ARCHITECTURE-REVIEW.md §10"
+   ],
+   "code_refs": [
+    "docs/dashboard/wireframes/tools/build.py"
+   ],
+   "test_refs": [
+    "tooling/tests/prototype/dashboard.spec.mjs"
+   ],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P04",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "MDH-020",
+   "area": "47 Master Data & Channel Sync",
+   "type": "REQUIREMENT",
+   "title": "Google Business Adapter عبر Official API فقط — لا scraping",
+   "requirement": "ربط Google Business Profile عبر Official API / supported integration عندما يكون ذلك ممكنًا ومصرحًا به. Sync candidates: branch name where allowed · address · phone · regular opening hours · special hours · temporary closure status · website URL · selected business attributes where supported. لا تفترض أن كل field في Google يمكن تعديله عبر API، ولا تستخدم scraping بدل official integration.",
+   "details": [
+    "الواجهات: Business Information API v1 (mybusinessbusinessinformation.googleapis.com) — locations.get بـreadMask · locations.patch بـupdateMask · locations.getGoogleUpdated · attributes؛ Account Management API لاكتشاف الحسابات/المواقع.",
+    "websiteUri لكل فرع = رابط صفحة الفرع النهائي ولا يُدفع قبل الإطلاق (P11) واعتماد شجرة الروابط والـHost (PO-005، DB-11، PO-041) — G15-TF-03.",
+    "Attributes: فقط قيم YES المؤكدة من الـOwner (BRANCH-012/014، D-033/D-034، PO-025)؛ UNKNOWN لا تُرسل أبدًا.",
+    "Staging لا يكتب على GBP الحقيقي: dry-run فقط (diff + validateOnly) — G15-TF-02.",
+    "حتى منح الوصول: GBP = PENDING INTEGRATION (كما في d-branch.html) والموقع غير متأثر."
+   ],
+   "sources": [
+    "M33 §03"
+   ],
+   "decision_refs": [
+    "G15-ND-03",
+    "D-043",
+    "D-051",
+    "GEP-§44"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/MASTER-DATA-HUB.md §4/§5/§8 · docs/FINAL-ARCHITECTURE-REVIEW.md §12 · wireframe d-branch.html (PENDING INTEGRATION)",
+   "missing_work": "المحوّل بعد الوصول (PO-009) + وضع dry-run على Staging",
+   "dependencies": [
+    "MDH-021",
+    "MDH-023",
+    "MDH-034",
+    "GBP-009",
+    "GBP-014",
+    "PO-009",
+    "INT-006"
+   ],
+   "test_required": "Contract tests مع ردود API مسجلة (fixtures)؛ على Staging: validateOnly ينجح للحقول الآلية؛ لا طلب كتابة حقيقي من بيئة غير الإنتاج؛ لا أي طلب لـGoogle Maps HTML",
+   "design_refs": [
+    "docs/MASTER-DATA-HUB.md §5",
+    "docs/FINAL-ARCHITECTURE-REVIEW.md §12",
+    "docs/google/GOOGLE-INTEGRATION-ARCHITECTURE.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "G15-CF-02 · G15-CF-03 · G15-CF-12",
+   "business_data": false,
+   "phase": "P09",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "MDH-021",
+   "area": "47 Master Data & Channel Sync",
+   "type": "REQUIREMENT",
+   "title": "GBP Capability Matrix حية لكل فرع × حقل (7 أعمدة) + MANUAL ACTION REQUIRED",
+   "requirement": "Capability Matrix حية لكل فرع × حقل في الـDashboard بالأعمدة: FIELD · MASTER VALUE · GOOGLE SUPPORTED? · SYNC DIRECTION · LAST SYNC · STATUS · ERROR. إذا كان Field غير مدعوم: يُعرض Manual Action Required مع خطوات واضحة. التصنيف الأولي (يُعاد التحقق منه من الوثائق الرسمية عند التنفيذ P09): **API sync** — phone (phoneNumbers) · regular hours (regularHours) · special hours (specialHours) · temporary closure / open info (openInfo) · website URI (websiteUri) · categories (categories) · attributes (حسب الفئة) · description (profile.description — وصف العلامة أو Channel override)؛ **MANUAL ACTION REQUIRED** — name (title) · address (storefrontAddress) · map pin (latlng) لأن تغييرها قد يطلق إعادة تحقق/مراجعة من Google؛ **v4 بطلب وصول وقرار منفصل** — foodMenus · localPosts · reviews (Reputation OPS-028/029)؛ **غير مُزامن** — photos (صور معتمدة فقط يدويًا، D-056).",
+   "details": [
+    "SYNC DIRECTION: MASTER → GOOGLE · READ/COMPARE ONLY · MANUAL · NONE. القيمة الافتراضية لكل حقل في التصنيف أعلاه، والـOwner يستطيع تغييرها لكل حقل (مثال: تفعيل دفع العنوان آليًا) — قرار مسجل (G15-CF-11).",
+    "Categories: الـAPI يدعمها لكنها حساسة ونادرة التغيير ⇒ تُدفع فقط عند تغيير صريح من الـOwner بتأكيد قوي؛ القيمة الأولى من GBP بعد تأكيد الـOwner (لا اختراع). وثيقة الـHub §4/§8 تصنفها يدوية ← تُوحّد (G15-TF-07).",
+    "name \"where allowed\": إرشادات Google تشترط الاسم الحقيقي ⇒ أي تغيير اسم = يدوي.",
+    "المصفوفة التصميمية (doc §4) ≠ المصفوفة الحية: الحية تقرأ channel_sync_states وتعرض القيمة الفعالة (Master أو Override).",
+    "Food menus (foodMenus) لا يُفعّل الآن (GBP-006: لا منيو Google بديلًا) — مستقبلًا محوّل دفع فقط من Menu Master بنفس PRD-*."
+   ],
+   "sources": [
+    "M33 §03"
+   ],
+   "decision_refs": [
+    "G15-ND-03"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/MASTER-DATA-HUB.md §4/§5 (مصفوفة تصميمية بلا الأعمدة الحية السبعة)",
+   "missing_work": "شاشة المصفوفة الحية + التحقق من قدرات الـAPI عند P09 + Wireframe (PO-007)",
+   "dependencies": [
+    "MDH-020",
+    "MDH-026",
+    "MDH-030",
+    "GBP-006",
+    "GBP-009",
+    "PO-007"
+   ],
+   "test_required": "Feature: كل صف يعرض الأعمدة السبعة؛ حقل يدوي يعرض MANUAL ACTION REQUIRED بخطوات؛ تغيير SYNC DIRECTION يُسجل في Audit؛ Responsive إلزامي (كل عروض tooling/viewports.mjs) · RTL عربي + LTR إنجليزي · axe WCAG 2.2 AA بلا serious/critical · لوحة المفاتيح · لا overflow/clipping/overlap · حالات الخطأ والفراغ · لغة الـOwner",
+   "design_refs": [
+    "docs/MASTER-DATA-HUB.md §4",
+    "docs/MASTER-DATA-HUB.md §5",
+    "https://developers.google.com/my-business/content/businessinformation/change-log",
+    "https://developers.google.com/my-business/reference/rest"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "G15-CF-11",
+   "business_data": false,
+   "phase": "P09",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "MDH-022",
+   "area": "47 Master Data & Channel Sync",
+   "type": "REQUIREMENT",
+   "title": "مزامنة الساعات مع Google: العادية · الخاصة · المؤقت · الطارئ · منتصف الليل",
+   "requirement": "التحويل من كيان Hours إلى GBP: Regular → regularHours · Special/Holiday (بتواريخ) → specialHours (ساعات أو مغلق) · Temporary Closure → specialHours مغلق للأيام المحددة، أو openInfo.status = CLOSED_TEMPORARILY للإغلاق المفتوح/الطويل بتأكيد خاص لأنه يغيّر ظهور الفرع في Maps · Emergency Closure → specialHours مغلق لليوم + بانر الموقع فورًا. الورديات بعد منتصف الليل (DRIVE حتى 02:00) تُمثل بإغلاق في اليوم التالي حسب صيغة Google. النتيجة من نفس effective_hours (MDH-007).",
+   "details": [
+    "العتبة بين specialHours وCLOSED_TEMPORARILY تفصيل تقني (G15-TF-04) ويراها الـOwner في Impact Preview قبل النشر.",
+    "عند انتهاء الإغلاق المؤقت: مهمة تعيد openInfo.status = OPEN وتتحقق (VERIFY).",
+    "الإغلاق الطارئ يظهر على الموقع فورًا حتى لو تأخرت Google (فشل القناة لا يؤخر الموقع).",
+    "المناسبات المتكررة (رمضان/العيد) تُدخل كـspecialHours بتواريخها كل سنة بقرار الـOwner — لا تواريخ مخترعة."
+   ],
+   "sources": [
+    "M33 §06",
+    "M33 §07",
+    "M33 §03"
+   ],
+   "decision_refs": [
+    "G15-ND-04"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/MASTER-DATA-HUB.md §7 (جدول الربط)",
+   "missing_work": "mapper الساعات + اختبارات snapshot مقابل صيغة الـAPI",
+   "dependencies": [
+    "MDH-007",
+    "MDH-020",
+    "HOURS-012",
+    "CAMP-007"
+   ],
+   "test_required": "Unit snapshot: DRIVE السبت 07:00→الأحد 02:00 = period(openDay SATURDAY, closeDay SUNDAY)؛ رمضان بتواريخ ⇒ specialHourPeriods صحيحة؛ إغلاق مؤقت مفتوح ⇒ openInfo CLOSED_TEMPORARILY مع طلب تأكيد",
+   "design_refs": [
+    "docs/MASTER-DATA-HUB.md §7"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P09",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "MDH-023",
+   "area": "47 Master Data & Channel Sync",
+   "type": "GATE",
+   "title": "بوابة تفعيل مزامنة GBP: وصول API + OAuth الـOwner + Verified + P09",
+   "requirement": "المزامنة الحية مع GBP لا تعمل إلا بعد: (1) موافقة Google على طلب وصول Business Profile APIs لمشروع SHELTER على Google Cloud (الحصة قد تكون صفرًا حتى الموافقة)، (2) OAuth من حساب Owner/Manager على الموقعين بصلاحية business.manage، (3) ملفان Verified (GBP-014)، (4) بلوغ P09 وبوابة الإنتاج. حتى ذلك: GBP = PENDING INTEGRATION في الـDashboard، والموقع والـSchema يعملان من الـMaster بلا أي تأثير.",
+   "details": [
+    "دور الـOwner يقتصر على الموافقة وتسجيل الدخول/OAuth/2FA (PERM-009، GOOGLE-006)؛ Claude يجهّز المشروع ونص الطلب والإعداد (GOOGLE-005، D-051).",
+    "business.manage هو النطاق الوحيد لواجهات GBP (قراءة + كتابة) ⇒ أقل صلاحية تُفرض داخل التطبيق: وضع قراءة/مقارنة حتى يفعّل الـOwner الدفع (G15-TF-01).",
+    "صلاحية AC-03 Read-only (D-028) = نطاق الاستكشاف؛ الكتابة تتطلب هذا التفويض الجديد (G15-CF-03) — PO-009 (لا سؤال جديد)."
+   ],
+   "sources": [
+    "M33 §03",
+    "M33 §26"
+   ],
+   "decision_refs": [
+    "G15-ND-03",
+    "D-028",
+    "D-051"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "spec: docs/MASTER-DATA-HUB.md §5 (الوصول) · wireframe d-branch.html (PENDING INTEGRATION)",
+   "missing_work": "طلب الوصول + OAuth بعد موافقة الـOwner (PO-009)",
+   "dependencies": [
+    "PO-009",
+    "GBP-007",
+    "GBP-014",
+    "PERM-009",
+    "GOOGLE-005",
+    "GOOGLE-008"
+   ],
+   "test_required": "تحقق تشغيلي في P09: Integration registry = CONNECTED بنطاق business.manage فقط؛ قبلها كل محاولة دفع تُرفض داخليًا بحالة PENDING INTEGRATION",
+   "design_refs": [
+    "docs/MASTER-DATA-HUB.md §5"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "G15-CF-03",
+   "business_data": false,
+   "phase": "P09",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "MDH-024",
+   "area": "47 Master Data & Channel Sync",
+   "type": "REQUIREMENT",
+   "title": "EXTERNAL CHANGE DETECTED: Keep Master · Adopt · Review — بلا كتابة فوق الـMaster",
+   "requirement": "إذا تغيرت معلومة خارجيًا في Google: لا تجعل Google overwrite Master Data تلقائيًا. اعرض EXTERNAL CHANGE DETECTED بالقيمتين (مثال: Google 09:00 · Master 08:00) مع الإجراءات: Keep Master · Adopt External Change · Review. الـOwner يقرر.",
+   "details": [
+    "الكشف: locations.getGoogleUpdated (تعديلات Google/اقتراحات المستخدمين — diffMask/pendingMask) + locations.get ومقارنة بآخر payload_version مدفوع: مساوٍ لآخر مدفوع ومختلف عن الـMaster ⇒ تأخر قناة (PENDING ← إعادة)؛ مختلف عن آخر مدفوع ⇒ تغيير خارجي.",
+    "Keep Master: إعادة دفع (sync_job) + Audit؛ للحقول اليدوية (الاسم/العنوان/الـPin) = MANUAL ACTION REQUIRED بخطوات.",
+    "Adopt External Change: Owner فقط + تأكيد؛ يُنشئ نسخة Master جديدة (Fact APPROVED بمصدر \"GBP — adopted by Owner\")، ثم يُعيد مزامنة بقية القنوات + Audit.",
+    "Review: يبقى OUT OF SYNC كبند في Needs Attention مع تذكير.",
+    "نفس النموذج لكل قناة مستقبلية تقبل القراءة."
+   ],
+   "sources": [
+    "M33 §13",
+    "M33 §23"
+   ],
+   "decision_refs": [
+    "G15-ND-02",
+    "G15-ND-06",
+    "D-048"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/MASTER-DATA-HUB.md §10",
+   "missing_work": "خوارزمية التصنيف + حوار الإجراءات الثلاثة + Wireframe",
+   "dependencies": [
+    "MDH-002",
+    "MDH-029",
+    "MDH-031",
+    "GBP-004",
+    "HOURS-004",
+    "HOURS-013"
+   ],
+   "test_required": "Unit: سيناريو تأخر ⇒ PENDING بلا حوار؛ تغيير خارجي ⇒ حوار بالقيمتين؛ Adopt ⇒ نسخة جديدة + مزامنة القنوات الأخرى + Audit؛ لا مسار كود يكتب قيمة Google في الـMaster دون فعل الـOwner",
+   "design_refs": [
+    "docs/MASTER-DATA-HUB.md §10",
+    "docs/MASTER-DATA-HUB.md §11"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P09",
+   "history": [
+    {
+     "old": "GBP ≠ بيانات الـOwner ⇒ CONFLICT — OWNER REVIEW REQUIRED وتقرير Source A/B/Difference/Correction",
+     "source": "M11 §5 (GBP-004, D-047)",
+     "superseded_by": "M33 §13 (نفس المبدأ بإجراءات تشغيلية ثلاثة)"
+    }
+   ],
+   "notes": ""
+  },
+  {
+   "id": "MDH-025",
+   "area": "47 Master Data & Channel Sync",
+   "type": "RULE",
+   "title": "تدفق النشر والمزامنة التسعي — نشر الـOwner بعد معاينة أثر تذكر GBP = موافقته",
+   "requirement": "Flow: OWNER EDIT → VALIDATE → IMPACT PREVIEW → OWNER PUBLISH → SAVE MASTER DATA → UPDATE WEBSITE → SYNC EXTERNAL CHANNELS → VERIFY → SHOW STATUS. ضغط الـOwner على Publish بعد Impact Preview تُدرج فيها Google Business Profile ضمن القنوات المتأثرة = موافقته على تحديث GBP (يحقق GBP-009 وGOV-060 دون خطوة Proposal منفصلة)؛ الحالات الحساسة (إغلاق مؤقت على Google، الفئة، Rollback، Adopt external، فصل الحساب) تتطلب تأكيدًا إضافيًا وإعادة تأكيد الهوية.",
+   "details": [
+    "VALIDATE = Publish Guard (OPS-016) + قواعد الكيان: E.164 · تداخل الفترات · end>start · تواريخ الخاص مستقبلية · حالة Fact (MDH-012).",
+    "IMPACT PREVIEW = OPS-015 + عمود لكل قناة: مزامنة آلية / إجراء يدوي / غير مدعوم / بانتظار الربط.",
+    "SAVE = content_versions + audit_logs · UPDATE WEBSITE = إبطال بالوسوم (MDH-016) · SYNC = sync_jobs لكل قناة دفع · VERIFY = قراءة بعد الكتابة ومقارنتها بالمرسل · SHOW STATUS = نتيجة لكل قناة (MDH-027).",
+    "التغييرات المجدولة (CMS-009/CMS-035): special hours المؤرخة تُدفع لـGoogle فور النشر؛ تغيير Regular أو سعر مجدول يُدفع عند تاريخ السريان (G15-TF-11).",
+    "فجوة الوثيقة: MASTER-DATA-HUB.md لا يسرد التدفق التسعي ولا خطوة VERIFY صراحة."
+   ],
+   "sources": [
+    "M33 §09",
+    "M33 §08"
+   ],
+   "decision_refs": [
+    "G15-ND-03"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec جزئي: docs/architecture/PLATFORM-ARCHITECTURE.md §4.2 (Publish Guard + معاينة الأثر الموقع/Schema/Google + إصدار + Audit + إبطال) · wireframes d-impact.html / d-guard.html / d-branch.html",
+   "missing_work": "خطوة VERIFY + نتيجة لكل قناة + تأكيد إضافي للحساس + توثيق التدفق في الـHub doc",
+   "dependencies": [
+    "OPS-015",
+    "OPS-016",
+    "OPS-017",
+    "DEPLOY-012",
+    "OPS-036",
+    "MDH-026",
+    "MDH-027",
+    "MDH-028"
+   ],
+   "test_required": "E2E على Staging (GBP dry-run): كل خطوة من التسع تترك أثرًا قابلًا للفحص (نسخة، Audit، إبطال، job، verify، حالة)؛ إغلاق مؤقت على Google يطلب إعادة تأكيد الهوية؛ Responsive إلزامي (كل عروض tooling/viewports.mjs) · RTL عربي + LTR إنجليزي · axe WCAG 2.2 AA بلا serious/critical · لوحة المفاتيح · لا overflow/clipping/overlap · حالات الخطأ والفراغ · لغة الـOwner",
+   "design_refs": [
+    "docs/architecture/PLATFORM-ARCHITECTURE.md §4",
+    "docs/dashboard/wireframes/html/d-impact.html",
+    "docs/dashboard/wireframes/html/d-guard.html"
+   ],
+   "code_refs": [],
+   "test_refs": [
+    "tooling/tests/prototype/dashboard.spec.mjs"
+   ],
+   "conflict": "G15-CF-02",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "MDH-026",
+   "area": "47 Master Data & Channel Sync",
+   "type": "REQUIREMENT",
+   "title": "حالات المزامنة الست لكل Channel + Last Sync · Last Successful · Error · Retry",
+   "requirement": "لكل Channel (× كيان/حقل): SYNCED · PENDING · FAILED · NOT SUPPORTED · MANUAL ACTION REQUIRED · OUT OF SYNC، مع عرض Last Sync · Last Successful Sync · Error · Retry.",
+   "details": [
+    "التعريفات: SYNCED = آخر قيمة منشورة مطابقة بعد VERIFY · PENDING = في الطابور/إعادة محاولة · FAILED = استنفدت المحاولات أو خطأ غير قابل للإعادة · NOT SUPPORTED = الحقل غير مدعوم في القناة · MANUAL ACTION REQUIRED = يحتاج فعل الـOwner (حقل يدوي، إعادة ربط) · OUT OF SYNC = الكاشف وجد اختلافًا (تأخر أو تغيير خارجي).",
+    "PENDING INTEGRATION = حالة القناة قبل الربط (من Integration registry) وليست حالة حقل.",
+    "تحويل مفردات BRANCH DATA SYNC القديمة: MATCH → SYNCED · MISMATCH — GOOGLE OUTDATED → OUT OF SYNC (ثم PENDING عند الإعادة) · MISMATCH — WEBSITE OUTDATED → خلل/Cache (الموقع مولّد من الـMaster) · CONFLICT — OWNER REVIEW REQUIRED → EXTERNAL CHANGE DETECTED · MISSING → قيمة Master MISSING (G15-CF-08).",
+    "الجدول: channel_sync_states (docs/architecture/PLATFORM-ARCHITECTURE.md §3.2)."
+   ],
+   "sources": [
+    "M33 §10"
+   ],
+   "decision_refs": [
+    "G15-ND-06"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/MASTER-DATA-HUB.md §11 · docs/architecture/PLATFORM-ARCHITECTURE.md §3.2",
+   "missing_work": "الجدول + العرض في المصفوفة وشاشة الاتساق",
+   "dependencies": [
+    "MDH-021",
+    "MDH-028",
+    "MDH-029",
+    "MDH-031"
+   ],
+   "test_required": "Unit: انتقالات الحالة (PENDING→SYNCED بعد VERIFY؛ PENDING→FAILED بعد 5؛ خطأ صلاحية→MANUAL ACTION REQUIRED)؛ العرض بلغة الـOwner",
+   "design_refs": [
+    "docs/MASTER-DATA-HUB.md §11",
+    "docs/architecture/PLATFORM-ARCHITECTURE.md §3.2"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "G15-CF-08",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "MDH-027",
+   "area": "47 Master Data & Channel Sync",
+   "type": "RULE",
+   "title": "NO SILENT FAILURE: فشل مزامنة Google = تنبيه بالسبب والإجراء لا نجاح كامل",
+   "requirement": "إذا فشل Google Sync: لا يُعتبر Publish ناجحًا بالكامل بصمت. يُعرض Owner alert: \"Website updated successfully. Google Business Profile sync failed. Reason: … Action: Retry / Review\" — ونتيجة النشر لكل قناة على حدة.",
+   "details": [
+    "بالعربية: \"تم تحديث الموقع بنجاح. فشلت مزامنة Google Business Profile. السبب: … [إعادة المحاولة] [مراجعة]\" (DASH-034).",
+    "البند يبقى في Needs Attention حتى الحل (OPS-048، MON-007)، ويظهر في Command Center."
+   ],
+   "sources": [
+    "M33 §11"
+   ],
+   "decision_refs": [
+    "G15-ND-06"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/MASTER-DATA-HUB.md §11",
+   "missing_work": "شاشة نتيجة النشر لكل قناة + Issue تلقائي",
+   "dependencies": [
+    "MDH-025",
+    "MDH-028",
+    "OPS-048",
+    "DASH-034"
+   ],
+   "test_required": "Feature: محاكاة فشل GBP ⇒ رسالة النجاح الجزئي بالسبب وزرّي Retry/Review + Issue مفتوح؛ Responsive إلزامي (كل عروض tooling/viewports.mjs) · RTL عربي + LTR إنجليزي · axe WCAG 2.2 AA بلا serious/critical · لوحة المفاتيح · لا overflow/clipping/overlap · حالات الخطأ والفراغ · لغة الـOwner",
+   "design_refs": [
+    "docs/MASTER-DATA-HUB.md §11"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "MDH-028",
+   "area": "47 Master Data & Channel Sync",
+   "type": "REQUIREMENT",
+   "title": "إعادة المحاولة والأخطاء: sync_jobs · 1→5→30 د→6 س · حد 5 · تصنيف الأخطاء",
+   "requirement": "طابور مزامنة sync_jobs (entity · channel · payload_version · attempt · next_retry_at · last_error · status) بإعادة محاولة تلقائية بتأخير متصاعد 1 → 5 → 30 دقيقة → 6 ساعات، وحد أقصى 5 محاولات ثم FAILED + Needs Attention. تصنيف الأخطاء: مؤقت (شبكة · حصة · 5xx · 429) = إعادة · صلاحية/Token منتهي = MANUAL ACTION REQUIRED + \"أعد ربط حساب Google\" · رفض Google للقيمة = عرض السبب بلا إعادة · حقل غير مدعوم = NOT SUPPORTED. زر Retry يدوي متاح دائمًا.",
+   "details": [
+    "5 محاولات = المحاولة الأولى + 4 إعادات بالتأخيرات الأربع.",
+    "Idempotency: job لنسخة أقدم يُلغى عند نشر أحدث (\"latest wins\")؛ job واحد جارٍ لكل كيان × قناة؛ احترام الحصص.",
+    "الأرقام قرار تقني (Claude — GOV-015، M36 §24) موثق في PLATFORM-ARCHITECTURE §3.2؛ مبدأ Retry وعدم الصمت من M33.",
+    "Laravel Queue (database driver، Redis إن توفر) + Scheduler؛ صحة المجدول في scheduled_job_runs."
+   ],
+   "sources": [
+    "M33 §10",
+    "M33 §11"
+   ],
+   "decision_refs": [
+    "G15-ND-06"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "PARTIAL",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/MASTER-DATA-HUB.md §12 · docs/architecture/PLATFORM-ARCHITECTURE.md §3.2",
+   "missing_work": "الجدول + العامل + التصنيف + اختبارات",
+   "dependencies": [
+    "MDH-026",
+    "MDH-027",
+    "MDH-034",
+    "ADR-001"
+   ],
+   "test_required": "Unit مع ساعة وهمية: التأخيرات 1/5/30/360 دقيقة ثم FAILED؛ 401 ⇒ MANUAL ACTION REQUIRED بلا إعادة؛ 400 validation ⇒ السبب بلا إعادة؛ نشر أحدث يلغي job الأقدم",
+   "design_refs": [
+    "docs/MASTER-DATA-HUB.md §12",
+    "docs/architecture/PLATFORM-ARCHITECTURE.md §3.2"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": "owner_approved=PARTIAL: المبدأ FROZEN (M33 §10/§11)، وجدول التأخير والحد تفصيل تقني."
+  },
+  {
+   "id": "MDH-029",
+   "area": "47 Master Data & Channel Sync",
+   "type": "REQUIREMENT",
+   "title": "OUT-OF-SYNC DETECTOR: فحص اتساق دوري Master ↔ Website ↔ GBP ↔ Schema",
+   "requirement": "Periodic consistency check يقارن Master Data vs Website vs Google Business Profile vs Schema (+ Menu). مثال: Master Friday 08:00–02:00 · Google Friday 09:00–02:00 ⇒ OUT OF SYNC. يعمل بعد كل نشر ودوريًا (يوميًا)، ويغذي شاشة Data Consistency وNeeds Attention.",
+   "details": [
+    "Website/Schema: عرض الصفحات وJSON-LD المولّدة فعليًا ومقارنتها بالـMaster (يكشف أيضًا Cache قديم) — جدول هادئ بلا Aggressive crawling (MON-006).",
+    "GBP: بعد الوصول (PO-009) — get + getGoogleUpdated؛ التصنيف تأخر/تغيير خارجي (MDH-024)؛ قبل الوصول: N/A.",
+    "التطبيع (MDH-018) لتجنب الإنذار الكاذب.",
+    "يحل محل MON-013 (DEFERRED P2 ← P0) ويؤتمت BRANCH-018/019 بعد البناء؛ تشغيل SYNC-001 الاستكشافي اليدوي يبقى (بانتظار PO-009).",
+    "مراقبة 2–4 أسابيع بعد أول مزامنة ثم الفحص اليومي الكامل (MDH-035 خطوة 7)."
+   ],
+   "sources": [
+    "M33 §12"
+   ],
+   "decision_refs": [
+    "G15-ND-06",
+    "D-049"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/MASTER-DATA-HUB.md §10 · docs/google/BRANCH-DATA-SYNC.md (فحص يدوي — SYNC-001 لم يُشغّل)",
+   "missing_work": "مهمة مجدولة + مقارنات لكل قناة + Issues",
+   "dependencies": [
+    "MDH-018",
+    "MDH-024",
+    "MDH-026",
+    "MON-006",
+    "MON-013",
+    "BRANCH-018",
+    "BRANCH-019",
+    "PO-009"
+   ],
+   "test_required": "Feature: إدخال اختلاف متعمد في fixture GBP (09:00 مقابل 08:00) ⇒ OUT OF SYNC + Issue بلغة الـOwner؛ صفحة بـCache قديم ⇒ OUT OF SYNC لقناة Website",
+   "design_refs": [
+    "docs/MASTER-DATA-HUB.md §10",
+    "docs/google/BRANCH-DATA-SYNC.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "G15-CF-08",
+   "business_data": false,
+   "phase": "P08",
+   "history": [
+    {
+     "old": "مستقبلًا: فحص دوري لتطابق GBP مع الموقع (DEFERRED · P2 · P12)",
+     "source": "M11 §45 (MON-013)",
+     "superseded_by": "M33 §12"
+    }
+   ],
+   "notes": ""
+  },
+  {
+   "id": "MDH-030",
+   "area": "47 Master Data & Channel Sync",
+   "type": "REQUIREMENT",
+   "title": "Channel-specific overrides: موثق · مدقق · قابل للعكس ولا يغيّر الـMaster",
+   "requirement": "إذا احتجنا Channel-specific override يكون واضحًا جدًا (مثال: Google Description Override) ولا يغيّر Master Description. كل Override: documented (سبب) · audited · reversible (Reset to Master)، ويظهر في Capability matrix كـ\"OVERRIDDEN FOR GOOGLE\".",
+   "details": [
+    "تخزين مقترح: channel_overrides(entity, field, channel, value, reason, created_by, created_at, active) — غير موجود في PLATFORM-ARCHITECTURE §3.2 (G15-TF-08).",
+    "الكاشف يقارن القناة بالقيمة الفعالة لها (Override أو Master).",
+    "قيم الـOverride تخضع لـFact gating وPublish Guard وقيود القناة (وصف GBP: حد الطول وممنوع الروابط/العروض حسب إرشادات Google — يُتحقق في P09).",
+    "فروق أسعار تطبيقات التوصيل (R2B-03، PO-023) تكون Channel overrides فقط عند توفر بيانات الـOwner."
+   ],
+   "sources": [
+    "M33 §24"
+   ],
+   "decision_refs": [
+    "G15-ND-05"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none (غير مذكور في MASTER-DATA-HUB.md — فجوة)",
+   "missing_work": "الجدول + الواجهة + توثيق القسم في الـHub doc",
+   "dependencies": [
+    "MDH-021",
+    "MDH-029",
+    "MDH-012",
+    "AUDIT-001",
+    "PO-016"
+   ],
+   "test_required": "Feature: إنشاء Override لوصف Google لا يغيّر وصف العلامة في الموقع؛ Reset يعيد القيمة الموروثة؛ كلاهما في Audit؛ Responsive إلزامي (كل عروض tooling/viewports.mjs) · RTL عربي + LTR إنجليزي · axe WCAG 2.2 AA بلا serious/critical · لوحة المفاتيح · لا overflow/clipping/overlap · حالات الخطأ والفراغ · لغة الـOwner",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "MDH-031",
+   "area": "47 Master Data & Channel Sync",
+   "type": "REQUIREMENT",
+   "title": "شاشة DATA CONSISTENCY: ✓ أو ⚠ OUT OF SYNC لكل قناة مع Action واضح",
+   "requirement": "شاشة DATA CONSISTENCY تعرض لكل فرع/كيان: Website ✓ · Google ✓ · Schema ✓ · Menu ✓، أو مثلًا Google ⚠ OUT OF SYNC مع Action واضح ([احتفظ بالمعتمد] [اعتمد تغيير Google] [راجع]). الرسائل بلغة الـOwner لا بالمصطلحات وحدها: \"ساعات فرع HOUSE على Google مختلفة عن الموقع.\" أفضل من \"Channel entity synchronization mismatch\".",
+   "details": [
+    "الموضع: النظام ← البيانات العامة (Master Data + الاتساق)؛ مشاكلها في Needs Attention، والحالة المختصرة في Command Center (Master Data SYNCED · Google SYNCED · المنيو SYNCED — FINAL-ARCHITECTURE-REVIEW §10).",
+    "Advanced details للمطور (DASH-020/034) مع الإبقاء على الجملة البسيطة أولًا؛ Deep link لكل بند (DASH-018).",
+    "Wireframe غير موجود بعد في docs/dashboard/wireframes (لا شاشة اتساق/مزامنة) ← إضافة لمراجعة P04 (PO-007)."
+   ],
+   "sources": [
+    "M33 §19",
+    "M33 §20"
+   ],
+   "decision_refs": [
+    "G15-ND-06"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/MASTER-DATA-HUB.md §11 (مخطط نصي) · docs/FINAL-ARCHITECTURE-REVIEW.md §10",
+   "missing_work": "Wireframe P04 + بناء P08 + اختبار",
+   "dependencies": [
+    "MDH-024",
+    "MDH-026",
+    "MDH-029",
+    "DASH-017",
+    "DASH-018",
+    "DASH-034",
+    "PO-007"
+   ],
+   "test_required": "Feature + Playwright: الحالات الست تظهر بأيقونة ونص (لا لون فقط)؛ الإجراءات الثلاثة تعمل؛ Responsive إلزامي (كل عروض tooling/viewports.mjs) · RTL عربي + LTR إنجليزي · axe WCAG 2.2 AA بلا serious/critical · لوحة المفاتيح · لا overflow/clipping/overlap · حالات الخطأ والفراغ · لغة الـOwner",
+   "design_refs": [
+    "docs/MASTER-DATA-HUB.md §11",
+    "docs/FINAL-ARCHITECTURE-REVIEW.md §10"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "MDH-032",
+   "area": "47 Master Data & Channel Sync",
+   "type": "REQUIREMENT",
+   "title": "Needs Attention لبيانات الـMaster: ست مراقبات في محرك Issues الواحد",
+   "requirement": "Needs Attention يتضمن على الأقل: Google hours out of sync · Website menu price differs from master · Schema uses old phone · Branch missing special hours · Failed sync · Expired external token — تُكتب في محرك Issues/signals الواحد (OPS-048، MON-007) بلغة الـOwner ومع إجراء.",
+   "details": [
+    "\"Branch missing special hours\" = مناسبة/عطلة قادمة (قائمة يحددها الـOwner — سياسة العطل PO-025 وقائمة المناسبات G13-PO-02) خلال نافذة (اقتراح 14 يومًا) بلا قرار ساعات خاصة لفرع نشط — لا تواريخ عطل مخترعة (G15-TF-10).",
+    "\"Website menu price differs\" = الصفحة المولّدة/الـCache مقابل الـMaster · \"Schema uses old phone\" = Schema Health مقابل Contact registry.",
+    "Token: قرب الانتهاء MEDIUM · انتهى/أُلغي HIGH (PLATFORM-ARCHITECTURE §14) · Failed sync HIGH · OUT OF SYNC MEDIUM.",
+    "الفئة: \"اتساق البيانات\" من فئات الصحة التسع (FINAL-ARCHITECTURE-REVIEW §42–45)."
+   ],
+   "sources": [
+    "M33 §25"
+   ],
+   "decision_refs": [
+    "G15-ND-06"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec جزئي: docs/architecture/PLATFORM-ARCHITECTURE.md §14 (المزامنة، الرموز) · docs/MASTER-DATA-HUB.md §12 (FAILED ← يحتاج انتباه)",
+   "missing_work": "المراقبات الثلاث الناقصة في الوثائق (missing special hours · menu price differs · schema old phone) + ربطها بالمحرك",
+   "dependencies": [
+    "OPS-048",
+    "MON-007",
+    "DASH-017",
+    "PO-025",
+    "MDH-029",
+    "MDH-034"
+   ],
+   "test_required": "Feature: كل مراقب من الستة يولّد Issue واحدًا (Dedupe) ويُغلق تلقائيًا عند الحل؛ الرسالة بلغة الـOwner",
+   "design_refs": [
+    "docs/architecture/PLATFORM-ARCHITECTURE.md §14",
+    "docs/MASTER-DATA-HUB.md §12"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "MDH-033",
+   "area": "47 Master Data & Channel Sync",
+   "type": "RULE",
+   "title": "Failure safety: تعطل أي API خارجي لا يكسر الموقع — الموقع يستمر بالـMaster",
+   "requirement": "إذا كان External API غير متاح: الموقع يستمر باستخدام Master Data. فشل أي تكامل خارجي لا يكسر الموقع، ولا يمنع حفظ/نشر الـMaster، ولا يعطل الـDashboard؛ القناة تُعلَّم PENDING/FAILED فقط.",
+   "details": [
+    "لا استدعاءات خارجية متزامنة أثناء عرض الصفحات؛ المحولات غير متزامنة عبر الطابور؛ Timeouts وقاطع دائرة.",
+    "الـDashboard تعرض آخر حالة معروفة بتاريخها (DASH-023)؛ نظير DX-037 للتجارب؛ Safe Mode غير متأثر."
+   ],
+   "sources": [
+    "M33 §27"
+   ],
+   "decision_refs": [
+    "G15-ND-06"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/MASTER-DATA-HUB.md §12 (قواعد ثابتة) · docs/FINAL-ARCHITECTURE-REVIEW.md §4 #21",
+   "missing_work": "التنفيذ + اختبارات الفشل",
+   "dependencies": [
+    "MDH-014",
+    "DASH-023",
+    "DX-037"
+   ],
+   "test_required": "Feature: Google API معطل/بطيء (mock) ⇒ صفحات الفروع تُعرض بزمنها الطبيعي، النشر ينجح للموقع، القناة PENDING/FAILED؛ اختبار Lighthouse لا يتأثر",
+   "design_refs": [
+    "docs/MASTER-DATA-HUB.md §12"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "MDH-034",
+   "area": "47 Master Data & Channel Sync",
+   "type": "REQUIREMENT",
+   "title": "أمان الرموز: Server-side · Least privilege · تجديد/إعادة ربط/إلغاء آمن",
+   "requirement": "Google credentials/tokens على الخادم فقط (server-side only)، مشفرة، ولا شيء في حزمة المتصفح أو Git أو الـCMS. معالجة expiration · refresh · re-authentication · revocation بشكل آمن. أقل صلاحية: النطاق business.manage فقط، ويُفضّل حساب بدور Manager. الصلاحيات من الخادم: Owner فقط (V1) على الـHub والمزامنة.",
+   "details": [
+    "Refresh token مشفّر (تشفير Laravel، المفتاح في .env لكل بيئة)، لا يُسجل في السجلات؛ حالته (متصل/يقترب الانتهاء/منتهي/ملغى) في Integration registry وSecurity Center بلا أسرار (OPS-035).",
+    "فشل التجديد ⇒ MANUAL ACTION REQUIRED \"أعد الربط\" + Issue؛ زر \"فصل الحساب\" يلغي الرمز لدى Google ويحذفه + Audit.",
+    "أسرار منفصلة لكل بيئة؛ Staging بلا رمز كتابة حي (dry-run).",
+    "الإجراءات الحساسة (Adopt، Rollback، إغلاق مؤقت على Google، فصل الحساب): تأكيد + إعادة تأكيد الهوية (OPS-036)."
+   ],
+   "sources": [
+    "M33 §26"
+   ],
+   "decision_refs": [
+    "G15-ND-06",
+    "AC-RULE-02"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/MASTER-DATA-HUB.md §13 · docs/architecture/PLATFORM-ARCHITECTURE.md §4.7 · docs/FINAL-ARCHITECTURE-REVIEW.md §12",
+   "missing_work": "خدمة الرموز + التشفير + دورة الحياة + اختبارات",
+   "dependencies": [
+    "SEC-002",
+    "PERM-001",
+    "PERM-004",
+    "OPS-035",
+    "OPS-036",
+    "MDH-023",
+    "CF-009"
+   ],
+   "test_required": "اختبار: لا رمز في أي ملف JS/HTML مولّد ولا في Git (secret scan)؛ رمز منتهي ⇒ تجديد أو MANUAL ACTION REQUIRED؛ فصل الحساب يلغي الرمز؛ Route إداري بلا مصادقة = فشل",
+   "design_refs": [
+    "docs/MASTER-DATA-HUB.md §13",
+    "docs/architecture/PLATFORM-ARCHITECTURE.md §4"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P09",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "MDH-035",
+   "area": "47 Master Data & Channel Sync",
+   "type": "DELIVERABLE",
+   "title": "خطة ترحيل البيانات إلى الـHub (7 خطوات) — من المصادر الحالية بلا تعديل المصدر",
+   "requirement": "الترحيل من المصادر الحالية بالخطوات: (1) تجميع القيم المعتمدة فقط في ملف بذرة واحد (data/master/seed) بكل قيمة fact_id وحالتها — PENDING تدخل PENDING ولا تُنشر؛ (2) توحيد المستودع: النماذج والأدوات (hours_logic_check.py، مولدات الـWireframes) تقرأ من البذرة بدل القيم المكتوبة؛ (3) لقطة القنوات الخارجية بعد الوصول (PO-008، PO-009) ← تقرير اختلافات بلا تعديل؛ (4) قرارات الـOwner على الاختلافات (Keep / Adopt)؛ (5) استيراد البذرة إلى قاعدة البيانات (P08) مع التحقق بالعدد والـchecksum؛ (6) أول مزامنة لـGoogle بموافقة الـOwner وبالحقول الآلية فقط، ثم قائمة MANUAL ACTION REQUIRED للاسم والعنوان؛ (7) مراقبة 2–4 أسابيع ثم الفحص اليومي الكامل. القواعد: لا Scraping · لا كتابة على Google بلا موافقة · لا حذف لأي بيانات خارجية · كل خطوة مسجلة · Source data لا يُعدّل.",
+   "details": [
+    "المصادر: DECISION-LOG (D-007، D-018، D-020، D-057، D-058…) · MENU INVENTORY v1.0 (192/191، SHA-256) · 04-content-approval-register (بذرة الحقائق — OPS-014) · 14-contact-architecture.",
+    "بعد البذرة تصبح الوثائق المكررة (15 للساعات، 15 للتواصل، 17 لحقائق العلامة — doc §1) إحالات لا صيانة مزدوجة؛ D-020 يبقى سجل القرار التاريخي.",
+    "الخطوة 2 قليلة المخاطر ويمكن تنفيذها مبكرًا في tooling/ (doc §14) — لم تُنفذ.",
+    "الخطوة 6 تتزامن مع P09/P11 (websiteUri عند الإطلاق — G15-TF-03).",
+    "استيراد المنيو لا يمسح التاريخ (AUDIT-006، D-107)."
+   ],
+   "sources": [
+    "M33 §29"
+   ],
+   "decision_refs": [
+    "G15-ND-01"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "spec: docs/MASTER-DATA-HUB.md §14 · docs/phase-01-discovery/menu/ (المصدر وInventory v1.0 مجمّدان)",
+   "missing_work": "ملف البذرة + تحويل الأدوات لقراءته + سكربت الاستيراد مع checksum",
+   "dependencies": [
+    "PO-008",
+    "PO-009",
+    "PO-010",
+    "OPS-014",
+    "PROD-019",
+    "AUDIT-006",
+    "MDH-012"
+   ],
+   "test_required": "تحقق: كل قيمة في البذرة لها fact_id ومرجع قرار؛ hours_logic_check.py يمر 12/12 وهو يقرأ من البذرة؛ الاستيراد: عدد السجلات والـchecksum يطابقان المصدر",
+   "design_refs": [
+    "docs/MASTER-DATA-HUB.md §14",
+    "docs/MASTER-DATA-HUB.md §1"
+   ],
+   "code_refs": [
+    "docs/menu-ia/evidence/hours_logic_check.py"
+   ],
+   "test_refs": [],
+   "conflict": "G15-CF-07",
+   "business_data": false,
+   "phase": "P06",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "MDH-036",
+   "area": "47 Master Data & Channel Sync",
+   "type": "DELIVERABLE",
+   "title": "المخرج الأول قبل التنفيذ: 14 بندًا (MASTER-DATA-HUB.md) — مُسلَّم مع فجوات",
+   "requirement": "قبل التنفيذ يُسلَّم للـOwner: 1 Current duplicated data audit · 2 Master Data entities · 3 Source-of-truth map · 4 Channel capability matrix · 5 Google integration capability review · 6 Menu sync architecture · 7 Hours sync architecture · 8 Branch sync architecture · 9 Schema integration · 10 External-change conflict model · 11 Sync status UX · 12 Retry/error model · 13 Security model · 14 Data migration plan.",
+   "details": [
+    "مُسلَّم: docs/MASTER-DATA-HUB.md §1–§14 (DRAFT — PENDING OWNER REVIEW، commit 32cdb91) + PLATFORM-ARCHITECTURE §3.2/§12 + FINAL-ARCHITECTURE-REVIEW (AC-1، §5).",
+    "فجوات مقابل M33 (G15-TF-07): (a) لا تدفق النشر التسعي ولا خطوة VERIFY (§9)؛ (b) لا قاعدة No duplicate editors (§21)؛ (c) لا Channel-specific overrides (§24)؛ (d) مصفوفة القدرات تصميمية بلا الأعمدة الحية السبعة (§3)؛ (e) SEO metadata غائبة كقناة (§2)؛ (f) مراقبات §25 جزئية؛ (g) الترويسة تشترط DB-08 وقد حُسم (ADR-001)؛ (h) إحالة إلى GLOBAL-DATA-REGISTRY.md وFACT-REGISTRY.md غير الموجودين؛ (i) Category يدوي رغم دعم الـAPI؛ (j) \"4 حالات توفر\" تحتاج صياغة 3 عامة + UNKNOWN؛ (k) لا وضع dry-run للـStaging؛ (l) توقيت websiteUri.",
+    "التسليم قبل أي كود تحقق (لا تطبيق مبني)؛ M36 (لاحق) يبدأ البناء وMaster Data Hub في PHASE 1."
+   ],
+   "sources": [
+    "M33 §29"
+   ],
+   "decision_refs": [
+    "G15-ND-01"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "PARTIAL",
+   "tested": "N/A",
+   "existing_impl": "docs/MASTER-DATA-HUB.md (14 قسمًا) · docs/architecture/PLATFORM-ARCHITECTURE.md · docs/FINAL-ARCHITECTURE-REVIEW.md",
+   "missing_work": "إغلاق الفجوات (a)–(l) في الوثيقة (تعديل وثائقي خارج هذا التدقيق) + عرضها على الـOwner ضمن PO-007",
+   "dependencies": [
+    "PO-007",
+    "ADR-001"
+   ],
+   "test_required": "مراجعة: كل قسم من M33 §1–§30 له موضع في الوثيقة أو مرجع متطلب MDH؛ الروابط الداخلية للوثيقة صالحة",
+   "design_refs": [
+    "docs/MASTER-DATA-HUB.md",
+    "docs/architecture/PLATFORM-ARCHITECTURE.md",
+    "docs/FINAL-ARCHITECTURE-REVIEW.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P04",
+   "history": [],
+   "notes": ""
+  }
+ ],
+ "updates_to_existing": [
+  {
+   "id": "OPS-011",
+   "change": "MERGED INTO SHELTER MASTER DATA HUB (MDH-003): الـGlobal Data Registry ليس نظامًا مستقلًا — فئاته الخمس (Brand · Contacts · Branches · Social · Global Website) = كيانات الـHub (MDH-004/005/008 + Global Website)، بنفس قواعد لا-Hardcode والـUsage؛ لا مخزن ولا شاشة ولا وثيقة ثانية (docs/GLOBAL-DATA-REGISTRY.md المطلوبة في OPS-008 = قسم/إحالة داخل docs/MASTER-DATA-HUB.md). المتطلب يبقى APPROVED ويتحقق عبر MDH؛ المرحلة تنتقل إلى الأساس (M36 PHASE 1).",
+   "type": "MERGE",
+   "source": "M33 §01",
+   "new_phase": "P06"
+  },
+  {
+   "id": "OPS-012",
+   "change": "فهرس Usage = فهرس الـMaster Data Hub ويشمل القنوات الخارجية (حقول GBP، كتل Schema، SEO metadata Tokens) ليغذي \"THIS CHANGE WILL AFFECT\"؛ فحص الـHardcode في CI يشمل أنماط الساعات والهواتف في القوالب وJSON-LD والأدوات (MDH-006/013/016)",
+   "type": "UPDATE",
+   "source": "M33 §15, §21"
+  },
+  {
+   "id": "OPS-013",
+   "change": "الـFact Registry = طبقة تحقق على حقول الـHub (لا مخزن قيم موازٍ)؛ المحولات لا تدفع إلا APPROVED/VERIFIED (MDH-012)؛ Adopt External Change ⇒ Fact APPROVED بمصدر \"GBP — adopted by Owner\"",
+   "type": "UPDATE",
+   "source": "M33 §01, §23"
+  },
+  {
+   "id": "OPS-014",
+   "change": "بذرة 04-content-approval-register تُنقل إلى ملف بذرة الـHub (data/master/seed) بخطوة الترحيل 1 (MDH-035)",
+   "type": "UPDATE",
+   "source": "M33 §29"
+  },
+  {
+   "id": "OPS-015",
+   "change": "M33 §8 يثبت الصيغة \"THIS CHANGE WILL AFFECT\" ومثالها: تغيير إغلاق HOUSE يوم الجمعة ⇒ HOUSE page · Locations page · Footer · Google Business Profile · LocalBusiness Schema · Contact · Today Hours component؛ القنوات الخارجية تُعرض مع نمط كل منها (مزامنة آلية / إجراء يدوي / غير مدعوم / بانتظار الربط)؛ الـOwner يرى الأثر قبل Publish، والنشر بعد معاينة تذكر GBP = موافقة على تحديثه (MDH-025)",
+   "type": "UPDATE",
+   "source": "M33 §08"
+  },
+  {
+   "id": "OPS-016",
+   "change": "خطوة VALIDATE في تدفق نشر الـMaster: فحوص الكيان (E.164، تداخل الفترات، end>start، تواريخ الخاص، حالة Fact، قيود القناة مثل حد وصف GBP) ضمن Publish Guard (MDH-025)",
+   "type": "UPDATE",
+   "source": "M33 §09"
+  },
+  {
+   "id": "OPS-007",
+   "change": "أثر نموذج البيانات: \"registry entries\" تُستبدل بجداول الـHub (PLATFORM-ARCHITECTURE §3.2) + external_references + channel_sync_states + sync_jobs + integrations؛ ويُضاف channel_overrides (ناقص — G15-TF-08)",
+   "type": "UPDATE",
+   "source": "M33 §28, §22"
+  },
+  {
+   "id": "OPS-002",
+   "change": "يضاف للممنوعات: second master data store · second editor لنفس الحقيقة (M33 §21)؛ Global Data Registry وMaster Data Hub نظام واحد (G15-CF-09)",
+   "type": "UPDATE",
+   "source": "M33 §21"
+  },
+  {
+   "id": "OPS-021",
+   "change": "الساعات الخاصة والإغلاقات المؤقتة والتغييرات المجدولة لبيانات الـMaster تظهر في التقويم الواحد كعرض قراءة فوق hours_exceptions/content_versions — لا جدولة ثانية",
+   "type": "UPDATE",
+   "source": "M33 §06"
+  },
+  {
+   "id": "OPS-048",
+   "change": "مراقبات الـMaster الست (MDH-032) تكتب في محرك Issues الواحد بفئة \"اتساق البيانات\"",
+   "type": "UPDATE",
+   "source": "M33 §25"
+  },
+  {
+   "id": "OPS-035",
+   "change": "Security Center يعرض حالة ربط Google (متصل / يقترب الانتهاء / منتهي / ملغى) ونطاقه بلا أي سر (MDH-034)",
+   "type": "UPDATE",
+   "source": "M33 §26"
+  },
+  {
+   "id": "MON-013",
+   "change": "SUPERSEDED BY MDH-029 (OUT-OF-SYNC DETECTOR — FROZEN P0) + MDH-024: الفحص الدوري لـGBP لم يعد مستقبليًا/مؤجلًا؛ يعمل بعد كل نشر ويوميًا بعد الوصول (PO-009)",
+   "type": "SUPERSEDE",
+   "source": "M33 §12",
+   "new_priority": "P0",
+   "new_phase": "P09"
+  },
+  {
+   "id": "MON-007",
+   "change": "تشمل Alerts: فشل مزامنة قناة · OUT OF SYNC · رمز خارجي منتهٍ · فرع بلا ساعات خاصة لمناسبة قادمة · سعر/هاتف قديم في الموقع/Schema (MDH-032)",
+   "type": "UPDATE",
+   "source": "M33 §25, §11"
+  },
+  {
+   "id": "DASH-017",
+   "change": "Command Center يعرض الحالة المختصرة من channel_sync_states: Master Data SYNCED · Google SYNCED/OUT OF SYNC · المنيو SYNCED، مع رابط شاشة الاتساق (MDH-031)",
+   "type": "UPDATE",
+   "source": "M33 §19"
+  },
+  {
+   "id": "DASH-034",
+   "change": "مثال M33 §20: \"ساعات فرع HOUSE على Google مختلفة عن الموقع.\" أفضل من \"Channel entity synchronization mismatch.\"؛ وكذلك رسالة الفشل الجزئي (MDH-027)",
+   "type": "UPDATE",
+   "source": "M33 §20"
+  },
+  {
+   "id": "DASH-023",
+   "change": "توقف Google Business Profile API = القناة PENDING/FAILED وآخر حالة معروفة بتاريخها؛ الـHub والموقع يعملان (MDH-033)",
+   "type": "UPDATE",
+   "source": "M33 §27"
+  },
+  {
+   "id": "BRANCH-001",
+   "change": "بوابة النشر تُطبق لكل قيمة عبر حالة Fact في الـHub: فقط APPROVED/VERIFIED تصل للموقع/Schema/GBP (MDH-012)",
+   "type": "UPDATE",
+   "source": "M33 §01"
+  },
+  {
+   "id": "BRANCH-009",
+   "change": "نموذج الفرع = كيان Branch في الـHub (MDH-005): + branch code (BR-DRIVE/BR-HOUSE) · services · active/inactive · timezone؛ \"آخر Sync\" يصبح channel_sync_states لكل قناة×حقل؛ رابط GBP في external_references",
+   "type": "UPDATE",
+   "source": "M33 §01",
+   "new_phase": "P06"
+  },
+  {
+   "id": "BRANCH-010",
+   "change": "محرر الفرع = سياق على كيان الـHub (لا محرر ثانٍ — MDH-019)؛ الهاتف/واتساب/العنوان تُعدّل في البيانات العامة؛ عبارة \"لا يغيّر GBP تلقائيًا\" تُستبدل: GBP يُحدّث بعد نشر الـOwner مع معاينة أثر تذكر GBP (MDH-025)، والاسم/العنوان/الـPin = MANUAL ACTION REQUIRED",
+   "type": "UPDATE",
+   "source": "M33 §21, §09",
+   "new_priority": "P0"
+  },
+  {
+   "id": "BRANCH-011",
+   "change": "فرع coming_soon/inactive لا يُرسل لأي قناة (Schema/GBP/مستقبلية) حتى التفعيل (MDH-005)",
+   "type": "UPDATE",
+   "source": "M33 §01"
+  },
+  {
+   "id": "BRANCH-018",
+   "change": "بعد البناء يصبح BRANCH DATA SYNC CHECK آليًا = OUT-OF-SYNC DETECTOR (MDH-029)؛ مفردات التصنيف تُحوّل لحالات M33 (MDH-026، G15-CF-08)؛ تشغيل SYNC-001 الاستكشافي اليدوي يبقى بانتظار PO-009",
+   "type": "UPDATE",
+   "source": "M33 §12, §10"
+  },
+  {
+   "id": "BRANCH-019",
+   "change": "محفزات التشغيل تبقى، ويُضاف: تلقائيًا بعد كل نشر للـMaster + فحص يومي (MDH-029)",
+   "type": "UPDATE",
+   "source": "M33 §12, §09"
+  },
+  {
+   "id": "BRANCH-020",
+   "change": "الاتساق بالبناء (مصدر واحد — MDH-018) ثم بالكشف؛ \"لا يُصحَّح تلقائيًا\" = لا اعتماد تلقائي لتغيير خارجي (MDH-024)؛ دفع قيمة نشرها الـOwner إلى GBP ليس تصحيحًا تلقائيًا بل تنفيذ نشره",
+   "type": "UPDATE",
+   "source": "M33 §15",
+   "new_priority": "P0"
+  },
+  {
+   "id": "HOURS-004",
+   "change": "ساعات المول المختلفة على GBP تظهر EXTERNAL CHANGE DETECTED بإجراءات Keep Master / Adopt / Review ولا تُعتمد تلقائيًا (MDH-024)",
+   "type": "UPDATE",
+   "source": "M33 §13"
+  },
+  {
+   "id": "HOURS-005",
+   "change": "M33 §6 يحسم البنية (Regular · Special · Holiday · Temporary Closure · Emergency Closure) ككيان مركزي واحد لكل القنوات ⇒ شرط البنية مرفوع والحالة ← FROZEN للبنية؛ تجربة UX فقط تبقى لمراجعة Wireframes (PO-007)",
+   "type": "UPDATE",
+   "source": "M33 §06",
+   "new_priority": "P0"
+  },
+  {
+   "id": "HOURS-006",
+   "change": "رمضان/العيد = استثناء Special/Holiday في hours_exceptions يُدفع لـGoogle كـspecialHours ويعود تلقائيًا بعد End Date (MDH-006/022)",
+   "type": "UPDATE",
+   "source": "M33 §06, §07"
+  },
+  {
+   "id": "HOURS-007",
+   "change": "الترتيب مجمّد بقرار الـOwner: Emergency Closure > Temporary Closure > Special/Holiday Hours > Regular Hours، ويطبق على الموقع وGoogle وSchema \"قدر الإمكان\" ⇒ الشرط (انتظار DB-18) مرفوع والحالة ← FROZEN (MDH-007)",
+   "type": "UPDATE",
+   "source": "M33 §07",
+   "new_priority": "P0"
+  },
+  {
+   "id": "HOURS-008",
+   "change": "محرر الساعات واحد (MDH-019)؛ \"لا يغيّر GBP تلقائيًا\" يُستبدل بمزامنة بعد نشر الـOwner مع معاينة أثر تذكر GBP (MDH-025)",
+   "type": "UPDATE",
+   "source": "M33 §21, §09"
+  },
+  {
+   "id": "HOURS-009",
+   "change": "الحالة تُحسب من effective_hours الواحدة (MDH-007) التي تخدم Schema وGBP أيضًا",
+   "type": "UPDATE",
+   "source": "M33 §07"
+  },
+  {
+   "id": "HOURS-012",
+   "change": "نفس تمثيل عبور منتصف الليل في الموقع والـSchema وGBP (closeDay = اليوم التالي) — MDH-022",
+   "type": "UPDATE",
+   "source": "M33 §07"
+  },
+  {
+   "id": "HOURS-013",
+   "change": "المقارنة تتم آليًا بالكاشف (MDH-029) ونموذج التغيير الخارجي (MDH-024)؛ عبارة \"GBP لا يتحدث تلقائيًا من الموقع\" (AR-07 §6) SUPERSEDED: GBP يُحدّث بعد نشر الـOwner (MDH-025)",
+   "type": "UPDATE",
+   "source": "M33 §13, §09"
+  },
+  {
+   "id": "CMS-003",
+   "change": "Menu CMS SSOT = كيان Menu في الـMaster Data Hub (نفس المخزن)؛ الموقع لا يحمل نسخة أسعار؛ نفس هوية PRD-* لكل القنوات (MDH-009/015)",
+   "type": "UPDATE",
+   "source": "M33 §04"
+  },
+  {
+   "id": "CMS-004",
+   "change": "المخزن الرئيسي الواحد = Master Data Hub؛ يُمنع محرر ثانٍ لنفس الحقيقة (MDH-019)",
+   "type": "UPDATE",
+   "source": "M33 §21"
+  },
+  {
+   "id": "CMS-012",
+   "change": "المكونات العامة تقرأ من الـMaster Data Hub (OPS-011 مدمج فيه — MDH-003)",
+   "type": "UPDATE",
+   "source": "M33 §01"
+  },
+  {
+   "id": "CMS-013",
+   "change": "نظام Special Hours = كيان Hours في الـHub بأولوية مجمّدة ومزامنة Google (MDH-006/007/022)",
+   "type": "UPDATE",
+   "source": "M33 §06"
+  },
+  {
+   "id": "CMS-014",
+   "change": "M33 حسم من بنود النقاش: الطبقات والأولوية (§6/§7) وسلوك GBP (مزامنة بعد النشر — §9)؛ المتبقي للنقاش = تجربة الواجهة فقط ضمن مراجعة Wireframes (PO-007)",
+   "type": "ANSWERS",
+   "source": "M33 §06, §07, §09"
+  },
+  {
+   "id": "CMS-025",
+   "change": "الفروع والساعات بلا كود عبر الـHub، ونفس الـcontrol قد يظهر في سياقات متعددة بمصدر واحد (MDH-019)",
+   "type": "UPDATE",
+   "source": "M33 §21"
+  },
+  {
+   "id": "CMS-030",
+   "change": "معلومات التواصل = Contact/Social registry في الـHub (MDH-008)",
+   "type": "UPDATE",
+   "source": "M33 §01"
+  },
+  {
+   "id": "CMS-032",
+   "change": "الإعدادات العامة (Global Website) جزء من الـHub (MDH-003)",
+   "type": "UPDATE",
+   "source": "M33 §01"
+  },
+  {
+   "id": "MENU-024",
+   "change": "M33 §5 يجمّد آلية الوراثة: Inherited / Overridden + Reset to Master لكل فرع (MDH-010)",
+   "type": "UPDATE",
+   "source": "M33 §05",
+   "new_priority": "P0"
+  },
+  {
+   "id": "MENU-027",
+   "change": "توفر كل فرع يُخزن كصف Override لكل منتج × فرع (product_branch_overrides) قابل لفروع مستقبلية؛ availability_drive/availability_house أسماء عرض للفرعين الحاليين (نفس المعنى)",
+   "type": "UPDATE",
+   "source": "M33 §05"
+  },
+  {
+   "id": "MENU-060",
+   "change": "المحرر يكتب في Menu Master؛ تغيير السعر يعرض THIS CHANGE WILL AFFECT (المنيو AR/EN، البطاقة، البحث، Schema Menu، القنوات المرتبطة) قبل النشر",
+   "type": "UPDATE",
+   "source": "M33 §04, §08"
+  },
+  {
+   "id": "MENU-061",
+   "change": "توفر الفرع يُعرض موروثًا/معدّلًا مع Reset to Master (MDH-010)",
+   "type": "UPDATE",
+   "source": "M33 §05"
+  },
+  {
+   "id": "PROD-007",
+   "change": "الحقلان يُمثلان كصفوف في external_references (channel = POS/ERP/DRIVE_SYSTEM) — آلية ربط واحدة؛ يبقيان فارغين (MDH-015، G15-CF-10)",
+   "type": "UPDATE",
+   "source": "M33 §22"
+  },
+  {
+   "id": "INT-013",
+   "change": "كما PROD-007: فارغان ويُمثلان عبر external_references (MDH-015)",
+   "type": "UPDATE",
+   "source": "M33 §22"
+  },
+  {
+   "id": "INT-016",
+   "change": "الجاهزية (stable IDs + Channel Adapters) أصبحت P0 الآن عبر MDH-014/015؛ التكاملات نفسها (POS/ERP/App/Delivery) تبقى مستقبلية P3",
+   "type": "UPDATE",
+   "source": "M33 §22"
+  },
+  {
+   "id": "INT-006",
+   "change": "تضاف Business Profile APIs (Business Information API v1 وAccount Management) للواجهات الرسمية؛ لا scraping لـGoogle Maps/GBP (MDH-020)",
+   "type": "UPDATE",
+   "source": "M33 §03"
+  },
+  {
+   "id": "INT-002",
+   "change": "محوّل GBP يستخدم Business Profile APIs المجانية (بطلب وصول) لا Places API المدفوع",
+   "type": "UPDATE",
+   "source": "M33 §03"
+  },
+  {
+   "id": "GBP-001",
+   "change": "التكامل يتم عبر Google Business Adapter مستقل (MDH-014/020)",
+   "type": "UPDATE",
+   "source": "M33 §03, §28"
+  },
+  {
+   "id": "GBP-003",
+   "change": "SUPERSEDED BY MDH-002 (M33 §23): GBP لم يعد OFFICIAL OPERATIONAL SOURCE؛ أصبح قناة تُزامَن من SHELTER MASTER DATA، ومصدر تحقق فقط للقيم غير المعتمدة أثناء الترحيل (MDH-035 خطوة 3) بحالة PENDING حتى تأكيد الـOwner",
+   "type": "SUPERSEDE",
+   "source": "M33 §23"
+  },
+  {
+   "id": "GBP-004",
+   "change": "الوسم \"CONFLICT — OWNER REVIEW REQUIRED\" يصبح تشغيليًا: EXTERNAL CHANGE DETECTED بالقيمتين وإجراءات Keep Master / Adopt External Change / Review (MDH-024)",
+   "type": "UPDATE",
+   "source": "M33 §13"
+  },
+  {
+   "id": "GBP-005",
+   "change": "الهاتف يُدفع من Contact registry (MDH-008) عبر phoneNumbers؛ أي اختلاف = OUT OF SYNC/EXTERNAL CHANGE",
+   "type": "UPDATE",
+   "source": "M33 §15"
+  },
+  {
+   "id": "GBP-006",
+   "change": "يبقى: منيو Google ليس مصدرًا أبدًا؛ foodMenus (v4) مستقبلًا محوّل دفع فقط من Menu Master بنفس PRD-* وبقرار منفصل (MDH-021)",
+   "type": "UPDATE",
+   "source": "M33 §04"
+  },
+  {
+   "id": "GBP-007",
+   "change": "AC-03 Read-only = نطاق الاستكشاف؛ مزامنة M33 تتطلب تفويضًا جديدًا: موافقة وصول API + OAuth business.manage بحساب Owner/Manager (PO-009، MDH-023)",
+   "type": "UPDATE",
+   "source": "M33 §03, §26"
+  },
+  {
+   "id": "GBP-008",
+   "change": "\"للتحقق فقط\" قيد مرحلة الاستكشاف؛ في P09 تُستخدم Business Information API الرسمية (مجانية بطلب وصول) للمزامنة؛ لا Places API (MDH-020)",
+   "type": "UPDATE",
+   "source": "M33 §03"
+  },
+  {
+   "id": "GBP-009",
+   "change": "الموافقة تتحقق بنشر الـOwner بعد Impact Preview تذكر GBP (MDH-025): Proposal = المعاينة · Approval = Publish · Change = المحوّل؛ الاسم/العنوان/الفئة/الـPin تأكيد إضافي أو يدوي؛ الوصف عبر Brand أو Channel override (MDH-030)؛ الصور خارج المزامنة (يدويًا بصور معتمدة فقط)",
+   "type": "UPDATE",
+   "source": "M33 §09, §08"
+  },
+  {
+   "id": "GBP-010",
+   "change": "التنفيذ الفعلي للاتساق عبر المحوّل والكاشف (MDH-020/029)، والحقول اليدوية بخطوات MANUAL ACTION REQUIRED",
+   "type": "UPDATE",
+   "source": "M33 §28"
+  },
+  {
+   "id": "GBP-011",
+   "change": "رابط Maps لكل فرع حقل maps_url في كيان الفرع (MDH-005)",
+   "type": "UPDATE",
+   "source": "M33 §01"
+  },
+  {
+   "id": "GBP-012",
+   "change": "الإحداثيات تُبذر مرة واحدة من Pin الـGBP الرسمي بعد تأكيد الـOwner ثم يصبح الـMaster المرجع؛ تغيير الـPin على Google = MANUAL ACTION REQUIRED؛ الاختلاف = OUT OF SYNC (G15-CF-04)",
+   "type": "UPDATE",
+   "source": "M33 §01, §23"
+  },
+  {
+   "id": "GBP-014",
+   "change": "ملفات Verified شرط لتفعيل المزامنة (MDH-023)",
+   "type": "UPDATE",
+   "source": "M33 §03"
+  },
+  {
+   "id": "SCHEMA-005",
+   "change": "\"متوافق مع GBP\" يتحقق لأن الاثنين مشتقان من الـMaster؛ أي اختلاف = OUT OF SYNC (MDH-017/029)",
+   "type": "UPDATE",
+   "source": "M33 §14"
+  },
+  {
+   "id": "SCHEMA-008",
+   "change": "كل قيم الأنواع تُقرأ من السجلات (Brand/Branch/Hours/Contact/Event/Menu) — لا إدخال يدوي (MDH-017)",
+   "type": "UPDATE",
+   "source": "M33 §14"
+  },
+  {
+   "id": "SCHEMA-010",
+   "change": "Schema Settings تقتصر على تفعيل/اختيار النوع وربط الكيان المعتمد؛ لا حقول قيم Business (اسم/هاتف/ساعات/عنوان) داخلها (G15-CF-06)",
+   "type": "UPDATE",
+   "source": "M33 §14"
+  },
+  {
+   "id": "SEO-008",
+   "change": "بيانات Local SEO لكل فرع من الـHub؛ الاتساق NAP بالبناء والكاشف (MDH-018/029)",
+   "type": "UPDATE",
+   "source": "M33 §15"
+  },
+  {
+   "id": "SEO-035",
+   "change": "حقول SEO التي تذكر اسم الفرع/الهاتف تستخدم Tokens من الـHub لا نصًا ثابتًا؛ المحرر لا يملك نسخة من بيانات الفرع (MDH-013/019)",
+   "type": "UPDATE",
+   "source": "M33 §15, §21"
+  },
+  {
+   "id": "AEO-003",
+   "change": "اتساق GBP ↔ الموقع يتحقق بالمحوّل والكاشف من الـMaster (MDH-020/029)",
+   "type": "UPDATE",
+   "source": "M33 §15"
+  },
+  {
+   "id": "AUDIT-001",
+   "change": "لتعديلات الـMaster يضاف: Channels affected · Sync result (ربط سطر الـAudit بـsync_jobs) — Who · What · Before · After · When · Channels affected · Sync result",
+   "type": "UPDATE",
+   "source": "M33 §16"
+  },
+  {
+   "id": "AUDIT-003",
+   "change": "تاريخ إلزامي لـ: Prices · Hours · Addresses · Contacts · Menu availability · Campaign data — متى تغيّرت و**لماذا** (حقل سبب اختياري/مطلوب للحساس)",
+   "type": "UPDATE",
+   "source": "M33 §17"
+  },
+  {
+   "id": "AUDIT-009",
+   "change": "تضاف العناوين وتوفر المنيو، وسبب التغيير (\"لماذا\")",
+   "type": "UPDATE",
+   "source": "M33 §17"
+  },
+  {
+   "id": "AUDIT-004",
+   "change": "Rollback لتغييرات الـMaster المهمة معتمد (M33 FROZEN): الاسترجاع ينشئ نسخة جديدة ثم مهام مزامنة لكل القنوات المتأثرة، ولا يكتمل حتى SYNCED أو عرض المشكلة؛ شروط \"الأمان\" تبقى قيودًا تقنية ⇒ الحالة ← FROZEN لبيانات الـMaster",
+   "type": "UPDATE",
+   "source": "M33 §18",
+   "new_priority": "P0"
+  },
+  {
+   "id": "AUDIT-010",
+   "change": "M33 §16 يكرر: السجل إلزامي \"حتى لو Owner هو المستخدم الوحيد حاليًا\"",
+   "type": "UPDATE",
+   "source": "M33 §16"
+  },
+  {
+   "id": "SEC-002",
+   "change": "يشمل رموز OAuth لـGoogle: مشفرة على الخادم، لا في الحزمة ولا Git ولا الـCMS، بدورة حياة آمنة (MDH-034)",
+   "type": "UPDATE",
+   "source": "M33 §26"
+  },
+  {
+   "id": "PERM-004",
+   "change": "كل إجراءات الـHub والمزامنة (Publish، Adopt، Rollback، فصل الحساب) تُفرض صلاحياتها من الخادم (Owner فقط V1)",
+   "type": "UPDATE",
+   "source": "M33 §26"
+  },
+  {
+   "id": "GOV-002",
+   "change": "ترتيب D-047 يبقى لتقييم القيم غير المعتمدة؛ بعد الاعتماد: SHELTER MASTER DATA > أي نسخة خارجية، والتعارض يُعرض EXTERNAL CHANGE DETECTED (MDH-002/024)",
+   "type": "UPDATE",
+   "source": "M33 §23"
+  },
+  {
+   "id": "GOV-060",
+   "change": "الموافقة على تغيير GBP تتحقق بنشر الـOwner بعد معاينة أثر تذكر GBP (MDH-025)؛ لا كتابة على Google من Staging أو قبل P09",
+   "type": "UPDATE",
+   "source": "M33 §09"
+  },
+  {
+   "id": "CAMP-004",
+   "change": "حقول الحملة/الفعالية العامة (active promotion · dates · branches · public copy) جزء من Events registry في الـHub = نفس كيان experiences (MDH-011)",
+   "type": "UPDATE",
+   "source": "M33 §01"
+  },
+  {
+   "id": "CAMP-007",
+   "change": "إعلان الإغلاق/الساعات الطارئ يُولّد من Emergency/Temporary Closure في كيان Hours (مصدر واحد للموقع وGBP وSchema) لا من نص حر منفصل (MDH-006/022)",
+   "type": "UPDATE",
+   "source": "M33 §06"
+  },
+  {
+   "id": "DX-037",
+   "change": "العزل عند الفشل يمتد لمحولات القنوات الخارجية (MDH-033)",
+   "type": "UPDATE",
+   "source": "M33 §27"
+  },
+  {
+   "id": "CONTACT-004",
+   "change": "التوزيع الرسمي مخزن كأدوار في Contact registry (MDH-008) ومنه كل الاستخدامات",
+   "type": "UPDATE",
+   "source": "M33 §01"
+  },
+  {
+   "id": "CONTACT-021",
+   "change": "tel:/WhatsApp/Schema تُولّد من القيمة الواحدة في الـHub (MDH-008)",
+   "type": "UPDATE",
+   "source": "M33 §15"
+  },
+  {
+   "id": "BRAND-001",
+   "change": "الاسمان مخزنان في كيان Brand (MDH-004) ومنه كل الاستخدامات وOrganization Schema",
+   "type": "UPDATE",
+   "source": "M33 §01"
+  },
+  {
+   "id": "ABOUT-003",
+   "change": "سنة التأسيس 2019 = Fact APPROVED في كيان Brand (MDH-004)؛ 2018/\"منذ 2022\" SUPERSEDED لا تُنشر",
+   "type": "UPDATE",
+   "source": "M33 §01"
+  },
+  {
+   "id": "ABOUT-004",
+   "change": "السنوية 20/04 في كيان Brand (MDH-004)",
+   "type": "UPDATE",
+   "source": "M33 §01"
+  },
+  {
+   "id": "D-048",
+   "change": "SUPERSEDED BY G15-ND-02 (M33 §23): GBP = قناة تُزامن من SHELTER MASTER DATA، لا Official Operational Source",
+   "type": "SUPERSEDE",
+   "source": "M33 §23"
+  },
+  {
+   "id": "GEP-§3",
+   "change": "SUPERSEDED (جزئيًا) BY G15-ND-02: وصف GBP كمصدر تشغيلي رسمي؛ تبقى قائمة الملفين الرسميين DRIVE/HOUSE (GBP-002)",
+   "type": "SUPERSEDE",
+   "source": "M33 §23"
+  },
+  {
+   "id": "D-047",
+   "change": "الترتيب يبقى لتقييم القيم غير المعتمدة أثناء Discovery؛ القيم المعتمدة في الـHub هي المرجع (G15-ND-02)",
+   "type": "UPDATE",
+   "source": "M33 §23"
+  },
+  {
+   "id": "D-049",
+   "change": "Branch Data Sync Check يصبح آليًا بعد البناء (MDH-029) بمفردات M33 (MDH-026)",
+   "type": "UPDATE",
+   "source": "M33 §12"
+  },
+  {
+   "id": "D-043",
+   "change": "\"للتحقق فقط\" قيد الاستكشاف؛ المزامنة عبر Business Information API (مجانية بطلب وصول) في P09 (G15-ND-03)",
+   "type": "UPDATE",
+   "source": "M33 §03"
+  },
+  {
+   "id": "D-028",
+   "change": "AC-03 Read-only = نطاق الاستكشاف؛ الكتابة بتفويض جديد في PO-009 (G15-CF-03)",
+   "type": "UPDATE",
+   "source": "M33 §03"
+  },
+  {
+   "id": "D-051",
+   "change": "تغيير GBP الحساس: Summary = Impact Preview · الموافقة = Publish (G15-ND-03)",
+   "type": "UPDATE",
+   "source": "M33 §09"
+  },
+  {
+   "id": "D-021",
+   "change": "البنية والأولوية حسمهما M33 (G15-ND-04)؛ نقاش الـUX فقط باقٍ (PO-007)",
+   "type": "UPDATE",
+   "source": "M33 §06, §07"
+  },
+  {
+   "id": "DB-18",
+   "change": "الجزء الخاص بنموذج البيانات والأولوية محسوم (G15-ND-04)؛ الـUX ضمن بوابة H",
+   "type": "ANSWERS",
+   "source": "M33 §06, §07"
+  },
+  {
+   "id": "D-085",
+   "change": "جاهزية C تتحقق عبر Channel Adapters + external_references (G15-ND-05)",
+   "type": "UPDATE",
+   "source": "M33 §22"
+  }
+ ],
+ "conflicts": [
+  {
+   "id": "G15-CF-01",
+   "topic": "سلطة البيانات: GBP = OFFICIAL OPERATIONAL SOURCE مقابل SHELTER MASTER DATA هو المصدر",
+   "old_instruction": "GBP الرسمي لكل فرع = OFFICIAL OPERATIONAL SOURCE (الاسم، العنوان، الـPin، Maps، الساعات، الخاصة، الهاتف، الموقع، التصنيف، الحالة) وأولوية 2 في Source Priority — لا يتغلب على بيانات الـOwner",
+   "old_source": "M11 §2–§5 (D-047, D-048, GEP §3) · GBP-003 · CF-M-080",
+   "new_instruction": "SHELTER Master Data = operational source of truth لكل المعلومات العامة؛ Default authority: MASTER > External channel copy إلا Adopt صريح؛ Google لا يكتب فوق الـMaster",
+   "new_source": "M33 §23, §13, §30",
+   "winner": "M33 (G15-ND-02): GBP قناة تُزامن من الـMaster ومصدر تحقق للقيم غير المعتمدة فقط؛ D-048 وGBP-003 وGEP §3 (الوصف) = SUPERSEDED؛ D-047 يبقى لتقييم غير المعتمد",
+   "why": "أحدث قرار Owner صريح ومجمّد (FROZEN)؛ لا يناقض جوهر M11 لأن M11 نفسه جعل بيانات الـOwner أعلى من GBP — M33 يجعل تلك البيانات نظامًا (Hub)",
+   "impact": "GBP-003 (SUPERSEDED) · D-048 (SUPERSEDED) · GOV-002 · D-047 · MDH-002 · CF-M-080",
+   "files": [
+    "docs/governance/DECISION-LOG.md (D-048)",
+    "docs/google/GOOGLE-BUSINESS-PROFILE-SOURCE-OF-TRUTH.md",
+    "docs/google/GOOGLE-ECOSYSTEM-POLICY.md §3",
+    "docs/google/BRANCH-DATA-SYNC.md",
+    "docs/FINAL-ARCHITECTURE-REVIEW.md §6 AC-1"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "id": "G15-CF-02",
+   "topic": "لا تعديل لـGBP بلا موافقة / \"GBP لا يتحدث تلقائيًا من الموقع\" مقابل المزامنة الآلية",
+   "old_instruction": "لا تعديل لأي GBP بدون موافقة: Proposal → Owner Approval → Change (GBP-009، GEP §44، D-051)؛ DO NOT CHANGE GOOGLE DATA WITHOUT OWNER APPROVAL (GOV-060)؛ \"GBP لا يتحدث تلقائيًا من الموقع\" (AR-07 §6 في HOURS-005/008/013، BRANCH-010، MON-013، CMS-014)",
+   "old_source": "M11 §44 · §57 · M12 (D-051) · AR-07 · CF-M-031 · CF-M-118",
+   "new_instruction": "OWNER EDIT → VALIDATE → IMPACT PREVIEW (تذكر GBP) → OWNER PUBLISH → … → SYNC EXTERNAL CHANNELS → VERIFY → SHOW STATUS",
+   "new_source": "M33 §08, §09, §30",
+   "winner": "نشر الـOwner في الـDashboard بعد Impact Preview تذكر Google Business Profile = موافقته على تحديث GBP (MDH-025)؛ Proposal = المعاينة، Approval = Publish، Change = المحوّل. الحالات الحساسة (إغلاق مؤقت، فئة، Rollback، Adopt) بتأكيد إضافي/إعادة هوية؛ الاسم/العنوان/الـPin يدوي. عبارة \"GBP لا يتحدث تلقائيًا من الموقع\" SUPERSEDED",
+   "why": "تدفق M33 §9 نفسه يضع OWNER PUBLISH قبل SYNC EXTERNAL CHANNELS ⇒ الموافقة محفوظة ومُدمجة في النشر؛ هدف M33 §30 (\"نسيت Google\") يمنع خطوة موافقة ثانية منفصلة",
+   "impact": "GBP-009 · GOV-060 · D-051 · HOURS-005/008/013 · BRANCH-010 · CMS-014 · MDH-025",
+   "files": [
+    "docs/google/GOOGLE-ECOSYSTEM-POLICY.md §44",
+    "docs/google/GOOGLE-BUSINESS-PROFILE-SOURCE-OF-TRUTH.md",
+    "docs/phase-01-discovery/09-architecture-options-after-r1.md AR-07",
+    "docs/FINAL-ARCHITECTURE-REVIEW.md §6 AC-1"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "id": "G15-CF-03",
+   "topic": "صلاحية GBP: AC-03 Read-only مقابل مزامنة كتابة",
+   "old_instruction": "AC-03 Google Business Profile: موافقة على Read-only information فقط (GBP-007، D-028)",
+   "old_source": "M04 (D-028)",
+   "new_instruction": "اربط GBP عبر Official API \"عندما يكون ذلك ممكنًا ومصرحًا به\" وزامن الهاتف والساعات والإغلاق المؤقت والرابط والسمات",
+   "new_source": "M33 §03",
+   "winner": "AC-03 يبقى نطاق الاستكشاف (P01)؛ الكتابة تحتاج تفويضًا جديدًا صريحًا: موافقة طلب وصول API + OAuth business.manage بحساب Owner/Manager (PO-009) — حتى ذلك PENDING INTEGRATION (MDH-023)",
+   "why": "M33 نفسه يشترط \"مصرحًا به\" ⇒ لا يمنح الصلاحية ضمنيًا؛ والتفويض من اختصاص الـOwner (PERM-009)",
+   "impact": "GBP-007 · D-028 · MDH-023 · PO-009",
+   "files": [
+    "docs/phase-01-discovery/08-access-requests.md",
+    "docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "id": "G15-CF-04",
+   "topic": "الإحداثيات: \"من ملف GBP الرسمي — لا Pin يدوي\" مقابل map location في الـMaster",
+   "old_instruction": "لا Pin يدوي إذا كان GBP الرسمي موجودًا؛ الإحداثيات/الموقع من الملف الرسمي (GBP-012، GEP §34)",
+   "old_source": "M11 §34",
+   "new_instruction": "BRANCHES تشمل map location في الـMaster، والسلطة للـMaster",
+   "new_source": "M33 §01, §23",
+   "winner": "تُبذر الإحداثيات مرة واحدة من Pin الـGBP الرسمي بعد تأكيد الـOwner (لا Pin مخترع — روح GBP-012) ثم يصبح الـMaster المرجع؛ تغيير الـPin على Google = MANUAL ACTION REQUIRED، والاختلاف OUT OF SYNC",
+   "why": "الجمع يحفظ القاعدتين: لا اختراع للموقع الجغرافي، ومصدر واحد بعد الاعتماد",
+   "impact": "GBP-012 · MDH-005 · MDH-021",
+   "files": [
+    "docs/google/GOOGLE-ECOSYSTEM-POLICY.md §34"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "id": "G15-CF-05",
+   "topic": "بنية الساعات وأولويتها: مشروطة/بانتظار النقاش مقابل M33 FROZEN",
+   "old_instruction": "HOURS-005 وHOURS-007 = APPROVED WITH CONDITIONS؛ الترتيب التفصيلي ينتظر اعتماد DB-18؛ مقترح AR-07 بلا مستوى طارئ (مؤقت ← خاص ← عادي)؛ CMS-014: نقاش UX والـCMS قبل التنفيذ (D-021)",
+   "old_source": "M04 (D-021) · M23 (M23-121/122، SPEC §9.4) · 09 AR-07 · DB-18",
+   "new_instruction": "Hours كيان مركزي (Regular · Special · Holiday · Temporary · Emergency) والأولوية Emergency > Temporary > Special/Holiday > Regular لكل القنوات",
+   "new_source": "M33 §06, §07",
+   "winner": "M33: البنية والأولوية مجمّدتان (G15-ND-04) — يُرفع شرط HOURS-005/007 وجزء البيانات من DB-18/CMS-014؛ تجربة واجهة المحرر فقط تبقى لمراجعة Wireframes (PO-007)",
+   "why": "قرار Owner لاحق صريح؛ يطابق ترتيب SPEC §9.4 المقترح سابقًا ويضيف مستوى الطوارئ لـAR-07",
+   "impact": "HOURS-005 · HOURS-007 · CMS-014 · D-021 · DB-18 · MDH-006 · MDH-007",
+   "files": [
+    "docs/phase-01-discovery/09-architecture-options-after-r1.md AR-07",
+    "docs/menu-ia/SHELTER-MENU-IA-SPEC.md §9.4",
+    "docs/governance/DECISION-LOG.md (DB-18)"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "id": "G15-CF-06",
+   "topic": "Schema Settings في الـDashboard مقابل \"لا Data Entry مستقل للـSchema\"",
+   "old_instruction": "Schema Settings لكل صفحة وSchema fields حسب نوع المحتوى داخل الـSEO Editor (SCHEMA-010)",
+   "old_source": "M25 (SCHEMA-010)",
+   "new_instruction": "Structured Data لا يكون له Data Entry مستقل؛ يأخذ من Brand/Branch/Hours/Contact/Event Registries",
+   "new_source": "M33 §14",
+   "winner": "SCHEMA-010 يقتصر على الإعدادات (تفعيل/اختيار النوع، ربط الكيان المعتمد) بلا حقول قيم Business؛ القيم كلها من السجلات (MDH-017)",
+   "why": "تفاصيل SCHEMA-010 نفسها تقول \"الحقول تسحب من البيانات المعتمدة\" ⇒ التعارض لفظي ويُحسم بالتمييز بين الإعداد والقيمة",
+   "impact": "SCHEMA-010 · MDH-017",
+   "files": [],
+   "status": "RESOLVED"
+  },
+  {
+   "id": "G15-CF-07",
+   "topic": "بيانات مكررة في المستودع (ساعات/تواصل/حقائق العلامة) مقابل \"لا Hardcode — مصدر واحد\"",
+   "old_instruction": "القيم مكتوبة في وثائق وأدوات متعددة: الساعات في 15 ملفًا (D-020، SPEC §9، hours_logic_check.py قاموس REGULAR، مولّدات الـWireframes، وثائق Google، 03/04/09/15)، أرقام التواصل في 15 ملفًا، حقائق العلامة في 17 ملفًا",
+   "old_source": "MASTER-DATA-HUB.md §1 (تدقيق التكرار) · الحالة الفعلية للمستودع",
+   "new_instruction": "لا hardcode ساعات العمل داخل صفحات منفصلة؛ لا تكرار Hardcoded لـNAP/الساعات؛ مصدر واحد",
+   "new_source": "M33 §06, §15, §21",
+   "winner": "لا تعارض قيم داخلي (القيم المعتمدة متسقة في كل الوثائق — فُحص: 07:00–02:00 / 08:00–02:00 / 09:00–22:00 / 09:00–23:00)؛ يُحسم بخطة الترحيل (MDH-035): البذرة مصدر واحد، والأدوات تقرأ منها، والوثائق إحالات وD-020 سجل قرار تاريخي. قيم الأدلة الخارجية المتعارضة تبقى CF-M-018 / PO-041",
+   "why": "القاعدة الجديدة تخص الصيانة لا القيم؛ لا قرار Business مطلوب",
+   "impact": "MDH-006 · MDH-035 · OPS-012 · CF-M-018 · PO-041",
+   "files": [
+    "docs/menu-ia/evidence/hours_logic_check.py",
+    "docs/dashboard/wireframes/tools/build.py",
+    "docs/MASTER-DATA-HUB.md §1"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "id": "G15-CF-08",
+   "topic": "BRANCH DATA SYNC اليدوي ومفرداته + فحص GBP الدوري المؤجل مقابل كاشف M33 وحالاته",
+   "old_instruction": "BRANCH DATA SYNC CHECK بتصنيف MATCH · MISMATCH — WEBSITE OUTDATED · MISMATCH — GOOGLE OUTDATED · CONFLICT — OWNER REVIEW REQUIRED · MISSING وتقرير Source A/B (BRANCH-018/019، D-049)؛ الفحص الدوري لـGBP مستقبلي DEFERRED P2 (MON-013)",
+   "old_source": "M11 §7–§8, §45 · M12",
+   "new_instruction": "SYNCED · PENDING · FAILED · NOT SUPPORTED · MANUAL ACTION REQUIRED · OUT OF SYNC + OUT-OF-SYNC DETECTOR دوري (P0)",
+   "new_source": "M33 §10, §12",
+   "winner": "مفردات M33 هي مفردات التشغيل (MDH-026) بتحويل موثق للقديمة؛ MON-013 SUPERSEDED بـMDH-029 (P0)؛ تشغيل SYNC-001 الاستكشافي اليدوي يبقى كتقرير تاريخي",
+   "why": "أحدث وأشمل؛ المبدأ نفسه (لا تغيير تلقائي، الـOwner يقرر) محفوظ",
+   "impact": "BRANCH-018 · BRANCH-019 · MON-013 (SUPERSEDED) · D-049 · MDH-026 · MDH-029",
+   "files": [
+    "docs/google/BRANCH-DATA-SYNC.md"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "id": "G15-CF-09",
+   "topic": "خطر نظامين: SHELTER GLOBAL DATA REGISTRY (M32) مقابل SHELTER MASTER DATA HUB (M33)",
+   "old_instruction": "SHELTER GLOBAL DATA REGISTRY = Single Source of Truth للبيانات المتكررة (Brand · Contacts · Branches · Social · Global Website) + docs/GLOBAL-DATA-REGISTRY.md",
+   "old_source": "M32 §02 (OPS-011، OPS-008)",
+   "new_instruction": "SHELTER MASTER DATA HUB = المصدر الرئيسي للمعلومات العامة (Brand · Branches · Menu · Contact · Events)",
+   "new_source": "M33 §01",
+   "winner": "نظام واحد: الـGlobal Data Registry مدمج في الـMaster Data Hub (MERGE — OPS-011 يبقى متطلبًا ويتحقق عبر MDH-003)؛ الوثيقة المطلوبة قسم داخل MASTER-DATA-HUB.md",
+   "why": "ONE SOURCE OF TRUTH (M32 §47 نفسه يمنع \"second fact source\") وM33 الأحدث يشمل نطاق M32 بالكامل",
+   "impact": "OPS-011 · OPS-008 · OPS-002 · MDH-003 · G15-ND-07",
+   "files": [
+    "docs/MASTER-DATA-HUB.md (ترويسة)",
+    "docs/FINAL-ARCHITECTURE-REVIEW.md §5"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "id": "G15-CF-10",
+   "topic": "آليتا ربط خارجي: pos_item_id / external_item_id مقابل external_references",
+   "old_instruction": "حقلا pos_item_id وexternal_item_id ثابتان وفارغان لكل صنف (PROD-007، INT-013، D-121)",
+   "old_source": "M15/M19 (D-077، D-102، D-121)",
+   "new_instruction": "stable IDs لكل القنوات المستقبلية؛ نفس Product Identity؛ لا Product لكل Channel",
+   "new_source": "M33 §04, §22",
+   "winner": "external_references جدول الربط الوحيد لكل الكيانات والقنوات؛ الحقلان يُمثلان كصفوف (channel = POS/ERP) — نفس المعنى، تفصيل تقني موثق (قاعدة M23 §56)",
+   "why": "قرار تقني يحفظ المعنى ويمنع آليتين لنفس الوظيفة",
+   "impact": "PROD-007 · INT-013 · MDH-015",
+   "files": [
+    "docs/phase-01-discovery/17-menu-data-model-draft.md",
+    "docs/architecture/PLATFORM-ARCHITECTURE.md §3.2"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "id": "G15-CF-11",
+   "topic": "مرشحات المزامنة (الاسم \"where allowed\" · العنوان) مقابل سياسة MANUAL ACTION REQUIRED",
+   "old_instruction": "Sync candidates تشمل: branch name where allowed · address",
+   "old_source": "M33 §03",
+   "new_instruction": "التصنيف التقني: الاسم والعنوان والـPin = MANUAL ACTION REQUIRED لأن تغييرها عبر الـAPI قد يطلق إعادة تحقق/مراجعة من Google",
+   "new_source": "MASTER-DATA-HUB.md §5 (توصية Claude)",
+   "winner": "الافتراضي MANUAL (آمن وقابل للعكس)؛ الـAPI يُعرض \"GOOGLE SUPPORTED? = YES\" والـOwner يستطيع تغيير SYNC DIRECTION لكل حقل من المصفوفة (قرار مسجل) — لا يُغلق الخيار",
+   "why": "M33 §3 نفسه \"لا تفترض أن كل field يمكن تعديله\" ويقبل Manual Action؛ تفصيل تقني لا يمنع أي قرار Business ويحفظ تحكم الـOwner",
+   "impact": "MDH-021 · GBP-009",
+   "files": [
+    "docs/MASTER-DATA-HUB.md §5",
+    "docs/MASTER-DATA-HUB.md §8"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "id": "G15-CF-12",
+   "topic": "المزامنة الحية (ومنها websiteUri) مقابل بوابات Google والإنتاج",
+   "old_instruction": "ممنوع تغيير أي Google property/configuration في المرحلة الحالية (GOOGLE-008)؛ لا URLs/Redirects/SEO changes على Production الآن (SEO-015)؛ لا تغيير live Google setup بلا حاجة وموافقة (M36 §11)؛ تحديث حقل الموقع في GBP بموافقة (PO-041)",
+   "old_source": "M11/M12 (GOOGLE-008) · M10 (SEO-015) · M36 §11",
+   "new_instruction": "زامن website URL والهاتف والساعات… مع GBP عبر المحوّل",
+   "new_source": "M33 §03, §09",
+   "winner": "الترتيب الزمني تحكمه البوابات: Staging = dry-run فقط (diff + validateOnly)؛ أول كتابة حية في P09 بموافقة الـOwner (MDH-035 خطوة 6)؛ websiteUri عند الإطلاق P11 فقط بعد تجميد الروابط والـHost",
+   "why": "M33 لا يلغي بوابات الإنتاج؛ القدرة تُبنى، والتفعيل بالبوابة",
+   "impact": "MDH-020 · MDH-023 · MDH-035 · GOOGLE-008 · SEO-015 · PO-041",
+   "files": [
+    "CLAUDE.md (Production safety)",
+    "docs/IMPLEMENTATION-PLAN.md"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "id": "G15-CF-13",
+   "topic": "Rollback: \"إذا كان آمنًا\" APPROVED WITH CONDITIONS P1 مقابل M33 FROZEN P0 مع إعادة مزامنة",
+   "old_instruction": "Restore / Revert لنسخة سابقة — إذا كان آمنًا (AUDIT-004، APPROVED WITH CONDITIONS، P1)",
+   "old_source": "M25 (AUDIT-004)",
+   "new_instruction": "Owner يستطيع Rollback تغييرات مهمة إلى نسخة سابقة؛ External channels يُعاد Sync لها بعد Rollback",
+   "new_source": "M33 §18",
+   "winner": "Rollback بيانات الـMaster = FROZEN P0 (AUDIT-004 new_priority P0)؛ تعريف \"آمن\" يبقى قيودًا تقنية (لا كسر مرجع، نسخة جديدة لا محو)؛ الاسترجاع يُنشئ مهام مزامنة ولا يكتمل حتى SYNCED",
+   "why": "قرار Owner لاحق صريح أعلى أولوية؛ الشرط التقني لا يناقضه",
+   "impact": "AUDIT-004 · MDH-025 · MDH-028",
+   "files": [],
+   "status": "RESOLVED"
+  }
+ ],
+ "new_decisions": [
+  {
+   "temp_id": "G15-ND-01",
+   "area": "47 Master Data & Channel Sync",
+   "decision": "SHELTER UNIFIED MASTER DATA + CHANNEL SYNC (M33 — OWNER APPROVED · FROZEN REQUIREMENT · P0 · CORE ARCHITECTURE): ONE SOURCE OF TRUTH → MULTIPLE CHANNELS؛ SHELTER MASTER DATA HUB داخل الـOwner Dashboard = operational source of truth لكل المعلومات العامة (BRAND · BRANCHES · HOURS · MENU · CONTACT · EVENTS/CAMPAIGNS)؛ كل قناة (Website · GBP/Maps · Schema · SEO metadata · Branch/Contact/Menu pages · Event surfaces · POS/ERP/ordering/منصات مستقبلية) تقرأ منه أو تُدفع إليها عبر Channel Adapters مستقلة (لا spaghetti) وبمعرفات ثابتة؛ الـOwner يعدّل مرة واحدة؛ المخرج الأول 14 بندًا قبل التنفيذ؛ ترحيل من المصادر الحالية",
+   "sources": [
+    "M33 §00",
+    "M33 §01",
+    "M33 §02",
+    "M33 §22",
+    "M33 §28",
+    "M33 §29",
+    "M33 §30"
+   ],
+   "status": "FROZEN",
+   "reason": "رسالة Owner موسومة صراحة OWNER APPROVED · FROZEN REQUIREMENT · P0 · CORE ARCHITECTURE",
+   "impact": "MDH-001…MDH-036 · OPS-011 (MERGE) · CMS-003/012/025/030/032 · BRANCH-009/010 · INT-016"
+  },
+  {
+   "temp_id": "G15-ND-02",
+   "area": "47 Master Data & Channel Sync",
+   "decision": "سلطة المصدر: SHELTER MASTER DATA > External channel copy إلا إذا اختار الـOwner صراحة Adopt external change؛ Google لا يكتب فوق الـMaster تلقائيًا. يحل محل D-048 (GBP = OFFICIAL OPERATIONAL SOURCE) ووصف GEP §3؛ D-047 يبقى لتقييم القيم غير المعتمدة فقط",
+   "sources": [
+    "M33 §13",
+    "M33 §23",
+    "M33 §30"
+   ],
+   "status": "FROZEN",
+   "reason": "M33 §23 SOURCE AUTHORITY — أحدث قرار Owner صريح",
+   "impact": "D-048 → SUPERSEDED · GBP-003 → SUPERSEDED · GOV-002 · D-047 · MDH-002 · MDH-024"
+  },
+  {
+   "temp_id": "G15-ND-03",
+   "area": "47 Master Data & Channel Sync",
+   "decision": "مزامنة GBP عبر Official API / supported integration فقط (لا scraping) وعند التصريح؛ Capability Matrix لكل حقل (FIELD · MASTER VALUE · GOOGLE SUPPORTED? · SYNC DIRECTION · LAST SYNC · STATUS · ERROR) وغير المدعوم = MANUAL ACTION REQUIRED؛ تدفق النشر OWNER EDIT → VALIDATE → IMPACT PREVIEW → OWNER PUBLISH → SAVE MASTER DATA → UPDATE WEBSITE → SYNC EXTERNAL CHANNELS → VERIFY → SHOW STATUS؛ نشر الـOwner بعد معاينة أثر تذكر GBP = موافقته على تحديث GBP (يحقق GBP-009/GOV-060)",
+   "sources": [
+    "M33 §03",
+    "M33 §08",
+    "M33 §09"
+   ],
+   "status": "FROZEN",
+   "reason": "M33 §3/§8/§9 — التدفق نفسه يضع OWNER PUBLISH قبل SYNC EXTERNAL CHANNELS",
+   "impact": "MDH-020…MDH-025 · GBP-007/008/009 · GOV-060 · D-043 · D-051 · OPS-015/016"
+  },
+  {
+   "temp_id": "G15-ND-04",
+   "area": "47 Master Data & Channel Sync",
+   "decision": "Hours كيان مركزي لكل فرع (Regular · Special · Holiday · Temporary Closure · Emergency Closure) ومصدر جدول واحد للموقع وGoogle وSchema، بلا ساعات Hardcoded؛ الأولوية Emergency Closure > Temporary Closure > Special/Holiday Hours > Regular Hours وتنعكس في القنوات \"قدر الإمكان\" — يرفع شرط HOURS-005/HOURS-007 ويحسم جزء البيانات من DB-18/CMS-014 (UX باقٍ لبوابة H)",
+   "sources": [
+    "M33 §06",
+    "M33 §07"
+   ],
+   "status": "FROZEN",
+   "reason": "M33 §6/§7 صريحان",
+   "impact": "HOURS-005/006/007/008/009/012/013 · CMS-013/014 · D-021 · DB-18 · MDH-006/007/022"
+  },
+  {
+   "temp_id": "G15-ND-05",
+   "area": "47 Master Data & Channel Sync",
+   "decision": "المنيو Master واحد والموقع لا يحمل نسخة أسعار؛ نفس Product Identity لكل القنوات المستقبلية (POS/ERP/Google/Delivery) بلا Product لكل Channel؛ Branch overrides صريحة تُعرض Inherited / Overridden مع Reset to Master؛ Channel-specific overrides (مثل Google Description Override) موثقة ومدققة وقابلة للعكس ولا تغيّر الـMaster",
+   "sources": [
+    "M33 §04",
+    "M33 §05",
+    "M33 §22",
+    "M33 §24"
+   ],
+   "status": "FROZEN",
+   "reason": "M33 §4/§5/§22/§24",
+   "impact": "MDH-009/010/015/030 · MENU-024/027/060/061 · PROD-007 · INT-013/016 · D-085"
+  },
+  {
+   "temp_id": "G15-ND-06",
+   "area": "47 Master Data & Channel Sync",
+   "decision": "تشغيل المزامنة: حالات SYNCED · PENDING · FAILED · NOT SUPPORTED · MANUAL ACTION REQUIRED · OUT OF SYNC مع Last Sync / Last Successful Sync / Error / Retry؛ لا فشل صامت (تنبيه بالسبب وRetry/Review)؛ كاشف اتساق دوري Master ↔ Website ↔ GBP ↔ Schema؛ EXTERNAL CHANGE DETECTED بإجراءات Keep Master / Adopt External Change / Review؛ شاشة DATA CONSISTENCY بلغة الـOwner؛ Needs Attention (Google hours out of sync · menu price differs · schema old phone · branch missing special hours · failed sync · expired token)؛ الرموز Server-side بدورة حياة آمنة؛ فشل أي تكامل لا يكسر الموقع؛ Audit (Who · What · Before · After · When · Channels affected · Sync result) حتى مع مستخدم واحد؛ تاريخ الأسعار والساعات والعناوين والتواصل وتوفر المنيو والحملات (متى ولماذا)؛ Rollback مع إعادة المزامنة",
+   "sources": [
+    "M33 §10",
+    "M33 §11",
+    "M33 §12",
+    "M33 §13",
+    "M33 §16",
+    "M33 §17",
+    "M33 §18",
+    "M33 §19",
+    "M33 §20",
+    "M33 §25",
+    "M33 §26",
+    "M33 §27"
+   ],
+   "status": "FROZEN",
+   "reason": "M33 §10–§13، §16–§20، §25–§27",
+   "impact": "MDH-024…MDH-034 · AUDIT-001/003/004/009/010 · MON-007 · MON-013 (SUPERSEDED) · DASH-017/023/034 · SEC-002 · OPS-035/048"
+  },
+  {
+   "temp_id": "G15-ND-07",
+   "area": "47 Master Data & Channel Sync",
+   "decision": "دمج SHELTER GLOBAL DATA REGISTRY (M32 — OPS-011) في SHELTER MASTER DATA HUB (M33): نظام واحد؛ الـRegistry = جزء العلامة/التواصل/السوشال/الموقع العام من الـHub، والـFact Registry طبقة تحقق فوقه؛ لا مخزن ولا شاشة ولا وثيقة ثانية",
+   "sources": [
+    "M33 §01",
+    "M32 §02",
+    "M32 §47"
+   ],
+   "status": "APPROVED",
+   "reason": "تطبيق قاعدة الـOwner ONE SOURCE OF TRUTH (M32 §47 \"no second fact source\"، M33 §0) على نظامين متداخلين — ليس قرار Business جديدًا",
+   "impact": "OPS-011 (MERGE) · OPS-002 · OPS-008 · MDH-003"
+  },
+  {
+   "temp_id": "G15-ND-08",
+   "area": "47 Master Data & Channel Sync",
+   "decision": "لا محررات مكررة: نفس الـcontrol قد يظهر في أكثر من سياق (الفرع، الـSEO، إعدادات Google) لكن Data Source واحد؛ الـStructured Data بلا Data Entry مستقل (مشتق من Brand/Branch/Hours/Contact/Event Registries)؛ NAP والساعات متسقة عبر Website/Schema/GBP/Contact بلا تكرار Hardcoded",
+   "sources": [
+    "M33 §14",
+    "M33 §15",
+    "M33 §21"
+   ],
+   "status": "FROZEN",
+   "reason": "M33 §14/§15/§21",
+   "impact": "MDH-013/017/018/019 · SCHEMA-005/008/010 · SEO-008/035 · BRANCH-010/020 · HOURS-008 · CMS-004/025"
+  }
+ ],
+ "pending_owner": [
+  {
+   "id": "PO-009",
+   "item": "↻ M33: مزامنة Google Business Profile (الهاتف · الساعات · الساعات الخاصة · الإغلاق المؤقت · رابط الموقع · السمات) تحتاج منك فقط: (1) الموافقة على تقديم طلب وصول Business Profile APIs لمشروع SHELTER على Google Cloud (مجاني بلا فوترة؛ الحصة صفر حتى موافقة Google — نفس الطلب يخدم Reputation في M32)، (2) تسجيل دخول OAuth بحساب له دور Owner/Manager على الفرعين بنطاق business.manage (النطاق الوحيد المتاح ويشمل الكتابة — التطبيق يبدأ بوضع قراءة/مقارنة حتى تفعّل الدفع)، (3) تأكيد أن الملفين Verified ومن المالكون/المديرون (السؤال القائم). حتى ذلك: GBP = PENDING INTEGRATION والموقع يعمل من الـMaster",
+   "category": "BLOCKING",
+   "type": "ACCESS",
+   "blocks": "تفعيل محوّل GBP والكاشف (MDH-020…024، MDH-029) في P09 — البناء لا يتوقف",
+   "refs": [
+    "MDH-023",
+    "MDH-020",
+    "GBP-007",
+    "GBP-014",
+    "G15-CF-03",
+    "M33 §03",
+    "M33 §26"
+   ],
+   "count": "",
+   "notes": "إضافة على البند القائم — ليست سؤالًا جديدًا"
+  },
+  {
+   "id": "PO-010",
+   "item": "↻ M33: لا سؤال جديد — العنوان التفصيلي AR/EN (عنوان DRIVE متضارب CF-M-019) وروابط Maps والإحداثيات واسم المول تدخل الـMaster بحالة PENDING ولا تُنشر حتى تأكيدك؛ بعد التأكيد: تغيير الاسم/العنوان/الـPin على Google = MANUAL ACTION REQUIRED بخطوات واضحة",
+   "category": "BLOCKING",
+   "type": "VERIFICATION NEEDED",
+   "blocks": "صفحات الفروع وSchema LocalBusiness ومزامنة NAP (MDH-005، MDH-018)",
+   "refs": [
+    "MDH-005",
+    "MDH-021",
+    "BRANCH-005",
+    "GBP-013",
+    "M33 §01"
+   ],
+   "count": "",
+   "notes": "إضافة على البند القائم — ليست سؤالًا جديدًا"
+  },
+  {
+   "id": "PO-007",
+   "item": "↻ M33: مراجعة بوابة H تشمل شاشات الـMaster Data Hub: DATA CONSISTENCY (Website/Google/Schema/Menu ✓/⚠) · Capability matrix لكل فرع · حوار EXTERNAL CHANGE DETECTED (Keep Master / Adopt / Review) · Inherited / Overridden / Reset to Master في المنتج والفرع · Channel override (وصف Google) · عمود القنوات في معاينة الأثر · نتيجة النشر لكل قناة — ومراجعة docs/MASTER-DATA-HUB.md (DRAFT — PENDING OWNER REVIEW)",
+   "category": "BLOCKING",
+   "type": "BUSINESS DECISION",
+   "blocks": "بناء شاشات الـHub (P08)",
+   "refs": [
+    "MDH-010",
+    "MDH-019",
+    "MDH-021",
+    "MDH-024",
+    "MDH-030",
+    "MDH-031",
+    "MDH-036",
+    "M33 §19",
+    "M33 §29"
+   ],
+   "count": "",
+   "notes": "إضافة على البند القائم — ليست سؤالًا جديدًا"
+  },
+  {
+   "id": "PO-025",
+   "item": "↻ M33: سياسة الساعات الخاصة (رمضان، الأعياد، العطل الرسمية، من يبلغ وقبل كم يومًا، الإغلاق المفاجئ) تغذي مراقب \"فرع بلا ساعات خاصة لمناسبة قادمة\"، والخدمات المؤكدة (YES فقط) تُرسل كسمات GBP — لا سؤال جديد",
+   "category": "NON-BLOCKING",
+   "type": "CONTENT NEEDED",
+   "blocks": "مراقب Branch missing special hours وسمات GBP (MDH-032، MDH-020)",
+   "refs": [
+    "MDH-032",
+    "MDH-020",
+    "BRANCH-012",
+    "M33 §25"
+   ],
+   "count": "",
+   "notes": "إضافة على البند القائم — ليست سؤالًا جديدًا"
+  },
+  {
+   "id": "PO-016",
+   "item": "↻ M33: الجملة/الأوصاف الرسمية للعلامة (AR/EN، قصير/طويل) هي official descriptions في كيان BRAND ومنها وصف Google ما لم تختر Override — لا سؤال جديد",
+   "category": "BLOCKING",
+   "type": "BUSINESS DECISION",
+   "blocks": "Organization Schema ووصف GBP (MDH-004، MDH-030)",
+   "refs": [
+    "MDH-004",
+    "MDH-030",
+    "M33 §01",
+    "M33 §24"
+   ],
+   "count": "",
+   "notes": "إضافة على البند القائم — ليست سؤالًا جديدًا"
+  },
+  {
+   "id": "PO-041",
+   "item": "↻ M33: تصحيحات GBP تتم بعد الوصول عبر أول مزامنة (خطوة الترحيل 6) بعد قراراتك على الاختلافات (Keep / Adopt)، وحقل الموقع في GBP عند الإطلاق فقط؛ الأدلة الخارجية (TripAdvisor، findglocal، mat3am، arabplaces، Cybo) بلا API = قائمة MANUAL ACTION REQUIRED في شاشة الاتساق، بلا scraping",
+   "category": "NON-BLOCKING",
+   "type": "BUSINESS DECISION",
+   "blocks": "اتساق NAP خارج الموقع (MDH-013، MDH-035)",
+   "refs": [
+    "MDH-013",
+    "MDH-035",
+    "G15-CF-12",
+    "CF-M-018",
+    "M33 §15"
+   ],
+   "count": "",
+   "notes": "إضافة على البند القائم — ليست سؤالًا جديدًا"
+  },
+  {
+   "id": "PO-023",
+   "item": "↻ M33: التوفر لكل فرع وأي فروق أسعار (فرع/تطبيقات توصيل) تُدخل كـBranch overrides أو Channel overrides فقط عند تقديمها — لا يُملأ شيء من عندنا",
+   "category": "NON-BLOCKING",
+   "type": "CONTENT NEEDED",
+   "blocks": "Inherited/Overridden في المنيو (MDH-010، MDH-030)",
+   "refs": [
+    "MDH-010",
+    "MDH-030",
+    "MENU-024",
+    "M33 §05"
+   ],
+   "count": "",
+   "notes": "إضافة على البند القائم — ليست سؤالًا جديدًا"
+  },
+  {
+   "id": "PO-026",
+   "item": "↻ M33: حالة البريد والحسابات الاجتماعية تُسجل في Contact/Social registry (PENDING حتى تأكيدك) ولا تصل لأي قناة قبلها",
+   "category": "NON-BLOCKING",
+   "type": "VERIFICATION NEEDED",
+   "blocks": "Footer/Contact/sameAs (MDH-008)",
+   "refs": [
+    "MDH-008",
+    "MDH-012",
+    "M33 §01"
+   ],
+   "count": "",
+   "notes": "إضافة على البند القائم — ليست سؤالًا جديدًا"
+  },
+  {
+   "id": "PO-027",
+   "item": "↻ M33: منصات التوصيل لكل فرع (وروابطها) تصبح قنوات مستقبلية تُربط بمعرفات ثابتة عبر external_references — لا سؤال جديد",
+   "category": "NON-BLOCKING",
+   "type": "CONTENT NEEDED",
+   "blocks": "زر \"اطلب\" وقنوات الطلب المستقبلية (MDH-013، MDH-015)",
+   "refs": [
+    "MDH-013",
+    "MDH-015",
+    "M33 §22"
+   ],
+   "count": "",
+   "notes": "إضافة على البند القائم — ليست سؤالًا جديدًا"
+  }
+ ],
+ "technical_flags": [
+  {
+   "id": "G15-TF-01",
+   "topic": "نطاق OAuth الوحيد لـGBP يشمل الكتابة",
+   "detail": "واجهات Business Profile تستخدم النطاق https://www.googleapis.com/auth/business.manage (قراءة + كتابة) ولا يوجد نطاق قراءة فقط ⇒ مبدأ أقل صلاحية لا يتحقق بالنطاق وحده.",
+   "recommendation": "فرض القراءة داخل التطبيق: محوّل GBP يبدأ READ/COMPARE ONLY لكل حقل حتى يفعّل الـOwner الدفع من المصفوفة؛ تفضيل حساب بدور Manager لا Primary owner؛ رمز مشفّر على الخادم.",
+   "needs_owner": false,
+   "refs": [
+    "MDH-023",
+    "MDH-034",
+    "PO-009",
+    "GBP-007"
+   ]
+  },
+  {
+   "id": "G15-TF-02",
+   "topic": "Staging والـGBP الحقيقي (لا Sandbox)",
+   "detail": "لا توجد بيئة Sandbox لـBusiness Profile؛ أي كتابة من Staging تعدّل الملف الحقيقي، ما يخالف GOOGLE-008 وM36 §11.",
+   "recommendation": "Staging: dry-run فقط — حساب الفرق + locations.patch مع validateOnly=true (تحقق بلا تطبيق) أو mock؛ الكتابة الحية فقط من Production مع تكامل CONNECTED وعلم تفعيل؛ اختبار يمنع رمز كتابة في .env الخاص بـStaging.",
+   "needs_owner": false,
+   "refs": [
+    "MDH-020",
+    "G15-CF-12",
+    "GOOGLE-008"
+   ]
+  },
+  {
+   "id": "G15-TF-03",
+   "topic": "توقيت مزامنة websiteUri",
+   "detail": "websiteUri لكل فرع يجب أن يشير لصفحة الفرع النهائية؛ الروابط غير مجمّدة (PO-005) والـHost (DB-11) والإطلاق P11 — الدفع المبكر يوجّه Google لصفحات غير موجودة أو للموقع القديم.",
+   "recommendation": "websiteUri = READ/COMPARE ONLY حتى الإطلاق؛ يُدفع ضمن قائمة الإطلاق بعد 301 الجاهزة وموافقة الـOwner (PO-041).",
+   "needs_owner": false,
+   "refs": [
+    "MDH-020",
+    "MDH-035",
+    "PO-005",
+    "PO-041",
+    "SEO-015"
+   ]
+  },
+  {
+   "id": "G15-TF-04",
+   "topic": "تمثيل الإغلاق المؤقت/الطارئ على Google",
+   "detail": "openInfo.status = CLOSED_TEMPORARILY يظهر للعملاء \"مغلق مؤقتًا\" ويؤثر على الظهور في Maps؛ specialHours مغلقة لأيام محددة أخف أثرًا.",
+   "recommendation": "اقتراح: إغلاق بتاريخ نهاية ≤ 7 أيام أو طارئ ⇒ specialHours مغلق؛ مفتوح النهاية أو أطول ⇒ CLOSED_TEMPORARILY بتأكيد قوي وإعادة هوية ومهمة إعادة الفتح؛ العتبة قابلة للتعديل وتظهر في معاينة الأثر.",
+   "needs_owner": false,
+   "refs": [
+    "MDH-022",
+    "MDH-025",
+    "CAMP-007"
+   ]
+  },
+  {
+   "id": "G15-TF-05",
+   "topic": "تمييز تأخر القناة عن التغيير الخارجي",
+   "detail": "بدون حفظ آخر payload مدفوع لا يمكن التمييز بين \"لم تصل مزامنتنا\" و\"شخص عدّل على Google\"؛ Google قد يطبق اقتراحات مستخدمين (getGoogleUpdated: diffMask/pendingMask).",
+   "recommendation": "حفظ snapshot لكل payload_version مدفوع في sync_jobs؛ المقارنة الثلاثية (Master · آخر مدفوع · Google)؛ Debounce بقراءتين متتاليتين قبل إنذار OUT OF SYNC لتجنب التذبذب أثناء مراجعة Google.",
+   "needs_owner": false,
+   "refs": [
+    "MDH-024",
+    "MDH-029"
+   ]
+  },
+  {
+   "id": "G15-TF-06",
+   "topic": "SYNC DIRECTION قابل للتغيير لكل حقل",
+   "detail": "السياسة الافتراضية (الاسم/العنوان/الـPin يدوي، الفئة بتأكيد قوي) تفصيل تقني؛ وقد يصبح POS/ERP مستقبلًا مصدرًا لحقول تشغيلية (D-085).",
+   "recommendation": "تخزين SYNC DIRECTION لكل (قناة × حقل) قابل للتعديل من الـOwner مع Audit؛ أي نقل للسلطة إلى قناة خارجية = قرار Owner صريح.",
+   "needs_owner": false,
+   "refs": [
+    "MDH-021",
+    "MDH-015",
+    "G15-CF-11"
+   ]
+  },
+  {
+   "id": "G15-TF-07",
+   "topic": "فجوات docs/MASTER-DATA-HUB.md مقابل M33 (تعديل وثائقي خارج هذا التدقيق)",
+   "detail": "الترويسة تشترط DB-08 (حُسم بـADR-001)؛ إحالة إلى GLOBAL-DATA-REGISTRY.md وFACT-REGISTRY.md غير موجودين؛ ينقص: التدفق التسعي وخطوة VERIFY (§9)، No duplicate editors (§21)، Channel overrides (§24)، الأعمدة الحية السبعة للمصفوفة (§3)، SEO metadata كقناة (§2)، ثلاث مراقبات من §25، وضع dry-run للـStaging، توقيت websiteUri؛ §4/§8 يصنفان Category يدويًا رغم دعم الـAPI؛ §2 يذكر \"4 حالات توفر\" بينما المجمّد 3 حالات عامة + UNKNOWN داخلي (CMS-015). وكذلك ترويسة GOOGLE-BUSINESS-PROFILE-SOURCE-OF-TRUTH.md (D-048) وBRANCH-DATA-SYNC.md (المفردات القديمة) وحالة D-048 في DECISION-LOG.",
+   "recommendation": "جولة doc-fix واحدة بعد اعتماد هذه المجموعة؛ لا تغيير في القيم.",
+   "needs_owner": false,
+   "refs": [
+    "MDH-036",
+    "G15-CF-01",
+    "G15-CF-08",
+    "G15-CF-09"
+   ]
+  },
+  {
+   "id": "G15-TF-08",
+   "topic": "فجوات المخطط في PLATFORM-ARCHITECTURE §3.2",
+   "detail": "لا جدول channel_overrides (M33 §24)؛ Brand وGlobal Website غير مسميين ككيانين (ضمنيًا في settings)؛ audit_logs بلا ربط بـchannels affected / sync result (M33 §16)؛ content_versions بلا حقل \"سبب\" (لماذا — M33 §17).",
+   "recommendation": "إضافة channel_overrides؛ كيان brand (أو مجموعة settings موثقة بمفاتيح ثابتة GW-*/BRAND)؛ عمود audit_log_id في sync_jobs + JSON channels_affected؛ حقل reason في content_versions (إلزامي للسعر/الساعات/الإغلاق).",
+   "needs_owner": false,
+   "refs": [
+    "MDH-003",
+    "MDH-030",
+    "AUDIT-001",
+    "AUDIT-003"
+   ]
+  },
+  {
+   "id": "G15-TF-09",
+   "topic": "hours_logic_check.py نموذج أولي محدود",
+   "detail": "الأداة تدعم طبقة override واحدة لكل (فرع، يوم) دون ترتيب بين emergency/temporary/special/holiday، ولا إغلاقًا طارئًا يبدأ منتصف اليوم، وقاموس REGULAR مكتوب في الكود.",
+   "recommendation": "ترحيلها لتقرأ من البذرة وإضافة حالات الأولوية والطارئ الجزئي قبل نقل المنطق إلى effective_hours في Laravel (نفس جدول الحالات).",
+   "needs_owner": false,
+   "refs": [
+    "MDH-007",
+    "MDH-035"
+   ]
+  },
+  {
+   "id": "G15-TF-10",
+   "topic": "تقويم المناسبات لمراقب \"Branch missing special hours\"",
+   "detail": "رمضان والأعياد تتغير سنويًا (تقويم هجري) والعطل الرسمية تُعلن رسميًا؛ اختراع التواريخ ممنوع.",
+   "recommendation": "قائمة مناسبات يديرها الـOwner في الـDashboard (G13-PO-02 / PO-025) أو مصدر رسمي يُتحقق منه؛ نافذة إنذار مقترحة 14 يومًا؛ بلا قائمة = لا إنذار (لا تخمين).",
+   "needs_owner": false,
+   "refs": [
+    "MDH-032",
+    "PO-025"
+   ]
+  },
+  {
+   "id": "G15-TF-11",
+   "topic": "التغييرات المجدولة وتوقيت الدفع",
+   "detail": "specialHours مؤرخة بطبيعتها ويمكن دفعها مسبقًا؛ تغيير Regular أو سعر بتاريخ سريان مستقبلي لا يُدفع قبل وقته وإلا تعرض Google قيمة مستقبلية الآن.",
+   "recommendation": "Scheduler يدفع التغييرات المجدولة عند السريان (مع صحة المجدول scheduled_job_runs)، والموقع يقيّم الزمن عند الطلب.",
+   "needs_owner": false,
+   "refs": [
+    "MDH-025",
+    "CMS-009",
+    "CMS-035"
+   ]
+  },
+  {
+   "id": "G15-TF-12",
+   "topic": "التطبيع لتجنب OUT OF SYNC كاذب",
+   "detail": "Google يعيد تنسيق الهاتف والعنوان، والعربية تختلف بالهمزات/التطويل/المسافات، والساعات قد تُخزن 24:00 أو 00:00.",
+   "recommendation": "مكتبة تطبيع مشتركة للكاشف (E.164، Unicode NFKC + قواعد عربية، مكونات العنوان، تمثيل منتصف الليل) مع اختبارات وحدة.",
+   "needs_owner": false,
+   "refs": [
+    "MDH-018",
+    "MDH-029"
+   ]
+  },
+  {
+   "id": "G15-TF-13",
+   "topic": "VERIFY لقناة الموقع",
+   "detail": "إبطال الـCache قد يفشل جزئيًا (حسب خطة Cloudflare — PO-013)، فتبقى صفحة بقيمة قديمة رغم نجاح الحفظ.",
+   "recommendation": "قناة Website تُعلَّم SYNCED فقط بعد جلب الصفحات المتأثرة (عينة) والتأكد من القيمة الجديدة؛ إبطال بالروابط كبديل مجاني إذا لم تتوفر الوسوم.",
+   "needs_owner": false,
+   "refs": [
+    "MDH-016",
+    "MDH-025",
+    "PO-013"
+   ]
+  },
+  {
+   "id": "G15-TF-14",
+   "topic": "قيود Business Profile API تُتحقق عند P09",
+   "detail": "حدود التعديل لكل موقع والحصص، نافذة تواريخ specialHours، حد طول الوصف وقيود محتواه، وضع \"pending review\" بعد بعض التعديلات (metadata/pendingMask)، واستمرار نقاط v4 (foodMenus/localPosts/reviews) — كلها قابلة للتغير.",
+   "recommendation": "سطر في قائمة فحص P09: مراجعة الوثائق الرسمية وchange log ثم تحديث Capability matrix؛ تعديل في حالة مراجعة لدى Google = PENDING حتى يُطبق.",
+   "needs_owner": false,
+   "refs": [
+    "MDH-021",
+    "MDH-020"
+   ]
+  }
+ ],
+ "cost_api_dependencies": [
+  {
+   "feature": "Google Business Adapter + الكاشف (MDH-020…024، MDH-029)",
+   "service": "Google Business Profile APIs: Business Information API v1 (locations get/patch/getGoogleUpdated/attributes) + Account Management API",
+   "why": "المزامنة الرسمية للهاتف والساعات والخاصة والإغلاق المؤقت والرابط والسمات + كشف التغييرات الخارجية",
+   "free_alternative": "بدونها: PENDING INTEGRATION + قائمة MANUAL ACTION REQUIRED (يحدّث الـOwner في تطبيق GBP يدويًا)",
+   "cost_or_quota": "مجاني بلا فوترة؛ يتطلب طلب وصول وموافقة Google (الحصة صفر حتى الموافقة) + OAuth business.manage؛ الحصص الافتراضية تكفي لفرعين (تُتحقق عند المنح)",
+   "needs_approval": "YES — طلب الوصول + OAuth (PO-009)"
+  },
+  {
+   "feature": "Google Food Menus / Posts (مستقبلي — MDH-021)",
+   "service": "Business Profile API v4 (accounts.locations.foodMenus · localPosts)",
+   "why": "دفع المنيو أو الحملات إلى GBP من الـMaster",
+   "free_alternative": "لا تفعيل الآن (GBP-006)",
+   "cost_or_quota": "مجاني بنفس الوصول؛ غير مفعل",
+   "needs_approval": "YES — قرار منفصل لاحقًا"
+  },
+  {
+   "feature": "قراءة بيانات GBP (بديل مرفوض)",
+   "service": "Google Places API (Place Details)",
+   "why": "—",
+   "free_alternative": "Business Information API الرسمية أعلاه",
+   "cost_or_quota": "مدفوع لكل طلب (Billing account)، قراءة فقط ولا يكتب",
+   "needs_approval": "YES — غير مقترح (INT-002، D-043)"
+  },
+  {
+   "feature": "مزامنة القوائم الخارجية (بديل مرفوض)",
+   "service": "Listing-management SaaS (مثل Yext / Uberall / BrightLocal / Semrush Listing Management)",
+   "why": "—",
+   "free_alternative": "محوّل GBP الرسمي + قائمة MANUAL ACTION REQUIRED للأدلة",
+   "cost_or_quota": "اشتراكات مدفوعة، ومصدر بيانات ثانٍ يخالف ONE SOURCE OF TRUTH",
+   "needs_approval": "YES — غير مقترح"
+  },
+  {
+   "feature": "قراءة/تعديل GBP بالكشط (ممنوع)",
+   "service": "Scraping Google Maps / GBP",
+   "why": "—",
+   "free_alternative": "Official API فقط",
+   "cost_or_quota": "مخالف لشروط Google ولـM33 §3",
+   "needs_approval": "N/A — ممنوع"
+  },
+  {
+   "feature": "Website + Schema Adapters + effective_hours (MDH-007، MDH-016، MDH-017)",
+   "service": "Laravel داخل التطبيق (ADR-001)",
+   "why": "توليد الأسطح والـJSON-LD من الـMaster",
+   "free_alternative": "—",
+   "cost_or_quota": "مجاني (ضمن الاستضافة القائمة)",
+   "needs_approval": "NO"
+  },
+  {
+   "feature": "طابور المزامنة وإعادة المحاولة (MDH-028)",
+   "service": "Laravel Queue + Scheduler (database driver؛ Redis إن توفر على Cloudways)",
+   "why": "sync_jobs بإعادة 1→5→30 دقيقة→6 ساعات",
+   "free_alternative": "—",
+   "cost_or_quota": "مجاني ضمن السيرفر الحالي (أي ترقية = قرار مالي — ADR-001)",
+   "needs_approval": "NO"
+  },
+  {
+   "feature": "إبطال Cache بالوسوم (MDH-016)",
+   "service": "Cloudflare Cache Purge API",
+   "why": "تحديث الأسطح المتأثرة فقط بعد النشر",
+   "free_alternative": "إبطال بالروابط (Purge by URL) المتاح في كل الخطط",
+   "cost_or_quota": "الإبطال بالوسوم حسب خطة Cloudflare — يُتحقق (PO-013)؛ توكن محدود الصلاحية (CF-009)",
+   "needs_approval": "NO — ما لم تلزم ترقية خطة (قرار مالي)"
+  },
+  {
+   "feature": "كاشف اتساق الموقع/Schema (MDH-029)",
+   "service": "جلب ذاتي لصفحات الموقع وJSON-LD",
+   "why": "مقارنة المولّد بالـMaster",
+   "free_alternative": "—",
+   "cost_or_quota": "مجاني؛ جدول هادئ بلا Aggressive crawling (MON-006)",
+   "needs_approval": "NO"
+  },
+  {
+   "feature": "تشفير رموز Google (MDH-034)",
+   "service": "Laravel Encryption + .env لكل بيئة",
+   "why": "حفظ refresh token على الخادم",
+   "free_alternative": "—",
+   "cost_or_quota": "مجاني",
+   "needs_approval": "NO"
+  },
+  {
+   "feature": "تكاملات مستقبلية POS / ERP / App / Delivery (MDH-015)",
+   "service": "غير معروفة (اسم الـPOS MISSING — INT-012؛ منصات التوصيل PO-027)",
+   "why": "ربط بمعرفات ثابتة عبر external_references",
+   "free_alternative": "الجاهزية فقط الآن",
+   "cost_or_quota": "غير معروف — يُفصح بالحقول الخمسة قبل أي ربط (INT-001)",
+   "needs_approval": "YES — قبل أي تكامل"
+  }
+ ],
+ "dropped": [],
+ "notes": "G15 = مزامنة M33 (SHELTER UNIFIED MASTER DATA + CHANNEL SYNC — OWNER APPROVED · FROZEN REQUIREMENT · P0 · CORE ARCHITECTURE، 30 قسمًا + مقدمة، قُرئت كاملة). مفاتيح المصادر \"M33 §NN\" (§00 = المقدمة). المنطقة الجديدة: 47 Master Data & Channel Sync، البادئة MDH (يلزم إضافة PREFIX_AREA['MDH']='47' وAREAS['47'] وG15 إلى EXTRA في build_master). الحالة FROZEN وowner_approved YES (عدا MDH-028 PARTIAL: أرقام إعادة المحاولة تقنية)، والأولوية P0 عدا MDH-011 وMDH-030 (P1). المراحل: P00 (MDH-002 السلطة) · P04 (MDH-019 قاعدة IA، MDH-036 المخرج) · P06 الأساس (الكيانات، المحولات، المعرفات، الترحيل — M36 PHASE 1) · P08 البناء على Staging (التدفق، الحالات، الكاشف، الشاشات) · P09 المعتمد على Google (محوّل GBP، المصفوفة، الوصول، التغيير الخارجي، الرموز). خريطة التغطية (كل قسم): §00 MDH-001 · §01 MDH-003/004/005/008/009/011/012 · §02 MDH-013/016 · §03 MDH-020/021/023 · §04 MDH-009/015 · §05 MDH-010 · §06 MDH-006/022 · §07 MDH-007/022 · §08 OPS-015 (تحديث) + MDH-025 · §09 MDH-025/016 · §10 MDH-026/028 · §11 MDH-027/028 · §12 MDH-029 (+MON-013 SUPERSEDE) · §13 MDH-024 · §14 MDH-017 · §15 MDH-018 · §16 AUDIT-001/AUDIT-010 (تحديث) · §17 AUDIT-003/AUDIT-009 (تحديث) · §18 AUDIT-004 (تحديث، P0) · §19 MDH-031 · §20 MDH-031 + DASH-034 (تحديث) · §21 MDH-019 · §22 MDH-015 · §23 MDH-002 · §24 MDH-030 · §25 MDH-032 · §26 MDH-034/023 · §27 MDH-033 · §28 MDH-014 · §29 MDH-036 (14 بندًا) + MDH-035 (الترحيل) · §30 MDH-001. عدم التكرار: Change Impact = OPS-015 وPublish Guard = OPS-016 (تحديث لا متطلب جديد)؛ Audit/Version/Rollback = AUDIT-001/003/004/009/010؛ لغة الـOwner = DASH-034؛ الـGlobal Data Registry (OPS-011) MERGED في MDH-003 (G15-CF-09، G15-ND-07). أنواع التحديث: UPDATE · SUPERSEDE (MON-013، GBP-003، D-048، GEP-§3) · MERGE (OPS-011 — يُعامل كملاحظة) · ANSWERS (CMS-014، DB-18). تحديثات القرارات (D-xxx/GEP/DB) للسجل ولا يطبقها build_master آليًا. ما وُجد فعلًا: docs/MASTER-DATA-HUB.md (14 قسمًا، DRAFT) + PLATFORM-ARCHITECTURE §3.2 (الجداول) + Wireframes الـDashboard (d-branch/d-global-data/d-impact/d-facts، DEMO DATA، GBP = PENDING INTEGRATION) + hours_logic_check.py (12/12) — لا كود تطبيق؛ لا شاشة اتساق/مزامنة ولا واجهة موروث/معدّل في الـWireframes بعد. لم تُشغَّل اختبارات (لتجنب كتابة تقارير داخل المستودع) ولم تُعدّل أي ملفات في الـrepo. pending_owner: 9 إضافات على بنود قائمة (PO-007/009/010/016/023/025/026/027/041) — لا أسئلة جديدة. رسائل لاحقة: M35 (Cache/Integration registry) وM36 (START BUILD، Master Data FIRST) تؤكد M33 ولا تناقضه؛ تُجمع في مجموعاتها."
+}

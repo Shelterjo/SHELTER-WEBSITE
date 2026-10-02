@@ -1,0 +1,438 @@
+{
+ "group": "G34",
+ "notes": "M50 / D-327: Dashboard D4 — البيانات: الفروع والساعات · أرقام التواصل والحسابات · الفعاليات · المنيو والأسعار + ربط صفحة المنيو حسب الفرع.",
+ "requirements": [],
+ "updates_to_existing": [
+  {
+   "id": "BRANCH-010",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D4 (M50)",
+   "change": "محرر الساعات في الـDashboard: معاينة «هكذا ستظهر للعملاء» (الجديد بجانب الحالي + أسماء الأيام المتغيرة) قبل النشر؛ النشر يرفض أسبوعًا غير الذي عُوين (بصمة) وبلا سبب. محرر عنوان الفرع وخريطته لم يُبنَ (البيانات MISSING — PO-010).",
+   "new_impl": "PARTIAL",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Dashboard/Data/BranchesController.php",
+    "app/Services/Dashboard/HoursEditor.php",
+    "resources/views/dashboard/branches/show.blade.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/HoursEditorTest.php"
+   ]
+  },
+  {
+   "id": "HOURS-005",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D4 (M50)",
+   "change": "الأنواع الأربعة من الـDashboard: ساعات خاصة، عطلة، إغلاق مؤقت، إغلاق طارئ — بتواريخ وسبب داخلي وحالة (مسودة/منشور).",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Dashboard/Data/BranchesController.php",
+    "app/Services/Dashboard/HoursEditor.php",
+    "resources/views/dashboard/branches/show.blade.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/HoursEditorTest.php"
+   ]
+  },
+  {
+   "id": "HOURS-006",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D4 (M50)",
+   "change": "الاستثناء لا يلمس الساعات العادية؛ تعود وحدها بعد تاريخ النهاية (مختبر).",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Dashboard/Data/BranchesController.php",
+    "app/Services/Dashboard/HoursEditor.php",
+    "resources/views/dashboard/branches/show.blade.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/HoursEditorTest.php"
+   ]
+  },
+  {
+   "id": "HOURS-007",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D4 (M50)",
+   "change": "الأولوية Emergency > Temporary > Special/Holiday > Regular عبر HoursResolver؛ استثناءان منشوران من نفس الرتبة في نفس اليوم مرفوضان.",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Dashboard/Data/BranchesController.php",
+    "app/Services/Dashboard/HoursEditor.php",
+    "resources/views/dashboard/branches/show.blade.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/HoursEditorTest.php"
+   ]
+  },
+  {
+   "id": "HOURS-008",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D4 (M50)",
+   "change": "تعديل الساعات من الـDashboard: الأسبوع العادي (يوم مغلق = بلا وقت) ثم الاستثناءات؛ إعادة تأكيد الهوية مطلوبة.",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Dashboard/Data/BranchesController.php",
+    "app/Services/Dashboard/HoursEditor.php",
+    "resources/views/dashboard/branches/show.blade.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/HoursEditorTest.php"
+   ]
+  },
+  {
+   "id": "HOURS-012",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D4 (M50)",
+   "change": "وردية تنتهي بعد منتصف الليل تُحسب ليوم بدايتها (مختبر عند النشر من الـDashboard).",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Dashboard/Data/BranchesController.php",
+    "app/Services/Dashboard/HoursEditor.php",
+    "resources/views/dashboard/branches/show.blade.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/HoursEditorTest.php"
+   ]
+  },
+  {
+   "id": "CMS-013",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D4 (M50)",
+   "change": "نظام الساعات الخاصة في الـDashboard (Regular · Special/Holiday · Temporary · Emergency) مع الإلغاء = أرشفة.",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Dashboard/Data/BranchesController.php",
+    "app/Services/Dashboard/HoursEditor.php",
+    "resources/views/dashboard/branches/show.blade.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/HoursEditorTest.php"
+   ]
+  },
+  {
+   "id": "CMS-025",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D4 (M50)",
+   "change": "الساعات بلا كود (مختبر). حقول هوية الفرع (العنوان، رابط الخريطة، الإحداثيات) تنتظر PO-010.",
+   "new_impl": "PARTIAL",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Dashboard/Data/BranchesController.php",
+    "app/Services/Dashboard/HoursEditor.php",
+    "resources/views/dashboard/branches/show.blade.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/HoursEditorTest.php"
+   ]
+  },
+  {
+   "id": "MDH-006",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D4 (M50)",
+   "change": "الساعات المركزية تُحرر من الـDashboard ويقرؤها الموقع من نفس الجداول؛ النشر يعتمد الحقيقة hours.{CODE}.regular في نفس المعاملة.",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Dashboard/Data/BranchesController.php",
+    "app/Services/Dashboard/HoursEditor.php",
+    "resources/views/dashboard/branches/show.blade.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/HoursEditorTest.php"
+   ]
+  },
+  {
+   "id": "MDH-007",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D4 (M50)",
+   "change": "effective hours واحدة بأولوية الاستثناءات (مختبر).",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Dashboard/Data/BranchesController.php",
+    "app/Services/Dashboard/HoursEditor.php",
+    "resources/views/dashboard/branches/show.blade.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/HoursEditorTest.php"
+   ]
+  },
+  {
+   "id": "CMS-030",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D4 (M50)",
+   "change": "أرقام التواصل بلا كود: رقم واحد لكل غرض (D-057)، القيمة + الإظهار + السبب؛ أماكن الظهور ثابتة بالقواعد المعتمدة؛ التعديل = اعتماد الحقيقة.",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Dashboard/Data/ContactsController.php",
+    "app/Services/Dashboard/ContactsEditor.php",
+    "app/Services/Site/SocialLinks.php",
+    "resources/views/dashboard/contacts/index.blade.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/ContactsEditorTest.php"
+   ]
+  },
+  {
+   "id": "MDH-008",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D4 (M50)",
+   "change": "سجل التواصل والحسابات الاجتماعية: الأرقام حسب الدور (+E.164) والبريد والحسابات؛ مسجّلة في الـFact Registry.",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Dashboard/Data/ContactsController.php",
+    "app/Services/Dashboard/ContactsEditor.php",
+    "app/Services/Site/SocialLinks.php",
+    "resources/views/dashboard/contacts/index.blade.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/ContactsEditorTest.php"
+   ]
+  },
+  {
+   "id": "CONTACT-027",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D4 (M50)",
+   "change": "الحسابات الاجتماعية واحدًا واحدًا من الـDashboard: رابط https على نطاق المنصة فقط، ولا يظهر في الفوتر إلا بعد تفعيله.",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Dashboard/Data/ContactsController.php",
+    "app/Services/Dashboard/ContactsEditor.php",
+    "app/Services/Site/SocialLinks.php",
+    "resources/views/dashboard/contacts/index.blade.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/ContactsEditorTest.php"
+   ]
+  },
+  {
+   "id": "CONTACT-026",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D4 (M50)",
+   "change": "الآلية مبنية: لا حساب يظهر تلقائيًا ولا من البحث؛ يظهر فقط عند إضافة الـOwner له وتفعيله. لا حساب مفعّل حتى الآن.",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Dashboard/Data/ContactsController.php",
+    "app/Services/Dashboard/ContactsEditor.php",
+    "app/Services/Site/SocialLinks.php",
+    "resources/views/dashboard/contacts/index.blade.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/ContactsEditorTest.php"
+   ]
+  },
+  {
+   "id": "CMS-026",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D4 (M50)",
+   "change": "الفعاليات بلا كود (مختبر). الحملات والإعلانات والثيمات لم تُبنَ بعد.",
+   "new_impl": "PARTIAL",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Dashboard/Content/EventsController.php",
+    "app/Services/Dashboard/EventEditor.php",
+    "app/Services/Experiences/Events.php",
+    "resources/views/dashboard/events/form.blade.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/EventEditorTest.php"
+   ]
+  },
+  {
+   "id": "DX-013",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D4 (M50)",
+   "change": "للفعاليات: البدء والانتهاء تلقائيًا بالتواريخ، وأوامر إيقاف مؤقت/استئناف/إلغاء/إنهاء الآن فورية. بقية أنواع التجارب لاحقًا.",
+   "new_impl": "PARTIAL",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Dashboard/Content/EventsController.php",
+    "app/Services/Dashboard/EventEditor.php",
+    "app/Services/Experiences/Events.php",
+    "resources/views/dashboard/events/form.blade.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/EventEditorTest.php"
+   ]
+  },
+  {
+   "id": "DX-014",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D4 (M50)",
+   "change": "محرر الفعاليات: النص باللغتين، المكان (فرع أو مكان آخر)، الزر، الشروط، الرابط الثابت بعد النشر، المعاينة باللغتين، النسخ. أسطح الظهور الأخرى (الرئيسية، Banner) لاحقًا.",
+   "new_impl": "PARTIAL",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Dashboard/Content/EventsController.php",
+    "app/Services/Dashboard/EventEditor.php",
+    "app/Services/Experiences/Events.php",
+    "resources/views/dashboard/events/form.blade.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/EventEditorTest.php"
+   ]
+  },
+  {
+   "id": "MDH-011",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D4 (M50)",
+   "change": "الفعاليات في جدول experiences فقط (بلا مخزن ثانٍ) ومنها يقرأ الموقع والـDashboard.",
+   "new_impl": "PARTIAL",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Dashboard/Content/EventsController.php",
+    "app/Services/Dashboard/EventEditor.php",
+    "app/Services/Experiences/Events.php",
+    "resources/views/dashboard/events/form.blade.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/EventEditorTest.php"
+   ]
+  },
+  {
+   "id": "CMS-022",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D4 (M50)",
+   "change": "المنيو بلا كود: السعر الأساسي بتاريخ بدء وسبب وسجل، سعر وتوفر لكل فرع، الأسماء (العربية بعد الاعتماد). الوصف والصور والشارات والنشر لكل صنف لاحقًا.",
+   "new_impl": "PARTIAL",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Dashboard/Data/MenuController.php",
+    "app/Services/Dashboard/MenuManager.php",
+    "app/Services/Menu/MenuEditor.php",
+    "resources/views/dashboard/menu/show.blade.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/MenuDashboardTest.php"
+   ]
+  },
+  {
+   "id": "MDH-009",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D4 (M50)",
+   "change": "الموقع والـDashboard يقرآن ويكتبان نفس جداول المنيو عبر MenuCatalog/MenuEditor — لا نسخة أسعار منفصلة.",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Dashboard/Data/MenuController.php",
+    "app/Services/Dashboard/MenuManager.php",
+    "app/Services/Menu/MenuEditor.php",
+    "resources/views/dashboard/menu/show.blade.php",
+    "app/Services/Menu/Page/MenuPage.php",
+    "app/Services/Menu/Page/MenuItem.php",
+    "resources/views/site/menu.blade.php",
+    "resources/js/menu/page.ts"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/MenuDashboardTest.php",
+    "tests/Feature/Site/MenuBranchDisplayTest.php"
+   ]
+  },
+  {
+   "id": "MDH-010",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D4 (M50)",
+   "change": "لكل فرع: Inherited أو Overridden (سعر و/أو توفر) + «يتبع الأساس» = Reset to Master؛ صفحة المنيو تعرضها حسب §9.6.",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Dashboard/Data/MenuController.php",
+    "app/Services/Dashboard/MenuManager.php",
+    "app/Services/Menu/MenuEditor.php",
+    "resources/views/dashboard/menu/show.blade.php",
+    "app/Services/Menu/Page/MenuPage.php",
+    "app/Services/Menu/Page/MenuItem.php",
+    "resources/views/site/menu.blade.php",
+    "resources/js/menu/page.ts"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/MenuDashboardTest.php",
+    "tests/Feature/Site/MenuBranchDisplayTest.php"
+   ]
+  }
+ ],
+ "conflicts": [],
+ "new_decisions": [],
+ "pending_owner": [],
+ "technical_flags": [
+  {
+   "id": "G34-TF-01",
+   "topic": "نشر الساعات",
+   "detail": "المعاينة قبل النشر مفروضة ببصمة sha256 للأسبوع المعروض؛ الشاشة تسمي الأيام التي تغيّرت؛ السبب إلزامي (≤300) ويُحفظ في السجل لا للعملاء. شاشات الفروع والتواصل خلف إعادة التأكيد (10 دقائق).",
+   "recommendation": "قرار تقني منفذ ومختبر",
+   "needs_owner": false,
+   "refs": [
+    "BRANCH-010",
+    "HOURS-008"
+   ]
+  },
+  {
+   "id": "G34-TF-02",
+   "topic": "اعتماد من الـDashboard",
+   "detail": "خدمة واحدة OwnerApproval: تعديل الـOwner = اعتماد الحقيقة (تسجيل/اعتماد/استبدال القديم SUPERSEDED، decision_ref=OWNER-DASHBOARD). تستخدمها الساعات والتواصل والحسابات والجوائز.",
+   "recommendation": "قرار تقني منفذ ومختبر",
+   "needs_owner": false,
+   "refs": [
+    "CMS-030",
+    "MDH-006"
+   ]
+  },
+  {
+   "id": "G34-TF-03",
+   "topic": "الفعاليات",
+   "detail": "مسودة ثم نشر يحتاج العنوان والوصف باللغتين ونهاية لم تمر؛ الأزواج (الشروط، المكان) باللغتين أو لا شيء؛ الزر = نصان + رابط https أو مسار داخلي يُفتح بلغة الصفحة. «إيقاف مؤقت» فوري (يغني عن مفتاح طوارئ منفصل في الواجهة؛ الاستئناف يلغي emergency_disabled إن وُجد). الرابط ثابت بعد أول نشر. لا حذف؛ نسخة وسجل لكل حفظ وأمر.",
+   "recommendation": "قرار تقني منفذ ومختبر",
+   "needs_owner": false,
+   "refs": [
+    "DX-013",
+    "DX-014"
+   ]
+  },
+  {
+   "id": "G34-TF-04",
+   "topic": "أسعار المنيو",
+   "detail": "السعر يُكتب بالدينار بخانتين على الأكثر (ما يُكتب = ما يُعرض)، ونطاق حماية من الأخطاء 0.05–100.00 (ليس قاعدة عمل). يبدأ اليوم أو لاحقًا؛ السعر القديم يبقى في السجل؛ تصحيح في نفس اليوم يُبقي الصف السابق بمدى فارغ. إصلاح: مقارنة تاريخ البدء باليوم التقويمي (عمّان مقابل UTC). شاشة الصنف خلف إعادة التأكيد.",
+   "recommendation": "قرار تقني منفذ ومختبر",
+   "needs_owner": false,
+   "refs": [
+    "CMS-022",
+    "MDH-009"
+   ]
+  },
+  {
+   "id": "G34-TF-05",
+   "topic": "اعتماد الأسماء العربية (PO-003 / D-137)",
+   "detail": "الأداة جاهزة: «المنيو والأسعار» ← «راجع الأسماء العربية» لكل فئة (تصحيح ثم علامة اعتمد)، أو من شاشة الصنف. ملف المنيو الأصلي (menu_source_rows) لا يتغير؛ الحالة APPROVED — OWNER DASHBOARD؛ إزالة العلامة تسحب الاعتماد. PO-003 يبقى مفتوحًا حتى يراجع الـOwner الأسماء. أسماء الفئات العربية التسعة ليست في الأداة بعد.",
+   "recommendation": "الـOwner يراجع الأسماء من الـDashboard",
+   "needs_owner": true,
+   "refs": [
+    "PO-003",
+    "D-091",
+    "D-137"
+   ]
+  },
+  {
+   "id": "G34-TF-06",
+   "topic": "المنيو حسب الفرع (§9.6)",
+   "detail": "UNKNOWN لا يقول شيئًا؛ UNAVAILABLE_SHOW = «غير متوفر حاليًا» مع بطاقة باهتة والسعر مقروء؛ UNAVAILABLE_HIDE = مخفي في ذلك الفرع (والقسم الفارغ يختفي مع زره)؛ «متوفر في X فقط» على «كل الفروع» عندما تكون الحالة معروفة في الفرعين. سعر الفرع يظهر عند اختياره. بيانات الفروع فقط على الأصناف المختلفة.",
+   "recommendation": "قرار تقني منفذ ومختبر",
+   "needs_owner": false,
+   "refs": [
+    "MDH-010",
+    "CMS-022"
+   ]
+  }
+ ],
+ "cost_api_dependencies": [],
+ "dropped": []
+}

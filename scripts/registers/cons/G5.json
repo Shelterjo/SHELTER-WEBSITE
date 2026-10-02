@@ -1,0 +1,4933 @@
+{
+ "group": "G5",
+ "requirements": [
+  {
+   "id": "WEB-001",
+   "area": "03 Global Website Architecture",
+   "type": "DECISION",
+   "title": "إعادة بناء كاملة من الصفر لموقع عالمي طويل الأمد",
+   "requirement": "نطاق المشروع = COMPLETE GLOBAL WEBSITE REBUILD FROM ZERO: يُعاد بناء الموقع الرسمي لـSHELTER COFFEE (www.shelterjo.com) بالكامل من الصفر — وليس تعديل الموقع الحالي — كموقع احترافي طويل الأمد قادر على تمثيل علامة عالمية (global brand)، ويقود Claude المشروع مع الـOwner. الموقع القديم مصدر معلومات فقط.",
+   "details": [
+    "الموقع القديم ليس مرجعًا للتصميم أو الـUX أو الكود أو الـArchitecture أو الـSEO Architecture (D-000، SEO-001)",
+    "M01 §104: 'تعامل مع المشروع وكأننا نبني الموقع الرسمي العالمي طويل الأمد'",
+    "لا Coding قبل اعتماد Pages · Navigation · Sitemap · URL Architecture · Content Structure · SEO Architecture (M01 §104 بند 12 — مجموعة GOV)"
+   ],
+   "sources": [
+    "M01-001",
+    "M01-012"
+   ],
+   "decision_refs": [
+    "D-000",
+    "D-001"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "none — documentation + low-fi wireframes + quality tooling only (EVIDENCE)",
+   "missing_work": "كل مراحل البناء P03→P11 بعد اعتماد الـIA والـURL/SEO Architecture وقرار المنصة DB-08",
+   "dependencies": [
+    "DB-08",
+    "WEB-009",
+    "SEO-034"
+   ],
+   "test_required": "Owner sign-off على Definition of Done الكامل (SEO-041، GSC-010، I18N-004) قبل اعتبار الموقع Finished",
+   "design_refs": [
+    "docs/governance/DECISION-LOG.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P00",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "WEB-002",
+   "area": "03 Global Website Architecture",
+   "type": "RULE",
+   "title": "Global-ready من البداية — غير مرتبط بالأردن",
+   "requirement": "الموقع Global-ready من البداية: ممنوع بناؤه كموقع محلي محدود للأردن؛ يُبنى ليصبح GLOBAL SHELTER COFFEE WEBSITE، وممنوع أي Architecture مرتبطة بالأردن بشكل يصعب نقلها لاحقًا (الأردن = سوق `jo` داخل طبقة السوق فقط، والدومين إعداد مركزي واحد).",
+   "details": [
+    "التشغيل الحالي الأساسي: الأردن / إربد (M03 R1-04)",
+    "مبادئ قابلية النقل (09 AR-01 — مقترحة): لا يُكتب الدومين في المحتوى/القوالب · Path parity بعد النقل · Canonical/hreflang/Sitemap/Schema تُولّد آليًا من الإعداد المركزي · أصول مستقلة عن الدومين · URL Registry داخل الـCMS",
+    "يتحقق عبر Option C (WEB-007) + P3 (WEB-008)"
+   ],
+   "sources": [
+    "M01-071",
+    "M03-014",
+    "M03-021"
+   ],
+   "decision_refs": [
+    "D-010",
+    "D-011"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "spec: 09 AR-01؛ 10 §1–§5",
+   "missing_work": "تطبيق المبادئ في المنصة المختارة (DB-08) واختبارها",
+   "dependencies": [
+    "DB-08",
+    "WEB-007",
+    "WEB-008",
+    "SEO-017"
+   ],
+   "test_required": "مراجعة الكود/القوالب: لا 'shelterjo.com' ولا 'jo' hard-coded خارج الإعداد المركزي وطبقة السوق؛ Dry-run في staging لتغيير الدومين يحدّث كل الروابط المطلقة آليًا",
+   "design_refs": [
+    "docs/phase-01-discovery/09-architecture-options-after-r1.md AR-01",
+    "docs/phase-01-discovery/10-url-architecture-draft.md §1–§5"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P03",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "WEB-003",
+   "area": "03 Global Website Architecture",
+   "type": "REQUIREMENT",
+   "title": "هرمية Country → City → Branch وجاهزية التوسع",
+   "requirement": "الـArchitecture والـData model تدعم الهرمية Country → City → Branch وتكون جاهزة لـMulti-country · Multi-city · Multi-branch · Branch-specific pages · Global URL Architecture، وللتوسع الفعلي المستقبلي إلى: مدن أخرى · دول أخرى · فروع مملوكة · Franchise — بدون إعادة بناء الموقع.",
+   "details": [
+    "نموذج المواقع المقترح (09 AR-02 — DB-15 PROPOSED): Country → City → Location؛ type: Branch | Production Facility (غير عامة) · format: Drive Thru | Coffee House | … (قائمة يعتمدها الـOwner) · status: Active | Coming Soon | Temporarily Closed | Permanently Closed · visibility: Public | Hidden (افتراضي للجديد) · ownership: Owned | Franchise (داخلي — لا يُعرض إلا بموافقة)",
+    "الفروع العامة الحالية = 2 فقط: SHELTER COFFEE DRIVE و SHELTER COFFEE HOUSE؛ مشغل الحلويات = Production Facility + Hidden، لا يظهر في Locations (D-008، D-026)",
+    "Progressive Activation لصفحتي الدولة /ar/jo/ والمدينة /ar/jo/locations/irbid/ (DB-07 PROPOSED؛ URL-07 في 10 §6)",
+    "مسار الفروع في شجرة P3 (مسودة): /ar/jo/locations/irbid/drive/ · /ar/jo/locations/irbid/house/ · /en/jo/locations/irbid/drive/ · /en/jo/locations/irbid/house/",
+    "Coming Soon Branch بدون إطلاق الصفحة كاملة (M01 §86 — مجموعة BRANCH)"
+   ],
+   "sources": [
+    "M01-072",
+    "M01-073",
+    "M01-077",
+    "M03-009",
+    "M03-016"
+   ],
+   "decision_refs": [
+    "D-010",
+    "D-008",
+    "D-026",
+    "DB-15",
+    "DB-07"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "spec: 09 AR-02 (PROPOSED)؛ 10 §3",
+   "missing_work": "اعتماد نموذج المواقع DB-15 وبنية الفروع DB-07 وقائمة الـformat؛ تنفيذ النموذج في الـCMS",
+   "dependencies": [
+    "DB-15",
+    "DB-07",
+    "DB-08",
+    "WEB-004"
+   ],
+   "test_required": "Staging: إضافة دولة/مدينة/فرع تجريبي Hidden بدون تغيير روابط الأردن أو الكود؛ عدم ظهوره للعامة؛ ثم تفعيله يُنتج URLs صحيحة تحت /{lang}/{country}/locations/{city}/{branch}/",
+   "design_refs": [
+    "docs/phase-01-discovery/09-architecture-options-after-r1.md AR-02",
+    "docs/phase-01-discovery/10-url-architecture-draft.md §3"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P03",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "WEB-004",
+   "area": "03 Global Website Architecture",
+   "type": "GATE",
+   "title": "لا اختراع للتوسع — أي دولة/فرع مستقبلي Hidden حتى موافقة الـOwner",
+   "requirement": "لا توجد قائمة دول/مدن معتمدة لـ1–3 سنوات: ممنوع اختراع خطة توسع أو أسماء دول/مدن. أي دولة أو مدينة أو فرع مستقبلي يُنشأ Hidden افتراضيًا ولا يُعرض للجمهور (صفحة · Navigation · Sitemap · Schema · hreflang) إلا بعد أن يعطي الـOwner المعلومات ويوافق عليها.",
+   "details": [
+    "الرموز الافتراضية xx و{city} و{ll} للتوثيق فقط (WEB-011)",
+    "الأمثلة المستقبلية في 10 §3 (/ar/xx/ · /{ll}/) محجوزة 🔒 وليست خطة"
+   ],
+   "sources": [
+    "M03-017",
+    "M03-018"
+   ],
+   "decision_refs": [
+    "D-010"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "spec: 09 AR-02؛ 10 §3 (🔒 Hidden)",
+   "missing_work": "visibility=Hidden افتراضيًا في الـCMS + استبعاد Hidden من Sitemap/Schema/hreflang/Navigation + نشر بموافقة مسجلة",
+   "dependencies": [
+    "WEB-003",
+    "SEO-029",
+    "CMS"
+   ],
+   "test_required": "اختبار آلي: كيان Hidden لا يظهر في أي صفحة عامة أو sitemap.xml أو JSON-LD أو hreflang؛ النشر يتطلب موافقة Owner مسجلة في Audit Log",
+   "design_refs": [
+    "docs/phase-01-discovery/09-architecture-options-after-r1.md AR-02",
+    "docs/phase-01-discovery/10-url-architecture-draft.md §3"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P03",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "WEB-005",
+   "area": "03 Global Website Architecture",
+   "type": "RULE",
+   "title": "الدومين الحالي shelterjo.com — لا تغيير ولا Domain Migration الآن",
+   "requirement": "الدومين الحالي المملوك والمستخدم = shelterjo.com. ممنوع تغيير الدومين وممنوع تنفيذ أي Domain Migration الآن.",
+   "details": [
+    "الـHost الرسمي www.shelterjo.com أم shelterjo.com = DB-11 PROPOSED (التوصية: www + 301 دائم بقفزة واحدة من النسخة الأخرى، وتحديث رابط GBP — ينفذ في Cloudflare بموافقة فقط) — غير معتمد",
+    "أغلب الروابط الخارجية للجذر (126 + 34) ورابط الـKnowledge Panel تشير للنسخة بدون www (13 §1؛ OBS-13)",
+    "تغيير رابط الموقع في GBP يحتاج موافقة (D-043، GEP §44)",
+    "AC-01 للقراءة والفحص فقط على shelterjo.com · www.shelterjo.com · shop.shelterjo.com (D-041)"
+   ],
+   "sources": [
+    "M03-019",
+    "M03-022",
+    "M03-023"
+   ],
+   "decision_refs": [
+    "D-011",
+    "DB-11",
+    "D-002"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "IMPLEMENTED — NOT TESTED",
+   "tested": "N/A",
+   "existing_impl": "Gate in force — honored to date: لا تغيير DNS/Cloudflare/دومين (EVIDENCE)",
+   "missing_work": "قرار الـHost الرسمي DB-11 قبل الإطلاق",
+   "dependencies": [
+    "DB-11",
+    "CF"
+   ],
+   "test_required": "قبل الإطلاق: كل نسخ http/https × www/non-www تصل للـHost الرسمي بقفزة 301 واحدة؛ لا تغيير DNS بدون موافقة مسجلة",
+   "design_refs": [
+    "docs/phase-01-discovery/05-decisions-before-design.md DB-11",
+    "docs/phase-01-discovery/13-root-and-international-seo-plan.md §1"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P11",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "WEB-006",
+   "area": "03 Global Website Architecture",
+   "type": "DECISION",
+   "title": "الدومين العالمي المستقبلي — مؤجل",
+   "requirement": "shelterjo.com ليس بالضرورة الدومين العالمي النهائي؛ يُبحث مستقبلًا عن Global Domain مناسب (مثل sheltercoffee.com أو بديل عالمي) ولم يُعتمد أي دومين عالمي. الاختيار والتوقيت قرار مؤجل للـOwner.",
+   "details": [
+    "sheltercoffee.com مثال ذكره الـOwner وليس قرارًا",
+    "آلية النقل عند القرار: SEO-017"
+   ],
+   "sources": [
+    "M03-020"
+   ],
+   "decision_refs": [
+    "D-011"
+   ],
+   "status": "DEFERRED",
+   "owner_approved": "YES",
+   "priority": "P3",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "none",
+   "missing_work": "قرار الـOwner بالدومين والتوقيت",
+   "dependencies": [
+    "SEO-017"
+   ],
+   "test_required": "N/A حتى القرار",
+   "design_refs": [
+    "docs/phase-01-discovery/13-root-and-international-seo-plan.md §7"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P12",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "WEB-007",
+   "area": "03 Global Website Architecture",
+   "type": "DECISION",
+   "title": "Option C — Brand Layer + Market Layer (مبدئي)",
+   "requirement": "AR-01 = الخيار C (اعتماد مبدئي، غير مجمّد): Brand Layer = الرئيسية · من نحن · Coffee Knowledge Hub · Franchise · التوظيف · تواصل عام · FAQ عام · الصفحات القانونية (مبدئيًا) — نسخة واحدة لكل لغة بلا دولة؛ Market Layer = المنيو · الأسعار · الفروع · المدن · الفعاليات والحملات · الساعات — تحت رمز الدولة.",
+   "details": [
+    "السبب: الأفضل للتوسع العالمي — إضافة دولة = إضافة /xx/ لصفحات السوق فقط بدون تحريك روابط الأردن ولا محتوى العلامة (09 AR-01)",
+    "التعريف الكامل لما هو Brand/Market يُحسم في مرحلة الـIA (10 §1)",
+    "ترتيب اللغة/الدولة حُسم لاحقًا بـP3 (WEB-008)"
+   ],
+   "sources": [
+    "M04-006"
+   ],
+   "decision_refs": [
+    "D-019",
+    "DB-02"
+   ],
+   "status": "APPROVED WITH CONDITIONS",
+   "owner_approved": "PARTIAL",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "spec: 09 AR-01؛ 10 §1",
+   "missing_work": "تجميد الـURL Architecture بعد إغلاق SEO-034 وقرارات 10 §6",
+   "dependencies": [
+    "WEB-009",
+    "SEO-034"
+   ],
+   "test_required": "مراجعة شجرة الروابط: كل صفحة مصنفة Brand أو Market؛ صفحات السوق فقط تحمل /{lang}/jo/",
+   "design_refs": [
+    "docs/phase-01-discovery/09-architecture-options-after-r1.md AR-01",
+    "docs/phase-01-discovery/10-url-architecture-draft.md §1"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P03",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "WEB-008",
+   "area": "03 Global Website Architecture",
+   "type": "DECISION",
+   "title": "P3: /ar/ و/en/ + طبقة السوق /ar/jo/… /en/jo/… (مبدئي بشرطين)",
+   "requirement": "URL-01 = P3 (اعتماد مبدئي بشرطين — D-031): بادئة لغة صريحة لكل اللغتين `/ar/` و`/en/` (العربية أيضًا ببادئة)، وطبقة السوق عند الحاجة بعد اللغة: `/ar/jo/…` و`/en/jo/…` — Architecture ثابتة قابلة للتوسع ونقل 1:1 مستقبلًا إلى Global Domain. نفس الـSlug في اللغتين؛ تبديل اللغة = تبديل المقطع الأول فقط. غير مجمّد.",
+   "details": [
+    "الشرط (1): لا يُعتمد أن `/` يعمل Permanent Redirect إلى `/ar/` — حُسم بـROOT-01 = D (WEB-013، D-052)",
+    "الشرط (2): رموز ثابتة `ar`/`en` وISO للدول مثل `jo`؛ `xx` للتوثيق فقط (WEB-011)",
+    "قبل الـFreeze: خطة canonical · hreflang · x-default · Arabic/English alternates · migration redirects · /menu القديم · نقل الدومين العالمي (SEO-034)",
+    "أمثلة P3 (10 §4): الرئيسية /ar/ · /en/ · من نحن /ar/about/ · /en/about/ · المنيو /ar/jo/menu/ · /en/jo/menu/ · فرع الدرايف /ar/jo/locations/irbid/drive/ · فعالية /ar/jo/events/{slug}/",
+    "مقارنة P1/P2/P3/P4 (10 §2): P3 بلا تصادم رموز لغة/دولة (fr، de، es، it، ar=الأرجنتين)، اتساق كامل للطبقتين، مبدّل لغة بسيط، تطابق تام للمسارات عند نقل الدومين، hreflang ar-JO/en-JO؛ الكلفة: مقطع /ar/ في كل الروابط العربية"
+   ],
+   "sources": [
+    "M10-002",
+    "M10-003",
+    "M03-033"
+   ],
+   "decision_refs": [
+    "D-031",
+    "D-014",
+    "DB-02"
+   ],
+   "status": "APPROVED WITH CONDITIONS",
+   "owner_approved": "PARTIAL",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "spec: 10 §2–§5؛ 13",
+   "missing_work": "التجميد النهائي بعد اعتماد خطة 13 (§3 canonical، §4 hreflang/x-default ROOT-02) وقرارات 10 §6 (URL-03…URL-10)",
+   "dependencies": [
+    "SEO-034",
+    "WEB-016",
+    "DB-09"
+   ],
+   "test_required": "اختبار routing: كل صفحة عامة تحت /ar/ أو /en/؛ صفحات السوق تحت /{lang}/jo/؛ مبدّل اللغة يستبدل المقطع الأول ويصل للصفحة المكافئة (200)",
+   "design_refs": [
+    "docs/phase-01-discovery/10-url-architecture-draft.md §2–§5",
+    "docs/phase-01-discovery/13-root-and-international-seo-plan.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "C-02",
+   "business_data": false,
+   "phase": "P03",
+   "history": [
+    {
+     "old": "اقتراح M03 R1-08 (موسوم 'اقتراح'): العربية shelterjo.com/menu والإنجليزية shelterjo.com/en/menu",
+     "source": "M03-033",
+     "superseded_by": "M10-002 (P3 — D-031)"
+    },
+    {
+     "old": "التوصية الأولى في 05 DB-02: Option A — العربية على الجذر + /en/، والجغرافيا داخل هيكل الفروع فقط",
+     "source": "docs/phase-01-discovery/05-decisions-before-design.md DB-02",
+     "superseded_by": "D-019 (Option C) ثم D-031 (P3)"
+    },
+    {
+     "old": "طلب مقارنة /jo/menu مقابل /en/jo/menu (P1 المعتمد مبدئيًا ضمن C)",
+     "source": "M04-009",
+     "superseded_by": "M10-002 (P3: /ar/jo/menu/ · /en/jo/menu/)"
+    }
+   ],
+   "notes": ""
+  },
+  {
+   "id": "WEB-009",
+   "area": "03 Global Website Architecture",
+   "type": "GATE",
+   "title": "لا تجميد للـURL/Language Architecture بدون نقاش واعتماد الـOwner",
+   "requirement": "بوابة: ممنوع اعتماد أو تجميد الشكل النهائي للـURL / Language Architecture قبل مناقشة الـOwner واعتماده الصريح، وبعد عرض الـURL Tree والخيارات مقارنةً من حيث SEO · International expansion · UX · Maintenance · Future domain migration. الحالة الحالية: Option C + P3 + ROOT-01 مبدئية — الـURL Architecture غير مجمّدة.",
+   "details": [
+    "ممنوع الـCoding قبل اعتماد URL Architecture وSEO Architecture (M01 §104 بند 12 — GOV)",
+    "صفحات الفروع: مناقشة URL Architecture أولًا (M01 §84)"
+   ],
+   "sources": [
+    "M01-078",
+    "M03-034",
+    "M04-007"
+   ],
+   "decision_refs": [
+    "D-014",
+    "D-019",
+    "D-031",
+    "DB-02",
+    "D-017"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "IMPLEMENTED — NOT TESTED",
+   "tested": "N/A",
+   "existing_impl": "Gate in force — honored to date: 10 و13 بحالة 'غير مجمّد'؛ لا routing في كود",
+   "missing_work": "جلسة Freeze نهائية مع الـOwner بعد إغلاق SEO-034 و10 §6، وتسجيلها في DECISION-LOG",
+   "dependencies": [
+    "SEO-034"
+   ],
+   "test_required": "وجود قرار Freeze صريح من الـOwner في DECISION-LOG قبل أي routing في الكود",
+   "design_refs": [
+    "docs/phase-01-discovery/10-url-architecture-draft.md",
+    "docs/phase-01-discovery/13-root-and-international-seo-plan.md",
+    "docs/governance/DECISION-LOG.md DB-02"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P03",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "WEB-010",
+   "area": "03 Global Website Architecture",
+   "type": "DELIVERABLE",
+   "title": "URL Tree كامل + مقارنة ترتيب اللغة/الدولة",
+   "requirement": "Deliverable: URL Tree كامل يشمل Arabic · English · Brand pages · Jordan market · Menu · Locations · Branch pages · Blog / Knowledge Hub · Events · Franchise · Future Country Example، مع مقارنة تحديدًا بين `/jo/menu` و`/en/jo/menu` وبدائل ترتيب اللغة والدولة، بهدف Migration بسيطة و1:1 redirects عند الانتقال من shelterjo.com إلى Global Domain.",
+   "details": [
+    "سُلّم في 10-url-architecture-draft.md: الأنماط P1/P2/P3/P4 + الشجرة الكاملة + محاكاة النقل (من القديم ومن الدومين) + القرارات المفتوحة URL-01…URL-10",
+    "النتيجة: اختار الـOwner P3 مبدئيًا (D-031)",
+    "الشجرة ما زالت تحتوي `menu/{item-slug}/` (صنف مميز — DB-06 القديم) و§2 'الكلفة: الجذر / يصبح تحويلًا إلى /ar/' — كلاهما قديم (C-04، C-06)"
+   ],
+   "sources": [
+    "M04-008",
+    "M04-009"
+   ],
+   "decision_refs": [
+    "D-019",
+    "D-031"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "IMPLEMENTED — NOT TESTED",
+   "tested": "N/A",
+   "existing_impl": "docs/phase-01-discovery/10-url-architecture-draft.md",
+   "missing_work": "تحديث 10 §2 (حذف كلفة تحويل الجذر بعد D-052) و§3/§4 (حذف أو تأجيل {item-slug} بعد D-147)؛ إغلاق URL-03…URL-10",
+   "dependencies": [
+    "SEO-034"
+   ],
+   "test_required": "مراجعة الـOwner للشجرة المحدثة",
+   "design_refs": [
+    "docs/phase-01-discovery/10-url-architecture-draft.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "C-04; C-06",
+   "business_data": false,
+   "phase": "P03",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "WEB-011",
+   "area": "03 Global Website Architecture",
+   "type": "RULE",
+   "title": "معايير الرموز: ar/en · ISO country (jo) · xx للتوثيق فقط",
+   "requirement": "معايير ثابتة للرموز: رموز اللغات في الـURLs = `ar` و`en` (ISO 639-1)؛ رموز الدول = ISO 3166-1 alpha-2 بحروف صغيرة (مثل `jo`)؛ الرموز الافتراضية مثل `xx` و`{city}` و`{ll}` تُستخدم في الـDocumentation فقط ولا تظهر أبدًا على الموقع الحقيقي.",
+   "details": [
+    "في hreflang: `ar-JO` / `en-JO` لصفحات السوق — مقترح (13 §4.6)",
+    "أي Slug لصفحة علامة ≥ 3 أحرف حتى لا يشبه رمز دولة أو لغة — مقترح (10 §3 مبدأ 3)",
+    "حروف لاتينية صغيرة والكلمات بشرطة `-` — مقترح (10 §3 مبدأ 4)"
+   ],
+   "sources": [
+    "M10-008",
+    "M10-009",
+    "M10-010"
+   ],
+   "decision_refs": [
+    "D-031"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "spec: 10 (تنبيه الرموز)؛ 13 §4.6",
+   "missing_work": "قاعدة routing/lint تمنع placeholders وتقيّد الرموز",
+   "dependencies": [
+    "WEB-008"
+   ],
+   "test_required": "فحص آلي لكل URLs في sitemap والـrouting: المقطع الأول ∈ {ar, en}؛ مقطع السوق ∈ رموز ISO المعتمدة (jo فقط حاليًا)؛ لا 'xx' ولا '{…}'",
+   "design_refs": [
+    "docs/phase-01-discovery/10-url-architecture-draft.md",
+    "docs/phase-01-discovery/13-root-and-international-seo-plan.md §4"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P03",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "WEB-012",
+   "area": "03 Global Website Architecture",
+   "type": "RULE",
+   "title": "URLs نظيفة لاتينية: قصيرة · مقروءة · دلالية · SEO Friendly · قابلة للتوسع",
+   "requirement": "URLs نظيفة ولاتينية: كل URL يجب أن يكون Short · Readable · Semantic · SEO Friendly · Memorable · Scalable (مثل shelterjo.com/menu بدل shelterjo.com/page?id=123)، وSlugs لاتينية في كل اللغات (لا slugs عربية مشفرة %D8%…).",
+   "details": [
+    "DB-03: المبدأ ✅ (D-014)؛ التوصية: 301 من كل الـslugs العربية الحالية ذات القيمة — تُنفّذ عبر خريطة النقل (SEO-010، SEO-011)",
+    "الشرطة المائلة النهائية دائمًا `/` = URL-08 مقترح (غير معتمد)",
+    "رابط الصنف بدون الفئة ورابط المقال بدون الموضوع حتى لا يتغير عند إعادة التصنيف (10 §3 مبدأ 2 — مقترح)"
+   ],
+   "sources": [
+    "M01-084",
+    "M01-085",
+    "M03-032"
+   ],
+   "decision_refs": [
+    "D-014",
+    "DB-03"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "spec: 10 §3",
+   "missing_work": "اعتماد URL-08 وقواعد الـslug النهائية ضمن التجميد",
+   "dependencies": [
+    "SEO-034"
+   ],
+   "test_required": "فحص آلي لكل URL: [a-z0-9-] لاتيني صغير، بلا IDs في query، trailing slash موحد، طول معقول",
+   "design_refs": [
+    "docs/phase-01-discovery/10-url-architecture-draft.md §3",
+    "docs/phase-01-discovery/05-decisions-before-design.md DB-03"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P03",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "WEB-013",
+   "area": "03 Global Website Architecture",
+   "type": "DECISION",
+   "title": "ROOT-01 = D: الجذر / = Global Brand Gateway / x-default — لا 301 إلى /ar/",
+   "requirement": "ROOT-01 = الخيار D (مبدئي — D-052): الجذر `/` = Global Brand Gateway / x-default — صفحة حقيقية بلا تحويل. ممنوع Redirect نهائي/دائم من `/` إلى `/ar/` (الخيار A مرفوض كقرار حالي).",
+   "details": [
+    "hreflang لعنقود الجذر: x-default → `/` · ar → `/ar/` · en → `/en/`؛ Canonical الجذر لنفسه (13 §4، 15 §5)",
+    "أسباب D (13 §2): يحتفظ بقوة الروابط الخارجية للجذر ورابط الـKnowledge Panel بلا تحويل؛ لا Migration ثانية للجذر عند التوسع أو نقل الدومين؛ متوافق مع إرشادات Google (لا تحويل تلقائي، x-default على صفحة الاختيار)",
+    "البديل الذي اعتُبر مقبولًا في الدراسة: A بتحويل مؤقت 302 — غير معتمد؛ C غير موصى به (ضغطة إجبارية)",
+    "عند دولة ثانية: قسم 'فروعنا' يصبح 'اختر دولتك' بدون تغيير الرابط أو وظيفة الصفحة (15 §1)"
+   ],
+   "sources": [
+    "M13-001",
+    "M10-004",
+    "M11-050"
+   ],
+   "decision_refs": [
+    "D-052",
+    "D-031",
+    "DB-19",
+    "GEP-§20/§21"
+   ],
+   "status": "APPROVED WITH CONDITIONS",
+   "owner_approved": "PARTIAL",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "spec: 13 §2؛ 15",
+   "missing_work": "التجميد بعد اعتماد الـWireframe ونصوصه (WEB-016)؛ ثم التنفيذ",
+   "dependencies": [
+    "WEB-015",
+    "WEB-016",
+    "SEO-033",
+    "WEB-017"
+   ],
+   "test_required": "GET / يعيد 200 بلا 3xx لأي User-Agent/IP/Accept-Language؛ canonical = /؛ hreflang x-default=/ و ar=/ar/ و en=/en/",
+   "design_refs": [
+    "docs/phase-01-discovery/13-root-and-international-seo-plan.md §2",
+    "docs/phase-01-discovery/15-root-gateway-wireframe.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P03",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "WEB-014",
+   "area": "03 Global Website Architecture",
+   "type": "DELIVERABLE",
+   "title": "دراسة الجذر A/B/C/D ثم انتظار قرار الـOwner",
+   "requirement": "Deliverable: دراسة أفضل حل عالمي للـRoot Domain من ناحية SEO · hreflang · x-default · User Experience · International expansion · Search engines · AI crawlers · Future global domain · Future countries · Google crawling، مع مقارنة A (`/` → `/ar/` redirect) · B (`/` كـGlobal / x-default homepage) · C (`/` كـLanguage/Market Gateway) · D (حل أفضل مقترح)، ثم عرض الخيارات وانتظار قرار الـOwner.",
+   "details": [
+    "سُلّمت في 13 §1–§2 (توصية D)؛ قرار الـOwner: D مبدئيًا (D-052)",
+    "ملاحظة المستشار في M10: تجنب اكتشاف بعد سنة أن الجذر واللغات والأسواق تحتاج Migration ثانية"
+   ],
+   "sources": [
+    "M10-005",
+    "M10-006",
+    "M11-051",
+    "M11-052"
+   ],
+   "decision_refs": [
+    "D-031",
+    "D-052",
+    "GEP-§20/§21"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "IMPLEMENTED — NOT TESTED",
+   "tested": "N/A",
+   "existing_impl": "docs/phase-01-discovery/13-root-and-international-seo-plan.md §1–§2",
+   "missing_work": "تحديث ترويسة 13 (ما زالت 'PROPOSED — PENDING OWNER DECISION' رغم حسم ROOT-01 وURL-02 وMENU-01)",
+   "dependencies": [],
+   "test_required": "N/A (وثيقة) — مراجعة الـOwner",
+   "design_refs": [
+    "docs/phase-01-discovery/13-root-and-international-seo-plan.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P03",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "WEB-015",
+   "area": "03 Global Website Architecture",
+   "type": "REQUIREMENT",
+   "title": "وظيفة الجذر: مفيد للمستخدم والبحث والـAI — Header مختصر — ليس نسخة ثالثة",
+   "requirement": "الجذر `/` يبقى مفيدًا للمستخدم ومحركات البحث والـAI وليس مجرد صفحة اختيار لغة فارغة، ولا يتحول إلى نسخة ثالثة كاملة من الموقع. Header مختصر جدًا (RG-02). هدفه: تعريف سريع بالعلامة · اختيار اللغة / السوق بطريقة طبيعية · الوصول السريع للمنيو · الوصول للفروع.",
+   "details": [
+    "Wireframe (15 §2): Header مختصر (شعار + العربية | English) ← ① تعريف ثنائي اللغة (H1: SHELTER COFFEE — شلتر كوفي) ← ② المنيو/الفروع بكل لغة (/ar/jo/menu/ · /ar/jo/locations/ · /en/jo/menu/ · /en/jo/locations/) ← ③ فروعنا اليوم (DRIVE وHOUSE + الحالة + [الاتجاهات] [اتصال] [واتساب]) ← ④ حقائق موجزة ← Footer مختصر (0799009436 · واتساب · كل قنوات التواصل · الخصوصية · الشروط)",
+    "لا يدخل الجذر: ادعاءات تسويقية ('الأفضل'، 'الأول'، أعداد العملاء)، تقييمات، صور غير معتمدة، أسعار، نشرة بريدية، قائمة تنقل كاملة (15 §4)",
+    "تقنيًا (15 §5 — مقترح): HTML من الخادم بلا اعتماد على JS؛ كل قسم يحمل lang/dir؛ Schema Organization + WebSite؛ لا تحويل تلقائي ولا تذكّر للغة بدون قرار؛ صفحة خفيفة جدًا",
+    "فقرة الحقائق: سنة التأسيس 2019 فقط (D-018) — الصياغة غير معتمدة (RG-05 → D-068)"
+   ],
+   "sources": [
+    "M13-003",
+    "M14-020",
+    "M14-021",
+    "M14-022"
+   ],
+   "decision_refs": [
+    "D-052",
+    "D-066",
+    "DB-19"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "spec: docs/phase-01-discovery/15-root-gateway-wireframe.md",
+   "missing_work": "تأكيد RG-01 (الأقسام ①→④) وRG-06 (صورة/فيديو) صراحة؛ نصوص Brand Content (D-068)؛ البناء",
+   "dependencies": [
+    "WEB-016",
+    "I18N-007",
+    "AEO-001"
+   ],
+   "test_required": "Mobile+Desktop AR/EN: المنيو والفروع بضغطة واحدة؛ لا قائمة تنقل كاملة؛ المحتوى ظاهر مع JS معطل؛ axe WCAG 2.2 AA؛ Lighthouse؛ visual QA",
+   "design_refs": [
+    "docs/phase-01-discovery/15-root-gateway-wireframe.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "C-10",
+   "business_data": true,
+   "phase": "P03",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "WEB-016",
+   "area": "03 Global Website Architecture",
+   "type": "GATE",
+   "title": "Wireframe ومحتوى الجذر قبل الـFreeze — لا تنفيذ قبل الموافقة",
+   "requirement": "بوابة: قبل الـFreeze النهائي للجذر يُعرض Wireframe ومحتوى مقترح، ولا تنفيذ قبل موافقة الـOwner. الحالة: Wireframe قُدّم (15)؛ RG-02 (Header مختصر) وRG-03 (العربية أولًا) معتمدان؛ نصوص RG-04/RG-05 = DRAFT ONLY / Placeholder حتى مرحلة Brand Content / Homepage Copy حيث تُعرض 3 خيارات لكل نص (A — Minimal / Premium · B — Brand-led · C — SEO-aware but natural) بالعربية والإنجليزية، بلا حشو SEO ولا صياغة تبدو مولدة بالذكاء الاصطناعي (D-068).",
+   "details": [
+    "RG-01 (هيكل الأقسام ①→④ + Footer مختصر) وRG-06 (صورة/فيديو — التوصية: لا شيء حتى أصل معتمد) لم يُجب عليهما صراحة في M14 — الصمت ليس موافقة (C-10)",
+    "السطر التعريفي المسودة: 'قهوة مختصة ودرايف ثرو في إربد، الأردن' / 'Specialty coffee & drive-thru in Irbid, Jordan' — غير معتمد (R4-02)"
+   ],
+   "sources": [
+    "M13-004"
+   ],
+   "decision_refs": [
+    "D-052",
+    "D-066",
+    "D-067",
+    "D-068",
+    "DB-19"
+   ],
+   "status": "APPROVED WITH CONDITIONS",
+   "owner_approved": "PARTIAL",
+   "priority": "P0",
+   "impl_status": "PARTIAL",
+   "tested": "N/A",
+   "existing_impl": "docs/phase-01-discovery/15-root-gateway-wireframe.md (lo-fi؛ النصوص Placeholder)",
+   "missing_work": "تأكيد RG-01/RG-06؛ 3 خيارات نصوص في Brand Content؛ اعتماد نهائي قبل البناء",
+   "dependencies": [
+    "WEB-015",
+    "CONTENT"
+   ],
+   "test_required": "سجل موافقة الـOwner على الهيكل والنصوص قبل أي تنفيذ للجذر",
+   "design_refs": [
+    "docs/phase-01-discovery/15-root-gateway-wireframe.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "C-10",
+   "business_data": false,
+   "phase": "P03",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "WEB-017",
+   "area": "03 Global Website Architecture",
+   "type": "RULE",
+   "title": "لا Geo/IP/Language Redirect تلقائي — لا منع لاختيار English",
+   "requirement": "ممنوع أي تحويل تلقائي للزائر: لا Automatic Geo Redirect، لا IP Redirect، لا تحويل حسب الدولة، لا Geo Redirect إجباري، ولا تحويل حسب لغة المتصفح؛ ولا يُمنع المستخدم من اختيار English مباشرة. اختيار اللغة/السوق بيد المستخدم.",
+   "details": [
+    "تذكُّر اختيار الزائر للغة (Cookie) بعد اختياره بنفسه فقط وبلا تأثير على الزواحف = نقاش اختياري لاحق، لا يُفعّل بدون موافقة (13 §2)",
+    "سبب SEO: Googlebot يزحف غالبًا من عنوان واحد فقد لا يرى كل النسخ؛ Google يوصي بترك الاختيار للمستخدم مع hreflang (13 §1)"
+   ],
+   "sources": [
+    "M13-002",
+    "M14-024",
+    "M10-007"
+   ],
+   "decision_refs": [
+    "D-052",
+    "D-067",
+    "D-031"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "spec: 13 §2؛ 15 §5",
+   "missing_work": "التنفيذ والاختبار",
+   "dependencies": [
+    "WEB-013"
+   ],
+   "test_required": "طلبات من IPs/دول مختلفة ومع Accept-Language متنوع إلى / و/ar/ و/en/: لا 3xx تلقائي؛ زر English ظاهر ويعمل دائمًا",
+   "design_refs": [
+    "docs/phase-01-discovery/13-root-and-international-seo-plan.md §1–§2",
+    "docs/phase-01-discovery/15-root-gateway-wireframe.md §5"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "C-05",
+   "business_data": false,
+   "phase": "P08",
+   "history": [
+    {
+     "old": "M10: لا تُستخدم Automatic geolocation/language redirects بشكل قد يضر Crawlers أو UX بدون مناقشة الـOwner (مشروط بالنقاش)",
+     "source": "M10-007",
+     "superseded_by": "M13-002 + M14-024 (حظر مطلق)"
+    }
+   ],
+   "notes": ""
+  },
+  {
+   "id": "WEB-018",
+   "area": "03 Global Website Architecture",
+   "type": "DECISION",
+   "title": "URL-02: Slugs الفروع القصيرة drive و house",
+   "requirement": "URL-02 APPROVED (D-053): Slugs الفروع قصيرة `drive` و`house` (وليس `shelter-coffee-drive`)، لأن العلامة موجودة في الدومين وسياق الصفحة. توثيق القرار فقط — لا تنفيذ الآن.",
+   "details": [
+    "المسار في المسودة: /ar/jo/locations/irbid/drive/ · /ar/jo/locations/irbid/house/ · /en/jo/locations/irbid/drive/ · /en/jo/locations/irbid/house/ (10 §3)",
+    "أثر SEO (13 §8): كلمات الرابط عامل ترتيب ضعيف جدًا؛ الاسم الكامل في العنوان والـH1 والـSchema والدومين",
+    "`locations` مقابل `branches` = URL-10 مقترح (locations) — غير معتمد"
+   ],
+   "sources": [
+    "M13-005",
+    "M10-013",
+    "M10-014"
+   ],
+   "decision_refs": [
+    "D-053",
+    "D-032"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "spec: 10 §3؛ 13 §8",
+   "missing_work": "تثبيت بقية مسار الفرع (locations/irbid — URL-07/URL-10)",
+   "dependencies": [
+    "SEO-034",
+    "SEO-016"
+   ],
+   "test_required": "routing: slugs drive/house ثابتة في AR/EN؛ لا slug بديل منشور",
+   "design_refs": [
+    "docs/phase-01-discovery/10-url-architecture-draft.md §3",
+    "docs/phase-01-discovery/13-root-and-international-seo-plan.md §8"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P03",
+   "history": [
+    {
+     "old": "تفضيل الـOwner /drive/ /house/ غير مجمّد حتى عرض أثر الخيارين على SEO ووضوح الرابط (D-032 PROPOSED)",
+     "source": "M10-013, M10-014",
+     "superseded_by": "M13-005 (D-053 APPROVED)"
+    }
+   ],
+   "notes": ""
+  },
+  {
+   "id": "WEB-019",
+   "area": "03 Global Website Architecture",
+   "type": "RULE",
+   "title": "قاعدة الفرع الثاني من نفس النوع: drive-{area} / house-{area} (مبدئي)",
+   "requirement": "قاعدة الفروع المستقبلية (مبدئيًا): إذا ظهر فرع آخر من نفس النوع داخل نفس المدينة → `drive-{area}` / `house-{area}` (اسم المنطقة بحروف لاتينية)، ويبقى الفرع الأول على `drive` / `house`.",
+   "details": [
+    "الثبات المطلق لرابط الفرع الأصلي: SEO-016"
+   ],
+   "sources": [
+    "M13-006"
+   ],
+   "decision_refs": [
+    "D-053"
+   ],
+   "status": "APPROVED WITH CONDITIONS",
+   "owner_approved": "PARTIAL",
+   "priority": "P2",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "spec: 13 §8",
+   "missing_work": "اعتماد نهائي عند الحاجة لفرع ثانٍ؛ قاعدة كتابة {area} باللاتينية",
+   "dependencies": [
+    "SEO-016",
+    "WEB-003"
+   ],
+   "test_required": "Staging: إضافة فرع ثانٍ تجريبي يولّد drive-{area} ولا يغيّر رابط الأول",
+   "design_refs": [
+    "docs/phase-01-discovery/13-root-and-international-seo-plan.md §8"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P12",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "WEB-020",
+   "area": "03 Global Website Architecture",
+   "type": "DECISION",
+   "title": "روابط المنيو /ar/jo/menu/ · /en/jo/menu/ + ?branch=drive|house",
+   "requirement": "روابط صفحة المنيو الحالية: العربية `/ar/jo/menu/` والإنجليزية `/en/jo/menu/`. سياق الفرع عبر Query Parameter: `?branch=drive` و`?branch=house` (مثل `/ar/jo/menu/?branch=drive` و`/en/jo/menu/?branch=house`)؛ اختيار الفرع يظهر في الـURL. Canonical: SEO-022.",
+   "details": [
+    "أولوية تحديد الفرع: ?branch= ثم آخر اختيار محفوظ (localStorage بلا بيانات شخصية) ثم الافتراضي 'كل الفروع' (SHELTER-MENU-IA-SPEC §9.2، D-145)",
+    "تغيير الفرع يحدّث ?branch= بـreplaceState بلا خطوة History ويحافظ على مكان المستخدم (§9.3)",
+    "الفئة #anchor وتفاصيل الصنف #p-{slug} في الـHistory فقط — لا تُفهرس (§12)",
+    "من صفحة DRIVE/HOUSE: Menu CTA يفتح ?branch=drive/house بلا سؤال إضافي (M23 §30 — مجموعة BRANCH)",
+    "الدخول للمنيو أيضًا من: زر Header · رابط QR القصير /menu · Google (§1)"
+   ],
+   "sources": [
+    "M23-188",
+    "M23-104"
+   ],
+   "decision_refs": [
+    "D-145",
+    "F-18",
+    "D-054"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "PROTOTYPE",
+   "existing_impl": "spec: SHELTER-MENU-IA-SPEC §1، §9، §12 (DRAFT — PENDING OWNER APPROVAL)؛ docs/menu-ia/wireframes/",
+   "missing_work": "اعتماد Menu IA Spec والـWireframes (DB-06)؛ البناء",
+   "dependencies": [
+    "DB-06",
+    "SEO-022",
+    "SEO-023"
+   ],
+   "test_required": "E2E: ?branch= يضبط المحدد؛ replaceState؛ Back يحفظ الفرع والتمرير؛ AR/EN؛ (13 سيناريو fixme بانتظار التطبيق)",
+   "design_refs": [
+    "docs/menu-ia/SHELTER-MENU-IA-SPEC.md §1، §9، §12"
+   ],
+   "code_refs": [],
+   "test_refs": [
+    "tooling/tests/app/menu.spec.mjs"
+   ],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P02",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "WEB-021",
+   "area": "03 Global Website Architecture",
+   "type": "DELIVERABLE",
+   "title": "Menu IA س15: ما يكون URL مستقلًا وما يبقى داخل /menu",
+   "requirement": "دراسة Menu IA يجب أن تجيب (سؤال 15/15): ما الذي يكون URL مستقلًا وما الذي يبقى داخل /menu؟ — الإجابة: صفحة منيو واحدة لكل لغة (`/ar/jo/menu/`، `/en/jo/menu/`)؛ الفئات والأصناف Anchors داخل الصفحة؛ لا صفحات أصناف مستقلة في V1.",
+   "details": [
+    "Hybrid بصفحة واحدة (D-143، F-09)؛ لا صفحات أصناف (D-147، F-21)"
+   ],
+   "sources": [
+    "M21-039"
+   ],
+   "decision_refs": [
+    "D-141",
+    "D-143",
+    "D-147",
+    "F-09",
+    "F-21"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "IMPLEMENTED — NOT TESTED",
+   "tested": "N/A",
+   "existing_impl": "docs/phase-01-discovery/22-menu-information-architecture.md؛ docs/menu-ia/SHELTER-MENU-IA-SPEC.md §1، §12",
+   "missing_work": "اعتماد الـOwner للـIA Spec والـWireframes (DB-06)",
+   "dependencies": [
+    "DB-06"
+   ],
+   "test_required": "مراجعة الـOwner",
+   "design_refs": [
+    "docs/phase-01-discovery/22-menu-information-architecture.md",
+    "docs/menu-ia/SHELTER-MENU-IA-SPEC.md §12"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P02",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "WEB-022",
+   "area": "03 Global Website Architecture",
+   "type": "DECISION",
+   "title": "الموقع ليس E-Commerce في المرحلة الحالية",
+   "requirement": "الموقع الجديد في المرحلة الحالية ليس E-Commerce؛ الهدف الحالي: Brand + Menu + Locations + Content + Events + Blog.",
+   "details": [
+    "الهاتف وواتساب ليسا قناة طلب رسمية لمجرد أنهما قنوات تواصل (D-073)"
+   ],
+   "sources": [
+    "M03-056"
+   ],
+   "decision_refs": [
+    "D-016"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "none (scope decision)",
+   "missing_work": "—",
+   "dependencies": [
+    "WEB-023"
+   ],
+   "test_required": "لا Cart/Checkout/Payment في V1",
+   "design_refs": [
+    "docs/phase-01-discovery/09-architecture-options-after-r1.md AR-06"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P03",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "WEB-023",
+   "area": "03 Global Website Architecture",
+   "type": "REQUIREMENT",
+   "title": "جاهزية مستقبلية لـOnline Ordering — FUTURE CAPABILITY ONLY",
+   "requirement": "الـArchitecture قابلة مستقبلًا لإضافة Online Ordering / E-Commerce بدون إعادة بناء الموقع، بما فيها Pre-order · Pickup · Drive-thru pickup · Direct Online Ordering — FUTURE CAPABILITY ONLY: لا تنفيذ الآن، ولا إبراز Online Ordering كهدف أساسي قبل تحديد القنوات الرسمية.",
+   "details": [
+    "الجاهزية المقترحة (09 AR-06): ID ثابت لكل صنف · أسعار مرتبطة بالسوق والعملة · توفر مرتبط بالفرع · مكان محجوز لزر 'اطلب' لا يظهر الآن · لا تبعية لمنصة متجر",
+    "R2B-01/03/04 (منصات التوصيل، أسعار التطبيقات، قنوات الطلب) = MISSING — OWNER INPUT REQUIRED (D-073)"
+   ],
+   "sources": [
+    "M03-058",
+    "M14-047"
+   ],
+   "decision_refs": [
+    "D-016",
+    "D-073"
+   ],
+   "status": "DEFERRED",
+   "owner_approved": "YES",
+   "priority": "P3",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "spec: 09 AR-06",
+   "missing_work": "—",
+   "dependencies": [
+    "WEB-022"
+   ],
+   "test_required": "مراجعة الـData model: product_id ثابت، السعر per market/currency، التوفر per branch",
+   "design_refs": [
+    "docs/phase-01-discovery/09-architecture-options-after-r1.md AR-06"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P12",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "WEB-024",
+   "area": "03 Global Website Architecture",
+   "type": "REQUIREMENT",
+   "title": "shop.shelterjo.com — فحص وعرض قبل أي قرار",
+   "requirement": "shop.shelterjo.com: لا تُعتمد وظيفته الحالية من عندنا؛ يُفحص (قراءة فقط) عند توفر الوصول وتُعرض النتائج على الـOwner قبل أي قرار.",
+   "details": [
+    "ضمن AC-01 (D-041) — آخر بند في أولوية الفحص (17)"
+   ],
+   "sources": [
+    "M03-055"
+   ],
+   "decision_refs": [
+    "D-016",
+    "D-041",
+    "DB-12"
+   ],
+   "status": "PENDING VERIFICATION",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "none — AC-01 غير مفعّل في البيئة (EVIDENCE)",
+   "missing_work": "تفعيل AC-01 ثم الفحص والعرض",
+   "dependencies": [
+    "AC-01",
+    "DB-12",
+    "SEO-003"
+   ],
+   "test_required": "تقرير فحص مقدم للـOwner وقرار مسجل",
+   "design_refs": [
+    "docs/phase-01-discovery/02-url-inventory-and-migration-seed.md §C"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P01",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "SEO-001",
+   "area": "23 SEO (incl. migration, redirects, sitemap, robots)",
+   "type": "RULE",
+   "title": "SEO من اليوم الأول — الموقع القديم ليس مرجع SEO Architecture",
+   "requirement": "SEO من اليوم الأول وليس مرحلة بعد انتهاء الموقع: يدخل منذ البداية في Architecture · Pages · URLs · Navigation · Content · Headings · Images · Schema · Performance · Internal Linking · Localization. الموقع القديم ليس SEO Architecture Reference — بنية الـSEO الجديدة تُصمَّم من الصفر مع الحفاظ على قيمة الـURLs القديمة عبر Migration Map.",
+   "details": [
+    "ترتيب الأولويات عند التعارض: UX → Accuracy → Speed → Mobile → Accessibility → SEO/AEO/GEO → … (D-004)"
+   ],
+   "sources": [
+    "M01-143",
+    "M01-008"
+   ],
+   "decision_refs": [
+    "D-000",
+    "D-004"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "PROTOTYPE",
+   "existing_impl": "spec: 10، 13، SHELTER-MENU-IA-SPEC §13؛ prototype: Lighthouse SEO 90/90 على wireframes المنيو (لا <main>، لا meta description — wireframe فقط)",
+   "missing_work": "مراجعة SEO في كل مرحلة (IA، Wireframes، Build)",
+   "dependencies": [
+    "SEO-034"
+   ],
+   "test_required": "Checklist SEO لكل مرحلة؛ Lighthouse SEO؛ SEO Health = 0 CRITICAL قبل الإطلاق",
+   "design_refs": [
+    "docs/phase-01-discovery/10-url-architecture-draft.md",
+    "docs/phase-01-discovery/13-root-and-international-seo-plan.md",
+    "docs/menu-ia/SHELTER-MENU-IA-SPEC.md §13"
+   ],
+   "code_refs": [
+    "tooling/scripts/lighthouse.mjs"
+   ],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P03",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "SEO-002",
+   "area": "23 SEO (incl. migration, redirects, sitemap, robots)",
+   "type": "REQUIREMENT",
+   "title": "جاهزية International SEO و Local SEO",
+   "requirement": "الـArchitecture جاهزة لـInternational SEO (لغات وأسواق: P3 + hreflang + x-default) ولـLocal SEO (صفحة لكل فرع بـNAP وSchema وGBP).",
+   "details": [
+    "International: WEB-008، SEO-032، SEO-033",
+    "Local: SEO-008، SCHEMA-005"
+   ],
+   "sources": [
+    "M01-075"
+   ],
+   "decision_refs": [
+    "D-010",
+    "GEP-§10/§11",
+    "GEP-§20/§21"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "spec: 13؛ GEP §10–§11، §20",
+   "missing_work": "—",
+   "dependencies": [
+    "SEO-008",
+    "SEO-032"
+   ],
+   "test_required": "مراجعة خطة International (13) وLocal (GEP §10) قبل التجميد",
+   "design_refs": [
+    "docs/phase-01-discovery/13-root-and-international-seo-plan.md",
+    "docs/google/GOOGLE-ECOSYSTEM-POLICY.md §10، §20"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P03",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "SEO-003",
+   "area": "23 SEO (incl. migration, redirects, sitemap, robots)",
+   "type": "DELIVERABLE",
+   "title": "فحص الموقع الحالي واستخراج بيانات الـSEO (مصدر معلومات فقط)",
+   "requirement": "فحص شامل للموقع الحالي https://www.shelterjo.com كمصدر معلومات فقط، واستخراج بيانات الـSEO منه: Meta titles · Meta descriptions · Headings · Canonical tags · Structured Data · Schema · Sitemap · robots.txt · Internal links · External links · Redirects · 404 pages · Image alt text · Current SEO · Current Local SEO.",
+   "details": [
+    "الحالي: 01-current-website-inventory.md (Semrush Site Audit زحف 2026-04-10، 21 URL؛ Organic/Backlinks حتى 2026-09) — PENDING OWNER VERIFICATION",
+    "AC-01 معتمد (D-041) لكنه غير مفعّل في البيئة؛ إعادة Validation بالأولوية: 1) Crawl 2) Desktop rendering 3) Mobile rendering 4) Navigation 5) DOM 6) robots.txt 7) sitemap 8) redirects 9) canonicals 10) schema 11) JS/CSS 12) console errors 13) network errors 14) tracking 15) Playwright flows 16) Lighthouse / performance 17) shop.shelterjo.com",
+    "أهداف الـ301 الحالية (/menu، /hiring، الجذر) غير مرئية من بيئة العمل (02 §C)",
+    "الإغلاق: Crawl كامل + Sitemaps أو WordPress Export (Tools → Export → All content) + قائمة الصفحات من GSC",
+    "حدود: 150–300 طلب موزعة بهدوء؛ لا Load Testing ولا Crawling عدواني (D-044)؛ أي تعارض مع Semrush يُعرض على الـOwner"
+   ],
+   "sources": [
+    "M01-032",
+    "M01-034"
+   ],
+   "decision_refs": [
+    "D-000",
+    "D-028",
+    "D-041",
+    "D-044"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "PARTIAL",
+   "tested": "N/A",
+   "existing_impl": "docs/phase-01-discovery/01-current-website-inventory.md؛ docs/phase-01-discovery/02-url-inventory-and-migration-seed.md",
+   "missing_work": "فحص مباشر حقيقي بعد تفعيل AC-01 + WordPress Export أو قائمة صفحات GSC",
+   "dependencies": [
+    "AC-01",
+    "GSC-003"
+   ],
+   "test_required": "مقارنة النتائج المباشرة بـSemrush وتوثيق كل تعارض للـOwner",
+   "design_refs": [
+    "docs/phase-01-discovery/01-current-website-inventory.md",
+    "docs/phase-01-discovery/02-url-inventory-and-migration-seed.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P01",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "SEO-004",
+   "area": "23 SEO (incl. migration, redirects, sitemap, robots)",
+   "type": "DELIVERABLE",
+   "title": "SEO Audit للموقع الحالي (فهرسة، بنية، جودة، تقنية)",
+   "requirement": "SEO Audit للموقع الحالي يغطي: Indexed Pages · Indexability · Crawlability · Meta Titles · Meta Descriptions · H1 · H2 · H3 · Canonicals · Sitemap · robots.txt · Redirects · 404 · Broken Links · Duplicate Content · Thin Content · URL Structure · Image SEO · Internal Linking · Structured Data · Local SEO · Mobile SEO · JavaScript SEO · Performance · Core Web Vitals.",
+   "details": [
+    "تغطية قائمة الفحص في 01 §8؛ نتائج Technical SEO من زحف أبريل 2026 (11 صفحة HTML) في 01 §4",
+    "Indexed pages وCWV الحقيقية تحتاج GSC (GSC-005)"
+   ],
+   "sources": [
+    "M01-144",
+    "M01-145"
+   ],
+   "decision_refs": [
+    "D-028",
+    "D-041"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "PARTIAL",
+   "tested": "N/A",
+   "existing_impl": "docs/phase-01-discovery/01-current-website-inventory.md §4–§5، §8",
+   "missing_work": "إكمال البنود غير المغطاة بالفحص المباشر (AC-01) وبيانات GSC الحقيقية",
+   "dependencies": [
+    "AC-01",
+    "GSC-005"
+   ],
+   "test_required": "جدول تغطية لكل بند (✅/MISSING) مع المصدر والتاريخ",
+   "design_refs": [
+    "docs/phase-01-discovery/01-current-website-inventory.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P01",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "SEO-005",
+   "area": "23 SEO (incl. migration, redirects, sitemap, robots)",
+   "type": "REQUIREMENT",
+   "title": "الظهور على Intent حقيقي وليس الاسم فقط",
+   "requirement": "لا نكتفي بالـRanking على اسم SHELTER: الـArchitecture والمحتوى يساعدان الظهور على Intent حقيقي مثل: specialty coffee irbid · coffee shop irbid · drive thru coffee irbid · specialty coffee jordan + العبارات العربية المناسبة.",
+   "details": [
+    "الأمثلة ليست قائمة نهائية؛ العبارات العربية غير محددة — تحتاج بحث كلمات (GSC أولًا؛ أي أداة مدفوعة بموافقة D-029) ثم اعتماد",
+    "'كافيه/كافية' ليست جزءًا من الاسم وتُستخدم فقط في محتوى SEO أو وصف النشاط عند الحاجة وبعد موافقة الـOwner (D-007)",
+    "بيانات حالية (Semrush — تقديرات): #2 'shelter coffee drive'، #2 'شلتر'، #4 'كافيهات اربد' (2,400/شهر) على /best-cafes-irbid-2026/ — قرار R7-03 معلّق"
+   ],
+   "sources": [
+    "M11-099",
+    "M11-100"
+   ],
+   "decision_refs": [
+    "GEP-§46/§47",
+    "D-007"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "spec: GEP §46",
+   "missing_work": "بحث الكلمات من GSC Baseline؛ اعتماد العبارات العربية؛ خطة محتوى",
+   "dependencies": [
+    "GSC-005",
+    "R7-03",
+    "DB-09"
+   ],
+   "test_required": "تتبع الاستعلامات المستهدفة في GSC بعد الإطلاق (GSC-012)",
+   "design_refs": [
+    "docs/google/GOOGLE-ECOSYSTEM-POLICY.md §46"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P07",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "SEO-006",
+   "area": "23 SEO (incl. migration, redirects, sitemap, robots)",
+   "type": "RULE",
+   "title": "ممنوع Keyword Stuffing",
+   "requirement": "ممنوع Keyword Stuffing في أي محتوى أو Metadata أو نص للجذر؛ النصوص SEO-aware but natural بلا حشو كلمات ولا صياغة تبدو مولدة بالذكاء الاصطناعي.",
+   "details": [
+    "خيار C لنصوص الجذر/الرئيسية = 'SEO-aware but natural' (D-068)"
+   ],
+   "sources": [
+    "M11-101"
+   ],
+   "decision_refs": [
+    "GEP-§46/§47",
+    "D-068"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "spec: GEP §46",
+   "missing_work": "—",
+   "dependencies": [
+    "CONTENT"
+   ],
+   "test_required": "مراجعة تحريرية + موافقة الـOwner لكل نص؛ SEO Health لا يكافئ التكرار",
+   "design_refs": [
+    "docs/google/GOOGLE-ECOSYSTEM-POLICY.md §46"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P07",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "SEO-007",
+   "area": "23 SEO (incl. migration, redirects, sitemap, robots)",
+   "type": "REQUIREMENT",
+   "title": "Internal Linking قوية في Coffee Knowledge Hub",
+   "requirement": "Internal Linking قوية بين مقالات الـCoffee Knowledge Hub لبناء Topic Authority حول Specialty Coffee · Coffee Beans · Brewing · V60 · Espresso · Grinding · Roasting — بمحتوى صحيح ومعتمد فقط.",
+   "details": [
+    "اسم/مسار الـHub غير محسوم: URL-03 / DB-09 (coffee · blog · journal · learn)",
+    "رابط المقال مسطح بدون الموضوع (10 §3 — مقترح)"
+   ],
+   "sources": [
+    "M01-141"
+   ],
+   "decision_refs": [
+    "GEP-§46/§47",
+    "DB-09"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "none (لا وثيقة Blog/Hub بعد)",
+   "missing_work": "IA للـHub + قواعد الربط الداخلي",
+   "dependencies": [
+    "DB-09",
+    "BLOG"
+   ],
+   "test_required": "SEO Health: لا صفحات يتيمة في الـHub؛ كل مقال يربط بموضوعه ومقالات ذات صلة",
+   "design_refs": [
+    "docs/google/GOOGLE-ECOSYSTEM-POLICY.md §47"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P03",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "SEO-008",
+   "area": "23 SEO (incl. migration, redirects, sitemap, robots)",
+   "type": "REQUIREMENT",
+   "title": "Local SEO لكل فرع (NAP، Maps، الساعات، Schema، Metadata)",
+   "requirement": "Local SEO Architecture واضحة لكل Branch: Unique Content · Correct NAP · Maps · Opening Hours · Contact Data · Schema · Metadata؛ وتُراجع لكل فرع: Official name · Address · Phone · Opening hours · Google Maps · Page title · Meta description · LocalBusiness / CafeOrCoffeeShop schema · Branch URL · Internal linking · Location content · Coordinates · Google Business Profile URL.",
+   "details": [
+    "المعتمد (D-020): DRIVE = شلتر كوفي درايف / SHELTER COFFEE DRIVE — إربد، بجانب صالة قصر النخيل / منطقة أرابيلا (ليست صياغة عنوان نهائية) — السبت–الخميس 07:00 ص – 02:00 ص، الجمعة 08:00 ص – 02:00 ص · HOUSE = شلتر كوفي هاوس / SHELTER COFFEE HOUSE — Irbid City Center، الطابق الأول، بجانب البنك الإسلامي الأردني — السبت–الأربعاء 09:00 ص – 10:00 م، الخميس–الجمعة 09:00 ص – 11:00 م",
+    "الهاتف العام 0799009436 (D-057)؛ العرض الإنجليزي +962 79 900 9436 (D-065)",
+    "MISSING: العنوان التفصيلي AR/EN، اسم المول الرسمي، روابط Google Maps، الإحداثيات، رابط GBP — تُتحقق من GBP ثم تُعرض على الـOwner (D-020، D-048)",
+    "NAP متناسقة بين Website وGBP وSchema وContact وBranch pages؛ أي اختلاف = CONFLICT — OWNER REVIEW REQUIRED (GEP §11، D-048)؛ Branch Data Sync Check (D-049)"
+   ],
+   "sources": [
+    "M01-216",
+    "M11-025",
+    "M11-026"
+   ],
+   "decision_refs": [
+    "GEP-§10/§11",
+    "D-020",
+    "D-048",
+    "D-049",
+    "D-057",
+    "D-060"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "spec: GEP §10–§11؛ docs/google/BRANCH-DATA-SYNC.md؛ docs/google/GOOGLE-BUSINESS-PROFILE-SOURCE-OF-TRUTH.md (GBP data not received)",
+   "missing_work": "بيانات GBP (AC-03)؛ وثيقة صفحات الفروع (غير موجودة)؛ محتوى فريد معتمد لكل فرع",
+   "dependencies": [
+    "AC-03",
+    "SCHEMA-005",
+    "BRANCH"
+   ],
+   "test_required": "Branch Data Sync Check لكل فرع قبل/بعد الإطلاق؛ Rich Results Test؛ title/meta فريدة لكل فرع AR/EN",
+   "design_refs": [
+    "docs/google/GOOGLE-ECOSYSTEM-POLICY.md §10–§11",
+    "docs/google/BRANCH-DATA-SYNC.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "SEO-009",
+   "area": "23 SEO (incl. migration, redirects, sitemap, robots)",
+   "type": "GATE",
+   "title": "URL Migration Map رسمية قبل تغيير الموقع القديم",
+   "requirement": "بوابة: قبل تغيير الموقع القديم أو إطلاق الجديد يجب إنشاء URL Migration Map رسمية تستخرج وتثبّت كل قرارات SEO migration: existing URLs · valuable URLs · redirects · /menu · canonical · hreflang · x-default · Search Console baseline · backlink preservation · sitemap.",
+   "details": [
+    "SEO-MIGRATION-MAP.md = DRAFT؛ تتحول لنهائية بعد: (1) اعتماد الـURL Architecture (D-031 + ROOT-01) (2) Search Console Baseline (3) الفحص المباشر AC-01",
+    "أهم الروابط ذات القيمة (Semrush — تقديرات): shelterjo.com/ بدون www + http: 160 رابطًا خارجيًا من ~95 نطاقًا + Knowledge Panel · / : #2 'shelter coffee drive'، ~69 زيارة/شهر · /menu: 42 رابطًا خارجيًا من 11 نطاقًا · /best-cafes-irbid-2026/: #4 'كافيهات اربد' (2,400) ⏳ R7-03 · /coffee-house-vs-cafe/ (~27/شهر + مصر ولبنان) → REBUILD /ar/{hub}/{slug}/ · /city-centre-branch/ → /ar/jo/locations/irbid/house/ · /drive-thru/ و/drive-thru-shelter-irbid-how-it-works/ → /ar/jo/locations/irbid/drive/ (مقترحات)",
+    "البذرة 02 قديمة (أهداف غير P3 ومصطلح REPLACE/UNDECIDED) — C-01، C-02، C-03",
+    "~144 نطاقًا سبام ('PBN / buy backlinks' يوليو–سبتمبر 2026): لا Disavow ولا إجراء قبل GSC (DB-13)"
+   ],
+   "sources": [
+    "M01-146",
+    "M27-119"
+   ],
+   "decision_refs": [
+    "GEP-§15",
+    "D-054",
+    "DB-13"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "PARTIAL",
+   "tested": "N/A",
+   "existing_impl": "docs/google/SEO-MIGRATION-MAP.md (DRAFT)؛ docs/phase-01-discovery/02-url-inventory-and-migration-seed.md (Seed)؛ docs/phase-01-discovery/13-root-and-international-seo-plan.md §5–§7",
+   "missing_work": "خريطة كاملة لكل URL بعد AC-01 وGSC Baseline وتجميد الـURLs؛ تحديث 02 للمصطلحات وأهداف P3",
+   "dependencies": [
+    "GSC-005",
+    "WEB-009",
+    "SEO-003"
+   ],
+   "test_required": "كل URL من (02 + GSC Pages + GSC Links + Backlinks) له قرار وهدف موثق قبل الإطلاق",
+   "design_refs": [
+    "docs/google/SEO-MIGRATION-MAP.md",
+    "docs/phase-01-discovery/02-url-inventory-and-migration-seed.md",
+    "docs/phase-01-discovery/13-root-and-international-seo-plan.md §5–§7"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "C-01; C-02; C-03",
+   "business_data": false,
+   "phase": "P11",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "SEO-010",
+   "area": "23 SEO (incl. migration, redirects, sitemap, robots)",
+   "type": "RULE",
+   "title": "تصنيف كل URL قديم ذي قيمة: KEEP · REBUILD · REDIRECT · REMOVE",
+   "requirement": "أي URL قديم لديه Traffic أو Impressions أو Clicks أو Backlinks أو Rankings لا يُحذف عشوائيًا؛ ويُحدد لكل URL قديم ذي قيمة قرار واحد: KEEP · REBUILD · REDIRECT · REMOVE (REBUILD = REPLACE في M01).",
+   "details": [
+    "التعريفات (02): KEEP (نفس الرابط) · REBUILD/REPLACE (صفحة جديدة برابط جديد + 301) · REDIRECT (دمج في صفحة أخرى + 301) · REMOVE (410/404 مقبول)؛ UNDECIDED مؤقت حتى القرار",
+    "أمثلة REMOVE مقترحة: /?uicore-tb=personal-trainer-footer (410)؛ /locations.kml، /geo-sitemap.xml، /uicore-tb-sitemap.xml، /author-sitemap.xml، /category-sitemap.xml (02 §B)"
+   ],
+   "sources": [
+    "M01-147",
+    "M11-037",
+    "M11-038"
+   ],
+   "decision_refs": [
+    "GEP-§15"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "PARTIAL",
+   "tested": "N/A",
+   "existing_impl": "docs/google/SEO-MIGRATION-MAP.md (DRAFT — يذكر REPLACE = REBUILD)؛ docs/phase-01-discovery/02-url-inventory-and-migration-seed.md (REPLACE/UNDECIDED)",
+   "missing_work": "توحيد المصطلح في 02؛ تصنيف كامل لكل URL",
+   "dependencies": [
+    "SEO-009"
+   ],
+   "test_required": "لا URL ذو قيمة بلا قرار؛ لا REMOVE لـURL ذي قيمة بدون مبرر موثق وموافقة",
+   "design_refs": [
+    "docs/google/SEO-MIGRATION-MAP.md",
+    "docs/phase-01-discovery/02-url-inventory-and-migration-seed.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "C-01",
+   "business_data": false,
+   "phase": "P11",
+   "history": [
+    {
+     "old": "M01 §44: KEEP / REPLACE / REDIRECT / REMOVE",
+     "source": "M01-147",
+     "superseded_by": "M11-038 (KEEP / REBUILD / REDIRECT / REMOVE) — REPLACE ≡ REBUILD"
+    }
+   ],
+   "notes": ""
+  },
+  {
+   "id": "SEO-011",
+   "area": "23 SEO (incl. migration, redirects, sitemap, robots)",
+   "type": "RULE",
+   "title": "301 بقفزة واحدة لكل URL ذي قيمة يتغير — بلا خسارة SEO أو Backlinks",
+   "requirement": "أي URL مهم/ذو قيمة يتغير يحصل على 301 Redirect إلى الصفحة المكافئة بالـIntent بقفزة واحدة (بدون سلاسل، ويشمل نسخ http وبدون www)، مع الحفاظ على قيمة الروابط الخارجية (backlink preservation)؛ ممنوع خسارة الـSEO القديم بسبب إعادة البناء.",
+   "details": [
+    "302 فقط لما قد يتغير معناه (13 §5.2 — مقترح)",
+    "اختبار آلي قبل الإطلاق: كل رابط في 02 + كل رابط من GSC + كل رابط عليه روابط خارجية يعطي 200 بعد قفزة واحدة (13 §5.4 — مقترح)",
+    "مراقبة 404 يوميًا لأسبوعين ثم أسبوعيًا بعد الإطلاق (13 §5.5 — مقترح)"
+   ],
+   "sources": [
+    "M01-148",
+    "M01-149",
+    "M11-039",
+    "M27-120"
+   ],
+   "decision_refs": [
+    "GEP-§15",
+    "D-011",
+    "D-054"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "spec: 13 §5؛ docs/google/SEO-MIGRATION-MAP.md",
+   "missing_work": "سجل التحويلات + الاختبار الآلي",
+   "dependencies": [
+    "SEO-009",
+    "SEO-018"
+   ],
+   "test_required": "Crawl لكل URLs القديمة: 301 واحدة → 200؛ لا chains/loops؛ مطابقة Backlinked URLs من GSC Links",
+   "design_refs": [
+    "docs/phase-01-discovery/13-root-and-international-seo-plan.md §5",
+    "docs/google/SEO-MIGRATION-MAP.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P11",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "SEO-012",
+   "area": "23 SEO (incl. migration, redirects, sitemap, robots)",
+   "type": "DECISION",
+   "title": "MENU-01: /menu → 301 → /ar/jo/menu/",
+   "requirement": "MENU-01 APPROVED (Architecture — D-054): الرابط القديم `/menu` (42 رابطًا خارجيًا من 11 نطاقًا + ربما QR مطبوع) يحافظ على قيمته عبر 301 → `/ar/jo/menu/` مع الحفاظ على الـIntent؛ لا يُحذف بدون Migration Plan. التنفيذ وقت الإطلاق فقط (SEO-013).",
+   "details": [
+    "الخيار M1 (13 §6): /menu رابط قصير دائم 301 → /ar/jo/menu/؛ مع أكثر من سوق لاحقًا قد تصبح صفحة اختيار سوق — المتصفحات التي خزّنت 301 ستبقى تذهب لمنيو الأردن (مقبول)؛ M2 (302) وM3 (صفحة اختيار) غير معتمدين",
+    "يشمل نسخ http وبدون www من /menu، و/القائمة-شلتر-كافية-محافظة-اربد/ → /ar/jo/menu/ (SEO-MIGRATION-MAP — مقترح)",
+    "/menu حاليًا يعطي 301 ووجهته غير معروفة — يُتحقق بعد AC-01"
+   ],
+   "sources": [
+    "M13-009",
+    "M11-040",
+    "M11-041",
+    "M23-189"
+   ],
+   "decision_refs": [
+    "D-054",
+    "DB-20",
+    "GEP-§16",
+    "F-23"
+   ],
+   "status": "APPROVED WITH CONDITIONS",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "spec: 13 §6؛ docs/google/SEO-MIGRATION-MAP.md؛ SHELTER-MENU-IA-SPEC §1، §13",
+   "missing_work": "التنفيذ وقت الإطلاق فقط بعد شروط SEO-013",
+   "dependencies": [
+    "SEO-013",
+    "SEO-014"
+   ],
+   "test_required": "GET /menu (http/https × www/non-www) → 301 واحدة → /ar/jo/menu/ (200)",
+   "design_refs": [
+    "docs/phase-01-discovery/13-root-and-international-seo-plan.md §6",
+    "docs/google/SEO-MIGRATION-MAP.md",
+    "docs/menu-ia/SHELTER-MENU-IA-SPEC.md §1"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "C-03",
+   "business_data": false,
+   "phase": "P11",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "SEO-013",
+   "area": "23 SEO (incl. migration, redirects, sitemap, robots)",
+   "type": "GATE",
+   "title": "تنفيذ /menu 301 وقت الإطلاق فقط بعد 6 فحوص + موافقة الـOwner",
+   "requirement": "بوابة: لا يُنفَّذ Redirect `/menu` على Production الآن. التنفيذ فقط وقت Migration/Launch وبعد اكتمال: URL inventory · Search Console baseline · Backlink review · Redirect testing / validation · Canonical validation · Sitemap validation · Owner approval.",
+   "details": [
+    "M13 / D-054: ست نقاط؛ M23 §54 أضاف صراحة 'Owner approval' وسمّى الاختبار 'redirect validation' — غير مسجل في D-054 (G5-ND-01)"
+   ],
+   "sources": [
+    "M13-010",
+    "M23-190"
+   ],
+   "decision_refs": [
+    "D-054",
+    "DB-20",
+    "F-23"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "IMPLEMENTED — NOT TESTED",
+   "tested": "N/A",
+   "existing_impl": "Gate in force — honored to date: لا Redirects في أي بيئة (EVIDENCE)",
+   "missing_work": "Checklist إطلاق موقّعة بالبنود السبعة",
+   "dependencies": [
+    "GSC-005",
+    "SEO-009",
+    "SEO-021",
+    "SEO-029"
+   ],
+   "test_required": "Checklist الإطلاق: دليل لكل بند + موافقة الـOwner المسجلة قبل تفعيل التحويل",
+   "design_refs": [
+    "docs/phase-01-discovery/13-root-and-international-seo-plan.md §6",
+    "docs/menu-ia/SHELTER-MENU-IA-SPEC.md §1"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P11",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "SEO-014",
+   "area": "23 SEO (incl. migration, redirects, sitemap, robots)",
+   "type": "RULE",
+   "title": "أي QR أو رابط قديم يستمر بالعمل بعد الإطلاق",
+   "requirement": "أي QR أو رابط قديم (مطبوع أو منشور) يجب أن يستمر بالعمل بعد الإطلاق — لا 404 لرابط قديم.",
+   "details": [
+    "هل /menu مطبوع في QR؟ = سؤال R7-01 (معلّق)",
+    "روابط قصيرة للطباعة/QR مثل /menu و/drive و/house ثابتة للأبد وتحوّل للصفحة الحقيقية = URL-09 مقترح (نوع التحويل يُحسم لاحقًا)"
+   ],
+   "sources": [
+    "M13-011"
+   ],
+   "decision_refs": [
+    "D-054"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "spec: 10 §3 مبدأ 6؛ 13 §6",
+   "missing_work": "جرد QR المطبوعة (R7-01)؛ قرار URL-09",
+   "dependencies": [
+    "R7-01",
+    "URL-09",
+    "SEO-011"
+   ],
+   "test_required": "مسح كل QR المعروفة + كل الروابط القديمة: تصل لصفحة صحيحة (200) بقفزة واحدة",
+   "design_refs": [
+    "docs/phase-01-discovery/10-url-architecture-draft.md §3",
+    "docs/phase-01-discovery/13-root-and-international-seo-plan.md §6"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P11",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "SEO-015",
+   "area": "23 SEO (incl. migration, redirects, sitemap, robots)",
+   "type": "GATE",
+   "title": "لا URLs ولا Redirects ولا SEO changes على Production الآن",
+   "requirement": "بوابة المرحلة الحالية: لا تنفيذ لأي URLs أو Redirects (توثيق القرارات فقط)، لا Production redirects مبكرًا، ولا نشر SEO changes على الموقع الحالي أو Production.",
+   "details": [
+    "F-23: لا كود Production · لا نشر · لا Redirects · لا تغييرات Google"
+   ],
+   "sources": [
+    "M13-008",
+    "M23-230",
+    "M27-123"
+   ],
+   "decision_refs": [
+    "D-053",
+    "D-054",
+    "F-23",
+    "D-002"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "IMPLEMENTED — NOT TESTED",
+   "tested": "N/A",
+   "existing_impl": "Gate in force — honored to date: لا كود ولا Redirects ولا نشر (EVIDENCE)",
+   "missing_work": "يُرفع فقط في P11 بموافقة الـOwner",
+   "dependencies": [
+    "SEO-013"
+   ],
+   "test_required": "مراجعة: لا تغيير على الموقع القديم أو Cloudflare أو GSC قبل P11",
+   "design_refs": [
+    "docs/menu-ia/MENU-DECISION-REGISTER.md F-23"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P11",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "SEO-016",
+   "area": "23 SEO (incl. migration, redirects, sitemap, robots)",
+   "type": "RULE",
+   "title": "رابط الفرع الأصلي لا يتغير أبدًا",
+   "requirement": "رابط الفرع الأصلي لا يتغير أبدًا بعد النشر، حتى عند إضافة فروع جديدة من نفس النوع في نفس المدينة.",
+   "details": [
+    "Slug لا يتغير بعد النشر (10 §6 URL-02)"
+   ],
+   "sources": [
+    "M13-007"
+   ],
+   "decision_refs": [
+    "D-053"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "spec: 13 §8",
+   "missing_work": "URL Registry يمنع تغيير slug منشور",
+   "dependencies": [
+    "WEB-018",
+    "WEB-019"
+   ],
+   "test_required": "Regression: URLs الفروع المنشورة ثابتة بين الإصدارات (URL Registry)",
+   "design_refs": [
+    "docs/phase-01-discovery/13-root-and-international-seo-plan.md §8"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "SEO-017",
+   "area": "23 SEO (incl. migration, redirects, sitemap, robots)",
+   "type": "REQUIREMENT",
+   "title": "جاهزية نقل 1:1 إلى Global Domain بلا خسارة SEO",
+   "requirement": "النظام قابل للانتقال لاحقًا إلى Global Domain بـMigration بسيطة قدر الإمكان: 1:1 301 redirects بنفس المسارات (Path parity) بدون إعادة هيكلة كبيرة وبدون خسارة SEO — مثال: shelterjo.com/{أي مسار} → 301 → {global-domain}/{نفس المسار} (قاعدة واحدة على مستوى Cloudflare).",
+   "details": [
+    "خطة مقترحة (13 §7): قبل النقل: تحديث الدومين في الإعداد المركزي (Canonical/hreflang/Sitemap/Schema آليًا) + تجهيز GSC للدومين الجديد؛ يوم النقل: تفعيل التحويل + Change of Address في GSC + Sitemaps جديدة + تحديث رابط الموقع في GBP لكل فرع والسوشال والـQR؛ بعده: إبقاء التحويلات سنة على الأقل + تجديد ملكية shelterjo.com دائمًا + مراقبة",
+    "لا شيء الآن (D-011)"
+   ],
+   "sources": [
+    "M03-024",
+    "M04-010"
+   ],
+   "decision_refs": [
+    "D-011",
+    "D-019",
+    "D-031"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "spec: 09 AR-01 (مبادئ النقل)؛ 10 §5ب؛ 13 §7",
+   "missing_work": "تصميم الإعداد المركزي للدومين في المنصة (DB-08)",
+   "dependencies": [
+    "DB-08",
+    "WEB-002",
+    "WEB-006"
+   ],
+   "test_required": "Staging dry-run: تغيير الدومين المركزي يحدّث كل الروابط المطلقة؛ قاعدة 301 واحدة تحفظ المسار",
+   "design_refs": [
+    "docs/phase-01-discovery/09-architecture-options-after-r1.md AR-01",
+    "docs/phase-01-discovery/10-url-architecture-draft.md §5",
+    "docs/phase-01-discovery/13-root-and-international-seo-plan.md §7"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P05",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "SEO-018",
+   "area": "23 SEO (incl. migration, redirects, sitemap, robots)",
+   "type": "REQUIREMENT",
+   "title": "Redirect Manager لإدارة 301 والروابط القديمة والمتغيرة",
+   "requirement": "Redirect Manager: طريقة واضحة لإدارة 301 Redirects و Old URLs و Changed URLs (سجل تحويلات مركزي).",
+   "details": [
+    "مقترح: داخل الـCMS + نسخة احتياطية في المستودع (13 §5.3)؛ URL Registry لتوليد خريطة النقل آليًا (09 AR-01)",
+    "منع Redirect chains/loops (SEO-039)"
+   ],
+   "sources": [
+    "M01-219"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "spec: 13 §5.3",
+   "missing_work": "تصميم في CMS architecture (P04) ثم البناء",
+   "dependencies": [
+    "DB-08",
+    "CMS",
+    "SEO-011"
+   ],
+   "test_required": "إضافة/تعديل تحويل من الـDashboard ينعكس فورًا؛ رفض chain/loop؛ Audit Log؛ صلاحيات",
+   "design_refs": [
+    "docs/phase-01-discovery/13-root-and-international-seo-plan.md §5"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "SEO-019",
+   "area": "23 SEO (incl. migration, redirects, sitemap, robots)",
+   "type": "REQUIREMENT",
+   "title": "صفحة 404 غير فارغة: Menu · Locations · Search · Home",
+   "requirement": "صفحة 404 غير فارغة تعرض روابط: Menu · Locations · Search · Home — باللغتين وبالاتجاه الصحيح.",
+   "details": [
+    "Search يتطلب بحثًا على مستوى الموقع أو المنيو (F-15 بحث المنيو)"
+   ],
+   "sources": [
+    "M01-218"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "none",
+   "missing_work": "تصميم وبناء",
+   "dependencies": [
+    "IA",
+    "SRCH"
+   ],
+   "test_required": "URL غير موجود → HTTP 404 (لا soft-404) + الروابط الأربعة AR/EN؛ noindex؛ RTL/LTR؛ a11y",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "SEO-020",
+   "area": "23 SEO (incl. migration, redirects, sitemap, robots)",
+   "type": "GATE",
+   "title": "قبل الإطلاق: 404 reviewed · Old URLs mapped · 301 migration ready",
+   "requirement": "قبل Launch: 404 reviewed · Old URLs mapped · 301 migration ready (ضمن Before Launch — Google Checklist).",
+   "details": [
+    "باقي بنود Checklist (Search Console configured، Sitemap ready، robots.txt correct، Canonicals correct، hreflang correct، x-default decision correct، Schema validated، Staging blocked …) في مجموعة DEPLOY (M11-112)"
+   ],
+   "sources": [
+    "M11-114"
+   ],
+   "decision_refs": [
+    "GEP-§15"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "spec: docs/google/GOOGLE-ECOSYSTEM-CHECKLIST.md (Pre-Launch)",
+   "missing_work": "تنفيذ الفحوص قبل الإطلاق",
+   "dependencies": [
+    "SEO-009",
+    "SEO-011",
+    "SEO-019"
+   ],
+   "test_required": "Checklist موقّع بالأدلة",
+   "design_refs": [
+    "docs/google/GOOGLE-ECOSYSTEM-CHECKLIST.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P11",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "SEO-021",
+   "area": "23 SEO (incl. migration, redirects, sitemap, robots)",
+   "type": "RULE",
+   "title": "Canonical صحيح لكل صفحة",
+   "requirement": "كل صفحة لها Canonical صحيح، مع مراجعة خاصة لـ: Arabic / English · Menu filters · Search pages · Categories · Blog archives · Events · Branch pages · Query parameters.",
+   "details": [
+    "خطة مقترحة (13 §3 — PROPOSED): Canonical ذاتي مطلق (Host + HTTPS + شرطة نهائية موحدة) من إعداد الدومين المركزي · المعاملات (?utm=، ?ref=) → الرابط النظيف · لا Canonical عبر اللغات (اللغات تُربط بـhreflang فقط) · الصفحات المخفية لا تُنشر؛ غير المكتملة noindex وخارج الـSitemap",
+    "13 §3.4 (صفحة الصنف المميز canonical لنفسها) لاغٍ عمليًا: لا صفحات أصناف في V1 (C-06)"
+   ],
+   "sources": [
+    "M11-053",
+    "M11-054"
+   ],
+   "decision_refs": [
+    "GEP-§17/§19/§22"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "spec: 13 §3 (PROPOSED)",
+   "missing_work": "اعتماد خطة الـCanonical ضمن التجميد (SEO-034)",
+   "dependencies": [
+    "SEO-034",
+    "DB-11"
+   ],
+   "test_required": "Crawl: كل صفحة 200 لها canonical ذاتي مطلق؛ الصفحات بمعاملات → canonical نظيف؛ لا canonical من EN إلى AR",
+   "design_refs": [
+    "docs/phase-01-discovery/13-root-and-international-seo-plan.md §3",
+    "docs/google/GOOGLE-ECOSYSTEM-POLICY.md §22"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P10",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "SEO-022",
+   "area": "23 SEO (incl. migration, redirects, sitemap, robots)",
+   "type": "RULE",
+   "title": "?branch= بـCanonical واحد — لا نسخة منيو لكل فرع",
+   "requirement": "`?branch=` لا يولّد صفحات مكررة: الـCanonical يبقى دائمًا على رابط المنيو الرئيسي النظيف (`/ar/jo/menu/` أو `/en/jo/menu/`) بلا Parameters؛ ممنوع إنشاء نسخة Menu مستقلة لكل Branch؛ استراتيجية Canonical تمنع duplicate indexing.",
+   "details": [
+    "فرعان × رابط واحد، كلها بـCanonical واحد (SHELTER-MENU-IA-SPEC §12)",
+    "?branch= خارج الـSitemap"
+   ],
+   "sources": [
+    "M23-106",
+    "M23-105"
+   ],
+   "decision_refs": [
+    "D-145",
+    "F-18"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: SHELTER-MENU-IA-SPEC §1، §12، §13",
+   "missing_work": "البناء والاختبار",
+   "dependencies": [
+    "WEB-020"
+   ],
+   "test_required": "GET /ar/jo/menu/?branch=drive → <link rel=canonical href=https://{host}/ar/jo/menu/>؛ sitemap بلا ?branch=؛ GSC بلا Duplicate لهذه الروابط",
+   "design_refs": [
+    "docs/menu-ia/SHELTER-MENU-IA-SPEC.md §12–§13"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "SEO-023",
+   "area": "23 SEO (incl. migration, redirects, sitemap, robots)",
+   "type": "RULE",
+   "title": "لا URLs قابلة للفهرسة من search/category/branch",
+   "requirement": "استعلام البحث (Search query) لا يصبح بالضرورة indexable URL (نص البحث لا يُحفظ في الرابط)، وممنوع توليد آلاف توليفات URL قابلة للفهرسة من branch وsearch وcategory؛ الفئة #anchor والصنف #p-{slug} لا يُفهرسان.",
+   "details": [
+    "Category anchors مسموحة ومفيدة (M23 §63)"
+   ],
+   "sources": [
+    "M23-214",
+    "M23-215"
+   ],
+   "decision_refs": [
+    "D-145",
+    "F-18"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "spec: SHELTER-MENU-IA-SPEC §12",
+   "missing_work": "البناء والاختبار",
+   "dependencies": [
+    "SEO-022"
+   ],
+   "test_required": "Crawl بعد البناء: لا URLs مفهرسة بمعاملات search/category؛ صفحتا منيو فقط (AR/EN)",
+   "design_refs": [
+    "docs/menu-ia/SHELTER-MENU-IA-SPEC.md §12"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "SEO-024",
+   "area": "23 SEO (incl. migration, redirects, sitemap, robots)",
+   "type": "RULE",
+   "title": "لا صفحات أصناف في V1 — لا 191 thin pages",
+   "requirement": "ممنوع إنشاء 191 thin pages لمجرد الـSEO: لا Product Detail Pages مستقلة في V1.",
+   "details": [
+    "F-09 / F-21 مجمّدة؛ تفاصيل الصنف Bottom Sheet/Modal داخل الصفحة (D-146)"
+   ],
+   "sources": [
+    "M23-132"
+   ],
+   "decision_refs": [
+    "D-143",
+    "D-147",
+    "F-09",
+    "F-21"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "spec: SHELTER-MENU-IA-SPEC §13؛ docs/menu-ia/MENU-DECISION-REGISTER.md F-09، F-21",
+   "missing_work": "—",
+   "dependencies": [
+    "SEO-025"
+   ],
+   "test_required": "لا routes /{lang}/jo/menu/{item}/ في V1",
+   "design_refs": [
+    "docs/menu-ia/SHELTER-MENU-IA-SPEC.md §13",
+    "docs/menu-ia/MENU-DECISION-REGISTER.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "C-06; C-07",
+   "business_data": false,
+   "phase": "P02",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "SEO-025",
+   "area": "23 SEO (incl. migration, redirects, sitemap, robots)",
+   "type": "REQUIREMENT",
+   "title": "صفحات أصناف مستقبلًا فقط لمنتجات تستحق SEO Content فعليًا",
+   "requirement": "مستقبلًا يمكن بناء Product Pages فقط لمنتجات تستحق SEO Content فعلي (محتوى حقيقي معتمد).",
+   "details": [
+    "أي وصف/مكونات للمنتج يحتاج اعتماد الـOwner (D-081)"
+   ],
+   "sources": [
+    "M23-131"
+   ],
+   "decision_refs": [
+    "D-147",
+    "D-081"
+   ],
+   "status": "DEFERRED",
+   "owner_approved": "YES",
+   "priority": "P3",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "none",
+   "missing_work": "قرار الـOwner لكل منتج + محتوى معتمد",
+   "dependencies": [
+    "SEO-024"
+   ],
+   "test_required": "N/A حتى القرار",
+   "design_refs": [
+    "docs/menu-ia/SHELTER-MENU-IA-SPEC.md §13"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "C-07",
+   "business_data": false,
+   "phase": "P12",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "SEO-026",
+   "area": "23 SEO (incl. migration, redirects, sitemap, robots)",
+   "type": "RULE",
+   "title": "كل المنتجات والأسعار في الـHTML الأولي — لا JS-only ولا Virtualization",
+   "requirement": "كل المنتجات (191 صنفًا فعالًا) موجودة في الـHTML الأولي من الخادم وقابلة للفهرسة والوصول: كل Product Text crawlable، لا اعتماد على JS-only hidden data كمصدر أساسي، ونص المنتج والسعر لا يعتمد وجوده على hydration بعد تحميل طويل؛ ممنوع virtualization يخفي Product Content عن SEO أو Accessibility أو screen readers أو browser find.",
+   "details": [
+    "F-09: كل الأصناف في الـHTML · لا Virtualization · لا Infinite Scroll · لا Pagination · لا Load More",
+    "SSR/SSG للأسماء والأسعار (SHELTER-MENU-IA-SPEC §13)؛ Category anchors تعمل بلا JS (F-16)",
+    "دليل Prototype: 186 بطاقة في شبكة الـwireframe (191 − 5 أصناف SPRING في القسم الموسمي)"
+   ],
+   "sources": [
+    "M23-038",
+    "M23-187",
+    "M23-219"
+   ],
+   "decision_refs": [
+    "F-09",
+    "D-147",
+    "F-16"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "PROTOTYPE",
+   "existing_impl": "spec: SHELTER-MENU-IA-SPEC §13، §16؛ prototype wireframes",
+   "missing_work": "البناء بـSSR/SSG + الاختبار",
+   "dependencies": [
+    "DB-08"
+   ],
+   "test_required": "curl بلا JS: كل الأسماء والأسعار موجودة؛ Playwright مع JS معطل؛ browser find يجد أي صنف؛ axe",
+   "design_refs": [
+    "docs/menu-ia/SHELTER-MENU-IA-SPEC.md §13"
+   ],
+   "code_refs": [],
+   "test_refs": [
+    "tooling/tests/prototype/menu-wireframe.spec.mjs"
+   ],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "SEO-027",
+   "area": "23 SEO (incl. migration, redirects, sitemap, robots)",
+   "type": "RULE",
+   "title": "تحقق ما بعد البناء: Crawlability · Indexability · robots.txt · noindex …",
+   "requirement": "بعد بناء الموقع: التحقق من Crawlability · Indexability · Canonicals · Sitemap · robots.txt · noindex · duplicate pages · parameter URLs · language versions · staging pages.",
+   "details": [
+    "robots.txt (مقترحات غير معتمدة): ملف جديد بنفس المسار /robots.txt يُولّد آليًا (10 §3) ويُراجع قبل الإطلاق ('robots.txt correct' في Pre-Launch Checklist)؛ لا يحجب CSS/JS أو صفحات عامة؛ يشير إلى /sitemap.xml؛ لا يُعتمد عليه كحماية لـstaging (SEO-028)",
+    "/llms.txt: مسار قائم يُحتفظ به بمحتوى جديد (02 §B) — مقترح غير معتمد",
+    "سياسة زواحف AI في robots.txt غير محسومة (AEO-001)"
+   ],
+   "sources": [
+    "M11-042"
+   ],
+   "decision_refs": [
+    "GEP-§17/§19/§22"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "spec: GEP §17",
+   "missing_work": "الفحص بعد البناء",
+   "dependencies": [
+    "SEO-021",
+    "SEO-029"
+   ],
+   "test_required": "Crawl staging (بإذن) + URL Inspection بعد الإطلاق؛ robots.txt tester",
+   "design_refs": [
+    "docs/google/GOOGLE-ECOSYSTEM-POLICY.md §17"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P10",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "SEO-028",
+   "area": "23 SEO (incl. migration, redirects, sitemap, robots)",
+   "type": "RULE",
+   "title": "Staging لا يُفهرس: Authentication + noindex + blocking",
+   "requirement": "أي Staging Environment يجب ألا يظهر في Google: حماية مناسبة بـAuthentication + noindex + Search engine blocking؛ لا يُعتمد على robots.txt وحده كحماية أمنية.",
+   "details": [
+    "'Staging blocked' بند في Pre-Launch Checklist"
+   ],
+   "sources": [
+    "M11-043"
+   ],
+   "decision_refs": [
+    "GEP-§18",
+    "GEP-§17/§19/§22"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "spec: GEP §18 (لا staging بعد)",
+   "missing_work": "إعداد الـstaging بهذه الحماية",
+   "dependencies": [
+    "DEPLOY"
+   ],
+   "test_required": "طلب staging بلا مصادقة → 401/403؛ X-Robots-Tag: noindex؛ site:{staging} في Google = 0",
+   "design_refs": [
+    "docs/google/GOOGLE-ECOSYSTEM-POLICY.md §18"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "SEO-029",
+   "area": "23 SEO (incl. migration, redirects, sitemap, robots)",
+   "type": "RULE",
+   "title": "XML Sitemap: Canonical · Public · Indexable · Approved فقط",
+   "requirement": "XML Sitemap واضحة تشمل فقط الصفحات Canonical · Public · Indexable · Approved؛ ممنوع فيها: Draft · Private · Staging · Redirected URLs · Duplicate URLs · Admin URLs.",
+   "details": [
+    "مقترح (10 §3): /sitemap.xml فهرس، ومنه Sitemaps لكل لغة/سوق — تُولّد آليًا",
+    "Hidden (دول/فروع/صفحات) خارج الـSitemap (WEB-004)؛ لا ?branch= (SEO-022)",
+    "Sitemaps القديمة (02 §B — مقترح): /sitemap_index.xml، /post-sitemap.xml، /page-sitemap.xml → REDIRECT للجديد (قد يكون GSC مسجلًا عليها)؛ /geo-sitemap.xml، /uicore-tb-sitemap.xml، /author-sitemap.xml، /category-sitemap.xml، /locations.kml → REMOVE"
+   ],
+   "sources": [
+    "M11-045",
+    "M11-046"
+   ],
+   "decision_refs": [
+    "GEP-§17/§19/§22"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "spec: GEP §19؛ 10 §3؛ 02 §B",
+   "missing_work": "البناء والتحقق",
+   "dependencies": [
+    "SEO-021",
+    "WEB-004"
+   ],
+   "test_required": "Validator: كل URL في sitemap يعيد 200 وcanonical ذاتي وindexable ومنشور؛ لا draft/redirect/admin/staging",
+   "design_refs": [
+    "docs/google/GOOGLE-ECOSYSTEM-POLICY.md §19",
+    "docs/phase-01-discovery/10-url-architecture-draft.md §3",
+    "docs/phase-01-discovery/02-url-inventory-and-migration-seed.md §B"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P10",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "SEO-030",
+   "area": "23 SEO (incl. migration, redirects, sitemap, robots)",
+   "type": "REQUIREMENT",
+   "title": "إرسال الـSitemap لـGSC بعد اعتماد الموقع — Submit ≠ Success",
+   "requirement": "بعد اعتماد الموقع الجديد: إنشاء Sitemap صحيحة، التحقق منها، ثم إرسالها إلى Search Console؛ بعد الإرسال التحقق من الـStatus — Submit ≠ Success — ومتابعة أن Google قرأها بدون Errors.",
+   "details": [
+    "تعديل Sitemaps في GSC يحتاج موافقة الـOwner (GSC-004)",
+    "الفريق يتولى التنفيذ فعليًا (D-055)"
+   ],
+   "sources": [
+    "M12-042",
+    "M12-043"
+   ],
+   "decision_refs": [
+    "GIO-§A15/§A16",
+    "D-055"
+   ],
+   "status": "APPROVED WITH CONDITIONS",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "spec: GIO §A15",
+   "missing_work": "التنفيذ عند الإطلاق",
+   "dependencies": [
+    "GSC-004",
+    "GSC-007",
+    "SEO-029"
+   ],
+   "test_required": "تقرير GSC Sitemaps: Success + عدد URLs المكتشفة = المتوقع (لقطة/تقرير)",
+   "design_refs": [
+    "docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P11",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "SEO-031",
+   "area": "23 SEO (incl. migration, redirects, sitemap, robots)",
+   "type": "DELIVERABLE",
+   "title": "تقرير Indexing حقيقي بعد الإطلاق",
+   "requirement": "بعد Launch: فحص Indexing الحقيقي وتقرير واضح يصنّف: Indexed · Discovered · Crawled not indexed · Duplicate · Canonical issue · Blocked · 404 · Redirect.",
+   "details": [
+    "مراقبة Day 1 · 3 · 7 · 14 · 30 (POST-LAUNCH-GOOGLE-CHECKLIST — مجموعة MON)"
+   ],
+   "sources": [
+    "M12-044"
+   ],
+   "decision_refs": [
+    "GIO-§A15/§A16"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "spec: GIO §A16؛ docs/google/POST-LAUNCH-GOOGLE-CHECKLIST.md",
+   "missing_work": "—",
+   "dependencies": [
+    "GSC-001"
+   ],
+   "test_required": "تقرير مقدم للـOwner بالتصنيفات الثمانية",
+   "design_refs": [
+    "docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md",
+    "docs/google/POST-LAUNCH-GOOGLE-CHECKLIST.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P12",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "SEO-032",
+   "area": "23 SEO (incl. migration, redirects, sitemap, robots)",
+   "type": "RULE",
+   "title": "hreflang صحيح: Arabic Alternate + English Alternate لكل صفحة مترجمة",
+   "requirement": "تطبيق hreflang بشكل صحيح: لكل صفحة مترجمة Arabic Alternate و English Alternate، ثنائي الاتجاه مع Self-reference. القاعدة معتمدة؛ القيم التفصيلية مقترحة حتى التجميد.",
+   "details": [
+    "خطة مقترحة (13 §4 — PROPOSED): عنقود الجذر: ar → /ar/ · en → /en/ · x-default → / · صفحات العلامة: ar ↔ en · صفحات السوق (المنيو، الفروع، الفعاليات): ar-JO ↔ en-JO",
+    "المنيو: /ar/jo/menu/ hreflang ar-JO · /en/jo/menu/ hreflang en-JO (SHELTER-MENU-IA-SPEC §1، §13 — DRAFT)",
+    "لا hreflang لصفحة بلا ترجمة مكافئة؛ طريقة تسليم واحدة: <link rel=\"alternate\" hreflang> في الـHTML تُولّد آليًا (مقترح HTML وليس Sitemap)",
+    "<html lang=\"ar\" dir=\"rtl\"> للعربية و<html lang=\"en\" dir=\"ltr\"> للإنجليزية"
+   ],
+   "sources": [
+    "M11-048"
+   ],
+   "decision_refs": [
+    "GEP-§20/§21",
+    "D-031"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "PARTIAL",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "spec: 13 §4 (PROPOSED)",
+   "missing_work": "اعتماد القيم ضمن التجميد (SEO-034)",
+   "dependencies": [
+    "SEO-034",
+    "SEO-033"
+   ],
+   "test_required": "hreflang validator: return tags، رموز صالحة، self-reference؛ SEO Health 'Hreflang issues' = 0",
+   "design_refs": [
+    "docs/phase-01-discovery/13-root-and-international-seo-plan.md §4",
+    "docs/menu-ia/SHELTER-MENU-IA-SPEC.md §13"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P03",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "SEO-033",
+   "area": "23 SEO (incl. migration, redirects, sitemap, robots)",
+   "type": "DECISION",
+   "title": "x-default: الجذر محسوم (/) — صفحات العلامة والسوق معلّقة (ROOT-02)",
+   "requirement": "x-default يُراجع قبل اعتماد سلوك الجذر. المحسوم: x-default لعنقود الجذر/الرئيسيتين = `/` (D-052). غير المحسوم: x-default لصفحات العلامة والسوق — ROOT-02 (مقترح: النسخة العربية، تُراجع عند السوق الثاني) بانتظار قرار الـOwner.",
+   "details": [
+    "SHELTER-MENU-IA-SPEC §13 يكتب 'x-default ← الصفحة العربية' كأنه محسوم — DRAFT ويعتمد على ROOT-02 (C-09)"
+   ],
+   "sources": [
+    "M11-049"
+   ],
+   "decision_refs": [
+    "D-052",
+    "GEP-§20/§21"
+   ],
+   "status": "PENDING OWNER INPUT",
+   "owner_approved": "PARTIAL",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "spec: 13 §4، §9 (ROOT-02)",
+   "missing_work": "قرار الـOwner في ROOT-02",
+   "dependencies": [
+    "SEO-032",
+    "SEO-034"
+   ],
+   "test_required": "N/A حتى القرار؛ بعده validator لكل عنقود",
+   "design_refs": [
+    "docs/phase-01-discovery/13-root-and-international-seo-plan.md §4، §9",
+    "docs/menu-ia/SHELTER-MENU-IA-SPEC.md §13"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "C-09",
+   "business_data": false,
+   "phase": "P03",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "SEO-034",
+   "area": "23 SEO (incl. migration, redirects, sitemap, robots)",
+   "type": "GATE",
+   "title": "خطة ما قبل Freeze: canonical · hreflang · x-default · redirects · /menu",
+   "requirement": "قبل Freeze النهائي للـURLs يجب وجود خطة واضحة ومعتمدة لـ: canonical · hreflang · x-default · Arabic/English alternates · migration redirects · الرابط القديم /menu · future global-domain migration — وتُثبَّت ضمن قرارات SEO migration.",
+   "details": [
+    "سُلّمت في 13 (§3 canonical · §4 hreflang/x-default/alternates · §5 redirects · §6 /menu · §7 نقل الدومين) — حالتها PROPOSED",
+    "المحسوم: /menu (D-054)؛ الجذر (D-052)؛ Slugs الفروع (D-053)",
+    "المفتوح: اعتماد 13 §3 و§4 وROOT-02؛ وقرارات 10 §6: URL-03 (مسار الـHub — DB-09) · URL-04 (موضع الفعاليات) · URL-05 (الصفحات القانونية) · URL-06 (FAQ والتواصل) · URL-07 (نشر صفحة السوق /ar/jo/ وصفحة المدينة — Progressive Activation) · URL-08 (الشرطة المائلة النهائية) · URL-09 (روابط قصيرة للطباعة/QR ونوع التحويل) · URL-10 (locations أم branches)؛ وDB-11 (الـHost)"
+   ],
+   "sources": [
+    "M10-011",
+    "M10-012",
+    "M27-122"
+   ],
+   "decision_refs": [
+    "D-031",
+    "DB-02",
+    "DB-11"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "PARTIAL",
+   "tested": "N/A",
+   "existing_impl": "docs/phase-01-discovery/13-root-and-international-seo-plan.md",
+   "missing_work": "اعتماد الـOwner للبنود المفتوحة ثم Freeze مسجل",
+   "dependencies": [
+    "WEB-009",
+    "SEO-033",
+    "DB-09",
+    "DB-11"
+   ],
+   "test_required": "قرار مسجل لكل بند في DECISION-LOG",
+   "design_refs": [
+    "docs/phase-01-discovery/13-root-and-international-seo-plan.md",
+    "docs/phase-01-discovery/10-url-architecture-draft.md §6"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P03",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "SEO-035",
+   "area": "23 SEO (incl. migration, redirects, sitemap, robots)",
+   "type": "REQUIREMENT",
+   "title": "SEO Editor في الـDashboard لكل Page / Article (/ Product)",
+   "requirement": "داخل الـDashboard (SEO Editor) لكل Page / Article (ولكل Product — انظر C-07): SEO Title · Meta Description · URL · Canonical · Index / Noindex · OG Title / Social Title · OG Description / Social Description · OG Image / OpenGraph Image.",
+   "details": [
+    "Title/Meta المنيو بالعربي والإنجليزي = PENDING OWNER APPROVAL (P-07)",
+    "تغيير URL منشور يجب أن يولّد 301 في Redirect Manager (SEO-018) — مقترح",
+    "Schema fields: SCHEMA-010؛ الإعدادات الخطرة: SEO-036",
+    "Dashboard V1 P0 يشمل SEO editor (M25 §68)"
+   ],
+   "sources": [
+    "M01-160",
+    "M01-161",
+    "M25-105"
+   ],
+   "decision_refs": [
+    "D-086"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "none (Owner Dashboard not started)",
+   "missing_work": "تصميم (P04) وبناء (P08)",
+   "dependencies": [
+    "DASH",
+    "CMS",
+    "DB-08",
+    "SEO-018"
+   ],
+   "test_required": "تعديل كل حقل من الـDashboard ينعكس في الـHTML (title، meta description، canonical، robots، og:*) للغتين؛ Draft/Publish؛ Audit Log",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "C-07",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "SEO-036",
+   "area": "23 SEO (incl. migration, redirects, sitemap, robots)",
+   "type": "RULE",
+   "title": "إعدادات SEO الخطرة في Advanced section",
+   "requirement": "إعدادات SEO الخطرة (Canonical · Index/Noindex · URL/Slug …) في Advanced section ولا تكون سهلة التغيير بالخطأ.",
+   "details": [
+    "تكامل مع الصلاحيات والـAudit Log (مجموعة PERM/AUDIT)"
+   ],
+   "sources": [
+    "M25-107"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "none",
+   "missing_work": "تصميم وبناء",
+   "dependencies": [
+    "SEO-035",
+    "PERM"
+   ],
+   "test_required": "UX test: الحقول الخطرة مخفية افتراضيًا + تأكيد قبل الحفظ + Audit Log + صلاحية",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "SEO-037",
+   "area": "23 SEO (incl. migration, redirects, sitemap, robots)",
+   "type": "REQUIREMENT",
+   "title": "SEO Preview (Google) + Social Preview",
+   "requirement": "SEO Preview تقريبي لنتيجة Google Search (Title · URL · Description) وكذلك Social Preview.",
+   "details": [],
+   "sources": [
+    "M25-108"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "none",
+   "missing_work": "تصميم وبناء",
+   "dependencies": [
+    "SEO-035"
+   ],
+   "test_required": "المعاينة تطابق القيم المحفوظة للغتين وRTL/LTR",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "SEO-038",
+   "area": "23 SEO (incl. migration, redirects, sitemap, robots)",
+   "type": "REQUIREMENT",
+   "title": "SEO HEALTH CENTER: GOOD/WARNING/CRITICAL + Issue/Page/Severity/Fix",
+   "requirement": "SEO HEALTH CENTER داخل الـDashboard بحالة واضحة لكل مشكلة: GOOD · WARNING · CRITICAL؛ وكل مشكلة تُعرض بـ: Issue · Page · Severity · Explanation · Suggested Fix.",
+   "details": [
+    "Dashboard V1 P0 يشمل SEO health (M25 §68)"
+   ],
+   "sources": [
+    "M25-053",
+    "M25-061"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "none",
+   "missing_work": "تصميم (P04) وبناء",
+   "dependencies": [
+    "DASH",
+    "SEO-039"
+   ],
+   "test_required": "كل مشكلة تظهر بالحقول الخمسة والشدة الصحيحة",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "SEO-039",
+   "area": "23 SEO (incl. migration, redirects, sitemap, robots)",
+   "type": "REQUIREMENT",
+   "title": "قائمة فحوص SEO Health",
+   "requirement": "فحوص SEO Health: On-page (Missing title · Duplicate title · Missing meta description · Duplicate meta · Missing H1 · Multiple H1) · الفهرسة والزحف (Canonical issues · Noindex pages · Robots issues · Sitemap issues · Indexing Issues) · الروابط والتحويلات (Broken internal links · Broken external links · 404 pages · Redirect chains · Redirect loops · Redirect Problems) · اللغات (Hreflang issues · Arabic/English mismatch) · المحتوى (Missing alt text · Duplicate content warnings · Thin content warnings) · البيانات المنظمة (Schema errors · Structured data warnings).",
+   "details": [
+    "قائمة M01 §51: Missing Titles · Missing Meta Descriptions · Missing Alt Text · Broken Links · 404 · Redirect Problems · Indexing Issues · Schema Issues — مشمولة"
+   ],
+   "sources": [
+    "M01-163",
+    "M25-054",
+    "M25-055",
+    "M25-056",
+    "M25-057",
+    "M25-058",
+    "M25-059"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "none",
+   "missing_work": "تصميم وبناء",
+   "dependencies": [
+    "SEO-038",
+    "GSC-013"
+   ],
+   "test_required": "صفحات اختبار مزروعة لكل نوع مشكلة → تُكتشف بالشدة الصحيحة (AR وEN)",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "SEO-040",
+   "area": "23 SEO (incl. migration, redirects, sitemap, robots)",
+   "type": "GATE",
+   "title": "لا تغييرات SEO تلقائية — موافقة الـOwner على أي تعديل حساس",
+   "requirement": "ممنوع إجراء تغييرات SEO تلقائيًا من الـSEO Health Center؛ يعرض المشكلة والإصلاح المقترح فقط، والـOwner يوافق قبل أي تعديل SEO حساس.",
+   "details": [],
+   "sources": [
+    "M25-060",
+    "M25-062"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "none",
+   "missing_work": "تصميم وبناء",
+   "dependencies": [
+    "SEO-038",
+    "AUDIT"
+   ],
+   "test_required": "لا endpoint يطبّق إصلاحًا بدون موافقة مسجلة؛ Audit Log",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "SEO-041",
+   "area": "23 SEO (incl. migration, redirects, sitemap, robots)",
+   "type": "GATE",
+   "title": "DoD (بحث): SEO Clean · Google/AEO/GEO Ready · Redirects/Schema Correct",
+   "requirement": "Definition of Done (بحث): لا يُعتبر الموقع Finished إلا إذا كان SEO Clean · Google Ready · AEO Ready · GEO Ready · No Broken Links · Redirects Correct · Structured Data Correct.",
+   "details": [
+    "بقية بنود DoD (Content/Images/Design Approved، Performance، Accessibility، Security، Analytics، RTL/LTR Correct، Staging Tested، Owner Approved) في GOV/TEST"
+   ],
+   "sources": [
+    "M01-235"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "none",
+   "missing_work": "تعريف قياس كل بند في QA gate (P10)",
+   "dependencies": [
+    "SEO-039",
+    "SCHEMA-009",
+    "SEO-011",
+    "AEO-001"
+   ],
+   "test_required": "تقرير QA: SEO Health 0 CRITICAL، 0 broken links، redirects 1-hop، Rich Results 0 errors، AEO checklist",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P10",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "GSC-001",
+   "area": "21 Search Console",
+   "type": "REQUIREMENT",
+   "title": "إعداد وربط Search Console كاملًا — الفريق ينفذ",
+   "requirement": "الموقع جاهز لـGoogle Search Console، ويُعد ويُربط Search Console بشكل كامل؛ الفريق (Claude) يتولى فعليًا لاحقًا — متى سمحت الأدوات والصلاحيات — Search Console وSitemap (تنفيذ وليس تعليمات فقط)، ويُطلب من الـOwner فقط Login · OAuth · 2FA · ownership confirmation · permissions.",
+   "details": [
+    "Configure → Connect → Implement → Test → Verify → Document (D-051)؛ جرد الموجود قبل إنشاء أي شيء؛ أقل صلاحية لازمة",
+    "Search Console ضمن أولوية V1 P0 للـDashboard (M25 §68)"
+   ],
+   "sources": [
+    "M01-150",
+    "M12-035",
+    "M13-014"
+   ],
+   "decision_refs": [
+    "D-050",
+    "D-051",
+    "D-055"
+   ],
+   "status": "APPROVED WITH CONDITIONS",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "spec: docs/google/GOOGLE-INTEGRATION-ARCHITECTURE.md (DRAFT)؛ docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md",
+   "missing_work": "منح الصلاحيات ثم التنفيذ",
+   "dependencies": [
+    "GSC-003",
+    "GSC-006",
+    "GSC-007"
+   ],
+   "test_required": "Property Verified + Sitemap Success + جرد موثق في GIA",
+   "design_refs": [
+    "docs/google/GOOGLE-INTEGRATION-ARCHITECTURE.md",
+    "docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P09",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "GSC-002",
+   "area": "21 Search Console",
+   "type": "RULE",
+   "title": "GSC = مصدر الحقيقة لأداء Google Search — لا Semrush بدلًا منه",
+   "requirement": "Google Search Console = المصدر الأساسي للحقيقة عن أداء SHELTER في Google Search، وGoogle first-party data لها الأولوية: إذا توفرت بيانات GSC لا يُعتمد على Semrush أو أي أداة SEO خارجية/مدفوعة بدلًا منها. تُستخدم GSC لتحليل Queries · Pages · Clicks · Impressions · CTR · Average Position · Devices · Countries · Search appearance · Indexed pages · Excluded pages · Sitemaps · Core Web Vitals · Links، وتستبدل تقديرات Semrush في Queries · Pages · Countries · Devices · Indexing · Sitemaps · Core Web Vitals · Links.",
+   "details": [
+    "كل الأرقام الحالية في 01/02/SEO-MIGRATION-MAP تقديرات Semrush حتى وصول GSC",
+    "لا Supermetrics إذا كان سيستهلك Quota (D-042)؛ أي استهلاك مدفوع بموافقة مسبقة (D-029، D-044)"
+   ],
+   "sources": [
+    "M11-029",
+    "M11-030",
+    "M11-031",
+    "M11-109",
+    "M10-046"
+   ],
+   "decision_refs": [
+    "GEP-§12/§51",
+    "D-042",
+    "D-029"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "docs/google/SEARCH-CONSOLE-BASELINE.md (الجداول MISSING)",
+   "missing_work": "وصول بيانات GSC",
+   "dependencies": [
+    "GSC-003"
+   ],
+   "test_required": "كل رقم أداء في التقارير يذكر مصدره؛ GSC عند توفره",
+   "design_refs": [
+    "docs/google/GOOGLE-ECOSYSTEM-POLICY.md §12، §51",
+    "docs/google/SEARCH-CONSOLE-BASELINE.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P01",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "GSC-003",
+   "area": "21 Search Console",
+   "type": "RULE",
+   "title": "الوصول: مجاني أولًا · Read-only / Restricted · Exports من الـOwner",
+   "requirement": "الوصول إلى Search Console: الخيار المجاني أولًا؛ READ-ONLY / RESTRICTED ACCESS في البداية (AC-02: موافقة مبدئية عند تجهيز الربط)؛ الـOwner يوفر Export / Read-only عند الوصول للمرحلة المناسبة.",
+   "details": [
+    "Exports المطلوبة (SEARCH-CONSOLE-BASELINE): SC-01 Pages · SC-02 Queries · SC-03 Countries/Devices · SC-04 Search appearance · SC-05 Dates (آخر 16 شهرًا) · SC-06 Indexing → Pages · SC-07 Sitemaps · SC-08 Core Web Vitals (Mobile + Desktop) · SC-09 Links · SC-10 نوع الخاصية والمستخدمون",
+    "للـDashboard: Read-only يكفي للعرض عبر API (Service Account Restricted — GIO §B)"
+   ],
+   "sources": [
+    "M04-053",
+    "M10-044",
+    "M10-045",
+    "M11-032"
+   ],
+   "decision_refs": [
+    "D-028",
+    "D-042",
+    "GEP-§13"
+   ],
+   "status": "APPROVED WITH CONDITIONS",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "docs/google/SEARCH-CONSOLE-BASELINE.md (بانتظار Exports)؛ docs/phase-01-discovery/08-access-requests.md",
+   "missing_work": "Exports / صلاحية Read-only من الـOwner",
+   "dependencies": [
+    "OWNER INPUT"
+   ],
+   "test_required": "تأكيد الدور Restricted في GSC Users؛ استلام SC-01…SC-10",
+   "design_refs": [
+    "docs/google/SEARCH-CONSOLE-BASELINE.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P01",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "GSC-004",
+   "area": "21 Search Console",
+   "type": "GATE",
+   "title": "لا تعديل في GSC (Sitemaps، Removals، Users، Ownership، Disavow) بلا موافقة",
+   "requirement": "ممنوع أي تعديل في Search Console على: Sitemaps · Removals · Settings · Users · Ownership · Disavow · URL removal — إلا بعد موافقة الـOwner؛ وتغيير ملكية Search Console تغيير Production حساس: Summary ← موافقة ← تنفيذ.",
+   "details": [
+    "الروابط السبام (~144 نطاقًا PBN، يوليو–سبتمبر 2026): لا Disavow ولا إجراء قبل فتح GSC وسؤال الـOwner هل اشتُريت خدمة روابط (DB-13)",
+    "إرسال Sitemap الجديدة بعد اعتماد الموقع يمر بهذه الموافقة (SEO-030)"
+   ],
+   "sources": [
+    "M11-033"
+   ],
+   "decision_refs": [
+    "GEP-§13",
+    "D-051",
+    "DB-13"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "IMPLEMENTED — NOT TESTED",
+   "tested": "N/A",
+   "existing_impl": "Gate in force — honored to date: GSC لم يُلمس (EVIDENCE)",
+   "missing_work": "—",
+   "dependencies": [
+    "SEO-030"
+   ],
+   "test_required": "Audit: كل تغيير في GSC مسبوق بموافقة مسجلة",
+   "design_refs": [
+    "docs/google/GOOGLE-ECOSYSTEM-POLICY.md §13",
+    "docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P09",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "GSC-005",
+   "area": "21 Search Console",
+   "type": "GATE",
+   "title": "Search Console Migration Baseline قبل الإطلاق — مدخل لخطة النقل",
+   "requirement": "بوابة قبل الإطلاق/الـMigration: أخذ Search Console Migration Baseline يحفظ: Top queries · Top pages · Top landing pages · Backlinked URLs · Indexed URLs · High-impression pages · High-click pages (+ خط أساس Core Web Vitals)، ويُستخدم كمدخل لـSEO MIGRATION PLAN.",
+   "details": [
+    "آخر 16 شهرًا؛ التحقق من انخفاض ~75% المقدّر (RISK-03)؛ Links يعوّض نقص بيانات Semrush (RISK-02)",
+    "شرط مسبق لتنفيذ /menu 301 (SEO-013)"
+   ],
+   "sources": [
+    "M11-034",
+    "M11-035",
+    "M11-036",
+    "M27-121"
+   ],
+   "decision_refs": [
+    "GEP-§14",
+    "D-054"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "template: docs/google/SEARCH-CONSOLE-BASELINE.md (كل القيم MISSING)",
+   "missing_work": "استلام Exports وملء الجداول ونقلها لـSEO-MIGRATION-MAP",
+   "dependencies": [
+    "GSC-003",
+    "SEO-009"
+   ],
+   "test_required": "الجداول مملوءة بتاريخ ومصدر لكل رقم؛ كل URL ذي قيمة منقول إلى SEO-MIGRATION-MAP",
+   "design_refs": [
+    "docs/google/SEARCH-CONSOLE-BASELINE.md",
+    "docs/google/SEO-MIGRATION-MAP.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P01",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "GSC-006",
+   "area": "21 Search Console",
+   "type": "DELIVERABLE",
+   "title": "دراسة GSC Property Architecture (Domain vs URL Prefix)",
+   "requirement": "دراسة أفضل Property Architecture لـSearch Console أولًا: Domain Property · URL Prefix Properties · Existing ownership · Verification method؛ وإذا كان Domain Property مناسبًا يُجهَّز ويُربط بعد موافقة الـOwner.",
+   "details": [
+    "جرد الموجود قبل إنشاء أي Property — لا تكرار (D-051)"
+   ],
+   "sources": [
+    "M12-036",
+    "M12-037"
+   ],
+   "decision_refs": [
+    "D-051",
+    "GIO"
+   ],
+   "status": "PENDING OWNER INPUT",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "spec: GIO §A، §B",
+   "missing_work": "SC-10 (نوع الخاصية والمستخدمون) ثم التوصية والموافقة",
+   "dependencies": [
+    "GSC-003"
+   ],
+   "test_required": "توصية موثقة + موافقة مسجلة",
+   "design_refs": [
+    "docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P09",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "GSC-007",
+   "area": "21 Search Console",
+   "type": "REQUIREMENT",
+   "title": "Verification بعد الموافقة — DNS TXT يُجهَّز ولا تغيير DNS بلا موافقة",
+   "requirement": "بعد الموافقة: تطبيق Verification إذا سمحت الصلاحيات ثم التأكد أن الـProperty أصبحت Verified. إذا احتجنا DNS verification عبر Cloudflare: تُجهَّز القيمة المطلوبة (TXT) ولا تغيير DNS بدون موافقة الـOwner.",
+   "details": [
+    "Cloudflare Token بصلاحية DNS Edit للزون فقط — بعد الموافقة (GIO §B)"
+   ],
+   "sources": [
+    "M12-040"
+   ],
+   "decision_refs": [
+    "D-051",
+    "GIO"
+   ],
+   "status": "APPROVED WITH CONDITIONS",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "spec: GIO §B",
+   "missing_work": "—",
+   "dependencies": [
+    "GSC-006",
+    "CF"
+   ],
+   "test_required": "GSC يظهر Verified؛ سجل تغيير DNS بموافقة",
+   "design_refs": [
+    "docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P09",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "GSC-008",
+   "area": "21 Search Console",
+   "type": "REQUIREMENT",
+   "title": "ربط GSC مع GA4 إذا كان مناسبًا",
+   "requirement": "ربط Search Console مع GA4 إذا كان مناسبًا ومتوافرًا، والتحقق أن Search Queries · Organic Search Data · Landing Pages قابلة للتحليل ضمن البيئة الصحيحة.",
+   "details": [],
+   "sources": [
+    "M12-041"
+   ],
+   "decision_refs": [
+    "D-050"
+   ],
+   "status": "APPROVED WITH CONDITIONS",
+   "owner_approved": "YES",
+   "priority": "P2",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "spec: docs/google/GOOGLE-INTEGRATION-ARCHITECTURE.md",
+   "missing_work": "—",
+   "dependencies": [
+    "GOOGLE",
+    "GSC-007"
+   ],
+   "test_required": "تقارير Search Console في GA4 تعرض البيانات للـProperty الصحيحة",
+   "design_refs": [
+    "docs/google/GOOGLE-INTEGRATION-ARCHITECTURE.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P09",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "GSC-009",
+   "area": "21 Search Console",
+   "type": "REQUIREMENT",
+   "title": "فحص Google بعد الربط (Indexing، Coverage، Rich Results، CWV …)",
+   "requirement": "بعد ربط Google يجب فحص: Indexing · Coverage · Sitemap · Canonical · 404 · Redirects · Structured Data · Rich Results · Mobile Usability · Core Web Vitals · Search Queries · Landing Pages.",
+   "details": [],
+   "sources": [
+    "M01-153"
+   ],
+   "decision_refs": [
+    "GEP-§17/§19/§22",
+    "GEP-§41"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "spec: docs/google/POST-LAUNCH-GOOGLE-CHECKLIST.md",
+   "missing_work": "—",
+   "dependencies": [
+    "GSC-001"
+   ],
+   "test_required": "تقرير فحص بكل البنود الـ12",
+   "design_refs": [
+    "docs/google/POST-LAUNCH-GOOGLE-CHECKLIST.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P11",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "GSC-010",
+   "area": "21 Search Console",
+   "type": "GATE",
+   "title": "لا Finished إذا أظهر Google مشاكل مهمة",
+   "requirement": "لا يُعتبر الموقع Finished إذا كان Google (Search Console / Rich Results / Indexing) يُظهر مشاكل مهمة.",
+   "details": [],
+   "sources": [
+    "M01-154"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "none",
+   "missing_work": "—",
+   "dependencies": [
+    "GSC-009",
+    "SEO-041"
+   ],
+   "test_required": "قبول نهائي: لا أخطاء مهمة مفتوحة في GSC",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P11",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "GSC-011",
+   "area": "21 Search Console",
+   "type": "REQUIREMENT",
+   "title": "Dashboard ↔ Search Console API: Google Search Performance",
+   "requirement": "ربط الـOwner Dashboard مع Google Search Console API وعرض قسم Google Search Performance: Clicks · Impressions · CTR · Average Position، ثم Top Queries · Top Pages · Countries · Devices — ليعرف الـOwner أهم Search Queries من Google وترتيب الموقع في Google.",
+   "details": [
+    "Search Console ضمن أولوية V1 P0 للـDashboard (M25 §68)",
+    "الربط الفعلي في مرحلة Google Connections بعد موافقة الـOwner؛ Read-only يكفي؛ Official APIs (Search Console API)"
+   ],
+   "sources": [
+    "M25-008",
+    "M25-050",
+    "M25-051"
+   ],
+   "decision_refs": [
+    "D-050"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "none",
+   "missing_work": "تصميم (P04) + ربط (P09)",
+   "dependencies": [
+    "GSC-003",
+    "DASH"
+   ],
+   "test_required": "مطابقة أرقام الـDashboard مع واجهة GSC لنفس الفترة؛ حالات الفشل (API unavailable، quota exceeded، no data)",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P09",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "GSC-012",
+   "area": "21 Search Console",
+   "type": "REQUIREMENT",
+   "title": "مقارنة الاستعلامات عبر الزمن (Clicks · Impressions · Position · Trend)",
+   "requirement": "Comparison عبر الزمن لكل Query: Clicks · Impressions · Position · Trend (مثال العرض: specialty coffee irbid — مثال وليس Target keyword معتمدًا).",
+   "details": [],
+   "sources": [
+    "M25-052"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "none",
+   "missing_work": "—",
+   "dependencies": [
+    "GSC-011"
+   ],
+   "test_required": "اختيار فترتين يعرض الفرق والاتجاه بدقة مقارنةً بـGSC",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P09",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "GSC-013",
+   "area": "21 Search Console",
+   "type": "REQUIREMENT",
+   "title": "قسم Google Indexation — فقط ما يسمح به الـAPI",
+   "requirement": "قسم Google Indexation في الـDashboard يعرض: Known pages · Indexed · Not indexed · Noindex · Redirected · 404 · Error — فقط إذا سمح Search Console API بالمعلومة؛ ممنوع اختراع بيانات غير متاحة من الـAPI.",
+   "details": [
+    "Search Console API لا يعطي تقرير Page Indexing الكامل؛ قد يلزم URL Inspection API (حصص محدودة) أو مصادر داخلية — يُوضّح في Data Source Matrix"
+   ],
+   "sources": [
+    "M25-063"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED WITH CONDITIONS",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "none",
+   "missing_work": "Data Source Matrix",
+   "dependencies": [
+    "GSC-011"
+   ],
+   "test_required": "كل رقم معروض له مصدر API موثق؛ الحقول غير المتاحة تظهر 'غير متاح' لا تقديرًا",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P09",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "SCHEMA-001",
+   "area": "25 Schema",
+   "type": "RULE",
+   "title": "أنواع Schema المسموحة عند الحاجة",
+   "requirement": "أنواع Schema المسموحة عند الحاجة فقط (حيث ينطبق المحتوى فعلًا): Organization · LocalBusiness · CafeOrCoffeeShop · BreadcrumbList · Article · BlogPosting · Event، وأي Schema مناسب رسميًا (schema.org / Google). FAQPage مشروط (SCHEMA-004).",
+   "details": [
+    "تطبيق مقترح: الجذر Organization + WebSite (15 §5) · صفحات الفروع CafeOrCoffeeShop (LocalBusiness) مع hasMenu → المنيو · صفحة المنيو Menu → hasMenuSection → MenuItem (SHELTER-MENU-IA-SPEC §13) · المقالات Article/BlogPosting · الفعاليات Event · BreadcrumbList — كلها مقترحات"
+   ],
+   "sources": [
+    "M01-158",
+    "M11-056"
+   ],
+   "decision_refs": [
+    "GEP-§23/§24"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "spec: GEP §23؛ 15 §5؛ SHELTER-MENU-IA-SPEC §13",
+   "missing_work": "—",
+   "dependencies": [
+    "SCHEMA-008"
+   ],
+   "test_required": "Rich Results Test + Schema Markup Validator لكل قالب صفحة",
+   "design_refs": [
+    "docs/google/GOOGLE-ECOSYSTEM-POLICY.md §23",
+    "docs/phase-01-discovery/15-root-gateway-wireframe.md §5",
+    "docs/menu-ia/SHELTER-MENU-IA-SPEC.md §13"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P09",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "SCHEMA-002",
+   "area": "25 Schema",
+   "type": "RULE",
+   "title": "Structured Data حقيقي وظاهر فقط — ممنوع Schema Spam",
+   "requirement": "Structured Data فقط إذا كان المحتوى حقيقيًا وظاهرًا للمستخدم؛ ممنوع Schema Spam (Markup غير مطابق للمحتوى الظاهر أو مبالغ فيه)؛ يُقترح الـSchema المناسب فقط وبـfields حقيقية معتمدة فقط؛ وإذا لن يضيف قيمة واضحة لا مبالغة فيه.",
+   "details": [],
+   "sources": [
+    "M01-159",
+    "M11-055",
+    "M11-058",
+    "M23-191",
+    "M23-193"
+   ],
+   "decision_refs": [
+    "GEP-§23/§24"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "spec: GEP §23",
+   "missing_work": "—",
+   "dependencies": [
+    "SCHEMA-008"
+   ],
+   "test_required": "مقارنة JSON-LD بالمحتوى الظاهر لكل صفحة؛ لا حقل بلا مصدر معتمد",
+   "design_refs": [
+    "docs/google/GOOGLE-ECOSYSTEM-POLICY.md §23"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P09",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "SCHEMA-003",
+   "area": "25 Schema",
+   "type": "RULE",
+   "title": "ممنوع اختراع rating/reviews/availability/offers/nutrition/claims في Schema",
+   "requirement": "ممنوع اختراع rating أو review count أو availability أو offers أو nutrition أو brand claims في الـStructured Data.",
+   "details": [
+    "لا AggregateRating/Review: التقييمات القديمة PENDING RIGHTS (D-039)؛ تقييمات GBP لا تُنقل (GEP §42)",
+    "توفر الأصناف لكل فرع UNKNOWN (D-094) → لا availability",
+    "لا nutrition/allergens/calories (D-081)؛ لا ادعاءات ('أكثر من 8000 زبون'، 'سبع سنوات من الخبرة'، ™ …) (D-038)",
+    "الأسعار: فقط السعر الرسمي شامل الضريبة من المنيو الرسمي (D-089، F-01: JOD، price_fils) — مقترح المواصفات MenuItem offers.price + priceCurrency JOD يستخدم سعرًا رسميًا وليس مخترعًا؛ أي Offer/Promotion غير معتمد ممنوع"
+   ],
+   "sources": [
+    "M23-192"
+   ],
+   "decision_refs": [
+    "D-038",
+    "D-039",
+    "D-081",
+    "D-089",
+    "D-094"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "spec: SHELTER-MENU-IA-SPEC §13",
+   "missing_work": "—",
+   "dependencies": [
+    "SCHEMA-008"
+   ],
+   "test_required": "Lint آلي على JSON-LD: لا aggregateRating/review/nutrition/availability؛ offers.price = price_fils المعتمد/1000 فقط",
+   "design_refs": [
+    "docs/menu-ia/SHELTER-MENU-IA-SPEC.md §13"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P09",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "SCHEMA-004",
+   "area": "25 Schema",
+   "type": "RULE",
+   "title": "FAQPage فقط عند استيفاء الشروط ووجود محتوى فعلي",
+   "requirement": "FAQPage فقط إذا كانت شروط الاستخدام (Google) مناسبة والمحتوى (أسئلة وأجوبة معتمدة) موجودًا فعليًا وظاهرًا.",
+   "details": [
+    "M12 §20 لا يذكر FAQPage في قائمته (ليس تعارضًا — 'حسب الحاجة')"
+   ],
+   "sources": [
+    "M11-057"
+   ],
+   "decision_refs": [
+    "GEP-§23/§24"
+   ],
+   "status": "APPROVED WITH CONDITIONS",
+   "owner_approved": "YES",
+   "priority": "P2",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "none",
+   "missing_work": "محتوى FAQ معتمد",
+   "dependencies": [
+    "CONTENT"
+   ],
+   "test_required": "Rich Results Test على صفحة FAQ؛ الأسئلة ظاهرة ومطابقة",
+   "design_refs": [
+    "docs/google/GOOGLE-ECOSYSTEM-POLICY.md §23"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P09",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "SCHEMA-005",
+   "area": "25 Schema",
+   "type": "RULE",
+   "title": "Branch Schema متوافق مع GBP: Name · Address · Geo · Hours · Phone · SameAs",
+   "requirement": "لكل Branch Page: Schema (CafeOrCoffeeShop / LocalBusiness) متوافق مع Google Business Profile — Name · Address · Geo · OpeningHoursSpecification · Telephone · URL · SameAs.",
+   "details": [
+    "Name ✅: SHELTER COFFEE DRIVE / SHELTER COFFEE HOUSE (+ شلتر كوفي درايف / شلتر كوفي هاوس) (D-020)",
+    "Address ⏳ MISSING: العنوان التفصيلي AR/EN واسم المول الرسمي بعد التحقق من GBP (D-020)",
+    "Geo ⏳ MISSING: من GBP Pin — لا Pin يدوي إذا وُجد GBP رسمي (GEP §34)",
+    "OpeningHoursSpecification ✅: الساعات المعتمدة D-020 + specialOpeningHoursSpecification من نظام الساعات الخاصة (D-021، 09 AR-07)؛ الساعات بعد منتصف الليل كيوم عمل واحد؛ توقيت Asia/Amman",
+    "Telephone ✅: +962799009436 (SCHEMA-007)",
+    "URL ⏳: رابط صفحة الفرع بعد التجميد",
+    "SameAs ⏳: روابط GBP/Maps (MISSING) والحسابات الاجتماعية — كلها PENDING OWNER VERIFICATION (D-025، D-036)؛ Snapchat Place ليس حسابًا رسميًا",
+    "الخدمات وطرق الدفع: فقط القيم YES المؤكدة؛ UNKNOWN لا تدخل الـSchema (09 AR-08، D-033، D-034)",
+    "GBP لا يتغلب على بيانات الـOwner: الاختلاف = CONFLICT — OWNER REVIEW REQUIRED (D-048)"
+   ],
+   "sources": [
+    "M11-059"
+   ],
+   "decision_refs": [
+    "GEP-§23/§24",
+    "D-020",
+    "D-021",
+    "D-048",
+    "D-049",
+    "D-033",
+    "D-034"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "spec: GEP §24؛ docs/google/BRANCH-DATA-SYNC.md",
+   "missing_work": "بيانات GBP (AC-03) واعتماد العناوين",
+   "dependencies": [
+    "AC-03",
+    "SEO-008",
+    "SCHEMA-007"
+   ],
+   "test_required": "Branch Data Sync (GBP ↔ Schema) لكل فرع؛ Rich Results Test",
+   "design_refs": [
+    "docs/google/GOOGLE-ECOSYSTEM-POLICY.md §24",
+    "docs/google/BRANCH-DATA-SYNC.md",
+    "docs/phase-01-discovery/09-architecture-options-after-r1.md AR-07، AR-08"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P09",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "SCHEMA-006",
+   "area": "25 Schema",
+   "type": "RULE",
+   "title": "Image في الـSchema فقط إذا اعتمدها الـOwner",
+   "requirement": "Image في Branch Schema (وأي Schema) فقط إذا اعتمدها الـOwner؛ صور Google/GBP لا تتحول تلقائيًا إلى Approved Assets.",
+   "details": [
+    "مكتبة الأصول المعتمدة فارغة (0 صور معتمدة)؛ media/manifest.json = []"
+   ],
+   "sources": [
+    "M11-060"
+   ],
+   "decision_refs": [
+    "GEP-§23/§24",
+    "D-056",
+    "D-083"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "docs/governance/APPROVED-ASSET-LIBRARY.md (فارغة)",
+   "missing_work": "صور معتمدة",
+   "dependencies": [
+    "MEDIA"
+   ],
+   "test_required": "كل image في JSON-LD موجود في media/manifest.json بحالة APPROVED",
+   "design_refs": [
+    "docs/google/GOOGLE-ECOSYSTEM-POLICY.md §24"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P09",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "SCHEMA-007",
+   "area": "25 Schema",
+   "type": "DECISION",
+   "title": "Telephone في Schema/GBP = 0799009436 (+962799009436)",
+   "requirement": "الرقم العام المعتمد للفروع في Google Business Profile والـSchema = 0799009436 (في Schema وtel: بالصيغة الدولية +962799009436)؛ إذا عرض Google رقمًا مختلفًا لأي فرع → CONFLICT — OWNER REVIEW REQUIRED، ولا تغيير تلقائي في Google أو الموقع.",
+   "details": [
+    "0799338445 (الشكاوى والاقتراحات والفرنشايز) و0799530383 (الكيترنج والأعمال والفعاليات) ليسا رقمي فروع (D-057)",
+    "CT-06 (الأرقام الثانوية في الـSchema — المقترح 0799009436 فقط) لم يُجب عليه صراحة (M14-053 — GOV)"
+   ],
+   "sources": [
+    "M13-040"
+   ],
+   "decision_refs": [
+    "D-060",
+    "D-057",
+    "D-065"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "spec: docs/phase-01-discovery/15-root-gateway-wireframe.md §5؛ D-065",
+   "missing_work": "—",
+   "dependencies": [
+    "SCHEMA-005"
+   ],
+   "test_required": "JSON-LD telephone = +962799009436 لكل فرع؛ مقارنة مع GBP",
+   "design_refs": [
+    "docs/phase-01-discovery/15-root-gateway-wireframe.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P09",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "SCHEMA-008",
+   "area": "25 Schema",
+   "type": "REQUIREMENT",
+   "title": "تنفيذ الـSchema فعليًا بعد اعتماد البيانات — البيانات المطلوبة لكل نوع",
+   "requirement": "لا اكتفاء باقتراح الـSchema: الفريق ينفذ الـSchema المناسبة فعليًا بعد اعتماد البيانات ثم يختبرها — حسب الحاجة: Organization · CafeOrCoffeeShop · LocalBusiness · BreadcrumbList · Article · BlogPosting · Event. كل نوع لا يُنشر إلا عندما تكون بياناته التجارية معتمدة.",
+   "details": [
+    "Organization: name = SHELTER COFFEE / alternateName = شلتر كوفي (D-007) ✅ · foundingDate = 2019 فقط (D-018) — 2018 و'منذ 2022' = OLD OR INCORRECT ممنوعتان في الـSchema وSEO ومن نحن؛ لا عدد سنوات ثابت (D-038) · logo ⏳ MISSING (ملفات الهوية M-10) · url ⏳ بعد قرار الـHost (DB-11) · sameAs ⏳ PENDING OWNER VERIFICATION (D-025، D-036) · contactPoint: 0799009436 عام؛ 0799338445 (شكاوى/اقتراحات/فرنشايز) و0799530383 (كيترنج/B2B/فعاليات) فقط إذا اعتُمد إدراجهما (CT-06)",
+    "WebSite (الجذر): name + url + inLanguage ar/en — مقترح (15 §5)",
+    "CafeOrCoffeeShop / LocalBusiness لكل فرع: SCHEMA-005 (Address/Geo/Maps MISSING)",
+    "Menu / MenuItem: display_name المعتمد فقط (152 اسمًا عربيًا PENDING) + السعر الرسمي شامل الضريبة JOD؛ بلا availability/rating/nutrition/صور غير معتمدة/أوصاف (SHELTER-MENU-IA-SPEC §13 — DRAFT)",
+    "BreadcrumbList: من الـIA المعتمدة",
+    "Article / BlogPosting: مقالات Knowledge Hub المعتمدة فقط (author/datePublished حقيقية)",
+    "Event: فعاليات SHELTER Events & Campaigns المعتمدة فقط (تواريخ/مكان حقيقي) — منفصلة عن Catering/B2B/Private Events (D-070)"
+   ],
+   "sources": [
+    "M12-049",
+    "M13-015"
+   ],
+   "decision_refs": [
+    "GIO-§A20/§A21",
+    "D-055",
+    "D-018",
+    "D-007",
+    "D-070"
+   ],
+   "status": "APPROVED WITH CONDITIONS",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "spec: GIO §A20؛ 15 §5؛ SHELTER-MENU-IA-SPEC §13",
+   "missing_work": "اعتماد البيانات التجارية لكل نوع ثم التنفيذ",
+   "dependencies": [
+    "SCHEMA-005",
+    "SCHEMA-007",
+    "M-10",
+    "DB-11",
+    "D-025",
+    "D-036"
+   ],
+   "test_required": "Rich Results Test + Schema Validator لكل نوع؛ foundingDate = 2019؛ لا قيمة MISSING منشورة",
+   "design_refs": [
+    "docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md",
+    "docs/phase-01-discovery/15-root-gateway-wireframe.md §5",
+    "docs/menu-ia/SHELTER-MENU-IA-SPEC.md §13"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P09",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "SCHEMA-009",
+   "area": "25 Schema",
+   "type": "GATE",
+   "title": "تحقق Rich Results: إصلاح Errors قبل الإطلاق — JSON-LD ≠ مكتمل",
+   "requirement": "اختبار الـStructured Data عبر أدوات Google المناسبة (Rich Results Test) بعد التنفيذ: أي Error يُصلح قبل Launch إذا تعلق بالمحتوى المنشور، والـWarnings تُراجع ويُقيَّم أثرها؛ لا تُعتبر الـSchema مكتملة لمجرد وجود JSON-LD في الـSource.",
+   "details": [
+    "'Schema validated' بند في Pre-Launch Checklist"
+   ],
+   "sources": [
+    "M11-092",
+    "M11-093",
+    "M12-050",
+    "M12-051"
+   ],
+   "decision_refs": [
+    "GEP-§41",
+    "GIO-§A20/§A21"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "spec: GEP §41؛ GIO §A21",
+   "missing_work": "—",
+   "dependencies": [
+    "SCHEMA-008"
+   ],
+   "test_required": "تقرير Rich Results لكل قالب: 0 errors للمحتوى المنشور؛ قائمة warnings مع قرار لكل منها",
+   "design_refs": [
+    "docs/google/GOOGLE-ECOSYSTEM-POLICY.md §41",
+    "docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P10",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "SCHEMA-010",
+   "area": "25 Schema",
+   "type": "REQUIREMENT",
+   "title": "Schema Settings في الـDashboard حسب نوع المحتوى",
+   "requirement": "داخل الـDashboard: Schema Settings لكل صفحة، وSchema fields حسب نوع المحتوى داخل الـSEO Editor.",
+   "details": [
+    "الحقول تسحب من البيانات المعتمدة (الفروع، المنيو، المقالات) ولا تسمح بإدخال rating/availability مخترعة (SCHEMA-003)"
+   ],
+   "sources": [
+    "M01-162",
+    "M25-106"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "none",
+   "missing_work": "تصميم وبناء",
+   "dependencies": [
+    "SEO-035",
+    "SCHEMA-003"
+   ],
+   "test_required": "تعديل الحقول ينعكس في JSON-LD ويمر بـRich Results Test",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "AEO-001",
+   "area": "24 AEO / GEO / AI Search",
+   "type": "REQUIREMENT",
+   "title": "الظهور في AI Search (AI Overviews، ChatGPT، Gemini، Perplexity، Copilot، Bing)",
+   "requirement": "الموقع قابل للفهم والظهور في Google AI Overviews · ChatGPT Search · Gemini · Perplexity · Copilot · Bing · AI Answer Engines؛ والـSEO يخدمها باستخدام: Clear facts · Strong entity relationships · Structured content · Consistent brand data · Authoritative branch data · Schema · Internal linking.",
+   "details": [
+    "قواعد محتوى AEO/GEO (مستمدة من قرارات معتمدة): حقائق واضحة معتمدة فقط — لا اختراع Business Facts (D-003) · الحقائق في HTML ثابت من الخادم بلا JavaScript شرطي (زواحف AI مثل GPTBot وClaudeBot وPerplexityBot وBingbot لا تنفذ JS بشكل موثوق — 13 §1) · الجذر يعرّف الكيان بلغتين (D-052، 15) · بيانات العلامة والفروع متسقة بين الموقع وGBP والـSchema (AEO-003) · لا Keyword Stuffing (SEO-006) · لا ادعاءات غير معتمدة (D-038)",
+    "/llms.txt: مذكور في 02 §B و10 §3 كملف نظام يُولّد آليًا — مقترح غير معتمد",
+    "سياسة السماح/المنع لزواحف AI في robots.txt غير محسومة — لا قرار Owner"
+   ],
+   "sources": [
+    "M01-155",
+    "M11-104"
+   ],
+   "decision_refs": [
+    "GEP-§48/§49",
+    "D-003"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "spec: GEP §48؛ 13 §1؛ 15 §1",
+   "missing_work": "AEO checklist + قرار سياسة زواحف AI",
+   "dependencies": [
+    "SEO-026",
+    "AEO-002",
+    "AEO-003"
+   ],
+   "test_required": "'AEO Ready / GEO Ready' ضمن DoD (SEO-041): HTML بلا JS يعرض الحقائق؛ اختبار يدوي لأسئلة الكيان في محركات AI بعد الإطلاق",
+   "design_refs": [
+    "docs/google/GOOGLE-ECOSYSTEM-POLICY.md §48",
+    "docs/phase-01-discovery/13-root-and-international-seo-plan.md §1",
+    "docs/phase-01-discovery/15-root-gateway-wireframe.md §1"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P03",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "AEO-002",
+   "area": "24 AEO / GEO / AI Search",
+   "type": "REQUIREMENT",
+   "title": "Entity Clarity: أسئلة الكيان بالإنجليزية والعربية",
+   "requirement": "Entity Clarity: يجب أن يستطيع الـAI فهم والإجابة عن: What is SHELTER COFFEE? · Where is SHELTER COFFEE? · What does SHELTER serve? · What branches exist? · What are opening hours? · What is on the menu? · How do I contact SHELTER? — وبالعربية: أين فروع شلتر؟ · ما منيو شلتر؟ · ما أوقات دوام شلتر؟ · ما هي القهوة المختصة؟",
+   "details": [
+    "المصادر المعتمدة للإجابات: الاسم D-007 (SHELTER COFFEE / شلتر كوفي؛ الاستعلامات العربية تستخدم 'شلتر') · الفروع D-008/D-020 (إربد: DRIVE وHOUSE) · الساعات D-020 + Special Hours D-021 · المنيو Inventory v1.0 (D-135) · التواصل D-057/D-058 (0799009436، واتساب) · سنة التأسيس 2019 (D-018)",
+    "'ما هي القهوة المختصة؟' تحتاج محتوى Knowledge Hub معتمد (DB-09)",
+    "لا إجابة مبنية على بيانات MISSING (العناوين التفصيلية، Maps)"
+   ],
+   "sources": [
+    "M01-156",
+    "M01-157"
+   ],
+   "decision_refs": [
+    "D-007",
+    "D-008",
+    "D-018",
+    "D-020",
+    "D-057"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "none",
+   "missing_work": "محتوى معتمد يجيب كل سؤال",
+   "dependencies": [
+    "AEO-001",
+    "CONTENT",
+    "DB-09"
+   ],
+   "test_required": "لكل سؤال: صفحة تجيب بنص HTML صريح + Schema داعم؛ اختبار في محركات AI بعد الإطلاق",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P07",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "AEO-003",
+   "area": "24 AEO / GEO / AI Search",
+   "type": "RULE",
+   "title": "اتساق GBP ↔ الموقع وهرمية الكيان SHELTER COFFEE → Jordan → Irbid → DRIVE/HOUSE",
+   "requirement": "بيانات Google Business Profile للفرعين تتطابق قدر الإمكان مع بيانات الموقع الرسمية، ليفهم Google والأنظمة الأخرى هرمية الكيان: SHELTER COFFEE → Jordan → Irbid → DRIVE · HOUSE.",
+   "details": [
+    "الهرمية تنعكس في URLs (/ar/jo/locations/irbid/drive/)، BreadcrumbList، وOrganization → CafeOrCoffeeShop (parentOrganization/branchOf — مقترح)",
+    "Branch Data Sync (D-049)؛ GBP لا يتغلب على الـOwner (D-048)؛ لا تعديل GBP بدون Proposal → Owner Approval → Change (GEP §44)"
+   ],
+   "sources": [
+    "M11-105",
+    "M11-106"
+   ],
+   "decision_refs": [
+    "GEP-§48/§49",
+    "D-048",
+    "D-049"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "spec: GEP §49؛ docs/google/BRANCH-DATA-SYNC.md",
+   "missing_work": "بيانات GBP (AC-03)",
+   "dependencies": [
+    "AC-03",
+    "SEO-008",
+    "SCHEMA-005"
+   ],
+   "test_required": "Branch Data Sync Check: 0 اختلافات غير موثقة بين GBP والموقع والـSchema",
+   "design_refs": [
+    "docs/google/GOOGLE-ECOSYSTEM-POLICY.md §49",
+    "docs/google/BRANCH-DATA-SYNC.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P09",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "I18N-001",
+   "area": "40 Internationalization (AR/EN, RTL/LTR, global expansion)",
+   "type": "DECISION",
+   "title": "العربية أساسية والإنجليزية نسخة كاملة",
+   "requirement": "اللغتان: العربية = اللغة الأساسية للموقع، والإنجليزية = نسخة كاملة من الموقع (Full English version وليست جزئية) — كل صفحة عامة لها نسخة عربية وإنجليزية مكافئة.",
+   "details": [
+    "العربية أولًا بصريًا في الجذر على الموبايل (I18N-007)؛ لا لغة ثالثة الآن (I18N-002)",
+    "الترجمات محتوى يحتاج اعتماد الـOwner (D-003)"
+   ],
+   "sources": [
+    "M03-030",
+    "M03-031",
+    "M11-047"
+   ],
+   "decision_refs": [
+    "D-014"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "PROTOTYPE",
+   "existing_impl": "prototype: wireframes المنيو AR/EN (m-ar/m-en/d-ar/d-en)",
+   "missing_work": "ترجمات معتمدة لكل صفحة",
+   "dependencies": [
+    "CONTENT"
+   ],
+   "test_required": "SEO Health: Arabic/English mismatch = 0؛ كل صفحة AR لها EN منشورة",
+   "design_refs": [
+    "docs/phase-01-discovery/10-url-architecture-draft.md §3"
+   ],
+   "code_refs": [],
+   "test_refs": [
+    "tooling/tests/prototype/menu-wireframe.spec.mjs"
+   ],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P03",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "I18N-002",
+   "area": "40 Internationalization (AR/EN, RTL/LTR, global expansion)",
+   "type": "RULE",
+   "title": "جاهزية لغات مستقبلية — لا لغة ثالثة معتمدة",
+   "requirement": "البنية جاهزة لـMulti-language وإضافة لغات مستقبلًا (`/{ll}/` بنفس الـslugs) بدون إعادة بناء، لكن لا توجد لغة ثالثة معتمدة حاليًا ولا تُضاف بدون قرار الـOwner.",
+   "details": [
+    "{ll} رمز توثيقي فقط (WEB-011)"
+   ],
+   "sources": [
+    "M01-074",
+    "M03-035"
+   ],
+   "decision_refs": [
+    "D-014",
+    "D-031"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "spec: 10 §2–§3",
+   "missing_work": "—",
+   "dependencies": [
+    "WEB-008"
+   ],
+   "test_required": "مراجعة المعمارية: إضافة لغة = إعداد + ترجمات بلا تغيير routing",
+   "design_refs": [
+    "docs/phase-01-discovery/10-url-architecture-draft.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P03",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "I18N-003",
+   "area": "40 Internationalization (AR/EN, RTL/LTR, global expansion)",
+   "type": "RULE",
+   "title": "RTL/LTR صحيح بلا hacks أحادية الاتجاه",
+   "requirement": "دعم Arabic RTL و English LTR بشكل صحيح بدون hacks تجعل التصميم يعمل في اتجاه واحد فقط: يجب أن تعمل في الاتجاهين Sidebar · icons · arrows · padding · alignment · breadcrumbs · forms · modals.",
+   "details": [
+    "لا يُقلب (Mirror) الـLogo في RTL (M01-203 — BRAND)",
+    "كل عنصر يحمل lang/dir الصحيح؛ الاسم الثانوي بـlang الصحيح (D-144)"
+   ],
+   "sources": [
+    "M01-201",
+    "M26-044"
+   ],
+   "decision_refs": [
+    "D-144"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "PROTOTYPE",
+   "existing_impl": "prototype: wireframes AR/EN + menu-wireframe.spec.mjs (html lang/dir، secondary-name lang)",
+   "missing_work": "تطبيق في الـDesign System والمكونات",
+   "dependencies": [
+    "BRAND",
+    "DB-08"
+   ],
+   "test_required": "Playwright AR/EN: lang/dir، ترتيب العناصر والأيقونات والأسهم معكوس صحيحًا؛ visual QA بالاتجاهين",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [
+    "tooling/tests/prototype/menu-wireframe.spec.mjs"
+   ],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "I18N-004",
+   "area": "40 Internationalization (AR/EN, RTL/LTR, global expansion)",
+   "type": "GATE",
+   "title": "كل Responsive Layout يُختبر مرتين: AR RTL و EN LTR",
+   "requirement": "اختبار ثنائي الاتجاه: كل Responsive Layout يُختبر مرتين (Arabic RTL وEnglish LTR) ويشمل: Direction · Navigation · Icons · Arrows · Typography · Alignment · Animations · Forms · Layout.",
+   "details": [
+    "Tooling: 20 Playwright project (14 عرضًا إلزاميًا 320→1920 + 2560 + 5 landscape + zoom-200) × AR/EN على wireframes المنيو — 456 passed (Chromium فقط؛ Firefox/WebKit غير متاحين)"
+   ],
+   "sources": [
+    "M01-202",
+    "M26-043"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "PROTOTYPE",
+   "existing_impl": "tooling (prototype only): viewports.mjs + tests/prototype/*",
+   "missing_work": "تطبيقه على الموقع الحقيقي + Firefox/WebKit + أجهزة حقيقية",
+   "dependencies": [
+    "TEST"
+   ],
+   "test_required": "مصفوفة Responsive × {AR RTL, EN LTR} لكل صفحة؛ لا overflow؛ لا clipping؛ visual QA",
+   "design_refs": [],
+   "code_refs": [
+    "tooling/viewports.mjs"
+   ],
+   "test_refs": [
+    "tooling/tests/prototype/menu-wireframe.spec.mjs",
+    "tooling/tests/prototype/responsive.spec.mjs"
+   ],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P10",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "I18N-005",
+   "area": "40 Internationalization (AR/EN, RTL/LTR, global expansion)",
+   "type": "REQUIREMENT",
+   "title": "المنيو ثنائي اللغة: RTL/LTR، أولوية الأسماء معكوسة بالإنجليزية",
+   "requirement": "المنيو Arabic + English مع RTL/LTR صحيح، قابل للتوسع عالميًا، SEO friendly وAccessible؛ في النسخة الإنجليزية تنعكس أولوية الأسماء (الإنجليزي Primary والعربي Secondary)، وفي العربية العربي Primary؛ ودراسة الـMenu IA تجيب (سؤال 14/15) كيف يكون Arabic RTL مقابل English LTR.",
+   "details": [
+    "البطاقة: صورة 1:1 ← الاسم الأساسي ← الثانوي (lang صحيح) ← السعر (D-144)",
+    "الإنتاج يعرض display_name_ar المعتمد فقط؛ غير المعتمد يظهر بالإنجليزي كاسم أساسي (CF-03)",
+    "البحث بلغتين في الصفحتين (F-15)"
+   ],
+   "sources": [
+    "M23-009",
+    "M21-038",
+    "M23-043"
+   ],
+   "decision_refs": [
+    "D-143",
+    "D-144",
+    "F-10",
+    "F-15",
+    "CF-03"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "PROTOTYPE",
+   "existing_impl": "spec: SHELTER-MENU-IA-SPEC؛ wireframes m-ar/m-en/d-ar/d-en",
+   "missing_work": "اعتماد الـIA Spec والبناء",
+   "dependencies": [
+    "DB-06",
+    "I18N-011"
+   ],
+   "test_required": "Playwright AR/EN: ترتيب الأسماء، lang للاسم الثانوي، RTL/LTR، axe",
+   "design_refs": [
+    "docs/menu-ia/SHELTER-MENU-IA-SPEC.md",
+    "docs/phase-01-discovery/22-menu-information-architecture.md"
+   ],
+   "code_refs": [],
+   "test_refs": [
+    "tooling/tests/prototype/menu-wireframe.spec.mjs"
+   ],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P02",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "I18N-006",
+   "area": "40 Internationalization (AR/EN, RTL/LTR, global expansion)",
+   "type": "DECISION",
+   "title": "صيغة السعر: 3.50 د.أ (AR) · 3.50 JOD (EN)",
+   "requirement": "صيغة السعر: العربية `3.50 د.أ` (حددها الـOwner)؛ الإنجليزية `3.50 JOD` (R-08 — قرار بالاختبار). السعر دائمًا ظاهر وشامل الضريبة؛ لا '+ VAT' ولا net price.",
+   "details": [
+    "price_fils (1 JOD = 1000 fils)، tax_inclusive = true (F-01)",
+    "سطر 'الأسعار بالدينار الأردني وشاملة الضريبة' / 'Prices in JOD, VAT included' = P-05 PENDING"
+   ],
+   "sources": [
+    "M23-067"
+   ],
+   "decision_refs": [
+    "R-08",
+    "F-01",
+    "D-089"
+   ],
+   "status": "APPROVED WITH CONDITIONS",
+   "owner_approved": "PARTIAL",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "PROTOTYPE",
+   "existing_impl": "spec: SHELTER-MENU-IA-SPEC؛ prototype test 'price on one line'",
+   "missing_work": "تأكيد EN ضمن اعتماد Menu IA Spec",
+   "dependencies": [
+    "DB-06"
+   ],
+   "test_required": "Playwright: السعر بالصيغة الصحيحة لكل لغة وفي سطر واحد",
+   "design_refs": [
+    "docs/menu-ia/MENU-DECISION-REGISTER.md R-08"
+   ],
+   "code_refs": [],
+   "test_refs": [
+    "tooling/tests/prototype/menu-wireframe.spec.mjs"
+   ],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P02",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "I18N-007",
+   "area": "40 Internationalization (AR/EN, RTL/LTR, global expansion)",
+   "type": "DECISION",
+   "title": "RG-03: العربية أولًا بصريًا في الجذر (الأردن، Mobile)",
+   "requirement": "RG-03: في الأردن وعلى الموبايل تكون العربية أولًا بصريًا في الجذر — بدون أي تحويل تلقائي (WEB-017) وبدون منع اختيار English.",
+   "details": [
+    "Desktop (مقترح 15 §2): عمودان — العربي يمينًا والإنجليزي يسارًا للأقسام ① ② ④"
+   ],
+   "sources": [
+    "M14-023"
+   ],
+   "decision_refs": [
+    "D-067"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "spec: docs/phase-01-discovery/15-root-gateway-wireframe.md §2",
+   "missing_work": "البناء",
+   "dependencies": [
+    "WEB-015",
+    "WEB-017"
+   ],
+   "test_required": "Mobile 360–430: الكتلة العربية قبل الإنجليزية؛ زر English ظاهر",
+   "design_refs": [
+    "docs/phase-01-discovery/15-root-gateway-wireframe.md §2"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P03",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "I18N-008",
+   "area": "40 Internationalization (AR/EN, RTL/LTR, global expansion)",
+   "type": "REQUIREMENT",
+   "title": "Language Switch في الـNavigation — دراسة وتصميم",
+   "requirement": "دراسة أفضل تصميم لـLanguage Switch في الـNavigation. المقترح: المبدّل يربط بالصفحة المكافئة نفسها (وليس الرئيسية) باستبدال المقطع الأول (/ar/ ↔ /en/) لأن الـSlugs متطابقة؛ ظاهر دائمًا ولا يمنع اختيار English.",
+   "details": [
+    "حدث language_switch مذكور في GEP §26 (للدراسة — الأسماء النهائية تُعتمد لاحقًا)",
+    "تذكّر اللغة بعد الاختيار غير مفعّل بدون موافقة (13 §2)"
+   ],
+   "sources": [
+    "M01-101"
+   ],
+   "decision_refs": [
+    "D-067"
+   ],
+   "status": "PENDING OWNER INPUT",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "spec: 13 §4.5؛ 15 §2 (Header الجذر)",
+   "missing_work": "تصميم المبدّل ضمن Navigation (DB-05) واعتماده",
+   "dependencies": [
+    "DB-05",
+    "NAV"
+   ],
+   "test_required": "المبدّل على كل صفحة يصل للمكافئة (200)؛ لوحة مفاتيح وقارئ شاشة",
+   "design_refs": [
+    "docs/phase-01-discovery/13-root-and-international-seo-plan.md §4"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P03",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "I18N-009",
+   "area": "40 Internationalization (AR/EN, RTL/LTR, global expansion)",
+   "type": "RULE",
+   "title": "أسماء المنتجات: لا ترجمة نهائية تلقائية — الاعتماد للـOwner وحده",
+   "requirement": "أسماء المنتجات: لا ترجمة نهائية تلقائية؛ يمكن لـClaude اقتراح Translation أو Transliteration لكن لا يعتمدها — الاعتماد للـOwner وحده؛ وبعض الأسماء قد تبقى بالإنجليزية داخل النسخة العربية.",
+   "details": [
+    "لا تغيير للتسمية بدون موافقة (D-082)"
+   ],
+   "sources": [
+    "M15-035",
+    "M15-081",
+    "M15-037"
+   ],
+   "decision_refs": [
+    "D-082"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "IMPLEMENTED — NOT TESTED",
+   "tested": "N/A",
+   "existing_impl": "docs/phase-01-discovery/menu/menu-inventory-v1.0.csv (name_ar_status · name_ar_decision · suggested_name_ar)",
+   "missing_work": "—",
+   "dependencies": [
+    "I18N-011"
+   ],
+   "test_required": "لا display_name_ar بدون name_ar_status معتمد",
+   "design_refs": [
+    "docs/phase-01-discovery/menu/menu-inventory-v1.0.csv"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P07",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "I18N-010",
+   "area": "40 Internationalization (AR/EN, RTL/LTR, global expansion)",
+   "type": "DELIVERABLE",
+   "title": "قائمة الأصناف التي تحتاج اسمًا عربيًا (Suggested Arabic Name + Reason)",
+   "requirement": "بعد استخراج المنيو: قائمة منفصلة بالأصناف التي تحتاج اسمًا عربيًا أو قرار Translation / Transliteration / Brand-name، بصيغة: English Name · Suggested Arabic Name · Translation / Transliteration · Reason — تُعرض على الـOwner.",
+   "details": [
+    "سُلّمت في 18 (جدول Suggested Arabic Name — مثل CAT-010 CAKE → كيك، CAT-011 COOKIES → كوكيز)؛ اعتمدها الـOwner في M20 G9 (D-132)"
+   ],
+   "sources": [
+    "M15-036",
+    "M15-080",
+    "M15-082"
+   ],
+   "decision_refs": [
+    "D-082",
+    "D-132"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "IMPLEMENTED — NOT TESTED",
+   "tested": "N/A",
+   "existing_impl": "docs/phase-01-discovery/18-official-menu-inventory-report.md",
+   "missing_work": "—",
+   "dependencies": [
+    "I18N-013"
+   ],
+   "test_required": "مراجعة الـOwner (تمت)",
+   "design_refs": [
+    "docs/phase-01-discovery/18-official-menu-inventory-report.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P07",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "I18N-011",
+   "area": "40 Internationalization (AR/EN, RTL/LTR, global expansion)",
+   "type": "RULE",
+   "title": "الأسماء العربية من المصدر (152) = SOURCE-PROVIDED · PENDING OWNER REVIEW",
+   "requirement": "الأسماء العربية الواردة في ملف المنيو (152 اسمًا + أسماء الفئات) = SOURCE-PROVIDED ARABIC NAME · STATUS = PENDING OWNER REVIEW: تُحفظ ولا تُحذف، ولا تُعتبر OWNER-APPROVED FINAL ARABIC NAMES، ولا تُستخدم في الموقع النهائي قبل الاعتماد؛ ممنوع اعتمادها دفعة واحدة؛ وأي Arabic translation جديدة لا تُعتبر حقيقة إذا لم تكن معتمدة.",
+   "details": [
+    "المراجعة لاحقًا بمجموعات حسب الفئة (D-137): الاسم الإنجليزي · الاسم العربي من المصدر · أي ملاحظة أو تعارض؛ السليم كمجموعة والمشكوك فيه منفردًا",
+    "أثر الإطلاق: 152 بطاقة في الصفحة العربية بلا اسم عربي حتى المراجعة (CF-03، P-01) — يمنع إطلاق الصفحة العربية بأسماء عربية",
+    "وصف الـOwner للمصدر: Category + English Product Name + VAT-inclusive Price (D-091)"
+   ],
+   "sources": [
+    "M18-003",
+    "M18-004",
+    "M21-009",
+    "M21-010",
+    "M21-013",
+    "M23-161"
+   ],
+   "decision_refs": [
+    "D-091",
+    "D-137",
+    "P-01",
+    "CF-03"
+   ],
+   "status": "PENDING OWNER INPUT",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "IMPLEMENTED — NOT TESTED",
+   "tested": "N/A",
+   "existing_impl": "docs/phase-01-discovery/menu/menu-inventory-v1.0.csv (name_ar_status = SOURCE-PROVIDED — PENDING OWNER REVIEW)",
+   "missing_work": "جلسات مراجعة الـOwner بالمجموعات حسب الفئة",
+   "dependencies": [
+    "OWNER INPUT",
+    "I18N-005"
+   ],
+   "test_required": "الإنتاج يعرض display_name_ar المعتمد فقط؛ عدّاد الأسماء المعلقة = 0 قبل إطلاق الأسماء العربية",
+   "design_refs": [
+    "docs/menu-ia/MENU-DECISION-REGISTER.md P-01، CF-03",
+    "docs/phase-01-discovery/menu/menu-inventory-v1.0.csv"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P07",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "I18N-012",
+   "area": "40 Internationalization (AR/EN, RTL/LTR, global expansion)",
+   "type": "RULE",
+   "title": "طبقات الاسم العربي: source ثابت · normalized/display = الاسم المعتمد",
+   "requirement": "طبقات الاسم العربي: `source_name_ar` يبقى كما ورد في المصدر دائمًا؛ `normalized_name_ar` و`display_name_ar` يحملان الاسم المعتمد؛ يمكن normalize لـobvious typo في الطبقة normalized مع الحفاظ على قيمة المصدر؛ أي ambiguity → PENDING OWNER APPROVAL.",
+   "details": [
+    "F-04: Source / Normalized / Display منفصلة والتصحيح في الطبقتين الأخيرتين فقط",
+    "النشر على الموقع ما زال يتطلب display_name_ar معتمدًا (I18N-011)"
+   ],
+   "sources": [
+    "M20-002",
+    "M23-162",
+    "M23-163"
+   ],
+   "decision_refs": [
+    "D-092",
+    "F-04",
+    "D-093"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "IMPLEMENTED — NOT TESTED",
+   "tested": "N/A",
+   "existing_impl": "docs/phase-01-discovery/menu/menu-inventory-v1.0.csv (source_name_ar · normalized_name_ar · display_name_ar)",
+   "missing_work": "—",
+   "dependencies": [
+    "I18N-011"
+   ],
+   "test_required": "Diff آلي: source_name_ar مطابق لملف المصدر (SHA-256)؛ أي تغيير normalized له مرجع قرار",
+   "design_refs": [
+    "docs/phase-01-discovery/menu/menu-inventory-v1.0.csv",
+    "docs/menu-ia/MENU-DECISION-REGISTER.md F-04"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "C-08",
+   "business_data": true,
+   "phase": "P07",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "I18N-013",
+   "area": "40 Internationalization (AR/EN, RTL/LTR, global expansion)",
+   "type": "DECISION",
+   "title": "أسماء عربية معتمدة (M20: G6 · G7 · G8 · G9)",
+   "requirement": "أسماء عربية معتمدة من الـOwner: G9 — CAKE → كيك · COOKIES → كوكيز + الأسماء العربية الـ26 المقترحة للكيك والكوكيز كما هي؛ G6 — قهوة تركية سينجل · قهوة تركية دوبل؛ G7 — تصحيح وتوحيد الأخطاء العربية الواضحة (شيلتر → شلتر · توحيد (بدون سكر) · مياه معدنية · سموذي) بدون تغيير معنى المنتج؛ G8 — ICED SHAKEN = آيس شيكن (لا ترجمة حرفية مختلفة).",
+   "details": [
+    "لا تشمل الـ152 اسمًا من المصدر (I18N-011)",
+    "مطبقة في Inventory v1.0 (مثال PRD-00001 قهوة تركية سينجل — G6 D-127؛ PRD-00167 إنجلش كيك فواكه — G9 D-132)"
+   ],
+   "sources": [
+    "M20-001",
+    "M20-019",
+    "M20-020",
+    "M20-021"
+   ],
+   "decision_refs": [
+    "D-127",
+    "D-128",
+    "D-129",
+    "D-132"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "IMPLEMENTED — NOT TESTED",
+   "tested": "N/A",
+   "existing_impl": "docs/phase-01-discovery/menu/menu-inventory-v1.0.csv",
+   "missing_work": "—",
+   "dependencies": [],
+   "test_required": "مطابقة الـCSV للقرارات D-127…D-132",
+   "design_refs": [
+    "docs/phase-01-discovery/menu/menu-inventory-v1.0.csv",
+    "docs/phase-01-discovery/18-official-menu-inventory-report.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P07",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "I18N-014",
+   "area": "40 Internationalization (AR/EN, RTL/LTR, global expansion)",
+   "type": "DECISION",
+   "title": "الاسم العربي لـICED SHAKEN SALTED CARAMEL — معلّق",
+   "requirement": "الاسم العربي لـICED SHAKEN SALTED CARAMEL = PENDING OWNER APPROVAL ولا يُغيَّر أو يُركّب تلقائيًا (رغم اعتماد 'آيس شيكن')؛ قرار معلّق باختيار واحد: ☐ آيس شيكن سولتد كراميل · ☐ اسم عربي آخر · ☐ نتركه لاحقًا.",
+   "details": [
+    "الاسم الإنجليزي معتمد (D-138)؛ في الـCSV: PRD-00067 suggested_name_ar = آيس شيكن سولتد كراميل، name_ar_status = SOURCE-PROVIDED — PENDING OWNER REVIEW"
+   ],
+   "sources": [
+    "M21-016",
+    "M21-044"
+   ],
+   "decision_refs": [
+    "D-138",
+    "P-02"
+   ],
+   "status": "PENDING OWNER INPUT",
+   "owner_approved": "YES",
+   "priority": "P2",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "docs/phase-01-discovery/menu/menu-inventory-v1.0.csv (PRD-00067)",
+   "missing_work": "قرار الـOwner",
+   "dependencies": [
+    "OWNER INPUT"
+   ],
+   "test_required": "N/A حتى القرار",
+   "design_refs": [
+    "docs/menu-ia/MENU-DECISION-REGISTER.md P-02"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P07",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "I18N-015",
+   "area": "40 Internationalization (AR/EN, RTL/LTR, global expansion)",
+   "type": "REQUIREMENT",
+   "title": "Dashboard RTL/LTR + Sidebar حسب الاتجاه (اقتراح)",
+   "requirement": "واجهة الـOwner Dashboard تدعم RTL وLTR وتُختبر بـRTL/LTR Tests؛ مطلوب اقتراح Sidebar يسار/يمين حسب الاتجاه (اقتراح للاعتماد وليس قرارًا).",
+   "details": [],
+   "sources": [
+    "M25-220",
+    "M25-142"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "PARTIAL",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "none (Dashboard not started)",
+   "missing_work": "اقتراح Navigation للـDashboard + اختبارات",
+   "dependencies": [
+    "DASH"
+   ],
+   "test_required": "اختبارات الـDashboard بالاتجاهين؛ اعتماد موضع الـSidebar",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P04",
+   "history": [],
+   "notes": ""
+  }
+ ],
+ "new_decisions": [
+  {
+   "temp_id": "G5-ND-01",
+   "area": "23 SEO (incl. migration, redirects, sitemap, robots)",
+   "decision": "تنفيذ Redirect `/menu` → `/ar/jo/menu/` يتطلب، إضافة لشروط D-054 الستة، 'Owner approval' صريحًا قبل التفعيل (+ 'redirect validation'): URL inventory · Search Console baseline · backlink review · redirect validation · canonical validation · sitemap validation · Owner approval؛ ولا Redirect على Production الآن.",
+   "sources": [
+    "M23-190",
+    "M23-189"
+   ],
+   "status": "APPROVED",
+   "reason": "D-054 في DECISION-LOG يذكر ست نقاط فقط بدون موافقة الـOwner النهائية؛ M23 §54 (أحدث) أضافها صراحة",
+   "impact": "تحديث D-054/DB-20 وChecklist الإطلاق (SEO-013)"
+  },
+  {
+   "temp_id": "G5-ND-02",
+   "area": "25 Schema",
+   "decision": "قواعد Structured Data للمنيو (M23 §55): اقتراح الـSchema المناسب فقط · بلا Schema Spam · fields حقيقية معتمدة فقط · ممنوع اختراع rating · review count · availability · offers · nutrition · brand claims · لا مبالغة إذا لم يضف قيمة واضحة.",
+   "sources": [
+    "M23-191",
+    "M23-192",
+    "M23-193"
+   ],
+   "status": "APPROVED",
+   "reason": "غير مسجلة في MENU-DECISION-REGISTER (F-01…F-23) ولا DECISION-LOG؛ مذكورة جزئيًا فقط في SHELTER-MENU-IA-SPEC §13 (DRAFT)",
+   "impact": "SCHEMA-002، SCHEMA-003؛ مراجعة استخدام offers.price في مواصفات Menu/MenuItem"
+  },
+  {
+   "temp_id": "G5-ND-03",
+   "area": "23 SEO (incl. migration, redirects, sitemap, robots)",
+   "decision": "قواعد SEO تقنية للمنيو (M23 §42، §54، §63، §65): كل Product Text crawlable بلا JS-only hidden data · نص المنتج والسعر لا يعتمد على hydration بعد تحميل طويل · Search query ليس indexable URL · تجنب آلاف توليفات URL قابلة للفهرسة من branch/search/category · لا 191 thin pages · صفحات أصناف مستقبلًا فقط لمنتجات تستحق SEO Content فعليًا.",
+   "sources": [
+    "M23-187",
+    "M23-219",
+    "M23-214",
+    "M23-215",
+    "M23-132",
+    "M23-131"
+   ],
+   "status": "APPROVED",
+   "reason": "F-09/F-21 تغطي 'كل الأصناف في HTML' و'لا صفحات أصناف' فقط؛ بقية القواعد غير مسجلة كقرارات (موجودة في SPEC §12–§13 DRAFT)",
+   "impact": "SEO-023، SEO-024، SEO-025، SEO-026؛ اختيار المنصة DB-08 يجب أن يدعم SSR/SSG"
+  },
+  {
+   "temp_id": "G5-ND-04",
+   "area": "23 SEO (incl. migration, redirects, sitemap, robots)",
+   "decision": "وحدة SEO/GSC في الـOwner Dashboard (M25 §13–§15، §31–§32، §68): ربط Search Console API · Google Search Performance (Clicks · Impressions · CTR · Average Position · Top Queries · Top Pages · Countries · Devices) + مقارنة عبر الزمن · Google Indexation (فقط ما يسمح به الـAPI، بلا اختراع) · SEO HEALTH CENTER (GOOD/WARNING/CRITICAL؛ 22 فحصًا؛ Issue · Page · Severity · Explanation · Suggested Fix) · لا تغييرات SEO تلقائية والـOwner يوافق على أي تعديل حساس · SEO Editor لكل Page/Product/Article مع dangerous settings في Advanced section · SEO/Social Preview — ضمن أولوية V1 P0.",
+   "sources": [
+    "M25-008",
+    "M25-050",
+    "M25-051",
+    "M25-052",
+    "M25-053",
+    "M25-054",
+    "M25-055",
+    "M25-056",
+    "M25-057",
+    "M25-058",
+    "M25-059",
+    "M25-060",
+    "M25-061",
+    "M25-062",
+    "M25-063",
+    "M25-105",
+    "M25-106",
+    "M25-107",
+    "M25-108"
+   ],
+   "status": "APPROVED",
+   "reason": "DECISION-LOG ينتهي عند D-149 (موجز المنيو M23)؛ رسائل M24–M27 غير مسجلة",
+   "impact": "GSC-011…GSC-013، SEO-035…SEO-040، SCHEMA-010؛ تعارض C-07 مع لا صفحات أصناف"
+  },
+  {
+   "temp_id": "G5-ND-05",
+   "area": "40 Internationalization (AR/EN, RTL/LTR, global expansion)",
+   "decision": "قاعدة RTL/LTR (M26 §RTL + LTR، M25 §49/§70): كل Responsive Layout يُختبر مرتين (Arabic RTL وEnglish LTR)؛ ممنوع hacks أحادية الاتجاه (Sidebar · icons · arrows · padding · alignment · breadcrumbs · forms · modals)؛ واجهة الـDashboard تدعم RTL/LTR مع اقتراح Sidebar حسب الاتجاه.",
+   "sources": [
+    "M26-043",
+    "M26-044",
+    "M25-220",
+    "M25-142"
+   ],
+   "status": "APPROVED (Sidebar placement = PROPOSAL requested)",
+   "reason": "M25/M26 غير مسجلتين في DECISION-LOG",
+   "impact": "I18N-003، I18N-004، I18N-015؛ مصفوفة QA (P10)"
+  }
+ ],
+ "decision_status": [
+  {
+   "id": "D-010",
+   "category": "APPROVED",
+   "current_text": "Architecture جاهزة عالميًا: دولة ← مدينة ← فرع، فروع مملوكة وFranchise، بدون إعادة بناء؛ لا قائمة دول/مدن معتمدة؛ لا اختراع خطة توسع؛ لا عرض لأي دولة/فرع مستقبلي قبل معلومات وموافقة الـOwner",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "WEB-002، WEB-003، WEB-004"
+  },
+  {
+   "id": "D-011",
+   "category": "APPROVED",
+   "current_text": "shelterjo.com الحالي وليس بالضرورة النهائي؛ لا تغيير دومين ولا Migration الآن؛ لا ارتباط بالأردن يصعب نقله؛ قابلية 301 صحيحة لاحقًا بلا خسارة SEO (1:1 — M04)",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "WEB-005، WEB-006، SEO-017"
+  },
+  {
+   "id": "D-014",
+   "category": "APPROVED",
+   "current_text": "المبدأ قائم: العربية أساسية · الإنجليزية نسخة كاملة · روابط لاتينية · جاهزية لغات مستقبلية بلا لغة ثالثة",
+   "superseded_by": "D-031 (جزء الـLanguage/URL Architecture فقط)",
+   "old_text": "الـLanguage/URL Architecture النهائية غير معتمدة حتى مقارنة الخيارات (09 AR-01)",
+   "impact": "I18N-001، I18N-002، WEB-012"
+  },
+  {
+   "id": "D-019",
+   "category": "APPROVED WITH CONDITIONS",
+   "current_text": "Option C (Brand Layer + Market Layer) مبدئي وغير مجمّد؛ ترتيب اللغة/الدولة حُسم بـP3 (D-031)",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "WEB-007، WEB-010"
+  },
+  {
+   "id": "D-031",
+   "category": "APPROVED WITH CONDITIONS",
+   "current_text": "P3 مبدئي: /ar/ · /en/ · /ar/jo/… · /en/jo/…؛ الشرط (1) حُسم بـD-052 (الجذر Gateway/x-default، لا 301 إلى /ar/، لا geo redirect)؛ الشرط (2) قاعدة دائمة (ar/en، ISO jo، xx للتوثيق فقط)؛ قبل الـFreeze: اعتماد خطة 13 (canonical، hreflang، x-default ROOT-02، alternates، redirects) + قرارات 10 §6",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "WEB-008، WEB-011، SEO-034 — ملاحظة: السجل يكتب superseded_by D-052 وهذا غير دقيق؛ D-052 يحسم الشرط (1) فقط ولا يلغي P3"
+  },
+  {
+   "id": "D-032",
+   "category": "SUPERSEDED",
+   "current_text": "حُسم بـD-053 (drive/house APPROVED)",
+   "superseded_by": "D-053",
+   "old_text": "تفضيل Slugs قصيرة /drive/ /house/ غير مجمّد حتى عرض أثر الخيارين على SEO ووضوح الرابط (PROPOSED)",
+   "impact": "WEB-018"
+  },
+  {
+   "id": "D-042",
+   "category": "APPROVED",
+   "current_text": "Search Console/GA4: المجاني أولًا؛ الـOwner يوفر Export/Read-only في المرحلة المناسبة لاستبدال Semrush في Queries · Pages · Countries · Devices · Indexing · Sitemaps · CWV · Links؛ GA4 لاحقًا Read-only؛ لا Supermetrics إذا استهلك Quota",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "GSC-002، GSC-003"
+  },
+  {
+   "id": "D-052",
+   "category": "APPROVED WITH CONDITIONS",
+   "current_text": "ROOT-01 = D مبدئي: / = Global Brand Gateway / x-default؛ لا Automatic Geo Redirect ولا تحويل حسب الدولة/IP؛ مفيد للمستخدم والبحث والـAI؛ قبل الـFreeze: Wireframe + محتوى (قُدّم في 15؛ RG-02/RG-03 معتمدان؛ النصوص DRAFT D-068؛ RG-01/RG-06 بلا رد صريح)",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "WEB-013، WEB-015، WEB-016، WEB-017، SEO-033"
+  },
+  {
+   "id": "D-053",
+   "category": "APPROVED",
+   "current_text": "Slugs drive و house؛ فرع ثانٍ من نفس النوع في نفس المدينة → drive-{area}/house-{area} (مبدئي)؛ رابط الفرع الأصلي لا يتغير أبدًا؛ توثيق فقط — لا URLs ولا Redirects الآن",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "WEB-018، WEB-019، SEO-016، SEO-015"
+  },
+  {
+   "id": "D-054",
+   "category": "APPROVED WITH CONDITIONS",
+   "current_text": "/menu → 301 → /ar/jo/menu/ (Architecture معتمدة)؛ التنفيذ وقت Migration/Launch فقط بعد: URL inventory · Search Console baseline · Backlink review · Redirect testing/validation · Canonical validation · Sitemap validation + Owner approval (M23 §54)؛ أي QR أو رابط قديم يستمر بالعمل",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "SEO-012، SEO-013، SEO-014 — يحتاج إضافة 'Owner approval' لنص D-054 (G5-ND-01)"
+  },
+  {
+   "id": "D-067",
+   "category": "APPROVED",
+   "current_text": "RG-03: العربية أولًا بصريًا في الأردن على الموبايل؛ لا IP Redirect · لا Geo Redirect إجباري · لا منع لاختيار English مباشرة",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "I18N-007، WEB-017"
+  },
+  {
+   "id": "R-08",
+   "category": "APPROVED WITH CONDITIONS",
+   "current_text": "السعر AR '3.50 د.أ' (Owner — M23 §15)؛ EN '3.50 JOD' قرار بالاختبار ضمن تفويض Phase G — يُؤكد مع اعتماد Menu IA Spec",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "I18N-006"
+  },
+  {
+   "id": "GEP-§10/§11",
+   "category": "APPROVED",
+   "current_text": "Local SEO لكل فرع (13 عنصرًا) + NAP متناسقة؛ أي اختلاف يُسجل",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "SEO-008"
+  },
+  {
+   "id": "GEP-§12/§51",
+   "category": "APPROVED",
+   "current_text": "GSC مصدر الحقيقة لأداء Google Search؛ لا Semrush بدلًا منه إذا توفرت بياناته؛ Google first-party أولًا",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "GSC-002"
+  },
+  {
+   "id": "GEP-§13",
+   "category": "APPROVED",
+   "current_text": "GSC Read-only/Restricted أولًا؛ لا تعديل Sitemaps · Removals · Settings · Users · Ownership · Disavow · URL removal بلا موافقة",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "GSC-003، GSC-004"
+  },
+  {
+   "id": "GEP-§14",
+   "category": "APPROVED",
+   "current_text": "Migration Baseline قبل الإطلاق (7 مجموعات) → SEO MIGRATION PLAN",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "GSC-005"
+  },
+  {
+   "id": "GEP-§15",
+   "category": "APPROVED",
+   "current_text": "لا حذف عشوائي لـURL ذي قيمة؛ KEEP · REBUILD · REDIRECT · REMOVE؛ أي URL يتغير ويملك قيمة → 301 (REBUILD يحل محل REPLACE في M01)",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "SEO-010، SEO-011"
+  },
+  {
+   "id": "GEP-§16",
+   "category": "APPROVED",
+   "current_text": "/menu ذو backlinks/rankings لا يُحذف بلا Migration Plan؛ 301 → /ar/jo/menu/ مع الحفاظ على الـIntent (حُدد بـD-054)",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "SEO-012"
+  },
+  {
+   "id": "GEP-§17/§19/§22",
+   "category": "APPROVED",
+   "current_text": "تحقق Indexing بعد البناء؛ Sitemap = Canonical · Public · Indexable · Approved فقط؛ Canonical صحيح لكل صفحة (AR/EN، filters، search، categories، archives، events، branches، parameters)",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "SEO-021، SEO-027، SEO-029"
+  },
+  {
+   "id": "GEP-§20/§21",
+   "category": "APPROVED",
+   "current_text": "hreflang AR/EN مع alternates؛ مراجعة x-default قبل سلوك الجذر؛ لا Redirect نهائي / → /ar/ قبل التحليل — التحليل تم والقرار D-052",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "SEO-032، SEO-033، WEB-013"
+  },
+  {
+   "id": "GEP-§23/§24",
+   "category": "APPROVED",
+   "current_text": "Structured Data حقيقي وظاهر فقط (Organization · LocalBusiness · CafeOrCoffeeShop · BreadcrumbList · Article · BlogPosting · Event · FAQPage مشروط)؛ ممنوع Spam؛ Branch Schema متوافق مع GBP؛ Image فقط بموافقة",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "SCHEMA-001…SCHEMA-006"
+  },
+  {
+   "id": "GEP-§41",
+   "category": "APPROVED",
+   "current_text": "Rich Results: Error يُصلح قبل الإطلاق إذا تعلق بمحتوى منشور؛ Warnings تُقيّم",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "SCHEMA-009"
+  },
+  {
+   "id": "GEP-§46/§47",
+   "category": "APPROVED",
+   "current_text": "الظهور على Intent حقيقي (أمثلة: specialty coffee irbid · coffee shop irbid · drive thru coffee irbid · specialty coffee jordan + العربية) بلا Keyword Stuffing؛ Knowledge Hub Topic Authority بمحتوى معتمد فقط",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "SEO-005، SEO-006، SEO-007 — الكلمات أمثلة وليست قائمة معتمدة"
+  },
+  {
+   "id": "GEP-§48/§49",
+   "category": "APPROVED",
+   "current_text": "دعم AI Overviews · Gemini · ChatGPT Search · Perplexity · Copilot عبر حقائق وكيانات وبيانات متسقة؛ GBP ↔ الموقع: SHELTER COFFEE → Jordan → Irbid → DRIVE / HOUSE",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "AEO-001، AEO-003"
+  },
+  {
+   "id": "GIO-§A15/§A16",
+   "category": "APPROVED WITH CONDITIONS",
+   "current_text": "Sitemap بعد اعتماد الموقع: إنشاء ← تحقق ← إرسال ← متابعة (Submit ≠ Success)؛ تقرير Indexing بعد الإطلاق — لا تنفيذ في Phase 01",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "SEO-030، SEO-031"
+  },
+  {
+   "id": "GIO-§A20/§A21",
+   "category": "APPROVED WITH CONDITIONS",
+   "current_text": "تنفيذ الـSchema فعليًا بعد اعتماد البيانات ثم Rich Results Validation؛ JSON-LD ≠ مكتمل — لا تنفيذ في Phase 01",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "SCHEMA-008، SCHEMA-009"
+  },
+  {
+   "id": "DB-02",
+   "category": "APPROVED WITH CONDITIONS",
+   "current_text": "Option C (D-019) + P3 مبدئي مشروط (D-031) + الجذر D (D-052)؛ غير مجمّد حتى اعتماد خطة 13 وقرارات 10 §6",
+   "superseded_by": "",
+   "old_text": "التوصية الأولى في 05: Option A (العربية على الجذر + /en/)",
+   "impact": "WEB-007، WEB-008، WEB-009، SEO-034"
+  },
+  {
+   "id": "DB-19",
+   "category": "APPROVED WITH CONDITIONS",
+   "current_text": "سلوك الجذر = D (D-052)؛ RG-02/RG-03 معتمدان (D-066، D-067)؛ النصوص Placeholder حتى Brand Content (D-068)؛ RG-01 (الهيكل ①→④) وRG-06 (الصورة) بلا رد صريح رغم أن السجل يكتب 'الهيكل ✅'",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "WEB-015، WEB-016 (C-10)"
+  },
+  {
+   "id": "DB-20",
+   "category": "APPROVED WITH CONDITIONS",
+   "current_text": "/menu → 301 → /ar/jo/menu/ (D-054)؛ التنفيذ وقت الإطلاق فقط بعد الشروط + Owner approval",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "SEO-012، SEO-013"
+  },
+  {
+   "id": "DB-03",
+   "category": "APPROVED WITH CONDITIONS",
+   "current_text": "Slugs لاتينية لكل اللغات (المبدأ ✅ D-014)؛ 301 من الـslugs العربية الحالية ذات القيمة يُنفّذ عبر خريطة النقل (SEO-010/SEO-011)",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "WEB-012"
+  },
+  {
+   "id": "DB-11",
+   "category": "PENDING OWNER INPUT",
+   "current_text": "الـHost الرسمي: التوصية www.shelterjo.com + 301 بقفزة واحدة + تحديث رابط GBP (بموافقة)؛ تنبيه: Knowledge Panel وأغلب الروابط الخارجية تشير لنسخة بدون www (OBS-13)",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "WEB-005، SEO-021، SCHEMA-008 (url)، SEO-011"
+  },
+  {
+   "id": "DB-13",
+   "category": "PENDING VERIFICATION",
+   "current_text": "~144 نطاقًا سبام (PBN) يوليو–سبتمبر 2026: لا إجراء/Disavow قبل فتح GSC ومعرفة هل اشتُريت خدمة روابط",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "GSC-004، SEO-009"
+  }
+ ],
+ "conflicts": [
+  {
+   "topic": "C-01 — مصطلحات تصنيف الروابط القديمة",
+   "old_instruction": "لكل URL: KEEP / REPLACE / REDIRECT / REMOVE",
+   "old_source": "M01 §44 (M01-147)؛ docs/phase-01-discovery/02-url-inventory-and-migration-seed.md (Seed يستخدم REPLACE + UNDECIDED)",
+   "new_instruction": "KEEP · REBUILD · REDIRECT · REMOVE",
+   "new_source": "M11 §15 (M11-038)؛ GEP §15",
+   "winner": "M11 §15 — REBUILD (≡ REPLACE)",
+   "why": "رسالة لاحقة صريحة (Owner policy D-046)؛ المعنى نفسه، SEO-MIGRATION-MAP يوضح REPLACE = REBUILD",
+   "impact": "توحيد المصطلح في 02 والخريطة النهائية",
+   "files": [
+    "docs/phase-01-discovery/02-url-inventory-and-migration-seed.md",
+    "docs/google/SEO-MIGRATION-MAP.md"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "topic": "C-02 — نمط روابط اللغة",
+   "old_instruction": "اقتراح: العربية shelterjo.com/menu والإنجليزية shelterjo.com/en/menu؛ وتوصية 05 DB-02 Option A (العربية على الجذر)",
+   "old_source": "M03 R1-08 (M03-033)؛ docs/phase-01-discovery/05-decisions-before-design.md DB-02",
+   "new_instruction": "P3: /ar/ و/en/ لكل اللغتين + /ar/jo/… /en/jo/…",
+   "new_source": "M10 §1 (M10-002، M10-003) — D-031",
+   "winner": "M10 / D-031 (P3)",
+   "why": "قرار لاحق صريح من الـOwner؛ اقتراح M03 موسوم 'اقتراح' وغير معتمد",
+   "impact": "أهداف 02 (/menu، /locations، /about، /terms، /careers) يجب تحويلها لأهداف P3",
+   "files": [
+    "docs/phase-01-discovery/02-url-inventory-and-migration-seed.md",
+    "docs/phase-01-discovery/05-decisions-before-design.md"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "topic": "C-03 — مصير /menu القديم",
+   "old_instruction": "/menu = KEEP (المنيو الجديد نفسه على /menu)",
+   "old_source": "docs/phase-01-discovery/02-url-inventory-and-migration-seed.md §A (Seed — مقترح)",
+   "new_instruction": "/menu → 301 → /ar/jo/menu/ وقت الإطلاق فقط بعد الفحوص وموافقة الـOwner",
+   "new_source": "M13 MENU-01 (M13-009، M13-010) — D-054؛ M23 §54 (M23-189، M23-190)",
+   "winner": "M13 / D-054 (+ M23 §54)",
+   "why": "قرار Owner لاحق صريح",
+   "impact": "تحديث 02؛ SEO-012، SEO-013",
+   "files": [
+    "docs/phase-01-discovery/02-url-inventory-and-migration-seed.md"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "topic": "C-04 — الجذر كتحويل إلى /ar/ في وثيقة 10",
+   "old_instruction": "'الكلفة: الجذر / يصبح تحويلًا إلى /ar/' ضمن توصية P3",
+   "old_source": "docs/phase-01-discovery/10-url-architecture-draft.md §2 (الخلاصة/الكلفة)",
+   "new_instruction": "الجذر / = Global Brand Gateway / x-default بلا تحويل؛ لا 301 إلى /ar/",
+   "new_source": "M10 شرط 1 (M10-004)؛ M13 ROOT-01 (M13-001) — D-052",
+   "winner": "D-052",
+   "why": "قرار Owner لاحق صريح؛ الشجرة في 10 §3 محدثة لكن §2 لم يُحدّث؛ وترويسة 13 ما زالت 'PROPOSED — PENDING OWNER DECISION'",
+   "impact": "تحديث نص 10 §2 وترويسة 13",
+   "files": [
+    "docs/phase-01-discovery/10-url-architecture-draft.md",
+    "docs/phase-01-discovery/13-root-and-international-seo-plan.md"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "topic": "C-05 — التحويل التلقائي حسب الموقع/اللغة",
+   "old_instruction": "لا Automatic geolocation/language redirects بشكل قد يضر Crawlers أو UX بدون مناقشتي (مشروط)",
+   "old_source": "M10 §1 (M10-007)",
+   "new_instruction": "لا Automatic Geo Redirect، لا تحويل حسب الدولة أو IP، لا Geo Redirect إجباري، لا منع لاختيار English",
+   "new_source": "M13 ROOT-01 (M13-002)؛ M14 RG-03 (M14-024)",
+   "winner": "M13 + M14 (حظر مطلق)",
+   "why": "قرار لاحق أكثر تشددًا وصريح",
+   "impact": "WEB-017",
+   "files": [
+    "docs/phase-01-discovery/13-root-and-international-seo-plan.md"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "topic": "C-06 — روابط الأصناف المستقلة /menu/{item-slug}/",
+   "old_instruction": "رابط صنف مميز /ar/jo/menu/{item-slug}/ (DB-06 Hybrid القديم) وصفحة الصنف canonical لنفسها",
+   "old_source": "docs/phase-01-discovery/10-url-architecture-draft.md §3، §6 / docs/phase-01-discovery/13-root-and-international-seo-plan.md §3.4 / docs/phase-01-discovery/05-decisions-before-design.md DB-06",
+   "new_instruction": "لا صفحات أصناف في V1؛ لا 191 thin pages؛ صفحات مستقبلًا فقط لمنتجات تستحق SEO Content فعليًا",
+   "new_source": "M23 §42 (M23-131، M23-132) — D-143، D-147، F-09، F-21",
+   "winner": "M23 §42 / D-147",
+   "why": "قرار Owner لاحق صريح ومجمّد (F-09/F-21)",
+   "impact": "حذف/تأجيل {item-slug} من شجرة 10 و13 §3.4؛ SEO-024",
+   "files": [
+    "docs/phase-01-discovery/10-url-architecture-draft.md",
+    "docs/phase-01-discovery/13-root-and-international-seo-plan.md",
+    "docs/phase-01-discovery/05-decisions-before-design.md"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "topic": "C-07 — SEO Editor لكل Product مقابل لا صفحات أصناف",
+   "old_instruction": "لا Product Detail Pages مستقلة في V1 (لا URL للصنف)",
+   "old_source": "M23 §42 (M23-132) — F-09، F-21، D-147",
+   "new_instruction": "SEO Editor لكل Page/Product/Article: SEO Title · Meta Description · Canonical · Index/Noindex · OG Title · OG Description · OG Image",
+   "new_source": "M25 §31 (M25-105)",
+   "winner": "",
+   "why": "M25 لا يطلب صفحات أصناف صراحة ولا يلغي F-09؛ حقول Canonical/Index للـProduct بلا URL خاص به غير ذات معنى في V1. توصية: إبقاء حقول SEO للـProduct في الـData model (D-086 'SEO fields عند الحاجة') معطلة/مخفية في V1 حتى اعتماد صفحة منتج وفق M23 §42",
+   "impact": "نطاق SEO-035 في V1؛ SEO-025",
+   "files": [
+    "docs/menu-ia/MENU-DECISION-REGISTER.md",
+    "docs/menu-ia/SHELTER-MENU-IA-SPEC.md §13"
+   ],
+   "status": "OWNER DECISION REQUIRED"
+  },
+  {
+   "topic": "C-08 — تصحيح الأخطاء الواضحة في الأسماء العربية",
+   "old_instruction": "لا تصحيح تلقائي حتى الواضح منه؛ التصحيح = Suggested Correction والـOwner يعتمد التصحيحات كدفعة واحدة",
+   "old_source": "D-093 (M18 — تصحيحات الـOwner على تقرير المنيو)",
+   "new_instruction": "يمكن normalize obvious typo في الأسماء العربية مع الحفاظ على source value والتغيير في normalized layer؛ أي ambiguity → PENDING OWNER APPROVAL",
+   "new_source": "M23 §49 (M23-162، M23-163)؛ سابقة M20 G7 (D-128)",
+   "winner": "M23 §49 (ضمن الطبقة normalized فقط)",
+   "why": "تعليمة Owner لاحقة صريحة؛ المصدر محفوظ؛ العرض على الموقع ما زال يتطلب display_name_ar معتمدًا (D-091/D-137)",
+   "impact": "I18N-012؛ مجموعة G3 (D-093) يجب أن تعكس الاستثناء",
+   "files": [
+    "docs/governance/DECISION-LOG.md D-093",
+    "docs/menu-ia/MENU-DECISION-REGISTER.md F-04"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "topic": "C-09 — x-default لصفحات غير الجذر",
+   "old_instruction": "Root / = Global Brand Gateway / x-default (قد يُفهم كـx-default لكل العناقيد)",
+   "old_source": "M13 ROOT-01 (M13-001) — D-052",
+   "new_instruction": "x-default لصفحات العلامة والسوق = النسخة العربية (ROOT-02 مقترح)؛ SHELTER-MENU-IA-SPEC §13 يكتبه كأنه محسوم (x-default ← الصفحة العربية للمنيو)",
+   "new_source": "docs/phase-01-discovery/13-root-and-international-seo-plan.md §4، §9 ROOT-02 (Claude — PROPOSED)؛ docs/menu-ia/SHELTER-MENU-IA-SPEC.md §13 (DRAFT)",
+   "winner": "",
+   "why": "الـOwner حسم x-default للجذر فقط؛ ROOT-02 لم يُعرض للحسم بعد؛ الصمت ليس موافقة",
+   "impact": "قيم hreflang x-default لكل عنقود (SEO-032، SEO-033)؛ تجميد الـURLs",
+   "files": [
+    "docs/phase-01-discovery/13-root-and-international-seo-plan.md",
+    "docs/menu-ia/SHELTER-MENU-IA-SPEC.md"
+   ],
+   "status": "OWNER DECISION REQUIRED"
+  },
+  {
+   "topic": "C-10 — هيكل الجذر RG-01 والصورة RG-06",
+   "old_instruction": "الهيكل ✅ (D-066، D-067) — ترويسة 15 وسجل DB-19",
+   "old_source": "docs/phase-01-discovery/15-root-gateway-wireframe.md (ترويسة)؛ docs/governance/DECISION-LOG.md DB-19",
+   "new_instruction": "الـOwner اعتمد RG-02 (Header مختصر + الغاية) وRG-03 (العربية أولًا) واعتبر RG-04/RG-05 DRAFT؛ لم يرد صراحة على RG-01 (الأقسام ①→④ + Footer مختصر) ولا RG-06 (صورة/فيديو)",
+   "new_source": "M14 RG-02/RG-03/RG-04/RG-05 (M14-020…M14-024)",
+   "winner": "",
+   "why": "الصمت ليس موافقة؛ الوثائق تبالغ في حالة الاعتماد",
+   "impact": "WEB-015، WEB-016 — تأكيد RG-01/RG-06 قبل الـFreeze",
+   "files": [
+    "docs/phase-01-discovery/15-root-gateway-wireframe.md",
+    "docs/governance/DECISION-LOG.md"
+   ],
+   "status": "OWNER DECISION REQUIRED"
+  }
+ ],
+ "dropped": [
+  {
+   "key": "M01-086",
+   "reason": "example-only: أمثلة URLs صرّح النص بأنها 'ممكنة فقط وليست قرارات' (/, /menu, /locations, /about, /blog, /contact, /locations/branch-name)؛ القاعدة الفعلية في WEB-012 والبنية الفعلية P3 في WEB-008"
+  }
+ ],
+ "notes": "G5 = 03 Global Website Architecture · 21 Search Console · 23 SEO · 24 AEO/GEO · 25 Schema · 40 Internationalization. 229 raw items → 106 canonical requirements ({'WEB': 24, 'SEO': 41, 'GSC': 13, 'SCHEMA': 10, 'AEO': 3, 'I18N': 15}), 1 dropped (example-only). الحالة المحورية: URL Architecture = Option C (D-019) + P3 /ar/ · /en/ · /ar/jo/… · /en/jo/… (D-031، مبدئي بشرطين) + ROOT-01 = D (D-052: / = Global Brand Gateway / x-default، لا 301 إلى /ar/، لا Geo/IP redirect) — غير مجمّدة حتى اعتماد خطة 13 (canonical، hreflang ar/en للعلامة وar-JO/en-JO للسوق — مقترح، x-default ROOT-02) وقرارات 10 §6 (URL-03…URL-10) وDB-11 (Host). /menu → 301 → /ar/jo/menu/ معتمد (D-054) والتنفيذ وقت الإطلاق فقط بعد URL inventory · GSC baseline · backlink review · redirect validation · canonical validation · sitemap validation · Owner approval؛ لا Production redirects ولا SEO changes الآن. ?branch=drive|house على /ar/jo/menu/ و/en/jo/menu/ بـCanonical واحد على الرابط النظيف. GSC = مصدر الحقيقة، Read-only/Restricted، Baseline (SC-01…SC-10) لم يُستلم بعد — كل الأرقام الحالية تقديرات Semrush. Schema: أنواع مسموحة عند الحاجة فقط ومن بيانات معتمدة؛ foundingDate = 2019 فقط (2018 و'منذ 2022' ممنوعتان — D-018)؛ telephone = +962799009436؛ Address/Geo/Maps/sameAs/logo = MISSING/PENDING؛ لا rating/review/availability/nutrition/claims مخترعة. لا يوجد أي تنفيذ للموقع: كل متطلبات البناء NOT STARTED؛ الأدلة الوحيدة وثائق + wireframes المنيو (PROTOTYPE). الأسماء العربية للمنتجات (I18N-009…I18N-014) مسندة لهذه المجموعة وتتقاطع مع G3 (MENU) وG1 (CONTENT). conflicts: 10 (7 RESOLVED، 3 OWNER DECISION REQUIRED: C-07 SEO editor للـProduct، C-09 x-default لغير الجذر، C-10 RG-01/RG-06)."
+}

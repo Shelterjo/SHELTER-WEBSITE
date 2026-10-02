@@ -1,0 +1,381 @@
+{
+ "group": "G36",
+ "notes": "M50 / D-327: Dashboard D5 — الإعلانات والحملات (شريط أعلى الصفحات + بلوك الرئيسية)، محرك الأولوية، شاشة «يحدث الآن» وإيقاف فوري.",
+ "requirements": [],
+ "updates_to_existing": [
+  {
+   "id": "DX-010",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D5 (M50)",
+   "change": "بُني مكانان: شريط الإعلان أعلى كل صفحة (Top Announcement Bar) وبلوك «مميز» في الرئيسية (Homepage Feature). الـOwner يختار المكان لكل إعلان/حملة — مكان واحد فقط، فلا تظهر كلها معًا. المتبقي: Hero Banner وEvent Strip (ينتظران صورًا معتمدة)، والـModal غير مبني (يُبنى فقط إن صار مبررًا).",
+   "new_impl": "PARTIAL",
+   "tested": "YES",
+   "code_refs": [
+    "app/Services/Experiences/Placements.php",
+    "app/Services/Experiences/PlacedExperience.php",
+    "resources/views/components/ui/announcement-bar.blade.php",
+    "resources/views/layouts/site.blade.php",
+    "resources/views/site/home.blade.php",
+    "app/View/Composers/SiteChrome.php",
+    "app/Services/Dashboard/AnnouncementEditor.php",
+    "app/Http/Controllers/Dashboard/Content/AnnouncementsController.php",
+    "resources/views/dashboard/announcements/form.blade.php",
+    "resources/views/dashboard/announcements/index.blade.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/AnnouncementsTest.php"
+   ]
+  },
+  {
+   "id": "DX-011",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D5 (M50)",
+   "change": "الحقول المبنية: العنوان عربي/إنجليزي، النص القصير عربي/إنجليزي، زر (نص عربي/إنجليزي + رابط)، البداية والنهاية تاريخًا ووقتًا بتوقيت عمّان، الأولوية، المكان، الحالة. المتبقي: الفروع، الوسائط، ربط الحملة بفعالية.",
+   "new_impl": "PARTIAL",
+   "tested": "YES",
+   "code_refs": [
+    "app/Services/Dashboard/AnnouncementEditor.php",
+    "app/Http/Controllers/Dashboard/Content/AnnouncementsController.php",
+    "resources/views/dashboard/announcements/form.blade.php",
+    "resources/views/dashboard/announcements/index.blade.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/AnnouncementsTest.php"
+   ]
+  },
+  {
+   "id": "DX-012",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D5 (M50)",
+   "change": "لا شيء نشط = لا شريط ولا بلوك في الرئيسية (لا حاوية فارغة). والـDashboard يشرح ما يمكن فعله بزر «إعلان جديد» عند الفراغ.",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Services/Experiences/Placements.php",
+    "app/Services/Experiences/PlacedExperience.php",
+    "resources/views/components/ui/announcement-bar.blade.php",
+    "resources/views/layouts/site.blade.php",
+    "resources/views/site/home.blade.php",
+    "app/View/Composers/SiteChrome.php",
+    "resources/views/dashboard/announcements/index.blade.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/AnnouncementsTest.php"
+   ]
+  },
+  {
+   "id": "DX-013",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D5 (M50)",
+   "change": "+ الإعلانات والحملات: تبدأ وتنتهي وحدها (تُحسب على الخادم عند كل طلب، فلا تحتاج مُجدولًا)، إيقاف مؤقت/استئناف يدوي، وإيقاف فوري من «يحدث الآن». يعود الموقع لوضعه الطبيعي عند النهاية بلا حذف. الأوامر مشتركة بين الفعاليات والإعلانات (ExperienceCommands).",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Services/Experiences/Placements.php",
+    "app/Services/Experiences/PlacedExperience.php",
+    "app/Services/Dashboard/ExperienceCommands.php",
+    "app/Http/Controllers/Dashboard/LiveController.php",
+    "resources/views/dashboard/live.blade.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/AnnouncementsTest.php",
+    "tests/Feature/Dashboard/EventEditorTest.php"
+   ]
+  },
+  {
+   "id": "DX-018",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D5 (M50)",
+   "change": "مبني: إعلان عادي · تنبيه عاجل (Emergency Notice — أولوية أعلى وشكل تحذير بأيقونة لا باللون وحده) · حملة/عرض (Promotion) · فعالية. المتبقي: Holiday · Seasonal Theme · Brand Anniversary · Employee Recognition.",
+   "new_impl": "PARTIAL",
+   "tested": "YES",
+   "code_refs": [
+    "app/Services/Experiences/Placements.php",
+    "app/Services/Experiences/PlacedExperience.php",
+    "app/Services/Dashboard/AnnouncementEditor.php",
+    "app/Http/Controllers/Dashboard/Content/AnnouncementsController.php",
+    "resources/views/dashboard/announcements/form.blade.php",
+    "resources/views/dashboard/announcements/index.blade.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/AnnouncementsTest.php"
+   ]
+  },
+  {
+   "id": "DX-019",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D5 (M50)",
+   "change": "في الـDashboard: «يحدث الآن» (Active Now) · «الإعلانات والحملات» بتبويبات (ظاهر/قادم/مسودات/موقوف/منتهٍ/أرشيف) · الفعاليات · SHELTER Family (D2). المتبقي: الثيمات الموسمية، موظف الشهر.",
+   "new_impl": "PARTIAL",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Dashboard/LiveController.php",
+    "resources/views/dashboard/live.blade.php",
+    "app/Services/Dashboard/AnnouncementEditor.php",
+    "app/Http/Controllers/Dashboard/Content/AnnouncementsController.php",
+    "resources/views/dashboard/announcements/form.blade.php",
+    "resources/views/dashboard/announcements/index.blade.php",
+    "app/View/Composers/DashboardChrome.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/AnnouncementsTest.php"
+   ]
+  },
+  {
+   "id": "DX-020",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D5 (M50)",
+   "change": "شاشة «يحدث الآن»: لكل مكان ما يراه الزوار الآن ومتى ينتهي وما ينتظر خلفه، والفعاليات الجارية، واستثناءات ساعات اليوم، والقادم خلال 7 أيام؛ وزر «أوقف الآن» يعمل فورًا ويُسجل. نفس الـResolver الذي يرسم الموقع (لا مصدران).",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Dashboard/LiveController.php",
+    "resources/views/dashboard/live.blade.php",
+    "app/Services/Experiences/Placements.php",
+    "app/Services/Experiences/PlacedExperience.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/AnnouncementsTest.php"
+   ]
+  },
+  {
+   "id": "DX-021",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D5 (M50)",
+   "change": "محرك الأولوية: عنصر واحد لكل مكان. الافتراضي: تنبيه عاجل 100 > فعالية 80 > حملة 60 > موسمي 40 > تقدير 30 > إعلان 20؛ الـOwner يغيّر الأولوية (عاجل/عالية/عادية/منخفضة). عند الحفظ يُخبر الـOwner بما ينافس نفس المكان في نفس الوقت ومن يفوز.",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Services/Experiences/Placements.php",
+    "app/Services/Experiences/PlacedExperience.php",
+    "app/Services/Dashboard/AnnouncementEditor.php",
+    "app/Http/Controllers/Dashboard/Content/AnnouncementsController.php",
+    "resources/views/dashboard/announcements/form.blade.php",
+    "resources/views/dashboard/announcements/index.blade.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/AnnouncementsTest.php"
+   ]
+  },
+  {
+   "id": "DX-023",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D5 (M50)",
+   "change": "أوقات الإعلانات والحملات تُدخل بتوقيت السوق (عمّان من إعداد السوق) وتُخزن UTC وتُقارن على الخادم — لا اعتماد على توقيت المتصفح.",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Services/Dashboard/AnnouncementEditor.php",
+    "app/Http/Controllers/Dashboard/Content/AnnouncementsController.php",
+    "resources/views/dashboard/announcements/form.blade.php",
+    "resources/views/dashboard/announcements/index.blade.php",
+    "app/Services/Dashboard/Concerns/ReadsExperienceInput.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/AnnouncementsTest.php"
+   ]
+  },
+  {
+   "id": "DX-025",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D5 (M50)",
+   "change": "+ الإعلانات والحملات والتنبيه العاجل وإيقافها الفوري بلا كود (مع الفعاليات وSHELTER Family). المتبقي: الثيمات الموسمية والحركة، موظف الشهر، صورة البانر.",
+   "new_impl": "PARTIAL",
+   "tested": "YES",
+   "code_refs": [
+    "app/Services/Dashboard/AnnouncementEditor.php",
+    "app/Http/Controllers/Dashboard/Content/AnnouncementsController.php",
+    "resources/views/dashboard/announcements/form.blade.php",
+    "resources/views/dashboard/announcements/index.blade.php",
+    "app/Http/Controllers/Dashboard/LiveController.php",
+    "resources/views/dashboard/live.blade.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/AnnouncementsTest.php"
+   ]
+  },
+  {
+   "id": "DX-031",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D5 (M50)",
+   "change": "معاينة في صفحة التحرير بالمكوّن الحقيقي (الشريط أو بلوك الرئيسية) عربي وإنجليزي جنبًا إلى جنب، وتتكيف مع عرض الشاشة. المتبقي: معاينة بتاريخ/وقت محدد.",
+   "new_impl": "PARTIAL",
+   "tested": "YES",
+   "code_refs": [
+    "app/Services/Dashboard/AnnouncementEditor.php",
+    "app/Http/Controllers/Dashboard/Content/AnnouncementsController.php",
+    "resources/views/dashboard/announcements/form.blade.php",
+    "resources/views/dashboard/announcements/index.blade.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/AnnouncementsTest.php"
+   ]
+  },
+  {
+   "id": "DX-032",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D5 (M50)",
+   "change": "Create Now (نشر بلا بداية مستقبلية) · Schedule Later (بداية مستقبلية) · End Automatically (النهاية) · Extend (تغيير النهاية من النموذج) · Pause · Resume · Cancel · End now · Archive/Restore · Disable.",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Services/Dashboard/ExperienceCommands.php",
+    "app/Services/Dashboard/AnnouncementEditor.php",
+    "app/Http/Controllers/Dashboard/Content/AnnouncementsController.php",
+    "resources/views/dashboard/announcements/form.blade.php",
+    "resources/views/dashboard/announcements/index.blade.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/AnnouncementsTest.php",
+    "tests/Feature/Dashboard/EventEditorTest.php"
+   ]
+  },
+  {
+   "id": "DX-033",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D5 (M50)",
+   "change": "يُسجل: الإنشاء، كل حفظ (النوع، الحالة، المكان، التواريخ، الأولوية قبل/بعد)، وكل أمر (إيقاف، استئناف، إلغاء، إنهاء، أرشفة، إيقاف فوري). المتبقي: تغيير الوسائط وتغيير الموظف المثالي (لم تُبنَ بعد).",
+   "new_impl": "PARTIAL",
+   "tested": "YES",
+   "code_refs": [
+    "app/Services/Dashboard/ExperienceCommands.php",
+    "app/Services/Dashboard/AnnouncementEditor.php",
+    "app/Http/Controllers/Dashboard/Content/AnnouncementsController.php",
+    "resources/views/dashboard/announcements/form.blade.php",
+    "resources/views/dashboard/announcements/index.blade.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/AnnouncementsTest.php"
+   ]
+  },
+  {
+   "id": "DX-034",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D5 (M50)",
+   "change": "كل حفظ وكل أمر يحفظ نسخة كاملة (النص، التواريخ، الـCTA، الأولوية، المكان) مع سبب اختياري، وتظهر النسخ في صفحة التحرير. المتبقي: حقلا نسبة الخصم والشروط القانونية غير موجودين كحقول مستقلة.",
+   "new_impl": "PARTIAL",
+   "tested": "YES",
+   "code_refs": [
+    "app/Services/Dashboard/ExperienceCommands.php",
+    "app/Services/Dashboard/AnnouncementEditor.php",
+    "app/Http/Controllers/Dashboard/Content/AnnouncementsController.php",
+    "resources/views/dashboard/announcements/form.blade.php",
+    "resources/views/dashboard/announcements/index.blade.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/AnnouncementsTest.php"
+   ]
+  },
+  {
+   "id": "DX-037",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D5 (M50)",
+   "change": "أي خطأ في محرك الأماكن (حتى جدول مفقود) = لا شيء يُرسم والصفحة تعمل طبيعيًا (اختبار يعطّل الجدول عمدًا).",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Services/Experiences/Placements.php",
+    "app/Services/Experiences/PlacedExperience.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/AnnouncementsTest.php"
+   ]
+  },
+  {
+   "id": "CMS-026",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D5 (M50)",
+   "change": "+ الإعلانات والحملات بلا كود: العنوان، النص، CTA، البداية والنهاية، الجدولة، تفعيل/إيقاف، أرشفة. المتبقي: صورة/فيديو، الفروع، الثيمات.",
+   "new_impl": "PARTIAL",
+   "tested": "YES",
+   "code_refs": [
+    "app/Services/Dashboard/AnnouncementEditor.php",
+    "app/Http/Controllers/Dashboard/Content/AnnouncementsController.php",
+    "resources/views/dashboard/announcements/form.blade.php",
+    "resources/views/dashboard/announcements/index.blade.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/AnnouncementsTest.php"
+   ]
+  },
+  {
+   "id": "MDH-011",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D5 (M50)",
+   "change": "+ الحملات في نفس جدول experiences مع الفعاليات (لا مخزن ثانٍ) وتغذي الشريط وبلوك الرئيسية. المتبقي: الفروع وحقول CAMP-004.",
+   "new_impl": "PARTIAL",
+   "tested": "YES",
+   "code_refs": [
+    "app/Services/Experiences/Placements.php",
+    "app/Services/Experiences/PlacedExperience.php",
+    "app/Services/Dashboard/AnnouncementEditor.php",
+    "app/Http/Controllers/Dashboard/Content/AnnouncementsController.php",
+    "resources/views/dashboard/announcements/form.blade.php",
+    "resources/views/dashboard/announcements/index.blade.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/AnnouncementsTest.php"
+   ]
+  }
+ ],
+ "conflicts": [],
+ "new_decisions": [],
+ "pending_owner": [],
+ "technical_flags": [
+  {
+   "id": "G36-TF-01",
+   "topic": "الأماكن المبنية الآن",
+   "detail": "شريط أعلى الصفحات + بلوك الرئيسية فقط. Hero Banner وEvent Strip يحتاجان صورًا معتمدة (MEDIA PENDING OWNER APPROVAL) فيُبنيان مع الثيمات؛ الـModal لا يُبنى إلا إن ظهر مبرر حقيقي (DX-010).",
+   "recommendation": "قرار تقني منفذ ومختبر",
+   "needs_owner": false,
+   "refs": [
+    "DX-010"
+   ]
+  },
+  {
+   "id": "G36-TF-02",
+   "topic": "أرقام الأولوية الافتراضية",
+   "detail": "عاجل 100 · فعالية 80 · حملة 60 · موسمي 40 · تقدير 30 · إعلان 20 (ترتيب M32 §10). اختيار الـOwner (عاجل 100/عالية 70/عادية 40/منخفضة 10) يغلب الافتراضي؛ عند التعادل يفوز الأحدث بداية.",
+   "recommendation": "قرار تقني منفذ ومختبر",
+   "needs_owner": false,
+   "refs": [
+    "DX-021"
+   ]
+  },
+  {
+   "id": "G36-TF-03",
+   "topic": "العزل عند الفشل",
+   "detail": "محرك الأماكن يلتقط أي خطأ ويعيد «لا شيء»؛ الصفحة لا تتأثر (DX-037).",
+   "recommendation": "قرار تقني منفذ ومختبر",
+   "needs_owner": false,
+   "refs": [
+    "DX-037"
+   ]
+  },
+  {
+   "id": "G36-TF-04",
+   "topic": "بلا Cache للأماكن",
+   "detail": "الحساب عند كل طلب (استعلام واحد صغير) حتى يظهر الإيقاف الفوري فورًا؛ يُعاد النظر عند إعداد الـCDN على Staging.",
+   "recommendation": "قرار تقني منفذ ومختبر",
+   "needs_owner": false,
+   "refs": [
+    "DX-020",
+    "INFRA-009"
+   ]
+  },
+  {
+   "id": "G36-TF-05",
+   "topic": "أوامر مشتركة",
+   "detail": "ExperienceCommands واحد للفعاليات والإعلانات (pause/resume/cancel/end/archive/restore/disable) مع نسخة وسجل تدقيق لكل أمر؛ أي نوع تجربة قادم يستخدمه.",
+   "recommendation": "قرار تقني منفذ ومختبر",
+   "needs_owner": false,
+   "refs": [
+    "DX-032",
+    "DX-033",
+    "DX-034"
+   ]
+  }
+ ],
+ "cost_api_dependencies": [],
+ "dropped": []
+}

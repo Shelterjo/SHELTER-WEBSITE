@@ -1,0 +1,1315 @@
+{
+ "group": "G13",
+ "requirements": [
+  {
+   "id": "DX-001",
+   "area": "45 Dynamic Experience Engine",
+   "type": "DECISION",
+   "title": "طبقة التجربة الديناميكية: الموقع يتفاعل ولا يبقى ثابتًا",
+   "requirement": "الموقع يتفاعل مع: الفعاليات · العروض · الأعياد والعطل · مناسبات العلامة · المشاركات المجتمعية · تكريم الموظفين · المواسم — **بدون تغيير دائم** لـCore SHELTER Design System، وكل شيء يُدار من الـOwner Dashboard بلا كود.",
+   "details": [],
+   "sources": [
+    "M31 §0 / 30"
+   ],
+   "decision_refs": [],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/DYNAMIC-EXPERIENCE-ENGINE.md",
+   "missing_work": "تصميم في P04 ثم بناء في P08",
+   "dependencies": [],
+   "test_required": "Playwright AR/EN على الـ20 عرضًا + اختبار وحدة لمحرك الجدولة",
+   "design_refs": [
+    "docs/DYNAMIC-EXPERIENCE-ENGINE.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P04",
+   "history": [],
+   "notes": "OWNER APPROVED · HIGH PRIORITY · DYNAMIC EXPERIENCE SYSTEM"
+  },
+  {
+   "id": "DX-002",
+   "area": "45 Dynamic Experience Engine",
+   "type": "REQUIREMENT",
+   "title": "صفحة/تجربة SHELTER Family",
+   "requirement": "تجربة أو صفحة باسم SHELTER Family تعرض الفريق كـFamily Tree أو شجرة فريق تفاعلية أو شبكة بصرية — **اختيار الـUX الأفضل قرار تقني بالاختبار**.",
+   "details": [
+    "تحسم بند الصفحات المؤجل (الفريق) في DB-04 / PO-029"
+   ],
+   "sources": [
+    "M31 §1"
+   ],
+   "decision_refs": [],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/DYNAMIC-EXPERIENCE-ENGINE.md",
+   "missing_work": "تصميم في P04 ثم بناء في P08",
+   "dependencies": [],
+   "test_required": "Playwright AR/EN على الـ20 عرضًا + اختبار وحدة لمحرك الجدولة",
+   "design_refs": [
+    "docs/DYNAMIC-EXPERIENCE-ENGINE.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": "OWNER APPROVED · HIGH PRIORITY · DYNAMIC EXPERIENCE SYSTEM"
+  },
+  {
+   "id": "DX-003",
+   "area": "45 Dynamic Experience Engine",
+   "type": "REQUIREMENT",
+   "title": "حقول الملف العام للموظف",
+   "requirement": "الاسم · الصورة · المسمى الوظيفي · القسم · الفرع · تاريخ الانضمام **إذا اعتمده الـOwner** · وصف عام قصير **إذا اعتُمد**.",
+   "details": [],
+   "sources": [
+    "M31 §1"
+   ],
+   "decision_refs": [],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/DYNAMIC-EXPERIENCE-ENGINE.md",
+   "missing_work": "تصميم في P04 ثم بناء في P08",
+   "dependencies": [],
+   "test_required": "Playwright AR/EN على الـ20 عرضًا + اختبار وحدة لمحرك الجدولة",
+   "design_refs": [
+    "docs/DYNAMIC-EXPERIENCE-ENGINE.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": "OWNER APPROVED · HIGH PRIORITY · DYNAMIC EXPERIENCE SYSTEM"
+  },
+  {
+   "id": "DX-004",
+   "area": "45 Dynamic Experience Engine",
+   "type": "RULE",
+   "title": "ممنوع عرض بيانات الموظف الخاصة",
+   "requirement": "لا يُعرض أبدًا: الراتب · الهاتف · رقم الهوية · بيانات HR الخاصة · الحضور · المستندات الشخصية.",
+   "details": [],
+   "sources": [
+    "M31 §1"
+   ],
+   "decision_refs": [],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/DYNAMIC-EXPERIENCE-ENGINE.md",
+   "missing_work": "تصميم في P04 ثم بناء في P08",
+   "dependencies": [],
+   "test_required": "Playwright AR/EN على الـ20 عرضًا + اختبار وحدة لمحرك الجدولة",
+   "design_refs": [
+    "docs/DYNAMIC-EXPERIENCE-ENGINE.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": "OWNER APPROVED · HIGH PRIORITY · DYNAMIC EXPERIENCE SYSTEM"
+  },
+  {
+   "id": "DX-005",
+   "area": "45 Dynamic Experience Engine",
+   "type": "RULE",
+   "title": "النشر بالاختيار: لا موظف علنيًا إلا بتفعيل الـOwner",
+   "requirement": "أي موظف لا يظهر علنيًا إلا إذا فعّل الـOwner نشره.",
+   "details": [],
+   "sources": [
+    "M31 §1"
+   ],
+   "decision_refs": [],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/DYNAMIC-EXPERIENCE-ENGINE.md",
+   "missing_work": "تصميم في P04 ثم بناء في P08",
+   "dependencies": [],
+   "test_required": "Playwright AR/EN على الـ20 عرضًا + اختبار وحدة لمحرك الجدولة",
+   "design_refs": [
+    "docs/DYNAMIC-EXPERIENCE-ENGINE.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": "OWNER APPROVED · HIGH PRIORITY · DYNAMIC EXPERIENCE SYSTEM"
+  },
+  {
+   "id": "DX-006",
+   "area": "45 Dynamic Experience Engine",
+   "type": "REQUIREMENT",
+   "title": "إدارة SHELTER Family بلا كود",
+   "requirement": "الـOwner يستطيع: إضافة · تعديل · إخفاء · إعادة ترتيب · النقل بين الأقسام/الفروع · تغيير الصورة · نشر/إلغاء نشر — بلا كود.",
+   "details": [],
+   "sources": [
+    "M31 §1"
+   ],
+   "decision_refs": [],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/DYNAMIC-EXPERIENCE-ENGINE.md",
+   "missing_work": "تصميم في P04 ثم بناء في P08",
+   "dependencies": [],
+   "test_required": "Playwright AR/EN على الـ20 عرضًا + اختبار وحدة لمحرك الجدولة",
+   "design_refs": [
+    "docs/DYNAMIC-EXPERIENCE-ENGINE.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": "OWNER APPROVED · HIGH PRIORITY · DYNAMIC EXPERIENCE SYSTEM"
+  },
+  {
+   "id": "DX-007",
+   "area": "45 Dynamic Experience Engine",
+   "type": "REQUIREMENT",
+   "title": "الموظف المثالي لهذا الشهر (Employee of the Month)",
+   "requirement": "الـOwner يختار الموظف من الـDashboard. الحقول: الموظف · الشهر · السنة · الصورة · العنوان AR · العنوان EN · نص تكريم قصير · موضع الإبراز · حالة النشر.",
+   "details": [],
+   "sources": [
+    "M31 §2"
+   ],
+   "decision_refs": [],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/DYNAMIC-EXPERIENCE-ENGINE.md",
+   "missing_work": "تصميم في P04 ثم بناء في P08",
+   "dependencies": [],
+   "test_required": "Playwright AR/EN على الـ20 عرضًا + اختبار وحدة لمحرك الجدولة",
+   "design_refs": [
+    "docs/DYNAMIC-EXPERIENCE-ENGINE.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": "OWNER APPROVED · HIGH PRIORITY · DYNAMIC EXPERIENCE SYSTEM"
+  },
+  {
+   "id": "DX-008",
+   "area": "45 Dynamic Experience Engine",
+   "type": "REQUIREMENT",
+   "title": "حالات الموظف المثالي + الأرشيف",
+   "requirement": "Draft · Scheduled · Active · Expired · Archived. عند انتهاء الشهر **لا تُحذف البيانات**؛ تنتقل إلى History / Archive.",
+   "details": [],
+   "sources": [
+    "M31 §2"
+   ],
+   "decision_refs": [],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/DYNAMIC-EXPERIENCE-ENGINE.md",
+   "missing_work": "تصميم في P04 ثم بناء في P08",
+   "dependencies": [],
+   "test_required": "Playwright AR/EN على الـ20 عرضًا + اختبار وحدة لمحرك الجدولة",
+   "design_refs": [
+    "docs/DYNAMIC-EXPERIENCE-ENGINE.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": "OWNER APPROVED · HIGH PRIORITY · DYNAMIC EXPERIENCE SYSTEM"
+  },
+  {
+   "id": "DX-009",
+   "area": "45 Dynamic Experience Engine",
+   "type": "REQUIREMENT",
+   "title": "مواضع ظهور الموظف المثالي",
+   "requirement": "الرئيسية · SHELTER Family · Media Center — حسب اختيار الـOwner.",
+   "details": [],
+   "sources": [
+    "M31 §2"
+   ],
+   "decision_refs": [],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/DYNAMIC-EXPERIENCE-ENGINE.md",
+   "missing_work": "تصميم في P04 ثم بناء في P08",
+   "dependencies": [],
+   "test_required": "Playwright AR/EN على الـ20 عرضًا + اختبار وحدة لمحرك الجدولة",
+   "design_refs": [
+    "docs/DYNAMIC-EXPERIENCE-ENGINE.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": "OWNER APPROVED · HIGH PRIORITY · DYNAMIC EXPERIENCE SYSTEM"
+  },
+  {
+   "id": "DX-010",
+   "area": "45 Dynamic Experience Engine",
+   "type": "REQUIREMENT",
+   "title": "نظام الإعلانات الديناميكي وأنواع العرض",
+   "requirement": "يظهر كـ: Top Announcement Bar · Hero Banner · Homepage Feature · Full-width Event Strip · Modal **فقط إذا كان مبررًا فعلًا**. الـOwner يحدد نوع العرض، **ولا تُعرض كلها معًا لنفس الحدث**.",
+   "details": [
+    "مثال الـOwner (مثال وليس عرضًا معتمدًا): International Coffee Day — خصم 50% حتى نهاية اليوم"
+   ],
+   "sources": [
+    "M31 §3"
+   ],
+   "decision_refs": [],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/DYNAMIC-EXPERIENCE-ENGINE.md",
+   "missing_work": "تصميم في P04 ثم بناء في P08",
+   "dependencies": [],
+   "test_required": "Playwright AR/EN على الـ20 عرضًا + اختبار وحدة لمحرك الجدولة",
+   "design_refs": [
+    "docs/DYNAMIC-EXPERIENCE-ENGINE.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": "OWNER APPROVED · HIGH PRIORITY · DYNAMIC EXPERIENCE SYSTEM"
+  },
+  {
+   "id": "DX-011",
+   "area": "45 Dynamic Experience Engine",
+   "type": "REQUIREMENT",
+   "title": "حقول التجربة/الإعلان",
+   "requirement": "Title AR · Title EN · Description · CTA · Link · Start Date · Start Time · End Date · End Time · Branches · Priority · Campaign/Event relation · Media · Placement · Status.",
+   "details": [],
+   "sources": [
+    "M31 §3"
+   ],
+   "decision_refs": [],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/DYNAMIC-EXPERIENCE-ENGINE.md",
+   "missing_work": "تصميم في P04 ثم بناء في P08",
+   "dependencies": [],
+   "test_required": "Playwright AR/EN على الـ20 عرضًا + اختبار وحدة لمحرك الجدولة",
+   "design_refs": [
+    "docs/DYNAMIC-EXPERIENCE-ENGINE.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": "OWNER APPROVED · HIGH PRIORITY · DYNAMIC EXPERIENCE SYSTEM"
+  },
+  {
+   "id": "DX-012",
+   "area": "45 Dynamic Experience Engine",
+   "type": "RULE",
+   "title": "لا حالة فارغة: لا شيء نشط = لا مكون",
+   "requirement": "إذا لا يوجد حدث أو حملة أو ثيم نشط: لا Placeholder ولا حاوية فارغة ولا Banner فارغ ولا فراغ — **المكون لا يُرسم إطلاقًا**.",
+   "details": [],
+   "sources": [
+    "M31 §3 / 28"
+   ],
+   "decision_refs": [],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/DYNAMIC-EXPERIENCE-ENGINE.md",
+   "missing_work": "تصميم في P04 ثم بناء في P08",
+   "dependencies": [],
+   "test_required": "Playwright: بلا تجارب نشطة لا يوجد عنصر/فراغ في الـDOM",
+   "design_refs": [
+    "docs/DYNAMIC-EXPERIENCE-ENGINE.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": "OWNER APPROVED · HIGH PRIORITY · DYNAMIC EXPERIENCE SYSTEM"
+  },
+  {
+   "id": "DX-013",
+   "area": "45 Dynamic Experience Engine",
+   "type": "REQUIREMENT",
+   "title": "بدء وانتهاء تلقائي + تجاوز يدوي + إيقاف طارئ",
+   "requirement": "كل تجربة: Scheduled Start · Scheduled End · Automatic Activation · Automatic Expiration · Manual Override · Emergency Disable. بعد انتهاء الوقت يعود الموقع لوضعه الطبيعي تلقائيًا بلا حذف يدوي.",
+   "details": [],
+   "sources": [
+    "M31 §4"
+   ],
+   "decision_refs": [],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/DYNAMIC-EXPERIENCE-ENGINE.md",
+   "missing_work": "تصميم في P04 ثم بناء في P08",
+   "dependencies": [],
+   "test_required": "Playwright AR/EN على الـ20 عرضًا + اختبار وحدة لمحرك الجدولة",
+   "design_refs": [
+    "docs/DYNAMIC-EXPERIENCE-ENGINE.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": "OWNER APPROVED · HIGH PRIORITY · DYNAMIC EXPERIENCE SYSTEM"
+  },
+  {
+   "id": "DX-014",
+   "area": "45 Dynamic Experience Engine",
+   "type": "REQUIREMENT",
+   "title": "المشاركة في الفعاليات وأسطح الظهور",
+   "requirement": "الـOwner ينشئ حدثًا (معرض · فعالية · جامعة · مؤتمر · مجتمعي · رعاية · تعاون) ويحدد: الرئيسية؟ Media Center؟ صفحة حدث؟ Banner؟ صفحة الفرنشايز؟ Gallery بعد الانتهاء؟ — باستخدام أصول Media Center الموجودة **بلا رفع مكرر**.",
+   "details": [],
+   "sources": [
+    "M31 §5"
+   ],
+   "decision_refs": [],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/DYNAMIC-EXPERIENCE-ENGINE.md",
+   "missing_work": "تصميم في P04 ثم بناء في P08",
+   "dependencies": [],
+   "test_required": "Playwright AR/EN على الـ20 عرضًا + اختبار وحدة لمحرك الجدولة",
+   "design_refs": [
+    "docs/DYNAMIC-EXPERIENCE-ENGINE.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": "OWNER APPROVED · HIGH PRIORITY · DYNAMIC EXPERIENCE SYSTEM"
+  },
+  {
+   "id": "DX-015",
+   "area": "45 Dynamic Experience Engine",
+   "type": "REQUIREMENT",
+   "title": "محرك التجارب الموسمية القابل للإعداد",
+   "requirement": "Seasonal / Dynamic Theme Experience يفعّل معالجة بصرية/حركية مؤقتة حسب المناسبة (الاستقلال الأردني · الكريسماس · رمضان · العيد · يوم القهوة العالمي · ذكرى SHELTER · رأس السنة · مناسبات يحددها الـOwner). **لا Hardcode لكل مناسبة داخل الصفحات** — نظام قابل للإعداد.",
+   "details": [],
+   "sources": [
+    "M31 §6"
+   ],
+   "decision_refs": [],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/DYNAMIC-EXPERIENCE-ENGINE.md",
+   "missing_work": "تصميم في P04 ثم بناء في P08",
+   "dependencies": [],
+   "test_required": "Playwright AR/EN على الـ20 عرضًا + اختبار وحدة لمحرك الجدولة",
+   "design_refs": [
+    "docs/DYNAMIC-EXPERIENCE-ENGINE.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": "OWNER APPROVED · HIGH PRIORITY · DYNAMIC EXPERIENCE SYSTEM"
+  },
+  {
+   "id": "DX-016",
+   "area": "45 Dynamic Experience Engine",
+   "type": "RULE",
+   "title": "مثال عيد الاستقلال الأردني — حدود المعالجة",
+   "requirement": "إضافات مؤقتة مثل: حركة مستوحاة من العلم · شريط أنيق · معالجة للـHero · انتقالات راقية · صور وطنية معتمدة — **بلا تغيير الهوية الأساسية وبلا إبطاء الصفحة**.",
+   "details": [],
+   "sources": [
+    "M31 §7"
+   ],
+   "decision_refs": [],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/DYNAMIC-EXPERIENCE-ENGINE.md",
+   "missing_work": "تصميم في P04 ثم بناء في P08",
+   "dependencies": [],
+   "test_required": "Playwright AR/EN على الـ20 عرضًا + اختبار وحدة لمحرك الجدولة",
+   "design_refs": [
+    "docs/DYNAMIC-EXPERIENCE-ENGINE.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": "OWNER APPROVED · HIGH PRIORITY · DYNAMIC EXPERIENCE SYSTEM"
+  },
+  {
+   "id": "DX-017",
+   "area": "45 Dynamic Experience Engine",
+   "type": "RULE",
+   "title": "مثال الكريسماس — حدود المعالجة",
+   "requirement": "ثلج خفيف · لمسات موسمية للـHero · عنصر Santa **إذا وافق الـOwner** · صور موسمية · تفاعل احتفالي صغير — **ليس طفوليًا ولا ثقيلًا؛ SHELTER تبقى Premium**.",
+   "details": [],
+   "sources": [
+    "M31 §8"
+   ],
+   "decision_refs": [],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/DYNAMIC-EXPERIENCE-ENGINE.md",
+   "missing_work": "تصميم في P04 ثم بناء في P08",
+   "dependencies": [],
+   "test_required": "Playwright AR/EN على الـ20 عرضًا + اختبار وحدة لمحرك الجدولة",
+   "design_refs": [
+    "docs/DYNAMIC-EXPERIENCE-ENGINE.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": "OWNER APPROVED · HIGH PRIORITY · DYNAMIC EXPERIENCE SYSTEM"
+  },
+  {
+   "id": "DX-018",
+   "area": "45 Dynamic Experience Engine",
+   "type": "REQUIREMENT",
+   "title": "أنواع التجارب وقواعد العرض",
+   "requirement": "Announcement · Promotion · Event · Holiday · Seasonal Theme · Brand Anniversary · Employee Recognition · Emergency Notice — لكل نوع قواعد عرض خاصة.",
+   "details": [],
+   "sources": [
+    "M31 §9"
+   ],
+   "decision_refs": [],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/DYNAMIC-EXPERIENCE-ENGINE.md",
+   "missing_work": "تصميم في P04 ثم بناء في P08",
+   "dependencies": [],
+   "test_required": "Playwright AR/EN على الـ20 عرضًا + اختبار وحدة لمحرك الجدولة",
+   "design_refs": [
+    "docs/DYNAMIC-EXPERIENCE-ENGINE.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": "OWNER APPROVED · HIGH PRIORITY · DYNAMIC EXPERIENCE SYSTEM"
+  },
+  {
+   "id": "DX-019",
+   "area": "45 Dynamic Experience Engine",
+   "type": "REQUIREMENT",
+   "title": "وحدة Experiences في الـDashboard",
+   "requirement": "Experiences ├ Active Now ├ Scheduled ├ Events ├ Promotions ├ Seasonal Themes ├ Employee of the Month ├ SHELTER Family └ Archive (التسمية قابلة للتحسين).",
+   "details": [],
+   "sources": [
+    "M31 §10"
+   ],
+   "decision_refs": [],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/DYNAMIC-EXPERIENCE-ENGINE.md",
+   "missing_work": "تصميم في P04 ثم بناء في P08",
+   "dependencies": [],
+   "test_required": "Playwright AR/EN على الـ20 عرضًا + اختبار وحدة لمحرك الجدولة",
+   "design_refs": [
+    "docs/DYNAMIC-EXPERIENCE-ENGINE.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P04",
+   "history": [],
+   "notes": "OWNER APPROVED · HIGH PRIORITY · DYNAMIC EXPERIENCE SYSTEM"
+  },
+  {
+   "id": "DX-020",
+   "area": "45 Dynamic Experience Engine",
+   "type": "REQUIREMENT",
+   "title": "شاشة ACTIVE NOW + Disable Now",
+   "requirement": "شاشة تعرض كل ما يؤثر على الموقع الآن مع الحالة ووقت الانتهاء (مثل: Coffee Day Campaign ACTIVE Ends 23:59 · Jordan Independence Motion SCHEDULED · Employee of the Month ACTIVE) وزر Disable Now للـOwner.",
+   "details": [],
+   "sources": [
+    "M31 §11"
+   ],
+   "decision_refs": [],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/DYNAMIC-EXPERIENCE-ENGINE.md",
+   "missing_work": "تصميم في P04 ثم بناء في P08",
+   "dependencies": [],
+   "test_required": "Playwright AR/EN على الـ20 عرضًا + اختبار وحدة لمحرك الجدولة",
+   "design_refs": [
+    "docs/DYNAMIC-EXPERIENCE-ENGINE.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": "OWNER APPROVED · HIGH PRIORITY · DYNAMIC EXPERIENCE SYSTEM"
+  },
+  {
+   "id": "DX-021",
+   "area": "45 Dynamic Experience Engine",
+   "type": "REQUIREMENT",
+   "title": "محرك الأولوية والتعارض",
+   "requirement": "لا تكديس لعدة Banners. الترتيب الافتراضي: Critical Notice > Major Event > Campaign > Seasonal Experience > Normal Announcement — **الـOwner يغيّر الأولوية**، والـDashboard يُظهر Warning عند التعارض.",
+   "details": [],
+   "sources": [
+    "M31 §12"
+   ],
+   "decision_refs": [],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/DYNAMIC-EXPERIENCE-ENGINE.md",
+   "missing_work": "تصميم في P04 ثم بناء في P08",
+   "dependencies": [],
+   "test_required": "Playwright AR/EN على الـ20 عرضًا + اختبار وحدة لمحرك الجدولة",
+   "design_refs": [
+    "docs/DYNAMIC-EXPERIENCE-ENGINE.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": "OWNER APPROVED · HIGH PRIORITY · DYNAMIC EXPERIENCE SYSTEM"
+  },
+  {
+   "id": "DX-022",
+   "area": "45 Dynamic Experience Engine",
+   "type": "REQUIREMENT",
+   "title": "العدّ التنازلي (اختياري)",
+   "requirement": "Countdown عند الفائدة فقط (مثل: خصم 50% ينتهي خلال 05:32:10)، الـOwner يفعّله أو يعطّله، والوقت محسوب Server-side وبالمنطقة الزمنية الصحيحة.",
+   "details": [],
+   "sources": [
+    "M31 §13"
+   ],
+   "decision_refs": [],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P2",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/DYNAMIC-EXPERIENCE-ENGINE.md",
+   "missing_work": "تصميم في P04 ثم بناء في P08",
+   "dependencies": [],
+   "test_required": "Playwright AR/EN على الـ20 عرضًا + اختبار وحدة لمحرك الجدولة",
+   "design_refs": [
+    "docs/DYNAMIC-EXPERIENCE-ENGINE.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": "OWNER APPROVED · HIGH PRIORITY · DYNAMIC EXPERIENCE SYSTEM"
+  },
+  {
+   "id": "DX-023",
+   "area": "45 Dynamic Experience Engine",
+   "type": "RULE",
+   "title": "المناطق الزمنية",
+   "requirement": "التواريخ والأوقات Timezone-aware (السوق الحالي الأردن)، لا اعتماد على توقيت المتصفح وحده، والمعمارية جاهزة لدول ومناطق زمنية مستقبلية.",
+   "details": [],
+   "sources": [
+    "M31 §14"
+   ],
+   "decision_refs": [],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/DYNAMIC-EXPERIENCE-ENGINE.md",
+   "missing_work": "تصميم في P04 ثم بناء في P08",
+   "dependencies": [],
+   "test_required": "Playwright AR/EN على الـ20 عرضًا + اختبار وحدة لمحرك الجدولة",
+   "design_refs": [
+    "docs/DYNAMIC-EXPERIENCE-ENGINE.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": "OWNER APPROVED · HIGH PRIORITY · DYNAMIC EXPERIENCE SYSTEM"
+  },
+  {
+   "id": "DX-024",
+   "area": "45 Dynamic Experience Engine",
+   "type": "REQUIREMENT",
+   "title": "تكامل Media Center: ارفع مرة واستخدم في كل مكان",
+   "requirement": "كل Banner وEvent وSeasonal Theme وEmployee recognition يختار الوسائط من SHELTER Media Center — UPLOAD ONCE, USE EVERYWHERE.",
+   "details": [],
+   "sources": [
+    "M31 §15"
+   ],
+   "decision_refs": [],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/DYNAMIC-EXPERIENCE-ENGINE.md",
+   "missing_work": "تصميم في P04 ثم بناء في P08",
+   "dependencies": [],
+   "test_required": "Playwright AR/EN على الـ20 عرضًا + اختبار وحدة لمحرك الجدولة",
+   "design_refs": [
+    "docs/DYNAMIC-EXPERIENCE-ENGINE.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": "OWNER APPROVED · HIGH PRIORITY · DYNAMIC EXPERIENCE SYSTEM"
+  },
+  {
+   "id": "DX-025",
+   "area": "45 Dynamic Experience Engine",
+   "type": "RULE",
+   "title": "إدارة كاملة بلا كود",
+   "requirement": "الـOwner: ينشئ حدثًا · يجدوله · يضيف حملة · يكتب رسالة خصم · يغيّر صورة Banner · يفعّل تجربة مناسبة · يشغّل/يوقف الحركة · يختار الموظف المثالي · يحدّث SHELTER Family — بلا GitHub ولا كود ولا محرر قاعدة بيانات ولا ملفات Cloudways.",
+   "details": [],
+   "sources": [
+    "M31 §16"
+   ],
+   "decision_refs": [],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/DYNAMIC-EXPERIENCE-ENGINE.md",
+   "missing_work": "تصميم في P04 ثم بناء في P08",
+   "dependencies": [],
+   "test_required": "Playwright AR/EN على الـ20 عرضًا + اختبار وحدة لمحرك الجدولة",
+   "design_refs": [
+    "docs/DYNAMIC-EXPERIENCE-ENGINE.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": "OWNER APPROVED · HIGH PRIORITY · DYNAMIC EXPERIENCE SYSTEM"
+  },
+  {
+   "id": "DX-026",
+   "area": "45 Dynamic Experience Engine",
+   "type": "RULE",
+   "title": "قواعد الحركة",
+   "requirement": "Purposeful · Premium · Smooth · Lightweight. Motion/GSAP فقط حيث مبرر. ممنوع: Scroll hijack · تحريك كل عنصر · Canvas/WebGL ثقيل افتراضيًا · الإضرار بـINP/LCP/CLS.",
+   "details": [],
+   "sources": [
+    "M31 §17"
+   ],
+   "decision_refs": [],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/DYNAMIC-EXPERIENCE-ENGINE.md",
+   "missing_work": "تصميم في P04 ثم بناء في P08",
+   "dependencies": [],
+   "test_required": "Playwright AR/EN على الـ20 عرضًا + اختبار وحدة لمحرك الجدولة",
+   "design_refs": [
+    "docs/DYNAMIC-EXPERIENCE-ENGINE.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": "OWNER APPROVED · HIGH PRIORITY · DYNAMIC EXPERIENCE SYSTEM"
+  },
+  {
+   "id": "DX-027",
+   "area": "45 Dynamic Experience Engine",
+   "type": "RULE",
+   "title": "Reduced motion لكل تجربة موسمية",
+   "requirement": "كل حركة موسمية تدعم prefers-reduced-motion ببديل ثابت.",
+   "details": [],
+   "sources": [
+    "M31 §18"
+   ],
+   "decision_refs": [],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/DYNAMIC-EXPERIENCE-ENGINE.md",
+   "missing_work": "تصميم في P04 ثم بناء في P08",
+   "dependencies": [],
+   "test_required": "Playwright AR/EN على الـ20 عرضًا + اختبار وحدة لمحرك الجدولة",
+   "design_refs": [
+    "docs/DYNAMIC-EXPERIENCE-ENGINE.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": "OWNER APPROVED · HIGH PRIORITY · DYNAMIC EXPERIENCE SYSTEM"
+  },
+  {
+   "id": "DX-028",
+   "area": "45 Dynamic Experience Engine",
+   "type": "REQUIREMENT",
+   "title": "معالجة موبايل لكل تجربة",
+   "requirement": "لكل تجربة معالجة موبايل خاصة — لا افتراض أن حركة الديسكتوب تعمل على الموبايل. اختبار: 320 · 360 · 390 · 430 · تابلت · ديسكتوب (ضمن مصفوفة المشروع الكاملة).",
+   "details": [],
+   "sources": [
+    "M31 §19"
+   ],
+   "decision_refs": [],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/DYNAMIC-EXPERIENCE-ENGINE.md",
+   "missing_work": "تصميم في P04 ثم بناء في P08",
+   "dependencies": [],
+   "test_required": "Playwright AR/EN على الـ20 عرضًا + اختبار وحدة لمحرك الجدولة",
+   "design_refs": [
+    "docs/DYNAMIC-EXPERIENCE-ENGINE.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": "OWNER APPROVED · HIGH PRIORITY · DYNAMIC EXPERIENCE SYSTEM"
+  },
+  {
+   "id": "DX-029",
+   "area": "45 Dynamic Experience Engine",
+   "type": "RULE",
+   "title": "ميزانية أداء لكل تجربة + تحميل مشروط",
+   "requirement": "لكل تجربة ميزانية أداء. لا تُحمّل أصول تجربة غير نشطة (أصول الكريسماس لا تُحمّل في يوليو؛ أصول الحدث لا تُحمّل بعد انتهائه). Conditional loading · Lazy loading · Code splitting.",
+   "details": [],
+   "sources": [
+    "M31 §20"
+   ],
+   "decision_refs": [],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/DYNAMIC-EXPERIENCE-ENGINE.md",
+   "missing_work": "تصميم في P04 ثم بناء في P08",
+   "dependencies": [],
+   "test_required": "Playwright AR/EN على الـ20 عرضًا + اختبار وحدة لمحرك الجدولة",
+   "design_refs": [
+    "docs/DYNAMIC-EXPERIENCE-ENGINE.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": "OWNER APPROVED · HIGH PRIORITY · DYNAMIC EXPERIENCE SYSTEM"
+  },
+  {
+   "id": "DX-030",
+   "area": "45 Dynamic Experience Engine",
+   "type": "RULE",
+   "title": "سلامة التصميم: العودة للحالة الطبيعية تمامًا",
+   "requirement": "طبقة المواسم لا تغيّر دائمًا: الخطوط الأساسية · التخطيط · التنقل · الوصولية · بنية العلامة. بعد المناسبة يعود الموقع **تمامًا** للحالة الطبيعية.",
+   "details": [],
+   "sources": [
+    "M31 §21"
+   ],
+   "decision_refs": [],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/DYNAMIC-EXPERIENCE-ENGINE.md",
+   "missing_work": "تصميم في P04 ثم بناء في P08",
+   "dependencies": [],
+   "test_required": "Visual regression: لقطة قبل/بعد انتهاء التجربة متطابقة",
+   "design_refs": [
+    "docs/DYNAMIC-EXPERIENCE-ENGINE.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": "OWNER APPROVED · HIGH PRIORITY · DYNAMIC EXPERIENCE SYSTEM"
+  },
+  {
+   "id": "DX-031",
+   "area": "45 Dynamic Experience Engine",
+   "type": "REQUIREMENT",
+   "title": "المعاينة قبل التفعيل (بتاريخ ووقت محددين)",
+   "requirement": "Preview قبل التفعيل: عربي · إنجليزي · موبايل · ديسكتوب، ومعاينة بتاريخ/وقت محدد إن أمكن (\"أرني الكريسماس يوم 24 ديسمبر\").",
+   "details": [],
+   "sources": [
+    "M31 §22"
+   ],
+   "decision_refs": [],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/DYNAMIC-EXPERIENCE-ENGINE.md",
+   "missing_work": "تصميم في P04 ثم بناء في P08",
+   "dependencies": [],
+   "test_required": "Playwright AR/EN على الـ20 عرضًا + اختبار وحدة لمحرك الجدولة",
+   "design_refs": [
+    "docs/DYNAMIC-EXPERIENCE-ENGINE.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": "OWNER APPROVED · HIGH PRIORITY · DYNAMIC EXPERIENCE SYSTEM"
+  },
+  {
+   "id": "DX-032",
+   "area": "45 Dynamic Experience Engine",
+   "type": "REQUIREMENT",
+   "title": "أوامر الجدولة",
+   "requirement": "Create Now · Schedule Later · End Automatically · Extend · Pause · Resume · Cancel.",
+   "details": [],
+   "sources": [
+    "M31 §23"
+   ],
+   "decision_refs": [],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/DYNAMIC-EXPERIENCE-ENGINE.md",
+   "missing_work": "تصميم في P04 ثم بناء في P08",
+   "dependencies": [],
+   "test_required": "Playwright AR/EN على الـ20 عرضًا + اختبار وحدة لمحرك الجدولة",
+   "design_refs": [
+    "docs/DYNAMIC-EXPERIENCE-ENGINE.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": "OWNER APPROVED · HIGH PRIORITY · DYNAMIC EXPERIENCE SYSTEM"
+  },
+  {
+   "id": "DX-033",
+   "area": "45 Dynamic Experience Engine",
+   "type": "REQUIREMENT",
+   "title": "سجل التدقيق للتجارب",
+   "requirement": "يُسجل: إنشاء · تفعيل · تعطيل · جدولة · انتهاء · تمديد · تغيير الوسائط · تغيير الأولوية · تغيير الموظف المثالي.",
+   "details": [],
+   "sources": [
+    "M31 §24"
+   ],
+   "decision_refs": [],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/DYNAMIC-EXPERIENCE-ENGINE.md",
+   "missing_work": "تصميم في P04 ثم بناء في P08",
+   "dependencies": [],
+   "test_required": "Playwright AR/EN على الـ20 عرضًا + اختبار وحدة لمحرك الجدولة",
+   "design_refs": [
+    "docs/DYNAMIC-EXPERIENCE-ENGINE.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": "OWNER APPROVED · HIGH PRIORITY · DYNAMIC EXPERIENCE SYSTEM"
+  },
+  {
+   "id": "DX-034",
+   "area": "45 Dynamic Experience Engine",
+   "type": "REQUIREMENT",
+   "title": "سجل النسخ للتجارب",
+   "requirement": "التجارب Versioned، خصوصًا: نص الحملة · نسبة الخصم · التواريخ · الـCTA · الشروط القانونية.",
+   "details": [],
+   "sources": [
+    "M31 §25"
+   ],
+   "decision_refs": [],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/DYNAMIC-EXPERIENCE-ENGINE.md",
+   "missing_work": "تصميم في P04 ثم بناء في P08",
+   "dependencies": [],
+   "test_required": "Playwright AR/EN على الـ20 عرضًا + اختبار وحدة لمحرك الجدولة",
+   "design_refs": [
+    "docs/DYNAMIC-EXPERIENCE-ENGINE.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": "OWNER APPROVED · HIGH PRIORITY · DYNAMIC EXPERIENCE SYSTEM"
+  },
+  {
+   "id": "DX-035",
+   "area": "45 Dynamic Experience Engine",
+   "type": "REQUIREMENT",
+   "title": "أحداث القياس للتجارب (بلا PII)",
+   "requirement": "announcement_view · announcement_click · campaign_view · campaign_click · event_view · event_cta_click · seasonal_experience_view — بلا PII.",
+   "details": [],
+   "sources": [
+    "M31 §26"
+   ],
+   "decision_refs": [],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/DYNAMIC-EXPERIENCE-ENGINE.md",
+   "missing_work": "تصميم في P04 ثم بناء في P08",
+   "dependencies": [],
+   "test_required": "Playwright AR/EN على الـ20 عرضًا + اختبار وحدة لمحرك الجدولة",
+   "design_refs": [
+    "docs/DYNAMIC-EXPERIENCE-ENGINE.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P09",
+   "history": [],
+   "notes": "OWNER APPROVED · HIGH PRIORITY · DYNAMIC EXPERIENCE SYSTEM"
+  },
+  {
+   "id": "DX-036",
+   "area": "45 Dynamic Experience Engine",
+   "type": "RULE",
+   "title": "خصوصية الموظفين: فصل الملف العام عن سجل HR",
+   "requirement": "SHELTER Family والموظف المثالي يستخدمان بيانات عامة معتمدة فقط. لا ربط مباشر للموقع العام ببيانات HR الحساسة؛ فصل Public Employee Profile عن Private HR Employee Record حتى مع وجود علاقة داخلية.",
+   "details": [],
+   "sources": [
+    "M31 §27"
+   ],
+   "decision_refs": [],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/DYNAMIC-EXPERIENCE-ENGINE.md",
+   "missing_work": "تصميم في P04 ثم بناء في P08",
+   "dependencies": [],
+   "test_required": "Playwright AR/EN على الـ20 عرضًا + اختبار وحدة لمحرك الجدولة",
+   "design_refs": [
+    "docs/DYNAMIC-EXPERIENCE-ENGINE.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": "OWNER APPROVED · HIGH PRIORITY · DYNAMIC EXPERIENCE SYSTEM"
+  },
+  {
+   "id": "DX-037",
+   "area": "45 Dynamic Experience Engine",
+   "type": "RULE",
+   "title": "العزل عند الفشل: الموقع الأساسي مستقل",
+   "requirement": "إذا فشلت أي تجربة ديناميكية يستمر الموقع الأساسي طبيعيًا؛ فشل محرك الحملات لا يكسر الرئيسية.",
+   "details": [],
+   "sources": [
+    "M31 §29"
+   ],
+   "decision_refs": [],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/DYNAMIC-EXPERIENCE-ENGINE.md",
+   "missing_work": "تصميم في P04 ثم بناء في P08",
+   "dependencies": [],
+   "test_required": "اختبار حقن فشل: المحرك يرمي خطأ والرئيسية تُرسم كاملة",
+   "design_refs": [
+    "docs/DYNAMIC-EXPERIENCE-ENGINE.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": "OWNER APPROVED · HIGH PRIORITY · DYNAMIC EXPERIENCE SYSTEM"
+  },
+  {
+   "id": "DX-038",
+   "area": "45 Dynamic Experience Engine",
+   "type": "GATE",
+   "title": "الهدف النهائي: موقع حي وعودة نظيفة",
+   "requirement": "الموقع يشعر بأنه حي عند وجود حدث أو مناسبة أو عرض أو تكريم أو لحظة علامة، ويعود Clean / Premium / Normal عند عدم وجود شيء — كله بتحكم الـOwner بلا كود.",
+   "details": [],
+   "sources": [
+    "M31 §30"
+   ],
+   "decision_refs": [],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/DYNAMIC-EXPERIENCE-ENGINE.md",
+   "missing_work": "تصميم في P04 ثم بناء في P08",
+   "dependencies": [],
+   "test_required": "Playwright AR/EN على الـ20 عرضًا + اختبار وحدة لمحرك الجدولة",
+   "design_refs": [
+    "docs/DYNAMIC-EXPERIENCE-ENGINE.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P10",
+   "history": [],
+   "notes": "OWNER APPROVED · HIGH PRIORITY · DYNAMIC EXPERIENCE SYSTEM"
+  }
+ ],
+ "updates_to_existing": [
+  {
+   "id": "PO-029",
+   "change": "صفحة الفريق 'SHELTER Family' معتمدة الآن (M31) كتجربة ديناميكية مع ملفات موظفين علنية بالاختيار. يبقى مطلوبًا: بيانات/صور الموظفين المعتمدة وموافقتهم على النشر",
+   "type": "ANSWERS",
+   "source": "M31 §1"
+  },
+  {
+   "id": "DB-04",
+   "change": "بند 'الفريق' المؤجل حُسم: SHELTER Family معتمدة (M31)",
+   "type": "ANSWERS",
+   "source": "M31 §1"
+  },
+  {
+   "id": "CMS-026",
+   "change": "الحملات والفعاليات تُدار عبر محرك التجارب الديناميكية (DX-010…DX-014، DX-021)",
+   "type": "UPDATE",
+   "source": "M31"
+  },
+  {
+   "id": "CMS-032",
+   "change": "شريط الإعلان وإشعار الطوارئ = أنواع تجربة (Announcement / Emergency Notice) داخل نفس المحرك ومحرك الأولوية — لا نظامان",
+   "type": "UPDATE",
+   "source": "M31 §3, §9, §12"
+  },
+  {
+   "id": "CMS-023",
+   "change": "Media Center = مكتبة الوسائط الموحدة (UPLOAD ONCE, USE EVERYWHERE) لكل التجارب",
+   "type": "UPDATE",
+   "source": "M31 §15"
+  },
+  {
+   "id": "PO-043",
+   "change": "أحداث إضافية لقاموس القياس: announcement_view · announcement_click · campaign_view · campaign_click · event_view · event_cta_click · seasonal_experience_view",
+   "type": "UPDATE",
+   "source": "M31 §26"
+  }
+ ],
+ "conflicts": [
+  {
+   "topic": "GSAP مقابل مكتبة حركة واحدة",
+   "old_instruction": "Motion = مكتبة الحركة الافتراضية؛ لا مكتبة حركة مكررة (M24، M29 §56)",
+   "old_source": "M24 · M29 §56",
+   "new_instruction": "Motion/GSAP only where justified",
+   "new_source": "M31 §17",
+   "winner": "Motion افتراضيًا؛ GSAP فقط لتأثير لا تحققه Motion/CSS مع مبرر موثق، ولا تُحمّل المكتبتان معًا في نفس الصفحة",
+   "why": "يجمع القاعدتين: M31 لا يفرض GSAP بل يسمح به عند التبرير، وM29 يمنع الازدواج",
+   "impact": "docs/FRONTEND-TOOLING.md (سياسة الحركة)",
+   "files": [
+    "docs/FRONTEND-TOOLING.md",
+    "docs/DYNAMIC-EXPERIENCE-ENGINE.md"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "topic": "شريط الإعلان/إشعار الطوارئ في الإعدادات العامة مقابل محرك التجارب",
+   "old_instruction": "Announcement bar · Emergency notice ضمن Global Website Settings (M30)",
+   "old_source": "M30",
+   "new_instruction": "Announcement وEmergency Notice أنواع تجارب بمحرك أولوية وجدولة (M31)",
+   "new_source": "M31 §9, §12",
+   "winner": "محرك واحد (M31) يُدار من الـDashboard؛ الإعدادات العامة تفتح نفس المحرك",
+   "why": "منع ازدواج المعمارية (مصدر واحد)؛ M31 أحدث وأكثر تفصيلًا",
+   "impact": "CMS-032 مُحدّث",
+   "files": [],
+   "status": "RESOLVED"
+  }
+ ],
+ "new_decisions": [
+  {
+   "temp_id": "G13-ND-01",
+   "area": "45 Dynamic Experience Engine",
+   "decision": "SHELTER DYNAMIC EXPERIENCE ENGINE (OWNER APPROVED · HIGH PRIORITY): SHELTER Family (ملفات موظفين علنية بالاختيار فقط وفصلها عن HR) · الموظف المثالي (Draft/Scheduled/Active/Expired/Archived مع أرشيف) · إعلانات/عروض/فعاليات بأنواع عرض يحددها الـOwner · جدولة وانتهاء تلقائي وإيقاف طارئ · محرك مواسم قابل للإعداد بلا Hardcode · محرك أولوية مع تحذير تعارض · ACTIVE NOW + Disable Now · Countdown اختياري Server-side · Timezone-aware · Media Center موحد · حركة خفيفة + Reduced motion · تحميل مشروط · عودة تامة للحالة الطبيعية · لا حالة فارغة · عزل الفشل · معاينة بتاريخ · Audit وVersioning · أحداث قياس بلا PII",
+   "sources": [
+    "M31"
+   ],
+   "status": "FROZEN",
+   "reason": "قرار Owner صريح عالي الأولوية",
+   "impact": "P04 (معمارية + Wireframes الوحدة) · P08 · P09 · P10"
+  }
+ ],
+ "pending_owner": [
+  {
+   "id": "G13-PO-01",
+   "item": "بيانات SHELTER Family المعتمدة للنشر: لكل موظف يُراد نشره — الاسم والصورة والمسمى والقسم والفرع (وتاريخ الانضمام والوصف إن أردت)، مع **موافقة الموظف على نشر اسمه وصورته**",
+   "category": "NON-BLOCKING",
+   "type": "CONTENT NEEDED",
+   "blocks": "نشر SHELTER Family والموظف المثالي (لا يمنع البناء)",
+   "refs": [
+    "DX-003",
+    "DX-005",
+    "DX-036"
+   ],
+   "count": "",
+   "notes": "بيانات شخصية لموظفين — موافقتهم ضرورية قانونيًا (ضمن مراجعة الخصوصية PO-019)"
+  },
+  {
+   "id": "G13-PO-02",
+   "item": "قائمة المناسبات التي تريد تجارب لها في السنة الأولى + الصور/العناصر المعتمدة لكل منها (مثل عيد الاستقلال، رمضان، العيد، يوم القهوة العالمي، ذكرى SHELTER 20/04، الكريسماس، رأس السنة)",
+   "category": "NON-BLOCKING",
+   "type": "CONTENT NEEDED",
+   "blocks": "تصميم الثيمات الموسمية (P05) — لا يمنع بناء المحرك",
+   "refs": [
+    "DX-015",
+    "DX-016",
+    "DX-017"
+   ],
+   "count": "",
+   "notes": "المحرك يُبنى عامًا؛ كل مناسبة تُضاف من الـDashboard"
+  }
+ ],
+ "technical_flags": [
+  {
+   "id": "G13-TF-01",
+   "topic": "موافقة الموظفين على النشر",
+   "detail": "نشر اسم وصورة موظف بيانات شخصية؛ يلزم موافقة مكتوبة من الموظف وإمكانية سحبها (إلغاء النشر فورًا)",
+   "recommendation": "حقل 'موافقة الموظف على النشر' (تاريخ + نسخة) شرط تقني قبل زر النشر",
+   "needs_owner": false
+  },
+  {
+   "id": "G13-TF-02",
+   "topic": "نسب الخصم والشروط",
+   "detail": "نص الخصم (مثل 50%) وشروطه محتوى تجاري/قانوني",
+   "recommendation": "حقل 'الشروط' اختياري مع Versioning؛ لا يُنشر خصم بلا نص يعتمده الـOwner",
+   "needs_owner": false
+  }
+ ],
+ "dropped": [],
+ "notes": "أُعدّ من M31 (مواصفة مُهيكلة) مباشرة"
+}

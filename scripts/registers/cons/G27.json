@@ -1,0 +1,74 @@
+{
+ "group": "G27",
+ "notes": "Owner answers: JOB numbering starts at 00101; PO-075 → A (each year restarts at 00101).",
+ "requirements": [],
+ "updates_to_existing": [
+  {
+   "id": "PO-075",
+   "type": "RESOLVE",
+   "source": "M48 §2",
+   "change": "✅ 2026-10-02 → A: كل سنة تبدأ من جديد بنفس الطريقة (FR-2027-00101، FR-2027-00102…). ينطبق كذلك على ترقيم التوظيف JOB (D-324). مطبّق ومختبر."
+  },
+  {
+   "id": "CAREERS-040",
+   "type": "UPDATE",
+   "source": "M48 §1",
+   "change": "مطبّق: JOB-YYYY-NNNNN من الخادم، يبدأ JOB-2026-00101 (D-324) وكل سنة تبدأ من 00101 (D-325).",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Services/Core/ReferenceNumbers.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Core/ReferenceNumbersTest.php",
+    "tests/Feature/Careers/CareersServicesTest.php",
+    "tests/Feature/Careers/CareersFormTest.php"
+   ]
+  },
+  {
+   "id": "FRAN-046",
+   "type": "UPDATE",
+   "source": "M48 §2",
+   "change": "كل سنة تبدأ من 00101 (D-325): FR-2027-00101 أول طلب في 2027.",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Services/Core/ReferenceNumbers.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Core/ReferenceNumbersTest.php"
+   ]
+  }
+ ],
+ "conflicts": [],
+ "new_decisions": [
+  {
+   "temp_id": "G27-ND-01",
+   "area": "44 Careers & Recruitment",
+   "decision": "ترقيم طلبات التوظيف يتبع قاعدة الشراكة: يبدأ من JOB-2026-00100، فأول طلب JOB-2026-00101 والثاني JOB-2026-00102 (الصيغة JOB-YYYY-NNNNN من الخادم بلا تغيير). ترقيم الاستفسارات INQ لم يتغير.",
+   "sources": [
+    "M48 §1"
+   ],
+   "status": "APPROVED",
+   "reason": "Owner: «طبقها» ردًا على اقتراح بدء JOB من 00101",
+   "impact": "CAREERS-040 · ReferenceNumbers::START_AFTER",
+   "date": "2026-10-02"
+  },
+  {
+   "temp_id": "G27-ND-02",
+   "area": "44 Careers & Recruitment",
+   "decision": "PO-075 → A: مع كل سنة جديدة يبدأ الترقيم من جديد من 00101 (FR-2027-00101، JOB-2027-00101…) — السنة ظاهرة في الرقم.",
+   "sources": [
+    "M48 §2"
+   ],
+   "status": "APPROVED",
+   "reason": "Owner: «اوافق» على التوصية A",
+   "impact": "FRAN-046 · CAREERS-040 · PO-075 (RESOLVED)",
+   "date": "2026-10-02"
+  }
+ ],
+ "pending_owner": [],
+ "technical_flags": [],
+ "cost_api_dependencies": [],
+ "dropped": []
+}

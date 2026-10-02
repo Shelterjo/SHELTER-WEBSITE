@@ -88,6 +88,7 @@
 | الأمن الثابت | **Semgrep CE** |
 | التراخيص والإعدادات | **Trivy** (الخط الكامل) |
 | الفحص الديناميكي | **OWASP ZAP** (Staging) |
+| سجلات المتطلبات والقرارات | **`scripts/registers/build_master.py`** يولّد Master Requirements وDecision/Conflict Registers وPending Owner Input وTraceability وGap Analysis من `cons/G*.json` (طريقة الاستخدام في `scripts/registers/README.md`) |
 
 ## 3. تقسيم التشغيل (M37 §22)
 | المستوى | الأوامر | متى |

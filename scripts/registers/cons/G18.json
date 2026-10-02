@@ -1,0 +1,2596 @@
+{
+ "group": "G18",
+ "gap_audit": [
+  {
+   "system": "Approved decisions = the reference",
+   "m32_section": "M36 §00",
+   "classification": "IMPLEMENTED",
+   "existing_refs": [
+    "GOV-005",
+    "GOV-073"
+   ],
+   "existing_implementation": "ترتيب السلطة نافذ",
+   "missing": "—",
+   "overlap": "GOV-005",
+   "dependencies": [],
+   "priority": "P0",
+   "recommendation": "BUILD-001",
+   "new_ids": [
+    "BUILD-001"
+   ]
+  },
+  {
+   "system": "Stop prompt collection / BUILD MODE",
+   "m32_section": "M36 §01",
+   "classification": "MISSING",
+   "existing_refs": [
+    "GOV-030",
+    "GOV-040"
+   ],
+   "existing_implementation": "CLAUDE.md Build mode (بعد M36)",
+   "missing": "تحويل البوابات + إغلاق التخطيط",
+   "overlap": "بوابات سابقة (G18-CF-02)",
+   "dependencies": [],
+   "priority": "P0",
+   "recommendation": "BUILD-001 + BUILD-026",
+   "new_ids": [
+    "BUILD-001",
+    "BUILD-026"
+   ]
+  },
+  {
+   "system": "Organize everything in-repo",
+   "m32_section": "M36 §02",
+   "classification": "PARTIAL",
+   "existing_refs": [
+    "GOV-065",
+    "GOV-066",
+    "GOV-073",
+    "GOV-074",
+    "GOV-075",
+    "GOV-076"
+   ],
+   "existing_implementation": "السجلات DRAFT + docs/platform",
+   "missing": "إعادة التوليد + ترتيب M36 في الخطة",
+   "overlap": "INFRA-030/034 (نفس الملفات)",
+   "dependencies": [],
+   "priority": "P0",
+   "recommendation": "BUILD-002",
+   "new_ids": [
+    "BUILD-002"
+   ]
+  },
+  {
+   "system": "Remove duplication",
+   "m32_section": "M36 §03",
+   "classification": "NEEDS IMPROVEMENT",
+   "existing_refs": [
+    "GOV-078",
+    "OPS-002",
+    "BRAND-012"
+   ],
+   "existing_implementation": "FINAL-ARCHITECTURE-REVIEW §5",
+   "missing": "الأمثلة الثمانية كقائمة ملزمة",
+   "overlap": "GOV-078",
+   "dependencies": [],
+   "priority": "P0",
+   "recommendation": "BUILD-003 + EXTEND GOV-078/OPS-002",
+   "new_ids": [
+    "BUILD-003"
+   ]
+  },
+  {
+   "system": "Resolve conflicts (latest wins, no merge)",
+   "m32_section": "M36 §04",
+   "classification": "NEEDS IMPROVEMENT",
+   "existing_refs": [
+    "GOV-007",
+    "GOV-011",
+    "GOV-013"
+   ],
+   "existing_implementation": "CONFLICT-REGISTER",
+   "missing": "\"لا دمج لقرارين متعارضين\"",
+   "overlap": "GOV-007",
+   "dependencies": [],
+   "priority": "P0",
+   "recommendation": "BUILD-004",
+   "new_ids": [
+    "BUILD-004"
+   ]
+  },
+  {
+   "system": "Pending business data / when to ask",
+   "m32_section": "M36 §05",
+   "classification": "IMPLEMENTED",
+   "existing_refs": [
+    "GOV-035",
+    "GOV-015"
+   ],
+   "existing_implementation": "GOV-035 نافذة",
+   "missing": "القائمة المغلقة (مع §24)",
+   "overlap": "GOV-035",
+   "dependencies": [],
+   "priority": "P0",
+   "recommendation": "BUILD-005",
+   "new_ids": [
+    "BUILD-005"
+   ]
+  },
+  {
+   "system": "Build order PHASE 1–7",
+   "m32_section": "M36 §06",
+   "classification": "MISSING",
+   "existing_refs": [
+    "GOV-029",
+    "GOV-076"
+   ],
+   "existing_implementation": "PROGRESS.md (بعد M36)",
+   "missing": "ترتيب البناء في IMPLEMENTATION-PLAN",
+   "overlap": "GOV-029/P00–P12 (G18-CF-04)",
+   "dependencies": [],
+   "priority": "P0",
+   "recommendation": "BUILD-006",
+   "new_ids": [
+    "BUILD-006"
+   ]
+  },
+  {
+   "system": "Phase-by-phase loop",
+   "m32_section": "M36 §07",
+   "classification": "MISSING",
+   "existing_refs": [
+    "GOV-030"
+   ],
+   "existing_implementation": "CLAUDE.md Loop",
+   "missing": "التطبيق",
+   "overlap": "GOV-030 (SUPERSEDED)",
+   "dependencies": [],
+   "priority": "P0",
+   "recommendation": "BUILD-007",
+   "new_ids": [
+    "BUILD-007"
+   ]
+  },
+  {
+   "system": "Design system first",
+   "m32_section": "M36 §08",
+   "classification": "PARTIAL",
+   "existing_refs": [
+    "BRAND-008",
+    "BRAND-010",
+    "BRAND-012",
+    "CMS-034"
+   ],
+   "existing_implementation": "DESIGN-SYSTEM-STANDARD + tokens + wireframe-kit",
+   "missing": "المكونات الحقيقية + Storybook + القيم بعد M-10",
+   "overlap": "G16 (DS)",
+   "dependencies": [
+    "PO-002"
+   ],
+   "priority": "P0",
+   "recommendation": "BUILD-008",
+   "new_ids": [
+    "BUILD-008"
+   ]
+  },
+  {
+   "system": "Master data first",
+   "m32_section": "M36 §09",
+   "classification": "PARTIAL",
+   "existing_refs": [
+    "OPS-011",
+    "OPS-012"
+   ],
+   "existing_implementation": "MASTER-DATA-HUB.md",
+   "missing": "البناء في PHASE 1",
+   "overlap": "G15 (MDH)",
+   "dependencies": [],
+   "priority": "P0",
+   "recommendation": "BUILD-009",
+   "new_ids": [
+    "BUILD-009"
+   ]
+  },
+  {
+   "system": "Owner dashboard no-code principle",
+   "m32_section": "M36 §10",
+   "classification": "IMPLEMENTED",
+   "existing_refs": [
+    "DASH-032",
+    "CMS-033",
+    "DASH-033",
+    "DASH-035"
+   ],
+   "existing_implementation": "قواعد FROZEN",
+   "missing": "معيار القبول لكل وحدة",
+   "overlap": "CMS-033",
+   "dependencies": [],
+   "priority": "P0",
+   "recommendation": "BUILD-010 (acceptance) + UPDATE CMS-033",
+   "new_ids": [
+    "BUILD-010"
+   ]
+  },
+  {
+   "system": "Do not touch production early",
+   "m32_section": "M36 §11",
+   "classification": "IMPLEMENTED",
+   "existing_refs": [
+    "DEPLOY-001",
+    "DEPLOY-004",
+    "CF-003",
+    "SEO-015",
+    "GOOGLE-008"
+   ],
+   "existing_implementation": "قواعد نافذة؛ لا تغيير إنتاج حتى الآن",
+   "missing": "خطوة Final Verification + خط النشر",
+   "overlap": "DEPLOY-004",
+   "dependencies": [],
+   "priority": "P0",
+   "recommendation": "BUILD-011",
+   "new_ids": [
+    "BUILD-011"
+   ]
+  },
+  {
+   "system": "Test as you build",
+   "m32_section": "M36 §12",
+   "classification": "PARTIAL",
+   "existing_refs": [
+    "TEST-002",
+    "TEST-018",
+    "OPS-039"
+   ],
+   "existing_implementation": "tooling/ (نموذج)",
+   "missing": "اختبارات التطبيق مع كل Feature + PHPUnit",
+   "overlap": "TEST-002",
+   "dependencies": [],
+   "priority": "P0",
+   "recommendation": "BUILD-012",
+   "new_ids": [
+    "BUILD-012"
+   ]
+  },
+  {
+   "system": "Responsive continuous",
+   "m32_section": "M36 §13",
+   "classification": "IMPLEMENTED",
+   "existing_refs": [
+    "RESP-004",
+    "RESP-006",
+    "RESP-007",
+    "RESP-008"
+   ],
+   "existing_implementation": "tooling/viewports.mjs (14 + إضافات)",
+   "missing": "التطبيق على كود التطبيق",
+   "overlap": "RESP-004",
+   "dependencies": [],
+   "priority": "P0",
+   "recommendation": "BUILD-013",
+   "new_ids": [
+    "BUILD-013"
+   ]
+  },
+  {
+   "system": "Performance per phase",
+   "m32_section": "M36 §14",
+   "classification": "PARTIAL",
+   "existing_refs": [
+    "PERF-005",
+    "PERF-011",
+    "DX-029"
+   ],
+   "existing_implementation": "lighthouse.mjs + ميزانية المنيو",
+   "missing": "قياس كل Phase + ميزانية الحزمة",
+   "overlap": "PERF-005",
+   "dependencies": [],
+   "priority": "P0",
+   "recommendation": "BUILD-014",
+   "new_ids": [
+    "BUILD-014"
+   ]
+  },
+  {
+   "system": "Security by default",
+   "m32_section": "M36 §15",
+   "classification": "PARTIAL",
+   "existing_refs": [
+    "SEC-002",
+    "SEC-005",
+    "OPS-036"
+   ],
+   "existing_implementation": "RECRUITMENT-SECURITY + SECURITY-CENTER (SPEC)",
+   "missing": "التطبيق + فحوص CI",
+   "overlap": "SEC-*",
+   "dependencies": [],
+   "priority": "P0",
+   "recommendation": "BUILD-015",
+   "new_ids": [
+    "BUILD-015"
+   ]
+  },
+  {
+   "system": "Database placement (no owner PC, no Falcon, Cloudways)",
+   "m32_section": "M36 §16",
+   "classification": "PARTIAL",
+   "existing_refs": [
+    "CAREERS-092",
+    "CAREERS-003"
+   ],
+   "existing_implementation": "قاعدة خاصة بالتوظيف + ADR-001",
+   "missing": "التعميم على المشروع",
+   "overlap": "CAREERS-092",
+   "dependencies": [
+    "G10-PO-01"
+   ],
+   "priority": "P0",
+   "recommendation": "BUILD-016",
+   "new_ids": [
+    "BUILD-016"
+   ]
+  },
+  {
+   "system": "Git discipline",
+   "m32_section": "M36 §17",
+   "classification": "PARTIAL",
+   "existing_refs": [],
+   "existing_implementation": "سجل Commits موضوعية",
+   "missing": "القاعدة صراحة",
+   "overlap": "—",
+   "dependencies": [],
+   "priority": "P1",
+   "recommendation": "BUILD-017",
+   "new_ids": [
+    "BUILD-017"
+   ]
+  },
+  {
+   "system": "Document while building",
+   "m32_section": "M36 §18",
+   "classification": "PARTIAL",
+   "existing_refs": [
+    "GOV-073"
+   ],
+   "existing_implementation": "docs/platform SPEC",
+   "missing": "التحديث مع كل Commit",
+   "overlap": "INFRA-043",
+   "dependencies": [],
+   "priority": "P1",
+   "recommendation": "BUILD-018",
+   "new_ids": [
+    "BUILD-018"
+   ]
+  },
+  {
+   "system": "Progress dashboard",
+   "m32_section": "M36 §19",
+   "classification": "MISSING",
+   "existing_refs": [],
+   "existing_implementation": "docs/PROGRESS.md (بعد M36)",
+   "missing": "—",
+   "overlap": "—",
+   "dependencies": [],
+   "priority": "P1",
+   "recommendation": "BUILD-019",
+   "new_ids": [
+    "BUILD-019"
+   ]
+  },
+  {
+   "system": "Don't claim done without testing",
+   "m32_section": "M36 §20",
+   "classification": "NEEDS IMPROVEMENT",
+   "existing_refs": [
+    "GOV-071"
+   ],
+   "existing_implementation": "GOV-071 (تسمية أقدم)",
+   "missing": "التسمية الجديدة + FROZEN",
+   "overlap": "GOV-071 (G18-CF-05)",
+   "dependencies": [],
+   "priority": "P0",
+   "recommendation": "BUILD-020",
+   "new_ids": [
+    "BUILD-020"
+   ]
+  },
+  {
+   "system": "Use existing tools",
+   "m32_section": "M36 §21",
+   "classification": "NEEDS IMPROVEMENT",
+   "existing_refs": [
+    "TOOL-004",
+    "TOOL-006",
+    "TOOL-007"
+   ],
+   "existing_implementation": "FRONTEND-TOOLING + TOOLCHAIN",
+   "missing": "تطبيق بعد قرار المنصة",
+   "overlap": "TOOL-006 (G16-CF-01…04)",
+   "dependencies": [],
+   "priority": "P1",
+   "recommendation": "BUILD-021",
+   "new_ids": [
+    "BUILD-021"
+   ]
+  },
+  {
+   "system": "No generic website",
+   "m32_section": "M36 §22",
+   "classification": "IMPLEMENTED",
+   "existing_refs": [
+    "BRAND-004",
+    "BRAND-006"
+   ],
+   "existing_implementation": "قواعد",
+   "missing": "المراجعة البصرية",
+   "overlap": "BRAND-006",
+   "dependencies": [],
+   "priority": "P1",
+   "recommendation": "BUILD-022",
+   "new_ids": [
+    "BUILD-022"
+   ]
+  },
+  {
+   "system": "Keep it simple",
+   "m32_section": "M36 §23",
+   "classification": "IMPLEMENTED",
+   "existing_refs": [
+    "OPS-003",
+    "UX-001"
+   ],
+   "existing_implementation": "قواعد",
+   "missing": "—",
+   "overlap": "OPS-003",
+   "dependencies": [],
+   "priority": "P1",
+   "recommendation": "BUILD-023",
+   "new_ids": [
+    "BUILD-023"
+   ]
+  },
+  {
+   "system": "When to ask the owner",
+   "m32_section": "M36 §24",
+   "classification": "NEEDS IMPROVEMENT",
+   "existing_refs": [
+    "GOV-015",
+    "PERM-009",
+    "GOOGLE-006"
+   ],
+   "existing_implementation": "تفويض تقني نافذ",
+   "missing": "القائمة المغلقة",
+   "overlap": "GOV-015",
+   "dependencies": [],
+   "priority": "P0",
+   "recommendation": "BUILD-005",
+   "new_ids": [
+    "BUILD-005"
+   ]
+  },
+  {
+   "system": "Start now (8-step sequence)",
+   "m32_section": "M36 §25",
+   "classification": "PARTIAL",
+   "existing_refs": [],
+   "existing_implementation": "الخطوات 1–4 جارية (G14–G18 · FINAL-ARCHITECTURE-REVIEW · ADR-001 · PLATFORM-ARCHITECTURE)",
+   "missing": "الخطوات 5–8",
+   "overlap": "—",
+   "dependencies": [],
+   "priority": "P0",
+   "recommendation": "BUILD-001",
+   "new_ids": [
+    "BUILD-001"
+   ]
+  },
+  {
+   "system": "Final instruction (role + 7 principles)",
+   "m32_section": "M36 FINAL",
+   "classification": "NEEDS IMPROVEMENT",
+   "existing_refs": [
+    "GOV-021"
+   ],
+   "existing_implementation": "GOV-021",
+   "missing": "الدور الجديد",
+   "overlap": "GOV-021",
+   "dependencies": [],
+   "priority": "P1",
+   "recommendation": "BUILD-024",
+   "new_ids": [
+    "BUILD-024"
+   ]
+  },
+  {
+   "system": "Follow-ups: build only after finishing all tasks",
+   "m32_section": "M36 FU-1/FU-2",
+   "classification": "MISSING",
+   "existing_refs": [],
+   "existing_implementation": "PROGRESS.md (إغلاق المهام)",
+   "missing": "—",
+   "overlap": "—",
+   "dependencies": [],
+   "priority": "P0",
+   "recommendation": "BUILD-001",
+   "new_ids": [
+    "BUILD-001"
+   ]
+  },
+  {
+   "system": "Platform decision (implied by §16/§24)",
+   "m32_section": "M36 §16 · §24",
+   "classification": "PARTIAL",
+   "existing_refs": [
+    "DB-08",
+    "PO-006",
+    "PO-044",
+    "CAREERS-003"
+   ],
+   "existing_implementation": "ADR-001 (ACCEPTED)",
+   "missing": "Cloudways apps + التحقق",
+   "overlap": "DB-08 (G18-CF-03)",
+   "dependencies": [
+    "G10-PO-01"
+   ],
+   "priority": "P0",
+   "recommendation": "BUILD-025",
+   "new_ids": [
+    "BUILD-025"
+   ]
+  }
+ ],
+ "requirements": [
+  {
+   "id": "BUILD-001",
+   "area": "50 Build Mode & Delivery Governance",
+   "type": "RULE",
+   "title": "التخطيط مغلق — BUILD MODE، ويبدأ البناء بعد إنهاء كل المهام الحالية",
+   "requirement": "مرحلة جمع المتطلبات والبرومبتات انتهت؛ كل Owner-approved decisions السابقة هي المرجع (Website Architecture · Owner Dashboard · Master Data Hub · Menu · Branches · Google integrations · SEO / AEO / GEO · Analytics · Design System · Careers · Franchise · Media Center · Awards · Events · SHELTER Family · Employee of the Month · Dynamic Experiences · Seasonal Experiences · Global Content Calendar · Content Health · Publish Guard · Data Consistency · Security · Privacy · Performance · Accessibility · Monitoring · Backups · CI/CD · Staging / Production · Integrations · Internationalization · Notifications · Inquiries · Site Health · Launch Readiness). لا مزيد من: brainstorming غير الضروري · إعادة طرح القرارات المعتمدة · إعادة صياغة نفس المتطلبات · أسئلة تقنية صغيرة · إضافة Features لمجرد أنها ممكنة. PLANNING PHASE = CLOSED؛ من الآن BUILD MODE. البناء يبدأ بعد أن تنتهي كل المهام الحالية (المتابعتان: \"طبعا بعد ما تخلص كل ال tasks\" · \"يعني بعد ما تخلص ككل ال tasks\").",
+   "details": [
+    "تسلسل START NOW (§25): 1. Final consolidation of requirements · 2. Remove duplicates/conflicts · 3. Final architecture · 4. Final implementation roadmap · 5. Build Phase 1 · 6. Test Phase 1 · 7. Report results · 8. Continue systematically — \"لا ترجع لي الآن بقائمة أفكار جديدة\".",
+    "المهام الحالية قبل البناء (docs/PROGRESS.md \"إغلاق المهام قبل البناء\"): دمج M32–M36 في السجلات (G14…G18) · الوثائق التشغيلية في docs/platform/ · توحيد الـWireframes على الـTokens · إعادة توليد السجلات · تصحيح FINAL-ARCHITECTURE-REVIEW (G17-TF-16).",
+    "الرسائل اللاحقة M37 (Toolchain) وM38 (Owner Clarification Rule — FROZEN) تُدمج في مجموعاتها ولا تُكرر هنا."
+   ],
+   "sources": [
+    "M36 §00",
+    "M36 §01",
+    "M36 §25",
+    "M36 FU-1",
+    "M36 FU-2"
+   ],
+   "decision_refs": [
+    "G18-ND-01"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "IMPLEMENTED — NOT TESTED",
+   "tested": "N/A",
+   "existing_impl": "CLAUDE.md §Build mode · docs/PROGRESS.md (التخطيط CLOSED؛ إغلاق المهام IN PROGRESS)",
+   "missing_work": "إنهاء المهام الحالية ثم PHASE 1",
+   "dependencies": [
+    "GOV-005",
+    "GOV-082",
+    "BUILD-006"
+   ],
+   "test_required": "مراجعة: لا طلبات تخطيط جديدة للـOwner؛ PROGRESS.md يعرض إغلاق المهام ثم بدء PHASE 1",
+   "design_refs": [
+    "CLAUDE.md §Build mode",
+    "docs/PROGRESS.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P00",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "BUILD-002",
+   "area": "50 Build Mode & Delivery Governance",
+   "type": "DELIVERABLE",
+   "title": "تنظيم المشروع داخل المستودع قبل أول Implementation كبير — لا اعتماد على ذاكرة المحادثة",
+   "requirement": "قبل أول implementation كبير: مراجعة جميع المتطلبات السابقة والمستندات الموجودة ثم تنظيم المشروع نهائيًا؛ تحديث أو إنشاء: MASTER REQUIREMENTS · DECISION REGISTER · TRACEABILITY MATRIX · CONFLICT REGISTER · PENDING OWNER INPUT · SITE INVENTORY · DATA SOURCE OF TRUTH · DESIGN SYSTEM · INTEGRATION MAP · IMPLEMENTATION PLAN. لا اعتماد على Conversation Memory وحدها؛ كل قرار معتمد يصبح موثقًا داخل المشروع.",
+   "details": [
+    "المطابقة (ملف واحد لكل بند — لا نسخ): MASTER REQUIREMENTS = docs/SHELTER-WEBSITE-MASTER-REQUIREMENTS.md · DECISION REGISTER = docs/MASTER-DECISION-REGISTER.md + docs/governance/DECISION-LOG.md · TRACEABILITY = docs/REQUIREMENTS-TRACEABILITY-MATRIX.md · CONFLICT REGISTER = docs/CONFLICT-REGISTER.md · PENDING OWNER INPUT = docs/PENDING-OWNER-INPUT.md · SITE INVENTORY = docs/platform/SITE-INVENTORY.md (INFRA-030) · DATA SOURCE OF TRUTH = docs/platform/CONTENT-SOURCE-OF-TRUTH.md (INFRA-031) · DESIGN SYSTEM = docs/DESIGN-SYSTEM-STANDARD.md · INTEGRATION MAP = docs/platform/INTEGRATION-REGISTRY.md (+ خريطة FINAL-ARCHITECTURE-REVIEW §12) · IMPLEMENTATION PLAN = docs/IMPLEMENTATION-PLAN.md.",
+    "الحالة: السجلات الرئيسية DRAFT ومولدة قبل M28–M36؛ إعادة التوليد بعد دمج G10–G18؛ IMPLEMENTATION-PLAN لا يعرض بعد ترتيب M36 (BUILD-006)."
+   ],
+   "sources": [
+    "M36 §02"
+   ],
+   "decision_refs": [
+    "G18-ND-01"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "PARTIAL",
+   "tested": "NO",
+   "existing_impl": "السجلات العشرة موجودة (DRAFT/SPEC)؛ docs/platform/ للجرد ومصدر الحقيقة والتكاملات",
+   "missing_work": "إعادة توليد السجلات من G1–G18 · تحديث IMPLEMENTATION-PLAN بترتيب M36 · قرارات M28–M36 في DECISION-LOG",
+   "dependencies": [
+    "GOV-065",
+    "GOV-066",
+    "GOV-073",
+    "GOV-074",
+    "GOV-075",
+    "GOV-076",
+    "INFRA-030",
+    "INFRA-031",
+    "BUILD-006"
+   ],
+   "test_required": "فحص: كل قرار Owner من M01–M36 له سطر في DECISION-LOG وكل متطلب له مصدر؛ لا بند من العشرة بنسختين",
+   "design_refs": [
+    "docs/SHELTER-WEBSITE-MASTER-REQUIREMENTS.md",
+    "docs/IMPLEMENTATION-PLAN.md",
+    "docs/platform/SITE-INVENTORY.md",
+    "docs/platform/CONTENT-SOURCE-OF-TRUTH.md",
+    "docs/platform/INTEGRATION-REGISTRY.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P00",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "BUILD-003",
+   "area": "50 Build Mode & Delivery Governance",
+   "type": "RULE",
+   "title": "إزالة التكرار — نظام واحد لكل وظيفة",
+   "requirement": "مراجعة كل ما اقتُرح سابقًا؛ إذا وُجد نظامان يقومان بنفس الوظيفة لا يُبنى الاثنان — Consolidation. أمثلة: One Media Library · One Global Calendar · One Master Data Hub · One Design System · One Audit Log · One Notification Center · One Owner Dashboard · One Source of Truth per data type.",
+   "details": [
+    "المالك الوحيد لكل مثال: Media Library = MEDIA-012 (Media Rights وPress Kit داخلها — OPS-032/033) · Global Calendar = OPS-021 (عرض قراءة فوق الجداول) · Master Data Hub = M33 (يستوعب Global Data Registry OPS-011 — FINAL-ARCHITECTURE-REVIEW §5) · Design System = DESIGN-SYSTEM-STANDARD + مكتبة مكونات x-ui واحدة للموقع والـDashboard (BRAND-012) · Audit Log = audit_logs (AUDIT-010) · Notification Center = INFRA-012 فوق signals المشترك مع Needs Attention/Incidents (OPS-048) · Owner Dashboard = DASH-001 (التوظيف والشراكات وحدات داخلها) · Source of Truth per type = INFRA-031.",
+    "يوسّع قائمة GOV-078 وOPS-002؛ الجداول الملزمة في PLATFORM-ARCHITECTURE §3."
+   ],
+   "sources": [
+    "M36 §03"
+   ],
+   "decision_refs": [
+    "G18-ND-08"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "PARTIAL",
+   "tested": "N/A",
+   "existing_impl": "docs/FINAL-ARCHITECTURE-REVIEW.md §5 · docs/architecture/PLATFORM-ARCHITECTURE.md §3",
+   "missing_work": "تطبيق القاعدة في كل PLAN (بحث قبل البناء — OPS-002)",
+   "dependencies": [
+    "GOV-078",
+    "OPS-002",
+    "INFRA-031"
+   ],
+   "test_required": "مراجعة كل Phase: لا جدول/خدمة/مكون ثانٍ لوظيفة لها مالك؛ فحص الكود لمكونات مكررة",
+   "design_refs": [
+    "docs/FINAL-ARCHITECTURE-REVIEW.md §5",
+    "docs/architecture/PLATFORM-ARCHITECTURE.md §3"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P00",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "BUILD-004",
+   "area": "50 Build Mode & Delivery Governance",
+   "type": "RULE",
+   "title": "حل التعارض: آخر قرار صريح يفوز — لا دمج لقرارين متعارضين، والقديم SUPERSEDED ولا يُستخدم",
+   "requirement": "إذا تعارضت Requirements قديمة مع قرار Owner أحدث: Latest explicit Owner decision wins. لا محاولة لدمج قرارين متعارضين؛ يُسجل القديم SUPERSEDED ولا يُستخدم.",
+   "details": [
+    "يطبق GOV-007 وGOV-011 وGOV-013 (OLD → SUPERSEDED BY → Current).",
+    "الدمج المسموح فقط للقرارات المتوافقة غير المتناقضة (اتحاد قوائم مثل G17-CF-09/13) — وليس دمج قرارين متعارضين.",
+    "عند عدم وضوح الأحدث: M38 §6 (FROZEN) — عرض A/B/Impact/Recommendation والسؤال (يُدمج في مجموعة M38)."
+   ],
+   "sources": [
+    "M36 §04"
+   ],
+   "decision_refs": [
+    "G18-ND-08"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "PARTIAL",
+   "tested": "N/A",
+   "existing_impl": "docs/CONFLICT-REGISTER.md + آلية SUPERSEDE في الدمج",
+   "missing_work": "تطبيقه في السجلات المعاد توليدها",
+   "dependencies": [
+    "GOV-007",
+    "GOV-011",
+    "GOV-013"
+   ],
+   "test_required": "مراجعة السجل: لكل تعارض فائز واحد، والقديم بحالة SUPERSEDED ولا يُستخدم في الكود",
+   "design_refs": [
+    "docs/CONFLICT-REGISTER.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P00",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "BUILD-005",
+   "area": "50 Build Mode & Delivery Governance",
+   "type": "RULE",
+   "title": "البيانات الناقصة لا توقف المشروع — والسؤال فقط عند Blocker من الفئات المحددة",
+   "requirement": "إذا يوجد Business Fact ناقص: لا يُوقف المشروع كاملًا؛ يُستخدم PENDING OWNER INPUT ويُكمل كل ما لا يعتمد عليه. لا يُوقف العمل لأسئلة تقنية صغيرة — يُتخذ القرار التقني الأفضل. يُسأل الـOwner فقط عندما يصل التنفيذ فعلًا إلى نقطة لا يمكن تجاوزها بدون: Business decision (BUSINESS BLOCKER) · Legal decision (LEGAL BLOCKER) · FINANCIAL DECISION · Franchise policy · unpublished factual information (CONTENT FACT NOT APPROVED) · credential/authorization action (EXTERNAL AUTHORIZATION) · MAJOR DESIGN DIRECTION CONFLICT.",
+   "details": [
+    "اتحاد قائمتي §5 و§24 (متوافقتان).",
+    "يطبق GOV-035 (نافذة) وGOV-015 (التقني/UX لـClaude) وPERM-009/GOOGLE-006 (الـOwner فقط لـLogin/OAuth/2FA/Ownership/Permission/Legal-financial).",
+    "PENDING-OWNER-INPUT.md القائمة الوحيدة للأسئلة؛ لا سؤال عن معلومة موجودة (GOV-034).",
+    "تفاصيل صيغة السؤال والخيارات للعلامة/القانون/المال/المحتوى العام/الخصوصية/السياسة التجارية وعدم إصلاح بيانات الأعمال بصمت جاءت لاحقًا في M38 (FROZEN) = G19: GOV-087 · GOV-088 · GOV-089 · GOV-090."
+   ],
+   "sources": [
+    "M36 §05",
+    "M36 §24"
+   ],
+   "decision_refs": [
+    "G18-ND-06"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "PARTIAL",
+   "tested": "N/A",
+   "existing_impl": "GOV-035 نافذة · docs/PENDING-OWNER-INPUT.md",
+   "missing_work": "إعادة تصنيف البنود المعلقة إلى BLOCKING فقط لما يمنع مرحلة بناء (G18 pending_owner)",
+   "dependencies": [
+    "GOV-015",
+    "GOV-034",
+    "GOV-035",
+    "PERM-009",
+    "GOOGLE-006",
+    "GOV-087",
+    "GOV-088",
+    "GOV-090"
+   ],
+   "test_required": "مراجعة: كل سؤال للـOwner ينتمي لفئة من القائمة ويرتبط بمرحلة متوقفة فعلًا",
+   "design_refs": [
+    "docs/PENDING-OWNER-INPUT.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P00",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "BUILD-006",
+   "area": "50 Build Mode & Delivery Governance",
+   "type": "RULE",
+   "title": "ترتيب البناء: PHASE 1–7 بقوائم وحداتها",
+   "requirement": "ترتيب التنفيذ المنطقي: PHASE 1 — FOUNDATION: repository cleanup · architecture · environments · database/data model · authentication · Owner-only authorization · global configuration · Master Data Hub · Fact Registry · Design System · core routing · Arabic/English architecture · Country/City/Branch model. PHASE 2 — CORE WEBSITE: Header / Navigation · Footer · Home · Menu · Locations · Branch pages · About · Contact · FAQ · legal/public system pages · Global Search. PHASE 3 — OWNER DASHBOARD: Command Center · Master Data · Pages/CMS · Menu management · Branch management · Media · Events · Campaigns · Experiences · Global Calendar · SEO · Analytics · Site Health. PHASE 4 — BUSINESS MODULES: Careers · Franchise & Partnerships · Media Center · Awards & Recognition · SHELTER Family · Employee of the Month · Feedback / Voice of Customer · Inquiries. PHASE 5 — INTEGRATIONS: Google Business Profile · Google Search Console · GA4 · GTM · Schema · external sync architecture · Cloudflare/Cloudways integration where required. PHASE 6 — QUALITY / OPERATIONS: Publish Guard · Change Impact Preview · Sync status · Language parity · Content freshness · Real User Monitoring · Accessibility health · Performance health · Security center · Privacy center · Backup/restore · Notifications · Incident management · Safe Mode. PHASE 7 — RELEASE SYSTEM: CI/CD · automated tests · visual regression · staging · legacy URL migration · redirect map · launch checklist · production release process · post-launch verification.",
+   "details": [
+    "يحكم تسلسل البناء ويحل محل ترتيب GOV-029 (36 مرحلة) وترتيب IMPLEMENTATION-PLAN (P05 تصميم ← P06 منصة) كتسلسل بناء (G18-CF-04).",
+    "حقل phase في المتطلبات (P00–P12) يبقى تصنيفًا للخطة؛ التتبع الحي في docs/PROGRESS.md بمراحل M36؛ PHASE 0 (Toolchain — M37) يسبق PHASE 1.",
+    "البوابات التي تبقى داخل الترتيب: الربط الحي مع Google في PHASE 5 بعد الصلاحيات والموافقة (P09)، والإطلاق في PHASE 7 بموافقة الـOwner (P11).",
+    "Global Search في PHASE 2 = OPS-044 (بحث الموقع العام)."
+   ],
+   "sources": [
+    "M36 §06"
+   ],
+   "decision_refs": [
+    "G18-ND-04"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "PARTIAL",
+   "tested": "N/A",
+   "existing_impl": "docs/PROGRESS.md (المراحل 0–7)",
+   "missing_work": "إضافة ترتيب M36 إلى IMPLEMENTATION-PLAN.md مع جدول ربط P00–P12",
+   "dependencies": [
+    "GOV-076",
+    "BUILD-007",
+    "BUILD-026"
+   ],
+   "test_required": "مراجعة: كل وحدة في القوائم السبع لها صف في PROGRESS.md ومتطلبات مرتبطة",
+   "design_refs": [
+    "docs/PROGRESS.md",
+    "docs/IMPLEMENTATION-PLAN.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "G18-CF-04",
+   "business_data": false,
+   "phase": "P00",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "BUILD-007",
+   "area": "50 Build Mode & Delivery Governance",
+   "type": "RULE",
+   "title": "داخل كل Phase: PLAN → BUILD → TEST → FIX → DOCUMENT → COMMIT → VERIFY — لا أنظمة نصف مكتملة",
+   "requirement": "لا يُبنى كل شيء دفعة واحدة؛ التنفيذ Phase-by-Phase، وداخل كل Phase: PLAN → BUILD → TEST → FIX → DOCUMENT → COMMIT → VERIFY ثم الانتقال للمرحلة التالية. لا عشرات الأنظمة نصف مكتملة.",
+   "details": [
+    "خطوة PLAN تحتوي المخرجات المسبقة القديمة (Audit · IA · نموذج البيانات · الصلاحيات · Wireframes — GOV-053/054، DASH-005، PERM-005) كمدخلات تُعرض READY FOR REVIEW دون انتظار (BUILD-026).",
+    "الانتقال للمرحلة التالية عندما تكون وحداتها TESTED/COMPLETE أو BLOCKED بسبب خارجي مسجل في PROGRESS.md.",
+    "VERIFY = فحص RELEASE-CHECKLIST (INFRA-034) للوحدة."
+   ],
+   "sources": [
+    "M36 §07"
+   ],
+   "decision_refs": [
+    "G18-ND-04"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "PARTIAL",
+   "tested": "N/A",
+   "existing_impl": "CLAUDE.md §Build mode (Loop)",
+   "missing_work": "تطبيقه من PHASE 1",
+   "dependencies": [
+    "BUILD-006",
+    "INFRA-034",
+    "BUILD-019"
+   ],
+   "test_required": "مراجعة كل تقرير مرحلة: الخطوات السبع موثقة (خطة، Commits، نتائج اختبار، وثائق محدثة)",
+   "design_refs": [
+    "CLAUDE.md §Build mode",
+    "docs/platform/RELEASE-CHECKLIST.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P00",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "BUILD-008",
+   "area": "50 Build Mode & Delivery Governance",
+   "type": "RULE",
+   "title": "Design System أولًا — قبل تكاثر الصفحات، بلا One-off styling",
+   "requirement": "قبل تكاثر الصفحات يُثبَّت الـDesign System؛ كل شيء موحد: Fonts · Typography · Buttons · Inputs · Cards · Radius · Spacing · Colors · Icons · Shadows · Grid · Motion · RTL/LTR · Responsive behavior. لا One-off styling.",
+   "details": [
+    "المرجع: DESIGN-SYSTEM-STANDARD.md (M34) + design-system/tokens/tokens.json + مكتبة x-ui Blade واحدة (PLATFORM-ARCHITECTURE §2)؛ مرجع المكونات Storybook حسب M37 وdocs/TOOLCHAIN.md.",
+    "القيم البصرية (الخطوط والألوان والشعار) PENDING OWNER INPUT حتى ملفات الهوية M-10 (BRAND-002، PO-002): البنية تتقدم الآن بقيم Placeholder، ولا يُشحن Production بها — الحسم في G16-CF-08 (وG16-TF-11).",
+    "Design lock في الـCMS (CMS-034)."
+   ],
+   "sources": [
+    "M36 §08"
+   ],
+   "decision_refs": [
+    "G18-ND-07"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "PARTIAL",
+   "tested": "PROTOTYPE",
+   "existing_impl": "docs/DESIGN-SYSTEM-STANDARD.md · design-system/tokens/tokens.json · design-system/wireframe-kit.css",
+   "missing_work": "مكونات Blade + Storybook + القيم البصرية بعد M-10",
+   "dependencies": [
+    "BRAND-002",
+    "BRAND-008",
+    "BRAND-010",
+    "BRAND-012",
+    "CMS-034",
+    "PO-002",
+    "DS-001",
+    "DS-002",
+    "DS-013",
+    "DS-023",
+    "DS-024"
+   ],
+   "test_required": "فحص Token violations (لا ألوان/أبعاد خارج الـTokens) + Storybook لكل مكون بحالاته AR/EN",
+   "design_refs": [
+    "docs/DESIGN-SYSTEM-STANDARD.md",
+    "docs/TOOLCHAIN.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "G16-CF-08",
+   "business_data": false,
+   "phase": "P05",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "BUILD-009",
+   "area": "50 Build Mode & Delivery Governance",
+   "type": "RULE",
+   "title": "Master Data أولًا — لا ساعات أو أسعار أو بيانات فروع أو تواصل مكتوبة في الصفحات",
+   "requirement": "قبل Hardcoding البيانات داخل الصفحات تُثبَّت Master Data architecture: Hours · Prices · Branch info · Contact data · Menu · Special hours لا تُكتب منفصلة في كل صفحة؛ Website / Schema / Google / future systems تعتمد على Master Data.",
+   "details": [
+    "MASTER-DATA-HUB.md (M33) + OPS-011/OPS-012 (لا Hardcode + فهرس Usage) + فحص CI للأنماط (OPS-039).",
+    "الحقل غير المعتمد = NULL ويُخفى، ويُسجل Fact بحالة PENDING (PLATFORM-ARCHITECTURE §4.4).",
+    "Schema مشتق من Master Data (SCHEMA-005)؛ مزامنة GBP من نفس المصدر (AC-1)."
+   ],
+   "sources": [
+    "M36 §09"
+   ],
+   "decision_refs": [
+    "G18-ND-07"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "PARTIAL",
+   "tested": "N/A",
+   "existing_impl": "docs/MASTER-DATA-HUB.md · docs/architecture/PLATFORM-ARCHITECTURE.md §3.2",
+   "missing_work": "بناء Master Data في PHASE 1 قبل صفحات PHASE 2",
+   "dependencies": [
+    "OPS-011",
+    "OPS-012",
+    "SCHEMA-005",
+    "INFRA-029",
+    "BUILD-006"
+   ],
+   "test_required": "CI: لا أرقام هواتف/ساعات/أسعار في القوالب؛ تغيير قيمة في Master Data يظهر في كل الصفحات والـSchema",
+   "design_refs": [
+    "docs/MASTER-DATA-HUB.md",
+    "docs/architecture/PLATFORM-ARCHITECTURE.md §3.2"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P06",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "BUILD-010",
+   "area": "50 Build Mode & Delivery Governance",
+   "type": "RULE",
+   "title": "الـOwner المستخدم الوحيد للـDashboard — كل عملية يومية بلا Code (معيار قبول الوحدات)",
+   "requirement": "الـOwner هو المستخدم الوحيد للـDashboard حاليًا، وكل Daily Operation تقريبًا تتم بدون Code. الـOwner يستطيع تعديل: prices · images · products · hours · branches · pages · content · SEO · campaigns · events · media · franchise content · careers content — بدون GitHub أو SQL أو Code.",
+   "details": [
+    "يطبق DASH-032 (Owner only — FROZEN) وCMS-001/CMS-022…CMS-033 وDASH-033/DASH-035 (95%+ بلا كود).",
+    "معيار قبول في PHASE 3 وPHASE 4: الوحدة لا تُعد COMPLETE إذا احتاجت أي عملية يومية من القائمة إلى كود (CMS-033 = Architecture gap)."
+   ],
+   "sources": [
+    "M36 §10"
+   ],
+   "decision_refs": [
+    "G18-ND-07"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "rules: DASH-032 · CMS-033 · DASH-033",
+   "missing_work": "تطبيقه كمعيار قبول لكل وحدة",
+   "dependencies": [
+    "DASH-032",
+    "CMS-001",
+    "CMS-033",
+    "DASH-033",
+    "DASH-035"
+   ],
+   "test_required": "سيناريو قبول لكل بند من البنود الثلاثة عشر ينفذه الـOwner من الـDashboard على الموبايل والديسكتوب بلا كود",
+   "design_refs": [
+    "docs/architecture/PLATFORM-ARCHITECTURE.md §2"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "BUILD-011",
+   "area": "50 Build Mode & Delivery Governance",
+   "type": "GATE",
+   "title": "لا تلمس Production مبكرًا — Dev → Testing → Staging → Final Verification → Owner Approval → Production",
+   "requirement": "لا تغييرات مباشرة على Production. المسار: Development → Testing → Staging → Final Verification → Owner Approval → Production. لا تُغيَّر: DNS · production redirects · production database · live Google setup — بدون الحاجة والـApproval المناسب.",
+   "details": [
+    "البوابات المانعة الباقية بأرقامها: Production: DEPLOY-001 · DEPLOY-003 · DEPLOY-004 · DEPLOY-006 · DEPLOY-007 · DEPLOY-009 · FRAN-103 · SEC-011 · INT-007 — DNS/Cloudflare: CF-002 (معاد النطاق) · CF-003 · CF-009 — Production redirects/SEO: SEO-013 · SEO-015 · FRAN-093 · SEO-009 · SEO-020 — Production DB: DEPLOY-008 · CAREERS-092 · FRAN-040 — Live Google: GOOGLE-008 · GOV-060 · GOV-062 · GOOGLE-009 · GBP-009 · GSC-004 · ANL-004 · PRIV-007 — Paid services: INT-001 · OPS-052 · INT-005 · INT-003 — Credentials/authorization: SEC-002 · PERM-009 · GOOGLE-006 · G10-PO-01 (تطبيقا Cloudways) — Launch: GOV-086 · TEST-001 · DEPLOY-010 · GBP-014 · GSC-010 · PRIV-009.",
+    "M35 §1 وDEPLOY-004 صاغا المسار بلا \"Final Verification\" — M36 الأحدث يضيفها.",
+    "M38 §9–§10 (FROZEN، لاحق) يفصّل الخدمات الخارجية والتغييرات الحساسة في الإنتاج (DB migrations · destructive operations · Google Business · authentication · security rules · live integrations · permanent delete) = G19 GOV-091."
+   ],
+   "sources": [
+    "M36 §11"
+   ],
+   "decision_refs": [
+    "G18-ND-02"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "PARTIAL",
+   "tested": "N/A",
+   "existing_impl": "قاعدة نافذة: لا تغيير على Production حتى الآن (EVIDENCE) · CLAUDE.md §Build mode",
+   "missing_work": "خط النشر بموافقة الإصدار (INFRA-004) في PHASE 7",
+   "dependencies": [
+    "DEPLOY-001",
+    "DEPLOY-003",
+    "DEPLOY-004",
+    "DEPLOY-007",
+    "CF-003",
+    "SEO-015",
+    "GOOGLE-008",
+    "GOV-060",
+    "INFRA-004",
+    "GOV-091"
+   ],
+   "test_required": "فحص: مهمة النشر للإنتاج معطلة بلا موافقة مسجلة؛ لا تغيير DNS/تحويلات/DB/Google حي في السجل بلا موافقة",
+   "design_refs": [
+    "CLAUDE.md §Build mode",
+    "docs/platform/DEPLOYMENT.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P00",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "BUILD-012",
+   "area": "50 Build Mode & Delivery Governance",
+   "type": "RULE",
+   "title": "اختبر أثناء البناء — لا تأجيل للاختبار",
+   "requirement": "لا يؤجل Testing للنهاية؛ كل Feature تُختبر مباشرة، باستخدام عند الحاجة: Playwright · Chrome DevTools · axe · Lighthouse · Visual Regression · unit/integration tests.",
+   "details": [
+    "الموجود: tooling/ (Playwright 1.56.1 بـ20 مشروعًا · @axe-core/playwright 4.13.0 · Lighthouse 13.5.0 · Sharp 0.35.5)؛ PHPUnit للوحدة والتكامل (ADR-001)؛ أدوات M37 في docs/TOOLCHAIN.md.",
+    "Visual regression بعد اعتماد القيم البصرية (OPS-040، G14-TF-07)؛ Chrome DevTools (TEST-018).",
+    "Chromium محليًا؛ Firefox/WebKit في CI (TEST-010)."
+   ],
+   "sources": [
+    "M36 §12"
+   ],
+   "decision_refs": [
+    "G18-ND-07"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "PARTIAL",
+   "tested": "PROTOTYPE",
+   "existing_impl": "tooling/ (اختبارات النموذج: 456 passed) — لا كود تطبيق بعد",
+   "missing_work": "اختبارات لكل Feature مع بنائها",
+   "dependencies": [
+    "TEST-002",
+    "TEST-013",
+    "TEST-018",
+    "OPS-039",
+    "OPS-040",
+    "INFRA-034",
+    "TOOL-031",
+    "TOOL-032",
+    "TOOL-033",
+    "TOOL-034",
+    "TOOL-037"
+   ],
+   "test_required": "كل Commit لوحدة يتضمن اختباراتها؛ لا وحدة TESTED بلا نتيجة اختبار مرفقة",
+   "design_refs": [
+    "docs/FRONTEND-TOOLING.md",
+    "docs/TOOLCHAIN.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "BUILD-013",
+   "area": "50 Build Mode & Delivery Governance",
+   "type": "RULE",
+   "title": "Responsive ليس اختياريًا — 14 عرضًا + RTL/LTR + Touch + Keyboard + 200% zoom باستمرار",
+   "requirement": "اختبار مستمر على: 320 · 360 · 375 · 390 · 412 · 430 · 768 · 820 · 1024 · 1280 · 1366 · 1440 · 1536 · 1920 — Arabic RTL · English LTR · Touch · Keyboard · 200% zoom.",
+   "details": [
+    "tooling/viewports.mjs يغطي العروض الأربعة عشر + 2560 + 5 Landscape + مكافئ zoom-200 (640×400).",
+    "يطبق RESP-004 · RESP-006 · RESP-007 · RESP-008 · RESP-009 في كل Phase وليس في بوابة QA فقط."
+   ],
+   "sources": [
+    "M36 §13"
+   ],
+   "decision_refs": [
+    "G18-ND-07"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "PARTIAL",
+   "tested": "PROTOTYPE",
+   "existing_impl": "tooling/viewports.mjs + tests/prototype/responsive.spec.mjs",
+   "missing_work": "تشغيل المصفوفة على كل صفحة/وحدة عند بنائها",
+   "dependencies": [
+    "RESP-004",
+    "RESP-006",
+    "RESP-007",
+    "RESP-008",
+    "RESP-009",
+    "I18N-004"
+   ],
+   "test_required": "npm run test:e2e + qa:matrix لكل وحدة: صفر overflow/clipping/overlap في 20 مشروعًا × AR/EN",
+   "design_refs": [
+    "tooling/viewports.mjs",
+    "docs/qa/RESPONSIVE-QA-MATRIX.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "BUILD-014",
+   "area": "50 Build Mode & Delivery Governance",
+   "type": "RULE",
+   "title": "الأداء مع كل Phase — لا تأجيل للنهاية",
+   "requirement": "لا يؤجل Performance Cleanup للنهاية؛ يُراقب مع كل Phase: bundle size · images · fonts · LCP · INP · CLS · animation · third-party scripts.",
+   "details": [
+    "ميزانيات PERF-005 وmenu PERFORMANCE-BUDGET؛ tooling/scripts/lighthouse.mjs بالبوابات؛ ميزانية الحزمة في CI (docs/TOOLCHAIN.md)؛ DX-029 للتجارب؛ PERF-011 للطرف الثالث."
+   ],
+   "sources": [
+    "M36 §14"
+   ],
+   "decision_refs": [
+    "G18-ND-07"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "PARTIAL",
+   "tested": "PROTOTYPE",
+   "existing_impl": "tooling/scripts/lighthouse.mjs (Wireframes: Perf 100)",
+   "missing_work": "قياس كل Phase وتسجيله في تقرير المرحلة",
+   "dependencies": [
+    "PERF-005",
+    "PERF-011",
+    "PERF-013",
+    "PERF-016",
+    "DX-029",
+    "TOOL-034",
+    "TOOL-044"
+   ],
+   "test_required": "تقرير كل Phase: حجم الحزمة مقابل الميزانية + Lighthouse mobile للصفحات المبنية + لا سكربت طرف ثالث بلا موافقة",
+   "design_refs": [
+    "docs/menu-ia/PERFORMANCE-BUDGET.md",
+    "docs/TOOLCHAIN.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "BUILD-015",
+   "area": "50 Build Mode & Delivery Governance",
+   "type": "RULE",
+   "title": "Security by default — خصوصًا المصادقة وبيانات التوظيف والشراكات والملفات والتصدير والأسرار",
+   "requirement": "Security by default، خصوصًا: Owner authentication · Careers data · Franchise data · file uploads · private documents · exports · integrations · credentials. لا secrets في frontend أو repository.",
+   "details": [
+    "المصادقة: OPS-036 (Passkeys/2FA + Re-auth)؛ التوظيف: RECRUITMENT-SECURITY؛ الملفات والتصدير: INFRA-036/041/042؛ الأسرار: SEC-002 (لكل بيئة)؛ فحص الأسرار والثغرات في CI حسب docs/TOOLCHAIN.md."
+   ],
+   "sources": [
+    "M36 §15"
+   ],
+   "decision_refs": [
+    "G18-ND-07"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "PARTIAL",
+   "tested": "N/A",
+   "existing_impl": "docs/RECRUITMENT-SECURITY.md · docs/platform/SECURITY-CENTER.md (SPEC)",
+   "missing_work": "تطبيق الضوابط مع كل وحدة",
+   "dependencies": [
+    "OPS-036",
+    "SEC-002",
+    "SEC-005",
+    "SEC-006",
+    "SEC-007",
+    "SEC-008",
+    "SEC-009",
+    "INFRA-036",
+    "INFRA-038",
+    "INFRA-039",
+    "TOOL-038",
+    "TOOL-043"
+   ],
+   "test_required": "اختبارات صلاحيات من الخادم لكل Route إداري + secret scan لكل دفع + اختبار وصول مباشر للملفات الخاصة",
+   "design_refs": [
+    "docs/RECRUITMENT-SECURITY.md",
+    "docs/platform/SECURITY-CENTER.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "BUILD-016",
+   "area": "50 Build Mode & Delivery Governance",
+   "type": "RULE",
+   "title": "قاعدة البيانات: لا DB على جهاز الـOwner، لا تلمس Falcon، والبنية ضمن Cloudways المعتمدة",
+   "requirement": "لا database على Owner PC. لا تلمس Falcon. الـInfrastructure المطلوبة تكون ضمن Architecture المشروع / Cloudways المعتمدة.",
+   "details": [
+    "يعمم CAREERS-092 (كان خاصًا بالتوظيف) على المشروع كله.",
+    "ADR-001: MySQL/MariaDB على Cloudways (Staging وProduction منفصلتان)؛ SQLite داخل حاوية التطوير والـCI فقط.",
+    "لا خدمة بيانات خارجية (Supabase وغيرها) — CAREERS-003، ADR-001 البديل D."
+   ],
+   "sources": [
+    "M36 §16"
+   ],
+   "decision_refs": [
+    "G18-ND-03"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "PARTIAL",
+   "tested": "N/A",
+   "existing_impl": "docs/adr/ADR-001-platform.md",
+   "missing_work": "إعداد قواعد Cloudways بعد إنشاء التطبيقين",
+   "dependencies": [
+    "CAREERS-092",
+    "CAREERS-003",
+    "BUILD-025",
+    "G10-PO-01"
+   ],
+   "test_required": "فحص: لا اتصال DB إلا بـCloudways في Staging/Production وSQLite في الاختبارات؛ لا مرجع لبيانات Falcon في الكود أو الاختبارات",
+   "design_refs": [
+    "docs/adr/ADR-001-platform.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P06",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "BUILD-017",
+   "area": "50 Build Mode & Delivery Governance",
+   "type": "RULE",
+   "title": "Git discipline — Commits صغيرة ذات معنى، ولا عمليات Git مدمرة بلا داعٍ",
+   "requirement": "العمل بـGit بشكل نظيف: small meaningful commits بعد كل Stable milestone؛ لا commit ضخم يحتوي عشرات التغييرات غير المرتبطة؛ لا destructive Git operations بدون داعٍ.",
+   "details": [
+    "لا force-push ولا reset --hard على الفروع المشتركة؛ لا Secrets في أي Commit (فحص الأسرار)؛ سطور النسب المطلوبة في رسائل الـCommit؛ الوثائق مع الكود في نفس الـCommit (BUILD-018)."
+   ],
+   "sources": [
+    "M36 §17"
+   ],
+   "decision_refs": [
+    "G18-ND-07"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "PARTIAL",
+   "tested": "N/A",
+   "existing_impl": "سجل Git الحالي بـCommits موضوعية",
+   "missing_work": "تطبيقه أثناء البناء",
+   "dependencies": [
+    "BUILD-018",
+    "SEC-002"
+   ],
+   "test_required": "مراجعة سجل كل Phase: Commits مرتبطة بوحدات، بلا Commit يخلط وحدات غير مرتبطة",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "BUILD-018",
+   "area": "50 Build Mode & Delivery Governance",
+   "type": "RULE",
+   "title": "وثّق أثناء البناء — لا توثيق مؤجل",
+   "requirement": "إذا نُفذت Architecture أو Workflow تُحدَّث الـDocumentation فورًا؛ لا يُترك التوثيق للنهاية.",
+   "details": [
+    "الوثائق التشغيلية في docs/platform/ تُحدَّث مع بناء نظامها (INFRA-043)؛ السجلات (Master/Decisions/Traceability) تُحدَّث مع كل قرار (GOV-073)."
+   ],
+   "sources": [
+    "M36 §18"
+   ],
+   "decision_refs": [
+    "G18-ND-07"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "PARTIAL",
+   "tested": "N/A",
+   "existing_impl": "docs/platform/ (SPEC)",
+   "missing_work": "تطبيقه مع كل Commit",
+   "dependencies": [
+    "INFRA-043",
+    "GOV-073",
+    "BUILD-002"
+   ],
+   "test_required": "مراجعة: كل Commit يغير سلوكًا موثقًا يحدّث وثيقته",
+   "design_refs": [
+    "docs/platform/"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "BUILD-019",
+   "area": "50 Build Mode & Delivery Governance",
+   "type": "DELIVERABLE",
+   "title": "لوحة التقدم (Progress Dashboard) — الحالات الست والأسئلة الخمسة",
+   "requirement": "Progress واضح بحالة لكل Phase / Module: NOT STARTED · IN PROGRESS · BLOCKED · READY FOR REVIEW · TESTED · COMPLETE، والإجابة دائمًا عن: ما الذي انتهى؟ · ما الذي تعمل عليه؟ · ما الذي بقي؟ · هل يوجد Blocker؟ · هل يوجد Owner Decision مطلوب؟",
+   "details": [
+    "موجودة: docs/PROGRESS.md (الحالات الست + IMPLEMENTED — NOT YET VERIFIED + الأسئلة الخمسة + المراحل 0–7).",
+    "قرار تقني: وثيقة في المستودع تُلخَّص في كل تقرير مرحلة — ليست وحدة في الـOwner Dashboard في V1 (لا نظام ثانٍ).",
+    "COMPLETE = بُني واختُبر وتحقق ووُثق وأُرسل في Commit (BUILD-020)."
+   ],
+   "sources": [
+    "M36 §19"
+   ],
+   "decision_refs": [
+    "G18-ND-05"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "IMPLEMENTED — NOT TESTED",
+   "tested": "N/A",
+   "existing_impl": "docs/PROGRESS.md",
+   "missing_work": "تحديثها مع كل مرحلة وتقرير",
+   "dependencies": [
+    "BUILD-007",
+    "BUILD-020"
+   ],
+   "test_required": "مراجعة: PROGRESS.md يجيب الأسئلة الخمسة ومحدث بتاريخ آخر تقرير",
+   "design_refs": [
+    "docs/PROGRESS.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P00",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "BUILD-020",
+   "area": "50 Build Mode & Delivery Governance",
+   "type": "RULE",
+   "title": "لا ادعاء DONE / COMPLETE / FROZEN بلا Build + Test + Verify — وإلا IMPLEMENTED — NOT YET VERIFIED",
+   "requirement": "لا يُقال DONE أو COMPLETE أو FROZEN إذا لم يتم Build · Test · Verify. إذا لم يُختبر شيء يُكتب: IMPLEMENTED — NOT YET VERIFIED.",
+   "details": [
+    "يستبدل التسمية \"IMPLEMENTED — NOT TESTED\" (GOV-071، D-224) بالتسمية الأحدث (G18-CF-05) — نفس المعنى.",
+    "FROZEN كحالة قرار (قرار أغلقه الـOwner) يبقى صالحًا؛ القاعدة تمنع استخدامه كادعاء إنجاز تنفيذي.",
+    "مطبق في CLAUDE.md وdocs/PROGRESS.md."
+   ],
+   "sources": [
+    "M36 §20"
+   ],
+   "decision_refs": [
+    "G18-ND-05"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "IMPLEMENTED — NOT TESTED",
+   "tested": "N/A",
+   "existing_impl": "CLAUDE.md §Build mode · docs/PROGRESS.md",
+   "missing_work": "تحديث تعداد impl_status في السجلات المولدة (G18-TF-01)",
+   "dependencies": [
+    "GOV-071",
+    "TEST-002",
+    "INFRA-034"
+   ],
+   "test_required": "مراجعة كل تقرير: لا COMPLETE بلا دليل اختبار وتحقق",
+   "design_refs": [
+    "CLAUDE.md §Build mode",
+    "docs/PROGRESS.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "G18-CF-05",
+   "business_data": false,
+   "phase": "P00",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "BUILD-021",
+   "area": "50 Build Mode & Delivery Governance",
+   "type": "RULE",
+   "title": "استخدم الأدوات الموجودة — لا framework أو component library أو animation أو testing أو SEO tool مكرر",
+   "requirement": "قبل تثبيت Library أو Tool جديد يُراجع الموجود؛ لا duplicate: framework · component library · animation library · testing tool · SEO tool.",
+   "details": [
+    "أداة واحدة لكل وظيفة: Laravel/Blade (framework — ADR-001) · مكونات x-ui Blade (component library) · motion vanilla بتحميل كسول للـSheet فقط (animation) · Playwright + PHPUnit + axe + Lighthouse (testing) · فحوص SEO محلية (لا Semrush — INT-003).",
+    "سجل الأدوات: docs/FRONTEND-TOOLING.md + docs/TOOLCHAIN.md (تدقيق M37)؛ TOOL-004/006/007.",
+    "الحسم التفصيلي للأدوات (Storybook html-vite، لا Tailwind، لا shadcn/Radix، نطاق motion) في G16-CF-01…04 وG19 (TOOL-028…046) — لا يُكرر هنا."
+   ],
+   "sources": [
+    "M36 §21"
+   ],
+   "decision_refs": [
+    "G18-ND-07"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "PARTIAL",
+   "tested": "N/A",
+   "existing_impl": "docs/FRONTEND-TOOLING.md · docs/TOOLCHAIN.md",
+   "missing_work": "التسجيل قبل أي تثبيت",
+   "dependencies": [
+    "TOOL-004",
+    "TOOL-006",
+    "TOOL-007",
+    "BUILD-025",
+    "TOOL-028",
+    "TOOL-042",
+    "DS-022"
+   ],
+   "test_required": "فحص package.json/composer.json: لا مكتبتين لنفس الوظيفة",
+   "design_refs": [
+    "docs/FRONTEND-TOOLING.md",
+    "docs/TOOLCHAIN.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "G16-CF-01…04",
+   "business_data": false,
+   "phase": "P00",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "BUILD-022",
+   "area": "50 Build Mode & Delivery Governance",
+   "type": "RULE",
+   "title": "ليس موقعًا عامًا — SHELTER COFFEE لا قالب قهوة ولا Dashboard SaaS ولا صفحة AI",
+   "requirement": "النتيجة يجب أن تكون SHELTER COFFEE وليس: generic coffee template · generic SaaS dashboard · generic AI landing page؛ كل UI يشعر أنه جزء من Brand واحدة.",
+   "details": [
+    "يطبق BRAND-004 · BRAND-006 · BRAND-007 · BRAND-019 · BRAND-020؛ الـDashboard بنفس لغة التصميم (DESIGN-SYSTEM-STANDARD §10)."
+   ],
+   "sources": [
+    "M36 §22"
+   ],
+   "decision_refs": [
+    "G18-ND-07"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "rules: BRAND-004/006",
+   "missing_work": "تطبيقه في المراجعة البصرية لكل وحدة",
+   "dependencies": [
+    "BRAND-004",
+    "BRAND-006",
+    "BRAND-007",
+    "BRAND-019",
+    "BRAND-020"
+   ],
+   "test_required": "مراجعة بصرية بقائمة الأنماط المحظورة (BRAND-006) لكل شاشة",
+   "design_refs": [
+    "docs/DESIGN-SYSTEM-STANDARD.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P05",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "BUILD-023",
+   "area": "50 Build Mode & Delivery Governance",
+   "type": "RULE",
+   "title": "Keep it simple — أقل تعقيد يحقق السيطرة والتجربة والسرعة والموثوقية والتوسع والأمان والصيانة",
+   "requirement": "لا Enterprise Complexity بلا قيمة؛ أفضل Architecture تحقق: Owner control · Customer experience · speed · reliability · scalability · security · maintainability — بأقل Complexity ممكنة.",
+   "details": [
+    "يتحد مع OPS-003 وM35 §62 (G17-CF-11)؛ UX-001."
+   ],
+   "sources": [
+    "M36 §23"
+   ],
+   "decision_refs": [
+    "G18-ND-07"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "PARTIAL",
+   "tested": "N/A",
+   "existing_impl": "ADR-001 (تطبيق واحد، Blade) · FINAL-ARCHITECTURE-REVIEW §5 (دمج المكرر)",
+   "missing_work": "تطبيقه في كل PLAN",
+   "dependencies": [
+    "OPS-003",
+    "UX-001"
+   ],
+   "test_required": "مراجعة PLAN: كل نظام جديد يذكر المعيار الذي يخدمه والبديل الأبسط",
+   "design_refs": [
+    "docs/adr/ADR-001-platform.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P00",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "BUILD-024",
+   "area": "50 Build Mode & Delivery Governance",
+   "type": "RULE",
+   "title": "الدور والمبادئ الختامية: Lead Engineer + System Architect + UX Quality Owner",
+   "requirement": "من الآن: ACT AS THE LEAD ENGINEER + SYSTEM ARCHITECT + UX QUALITY OWNER FOR THE SHELTER COFFEE WEBSITE PROJECT؛ المهمة تحويل المتطلبات المعتمدة إلى clean, maintainable, tested production system. PLAN LESS · BUILD CAREFULLY · TEST EVERYTHING · DOCUMENT DECISIONS · DO NOT DUPLICATE · DO NOT GUESS BUSINESS FACTS · DO NOT BREAK APPROVED REQUIREMENTS. START BUILDING NOW (بعد إنهاء كل المهام — المتابعتان).",
+   "details": [
+    "يحدّث GOV-021 (دور Claude: فريق خبراء متكامل)."
+   ],
+   "sources": [
+    "M36 FINAL",
+    "M36 FU-1",
+    "M36 FU-2"
+   ],
+   "decision_refs": [
+    "G18-ND-01"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "PARTIAL",
+   "tested": "N/A",
+   "existing_impl": "CLAUDE.md §Build mode",
+   "missing_work": "تطبيقه طوال البناء",
+   "dependencies": [
+    "GOV-021",
+    "GOV-022",
+    "BUILD-001"
+   ],
+   "test_required": "مراجعة كل تقرير مرحلة مقابل المبادئ السبعة",
+   "design_refs": [
+    "CLAUDE.md §Build mode"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P00",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "BUILD-025",
+   "area": "50 Build Mode & Delivery Governance",
+   "type": "DECISION",
+   "title": "منصة البناء (ADR-001): Laravel 13 + MySQL/MariaDB على تطبيق Cloudways Flexible جديد، Blade",
+   "requirement": "قرار تقني بتفويض الـOwner (M36 §24) وضمن Cloudways المعتمدة (M36 §16): Laravel 13 (PHP 8.3+) · MySQL/MariaDB على Cloudways · تطبيق جديد مستقل على السيرفر Flexible الحالي (WordPress القديم وقاعدته لا يُلمسان حتى الانتقال عند الإطلاق) · Blade للموقع والـDashboard بنفس مكتبة المكونات · Vite · Lucide (SVG) · motion vanilla للـSheet فقط · الملفات الخاصة خارج الجذر العام (private_html) · Laravel Scheduler + Queue · Cloudflare أمام التطبيق · PHPUnit + أدوات tooling/.",
+   "details": [
+    "يحسم DB-08 والشق التقني من PO-006؛ PO-044 (توقيت القرار) لم يعد قائمًا.",
+    "يبقى للـOwner: إنشاء تطبيقَي Cloudways (Staging وProduction) أو منح صلاحية محدودة لإنشائهما (External authorization — G10-PO-01)؛ أي ترقية سيرفر مدفوعة (قرار مالي — PO-040).",
+    "أسئلة PO-006 التجارية غير المانعة: من يصون الموقع بعد الإطلاق (PO-040)؛ هل تقرأ أنظمة لاحقة (بوت خدمة العملاء/الولاء) من نفس البيانات ← ممكن عبر Master Data وexternal_references لاحقًا (INT-016) بلا بناء الآن.",
+    "يحقق قيود CAREERS-003 (Server-side + DB على Cloudways) وCMS-021 (شرط Supabase لم يعد قائمًا).",
+    "انحرافات أدوات ADR-001 عن D-192/D-189 (Tailwind/Storybook) عولجت بـM37 وdocs/TOOLCHAIN.md (G16-CF-01…04).",
+    "الانتقال للإنتاج بتحويل الدومين للتطبيق الجديد عند الإطلاق بموافقة الـOwner (P11) مع بقاء القديم للتراجع."
+   ],
+   "sources": [
+    "M36 §16",
+    "M36 §24"
+   ],
+   "decision_refs": [
+    "G18-ND-03",
+    "ADR-001",
+    "DB-08"
+   ],
+   "status": "APPROVED WITH CONDITIONS",
+   "owner_approved": "N/A",
+   "priority": "P0",
+   "impl_status": "IMPLEMENTED — NOT TESTED",
+   "tested": "NO",
+   "existing_impl": "docs/adr/ADR-001-platform.md (ACCEPTED — TECHNICAL DECISION UNDER OWNER DELEGATION) · docs/architecture/PLATFORM-ARCHITECTURE.md",
+   "missing_work": "التحقق من سعة السيرفر وإصدار PHP/Laravel عند الإعداد (G18-TF-02/03) + Proof بإقلاع التطبيق على Staging",
+   "dependencies": [
+    "G10-PO-01",
+    "PO-040",
+    "CF-005",
+    "CAREERS-003",
+    "CMS-021"
+   ],
+   "test_required": "إقلاع تطبيق Laravel على حاوية التطوير ثم على تطبيق Staging في Cloudways مع DB منفصلة واختبار /health",
+   "design_refs": [
+    "docs/adr/ADR-001-platform.md",
+    "docs/architecture/PLATFORM-ARCHITECTURE.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "G18-CF-03 · G16-CF-01…04",
+   "business_data": false,
+   "phase": "P06",
+   "history": [],
+   "notes": "owner_approved = N/A: قرار تقني ضمن تفويض M36 §24 وليس موافقة Owner صريحة على الأداة؛ الشروط: سعة Cloudways + التحقق من الإصدارات."
+  },
+  {
+   "id": "BUILD-026",
+   "area": "50 Build Mode & Delivery Governance",
+   "type": "GATE",
+   "title": "تحويل البوابات: مراجعات المعمارية التقنية والـWireframes غير مانعة (READY FOR REVIEW)، وبوابات الإنتاج والحقائق تبقى",
+   "requirement": "بموجب M36 §1 و§5 و§11 و§24: موافقات الـOwner على المعمارية التقنية والـIA والـWireframes لم تعد بوابة تمنع البناء — تُعرض READY FOR REVIEW ويستمر البناء، وأي ملاحظة لاحقة من الـOwner تُطبق كتعديل. تبقى مانعة: Production · DNS · production redirects · production database · live Google setup · الخدمات المدفوعة · الحسابات والصلاحيات والأسرار (External authorization) · الإطلاق. وتبقى PENDING OWNER INPUT (تمنع النشر لا البناء): الحقائق التجارية غير المعتمدة · ملفات الهوية (M-10) للطبقة البصرية النهائية · سياسة الفرنشايز (Franchise Master) · المراجعة القانونية.",
+   "details": [
+    "تحولت إلى مراجعة غير مانعة: GOV-040 · IA-014 · IA-005 · WEB-009 · WEB-016 · SEO-034 · GOV-047 · GOV-052 · MENU-052 · GOV-055 · DASH-004 · DASH-005 · PERM-005 · GOV-054 · IA-022 · OPS-006 · CAREERS-097 · FRAN-104 · CMS-014 · HOURS-005 · GOV-029 · GOV-030 · GOV-039 · GOV-081 · GOV-082 · DB-08/PO-044 · PO-001 · PO-004 · PO-005 · PO-007 · PO-045.",
+    "تبقى مانعة: Production: DEPLOY-001 · DEPLOY-003 · DEPLOY-004 · DEPLOY-006 · DEPLOY-007 · DEPLOY-009 · FRAN-103 · SEC-011 · INT-007 — DNS/Cloudflare: CF-002 (معاد النطاق) · CF-003 · CF-009 — Production redirects/SEO: SEO-013 · SEO-015 · FRAN-093 · SEO-009 · SEO-020 — Production DB: DEPLOY-008 · CAREERS-092 · FRAN-040 — Live Google: GOOGLE-008 · GOV-060 · GOV-062 · GOOGLE-009 · GBP-009 · GSC-004 · ANL-004 · PRIV-007 — Paid services: INT-001 · OPS-052 · INT-005 · INT-003 — Credentials/authorization: SEC-002 · PERM-009 · GOOGLE-006 · G10-PO-01 (تطبيقا Cloudways) — Launch: GOV-086 · TEST-001 · DEPLOY-010 · GBP-014 · GSC-010 · PRIV-009.",
+    "PENDING OWNER INPUT (نشر لا بناء): BRAND-002 (M-10، PO-002) · GOV-026 · CONTENT-002 · MEDIA-001 · MENU-012 · BRANCH-001 · CONTACT-001 · PRIV-003 · CAMP-003 · ABOUT-002 · BLOG-005 · G11-PO-01…05 (Franchise Master) · PO-019 · PO-018.",
+    "المطبق في CLAUDE.md (\"Gates that still block\") وdocs/PROGRESS.md (READY FOR REVIEW)."
+   ],
+   "sources": [
+    "M36 §01",
+    "M36 §05",
+    "M36 §11",
+    "M36 §24"
+   ],
+   "decision_refs": [
+    "G18-ND-02"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "IMPLEMENTED — NOT TESTED",
+   "tested": "N/A",
+   "existing_impl": "CLAUDE.md §Build mode · docs/PROGRESS.md",
+   "missing_work": "تحديث حالة البنود المحولة في السجلات المولدة (updates_to_existing) وتصنيف PO في PENDING-OWNER-INPUT",
+   "dependencies": [
+    "BUILD-005",
+    "BUILD-011"
+   ],
+   "test_required": "مراجعة: لا مرحلة بناء متوقفة على مراجعة معمارية/Wireframe؛ لا تغيير إنتاج بلا موافقة مسجلة",
+   "design_refs": [
+    "CLAUDE.md §Build mode",
+    "docs/PROGRESS.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "G18-CF-02",
+   "business_data": false,
+   "phase": "P00",
+   "history": [
+    {
+     "old": "لا Coding قبل اعتماد الـOwner للمعمارية والـIA والـWireframes (GOV-040 · IA-014 · GOV-047/052 · MENU-052 · GOV-055/DASH-004 Gate H · CAREERS-097 Phase 8 · FRAN-104 · OPS-006 · M35 §61)",
+     "source": "M01 · M23 · M25 · M27 · M28 · M29 · M32 · M35",
+     "superseded_by": "M36 §1/§24 + المتابعتان"
+    }
+   ],
+   "notes": ""
+  }
+ ],
+ "updates_to_existing": [
+  {
+   "id": "GOV-040",
+   "change": "SUPERSEDED: بوابة \"لا Coding قبل اعتماد Pages/Nav/Sitemap/URL/Content/SEO architecture\" لم تعد مانعة — البناء يبدأ بعد إنهاء المهام (M36)؛ IA ووثائقها — المراجعة READY FOR REVIEW غير مانعة (BUILD-026)؛ تجميد الـURLs يتم ضمن موافقة الإصدار للإنتاج (WEB-009)",
+   "type": "SUPERSEDE",
+   "source": "M36 §01, §24"
+  },
+  {
+   "id": "IA-014",
+   "change": "SUPERSEDED: \"لا UI Design قبل اعتماد IA\" ← Design System أولًا (BUILD-008) والبناء مستمر؛ الطبقة البصرية النهائية ما زالت تنتظر ملفات الهوية (BRAND-002)",
+   "type": "SUPERSEDE",
+   "source": "M36 §08, §24"
+  },
+  {
+   "id": "GOV-047",
+   "change": "SUPERSEDED كبوابة Production code للمنيو؛ Menu IA Spec وWireframes — المراجعة READY FOR REVIEW غير مانعة (BUILD-026) (PO-001)؛ الـVisual النهائي ينتظر M-10 (BRAND-002)",
+   "type": "SUPERSEDE",
+   "source": "M36 §01, §06"
+  },
+  {
+   "id": "MENU-052",
+   "change": "SUPERSEDED كبوابة: البناء (PHASE 2 Menu) لا ينتظر اعتماد الحزمة؛ الحزمة — المراجعة READY FOR REVIEW غير مانعة (BUILD-026)؛ الـVisual ينتظر M-10",
+   "type": "SUPERSEDE",
+   "source": "M36 §01, §06"
+  },
+  {
+   "id": "GOV-052",
+   "change": "SUPERSEDED: \"توقف + موافقة + مراجعة خارجية قبل التصميم/الكود\" — الـOwner أذن بالبناء (M36 + المتابعتان)",
+   "type": "SUPERSEDE",
+   "source": "M36 §01, §25"
+  },
+  {
+   "id": "GOV-055",
+   "change": "SUPERSEDED: Gate H لم يعد مانعًا؛ مخرجات A–G تُعرض — المراجعة READY FOR REVIEW غير مانعة (BUILD-026)؛ الـDashboard يُبنى في PHASE 3 (الأساس والمصادقة في PHASE 1)",
+   "type": "SUPERSEDE",
+   "source": "M36 §01, §06, §24"
+  },
+  {
+   "id": "GOV-030",
+   "change": "SUPERSEDED: بوابة \"لا انتقال قبل اعتماد المرحلة\" وخطوة \"انتظر قراره\" ← حلقة PLAN→…→VERIFY (BUILD-007) والسؤال فقط عند Blocker (BUILD-005)",
+   "type": "SUPERSEDE",
+   "source": "M36 §07, §24"
+  },
+  {
+   "id": "GOV-029",
+   "change": "SUPERSEDED كتسلسل بناء: ترتيب M36 PHASE 1–7 (BUILD-006) يحكم؛ أنشطة المراحل الست والثلاثين كلها مغطاة داخله، وترتيب \"Owner Approval → Staging → Launch\" صار \"Staging → Final Verification → Owner Approval → Production\" (BUILD-011)",
+   "type": "SUPERSEDE",
+   "source": "M36 §06, §11"
+  },
+  {
+   "id": "GOV-039",
+   "change": "SUPERSEDED: قيود Phase 01 (لا كود/Framework) انتهت؛ قيود الإنتاج مستمرة عبر DEPLOY-001/007 · CF-003 · GOOGLE-008 · INT-007",
+   "type": "SUPERSEDE",
+   "source": "M36 §01, §11"
+  },
+  {
+   "id": "GOV-054",
+   "change": "تسلسل A→N يُنفذ داخل M36: A–G = مخرجات PLAN (READY FOR REVIEW)، H غير مانعة، I (الأساس) في PHASE 1، J–L في PHASE 3/5/6، M–N في PHASE 7",
+   "type": "UPDATE",
+   "source": "M36 §06, §07"
+  },
+  {
+   "id": "DASH-004",
+   "change": "Gate H ← مراجعة غير مانعة (BUILD-026)؛ الترتيب يتبع PHASE 1/3/5/7؛ قاعدة DEMO DATA / LIVE DATA تبقى",
+   "type": "UPDATE",
+   "source": "M36 §06, §24"
+  },
+  {
+   "id": "DASH-005",
+   "change": "الـWireframes (25 شاشة موجودة كنموذج) — المراجعة READY FOR REVIEW غير مانعة (BUILD-026)؛ تُحدَّث لـM35 (Command Center) ضمن PLAN في PHASE 3",
+   "type": "UPDATE",
+   "source": "M36 §07, §24"
+  },
+  {
+   "id": "PERM-005",
+   "change": "PERMISSIONS.md يُكتب في PLAN لـPHASE 1 قبل بناء المصادقة (شرط تقني)؛ مراجعة الـOwner غير مانعة",
+   "type": "UPDATE",
+   "source": "M36 §06, §07"
+  },
+  {
+   "id": "IA-022",
+   "change": "شجرة IA الـDashboard — المراجعة READY FOR REVIEW غير مانعة (BUILD-026)؛ التنفيذ في PHASE 3",
+   "type": "UPDATE",
+   "source": "M36 §06"
+  },
+  {
+   "id": "OPS-006",
+   "change": "تسلسل GAP AUDIT → … → OWNER REVIEW → IMPLEMENTATION: مراجعة الـOwner غير مانعة؛ البوابات J الباقية = الإنتاج والـGoogle الحي والهوية فقط",
+   "type": "UPDATE",
+   "source": "M36 §01, §24"
+  },
+  {
+   "id": "GOV-081",
+   "change": "تحققت: التدقيق الكامل اكتمل (G1–G18)؛ البوابات السابقة حُوّلت أو أُبقيت حسب BUILD-026",
+   "type": "UPDATE",
+   "source": "M36 §01, §02"
+  },
+  {
+   "id": "GOV-082",
+   "change": "نافذة ضمن BUILD MODE: التنفيذ يبدأ بعد إنهاء المهام مع احترام البوابات الباقية فقط (BUILD-026)",
+   "type": "UPDATE",
+   "source": "M36 §01, §25"
+  },
+  {
+   "id": "WEB-009",
+   "change": "البناء يتم على البنية P3 المعتمدة مبدئيًا (D-031) على Staging؛ التجميد النهائي للـURLs/اللغة = جزء من موافقة الإصدار للإنتاج (BUILD-011) لأن الروابط تصبح عامة عند الإطلاق فقط؛ PO-005 غير مانع للبناء",
+   "type": "UPDATE",
+   "source": "M36 §11, §24"
+  },
+  {
+   "id": "WEB-016",
+   "change": "تنفيذ الجذر على Staging مسموح؛ النصوص Placeholder/مخفية حتى PO-020؛ النشر بموافقة",
+   "type": "UPDATE",
+   "source": "M36 §05, §11"
+  },
+  {
+   "id": "SEO-034",
+   "change": "خطة canonical/hreflang/x-default/redirects مخرج تقني في PHASE 2/7؛ التجميد عند موافقة الإصدار",
+   "type": "UPDATE",
+   "source": "M36 §06, §11"
+  },
+  {
+   "id": "IA-005",
+   "change": "أُجيب للصفحات الأساسية في V1 بقائمة M36 §6 PHASE 2 (Header/Navigation · Footer · Home · Menu · Locations · Branch pages · About · Contact · FAQ · legal/public system pages · Global Search) + وحدات PHASE 4؛ تفاصيل الـHeader/Footer/أول رسالة قرارات UX يقترحها Claude READY FOR REVIEW (PO-004 غير مانع)",
+   "type": "ANSWERS",
+   "source": "M36 §06, §24"
+  },
+  {
+   "id": "CAREERS-097",
+   "change": "بوابة Phase 8 ← مراجعة غير مانعة؛ Phase 9+ ينتظر فقط: الأساس (PHASE 1: المصادقة + Applications Core) + تطبيق Staging على Cloudways (G10-PO-01)؛ DB-08 حُسم (ADR-001)",
+   "type": "UPDATE",
+   "source": "M36 §06, §24"
+  },
+  {
+   "id": "FRAN-104",
+   "change": "\"التوقف قبل التنفيذ الكامل\" ← مراجعة غير مانعة؛ الوحدة تُبنى في PHASE 4؛ نشر المحتوى الالتزامي ينتظر Franchise Master (G11-PO-01…05)",
+   "type": "UPDATE",
+   "source": "M36 §05, §06"
+  },
+  {
+   "id": "FRAN-103",
+   "change": "قيود الإنتاج فيه (لا Deploy/حذف/تحويل/DNS/نشر غير معتمد/حذف HubSpot/تعديل DB مدمر) تبقى مانعة تحت M36 §11",
+   "type": "UPDATE",
+   "source": "M36 §11"
+  },
+  {
+   "id": "CMS-014",
+   "change": "نقاش UX الساعات الخاصة ← مراجعة غير مانعة: يُبنى حسب HOURS-005 وMASTER-DATA-HUB §7 ويُعرض READY FOR REVIEW؛ بيانات العطل والمواسم الفعلية تبقى PO-025",
+   "type": "UPDATE",
+   "source": "M36 §05, §24"
+  },
+  {
+   "id": "HOURS-005",
+   "change": "شرط \"الـUX والـCMS يُناقشان قبل التنفيذ\" ← مراجعة غير مانعة (BUILD-026)",
+   "type": "UPDATE",
+   "source": "M36 §24"
+  },
+  {
+   "id": "DEPLOY-007",
+   "change": "النطاق يصبح: لا Production Deployment ولا تغيير للموقع الحي حتى موافقة الـOwner على الإصدار (BUILD-011) — مانع",
+   "type": "UPDATE",
+   "source": "M36 §11"
+  },
+  {
+   "id": "DEPLOY-008",
+   "change": "على Dev/Staging: Migrations بإصدارات وقابلة للتراجع (INFRA-006)؛ على Production: لا migration غير قابلة للعكس ولا تعديل DB بلا Backup + Staging + Rollback plan + موافقة — مانع",
+   "type": "UPDATE",
+   "source": "M36 §11"
+  },
+  {
+   "id": "CF-002",
+   "change": "يبقى مانعًا لـDNS وإعدادات Cloudflare الإنتاجية والتطبيق القديم على Cloudways؛ إنشاء تطبيقَي Cloudways الجديدين = External authorization من الـOwner (G10-PO-01)",
+   "type": "UPDATE",
+   "source": "M36 §11, §16"
+  },
+  {
+   "id": "GOOGLE-008",
+   "change": "يبقى مانعًا لأي إعداد Google حي (M36 §11)؛ محولات التكامل تُبنى في PHASE 5 على بيانات تجريبية، والربط الحي بعد الصلاحيات والموافقة (P09)",
+   "type": "UPDATE",
+   "source": "M36 §06, §11"
+  },
+  {
+   "id": "SEO-015",
+   "change": "يبقى مانعًا: لا URLs/Redirects/SEO changes على Production قبل موافقة الإصدار",
+   "type": "UPDATE",
+   "source": "M36 §11"
+  },
+  {
+   "id": "CMS-021",
+   "change": "شرط Supabase لم يعد قائمًا: التخزين MySQL/MariaDB على Cloudways (ADR-001، BUILD-025)",
+   "type": "UPDATE",
+   "source": "M36 §16, §24"
+  },
+  {
+   "id": "GOV-007",
+   "change": "M36 §4: لا محاولة لدمج قرارين متعارضين؛ القديم SUPERSEDED ولا يُستخدم (BUILD-004)",
+   "type": "UPDATE",
+   "source": "M36 §04"
+  },
+  {
+   "id": "GOV-013",
+   "change": "يطبق على كل تعارض يحسمه M36 (BUILD-004)",
+   "type": "UPDATE",
+   "source": "M36 §04"
+  },
+  {
+   "id": "GOV-035",
+   "change": "أعاد M36 §5 تأكيدها كقاعدة BUILD MODE (BUILD-005)",
+   "type": "UPDATE",
+   "source": "M36 §05",
+   "new_priority": "P0"
+  },
+  {
+   "id": "GOV-015",
+   "change": "M36 §24: لا توقف العمل لأسئلة تقنية صغيرة؛ القائمة المغلقة للسؤال في BUILD-005",
+   "type": "UPDATE",
+   "source": "M36 §24"
+  },
+  {
+   "id": "PERM-009",
+   "change": "متسق مع قائمة السؤال في M36 §24 (EXTERNAL AUTHORIZATION) — BUILD-005",
+   "type": "UPDATE",
+   "source": "M36 §24"
+  },
+  {
+   "id": "GOOGLE-006",
+   "change": "متسق مع M36 §24 (EXTERNAL AUTHORIZATION)",
+   "type": "UPDATE",
+   "source": "M36 §24"
+  },
+  {
+   "id": "GOV-078",
+   "change": "أمثلة M36 §3: One Media Library · One Global Calendar · One Master Data Hub · One Design System · One Audit Log · One Notification Center · One Owner Dashboard · One Source of Truth per data type (BUILD-003)",
+   "type": "UPDATE",
+   "source": "M36 §03"
+  },
+  {
+   "id": "OPS-002",
+   "change": "قائمة الممنوع تكراره تتسع بأمثلة M36 §3 (BUILD-003)",
+   "type": "UPDATE",
+   "source": "M36 §03"
+  },
+  {
+   "id": "GOV-071",
+   "change": "التسمية لغير المختبر تصبح IMPLEMENTED — NOT YET VERIFIED (M36 §20، G18-CF-05) ومنع DONE/COMPLETE/FROZEN كادعاء تنفيذ",
+   "type": "UPDATE",
+   "source": "M36 §20"
+  },
+  {
+   "id": "GOV-021",
+   "change": "الدور: LEAD ENGINEER + SYSTEM ARCHITECT + UX QUALITY OWNER (BUILD-024)",
+   "type": "UPDATE",
+   "source": "M36 FINAL"
+  },
+  {
+   "id": "GOV-076",
+   "change": "الخطة الواحدة تتضمن ترتيب M36 PHASE 1–7 (BUILD-006)",
+   "type": "UPDATE",
+   "source": "M36 §06"
+  },
+  {
+   "id": "DEPLOY-004",
+   "change": "صياغة M36 §11 الأحدث: Development → Testing → Staging → Final Verification → Owner Approval → Production",
+   "type": "UPDATE",
+   "source": "M36 §11"
+  },
+  {
+   "id": "CMS-033",
+   "change": "M36 §10: قائمة ما يعدله الـOwner بلا كود (prices · images · products · hours · branches · pages · content · SEO · campaigns · events · media · franchise content · careers content) = معيار قبول الوحدات (BUILD-010)",
+   "type": "UPDATE",
+   "source": "M36 §10"
+  },
+  {
+   "id": "DASH-032",
+   "change": "أكده M36 §10: الـOwner المستخدم الوحيد حاليًا",
+   "type": "UPDATE",
+   "source": "M36 §10"
+  },
+  {
+   "id": "CAREERS-092",
+   "change": "عُمم على المشروع كله: لا DB على جهاز الـOwner ولا Falcon (BUILD-016)",
+   "type": "UPDATE",
+   "source": "M36 §16"
+  },
+  {
+   "id": "RESP-004",
+   "change": "يُختبر باستمرار مع كل Phase لا في بوابة QA وحدها (BUILD-013)",
+   "type": "UPDATE",
+   "source": "M36 §13"
+  },
+  {
+   "id": "TEST-002",
+   "change": "اختبار كل Feature فورًا عند بنائها (BUILD-012)",
+   "type": "UPDATE",
+   "source": "M36 §12"
+  },
+  {
+   "id": "PERF-005",
+   "change": "الميزانية تُقاس مع كل Phase: bundle · images · fonts · LCP · INP · CLS · animation · third-party (BUILD-014)",
+   "type": "UPDATE",
+   "source": "M36 §14"
+  },
+  {
+   "id": "TOOL-006",
+   "change": "M36 §21: لا framework/component library/animation library/testing tool/SEO tool مكرر (BUILD-021)",
+   "type": "UPDATE",
+   "source": "M36 §21"
+  },
+  {
+   "id": "BRAND-006",
+   "change": "M36 §22: لا generic coffee template / SaaS dashboard / AI landing page (BUILD-022)",
+   "type": "UPDATE",
+   "source": "M36 §22"
+  },
+  {
+   "id": "OPS-003",
+   "change": "معايير M36 §23 (Owner control · Customer experience · speed · reliability · scalability · security · maintainability) ضمن الاتحاد (G17-CF-11)",
+   "type": "UPDATE",
+   "source": "M36 §23"
+  },
+  {
+   "id": "WEB-003",
+   "change": "نموذج Country/City/Branch من أساس PHASE 1 (M36 §6)",
+   "type": "UPDATE",
+   "source": "M36 §06",
+   "new_priority": "P0"
+  },
+  {
+   "id": "OPS-044",
+   "change": "Global Search ضمن PHASE 2 (Core Website) في ترتيب M36",
+   "type": "UPDATE",
+   "source": "M36 §06"
+  },
+  {
+   "id": "DB-08",
+   "change": "RESOLVED بقرار تقني بتفويض M36 §24: ADR-001 (Laravel 13 + MySQL/MariaDB على تطبيق Cloudways Flexible جديد، Blade) — BUILD-025",
+   "type": "RESOLVE",
+   "source": "M36 §16, §24"
+  },
+  {
+   "id": "PO-006",
+   "change": "الشق التقني محسوم بـADR-001؛ المتبقي غير مانع: من يصون بعد الإطلاق (PO-040)، ومصدر بيانات البوت/الولاء لاحقًا (Master Data + INT-016 مستقبلًا)",
+   "type": "RESOLVE",
+   "source": "M36 §24"
+  },
+  {
+   "id": "PO-044",
+   "change": "لم يعد قائمًا: المنصة حُسمت مبكرًا ضمن ترتيب M36 (PHASE 1)",
+   "type": "RESOLVE",
+   "source": "M36 §06"
+  },
+  {
+   "id": "PO-001",
+   "change": "يُعاد تصنيفه NON-BLOCKING: مراجعة Menu IA READY FOR REVIEW ولا تمنع PHASE 2",
+   "type": "RECLASSIFY",
+   "source": "M36 §01, §24"
+  },
+  {
+   "id": "PO-004",
+   "change": "يُعاد تصنيفه NON-BLOCKING: IA الموقع/الـNavigation/الرئيسية يقترحها Claude READY FOR REVIEW (قرارات UX — M36 §24)",
+   "type": "RECLASSIFY",
+   "source": "M36 §24"
+  },
+  {
+   "id": "PO-005",
+   "change": "يُعاد تصنيفه NON-BLOCKING للبناء؛ التجميد مطلوب قبل موافقة الإصدار للإنتاج فقط؛ اسم قسم المعرفة يبقى قرار محتوى",
+   "type": "RECLASSIFY",
+   "source": "M36 §11, §24"
+  },
+  {
+   "id": "PO-007",
+   "change": "يُعاد تصنيفه NON-BLOCKING: Gate H مراجعة غير مانعة؛ الاسم النهائي للـDashboard قرار علامة غير مانع",
+   "type": "RECLASSIFY",
+   "source": "M36 §24"
+  },
+  {
+   "id": "PO-045",
+   "change": "يُعاد تصنيفه NON-BLOCKING: M36 يجعل القرارات المعتمدة سابقًا المرجع؛ اعتماد الحزمة المجمعة مراجعة غير مانعة",
+   "type": "RECLASSIFY",
+   "source": "M36 §00, §01"
+  },
+  {
+   "id": "D-001",
+   "change": "SUPERSEDED كتسلسل بناء بترتيب M36 PHASE 1–7 وحلقة المرحلة (لا انتظار موافقة بين المراحل إلا للبوابات الباقية)",
+   "type": "SUPERSEDE",
+   "source": "M36 §06, §07"
+  },
+  {
+   "id": "D-002",
+   "change": "انتهى نطاقه (Phase 01)؛ قيود الإنتاج مستمرة في D-172 وM36 §11",
+   "type": "UPDATE",
+   "source": "M36 §11"
+  },
+  {
+   "id": "D-213",
+   "change": "Gate H ← مراجعة غير مانعة؛ قاعدة DEMO/LIVE DATA تبقى",
+   "type": "UPDATE",
+   "source": "M36 §24"
+  }
+ ],
+ "conflicts": [
+  {
+   "id": "G18-CF-01",
+   "topic": "M35 §61 \"لا تبدأ Coding — أعطني المراجعة أولًا\" مقابل M36 \"START BUILDING NOW\" + المتابعتان",
+   "old_instruction": "لا تبدأ Coding فورًا؛ أعطني أولًا 17 بندًا ثم نبدأ التنفيذ حسب الأولوية؛ المراجعة كُتبت بحالة DRAFT — AWAITING OWNER ARCHITECTURE APPROVAL",
+   "old_source": "M35 §61 · FINAL-ARCHITECTURE-REVIEW (الترويسة)",
+   "new_instruction": "PLANNING CLOSED — START BUILD؛ \"طبعا بعد ما تخلص كل ال tasks\" · \"يعني بعد ما تخلص ككل ال tasks\"",
+   "new_source": "M36 §01, §25 · FU-1 · FU-2",
+   "winner": "M36 (الأحدث): شرط M35 تحقق بتسليم المراجعة (INFRA-045) ثم انتهى؛ المراجعة تُكمل ضمن المهام الحالية وتصبح READY FOR REVIEW غير مانعة؛ البناء يبدأ بعد إنهاء كل المهام الحالية",
+   "why": "آخر قرار صريح؛ لا تناقض في المضمون (المراجعة سُلمت قبل البناء)",
+   "impact": "INFRA-045 · BUILD-001 · BUILD-026 · ترويسة FINAL-ARCHITECTURE-REVIEW",
+   "files": [
+    "docs/FINAL-ARCHITECTURE-REVIEW.md",
+    "docs/PROGRESS.md"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "id": "G18-CF-02",
+   "topic": "بوابات \"لا Coding قبل اعتماد المعمارية/IA/Wireframes\" مقابل BUILD MODE",
+   "old_instruction": "بوابات مانعة: موقع (GOV-040، IA-014، IA-005، WEB-009، WEB-016، SEO-034) · منيو (GOV-047، GOV-052، MENU-052) · Dashboard Gate H (GOV-055، DASH-004، DASH-005، PERM-005، GOV-054، IA-022) · M32 (OPS-006) · توظيف Phase 8 (CAREERS-097) · فرنشايز \"توقف قبل التنفيذ\" (FRAN-104) · الساعات الخاصة (CMS-014، HOURS-005) · تسلسل ومراحل (GOV-029، GOV-030، GOV-039، GOV-081/082) · المنصة (DB-08، PO-044)",
+   "old_source": "M01 · M04 · M13 · M23 · M25 · M27 · M28 · M29 · M32",
+   "new_instruction": "التخطيط انتهى؛ BUILD MODE؛ لا توقف لأسئلة تقنية؛ اسأل فقط عند Business/Legal/Financial/Fact/External authorization/Major design direction؛ لا تغيّر DNS/production redirects/production DB/live Google بلا موافقة",
+   "new_source": "M36 §01, §05, §11, §24",
+   "winner": "المعمارية التقنية والـIA والـWireframes ← مراجعة غير مانعة READY FOR REVIEW (البوابات أعلاه: SUPERSEDE للبوابات الصرفة GOV-040 · IA-014 · GOV-047 · MENU-052 · GOV-052 · GOV-055 · GOV-030 · GOV-029 · GOV-039؛ UPDATE للمختلطة؛ IA-005 = ANSWERS)؛ تبقى مانعة البوابات التي يحتفظ بها M36 §11 و§24: Production: DEPLOY-001 · DEPLOY-003 · DEPLOY-004 · DEPLOY-006 · DEPLOY-007 · DEPLOY-009 · FRAN-103 · SEC-011 · INT-007 — DNS/Cloudflare: CF-002 (معاد النطاق) · CF-003 · CF-009 — Production redirects/SEO: SEO-013 · SEO-015 · FRAN-093 · SEO-009 · SEO-020 — Production DB: DEPLOY-008 · CAREERS-092 · FRAN-040 — Live Google: GOOGLE-008 · GOV-060 · GOV-062 · GOOGLE-009 · GBP-009 · GSC-004 · ANL-004 · PRIV-007 — Paid services: INT-001 · OPS-052 · INT-005 · INT-003 — Credentials/authorization: SEC-002 · PERM-009 · GOOGLE-006 · G10-PO-01 (تطبيقا Cloudways) — Launch: GOV-086 · TEST-001 · DEPLOY-010 · GBP-014 · GSC-010 · PRIV-009؛ وتبقى PENDING OWNER INPUT (تمنع النشر لا البناء): BRAND-002 (M-10، PO-002) · GOV-026 · CONTENT-002 · MEDIA-001 · MENU-012 · BRANCH-001 · CONTACT-001 · PRIV-003 · CAMP-003 · ABOUT-002 · BLOG-005 · G11-PO-01…05 (Franchise Master) · PO-019 · PO-018",
+   "why": "آخر قرار صريح للـOwner يغير طبيعة موافقات المعمارية؛ M36 نفسه يحتفظ بالبوابات الإنتاجية والخارجية، والحقائق لا تُخترع (M36 FINAL)",
+   "impact": "BUILD-026 · CLAUDE.md \"Gates that still block\" · PENDING-OWNER-INPUT (PO-001/004/005/007/045 → NON-BLOCKING)",
+   "files": [
+    "CLAUDE.md",
+    "docs/PROGRESS.md",
+    "docs/PENDING-OWNER-INPUT.md"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "id": "G18-CF-03",
+   "topic": "قرار المنصة DB-08 \"OWNER DECISION REQUIRED\" (PO-006، PO-044) مقابل تفويض M36 §24",
+   "old_instruction": "DB-08 PROPOSED — يُدرس بعد الـIA؛ PO-006 يسأل الـOwner (WordPress شرط؟ Cloudways؟ من يبني ويصون؟ مصدر البيانات للبوت/الولاء؟)؛ PO-044 توقيت القرار؛ CMS-021 Supabase مشروط",
+   "old_source": "M01 · M25 · M27 · G1-CF (PO-044)",
+   "new_instruction": "لا توقف العمل لأسئلة تقنية؛ اتخذ القرار التقني الأفضل؛ Infrastructure ضمن Cloudways المعتمدة؛ لا DB على جهاز الـOwner",
+   "new_source": "M36 §16, §24",
+   "winner": "ADR-001 (ACCEPTED — TECHNICAL DECISION UNDER OWNER DELEGATION): Laravel 13 + MySQL/MariaDB على تطبيق Cloudways Flexible جديد، Blade، WordPress القديم لا يُلمس. تبقى للـOwner: إنشاء تطبيقَي Cloudways أو منح الصلاحية (External authorization — G10-PO-01) وأي ترقية سيرفر (قرار مالي — PO-040)؛ أسئلة PO-006 التجارية (الصيانة بعد الإطلاق، مصدر بيانات أنظمة لاحقة) ملاحظات غير مانعة",
+   "why": "اختيار الإطار تقني صرف ضمن قيد Cloudways الذي حدده الـOwner (M28، M36 §16)؛ لا قرار مالي جديد (نفس السيرفر)",
+   "impact": "DB-08 · PO-006 · PO-044 · CMS-021 · CAREERS-003 · BUILD-025",
+   "files": [
+    "docs/adr/ADR-001-platform.md"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "id": "G18-CF-04",
+   "topic": "AC-3 + خطة P00–P12 (التصميم P05 قبل المنصة P06، وبوابة اعتماد بين المراحل) مقابل ترتيب البناء M36 PHASE 1–7",
+   "old_instruction": "تسلسل الـOwner الأصلي (GOV-029، D-001): … Wireframes → Design System → UI → Technical Architecture → Development …؛ IMPLEMENTATION-PLAN: P02 → P03 → P04 (Gate H) → P05 تصميم (M-10) → P06 منصة → P08 بناء → P09 Google → P10 QA → P11 إطلاق",
+   "old_source": "M01 §4 · IMPLEMENTATION-PLAN · FINAL-ARCHITECTURE-REVIEW AC-3 (\"التسلسل يبقى… والبنية التحتية بعد DB-08\")",
+   "new_instruction": "PHASE 1 Foundation (المعمارية · البيئات · البيانات · المصادقة · Master Data · Design System · التوجيه · AR/EN · Country/City/Branch) → 2 Core Website → 3 Owner Dashboard → 4 Business Modules → 5 Integrations → 6 Quality/Operations → 7 Release",
+   "new_source": "M36 §06, §07",
+   "winner": "M36 يحكم تسلسل البناء (BUILD-006)؛ حقل phase P00–P12 يبقى تصنيفًا للخطة مع جدول ربط: PHASE 1 ≈ P06 + بنية P05 + نماذج P04 · PHASE 2 ≈ P03 + P08 · PHASE 3 ≈ P04 + P08 · PHASE 4 ≈ P08 · PHASE 5 ≈ P09 · PHASE 6 ≈ P08/P10 · PHASE 7 ≈ P10 + P11 (+P12)؛ P00/P01/P02/P07 مسارات موازية؛ تبقى بوابتا P09 (Google الحي بالصلاحيات والموافقة) وP11 (الإطلاق بموافقة إلزامية)",
+   "why": "آخر قرار صريح يحدد الترتيب؛ M36 §11 يحتفظ ببوابات الإنتاج وGoogle",
+   "impact": "GOV-029 (SUPERSEDED) · D-001 · GOV-076 · IMPLEMENTATION-PLAN.md · PROGRESS.md",
+   "files": [
+    "docs/IMPLEMENTATION-PLAN.md",
+    "docs/PROGRESS.md"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "id": "G18-CF-05",
+   "topic": "تسمية غير المختبر: \"IMPLEMENTED — NOT TESTED\" مقابل \"IMPLEMENTED — NOT YET VERIFIED\"",
+   "old_instruction": "غير المختبر = IMPLEMENTED — NOT TESTED؛ تعداد التنفيذ: NOT STARTED · PARTIAL · IMPLEMENTED (— NOT TESTED) · TESTED · FROZEN · NEEDS FIX · CONFLICT",
+   "old_source": "M27 (GOV-071، D-224)",
+   "new_instruction": "لا تقل DONE/COMPLETE/FROZEN بلا Build/Test/Verify؛ غير المختبر = IMPLEMENTED — NOT YET VERIFIED؛ حالات التقدم NOT STARTED · IN PROGRESS · BLOCKED · READY FOR REVIEW · TESTED · COMPLETE",
+   "new_source": "M36 §19, §20",
+   "winner": "M36: التسمية الجديدة تحل محل القديمة (نفس المعنى) في التقارير والسجلات؛ حالات التقدم محور ثانٍ لكل Phase/Module (PROGRESS.md) لا يستبدل تعداد المتطلبات؛ FROZEN كحالة قرار يبقى، ويُمنع كادعاء إنجاز",
+   "why": "آخر قرار صريح؛ المعنى واحد فلا أثر على المضمون",
+   "impact": "GOV-071 · D-224 · build_master (IMPL_DONE) · CLAUDE.md · PROGRESS.md · جانب FROZEN كحالة متطلب مقابل التنفيذ مسجل في G16-CF-07",
+   "files": [
+    "CLAUDE.md",
+    "docs/PROGRESS.md"
+   ],
+   "status": "RESOLVED"
+  }
+ ],
+ "new_decisions": [
+  {
+   "temp_id": "G18-ND-01",
+   "area": "50 Build Mode & Delivery Governance",
+   "decision": "PLANNING CLOSED — BUILD MODE: انتهى جمع المتطلبات؛ القرارات المعتمدة السابقة هي المرجع؛ لا brainstorming ولا إعادة طرح ولا أسئلة تقنية صغيرة ولا Features لمجرد الإمكان؛ تسلسل START NOW (التجميع ← إزالة التكرار/التعارض ← المعمارية ← خارطة الطريق ← بناء واختبار PHASE 1 ← تقرير ← المتابعة)؛ البناء يبدأ بعد إنهاء كل المهام الحالية (المتابعتان)؛ الدور: Lead Engineer + System Architect + UX Quality Owner",
+   "sources": [
+    "M36 §00",
+    "M36 §01",
+    "M36 §02",
+    "M36 §25",
+    "M36 FINAL",
+    "M36 FU-1",
+    "M36 FU-2"
+   ],
+   "status": "APPROVED",
+   "reason": "M36 — OWNER APPROVED (PLANNING CLOSED — START BUILD)",
+   "impact": "BUILD-001 · BUILD-002 · BUILD-024 · GOV-021"
+  },
+  {
+   "temp_id": "G18-ND-02",
+   "area": "50 Build Mode & Delivery Governance",
+   "decision": "تحويل البوابات: موافقات المعمارية التقنية والـIA والـWireframes ← مراجعة غير مانعة (READY FOR REVIEW)؛ تبقى مانعة: Production · DNS · production redirects · production database · live Google setup · الخدمات المدفوعة · الحسابات والصلاحيات والأسرار · الإطلاق؛ الحقائق التجارية والهوية (M-10) وسياسة الفرنشايز والمراجعة القانونية = PENDING OWNER INPUT تمنع النشر لا البناء؛ مسار الإنتاج: Development → Testing → Staging → Final Verification → Owner Approval → Production",
+   "sources": [
+    "M36 §01",
+    "M36 §05",
+    "M36 §11",
+    "M36 §24"
+   ],
+   "status": "APPROVED",
+   "reason": "نتيجة مباشرة لنصوص M36 §1/§11/§24 (OWNER APPROVED)؛ قائمة أرقام البوابات مطابقة تقنية من Claude",
+   "impact": "BUILD-011 · BUILD-026 · GOV-040 · GOV-055 · GOV-047 · MENU-052 · CAREERS-097 · FRAN-104 · PO-001/004/005/007/045"
+  },
+  {
+   "temp_id": "G18-ND-03",
+   "area": "50 Build Mode & Delivery Governance",
+   "decision": "منصة البناء (ADR-001): Laravel 13 + MySQL/MariaDB على تطبيق Cloudways Flexible جديد ومستقل، Blade للموقع والـDashboard بمكتبة مكونات واحدة؛ WordPress القديم لا يُلمس حتى الإطلاق؛ لا DB على جهاز الـOwner ولا Falcon؛ للـOwner: إنشاء تطبيقَي Cloudways (أو الصلاحية) وأي ترقية مدفوعة",
+   "sources": [
+    "M36 §16",
+    "M36 §24"
+   ],
+   "status": "APPROVED WITH CONDITIONS",
+   "reason": "قرار تقني بتفويض M36 §24 ضمن Cloudways المعتمدة (M36 §16)؛ الشروط: سعة السيرفر (Cloudways audit) والتحقق من الإصدارات؛ ليس موافقة Owner صريحة على الإطار",
+   "impact": "DB-08 · PO-006 · PO-044 · CMS-021 · BUILD-016 · BUILD-025"
+  },
+  {
+   "temp_id": "G18-ND-04",
+   "area": "50 Build Mode & Delivery Governance",
+   "decision": "ترتيب البناء M36 PHASE 1–7 (Foundation → Core Website → Owner Dashboard → Business Modules → Integrations → Quality/Operations → Release) يحل محل P00–P12 كتسلسل بناء، وداخل كل Phase: PLAN → BUILD → TEST → FIX → DOCUMENT → COMMIT → VERIFY بلا أنظمة نصف مكتملة؛ بوابتا Google الحي والإطلاق تبقيان",
+   "sources": [
+    "M36 §06",
+    "M36 §07"
+   ],
+   "status": "APPROVED",
+   "reason": "M36 — OWNER APPROVED (PLANNING CLOSED — START BUILD)",
+   "impact": "BUILD-006 · BUILD-007 · GOV-029 · D-001 · GOV-076"
+  },
+  {
+   "temp_id": "G18-ND-05",
+   "area": "50 Build Mode & Delivery Governance",
+   "decision": "مفردات التقدم والإنجاز: لكل Phase/Module NOT STARTED · IN PROGRESS · BLOCKED · READY FOR REVIEW · TESTED · COMPLETE مع الإجابة عن (ما انتهى؟ ما الجاري؟ ما الباقي؟ هل يوجد Blocker؟ هل يوجد قرار Owner؟)؛ لا DONE/COMPLETE/FROZEN بلا Build + Test + Verify؛ غير المختبر = IMPLEMENTED — NOT YET VERIFIED",
+   "sources": [
+    "M36 §19",
+    "M36 §20"
+   ],
+   "status": "APPROVED",
+   "reason": "M36 — OWNER APPROVED (PLANNING CLOSED — START BUILD)",
+   "impact": "BUILD-019 · BUILD-020 · GOV-071 · docs/PROGRESS.md"
+  },
+  {
+   "temp_id": "G18-ND-06",
+   "area": "50 Build Mode & Delivery Governance",
+   "decision": "متى يُسأل الـOwner: فقط عند BUSINESS BLOCKER · LEGAL BLOCKER · FINANCIAL DECISION · Franchise policy · CONTENT FACT NOT APPROVED / unpublished factual information · EXTERNAL AUTHORIZATION / credential action · MAJOR DESIGN DIRECTION CONFLICT؛ البيانات الناقصة = PENDING OWNER INPUT ويستمر كل ما لا يعتمد عليها؛ القرار التقني يتخذه Claude",
+   "sources": [
+    "M36 §05",
+    "M36 §24"
+   ],
+   "status": "APPROVED",
+   "reason": "M36 — OWNER APPROVED (PLANNING CLOSED — START BUILD)",
+   "impact": "BUILD-005 · GOV-015 · GOV-035 · PERM-009"
+  },
+  {
+   "temp_id": "G18-ND-07",
+   "area": "50 Build Mode & Delivery Governance",
+   "decision": "مبادئ البناء: Design System أولًا · Master Data أولًا (لا Hardcode) · كل عملية يومية للـOwner بلا كود · اختبار أثناء البناء (Playwright · Chrome DevTools · axe · Lighthouse · Visual Regression · unit/integration) · Responsive مستمر (14 عرضًا + RTL/LTR + Touch + Keyboard + 200% zoom) · أداء كل Phase (bundle · images · fonts · LCP · INP · CLS · animation · third-party) · Security by default · Git نظيف بـCommits صغيرة بلا عمليات مدمرة · التوثيق أثناء البناء · الأدوات الموجودة بلا تكرار · لا شكل عام · البساطة",
+   "sources": [
+    "M36 §08",
+    "M36 §09",
+    "M36 §10",
+    "M36 §12",
+    "M36 §13",
+    "M36 §14",
+    "M36 §15",
+    "M36 §17",
+    "M36 §18",
+    "M36 §21",
+    "M36 §22",
+    "M36 §23"
+   ],
+   "status": "APPROVED",
+   "reason": "M36 — OWNER APPROVED (PLANNING CLOSED — START BUILD)",
+   "impact": "BUILD-008…018 · BUILD-021…023"
+  },
+  {
+   "temp_id": "G18-ND-08",
+   "area": "50 Build Mode & Delivery Governance",
+   "decision": "التوحيد وحل التعارض: نظام واحد لكل وظيفة (One Media Library · Global Calendar · Master Data Hub · Design System · Audit Log · Notification Center · Owner Dashboard · Source of Truth per data type)؛ التعارض: آخر قرار صريح يفوز، لا دمج لقرارين متعارضين، والقديم SUPERSEDED لا يُستخدم",
+   "sources": [
+    "M36 §03",
+    "M36 §04"
+   ],
+   "status": "APPROVED",
+   "reason": "M36 — OWNER APPROVED (PLANNING CLOSED — START BUILD)",
+   "impact": "BUILD-003 · BUILD-004 · GOV-007 · GOV-078 · OPS-002"
+  }
+ ],
+ "pending_owner": [
+  {
+   "id": "G10-PO-01",
+   "item": "↻ M36/ADR-001: لبدء الـStaging: إنشاء تطبيق Cloudways جديد للـStaging الآن (وتطبيق Production قبل الإطلاق) على السيرفر Flexible الحالي، أو منح عضوية فريق Cloudways بصلاحية على التطبيقات الجديدة فقط — مع صلاحية القراءة للـAudit (A-01…A-13). WordPress القديم لا يُلمس",
+   "category": "BLOCKING",
+   "type": "ACCESS",
+   "blocks": "PHASE 1 (environments: Staging) و PHASE 7 (staging/release) — التطوير المحلي لا يتوقف",
+   "refs": [
+    "BUILD-025",
+    "INFRA-002",
+    "INFRA-027",
+    "CF-002",
+    "M36 §11",
+    "M36 §16"
+   ],
+   "count": "",
+   "notes": "إضافة على G10-PO-01 (External authorization)"
+  },
+  {
+   "id": "PO-040",
+   "item": "↻ M36/ADR-001: إن أظهر Cloudways audit أن السيرفر لا يتحمل تطبيقين إضافيين: قرار الترقية المدفوعة لك؛ ومن يصون الموقع بعد الإطلاق (من PO-006)",
+   "category": "NON-BLOCKING",
+   "type": "BUSINESS DECISION",
+   "blocks": "فقط إن لزمت الترقية (FINANCIAL DECISION)",
+   "refs": [
+    "BUILD-025",
+    "PO-006",
+    "M36 §24"
+   ],
+   "count": "",
+   "notes": "إضافة على PO-040"
+  },
+  {
+   "id": "PO-002",
+   "item": "↻ M36 §8: الـDesign System يُبنى أولًا بقيم بنيوية محايدة؛ الطبقة البصرية النهائية (الشعار · الألوان · الخطوط بالترخيص) تنتظر ملفات الهوية",
+   "category": "BLOCKING",
+   "type": "CONTENT NEEDED",
+   "blocks": "الطبقة البصرية النهائية في PHASE 1 (Design System values) ونشر أي واجهة للزوار وVisual baselines — البناء البنيوي لا يتوقف",
+   "refs": [
+    "BUILD-008",
+    "BRAND-002",
+    "M-10",
+    "M36 §08"
+   ],
+   "count": "",
+   "notes": "إضافة على PO-002"
+  },
+  {
+   "id": "PO-009",
+   "item": "↻ M36 PHASE 5: الربط الحي مع Google Business Profile ينتظر الوصول (والمحولات تُبنى ببيانات تجريبية)",
+   "category": "BLOCKING",
+   "type": "ACCESS",
+   "blocks": "PHASE 5 (الربط الحي GBP) فقط",
+   "refs": [
+    "BUILD-006",
+    "MDH-025",
+    "M36 §06",
+    "M36 §11"
+   ],
+   "count": "",
+   "notes": "إضافة على PO-009"
+  },
+  {
+   "id": "PO-011",
+   "item": "↻ M36 PHASE 5/7: الربط الحي مع Search Console وجرد الروابط القديمة ينتظران الصلاحية/التصدير",
+   "category": "BLOCKING",
+   "type": "ACCESS",
+   "blocks": "PHASE 5 (GSC) · PHASE 7 (legacy URL migration)",
+   "refs": [
+    "BUILD-006",
+    "INFRA-032",
+    "M36 §06"
+   ],
+   "count": "",
+   "notes": "إضافة على PO-011"
+  },
+  {
+   "id": "PO-012",
+   "item": "↻ M36 PHASE 5: جرد GA4/GTM الموجود والربط الحي ينتظران الوصول (لا تتبع مكرر)",
+   "category": "BLOCKING",
+   "type": "ACCESS",
+   "blocks": "PHASE 5 (GA4/GTM الحي) فقط",
+   "refs": [
+    "BUILD-006",
+    "GOOGLE-009",
+    "M36 §06"
+   ],
+   "count": "",
+   "notes": "إضافة على PO-012"
+  },
+  {
+   "id": "PO-013",
+   "item": "↻ M36 PHASE 5/7: Cloudflare (الخطة + توكن بأقل صلاحية للقراءة والإبطال) للإبطال الذكي ولخطة التحويلات عند الإطلاق",
+   "category": "BLOCKING",
+   "type": "ACCESS",
+   "blocks": "PHASE 5 (Cloudflare integration) · PHASE 7 (redirects)",
+   "refs": [
+    "BUILD-006",
+    "MDH-016",
+    "M36 §06"
+   ],
+   "count": "",
+   "notes": "إضافة على PO-013"
+  },
+  {
+   "id": "PO-008",
+   "item": "↻ M36 PHASE 7: الجرد الكامل للروابط القديمة يحتاج تفعيل AC-01",
+   "category": "BLOCKING",
+   "type": "ACCESS",
+   "blocks": "PHASE 7 (legacy URL migration · redirect map)",
+   "refs": [
+    "INFRA-032",
+    "M36 §06"
+   ],
+   "count": "",
+   "notes": "إضافة على PO-008"
+  },
+  {
+   "id": "PO-019",
+   "item": "↻ M36: المراجعة القانونية (سياسة الخصوصية · الشروط · الموافقة · حقول النماذج والاحتفاظ) تمنع نشر الصفحات القانونية (PHASE 2) وتفعيل النماذج على Production (PHASE 4) — القوالب تُبنى الآن؛ الكيان القانوني للصفحات في PO-018",
+   "category": "BLOCKING",
+   "type": "BUSINESS DECISION",
+   "blocks": "نشر الصفحات القانونية وتفعيل النماذج على Production",
+   "refs": [
+    "BUILD-005",
+    "PRIV-003",
+    "PO-018",
+    "M36 §05",
+    "M36 §24"
+   ],
+   "count": "",
+   "notes": "إضافة على PO-019 (LEGAL BLOCKER)"
+  },
+  {
+   "id": "G11-PO-01",
+   "item": "↻ M36 PHASE 4: وحدة الشراكات تُبنى؛ نشر الأقسام الالتزامية في صفحة الفرنشايز ينتظر ملفات Franchise Master (Franchise policy)",
+   "category": "BLOCKING",
+   "type": "CONTENT NEEDED",
+   "blocks": "نشر محتوى الفرنشايز الالتزامي في PHASE 4 — بناء الوحدة لا يتوقف",
+   "refs": [
+    "FRAN-104",
+    "BUILD-005",
+    "M36 §05"
+   ],
+   "count": "",
+   "notes": "إضافة على G11-PO-01"
+  },
+  {
+   "id": "PO-039",
+   "item": "↻ M36 PHASE 7: دقائق GitHub Actions لتشغيل الـCI (Firefox/WebKit والمصفوفة الكاملة) — التشغيل المحلي متاح حتى الموافقة",
+   "category": "NON-BLOCKING",
+   "type": "ACCESS",
+   "blocks": "أتمتة الـCI في PHASE 7 (I-07)",
+   "refs": [
+    "BUILD-012",
+    "OPS-039",
+    "M36 §12"
+   ],
+   "count": "",
+   "notes": "إضافة على PO-039"
+  }
+ ],
+ "technical_flags": [
+  {
+   "id": "G18-TF-01",
+   "topic": "دمج G17/G18 في build_master",
+   "detail": "build_master.py: EXTRA يقرأ G10–G14 فقط؛ PREFIX_AREA وAREAS بلا INFRA/BUILD؛ IMPL_DONE لا يعرف IMPLEMENTED — NOT YET VERIFIED؛ updates من نوع RECLASSIFY/RESOLVE لمعرّفات PO/DB/D تُلحق كملاحظات فقط (لا تغيير فئة PO ولا حالة DB-08/D-001)؛ gap_audit غير مستهلك.",
+   "recommendation": "إضافة G15–G18 إلى EXTRA؛ PREFIX_AREA: INFRA → \"49\"، BUILD → \"50\" وأسماء المناطق؛ إضافة التسمية الجديدة إلى IMPL_DONE؛ تطبيق إعادة تصنيف PO-001/004/005/007/045 إلى NON-BLOCKING ومزامنة DB-08 (RESOLVED) وD-001 (SUPERSEDED) وD-213 يدويًا",
+   "needs_owner": false,
+   "refs": [
+    "BUILD-020",
+    "BUILD-026",
+    "G18-CF-05"
+   ]
+  },
+  {
+   "id": "G18-TF-02",
+   "topic": "التحقق من إصدارات المنصة عند الإعداد",
+   "detail": "ADR-001 يحدد Laravel 13 (PHP 8.3+)؛ إصدار PHP المتاح على السيرفر ودعم Laravel الفعلي يُتحققان في Cloudways audit وفي حاوية التطوير.",
+   "recommendation": "تثبيت الإصدارات في composer.json بعد التحقق؛ اختيار أحدث PHP يدعمه Cloudways والإطار؛ composer audit في CI",
+   "needs_owner": false,
+   "refs": [
+    "BUILD-025",
+    "CF-005"
+   ]
+  },
+  {
+   "id": "G18-TF-03",
+   "topic": "تشغيل البيئات على Cloudways",
+   "detail": "Staging وProduction تطبيقان جديدان على نفس السيرفر؛ المجدول يحتاج Cron، والطابور يحتاج Worker دائم؛ Varnish على مستوى السيرفر قد يخزن HTML.",
+   "recommendation": "Cron كل دقيقة لـschedule:run؛ Worker عبر Supervisor إن أتاحه Cloudways وإلا queue:work --stop-when-empty من الـCron؛ تعطيل Varnish للتطبيق (G17-TF-01)؛ قاعدتا بيانات وأسرار منفصلة؛ Staging محمي وnoindex",
+   "needs_owner": false,
+   "refs": [
+    "INFRA-002",
+    "INFRA-003",
+    "G10-PO-01"
+   ]
+  },
+  {
+   "id": "G18-TF-04",
+   "topic": "حالة PHASE 1 بلا تطبيق Staging",
+   "detail": "إلى أن يُنشأ تطبيق Cloudways يبقى بند environments (Staging) في PROGRESS.md بحالة BLOCKED (External authorization) بينما يستمر بقية PHASE 1 محليًا.",
+   "recommendation": "لا يُعلن PHASE 1 COMPLETE قبل نشر الأساس على Staging واختباره هناك",
+   "needs_owner": false,
+   "refs": [
+    "BUILD-019",
+    "G10-PO-01"
+   ]
+  },
+  {
+   "id": "G18-TF-05",
+   "topic": "جدول مفردات الحالة",
+   "detail": "ثلاثة محاور: حالة المتطلب (APPROVED …)، تنفيذ المتطلب (NOT STARTED · PARTIAL · IMPLEMENTED — NOT YET VERIFIED · TESTED · FROZEN · NEEDS FIX · CONFLICT)، تقدم المرحلة/الوحدة (NOT STARTED · IN PROGRESS · BLOCKED · READY FOR REVIEW · TESTED · COMPLETE).",
+   "recommendation": "COMPLETE = بُني + اختُبر + تحقق (RELEASE-CHECKLIST) + وُثق + Commit (+ موافقة الـOwner حيث توجد بوابة)؛ FROZEN للتنفيذ فقط لمخرج بيانات مجمّد (مثل Menu Inventory v1.0)",
+   "needs_owner": false,
+   "refs": [
+    "BUILD-019",
+    "BUILD-020"
+   ]
+  },
+  {
+   "id": "G18-TF-07",
+   "topic": "تداخل M37 وM38 (G19) مع G18",
+   "detail": "M37 (Toolchain — OWNER APPROVED) وM38 (Owner Clarification Rule — FROZEN) لاحقتان لـM36 وتفصّلان BUILD-005 (صيغة السؤال، الخيارات للعلامة/القانون/المال/المحتوى العام/الخصوصية/السياسة التجارية) وBUILD-011 (قائمة التغييرات الحساسة) وBUILD-021 (الأدوات).",
+   "recommendation": "G19 يغطيهما (TOOL-028…046، GOV-087…091)؛ BUILD-005/011/012/021 تحيل إليه ولا تكرر",
+   "needs_owner": false,
+   "refs": [
+    "BUILD-005",
+    "BUILD-011",
+    "BUILD-021"
+   ]
+  },
+  {
+   "id": "G18-TF-08",
+   "topic": "IMPLEMENTATION-PLAN.md وترتيب M36",
+   "detail": "الخطة المنشورة ما زالت P00–P12 ببوابات اعتماد بين المراحل؛ PROGRESS.md يتبع M36.",
+   "recommendation": "إضافة قسم \"ترتيب البناء M36\" بجدول الربط (G18-CF-04) عند إعادة التوليد، وإزالة صياغة البوابات المحولة",
+   "needs_owner": false,
+   "refs": [
+    "BUILD-002",
+    "BUILD-006"
+   ]
+  },
+  {
+   "id": "G18-TF-09",
+   "topic": "حارس النشر للإنتاج",
+   "detail": "الـOwner لا يستخدم GitHub (DASH-033) لكن الإنتاج يحتاج موافقته.",
+   "recommendation": "مهمة نشر الإنتاج يدوية التشغيل (لا نشر تلقائي)، تتطلب رقم الإصدار المعتمد في سجل الإصدارات (INFRA-004) بعد موافقة الـOwner في المحادثة أو الـDashboard",
+   "needs_owner": false,
+   "refs": [
+    "BUILD-011",
+    "INFRA-004",
+    "G14-CF-16"
+   ]
+  }
+ ],
+ "cost_api_dependencies": [
+  {
+   "feature": "Staging/Production apps (BUILD-025)",
+   "service": "تطبيقان إضافيان على سيرفر Cloudways Flexible الحالي",
+   "why": "بيئات منفصلة",
+   "free_alternative": "—",
+   "cost_or_quota": "بلا اشتراك جديد على نفس السيرفر (يُتحقق من حدود الخطة والسعة)",
+   "needs_approval": "YES — إنشاء التطبيقين/الصلاحية (G10-PO-01)"
+  },
+  {
+   "feature": "Server capacity (BUILD-025)",
+   "service": "ترقية سيرفر Cloudways",
+   "why": "فقط إن لم يتحمل السيرفر التطبيقين",
+   "free_alternative": "تحسين الإعداد/تعطيل ما لا يلزم",
+   "cost_or_quota": "زيادة الاشتراك الشهري حسب الحجم",
+   "needs_approval": "YES — قرار مالي (PO-040)"
+  },
+  {
+   "feature": "CI (BUILD-012/013)",
+   "service": "GitHub Actions",
+   "why": "تشغيل الاختبارات والمصفوفة الكاملة (Chromium + Firefox + WebKit)",
+   "free_alternative": "تشغيل محلي (Chromium) أو Runner ذاتي",
+   "cost_or_quota": "حصة دقائق شهرية للمستودع الخاص ثم مدفوع",
+   "needs_approval": "YES — إفصاح الحصة (I-07، PO-039)"
+  },
+  {
+   "feature": "Platform stack (BUILD-025)",
+   "service": "Laravel · PHPUnit · Vite · Lucide · motion · Storybook (OSS)",
+   "why": "الإطار والأدوات",
+   "free_alternative": "—",
+   "cost_or_quota": "مجاني (MIT وما شابه)",
+   "needs_approval": "NO"
+  },
+  {
+   "feature": "TLS/CDN",
+   "service": "Let’s Encrypt عبر Cloudways + Cloudflare الحالي",
+   "why": "HTTPS وCDN",
+   "free_alternative": "—",
+   "cost_or_quota": "مجاني ضمن الموجود",
+   "needs_approval": "NO (تغيير DNS/Cloudflare الإنتاجي بموافقة)"
+  },
+  {
+   "feature": "Real-device testing (BUILD-013)",
+   "service": "BrowserStack وما شابه",
+   "why": "—",
+   "free_alternative": "أجهزة حقيقية متاحة + Playwright WebKit",
+   "cost_or_quota": "مدفوع",
+   "needs_approval": "YES — غير مقترح"
+  }
+ ],
+ "dropped": [],
+ "notes": "G18 = مزامنة M36 (PLANNING CLOSED — START BUILD — OWNER APPROVED؛ 25 قسمًا + FINAL INSTRUCTION + متابعتان: \"طبعا بعد ما تخلص كل ال tasks\" · \"يعني بعد ما تخلص ككل ال tasks\"، قُرئت كاملة). المصادر \"M36 §NN\" و\"M36 FINAL\" و\"M36 FU-1/FU-2\". المنطقة الجديدة \"50 Build Mode & Delivery Governance\" بالبادئة BUILD (BUILD-001…026) — تحتاج BUILD:\"50\" وإضافة G18 إلى EXTRA في build_master. الحالة APPROVED (M36 OWNER APPROVED وليست FROZEN)؛ BUILD-025 (ADR-001) = APPROVED WITH CONDITIONS وowner_approved N/A (قرار تقني بتفويض M36 §24). P0 لقواعد الحوكمة؛ المراحل: P00 حوكمة · P05 Design System · P06 منصة/بيانات · P08 قواعد البناء اليومية (ترقيم IMPLEMENTATION-PLAN المنشور). تحويل البوابات (G18-CF-02، BUILD-026): SUPERSEDE لـGOV-040 · IA-014 · GOV-047 · MENU-052 · GOV-052 · GOV-055 · GOV-030 · GOV-029 · GOV-039؛ UPDATE لـGOV-054 · DASH-004 · DASH-005 · PERM-005 · IA-022 · OPS-006 · GOV-081/082 · WEB-009 · WEB-016 · SEO-034 · CAREERS-097 · FRAN-104 · CMS-014 · HOURS-005؛ ANSWERS لـIA-005؛ RECLASSIFY لـPO-001/004/005/007/045؛ RESOLVE لـDB-08 · PO-006 · PO-044؛ SUPERSEDE/UPDATE للقرارات D-001 · D-002 · D-213 (لا تُطبق آليًا في build_master). البوابات الباقية مانعة مدرجة بأرقامها في BUILD-026. لا تكرار مع المجموعات المتوازية: تعارضات الأدوات (Storybook/Tailwind/shadcn/Motion) = G16-CF-01…04، وDesign System First مقابل M-10 = G16-CF-08، وFROZEN مقابل التنفيذ = G16-CF-07، وM37/M38 = G19؛ لذلك لا تحديثات هنا على TOOL-019…027 وBRAND-007/015. AC-3 من FINAL-ARCHITECTURE-REVIEW مدمج في G18-CF-04. السياق المتزامن: CLAUDE.md (Build mode + Gates that still block) وdocs/PROGRESS.md (الحالات الست، المراحل 0–7) وADR-001 المحدث (Storybook عبر M37، لا Tailwind) تطابق G18. pending_owner: إضافات على بنود قائمة فقط تمنع مرحلة بناء (G10-PO-01 · PO-040 · PO-002 · PO-009 · PO-011 · PO-012 · PO-013 · PO-008 · PO-019 · G11-PO-01 · PO-039) — لا أسئلة جديدة؛ إعادة التصنيف إلى NON-BLOCKING عبر updates_to_existing (RECLASSIFY) تحتاج تطبيقًا يدويًا (G18-TF-01). لم تُعدّل أي ملفات في الـrepo."
+}

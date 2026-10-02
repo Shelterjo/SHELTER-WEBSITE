@@ -6,6 +6,7 @@ storage
 bootstrap/cache
 storybook-static
 tooling
+scripts/registers
 docs
 media
 design-system/build

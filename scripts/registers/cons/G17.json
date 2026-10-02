@@ -1,0 +1,4587 @@
+{
+ "group": "G17",
+ "gap_audit": [
+  {
+   "system": "Completeness classification (addendum principle)",
+   "m32_section": "M35 §00",
+   "classification": "IMPLEMENTED",
+   "existing_refs": [
+    "OPS-001",
+    "GOV-070"
+   ],
+   "existing_implementation": "G17 gap_audit + FINAL-ARCHITECTURE-REVIEW §1–4",
+   "missing": "تصحيح مفردات المراجعة (DESIGNED ← مفردات الـOwner)",
+   "overlap": "OPS-001 (نفس المنهج لـM32)",
+   "dependencies": [],
+   "priority": "P0",
+   "recommendation": "BUILD INFRA-001",
+   "new_ids": [
+    "INFRA-001"
+   ]
+  },
+  {
+   "system": "Environment strategy (Dev/Staging/Prod)",
+   "m32_section": "M35 §01",
+   "classification": "PARTIAL",
+   "existing_refs": [
+    "DEPLOY-004",
+    "SEO-028",
+    "SEC-004",
+    "SEC-002",
+    "CAREERS-092"
+   ],
+   "existing_implementation": "spec: FINAL-ARCHITECTURE-REVIEW §13 · ADR-001 · PLATFORM-ARCHITECTURE §1 · بعد M35: docs/platform/ENVIRONMENTS.md (SPEC)",
+   "missing": "فصل DB/config/secrets لكل بيئة؛ Staging بلا Analytics إنتاج ونماذج معزولة؛ ENVIRONMENTS.md؛ إنشاء تطبيقي Cloudways",
+   "overlap": "DEPLOY-004 = المسار؛ SEO-028/SEC-004 = حماية الفهرسة",
+   "dependencies": [
+    "ADR-001",
+    "G10-PO-01"
+   ],
+   "priority": "P0",
+   "recommendation": "BUILD INFRA-002/003 + UPDATE DEPLOY-004/SEO-028/SEC-004",
+   "new_ids": [
+    "INFRA-002",
+    "INFRA-003"
+   ]
+  },
+  {
+   "system": "Production deployment control (release registry)",
+   "m32_section": "M35 §02",
+   "classification": "MISSING",
+   "existing_refs": [
+    "DEPLOY-003",
+    "OPS-039"
+   ],
+   "existing_implementation": "spec فقط: FINAL-ARCHITECTURE-REVIEW §13 · جدول releases · بعد M35: docs/platform/DEPLOYMENT.md (SPEC)",
+   "missing": "سجل الإصدارات بالحقول الستة + صفحة WHAT CHANGED + DEPLOYMENT.md",
+   "overlap": "DEPLOY-003 (ملخص ← موافقة)",
+   "dependencies": [
+    "OPS-039"
+   ],
+   "priority": "P0",
+   "recommendation": "BUILD INFRA-004",
+   "new_ids": [
+    "INFRA-004"
+   ]
+  },
+  {
+   "system": "Rollback system",
+   "m32_section": "M35 §03",
+   "classification": "PARTIAL",
+   "existing_refs": [
+    "AUDIT-004",
+    "AUDIT-008",
+    "DEPLOY-009"
+   ],
+   "existing_implementation": "تراجع المحتوى فقط (Versions) مواصفة · بعد M35: docs/platform/ROLLBACK.md (SPEC)",
+   "missing": "تراجع الكود والإعدادات والـMigrations + ROLLBACK.md + تمرين",
+   "overlap": "AUDIT-004 (المحتوى)",
+   "dependencies": [
+    "INFRA-006"
+   ],
+   "priority": "P0",
+   "recommendation": "BUILD INFRA-005 + UPDATE AUDIT-004/008",
+   "new_ids": [
+    "INFRA-005"
+   ]
+  },
+  {
+   "system": "Monitoring center (15 sources)",
+   "m32_section": "M35 §04",
+   "classification": "PARTIAL",
+   "existing_refs": [
+    "MON-001",
+    "MON-002",
+    "MON-004",
+    "MON-005",
+    "MON-007",
+    "OPS-025",
+    "OPS-027",
+    "OPS-041",
+    "OPS-048"
+   ],
+   "existing_implementation": "مواصفات M25/M32 لجزء من المصادر · بعد M35: docs/platform/MONITORING.md (SPEC)",
+   "missing": "API/DB health · failed forms/uploads · scheduler · token expiry · analytics tracking health · Search Console status · Google sync failures",
+   "overlap": "OPS-048 = المحرك الواحد",
+   "dependencies": [
+    "INFRA-025",
+    "PO-011",
+    "PO-012",
+    "I-12"
+   ],
+   "priority": "P0",
+   "recommendation": "BUILD INFRA-007 (ONE signals engine)",
+   "new_ids": [
+    "INFRA-007"
+   ]
+  },
+  {
+   "system": "Incident center",
+   "m32_section": "M35 §05",
+   "classification": "NEEDS IMPROVEMENT",
+   "existing_refs": [
+    "OPS-048",
+    "DASH-017",
+    "MON-007"
+   ],
+   "existing_implementation": "Needs Attention مواصفة (3 مستويات)",
+   "missing": "مقياس 5 مستويات + حقول الحادثة + resolved/unresolved",
+   "overlap": "Incident Center = Needs Attention (طابور واحد)",
+   "dependencies": [],
+   "priority": "P0",
+   "recommendation": "MERGE INTO OPS-048/DASH-017 (updates) — لا مركز ثانٍ",
+   "new_ids": []
+  },
+  {
+   "system": "Owner-friendly errors",
+   "m32_section": "M35 §06",
+   "classification": "NEEDS IMPROVEMENT",
+   "existing_refs": [
+    "DASH-034",
+    "DASH-020"
+   ],
+   "existing_implementation": "قاعدة لغة صاحب العمل (FROZEN)",
+   "missing": "أمثلة الأخطاء الممنوعة + Fix Connection + Advanced",
+   "overlap": "DASH-034",
+   "dependencies": [
+    "INFRA-025"
+   ],
+   "priority": "P1",
+   "recommendation": "EXTEND DASH-034 + Fix Connection في INFRA-025",
+   "new_ids": []
+  },
+  {
+   "system": "Unified notification center",
+   "m32_section": "M35 §07",
+   "classification": "MISSING",
+   "existing_refs": [
+    "MON-009",
+    "MON-008",
+    "CAREERS-055"
+   ],
+   "existing_implementation": "قواعد فقط (داخل الـDashboard، بلا Spam) · بعد M35: docs/platform/NOTIFICATIONS.md (SPEC)",
+   "missing": "مركز واحد بالأنواع الخمسة عشر فوق signals",
+   "overlap": "Needs Attention (نفس المصدر بعرض آخر)",
+   "dependencies": [
+    "OPS-048"
+   ],
+   "priority": "P1",
+   "recommendation": "BUILD INFRA-012",
+   "new_ids": [
+    "INFRA-012"
+   ]
+  },
+  {
+   "system": "Notification priority & actions",
+   "m32_section": "M35 §08",
+   "classification": "MISSING",
+   "existing_refs": [
+    "MON-008"
+   ],
+   "existing_implementation": "none · بعد M35: docs/platform/INCIDENTS.md · docs/platform/NOTIFICATIONS.md (SPEC)",
+   "missing": "4 أولويات + Mark Read/Resolve/Open Source/Dismiss + منع إخفاء الحرج بلا سجل",
+   "overlap": "—",
+   "dependencies": [
+    "INFRA-012"
+   ],
+   "priority": "P0",
+   "recommendation": "BUILD INFRA-013",
+   "new_ids": [
+    "INFRA-013"
+   ]
+  },
+  {
+   "system": "Unified inquiries center",
+   "m32_section": "M35 §09",
+   "classification": "MISSING",
+   "existing_refs": [
+    "CONTACT-013",
+    "IA-008",
+    "OPS-030"
+   ],
+   "existing_implementation": "صفحة تواصل حسب النية بالأرقام (D-059) — لا نموذج · بعد M35: docs/platform/INQUIRIES.md · docs/platform/VOICE-OF-CUSTOMER.md (SPEC)",
+   "missing": "INQUIRIES/INBOX بالأنواع السبعة؛ التوظيف والشراكات مستقلان",
+   "overlap": "Voice of Customer (OPS-030) — G17-CF-10",
+   "dependencies": [
+    "PO-019",
+    "PO-028"
+   ],
+   "priority": "P0",
+   "recommendation": "BUILD INFRA-014",
+   "new_ids": [
+    "INFRA-014"
+   ]
+  },
+  {
+   "system": "Inquiry data model",
+   "m32_section": "M35 §10",
+   "classification": "MISSING",
+   "existing_refs": [],
+   "existing_implementation": "none · بعد M35: docs/platform/INQUIRIES.md (SPEC)",
+   "missing": "الحقول الثلاثة عشر والحالات الخمس",
+   "overlap": "Applications Core المشترك",
+   "dependencies": [
+    "INFRA-019"
+   ],
+   "priority": "P0",
+   "recommendation": "BUILD INFRA-015",
+   "new_ids": [
+    "INFRA-015"
+   ]
+  },
+  {
+   "system": "Form reliability layer",
+   "m32_section": "M35 §11",
+   "classification": "PARTIAL",
+   "existing_refs": [
+    "CAREERS-040",
+    "FRAN-046",
+    "SEC-006",
+    "SEC-007"
+   ],
+   "existing_implementation": "RECRUITMENT-SECURITY §6 (التوظيف) · بعد M35: docs/platform/FORM-RELIABILITY.md (SPEC)",
+   "missing": "طبقة واحدة لكل النماذج (Contact/Careers/Franchise/Feedback/future)",
+   "overlap": "نمط التوظيف يُعمم",
+   "dependencies": [],
+   "priority": "P0",
+   "recommendation": "BUILD INFRA-016",
+   "new_ids": [
+    "INFRA-016"
+   ]
+  },
+  {
+   "system": "Form failure handling",
+   "m32_section": "M35 §12",
+   "classification": "PARTIAL",
+   "existing_refs": [
+    "PRIV-013",
+    "MON-004"
+   ],
+   "existing_implementation": "نماذج حالات الشبكة في Wireframes الفرنشايز · بعد M35: docs/platform/FORM-RELIABILITY.md (SPEC)",
+   "missing": "حفظ المدخلات + إعادة محاولة آمنة + Issue Form failure لكل النماذج",
+   "overlap": "—",
+   "dependencies": [
+    "INFRA-016"
+   ],
+   "priority": "P0",
+   "recommendation": "BUILD INFRA-017",
+   "new_ids": [
+    "INFRA-017"
+   ]
+  },
+  {
+   "system": "Idempotency / duplicate safety",
+   "m32_section": "M35 §13",
+   "classification": "PARTIAL",
+   "existing_refs": [],
+   "existing_implementation": "idempotency_key للتوظيف (RECRUITMENT-SECURITY §6) · بعد M35: docs/platform/FORM-RELIABILITY.md (SPEC)",
+   "missing": "تعميم + شرط عدم منع الطلبات المستقلة",
+   "overlap": "—",
+   "dependencies": [
+    "INFRA-016"
+   ],
+   "priority": "P0",
+   "recommendation": "BUILD INFRA-018",
+   "new_ids": [
+    "INFRA-018"
+   ]
+  },
+  {
+   "system": "Reference numbers",
+   "m32_section": "M35 §14",
+   "classification": "PARTIAL",
+   "existing_refs": [
+    "CAREERS-040",
+    "FRAN-046"
+   ],
+   "existing_implementation": "JOB-/FR- مواصفة · بعد M35: docs/platform/FORM-RELIABILITY.md · docs/platform/INQUIRIES.md (SPEC)",
+   "missing": "INQ- + خدمة مشتركة واحدة",
+   "overlap": "عدادات الوحدات ← خدمة واحدة",
+   "dependencies": [],
+   "priority": "P0",
+   "recommendation": "BUILD INFRA-019 + UPDATE CAREERS-040/FRAN-046",
+   "new_ids": [
+    "INFRA-019"
+   ]
+  },
+  {
+   "system": "Legacy URL inventory",
+   "m32_section": "M35 §15",
+   "classification": "PARTIAL",
+   "existing_refs": [
+    "SEO-009",
+    "SEO-010",
+    "SEO-014",
+    "GSC-005"
+   ],
+   "existing_implementation": "02-url-inventory seed · SEO-MIGRATION-MAP (DRAFT) · بعد M35: docs/platform/LEGACY-URL-MIGRATION.md (SPEC)",
+   "missing": "الحقول السبعة + مفردات KEEP/301/410/REVIEW + الاكتمال بعد الوصول",
+   "overlap": "SEO-010 (مفردات أخرى — G17-CF-08)",
+   "dependencies": [
+    "PO-008",
+    "PO-011",
+    "PO-014"
+   ],
+   "priority": "P0",
+   "recommendation": "BUILD INFRA-032 + UPDATE SEO-010",
+   "new_ids": [
+    "INFRA-032"
+   ]
+  },
+  {
+   "system": "Redirect map",
+   "m32_section": "M35 §16",
+   "classification": "PARTIAL",
+   "existing_refs": [
+    "SEO-011",
+    "SEO-018",
+    "SEO-013"
+   ],
+   "existing_implementation": "قواعد 301 مواصفة · بعد M35: docs/platform/LEGACY-URL-MIGRATION.md (SPEC)",
+   "missing": "قاعدة أقرب مكافئ ومنع التحويل الجماعي للرئيسية + اختبار آلي",
+   "overlap": "Redirect Manager (SEO-018)",
+   "dependencies": [
+    "INFRA-032"
+   ],
+   "priority": "P0",
+   "recommendation": "BUILD INFRA-033",
+   "new_ids": [
+    "INFRA-033"
+   ]
+  },
+  {
+   "system": "404 experience",
+   "m32_section": "M35 §17",
+   "classification": "NEEDS IMPROVEMENT",
+   "existing_refs": [
+    "SEO-019"
+   ],
+   "existing_implementation": "متطلب بالروابط الأربعة",
+   "missing": "ضمن Design System وليست framework default",
+   "overlap": "—",
+   "dependencies": [
+    "BUILD-008"
+   ],
+   "priority": "P0",
+   "recommendation": "EXTEND SEO-019",
+   "new_ids": []
+  },
+  {
+   "system": "500 / error experience",
+   "m32_section": "M35 §18",
+   "classification": "MISSING",
+   "existing_refs": [
+    "MON-004"
+   ],
+   "existing_implementation": "none · بعد M35: docs/platform/MONITORING.md · docs/platform/SITE-INVENTORY.md (SPEC)",
+   "missing": "صفحة خطأ ثابتة بالإجراءات الأربعة",
+   "overlap": "—",
+   "dependencies": [
+    "BUILD-008"
+   ],
+   "priority": "P0",
+   "recommendation": "BUILD INFRA-020",
+   "new_ids": [
+    "INFRA-020"
+   ]
+  },
+  {
+   "system": "Maintenance experience",
+   "m32_section": "M35 §19",
+   "classification": "MISSING",
+   "existing_refs": [
+    "OPS-023",
+    "OPS-024"
+   ],
+   "existing_implementation": "Safe Mode مواصفة · بعد M35: docs/platform/SAFE-MODE.md · docs/platform/SITE-INVENTORY.md (SPEC)",
+   "missing": "حالة صيانة بالهوية كملاذ أخير",
+   "overlap": "Safe Mode أولًا (AC-5)",
+   "dependencies": [
+    "OPS-023"
+   ],
+   "priority": "P1",
+   "recommendation": "BUILD INFRA-021",
+   "new_ids": [
+    "INFRA-021"
+   ]
+  },
+  {
+   "system": "Empty states",
+   "m32_section": "M35 §20",
+   "classification": "PARTIAL",
+   "existing_refs": [
+    "DX-012"
+   ],
+   "existing_implementation": "قاعدة الموقع العام + حالات Wireframes",
+   "missing": "حالة فارغة مفسرة لكل وحدة Dashboard",
+   "overlap": "DX-012",
+   "dependencies": [],
+   "priority": "P1",
+   "recommendation": "BUILD INFRA-022 + UPDATE DX-012",
+   "new_ids": [
+    "INFRA-022"
+   ]
+  },
+  {
+   "system": "Full PWA / offline",
+   "m32_section": "M35 §21",
+   "classification": "NOT NEEDED",
+   "existing_refs": [
+    "OPS-055"
+   ],
+   "existing_implementation": "تقييم مستقبلي P2",
+   "missing": "— (لا نحتاج Full PWA الآن)",
+   "overlap": "OPS-055",
+   "dependencies": [],
+   "priority": "P2",
+   "recommendation": "KEEP OPS-055 as P2 evaluation",
+   "new_ids": []
+  },
+  {
+   "system": "Graceful network failure",
+   "m32_section": "M35 §21",
+   "classification": "PARTIAL",
+   "existing_refs": [
+    "PERF-015",
+    "DASH-023",
+    "DX-037"
+   ],
+   "existing_implementation": "قواعد · بعد M35: docs/platform/MONITORING.md (SPEC)",
+   "missing": "قاعدة عامة + Timeouts + اختبارات حجب الشبكة",
+   "overlap": "—",
+   "dependencies": [],
+   "priority": "P1",
+   "recommendation": "BUILD INFRA-023",
+   "new_ids": [
+    "INFRA-023"
+   ]
+  },
+  {
+   "system": "Cache / CDN architecture",
+   "m32_section": "M35 §22",
+   "classification": "MISSING",
+   "existing_refs": [
+    "CF-006",
+    "DASH-022"
+   ],
+   "existing_implementation": "spec: FINAL-ARCHITECTURE-REVIEW §13 (بلا طبقة Cloudways) · بعد M35: docs/platform/CACHE-CDN.md (SPEC)",
+   "missing": "استراتيجية مصدر وإبطال لكل طبقة بما فيها Cloudways Varnish + CACHE-CDN.md",
+   "overlap": "—",
+   "dependencies": [
+    "PO-013"
+   ],
+   "priority": "P0",
+   "recommendation": "BUILD INFRA-024",
+   "new_ids": [
+    "INFRA-024"
+   ]
+  },
+  {
+   "system": "Smart cache invalidation",
+   "m32_section": "M35 §23",
+   "classification": "NEEDS IMPROVEMENT",
+   "existing_refs": [
+    "MDH-016",
+    "OPS-012",
+    "OPS-015",
+    "MEDIA-013"
+   ],
+   "existing_implementation": "spec (مثال بمعرّف خاطئ) · بعد M35: docs/platform/CACHE-CDN.md (SPEC)",
+   "missing": "وسوم من Usage graph + Purge by tag/URL",
+   "overlap": "MDH-016 (M33) يغطي الإبطال الانتقائي بالوسوم",
+   "dependencies": [
+    "PO-013"
+   ],
+   "priority": "P0",
+   "recommendation": "EXTEND MDH-016 (مثال M35 + تصحيح المعرّف) — لا متطلب جديد",
+   "new_ids": []
+  },
+  {
+   "system": "Critical data freshness",
+   "m32_section": "M35 §24",
+   "classification": "NEEDS IMPROVEMENT",
+   "existing_refs": [
+    "MDH-016",
+    "MDH-029",
+    "HOURS-009",
+    "DASH-022"
+   ],
+   "existing_implementation": "حساب الحالة ديناميكيًا للساعات (مواصفة) · بعد M35: docs/platform/CACHE-CDN.md (SPEC)",
+   "missing": "سياسة TTL حسب الحدود + فحص حداثة الحافة",
+   "overlap": "MDH-016 + MDH-029",
+   "dependencies": [
+    "INFRA-009"
+   ],
+   "priority": "P0",
+   "recommendation": "EXTEND MDH-016/MDH-029 (الحملات/الفعاليات/التوفر + TTL حسب الحدود + فحص الحافة)",
+   "new_ids": []
+  },
+  {
+   "system": "Global data sync confirmation",
+   "m32_section": "M35 §25",
+   "classification": "PARTIAL",
+   "existing_refs": [
+    "MDH-025",
+    "MDH-026",
+    "GBP-009"
+   ],
+   "existing_implementation": "MASTER-DATA-HUB §11 (حالة المزامنة) · بعد M35: docs/platform/CACHE-CDN.md (SPEC)",
+   "missing": "خطوتا الإبطال والتحقق في نفس الخط",
+   "overlap": "MDH-025 = نفس التدفق (REDUNDANT بمفردات G14)",
+   "dependencies": [
+    "G15"
+   ],
+   "priority": "P0",
+   "recommendation": "MERGE INTO MDH-025 (إضافة المصدر فقط)",
+   "new_ids": []
+  },
+  {
+   "system": "Credential / integration registry",
+   "m32_section": "M35 §26",
+   "classification": "PARTIAL",
+   "existing_refs": [
+    "CF-008",
+    "CF-009",
+    "DASH-021"
+   ],
+   "existing_implementation": "spec: FINAL-ARCHITECTURE-REVIEW §12 · جدول integrations · بعد M35: docs/platform/INTEGRATION-REGISTRY.md (SPEC)",
+   "missing": "السجل بالحقول الثمانية + Fix Connection",
+   "overlap": "سجل أدوات التطوير مختلف؛ حالة المزامنة من نفس السجل",
+   "dependencies": [],
+   "priority": "P0",
+   "recommendation": "BUILD INFRA-025",
+   "new_ids": [
+    "INFRA-025"
+   ]
+  },
+  {
+   "system": "Secrets management",
+   "m32_section": "M35 §27",
+   "classification": "NEEDS IMPROVEMENT",
+   "existing_refs": [
+    "SEC-002",
+    "CW-05"
+   ],
+   "existing_implementation": "قاعدة نافذة (لا أسرار في الواجهة)",
+   "missing": "لكل بيئة + لا في public repo أو CMS content",
+   "overlap": "SEC-002",
+   "dependencies": [],
+   "priority": "P0",
+   "recommendation": "EXTEND SEC-002",
+   "new_ids": []
+  },
+  {
+   "system": "Service ownership register",
+   "m32_section": "M35 §28",
+   "classification": "PARTIAL",
+   "existing_refs": [
+    "PO-037"
+   ],
+   "existing_implementation": "أسئلة فقط · بعد M35: docs/platform/INTEGRATION-REGISTRY.md (SPEC)",
+   "missing": "السجل للخدمات التسع بلا أسرار",
+   "overlap": "INTEGRATION-REGISTRY",
+   "dependencies": [
+    "PO-037"
+   ],
+   "priority": "P1",
+   "recommendation": "BUILD INFRA-026",
+   "new_ids": [
+    "INFRA-026"
+   ]
+  },
+  {
+   "system": "Disaster recovery plan",
+   "m32_section": "M35 §29",
+   "classification": "PARTIAL",
+   "existing_refs": [
+    "OPS-041",
+    "CAREERS-090",
+    "FRAN-066"
+   ],
+   "existing_implementation": "CLOUDWAYS-RECRUITMENT-ARCHITECTURE §6 (التوظيف) · بعد M35: docs/platform/DISASTER-RECOVERY.md (SPEC)",
+   "missing": "خطة شاملة للعناصر السبعة",
+   "overlap": "—",
+   "dependencies": [
+    "G10-PO-01",
+    "PO-039"
+   ],
+   "priority": "P0",
+   "recommendation": "BUILD INFRA-027",
+   "new_ids": [
+    "INFRA-027"
+   ]
+  },
+  {
+   "system": "Restore test",
+   "m32_section": "M35 §30",
+   "classification": "NEEDS IMPROVEMENT",
+   "existing_refs": [
+    "OPS-041",
+    "OPS-042"
+   ],
+   "existing_implementation": "متطلب M32",
+   "missing": "سجل Last Backup/Last Restore Test/Result وشرط عدم الصحة الكاملة",
+   "overlap": "OPS-042",
+   "dependencies": [],
+   "priority": "P0",
+   "recommendation": "EXTEND OPS-041/042",
+   "new_ids": []
+  },
+  {
+   "system": "Internationalization architecture",
+   "m32_section": "M35 §31",
+   "classification": "PARTIAL",
+   "existing_refs": [
+    "WEB-002",
+    "WEB-007",
+    "I18N-002",
+    "DX-023"
+   ],
+   "existing_implementation": "مبادئ + جدول markets في PLATFORM-ARCHITECTURE · بعد M35: docs/platform/INTERNATIONALIZATION.md (SPEC)",
+   "missing": "كيان السوق بأبعاده الثمانية + INTERNATIONALIZATION.md",
+   "overlap": "—",
+   "dependencies": [],
+   "priority": "P0",
+   "recommendation": "BUILD INFRA-028",
+   "new_ids": [
+    "INFRA-028"
+   ]
+  },
+  {
+   "system": "No country hardcoding",
+   "m32_section": "M35 §32",
+   "classification": "PARTIAL",
+   "existing_refs": [
+    "WEB-002",
+    "OPS-012"
+   ],
+   "existing_implementation": "مبدأ · بعد M35: docs/platform/INTERNATIONALIZATION.md (SPEC)",
+   "missing": "فحص آلي للقيم JO/JOD/Asia/Amman/+962",
+   "overlap": "فحص Hardcode (OPS-012)",
+   "dependencies": [],
+   "priority": "P0",
+   "recommendation": "BUILD INFRA-029",
+   "new_ids": [
+    "INFRA-029"
+   ]
+  },
+  {
+   "system": "Country → City → Branch",
+   "m32_section": "M35 §33",
+   "classification": "NEEDS IMPROVEMENT",
+   "existing_refs": [
+    "WEB-003",
+    "D-010",
+    "DB-15"
+   ],
+   "existing_implementation": "متطلب + نموذج مقترح",
+   "missing": "إضافة طبقة Brand صراحة",
+   "overlap": "WEB-003",
+   "dependencies": [],
+   "priority": "P0",
+   "recommendation": "EXTEND WEB-003",
+   "new_ids": []
+  },
+  {
+   "system": "Master site inventory",
+   "m32_section": "M35 §34",
+   "classification": "PARTIAL",
+   "existing_refs": [
+    "WEB-010",
+    "IA-005"
+   ],
+   "existing_implementation": "10-url-architecture-draft · بعد M35: docs/platform/SITE-INVENTORY.md (SPEC)",
+   "missing": "SITE-INVENTORY.md بالحقول العشرة",
+   "overlap": "M36 §2 SITE INVENTORY (نفس الملف)",
+   "dependencies": [],
+   "priority": "P0",
+   "recommendation": "BUILD INFRA-030",
+   "new_ids": [
+    "INFRA-030"
+   ]
+  },
+  {
+   "system": "Content ownership map",
+   "m32_section": "M35 §35",
+   "classification": "PARTIAL",
+   "existing_refs": [
+    "OPS-002",
+    "GOV-078"
+   ],
+   "existing_implementation": "MASTER-DATA-HUB §3 (البيانات الرئيسية) · بعد M35: docs/platform/CONTENT-SOURCE-OF-TRUTH.md (SPEC)",
+   "missing": "كل أنواع المحتوى",
+   "overlap": "M36 §2 DATA SOURCE OF TRUTH (نفس الملف)",
+   "dependencies": [],
+   "priority": "P0",
+   "recommendation": "BUILD INFRA-031",
+   "new_ids": [
+    "INFRA-031"
+   ]
+  },
+  {
+   "system": "Release checklist (global DoD)",
+   "m32_section": "M35 §36",
+   "classification": "PARTIAL",
+   "existing_refs": [
+    "TEST-002",
+    "TEST-004",
+    "GOV-086",
+    "OPS-054",
+    "CAREERS-099",
+    "FRAN-102",
+    "SEO-041"
+   ],
+   "existing_implementation": "7 قوائم DoD متفرقة · بعد M35: docs/platform/RELEASE-CHECKLIST.md (SPEC)",
+   "missing": "قائمة واحدة بـ17 فحصًا تُحال إليها البقية",
+   "overlap": "كل قوائم DoD",
+   "dependencies": [],
+   "priority": "P0",
+   "recommendation": "BUILD INFRA-034 + UPDATE (إحالات)",
+   "new_ids": [
+    "INFRA-034"
+   ]
+  },
+  {
+   "system": "Browser QA",
+   "m32_section": "M35 §37",
+   "classification": "NEEDS IMPROVEMENT",
+   "existing_refs": [
+    "TEST-010"
+   ],
+   "existing_implementation": "Chromium محليًا؛ Firefox/WebKit في الإعداد للـCI",
+   "missing": "تشغيل Firefox/WebKit فعليًا (CI) + Edge + Mobile Safari",
+   "overlap": "TEST-010",
+   "dependencies": [
+    "I-07"
+   ],
+   "priority": "P0",
+   "recommendation": "EXTEND TEST-010 (P1→P0)",
+   "new_ids": []
+  },
+  {
+   "system": "Device QA",
+   "m32_section": "M35 §38",
+   "classification": "NEEDS IMPROVEMENT",
+   "existing_refs": [
+    "TEST-011",
+    "RESP-004"
+   ],
+   "existing_implementation": "tooling/viewports.mjs (20 مشروعًا)",
+   "missing": "اختبار لمس وتنقل حقيقي على أجهزة",
+   "overlap": "TEST-011",
+   "dependencies": [],
+   "priority": "P1",
+   "recommendation": "EXTEND TEST-011",
+   "new_ids": []
+  },
+  {
+   "system": "Data portability",
+   "m32_section": "M35 §39",
+   "classification": "PARTIAL",
+   "existing_refs": [
+    "CAREERS-072"
+   ],
+   "existing_implementation": "تصدير التوظيف مواصفة · بعد M35: docs/platform/DATA-PORTABILITY.md (SPEC)",
+   "missing": "خدمة تصدير واحدة للكيانات الاثني عشر",
+   "overlap": "CAREERS-072",
+   "dependencies": [],
+   "priority": "P1",
+   "recommendation": "BUILD INFRA-035",
+   "new_ids": [
+    "INFRA-035"
+   ]
+  },
+  {
+   "system": "Export security",
+   "m32_section": "M35 §40",
+   "classification": "PARTIAL",
+   "existing_refs": [
+    "CAREERS-072",
+    "CAREERS-073"
+   ],
+   "existing_implementation": "قواعد التوظيف · بعد M35: docs/platform/DATA-PORTABILITY.md (SPEC)",
+   "missing": "تعميم بالتصنيف",
+   "overlap": "—",
+   "dependencies": [
+    "INFRA-039"
+   ],
+   "priority": "P0",
+   "recommendation": "BUILD INFRA-036",
+   "new_ids": [
+    "INFRA-036"
+   ]
+  },
+  {
+   "system": "System portability",
+   "m32_section": "M35 §41",
+   "classification": "PARTIAL",
+   "existing_refs": [
+    "ADR-001",
+    "INT-016"
+   ],
+   "existing_implementation": "ADR-001 (العواقب) · بعد M35: docs/platform/DATA-PORTABILITY.md (SPEC)",
+   "missing": "مخططات موثقة + تمرين استرجاع خارجي",
+   "overlap": "—",
+   "dependencies": [],
+   "priority": "P1",
+   "recommendation": "BUILD INFRA-037",
+   "new_ids": [
+    "INFRA-037"
+   ]
+  },
+  {
+   "system": "Owner command center",
+   "m32_section": "M35 §42",
+   "classification": "NEEDS IMPROVEMENT",
+   "existing_refs": [
+    "DASH-007",
+    "DASH-008",
+    "DASH-017"
+   ],
+   "existing_implementation": "Executive KPIs + Needs Attention (مواصفة) · بعد M35: docs/platform/INCIDENTS.md · docs/platform/NOTIFICATIONS.md (SPEC)",
+   "missing": "بطاقات حالة + أعداد + حملة نشطة",
+   "overlap": "DASH-007/008 (G17-CF-06)",
+   "dependencies": [
+    "INFRA-010",
+    "MDH-025"
+   ],
+   "priority": "P0",
+   "recommendation": "BUILD INFRA-011 + UPDATE DASH-007/008",
+   "new_ids": [
+    "INFRA-011"
+   ]
+  },
+  {
+   "system": "No vanity dashboard",
+   "m32_section": "M35 §43",
+   "classification": "NEEDS IMPROVEMENT",
+   "existing_refs": [
+    "DASH-018",
+    "DASH-025"
+   ],
+   "existing_implementation": "قاعدة Actionable",
+   "missing": "اختبار الأسئلة الثلاثة لكل Card",
+   "overlap": "DASH-018",
+   "dependencies": [],
+   "priority": "P0",
+   "recommendation": "EXTEND DASH-018 (+ INFRA-011)",
+   "new_ids": []
+  },
+  {
+   "system": "Readiness / health model",
+   "m32_section": "M35 §44",
+   "classification": "NEEDS IMPROVEMENT",
+   "existing_refs": [
+    "DASH-025",
+    "DASH-026",
+    "SEO-038"
+   ],
+   "existing_implementation": "Score اختياري (DASH-026) · بعد M35: docs/platform/INCIDENTS.md · docs/platform/MONITORING.md (SPEC)",
+   "missing": "9 فئات × 3 حالات بلا رقم إجمالي",
+   "overlap": "DASH-026 (SUPERSEDED)",
+   "dependencies": [],
+   "priority": "P0",
+   "recommendation": "BUILD INFRA-010 + SUPERSEDE DASH-026",
+   "new_ids": [
+    "INFRA-010"
+   ]
+  },
+  {
+   "system": "Single needs attention queue",
+   "m32_section": "M35 §45",
+   "classification": "NEEDS IMPROVEMENT",
+   "existing_refs": [
+    "OPS-048",
+    "DASH-017"
+   ],
+   "existing_implementation": "محرك Issues واحد (مواصفة)",
+   "missing": "أمثلة M35 + \"لا 15 Module\"",
+   "overlap": "OPS-048",
+   "dependencies": [],
+   "priority": "P0",
+   "recommendation": "EXTEND OPS-048/DASH-017",
+   "new_ids": []
+  },
+  {
+   "system": "System-wide audit trail",
+   "m32_section": "M35 §46",
+   "classification": "NEEDS IMPROVEMENT",
+   "existing_refs": [
+    "AUDIT-001",
+    "AUDIT-010"
+   ],
+   "existing_implementation": "audit_logs مشترك (مواصفة)",
+   "missing": "الإجراءات الآلية والمزامنة والتصدير والتراجع والأمن",
+   "overlap": "AUDIT-001",
+   "dependencies": [],
+   "priority": "P0",
+   "recommendation": "EXTEND AUDIT-001/010",
+   "new_ids": []
+  },
+  {
+   "system": "Owner global search",
+   "m32_section": "M35 §47",
+   "classification": "NEEDS IMPROVEMENT",
+   "existing_refs": [
+    "DASH-019"
+   ],
+   "existing_implementation": "متطلب P2",
+   "missing": "الكيانات العشرة + احترام الصلاحيات + P1",
+   "overlap": "DASH-019",
+   "dependencies": [],
+   "priority": "P1",
+   "recommendation": "EXTEND DASH-019 (P2→P1)",
+   "new_ids": []
+  },
+  {
+   "system": "Command palette / power user",
+   "m32_section": "M35 §48",
+   "classification": "NOT NEEDED",
+   "existing_refs": [
+    "DASH-019"
+   ],
+   "existing_implementation": "none",
+   "missing": "اختياري بعد V1",
+   "overlap": "Global search يكفي V1",
+   "dependencies": [],
+   "priority": "P2",
+   "recommendation": "DEFER INFRA-040",
+   "new_ids": [
+    "INFRA-040"
+   ]
+  },
+  {
+   "system": "Scheduled job health",
+   "m32_section": "M35 §49",
+   "classification": "MISSING",
+   "existing_refs": [
+    "DX-013",
+    "CMS-009"
+   ],
+   "existing_implementation": "none · بعد M35: docs/platform/MONITORING.md (SPEC)",
+   "missing": "Last Run/Next Run/Failures لكل مهمة",
+   "overlap": "—",
+   "dependencies": [],
+   "priority": "P0",
+   "recommendation": "BUILD INFRA-008",
+   "new_ids": [
+    "INFRA-008"
+   ]
+  },
+  {
+   "system": "Time-based automation reliability",
+   "m32_section": "M35 §50",
+   "classification": "PARTIAL",
+   "existing_refs": [
+    "DX-013",
+    "DX-023",
+    "CMS-009",
+    "CAMP-006"
+   ],
+   "existing_implementation": "قواعد DX (الخادم، Asia/Amman) · بعد M35: docs/platform/CACHE-CDN.md · docs/platform/MONITORING.md (SPEC)",
+   "missing": "تعميم + الحساب عند الطلب + Audit",
+   "overlap": "DX-023",
+   "dependencies": [],
+   "priority": "P0",
+   "recommendation": "BUILD INFRA-009",
+   "new_ids": [
+    "INFRA-009"
+   ]
+  },
+  {
+   "system": "Database migration governance",
+   "m32_section": "M35 §51",
+   "classification": "PARTIAL",
+   "existing_refs": [
+    "DEPLOY-005",
+    "DEPLOY-008",
+    "CW-06"
+   ],
+   "existing_implementation": "قواعد · بعد M35: docs/platform/DEPLOYMENT.md (SPEC)",
+   "missing": "versioned + Expand/Contract + Backup/Staging/Rollback قبل الحساس",
+   "overlap": "—",
+   "dependencies": [],
+   "priority": "P0",
+   "recommendation": "BUILD INFRA-006",
+   "new_ids": [
+    "INFRA-006"
+   ]
+  },
+  {
+   "system": "File storage governance",
+   "m32_section": "M35 §52",
+   "classification": "PARTIAL",
+   "existing_refs": [
+    "CAREERS-037",
+    "FRAN-051",
+    "SEC-009"
+   ],
+   "existing_implementation": "private_html للتوظيف (مواصفة) · بعد M35: docs/platform/DATA-CLASSIFICATION.md (SPEC)",
+   "missing": "المناطق الأربع + فحص الوصول المباشر",
+   "overlap": "—",
+   "dependencies": [],
+   "priority": "P0",
+   "recommendation": "BUILD INFRA-038",
+   "new_ids": [
+    "INFRA-038"
+   ]
+  },
+  {
+   "system": "Data classification",
+   "m32_section": "M35 §53",
+   "classification": "MISSING",
+   "existing_refs": [
+    "PRIV-013"
+   ],
+   "existing_implementation": "ضمني فقط · بعد M35: docs/platform/DATA-CLASSIFICATION.md (SPEC)",
+   "missing": "المستويات الأربعة مربوطة بالوصول والتخزين والتصدير والتحليلات",
+   "overlap": "—",
+   "dependencies": [],
+   "priority": "P0",
+   "recommendation": "BUILD INFRA-039",
+   "new_ids": [
+    "INFRA-039"
+   ]
+  },
+  {
+   "system": "Launch readiness checklist",
+   "m32_section": "M35 §54",
+   "classification": "PARTIAL",
+   "existing_refs": [
+    "DEPLOY-010",
+    "SEO-020",
+    "GBP-014"
+   ],
+   "existing_implementation": "Google checklist (مواصفة) · بعد M35: docs/platform/LAUNCH-READINESS.md (SPEC)",
+   "missing": "قائمة واحدة بالبنود الستة والعشرين",
+   "overlap": "3 قوائم ← واحدة",
+   "dependencies": [],
+   "priority": "P0",
+   "recommendation": "BUILD INFRA-041",
+   "new_ids": [
+    "INFRA-041"
+   ]
+  },
+  {
+   "system": "Post-launch verification",
+   "m32_section": "M35 §55",
+   "classification": "PARTIAL",
+   "existing_refs": [
+    "MON-011",
+    "MON-012"
+   ],
+   "existing_implementation": "POST-LAUNCH-GOOGLE-CHECKLIST · بعد M35: docs/platform/POST-LAUNCH-VERIFICATION.md (SPEC)",
+   "missing": "T+1h/T+24h/T+7d موحدة مع جدول MON-011",
+   "overlap": "MON-011 (G17-CF-09)",
+   "dependencies": [],
+   "priority": "P0",
+   "recommendation": "BUILD INFRA-042",
+   "new_ids": [
+    "INFRA-042"
+   ]
+  },
+  {
+   "system": "Documentation (20 docs)",
+   "m32_section": "M35 §56",
+   "classification": "MISSING",
+   "existing_refs": [
+    "OPS-008"
+   ],
+   "existing_implementation": "0/20",
+   "missing": "الوثائق العشرون",
+   "overlap": "OPS-008 (19 وثيقة M32 — قائمة أخرى)",
+   "dependencies": [],
+   "priority": "P0",
+   "recommendation": "BUILD INFRA-043",
+   "new_ids": [
+    "INFRA-043"
+   ]
+  },
+  {
+   "system": "Master sync",
+   "m32_section": "M35 §57",
+   "classification": "PARTIAL",
+   "existing_refs": [
+    "OPS-009",
+    "GOV-073"
+   ],
+   "existing_implementation": "G17 (هذا الملف)؛ السجلات DRAFT",
+   "missing": "توليد السجلات من G17",
+   "overlap": "OPS-009",
+   "dependencies": [],
+   "priority": "P0",
+   "recommendation": "EXTEND OPS-009/GOV-073",
+   "new_ids": []
+  },
+  {
+   "system": "Owner only",
+   "m32_section": "M35 §58",
+   "classification": "IMPLEMENTED",
+   "existing_refs": [
+    "DASH-032",
+    "OPS-050",
+    "PERM-004"
+   ],
+   "existing_implementation": "قاعدة FROZEN نافذة",
+   "missing": "تسمية Security/Export/Deployment/Emergency controls صراحة",
+   "overlap": "DASH-032",
+   "dependencies": [],
+   "priority": "P0",
+   "recommendation": "EXTEND DASH-032/OPS-050 (scope)",
+   "new_ids": []
+  },
+  {
+   "system": "Owner no-code principle",
+   "m32_section": "M35 §59",
+   "classification": "NEEDS IMPROVEMENT",
+   "existing_refs": [
+    "CMS-033",
+    "DASH-033",
+    "GOV-058"
+   ],
+   "existing_implementation": "قواعد FROZEN",
+   "missing": "terminal + Cloudways file manager + infrastructure change",
+   "overlap": "CMS-033/DASH-033/GOV-058",
+   "dependencies": [],
+   "priority": "P0",
+   "recommendation": "EXTEND CMS-033/DASH-033/GOV-058",
+   "new_ids": []
+  },
+  {
+   "system": "Final architecture goal",
+   "m32_section": "M35 §60",
+   "classification": "PARTIAL",
+   "existing_refs": [
+    "INT-013",
+    "INT-016"
+   ],
+   "existing_implementation": "PLATFORM-ARCHITECTURE + FINAL-ARCHITECTURE-REVIEW §11–12",
+   "missing": "الحفاظ على التطابق أثناء البناء",
+   "overlap": "—",
+   "dependencies": [],
+   "priority": "P0",
+   "recommendation": "DOCUMENT INFRA-044",
+   "new_ids": [
+    "INFRA-044"
+   ]
+  },
+  {
+   "system": "First response (17-item review)",
+   "m32_section": "M35 §61",
+   "classification": "NEEDS IMPROVEMENT",
+   "existing_refs": [],
+   "existing_implementation": "docs/FINAL-ARCHITECTURE-REVIEW.md",
+   "missing": "تصحيح 14 نقصًا (G17-TF-16)؛ البوابة تحولت بـM36",
+   "overlap": "—",
+   "dependencies": [
+    "BUILD-026"
+   ],
+   "priority": "P0",
+   "recommendation": "FIX INFRA-045",
+   "new_ids": [
+    "INFRA-045"
+   ]
+  },
+  {
+   "system": "Final rule (feature filter + simplicity)",
+   "m32_section": "M35 §62",
+   "classification": "NEEDS IMPROVEMENT",
+   "existing_refs": [
+    "OPS-003",
+    "UX-001"
+   ],
+   "existing_implementation": "اختبار القبول (7 معايير M32)",
+   "missing": "المعايير التسعة + \"لا تُترك Critical Infrastructure ناقصة\"",
+   "overlap": "OPS-003 (G17-CF-11)",
+   "dependencies": [],
+   "priority": "P1",
+   "recommendation": "EXTEND OPS-003",
+   "new_ids": []
+  }
+ ],
+ "requirements": [
+  {
+   "id": "INFRA-001",
+   "area": "49 Infrastructure, Release & Operations",
+   "type": "RULE",
+   "title": "M35 ملحق الاكتمال النهائي — صنّف أولًا (5 تصنيفات) ثم نفّذ النواقص الفعلية فقط",
+   "requirement": "M35 (FINAL COMPLETENESS GAP ADDENDUM — REMAINING MISSING SYSTEMS ONLY — OWNER APPROVED — P0 ARCHITECTURE REVIEW REQUIRED) ملحق للمشروع الحالي: لا يُعاد بناء أو تكرار أي نظام اعتُمد أو نُفذ سابقًا. قبل أي تنفيذ تُقرأ: MASTER REQUIREMENTS · DECISION REGISTER · TRACEABILITY MATRIX · current repository · current Owner Dashboard · existing architecture · existing integrations؛ ثم يُصنَّف كل بند: IMPLEMENTED · PARTIAL · MISSING · NEEDS IMPROVEMENT · NOT NEEDED، وتُنفذ النواقص الفعلية فقط. الهدف: أن يصبح SHELTER Website نظامًا متكاملًا، قابلًا للإدارة والمراقبة والاستعادة والتوسع، وليس مجرد مجموعة صفحات.",
+   "details": [
+    "التصنيف منفّذ في هذا التدقيق: G17 gap_audit (صف لكل نظام من أنظمة M35 الـ62 قسمًا).",
+    "معايير التصنيف (امتداد OPS-001): IMPLEMENTED = قاعدة نافذة أو أداة تعمل اليوم · PARTIAL = متطلبات/مواصفات تغطي جزءًا · MISSING = لا شيء يغطي الجوهر · NEEDS IMPROVEMENT = متطلب قائم يغطيه ويحتاج توسيعًا · NOT NEEDED = خارج V1 بنص M35 نفسه (Full PWA §21، Command palette §48).",
+    "ملاحظة: FINAL-ARCHITECTURE-REVIEW §1–4 استخدم DESIGNED بدل مفردات الـOwner (IMPLEMENTED/NEEDS IMPROVEMENT) — يُصحح بالتصنيف هنا (G17-TF-16).",
+    "لا شيء من أنظمة M35 مبني كتطبيق (EVIDENCE: لا كود موقع)؛ التصنيف يقيس المتطلبات والمواصفات والأدوات."
+   ],
+   "sources": [
+    "M35 §00",
+    "M35 §62"
+   ],
+   "decision_refs": [
+    "G17-ND-01"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "IMPLEMENTED — NOT TESTED",
+   "tested": "N/A",
+   "existing_impl": "G17 gap_audit + docs/FINAL-ARCHITECTURE-REVIEW.md §1–4",
+   "missing_work": "تصحيح مفردات التصنيف في المراجعة؛ ثم إكمال النواقص حسب BUILD-006",
+   "dependencies": [
+    "OPS-001",
+    "GOV-070",
+    "GOV-072"
+   ],
+   "test_required": "مراجعة: كل قسم من M35 له صف في gap_audit بتصنيف من المفردات الخمس ومرجع متطلب/تحديث",
+   "design_refs": [
+    "docs/FINAL-ARCHITECTURE-REVIEW.md §1–4"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P00",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "INFRA-002",
+   "area": "49 Infrastructure, Release & Operations",
+   "type": "REQUIREMENT",
+   "title": "ثلاث بيئات منفصلة: DEVELOPMENT · STAGING · PRODUCTION",
+   "requirement": "فصل واضح بين DEVELOPMENT وSTAGING وPRODUCTION: Database/configuration separation واضحة، وProduction secrets منفصلة لا تُستخدم في أي بيئة أخرى. لا تعمل Claude Code أو الاختبارات مباشرة على Production. المسار: Development → Automated Tests → Staging → Owner Review → Production.",
+   "details": [
+    "ADR-001: Development = حاوية التطوير (SQLite للاختبارات الآلية، بيانات معتمدة أو اصطناعية فقط) — لا قاعدة على جهاز الـOwner ولا بيانات Falcon (BUILD-016، CAREERS-092).",
+    "Staging = تطبيق Cloudways مستقل (CW-07) بقاعدة وأسرار خاصة؛ Production = تطبيق Cloudways جديد مستقل؛ تطبيق WordPress القديم وقاعدته لا يُلمسان حتى الإطلاق (ADR-001).",
+    "لكل بيئة ملف .env على الخادم فقط: APP_KEY ومفاتيح التشفير وبيانات DB مختلفة؛ لا Secrets في Git ولا في .env.example (SEC-002).",
+    "M36 §11 (الأحدث) يصوغ المسار: Development → Testing → Staging → Final Verification → Owner Approval → Production (BUILD-011) — متسق ويضيف خطوة التحقق النهائي.",
+    "حارس تقني: إعداد الاختبارات (Playwright/Lighthouse) يرفض الـBase URL الإنتاجي (TEST-024: لا Load testing أو زحف عدواني على Production).",
+    "الوثيقة: docs/ENVIRONMENTS.md."
+   ],
+   "sources": [
+    "M35 §01"
+   ],
+   "decision_refs": [
+    "G17-ND-02",
+    "ADR-001",
+    "D-172"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec (SPEC — READY FOR BUILD): docs/platform/ENVIRONMENTS.md — spec: docs/FINAL-ARCHITECTURE-REVIEW.md §13 · docs/architecture/PLATFORM-ARCHITECTURE.md §1 · docs/adr/ADR-001-platform.md",
+   "missing_work": "إنشاء تطبيقي Cloudways (Staging/Production) بعد تفويض الـOwner + إعداد .env لكل بيئة + حارس الاختبارات + ENVIRONMENTS.md",
+   "dependencies": [
+    "ADR-001",
+    "G10-PO-01",
+    "SEC-002",
+    "DEPLOY-004",
+    "BUILD-011",
+    "BUILD-016"
+   ],
+   "test_required": "فحص آلي: DB_DATABASE/APP_URL/APP_KEY مختلفة بين البيئات؛ لا قيمة سرية للإنتاج في Staging أو Git (secret scan)؛ تشغيل الاختبارات ضد نطاق الإنتاج يفشل عمدًا؛ مراجعة ENVIRONMENTS.md",
+   "design_refs": [
+    "docs/platform/ENVIRONMENTS.md",
+    "docs/FINAL-ARCHITECTURE-REVIEW.md §13",
+    "docs/architecture/PLATFORM-ARCHITECTURE.md §1",
+    "docs/adr/ADR-001-platform.md",
+    "docs/CLOUDWAYS-RECRUITMENT-ARCHITECTURE.md §2 (CW-01, CW-07)"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P06",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "INFRA-003",
+   "area": "49 Infrastructure, Release & Operations",
+   "type": "REQUIREMENT",
+   "title": "عزل الـStaging: لا فهرسة، لا Analytics Production، ونماذجه لا تختلط بالإنتاج",
+   "requirement": "الـStaging غير مفهرس بواسطة Google، ولا يرسل Analytics إلى Production، ونماذجه (Contact · Careers · Franchise · Feedback) لا تختلط ببيانات Production.",
+   "details": [
+    "الفهرسة: Authentication + noindex (رأس X-Robots-Tag على كل الردود) + blocking — robots.txt وحده ليس حماية (SEO-028، SEC-004).",
+    "Analytics (AC-4): لا Measurement ID الإنتاج في Staging؛ الافتراضي: لا إرسال إلى GA4 والتحقق من dataLayer داخل Playwright؛ إنشاء GA4 Property أو Data stream اختباري = تغيير إعداد Google يحتاج بوابة P09 وموافقة (GOOGLE-008) — G17-TF-09.",
+    "النماذج: تُحفظ في قاعدة الـStaging فقط؛ لا إشعار ولا بريد يصل للإنتاج؛ الأرقام المرجعية في الـStaging مميزة (INFRA-019) حتى لا تُخلط.",
+    "بيانات الإنتاج المسترجعة على Staging لاختبار الاستعادة تبقى Owner-only وتُحذف بعد التحقق (G14-TF-11)؛ الأصل في Staging بيانات اصطناعية (CW-07)."
+   ],
+   "sources": [
+    "M35 §01"
+   ],
+   "decision_refs": [
+    "G17-ND-02"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec (SPEC — READY FOR BUILD): docs/platform/ENVIRONMENTS.md — spec: docs/FINAL-ARCHITECTURE-REVIEW.md §6 (AC-4) · §13",
+   "missing_work": "إعداد الحماية وnoindex والـAnalytics المعطل وعزل النماذج على تطبيق الـStaging",
+   "dependencies": [
+    "INFRA-002",
+    "SEO-028",
+    "SEC-004",
+    "GOOGLE-008",
+    "INFRA-019"
+   ],
+   "test_required": "اختبار: طلب الـStaging بلا مصادقة = 401؛ كل رد يحمل X-Robots-Tag: noindex؛ لا طلبات شبكة إلى google-analytics/googletagmanager من الـStaging؛ إرسال نموذج على الـStaging لا يظهر في الإنتاج",
+   "design_refs": [
+    "docs/platform/ENVIRONMENTS.md",
+    "docs/FINAL-ARCHITECTURE-REVIEW.md §6 AC-4",
+    "docs/FINAL-ARCHITECTURE-REVIEW.md §13"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P06",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "INFRA-004",
+   "area": "49 Infrastructure, Release & Operations",
+   "type": "REQUIREMENT",
+   "title": "سجل الإصدارات (Release Registry) — WHAT CHANGED IN THIS RELEASE?",
+   "requirement": "لا Deploy عشوائيًا. كل Release يحتوي: release ID/version · date/time · changes · deployment status · test result · rollback reference. الـOwner يستطيع معرفة: WHAT CHANGED IN THIS RELEASE?",
+   "details": [
+    "جدول releases (PLATFORM-ARCHITECTURE §3.5): الرقم، الـCommit، التغييرات (من الـCommits/PR)، نتيجة الـCI، حالة النشر، الإصدار المستقر السابق (= rollback reference).",
+    "صفحة SYSTEM › Releases في الـDashboard بلغة صاحب العمل (\"ماذا تغيّر؟\")، والتفاصيل التقنية تحت Advanced (DASH-034).",
+    "PRODUCTION APPROVAL = موافقة الـOwner على ملخص الإصدار (DEPLOY-003، G14-CF-16)؛ Claude ينفذ النشر عبر الـPipeline (OPS-039) — لا يحتاج الـOwner GitHub.",
+    "صيغة رقم الإصدار قرار تقني (مثلًا YYYY.MM.DD-N).",
+    "الوثيقة: docs/DEPLOYMENT.md."
+   ],
+   "sources": [
+    "M35 §02"
+   ],
+   "decision_refs": [
+    "G17-ND-02"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec (SPEC — READY FOR BUILD): docs/platform/DEPLOYMENT.md — spec: docs/FINAL-ARCHITECTURE-REVIEW.md §13 (الإصدار) · docs/architecture/PLATFORM-ARCHITECTURE.md §3.5",
+   "missing_work": "جدول releases + توليد الملخص من الـPipeline + صفحة Releases + DEPLOYMENT.md",
+   "dependencies": [
+    "OPS-039",
+    "DEPLOY-003",
+    "DEPLOY-004",
+    "INFRA-005",
+    "BUILD-011"
+   ],
+   "test_required": "نشر تجريبي على Staging يُنشئ سجل إصدار كامل الحقول الستة؛ الصفحة تعرض التغييرات بلغة الـOwner؛ Audit لكل نشر",
+   "design_refs": [
+    "docs/platform/DEPLOYMENT.md",
+    "docs/FINAL-ARCHITECTURE-REVIEW.md §13",
+    "docs/architecture/PLATFORM-ARCHITECTURE.md §3.5"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "INFRA-005",
+   "area": "49 Infrastructure, Release & Operations",
+   "type": "REQUIREMENT",
+   "title": "نظام التراجع (Rollback) — العودة السريعة إلى Previous Stable Release",
+   "requirement": "إذا سببت Release مشكلة يجب العودة بسرعة إلى Previous Stable Release. يغطي الـRollback قدر الإمكان: application/code · configuration · database migrations safely · critical content dependencies. لا تُعتبر Deployment architecture مكتملة بدون Rollback Plan.",
+   "details": [
+    "الكود: إعادة نشر Artifact الإصدار المستقر السابق المحفوظ؛ الإعدادات: بإصدارات؛ الـMigrations: Expand → Migrate → Contract (INFRA-006) فيبقى الإصدار السابق متوافقًا مع المخطط (G17-TF-08)؛ المحتوى: content_versions (AUDIT-003/AUDIT-004).",
+    "التراجع إجراء Deployment control: Owner-only بإعادة مصادقة (M35 §58، OPS-036) ويُسجل في Audit (M35 §46).",
+    "تمرين تراجع فعلي على Staging قبل الإطلاق (يدخل LAUNCH-READINESS — INFRA-041).",
+    "الوثيقة: docs/ROLLBACK.md."
+   ],
+   "sources": [
+    "M35 §03"
+   ],
+   "decision_refs": [
+    "G17-ND-02"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec (SPEC — READY FOR BUILD): docs/platform/ROLLBACK.md — spec: docs/FINAL-ARCHITECTURE-REVIEW.md §13 (التراجع)",
+   "missing_work": "آلية حفظ Artifacts + إجراء التراجع + تمرين على Staging + ROLLBACK.md",
+   "dependencies": [
+    "INFRA-004",
+    "INFRA-006",
+    "AUDIT-004",
+    "AUDIT-008",
+    "DEPLOY-009"
+   ],
+   "test_required": "تمرين: نشر إصدار تجريبي ثم التراجع إلى السابق على Staging خلال زمن موثق دون فقد بيانات؛ التحقق من توافق المخطط",
+   "design_refs": [
+    "docs/platform/ROLLBACK.md",
+    "docs/FINAL-ARCHITECTURE-REVIEW.md §13"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "INFRA-006",
+   "area": "49 Infrastructure, Release & Operations",
+   "type": "RULE",
+   "title": "حوكمة Database Migrations — versioned، لا تعديل يدوي للإنتاج",
+   "requirement": "أي تغيير Database Schema = versioned migration. لا يُعدَّل Production schema يدويًا. قبل أي migration حساس: backup · test staging · rollback plan.",
+   "details": [
+    "database/migrations مصدر المخطط الوحيد (PLATFORM-ARCHITECTURE §2).",
+    "مستخدم DB منفصل للـMigrations بصلاحيات أوسع، ومستخدم التطبيق بأقل صلاحية (CW-06).",
+    "Expand → Migrate → Contract: لا حذف عمود/جدول في نفس إصدار إيقاف استخدامه؛ الـContract في إصدار لاحق بعد ثبات السابق؛ لا اعتماد على down() في الإنتاج (G17-TF-08).",
+    "تشغيل الـMigrations ضمن الـPipeline بعد Backup آلي، وعلى Staging أولًا (DEPLOY-005).",
+    "DEPLOY-008 (لا irreversible migrations على Production) يبقى نافذًا."
+   ],
+   "sources": [
+    "M35 §51"
+   ],
+   "decision_refs": [
+    "G17-ND-02"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec (SPEC — READY FOR BUILD): docs/platform/DEPLOYMENT.md — spec: docs/FINAL-ARCHITECTURE-REVIEW.md §13 · docs/CLOUDWAYS-RECRUITMENT-ARCHITECTURE.md §2 (CW-06)",
+   "missing_work": "قواعد الـPipeline (Backup قبل الـMigration) + فحص CI يمنع حذف أعمدة غير مُعلن + توثيق في DEPLOYMENT.md",
+   "dependencies": [
+    "DEPLOY-005",
+    "DEPLOY-008",
+    "INFRA-005",
+    "OPS-039"
+   ],
+   "test_required": "فحص: لا تغيير مخطط خارج database/migrations؛ سجل Backup قبل كل Migration على Staging/Production؛ مراجعة كل Migration حساسة بخطة تراجع مكتوبة",
+   "design_refs": [
+    "docs/platform/DEPLOYMENT.md",
+    "docs/FINAL-ARCHITECTURE-REVIEW.md §13",
+    "docs/architecture/PLATFORM-ARCHITECTURE.md §2"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "INFRA-007",
+   "area": "49 Infrastructure, Release & Operations",
+   "type": "REQUIREMENT",
+   "title": "Monitoring Center — المصادر الخمسة عشر في محرك إشارات واحد",
+   "requirement": "بنية Monitoring / Site Health تراقب على الأقل: Website uptime · API health · Server errors · frontend errors · failed forms · failed uploads · database connectivity · external integration failures · Google sync failures · Analytics tracking health · Search Console integration status · scheduled task failures · expired credentials/tokens · broken media · abnormal performance degradation. كل مراقب يكتب في محرك الإشارات/الـIssues الواحد (OPS-048) — لا مركز مراقبة ثانٍ.",
+   "details": [
+    "المصادر والآليات (FINAL-ARCHITECTURE-REVIEW §14): Uptime ← مراقب خارجي بموافقة (I-12) أو فحص من خارج السيرفر · API/DB ← Endpoint صحة داخلي · أخطاء الخادم والواجهة ← سجل ذاتي مجمّع بلا PII (Sentry فقط بموافقة — INT-005) · النماذج والرفع ← طبقة موثوقية النماذج (INFRA-016) وخط الرفع · المزامنة ← طوابير المزامنة (MASTER-DATA-HUB §12) · التحليلات ← عدّاد أحداث يومي عبر GA4 Data API (PO-012) · الرموز ← Integration Registry (INFRA-025) · المجدول ← scheduled_job_runs (INFRA-008) · الأداء ← RUM p75 (OPS-025/027) · الوسائط والروابط ← MON-002.",
+    "Search Console integration status (غائب صراحة عن جدول المراجعة §14): Heartbeat آخر استدعاء ناجح لـSearch Console API في Integration Registry؛ قبل منح الوصول PENDING INTEGRATION (PO-011).",
+    "كل إشارة بشدة CRITICAL/HIGH/MEDIUM/LOW/INFO (G17-CF-05) وفئة من فئات الصحة (INFRA-010).",
+    "الوثيقة: docs/MONITORING.md."
+   ],
+   "sources": [
+    "M35 §04"
+   ],
+   "decision_refs": [
+    "G17-ND-03"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec (SPEC — READY FOR BUILD): docs/platform/MONITORING.md — spec: docs/FINAL-ARCHITECTURE-REVIEW.md §14 · MON-001…MON-007 · OPS-048",
+   "missing_work": "تنفيذ المراقبات الخمسة عشر وربطها بجدول signals + MONITORING.md",
+   "dependencies": [
+    "MON-001",
+    "MON-002",
+    "MON-004",
+    "MON-005",
+    "MON-007",
+    "OPS-025",
+    "OPS-027",
+    "OPS-041",
+    "OPS-048",
+    "INFRA-008",
+    "INFRA-025",
+    "PO-011",
+    "PO-012"
+   ],
+   "test_required": "اختبار حقن فشل لكل مصدر (إيقاف DB على Staging، رمز منتهي، فشل نموذج، مهمة متأخرة…) ← ظهور Issue بالشدة الصحيحة وبلغة الـOwner ورابط مباشر",
+   "design_refs": [
+    "docs/platform/MONITORING.md",
+    "docs/FINAL-ARCHITECTURE-REVIEW.md §14",
+    "docs/MASTER-DATA-HUB.md §12"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "INFRA-008",
+   "area": "49 Infrastructure, Release & Operations",
+   "type": "REQUIREMENT",
+   "title": "صحة المجدول (Scheduled Job Health): Last Run · Next Run · Failures",
+   "requirement": "بما أن الموقع فيه scheduled campaigns · special hours · events · seasonal experiences · scheduled publishing يجب مراقبة الـScheduler وعرض: Last Run · Next Run · Failures — لأن Event لا يجوز أن يبقى ظاهرًا بعد انتهائه بسبب Scheduler failed.",
+   "details": [
+    "جدول scheduled_job_runs (PLATFORM-ARCHITECTURE §3.1)؛ Laravel Scheduler + Queue (ADR-001).",
+    "تأخر مهمة (لم تعمل خلال ضعف فاصلها) أو فشلها ← Issue HIGH؛ يُعرض في QUALITY › Site Health.",
+    "الحماية الأساسية من بقاء محتوى منتهٍ: الحالة الزمنية تُحسب عند الطلب (INFRA-009) فلا يعتمد الإخفاء على المهمة وحدها."
+   ],
+   "sources": [
+    "M35 §49"
+   ],
+   "decision_refs": [
+    "G17-ND-03"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec (SPEC — READY FOR BUILD): docs/platform/MONITORING.md — spec: docs/FINAL-ARCHITECTURE-REVIEW.md §14 (المجدول) · docs/architecture/PLATFORM-ARCHITECTURE.md §3.1",
+   "missing_work": "تسجيل كل تشغيل + كشف التأخر + عرض في Site Health",
+   "dependencies": [
+    "INFRA-007",
+    "INFRA-009",
+    "DX-013",
+    "CMS-009",
+    "CAMP-006"
+   ],
+   "test_required": "اختبار: إيقاف الـworker/cron على Staging ← Issue خلال الفاصل المحدد؛ حملة منتهية لا تظهر رغم توقف المهمة",
+   "design_refs": [
+    "docs/platform/MONITORING.md",
+    "docs/FINAL-ARCHITECTURE-REVIEW.md §14",
+    "docs/architecture/PLATFORM-ARCHITECTURE.md §3.1"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "INFRA-009",
+   "area": "49 Infrastructure, Release & Operations",
+   "type": "RULE",
+   "title": "موثوقية الأتمتة الزمنية — server-controlled · timezone-aware · auditable",
+   "requirement": "أي شيء يعتمد على Time — Event activation · Campaign expiry · Employee of Month · Holiday hours · Seasonal experience · Scheduled article — يجب أن يكون timezone-aware · server-controlled · auditable، ولا يعتمد فقط على JavaScript عند العميل.",
+   "details": [
+    "المنطقة الزمنية من إعداد السوق (Asia/Amman — INFRA-028) لا من المتصفح (DX-023).",
+    "الحالة الزمنية (\"مفتوح الآن\"، \"نشط الآن\"، انتهاء حملة) تُحسب عند كل طلب من الجداول (PLATFORM-ARCHITECTURE §4.3)، والمهمة المجدولة تسجل الانتقال في Audit وتبطل الـCache عند الحدود (MDH-016).",
+    "اختبارات وحدة بساعة مجمدة: عبور منتصف الليل (HOURS-012)، حدود البداية/النهاية، تغيّر اليوم بتوقيت السوق."
+   ],
+   "sources": [
+    "M35 §50"
+   ],
+   "decision_refs": [
+    "G17-ND-03"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec (SPEC — READY FOR BUILD): docs/platform/MONITORING.md · docs/platform/CACHE-CDN.md — spec: docs/architecture/PLATFORM-ARCHITECTURE.md §4.3 · DX-013 · DX-023",
+   "missing_work": "خدمة زمن السوق + حساب الحالة عند الطلب + تسجيل الانتقالات",
+   "dependencies": [
+    "DX-013",
+    "DX-023",
+    "CMS-009",
+    "CAMP-006",
+    "HOURS-009",
+    "HOURS-012",
+    "INFRA-028",
+    "MDH-016"
+   ],
+   "test_required": "اختبارات PHPUnit بساعة مجمدة لكل نوع زمني + Playwright: تعطيل JS لا يغيّر الحالة المعروضة",
+   "design_refs": [
+    "docs/platform/MONITORING.md",
+    "docs/platform/CACHE-CDN.md",
+    "docs/architecture/PLATFORM-ARCHITECTURE.md §4",
+    "docs/MASTER-DATA-HUB.md §7"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "INFRA-010",
+   "area": "49 Infrastructure, Release & Operations",
+   "type": "REQUIREMENT",
+   "title": "نموذج الصحة: 9 فئات بحالات فعلية — بلا رقم إجمالي مزيف",
+   "requirement": "لا يُعتمد Overall fake score مثل 93/100 بدون معنى. تُستخدم Categories: CONTENT · SEO · PERFORMANCE · ACCESSIBILITY · SECURITY · PRIVACY · DATA CONSISTENCY · INTEGRATIONS · BACKUPS، ولكل Category: HEALTHY · NEEDS ATTENTION · CRITICAL مع Issues فعلية.",
+   "details": [
+    "حالة الفئة مشتقة بقاعدة شفافة من أعلى شدة Issue مفتوحة فيها (DASH-025).",
+    "يحل محل الخيار الاختياري DASH-026 (Summary Health Score) — G17-CF-07.",
+    "مفردات SEO-038 (GOOD/WARNING/CRITICAL) تُعرض على مستوى الفئة بالحالات الثلاث (G17-CF-05).",
+    "التوفر (Uptime/أخطاء الخادم/قاعدة البيانات) يظهر في بطاقة Website ONLINE (M35 §42) وليس فئة عاشرة (G17-TF-04).",
+    "BACKUPS لا تكون HEALTHY بلا اختبار استرجاع ناجح (M35 §30، OPS-041/042).",
+    "docs/platform/INCIDENTS.md يضيف قيمة فئة OPERATIONS (لا تدخل الفئات التسع) لبطاقة \"الموقع\" — تحتاج تثبيتًا في PLATFORM-ARCHITECTURE §3.1."
+   ],
+   "sources": [
+    "M35 §44"
+   ],
+   "decision_refs": [
+    "G17-ND-10"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec (SPEC — READY FOR BUILD): docs/platform/MONITORING.md · docs/platform/INCIDENTS.md — spec: docs/FINAL-ARCHITECTURE-REVIEW.md §1–4 (صف 42–45) · OPS-048",
+   "missing_work": "اشتقاق حالة الفئات من الـIssues + عرضها في Command Center وSite Health",
+   "dependencies": [
+    "OPS-048",
+    "DASH-025",
+    "DASH-026",
+    "SEO-038",
+    "INFRA-011"
+   ],
+   "test_required": "اختبار: Issue CRITICAL في فئة ← الفئة CRITICAL؛ لا رقم إجمالي في أي شاشة؛ كل حالة قابلة للنقر إلى Issues الفئة",
+   "design_refs": [
+    "docs/platform/MONITORING.md",
+    "docs/platform/INCIDENTS.md",
+    "docs/FINAL-ARCHITECTURE-REVIEW.md §7–9",
+    "docs/FINAL-ARCHITECTURE-REVIEW.md §10"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "G17-CF-07 · G17-CF-05",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "INFRA-011",
+   "area": "49 Infrastructure, Release & Operations",
+   "type": "REQUIREMENT",
+   "title": "SHELTER DIGITAL COMMAND CENTER — الرئيسية للـDashboard بلا Charts تجميلية",
+   "requirement": "تُحسَّن الصفحة الرئيسية للـOwner Dashboard لتصبح SHELTER DIGITAL COMMAND CENTER تعرض فقط المهم، مثال: Website ONLINE · Master Data SYNCED · Google Business SYNCED · Menu SYNCED · Backups HEALTHY · Performance GOOD · SEO GOOD / NEEDS ATTENTION · Security GOOD · Active Campaign (Coffee Day — Ends Today) · New Careers Applications X · New Franchise Applications X · Unresolved Inquiries X · Needs Attention X. لا Dashboard مليئة بـCharts لا فائدة منها: كل Card تجيب: What happened? · Do I need to act? · Where do I click?",
+   "details": [
+    "لا تُعرض SYNCED إلا من حالة مزامنة متحقق منها؛ قبل منح الوصول: PENDING INTEGRATION / NOT CONNECTED (DASH-024/025، G17-TF-12).",
+    "كل بطاقة ورقم Deep link إلى المصدر (DASH-018).",
+    "تعارض مع DASH-007/DASH-008 (Executive KPIs + Mini charts على الرئيسية) محسوم: الرئيسية = Command Center، ومؤشرات TOP SUMMARY في GROWTH › Analytics (G17-CF-06).",
+    "Mobile-first: نفس البطاقات بترتيب أولوية (DASH-027، RESP-025)."
+   ],
+   "sources": [
+    "M35 §42",
+    "M35 §43"
+   ],
+   "decision_refs": [
+    "G17-ND-10"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec (SPEC — READY FOR BUILD): docs/platform/INCIDENTS.md · docs/platform/NOTIFICATIONS.md — spec: docs/FINAL-ARCHITECTURE-REVIEW.md §10 · OPS-049 · wireframes: docs/dashboard/wireframes (نموذج)",
+   "missing_work": "تنفيذ بطاقات الحالة والأعداد وطابور Needs Attention؛ مراجعة كل بطاقة باختبار الأسئلة الثلاثة؛ Wireframe الرئيسية الحالي (docs/dashboard/wireframes d-home/m-home) مبني على M32: يحتاج بطاقات الحالة (Website · Master Data · Google Business · Menu · Backups · Performance · SEO · Security) والأعداد (طلبات التوظيف · الشراكات · الاستفسارات غير المحلولة)",
+   "dependencies": [
+    "DASH-007",
+    "DASH-008",
+    "DASH-017",
+    "DASH-018",
+    "INFRA-010",
+    "MDH-025",
+    "OPS-048"
+   ],
+   "test_required": "مراجعة بطاقة-بطاقة بالأسئلة الثلاثة؛ Playwright 20 عرضًا AR/EN؛ حالات: كل شيء سليم / تكامل غير متصل / CRITICAL مفتوح",
+   "design_refs": [
+    "docs/platform/INCIDENTS.md",
+    "docs/platform/NOTIFICATIONS.md",
+    "docs/FINAL-ARCHITECTURE-REVIEW.md §10"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "G17-CF-06",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "INFRA-012",
+   "area": "49 Infrastructure, Release & Operations",
+   "type": "REQUIREMENT",
+   "title": "مركز الإشعارات الموحد (NOTIFICATIONS) — لا إشعارات عشوائية داخل الوحدات",
+   "requirement": "داخل الـOwner Dashboard مركز NOTIFICATIONS واحد يجمع: New Careers application · New Franchise application · New contact inquiry · New customer feedback · New review requiring attention · Campaign ending · Event starting soon · Special hours upcoming · Google sync failed · Content out of sync · Backup failed · Security alert · Site performance warning · Content needing review · Media missing metadata. لا توضع Notifications عشوائية في كل Module.",
+   "details": [
+    "مصدر واحد signals (kind: EVENT | ISSUE) مشترك مع Needs Attention (OPS-048) — عرضان لنفس الإشارات (FINAL-ARCHITECTURE-REVIEW §5).",
+    "الوحدات تعرض شارة عدد فقط (CAREERS-055 Badge) — لا قوائم إشعارات خاصة بكل وحدة.",
+    "V1 داخل الـDashboard فقط (MON-009)؛ Email/WhatsApp/Push مستقبلًا بموافقة (MON-010) — خطر بقاء استفسار بلا رد (G17-TF-11).",
+    "تجميع وإلغاء تكرار بـdedupe_key (MON-008).",
+    "الوثيقة: docs/NOTIFICATIONS.md."
+   ],
+   "sources": [
+    "M35 §07"
+   ],
+   "decision_refs": [
+    "G17-ND-03"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec (SPEC — READY FOR BUILD): docs/platform/NOTIFICATIONS.md — spec: docs/FINAL-ARCHITECTURE-REVIEW.md §5 · docs/architecture/PLATFORM-ARCHITECTURE.md §3.1 (signals)",
+   "missing_work": "جدول signals + مركز الإشعارات في الشريط العلوي + ربط مصادر الأحداث الخمسة عشر",
+   "dependencies": [
+    "OPS-048",
+    "MON-008",
+    "MON-009",
+    "CAREERS-055",
+    "INFRA-013"
+   ],
+   "test_required": "اختبار: كل نوع من الأنواع الخمسة عشر يولّد إشعارًا واحدًا (بلا تكرار) يفتح المصدر؛ لا إشعارات داخل الوحدات غير الشارة",
+   "design_refs": [
+    "docs/platform/NOTIFICATIONS.md",
+    "docs/FINAL-ARCHITECTURE-REVIEW.md §5",
+    "docs/FINAL-ARCHITECTURE-REVIEW.md §10"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": "الأولوية P1 حسب FINAL-ARCHITECTURE-REVIEW §7–9 (المركز فوق نفس الإشارات)؛ مصدر الإشارات نفسه P0 ضمن OPS-048."
+  },
+  {
+   "id": "INFRA-013",
+   "area": "49 Infrastructure, Release & Operations",
+   "type": "RULE",
+   "title": "أولويات الإشعارات وإجراءاتها — لا إخفاء لحادثة حرجة غير محلولة بلا سجل",
+   "requirement": "أولويات الإشعارات: Critical · Action Required · Important · Information. الـOwner يستطيع: Mark Read · Resolve · Open Source · Dismiss appropriate informational notices. لا يُسمح بإخفاء Critical unresolved incident بلا سجل.",
+   "details": [
+    "Dismiss متاح للمعلوماتية فقط؛ أي إخفاء/تأجيل لـCritical مفتوح يتطلب سببًا ويُسجل في audit_logs ويبقى في Needs Attention حتى الحل.",
+    "Resolve لـIssue يعيد الفحص؛ الحل التلقائي عند نجاح الفحص (OPS-048).",
+    "ربط الشدة بالأولوية (G17-TF-03): CRITICAL ← Critical · HIGH ← Action Required · MEDIUM ← Important · LOW/INFO ← Information؛ أحداث الأعمال (طلب جديد، استفسار) ← Action Required."
+   ],
+   "sources": [
+    "M35 §08"
+   ],
+   "decision_refs": [
+    "G17-ND-03"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec (SPEC — READY FOR BUILD): docs/platform/NOTIFICATIONS.md · docs/platform/INCIDENTS.md — spec: docs/FINAL-ARCHITECTURE-REVIEW.md §1–4 (صف 7–8) · docs/architecture/PLATFORM-ARCHITECTURE.md §3.1",
+   "missing_work": "منطق الأولويات والإجراءات + منع Dismiss للحرج + تسجيل",
+   "dependencies": [
+    "INFRA-012",
+    "OPS-048",
+    "AUDIT-001"
+   ],
+   "test_required": "اختبار: زر Dismiss غير موجود لـCritical؛ محاولة إخفاء عبر API تُرفض بلا سبب وتُسجل مع السبب؛ Mark Read لا يغيّر حالة Issue",
+   "design_refs": [
+    "docs/platform/NOTIFICATIONS.md",
+    "docs/platform/INCIDENTS.md",
+    "docs/FINAL-ARCHITECTURE-REVIEW.md §5"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "INFRA-014",
+   "area": "49 Infrastructure, Release & Operations",
+   "type": "REQUIREMENT",
+   "title": "مركز الاستفسارات الموحد (INQUIRIES / INBOX) — التوظيف والشراكات مستقلان",
+   "requirement": "INQUIRIES / INBOX يجمع الاستفسارات العامة القادمة من الموقع: Contact · Complaints · Suggestions · Catering · B2B · Events · General inquiries. لكن Careers وFranchise يبقيان Modules مستقلة لأن لهما Workflow خاص، ويمكن أن يظهر Notification منهما في Inbox/Notifications.",
+   "details": [
+    "Applications Core مشترك (applications بنوع INQ + جدول inquiries — PLATFORM-ARCHITECTURE §3.4) بلا دمج Workflows التوظيف (CAREERS-*) والشراكات (FRAN-*).",
+    "القنوات الهاتفية تبقى (AC-6، CONTACT-013): 0799338445 للشكاوى والاقتراحات، 0799530383 للكيترنج والأعمال والفعاليات؛ النموذج يضيف تتبعًا برقم INQ ولا يحل محل الرقم.",
+    "نقاط الدخول العامة لـCatering/B2B/Events تنتظر محتوى PO-028 (IA-008 PAGE RESERVED، D-069) — النوع موجود في النظام دون نشر خدمات مخترعة.",
+    "الفصل عن Voice of Customer (OPS-030): شكوى/اقتراح تحتاج متابعة ← Inquiry؛ تقييم تجربة مجهول ← Feedback (G17-CF-10).",
+    "المكان: BUSINESS › Inquiries (FINAL-ARCHITECTURE-REVIEW §10). الحقول المسموحة ومدة الاحتفاظ = PO-019.",
+    "الوثيقة: docs/INQUIRIES.md.",
+    "التنفيذ في docs/platform/INQUIRIES.md: ستة أنواع (Contact وGeneral inquiries نية واحدة general — D-059) + نوع داخلي privacy_request؛ \"تحويل إلى استفسار\" من VoC؛ لا مرفقات V1."
+   ],
+   "sources": [
+    "M35 §09"
+   ],
+   "decision_refs": [
+    "G17-ND-04"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec (SPEC — READY FOR BUILD): docs/platform/INQUIRIES.md · docs/platform/VOICE-OF-CUSTOMER.md — spec: docs/FINAL-ARCHITECTURE-REVIEW.md §1–4 (صف 9–10) · docs/architecture/PLATFORM-ARCHITECTURE.md §3.4",
+   "missing_work": "وحدة الاستفسارات + نموذج التواصل العام + INQUIRIES.md",
+   "dependencies": [
+    "CONTACT-013",
+    "CONTACT-007",
+    "CONTACT-010",
+    "IA-008",
+    "OPS-030",
+    "INFRA-015",
+    "INFRA-016",
+    "INFRA-019",
+    "PO-019",
+    "PO-028"
+   ],
+   "test_required": "اختبار: إرسال كل نوع ← سجل INQ في الـInbox + إشعار؛ طلب توظيف/شراكة لا يظهر كاستفسار بل كإشعار يفتح وحدته؛ AR/EN × 20 عرضًا",
+   "design_refs": [
+    "docs/platform/INQUIRIES.md",
+    "docs/platform/VOICE-OF-CUSTOMER.md",
+    "docs/FINAL-ARCHITECTURE-REVIEW.md §6 AC-6",
+    "docs/FINAL-ARCHITECTURE-REVIEW.md §10",
+    "docs/architecture/PLATFORM-ARCHITECTURE.md §3.4"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "G17-CF-10",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "INFRA-015",
+   "area": "49 Infrastructure, Release & Operations",
+   "type": "REQUIREMENT",
+   "title": "نموذج بيانات الاستفسار وحالاته (NEW · OPEN · IN PROGRESS · RESOLVED · ARCHIVED)",
+   "requirement": "لكل Inquiry: Reference Number · Type · Name if provided · Contact info if provided · Subject · Message · Source page · Created date/time · Status · Internal note · Related branch if any · Attachment if supported · Audit history. Statuses: NEW · OPEN · IN PROGRESS · RESOLVED · ARCHIVED.",
+   "details": [
+    "تصنيف السجل CONFIDENTIAL (INFRA-039)؛ الاسم والتواصل اختياريان \"if provided\" — تقليل البيانات (PRIV-004، PRIV-014).",
+    "Attachment غير مفعّل في V1؛ إن فُعّل لاحقًا: منطقة تخزين خاصة + فحص ملفات (G17-CF-12، I-13).",
+    "الملاحظات وتاريخ الحالات مشتركة مع Applications Core (application_notes · application_status_history).",
+    "Archive بدل الحذف (DEPLOY-013)؛ لا PII في Analytics ولا في الرقم المرجعي."
+   ],
+   "sources": [
+    "M35 §10"
+   ],
+   "decision_refs": [
+    "G17-ND-04"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec (SPEC — READY FOR BUILD): docs/platform/INQUIRIES.md — spec: docs/architecture/PLATFORM-ARCHITECTURE.md §3.4",
+   "missing_work": "جداول applications/inquiries + شاشة الاستفسار + انتقالات الحالة مع Audit",
+   "dependencies": [
+    "INFRA-014",
+    "INFRA-019",
+    "INFRA-039",
+    "AUDIT-001",
+    "PRIV-004"
+   ],
+   "test_required": "اختبارات Feature: كل الحقول تُحفظ؛ انتقالات الحالة الخمس مسجلة في Audit؛ لا حقل PII في أحداث GA4",
+   "design_refs": [
+    "docs/platform/INQUIRIES.md",
+    "docs/architecture/PLATFORM-ARCHITECTURE.md §3.4"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "INFRA-016",
+   "area": "49 Infrastructure, Release & Operations",
+   "type": "REQUIREMENT",
+   "title": "طبقة موثوقية النماذج: لا Success قبل تأكيد الحفظ — لكل النماذج",
+   "requirement": "كل Form في الموقع يجب أن يكون Reliable — Contact · Careers · Franchise · Feedback · future forms. الـFlow الصحيح: USER SUBMITS ↓ SERVER VALIDATION ↓ DATABASE SAVE ↓ CONFIRM SAVE ↓ RETURN SUCCESS. لا تُعرض Success قبل التأكد من حفظ الطلب فعليًا.",
+   "details": [
+    "طبقة واحدة مشتركة تعمم نمط التوظيف (RECRUITMENT-SECURITY §6: التحقق Server-side، CSRF، Rate limiting، Honeypot) — لا تنفيذ منفصل لكل نموذج.",
+    "الحفظ داخل Transaction ← توليد الرقم المرجعي (INFRA-019) ← Commit ← الرد بالنجاح والرقم؛ الإشعار بعد الـCommit وفشله لا يُفشل الحفظ.",
+    "الوثيقة: docs/FORM-RELIABILITY.md."
+   ],
+   "sources": [
+    "M35 §11"
+   ],
+   "decision_refs": [
+    "G17-ND-04"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec (SPEC — READY FOR BUILD): docs/platform/FORM-RELIABILITY.md — spec: docs/RECRUITMENT-SECURITY.md §6 (للتوظيف فقط) · docs/FINAL-ARCHITECTURE-REVIEW.md §1–4 (صف 11–13)",
+   "missing_work": "خدمة إرسال مشتركة لكل النماذج + FORM-RELIABILITY.md",
+   "dependencies": [
+    "CAREERS-040",
+    "FRAN-046",
+    "OPS-030",
+    "INFRA-014",
+    "INFRA-017",
+    "INFRA-018",
+    "INFRA-019",
+    "SEC-006",
+    "SEC-007"
+   ],
+   "test_required": "اختبار: فشل DB مُحاكى ← لا رسالة نجاح ولا رقم؛ نجاح ← السجل موجود قبل عرض الرقم؛ لكل نموذج",
+   "design_refs": [
+    "docs/platform/FORM-RELIABILITY.md",
+    "docs/RECRUITMENT-SECURITY.md §6",
+    "docs/FINAL-ARCHITECTURE-REVIEW.md §1–4"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "INFRA-017",
+   "area": "49 Infrastructure, Release & Operations",
+   "type": "REQUIREMENT",
+   "title": "معالجة فشل النماذج: حفظ المدخلات · رسالة واضحة · إعادة محاولة آمنة · سجل بلا بيانات حساسة",
+   "requirement": "إذا حدث خطأ: لا تضيع البيانات التي كتبها المستخدم إن أمكن · رسالة واضحة · منع accidental duplicate submissions · دعم safe retry · تسجيل server error بدون كشف معلومات حساسة.",
+   "details": [
+    "المدخلات تبقى في الصفحة عند أخطاء التحقق أو الشبكة (لا يُعاد تعبئة ملفات حساسة تلقائيًا).",
+    "رسالة AR/EN بلا Stack trace أو SQLSTATE (INFRA-020، DASH-034 للـOwner).",
+    "سجل الأخطاء بلا PII (PRIV-013، MON-004)؛ فشل الحفظ ← Issue \"Form failure\" (M35 §45).",
+    "نماذج حالات الشبكة موجودة كنموذج Wireframe للفرنشايز (ar/en-form-*-network)."
+   ],
+   "sources": [
+    "M35 §12"
+   ],
+   "decision_refs": [
+    "G17-ND-04"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec (SPEC — READY FOR BUILD): docs/platform/FORM-RELIABILITY.md — spec: docs/RECRUITMENT-SECURITY.md §6 · wireframes: docs/franchise/wireframes/html/*-network.html (نموذج)",
+   "missing_work": "تنفيذ حالات الخطأ في مكون النموذج المشترك + اختبارات انقطاع الشبكة",
+   "dependencies": [
+    "INFRA-016",
+    "INFRA-018",
+    "PRIV-013",
+    "MON-004"
+   ],
+   "test_required": "Playwright: route abort / 500 / timeout ← المدخلات باقية ورسالة واضحة وزر إعادة محاولة؛ السجل بلا PII",
+   "design_refs": [
+    "docs/platform/FORM-RELIABILITY.md",
+    "docs/RECRUITMENT-SECURITY.md §6"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "INFRA-018",
+   "area": "49 Infrastructure, Release & Operations",
+   "type": "RULE",
+   "title": "Idempotency — لا طلبين متطابقين بسبب الضغط المزدوج، ولا منع لطلبات مستقلة صحيحة",
+   "requirement": "إذا ضغط المستخدم Submit مرتين بسبب بطء الشبكة: لا يُنشأ طلبان متطابقان بدون داعٍ — safe request handling / idempotency where appropriate. لكن لا تُمنع عمدًا طلبات مستقلة صحيحة في وقت مختلف.",
+   "details": [
+    "جدول idempotency_keys (PLATFORM-ARCHITECTURE §3.1): مفتاح لكل عرض نموذج + بصمة المحتوى؛ التكرار خلال النافذة يعيد نفس الرقم المرجعي (نمط RECRUITMENT-SECURITY §6).",
+    "إرسال جديد صحيح لاحقًا (مفتاح جديد) = سجل جديد؛ حدود الإغراق تقنية ولا تمنع التقديم المتكرر المسموح (M28 §26) — G17-TF-05.",
+    "تعطيل الزر أثناء الإرسال تحسين UX وليس الضمانة.",
+    "ملاحظة: FINAL-ARCHITECTURE-REVIEW لم يذكر شرط \"لا منع لطلبات مستقلة صحيحة\"."
+   ],
+   "sources": [
+    "M35 §13"
+   ],
+   "decision_refs": [
+    "G17-ND-04"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec (SPEC — READY FOR BUILD): docs/platform/FORM-RELIABILITY.md — spec: docs/RECRUITMENT-SECURITY.md §6 (التوظيف) · docs/architecture/PLATFORM-ARCHITECTURE.md §3.1",
+   "missing_work": "مفاتيح idempotency لكل النماذج + اختبارات",
+   "dependencies": [
+    "INFRA-016",
+    "SEC-007"
+   ],
+   "test_required": "اختبار: إرسالان متزامنان بنفس المفتاح ← سجل واحد ونفس الرقم؛ إرسال ثانٍ صحيح بمفتاح جديد بعد دقائق ← سجل جديد",
+   "design_refs": [
+    "docs/platform/FORM-RELIABILITY.md",
+    "docs/RECRUITMENT-SECURITY.md §6",
+    "docs/architecture/PLATFORM-ARCHITECTURE.md §3.1"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "INFRA-019",
+   "area": "49 Infrastructure, Release & Operations",
+   "type": "REQUIREMENT",
+   "title": "خدمة الأرقام المرجعية المشتركة: JOB · FR · INQ — بلا PII",
+   "requirement": "أي Workflow مهم يحتاج Reference Number، مثل: Careers JOB-… · Franchise FR-… · General inquiries INQ-…. لا يُستخدم PII داخل Reference Number.",
+   "details": [
+    "الصيغة الموحدة PREFIX-YYYY-NNNNN (CAREERS-040: JOB-2026-00125 · FRAN-046: FR-2026-00125) ← INQ-YYYY-NNNNN.",
+    "خدمة واحدة reference_sequences بقفل صفّي لكل (prefix, year) داخل Transaction الحفظ (G17-TF-06) — لا عداد منفصل لكل وحدة.",
+    "قابل للبحث في بحث الـOwner (DASH-019)؛ لا يُرسل لـGA4/GTM ولا يظهر في URL قابل للفهرسة؛ مميز في الـStaging (INFRA-003).",
+    "أي Workflow مهم لاحق (مثل طلبات الخصوصية OPS-037) يستخدم نفس الخدمة ببادئة جديدة."
+   ],
+   "sources": [
+    "M35 §14"
+   ],
+   "decision_refs": [
+    "G17-ND-04"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec (SPEC — READY FOR BUILD): docs/platform/FORM-RELIABILITY.md · docs/platform/INQUIRIES.md — spec: docs/RECRUITMENT-DATA-MODEL.md §3 · docs/architecture/PLATFORM-ARCHITECTURE.md §3.1",
+   "missing_work": "خدمة الترقيم المشتركة واستخدامها في الوحدات الثلاث",
+   "dependencies": [
+    "CAREERS-040",
+    "FRAN-046",
+    "INFRA-014",
+    "INFRA-016"
+   ],
+   "test_required": "اختبار تزامن: 50 إرسالًا متوازيًا ← أرقام فريدة متسلسلة بلا تصادم؛ لا PII في الرقم",
+   "design_refs": [
+    "docs/platform/FORM-RELIABILITY.md",
+    "docs/platform/INQUIRIES.md",
+    "docs/RECRUITMENT-DATA-MODEL.md §3"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "INFRA-020",
+   "area": "49 Infrastructure, Release & Operations",
+   "type": "REQUIREMENT",
+   "title": "تجربة 500 / الأخطاء المؤقتة — بلا Stack trace وبإجراءات واضحة",
+   "requirement": "Error State للمشاكل المؤقتة: رسالة واضحة بدون Stack Trace، مع Retry · Return Home · Menu · Contact where appropriate — ضمن SHELTER Design System.",
+   "details": [
+    "صفحة خطأ ثابتة (Static HTML بالـTokens) تُخدم حتى لو فشل التطبيق أو قاعدة البيانات (صفحات أخطاء مخصصة على مستوى Cloudflare/الخادم).",
+    "APP_DEBUG=false في Staging وProduction؛ رمز الحالة الصحيح 500/503 (لا 200)؛ noindex؛ AR/EN حسب المسار.",
+    "الـ404 مغطاة في SEO-019 (تحديث M35 §17)."
+   ],
+   "sources": [
+    "M35 §18"
+   ],
+   "decision_refs": [
+    "G17-ND-05"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec (SPEC — READY FOR BUILD): docs/platform/SITE-INVENTORY.md · docs/platform/MONITORING.md — none (MON-004 يتتبع أخطاء 500 فقط)",
+   "missing_work": "تصميم وتنفيذ صفحات 500/503 الثابتة بالعربية والإنجليزية",
+   "dependencies": [
+    "SEO-019",
+    "MON-004",
+    "INFRA-021",
+    "BUILD-008"
+   ],
+   "test_required": "اختبار: خطأ مُحاكى ← صفحة 500 بلا تفاصيل تقنية وبالروابط الأربعة؛ إيقاف DB على Staging ← الصفحة الثابتة تظهر؛ axe + 20 عرضًا",
+   "design_refs": [
+    "docs/platform/SITE-INVENTORY.md",
+    "docs/platform/MONITORING.md",
+    "docs/FINAL-ARCHITECTURE-REVIEW.md §1–4 (صف 17–20)"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "INFRA-021",
+   "area": "49 Infrastructure, Release & Operations",
+   "type": "REQUIREMENT",
+   "title": "تجربة الصيانة (Maintenance) — بهوية SHELTER، والملاذ الأخير فقط",
+   "requirement": "إذا احتجنا Maintenance مؤقتًا: SHELTER-branded maintenance state؛ لكن لا يوضع الموقع كاملًا في Maintenance إلا عند الضرورة.",
+   "details": [
+    "AC-5: Safe Mode أولًا دائمًا (OPS-023)؛ الصيانة الكاملة فقط لترحيل أو حادثة أمنية.",
+    "المفتاح Owner-only (M35 §58) أو جزء من إصدار معتمد؛ يُسجل في Audit؛ feature_flags (PLATFORM-ARCHITECTURE §3.1).",
+    "الرد 503 + Retry-After + noindex؛ مسار تجاوز مصادق للـOwner لمعاينة الموقع."
+   ],
+   "sources": [
+    "M35 §19"
+   ],
+   "decision_refs": [
+    "G17-ND-05"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec (SPEC — READY FOR BUILD): docs/platform/SITE-INVENTORY.md · docs/platform/SAFE-MODE.md — spec: docs/FINAL-ARCHITECTURE-REVIEW.md §5 · §6 (AC-5)",
+   "missing_work": "صفحة صيانة بالهوية + مفتاح Owner-only + سلوك 503",
+   "dependencies": [
+    "OPS-023",
+    "OPS-024",
+    "INFRA-020",
+    "DASH-032"
+   ],
+   "test_required": "اختبار: تفعيل الصيانة ← 503 + Retry-After للزوار والـOwner يرى الموقع؛ تسجيل التفعيل والإيقاف",
+   "design_refs": [
+    "docs/platform/SITE-INVENTORY.md",
+    "docs/platform/SAFE-MODE.md",
+    "docs/FINAL-ARCHITECTURE-REVIEW.md §6 AC-5"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "G17-CF-03",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "INFRA-022",
+   "area": "49 Infrastructure, Release & Operations",
+   "type": "REQUIREMENT",
+   "title": "Empty States محترمة لكل Module (الموقع يُخفي، الـDashboard يشرح)",
+   "requirement": "كل Module يحتاج Empty State محترمة (مثلًا No Active Events) ولا يُعرض empty blank container. Public side: إذا لا يوجد محتوى فالـcomponent غالبًا لا يظهر. Dashboard: اشرح ما الذي يمكن فعله.",
+   "details": [
+    "الموقع العام يطابق DX-012 (لا شيء نشط = لا مكون).",
+    "الـDashboard: عنوان + سبب + زر إجراء (مثل \"أنشئ فعالية\") عبر مكون Empty State واحد في الـDesign System.",
+    "حالات Wireframes موجودة كنموذج (zero results للمنيو، d-archived للفرنشايز)."
+   ],
+   "sources": [
+    "M35 §20"
+   ],
+   "decision_refs": [
+    "G17-ND-05"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: DX-012 · wireframes (نموذج)",
+   "missing_work": "مكون Empty State + تطبيقه في كل وحدة",
+   "dependencies": [
+    "DX-012",
+    "BUILD-008"
+   ],
+   "test_required": "Playwright: كل وحدة بلا بيانات ← حالة فارغة مفسرة بزر إجراء (Dashboard) أو اختفاء المكون (الموقع)",
+   "design_refs": [
+    "docs/FINAL-ARCHITECTURE-REVIEW.md §1–4"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "INFRA-023",
+   "area": "49 Infrastructure, Release & Operations",
+   "type": "REQUIREMENT",
+   "title": "فشل الشبكة/الـAPI برفق — بلا Full PWA الآن",
+   "requirement": "لا نحتاج Full PWA الآن، لكن graceful network failure: إذا تعطل API لا ينهار Core page layout بالكامل.",
+   "details": [
+    "الصفحات العامة HTML من الخادم (ADR-001) فالمحتوى الأساسي لا يعتمد على API في المتصفح؛ الأجزاء الديناميكية (البحث، التجارب، الحالة الحية) تختفي أو تعرض بديلًا (PERF-015، DX-037).",
+    "الـDashboard: آخر بيانات محفوظة مع تاريخها (DASH-023)؛ مهلة Timeout لكل تكامل خارجي.",
+    "Full PWA = NOT NEEDED الآن؛ OPS-055 يبقى تقييمًا مستقبليًا P2."
+   ],
+   "sources": [
+    "M35 §21"
+   ],
+   "decision_refs": [
+    "G17-ND-05"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec (SPEC — READY FOR BUILD): docs/platform/MONITORING.md — spec: PERF-015 · DASH-023 · DX-037",
+   "missing_work": "Timeouts وحالات بديلة لكل جزء ديناميكي + اختبارات",
+   "dependencies": [
+    "PERF-015",
+    "DASH-023",
+    "DX-037",
+    "OPS-055"
+   ],
+   "test_required": "Playwright: حجب طلبات الـAPI/الشبكة الخارجية ← الهيكل والمحتوى الأساسي سليمان بلا فراغات مكسورة",
+   "design_refs": [
+    "docs/platform/MONITORING.md",
+    "docs/FINAL-ARCHITECTURE-REVIEW.md §1–4 (صف 21)"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "INFRA-024",
+   "area": "49 Infrastructure, Release & Operations",
+   "type": "REQUIREMENT",
+   "title": "معمارية الـCache/CDN — مصدر واستراتيجية إبطال لكل طبقة",
+   "requirement": "مراجعة: Cloudflare · Cloudways · application cache · browser cache · image cache · API cache، وتحديد Source and invalidation strategy. لا نريد stale business data.",
+   "details": [
+    "المصدر الوحيد = Master Data وContent Graph (FINAL-ARCHITECTURE-REVIEW §13).",
+    "Cloudflare: HTML بزمن قصير عبر Cache Rules + وسوم · الصور: طويل immutable بأسماء Hash · JS/CSS: Hash · API: قصير · Browser: Cache-Control لكل نوع.",
+    "Cloudways: طبقة Varnish/Object cache على مستوى الخادم غير مذكورة في المراجعة — تُعطّل لتطبيق Laravel أو تُدار بنفس الإبطال حتى لا يبقى HTML قديم بين طبقتين (G17-TF-01).",
+    "Application cache (Redis إن توفر أو file) بوسوم لكل كيان.",
+    "الوثيقة: docs/CACHE-CDN.md."
+   ],
+   "sources": [
+    "M35 §22"
+   ],
+   "decision_refs": [
+    "G17-ND-06"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec (SPEC — READY FOR BUILD): docs/platform/CACHE-CDN.md — spec: docs/FINAL-ARCHITECTURE-REVIEW.md §13 (Cache/CDN) — بلا طبقة Cloudways",
+   "missing_work": "جدول الطبقات (المصدر/الـTTL/الإبطال) + إعداد Cloudflare Cache Rules بموافقة + CACHE-CDN.md",
+   "dependencies": [
+    "MDH-016",
+    "CF-004",
+    "CF-005",
+    "CF-008",
+    "PO-013",
+    "DASH-022"
+   ],
+   "test_required": "اختبار رؤوس الـCache لكل نوع مورد؛ تعديل سعر على Staging ← القيمة الجديدة من الحافة خلال زمن الإبطال الموثق",
+   "design_refs": [
+    "docs/platform/CACHE-CDN.md",
+    "docs/FINAL-ARCHITECTURE-REVIEW.md §13"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "INFRA-025",
+   "area": "49 Infrastructure, Release & Operations",
+   "type": "REQUIREMENT",
+   "title": "سجل التكاملات الداخلي (Integration Registry) — بلا Secrets، مع Fix Connection",
+   "requirement": "Internal Integration Registry لا يخزن Secrets في الـUI لكنه يعرض: Integration · Owner/Account · Status · Environment · Last Successful Connection · Token Expiry if known · Permissions Scope · Needs Re-authentication? — مثل Cloudflare · Cloudways · GA4 · GTM · Search Console · Google Business Profile · future services.",
+   "details": [
+    "جدول integrations (PLATFORM-ARCHITECTURE §3.2) — سجل واحد يجمع حالة الربط، ومنه تُقرأ حالة المزامنة لكل كيان (FINAL-ARCHITECTURE-REVIEW §5).",
+    "Needs Re-authentication ← رسالة بلغة صاحب العمل (مثال M35 §6: \"تعذر تحديث ساعات Google Business لأن الاتصال يحتاج إعادة تسجيل الدخول.\") + زر Fix Connection يبدأ OAuth من جديد + التفاصيل التقنية قابلة للتوسيع (DASH-034).",
+    "قرب انتهاء الرمز ← MEDIUM، انتهى ← HIGH (INFRA-007).",
+    "Cloudways بلا API key (AC-RULE-04) ← حالة يدوية موثقة؛ يختلف عن سجل أدوات التطوير في FRONTEND-TOOLING.",
+    "الأسرار نفسها على الخادم لكل بيئة (SEC-002 محدّث).",
+    "الوثيقة: docs/INTEGRATION-REGISTRY.md (تتضمن Service Ownership — INFRA-026)."
+   ],
+   "sources": [
+    "M35 §26",
+    "M35 §06",
+    "M35 §27"
+   ],
+   "decision_refs": [
+    "G17-ND-07"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec (SPEC — READY FOR BUILD): docs/platform/INTEGRATION-REGISTRY.md — spec: docs/FINAL-ARCHITECTURE-REVIEW.md §12 · docs/architecture/PLATFORM-ARCHITECTURE.md §3.2",
+   "missing_work": "جدول التكاملات + شاشة SYSTEM › Integrations + تدفق Fix Connection + INTEGRATION-REGISTRY.md",
+   "dependencies": [
+    "SEC-002",
+    "DASH-034",
+    "INFRA-007",
+    "INFRA-026",
+    "CF-009",
+    "PO-009",
+    "PO-011",
+    "PO-012",
+    "PO-013"
+   ],
+   "test_required": "اختبار: لا قيمة سرية في أي رد HTML/JSON للسجل؛ رمز منتهٍ مُحاكى ← رسالة الـOwner + Fix Connection يعيد الحالة إلى CONNECTED",
+   "design_refs": [
+    "docs/platform/INTEGRATION-REGISTRY.md",
+    "docs/FINAL-ARCHITECTURE-REVIEW.md §12",
+    "docs/architecture/PLATFORM-ARCHITECTURE.md §3.2"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "INFRA-026",
+   "area": "49 Infrastructure, Release & Operations",
+   "type": "DELIVERABLE",
+   "title": "سجل ملكية الخدمات (Service Ownership Register) — لا فقدان للملكية",
+   "requirement": "توثيق من ناحية النظام: Domain provider · DNS · Cloudflare · Cloudways · Git repository · Google Analytics property · GTM container · Search Console property · Google Business Profiles — ليس لعرض Personal Secrets؛ الهدف عدم فقدان Ownership مستقبلًا.",
+   "details": [
+    "الحقول المقترحة: الخدمة · الجهة المالكة (المنشأة) · الحساب المالك (بلا كلمات مرور) · المديرون · تاريخ التجديد · طريقة الاسترداد (مكانها لا قيمتها) · آخر تحقق.",
+    "البيانات من الـOwner: PO-037 (Registrar/الملكية/البريد) + PO-009/PO-011/PO-012/PO-013 — MISSING حتى ذلك.",
+    "Git repository المعروف: Shelterjo/SHELTER-WEBSITE (G14-TF-13).",
+    "يُوثق داخل INTEGRATION-REGISTRY.md (لا وثيقة إضافية) ومرآة غير سرية في SYSTEM › Integrations؛ S-5."
+   ],
+   "sources": [
+    "M35 §28"
+   ],
+   "decision_refs": [
+    "G17-ND-07"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "PARTIAL",
+   "tested": "NO",
+   "existing_impl": "spec (SPEC — READY FOR BUILD): docs/platform/INTEGRATION-REGISTRY.md — none (أسئلة PO-037 فقط)",
+   "missing_work": "الهيكل في INTEGRATION-REGISTRY §5؛ البيانات من الـOwner (PO-037)",
+   "dependencies": [
+    "PO-037",
+    "PO-009",
+    "PO-011",
+    "PO-012",
+    "PO-013",
+    "INFRA-025"
+   ],
+   "test_required": "مراجعة: كل خدمة من التسع لها مالك موثق وتاريخ تجديد (أو MISSING — OWNER INPUT REQUIRED) بلا أي سر",
+   "design_refs": [
+    "docs/platform/INTEGRATION-REGISTRY.md",
+    "docs/FINAL-ARCHITECTURE-REVIEW.md §15 (S-5)"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P01",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "INFRA-027",
+   "area": "49 Infrastructure, Release & Operations",
+   "type": "DELIVERABLE",
+   "title": "خطة التعافي من الكوارث (DISASTER RECOVERY PLAN)",
+   "requirement": "DISASTER RECOVERY PLAN يشمل: Website code · Database · Media · Careers attachments · Franchise attachments · configuration · important integration settings.",
+   "details": [
+    "لكل عنصر: مكان النسخة · التكرار · الاحتفاظ · إجراء الاسترجاع · المسؤول.",
+    "الكود: Git + Artifacts الإصدارات (INFRA-004)؛ DB والوسائط والمرفقات الخاصة: نسخ Cloudways + نسخة على مستوى التطبيق (OPS-041) + Offsite بموافقة التكلفة (PO-039)؛ الإعدادات: .env لكل بيئة محفوظة مشفرة خارج Git؛ التكاملات: Integration Registry + خطوات إعادة الربط.",
+    "السيناريوهات: فقدان السيرفر · حذف خاطئ · اختراق · فقدان حساب خدمة (← INFRA-026).",
+    "أهداف RPO/RTO = قيم تقنية مقترحة تُوثق كاقتراح (لا التزام تجاري) — G17-TF-15.",
+    "يرتبط باختبار الاسترجاع الدوري (OPS-042). الوثيقة: docs/DISASTER-RECOVERY.md."
+   ],
+   "sources": [
+    "M35 §29"
+   ],
+   "decision_refs": [
+    "G17-ND-07"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "PARTIAL",
+   "tested": "NO",
+   "existing_impl": "spec (SPEC — READY FOR BUILD): docs/platform/DISASTER-RECOVERY.md — spec: docs/CLOUDWAYS-RECRUITMENT-ARCHITECTURE.md §6 (التوظيف) · OPS-041/042",
+   "missing_work": "بيانات Cloudways (A-08) BLOCKED — G10-PO-01؛ ثم تمرين استرجاع",
+   "dependencies": [
+    "OPS-041",
+    "OPS-042",
+    "CAREERS-090",
+    "FRAN-066",
+    "INFRA-026",
+    "G10-PO-01",
+    "PO-039"
+   ],
+   "test_required": "مراجعة الخطة + تمرين استرجاع كامل على Staging يغطي العناصر السبعة (نتيجة موثقة)",
+   "design_refs": [
+    "docs/platform/DISASTER-RECOVERY.md",
+    "docs/CLOUDWAYS-RECRUITMENT-ARCHITECTURE.md §6",
+    "docs/FINAL-ARCHITECTURE-REVIEW.md §1–4 (صف 29–30)"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "INFRA-028",
+   "area": "49 Infrastructure, Release & Operations",
+   "type": "REQUIREMENT",
+   "title": "إعداد السوق (Market Configuration) — جاهزية التدويل",
+   "requirement": "الموقع حاليًا Arabic + English وJordan primary، لكن الـArchitecture يجب أن تدعم مستقبلًا: Country · Language · Currency · Timezone · Locale · Date format · Phone format · Market-specific content.",
+   "details": [
+    "جدول markets (PLATFORM-ARCHITECTURE §3.2) ككيان إعداد؛ متسق مع WEB-002/WEB-007 (Brand + Market layer) وI18N-002 (لا لغة ثالثة الآن) وDX-023.",
+    "صيغة السعر (I18N-006: 3.50 د.أ / 3.50 JOD) وصيغة الهاتف (CONTACT-020) تأتيان من إعداد السوق.",
+    "الأولوية P0 لأنها من أساس Phase 1 في M36 §6 (\"Arabic/English architecture\" و\"Country/City/Branch model\")؛ المراجعة صنفتها P1.",
+    "الوثيقة: docs/INTERNATIONALIZATION.md."
+   ],
+   "sources": [
+    "M35 §31"
+   ],
+   "decision_refs": [
+    "G17-ND-08"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec (SPEC — READY FOR BUILD): docs/platform/INTERNATIONALIZATION.md — spec: docs/architecture/PLATFORM-ARCHITECTURE.md §3.2 · WEB-002 · WEB-007",
+   "missing_work": "كيان السوق + مساعدات التنسيق من الإعداد + INTERNATIONALIZATION.md",
+   "dependencies": [
+    "WEB-002",
+    "WEB-007",
+    "WEB-008",
+    "I18N-002",
+    "I18N-006",
+    "CONTACT-020",
+    "DX-023",
+    "INFRA-029"
+   ],
+   "test_required": "اختبارات وحدة: تنسيق السعر/الهاتف/التاريخ من إعداد السوق؛ إضافة سوق تجريبي مخفي في الاختبار دون تعديل الكود",
+   "design_refs": [
+    "docs/platform/INTERNATIONALIZATION.md",
+    "docs/FINAL-ARCHITECTURE-REVIEW.md §1–4 (صف 31–33)",
+    "docs/architecture/PLATFORM-ARCHITECTURE.md §3.2"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P06",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "INFRA-029",
+   "area": "49 Infrastructure, Release & Operations",
+   "type": "RULE",
+   "title": "لا تثبيت للدولة في الكود — السوق الحالي JO · ar · en · JOD · Asia/Amman",
+   "requirement": "لا يكون \"Jordan\" hardcoded داخل business logic. Current market configuration: JO · Arabic · English · JOD · Asia/Amman. النظام يدعم إضافة سوق جديد لاحقًا بدون إعادة بناء Core Website.",
+   "details": [
+    "فحص Hardcode في CI (امتداد OPS-012/OPS-039) يشمل في المنطق والقوالب: Jordan/الأردن، JOD، Asia/Amman، +962، المقطع /jo/ خارج الإعداد.",
+    "النصوص التسويقية المعتمدة التي تذكر الأردن محتوى لا منطق.",
+    "أي سوق جديد يبقى Hidden حتى موافقة الـOwner (WEB-004)."
+   ],
+   "sources": [
+    "M35 §32"
+   ],
+   "decision_refs": [
+    "G17-ND-08"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec (SPEC — READY FOR BUILD): docs/platform/INTERNATIONALIZATION.md — spec: WEB-002 (مبدأ)",
+   "missing_work": "قاعدة الفحص الآلي + القراءة من الإعداد",
+   "dependencies": [
+    "INFRA-028",
+    "OPS-012",
+    "OPS-039",
+    "WEB-004"
+   ],
+   "test_required": "CI: فحص الأنماط في app/ وresources/ يفشل عند وجود قيمة سوق مثبتة خارج الإعداد",
+   "design_refs": [
+    "docs/platform/INTERNATIONALIZATION.md",
+    "docs/FINAL-ARCHITECTURE-REVIEW.md §1–4"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P06",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "INFRA-030",
+   "area": "49 Infrastructure, Release & Operations",
+   "type": "DELIVERABLE",
+   "title": "SITE-INVENTORY.md — جرد كل Public Route بحقوله العشرة",
+   "requirement": "إنشاء SITE-INVENTORY.md يحتوي كل Public Route، مثلًا: Home · Menu · Locations · Branch Details · About · Coffee Knowledge · Article · Media · Events · Awards · Careers · Franchise · Contact · FAQ · Privacy · Terms · Search · 404 · etc. ولكل Route: Purpose · Language · Data Source · CMS source · SEO status · Analytics · Owner editable? · Authentication? · Indexable? · Current status.",
+   "details": [
+    "المصادر: 10-url-architecture-draft (P3 مبدئي D-031) · الجذر / (D-052) · IA المنيو · التوظيف · الفرنشايز · صفحات النظام (404/500/صيانة/بحث noindex).",
+    "المسارات بمحتوى غير معتمد تُسجل بحالتها: Catering = PAGE RESERVED (D-069) · Media/Awards بانتظار الحقائق (PO-032) · Privacy/Terms بانتظار PO-019/PO-018.",
+    "هو نفسه \"SITE INVENTORY\" في M36 §2 — ملف واحد.",
+    "يغذي: XML Sitemap (SEO-029) · Visual regression (OPS-040) · خريطة التحويل (INFRA-033) · قائمة الإطلاق."
+   ],
+   "sources": [
+    "M35 §34"
+   ],
+   "decision_refs": [
+    "G17-ND-09"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "IMPLEMENTED — NOT TESTED",
+   "tested": "NO",
+   "existing_impl": "spec (SPEC — READY FOR BUILD): docs/platform/SITE-INVENTORY.md — spec جزئي: docs/phase-01-discovery/10-url-architecture-draft.md",
+   "missing_work": "مراجعة الـOwner (غير مانعة) + إبقاؤه متزامنًا مع الـRoutes أثناء البناء",
+   "dependencies": [
+    "WEB-008",
+    "WEB-010",
+    "IA-005",
+    "SEO-029",
+    "OPS-040",
+    "INFRA-033",
+    "BUILD-002"
+   ],
+   "test_required": "مراجعة: كل Route عام في التطبيق له صف كامل الحقول؛ فحص آلي يقارن قائمة الـRoutes الفعلية بالملف",
+   "design_refs": [
+    "docs/platform/SITE-INVENTORY.md",
+    "docs/phase-01-discovery/10-url-architecture-draft.md",
+    "docs/FINAL-ARCHITECTURE-REVIEW.md §1–4 (صف 34)"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P03",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "INFRA-031",
+   "area": "49 Infrastructure, Release & Operations",
+   "type": "DELIVERABLE",
+   "title": "خريطة مصدر الحقيقة لكل نوع محتوى (CONTENT-SOURCE-OF-TRUTH) — لا نوع بلا مالك",
+   "requirement": "لكل Content Type يُحدد Source of Truth، مثال: Hours → Master Data Hub · Menu Prices → Master Menu Data · Awards → Media Center · Careers Application → Recruitment Module · Franchise Application → Franchise Module · Event → Events / Dynamic Experience system. لا يوجد Content Type بلا Owner واضح.",
+   "details": [
+    "يوسّع MASTER-DATA-HUB §3 (البيانات الرئيسية) إلى كل الأنواع: الصفحات · المقالات · FAQ · الوسائط وحقوقها · الاستفسارات · الآراء · المراجعات · الحقائق · التحويلات · الإعدادات · السوق.",
+    "لكل نوع: الوحدة المالكة · الجدول · المحرر في الـDashboard · القنوات المشتقة (Website/Schema/GBP/Search) · التصنيف (INFRA-039).",
+    "= \"DATA SOURCE OF TRUTH\" في M36 §2 و\"One Source of Truth per data type\" في M36 §3 — ملف واحد docs/CONTENT-SOURCE-OF-TRUTH.md."
+   ],
+   "sources": [
+    "M35 §35"
+   ],
+   "decision_refs": [
+    "G17-ND-09"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "IMPLEMENTED — NOT TESTED",
+   "tested": "NO",
+   "existing_impl": "spec (SPEC — READY FOR BUILD): docs/platform/CONTENT-SOURCE-OF-TRUTH.md — docs/MASTER-DATA-HUB.md §3 (البيانات الرئيسية فقط)",
+   "missing_work": "مراجعة غير مانعة + تطبيقه على نموذج البيانات في PHASE 1",
+   "dependencies": [
+    "OPS-002",
+    "GOV-078",
+    "BUILD-003",
+    "INFRA-039"
+   ],
+   "test_required": "مراجعة: كل جدول محتوى في المخطط له صف مالك واحد؛ لا نوع بمصدرين",
+   "design_refs": [
+    "docs/platform/CONTENT-SOURCE-OF-TRUTH.md",
+    "docs/MASTER-DATA-HUB.md §3"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P04",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "INFRA-032",
+   "area": "49 Infrastructure, Release & Operations",
+   "type": "DELIVERABLE",
+   "title": "سجل الروابط القديمة (LEGACY URL INVENTORY) قبل الإطلاق",
+   "requirement": "قبل إطلاق الموقع الجديد تُستخرج جميع URLs المهمة من الموقع القديم في LEGACY URL INVENTORY، لكل URL: old URL · page type · indexed? · traffic if available · backlinks if available · new destination · action. Actions: KEEP · 301 REDIRECT · 410 only if truly appropriate · REVIEW.",
+   "details": [
+    "البذرة: 02-url-inventory-and-migration-seed + SEO-MIGRATION-MAP (تقديرات Semrush حتى بيانات Search Console).",
+    "الاكتمال يحتاج: AC-01 للموقع الحقيقي (PO-008) + تصدير/صلاحية Search Console (PO-011) + قائمة QR والروابط المطبوعة (PO-014، SEO-014).",
+    "مفردات الإجراءات تحل محل KEEP/REBUILD/REDIRECT/REMOVE في SEO-010 (G17-CF-08).",
+    "الوثيقة: docs/LEGACY-URL-MIGRATION.md تجمع 02 وSEO-MIGRATION-MAP — لا وثيقة ثالثة."
+   ],
+   "sources": [
+    "M35 §15"
+   ],
+   "decision_refs": [
+    "G17-ND-05"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "PARTIAL",
+   "tested": "NO",
+   "existing_impl": "spec (SPEC — READY FOR BUILD): docs/platform/LEGACY-URL-MIGRATION.md — docs/phase-01-discovery/02-url-inventory-and-migration-seed.md · docs/google/SEO-MIGRATION-MAP.md (DRAFT)",
+   "missing_work": "الجرد الكامل BLOCKED على الوصول (PO-008، PO-011)",
+   "dependencies": [
+    "SEO-009",
+    "SEO-010",
+    "SEO-014",
+    "GSC-005",
+    "PO-008",
+    "PO-011",
+    "PO-014",
+    "PO-015"
+   ],
+   "test_required": "مراجعة: كل رابط له قيمة (GSC/Backlinks/QR) موجود بصف كامل؛ لا صف بإجراء فارغ",
+   "design_refs": [
+    "docs/platform/LEGACY-URL-MIGRATION.md",
+    "docs/phase-01-discovery/02-url-inventory-and-migration-seed.md",
+    "docs/google/SEO-MIGRATION-MAP.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "G17-CF-08",
+   "business_data": false,
+   "phase": "P11",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "INFRA-033",
+   "area": "49 Infrastructure, Release & Operations",
+   "type": "RULE",
+   "title": "خريطة التحويل (REDIRECT MAP): أقرب بديل مكافئ — لا تحويل جماعي للرئيسية",
+   "requirement": "REDIRECT MAP: لا Mass redirect لكل شيء إلى Homepage؛ كل Old URL يذهب لأقرب Equivalent New URL.",
+   "details": [
+    "قفزة واحدة بلا سلاسل (SEO-011)؛ 410 نادر (INFRA-032)؛ لا Soft-404 (تحويل لصفحة غير مكافئة).",
+    "تُدار في Redirect Manager (SEO-018) عبر جدول redirects مع عداد استخدام (PLATFORM-ARCHITECTURE §3.3).",
+    "اختبار آلي قبل الإطلاق لكل صف في الجرد: 200 بعد قفزة واحدة إلى الوجهة المحددة.",
+    "التنفيذ على Production وقت الإطلاق فقط بموافقة الـOwner (SEO-013، SEO-015، M36 §11)."
+   ],
+   "sources": [
+    "M35 §16"
+   ],
+   "decision_refs": [
+    "G17-ND-05"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec (SPEC — READY FOR BUILD): docs/platform/LEGACY-URL-MIGRATION.md — spec: SEO-011 · SEO-018 · docs/FINAL-ARCHITECTURE-REVIEW.md §1–4 (صف 15–16)",
+   "missing_work": "بناء الخريطة من الجرد + اختبار التحويلات على Staging",
+   "dependencies": [
+    "INFRA-032",
+    "SEO-011",
+    "SEO-013",
+    "SEO-015",
+    "SEO-018",
+    "FRAN-093"
+   ],
+   "test_required": "اختبار آلي: كل رابط قديم ← قفزة واحدة إلى وجهة مكافئة؛ صفر تحويلات إلى / إلا للرابط الجذر نفسه",
+   "design_refs": [
+    "docs/platform/LEGACY-URL-MIGRATION.md",
+    "docs/FINAL-ARCHITECTURE-REVIEW.md §1–4"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P11",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "INFRA-034",
+   "area": "49 Infrastructure, Release & Operations",
+   "type": "RULE",
+   "title": "Global Definition of Done — RELEASE-CHECKLIST.md المرجع الوحيد (17 فحصًا)",
+   "requirement": "إنشاء Global Definition of Done: أي Page أو Feature لا تُعتبر Done قبل مراجعة: FUNCTION · RESPONSIVE · MOBILE · TABLET · DESKTOP · RTL · LTR · ACCESSIBILITY · SEO · SCHEMA · ANALYTICS · PERFORMANCE · SECURITY · PRIVACY · ERROR STATES · VISUAL REGRESSION · CONTENT APPROVAL.",
+   "details": [
+    "ملف واحد docs/RELEASE-CHECKLIST.md تُحيل إليه قوائم DoD القائمة (TEST-002 · TEST-004 · GOV-086 · OPS-054 · CAREERS-099 · FRAN-102 · SEO-041 · DX-038) التي تبقى إضافات خاصة بالوحدة فقط — لا قوائم متوازية (FINAL-ARCHITECTURE-REVIEW §5).",
+    "كل بند = فحص آلي حيث أمكن (Playwright 20 عرضًا، axe، Lighthouse، Visual regression) + فحص يدوي موثق.",
+    "بدون Build + Test + Verify تُكتب الحالة IMPLEMENTED — NOT YET VERIFIED (M36 §20، BUILD-020)."
+   ],
+   "sources": [
+    "M35 §36"
+   ],
+   "decision_refs": [
+    "G17-ND-09"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "IMPLEMENTED — NOT TESTED",
+   "tested": "NO",
+   "existing_impl": "spec (SPEC — READY FOR BUILD): docs/platform/RELEASE-CHECKLIST.md — spec مبعثر: TEST-002 · GOV-086 · OPS-054 · CAREERS-099 · FRAN-102",
+   "missing_work": "تطبيقه من أول Feature وتحويل قوائم DoD الأخرى إلى إحالات في السجلات",
+   "dependencies": [
+    "TEST-002",
+    "TEST-004",
+    "GOV-086",
+    "OPS-054",
+    "CAREERS-099",
+    "FRAN-102",
+    "SEO-041",
+    "BUILD-020"
+   ],
+   "test_required": "مراجعة: كل إصدار على Staging مرفق بقائمة الـ17 بنتائجها؛ لا وثيقة DoD أخرى تكرر البنود",
+   "design_refs": [
+    "docs/platform/RELEASE-CHECKLIST.md",
+    "docs/FINAL-ARCHITECTURE-REVIEW.md §5"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P10",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "INFRA-035",
+   "area": "49 Infrastructure, Release & Operations",
+   "type": "REQUIREMENT",
+   "title": "قابلية نقل البيانات (Data Portability) — تصدير منظم بصلاحيات الـOwner",
+   "requirement": "SHELTER يمتلك بياناته: دعم Export منظم عند الحاجة لـ products · categories · branches · hours · media metadata · events · awards · blog/articles · careers · franchise applications · inquiries · feedback — بصلاحيات Owner.",
+   "details": [
+    "خدمة تصدير واحدة (جدول exports — PLATFORM-ARCHITECTURE §3.5) يستخدمها التوظيف (CAREERS-072) وبقية الكيانات — لا تصدير منفصل لكل وحدة.",
+    "الصيغ: CSV (UTF-8 بدعم العربية) + JSON بمخطط موثق؛ حماية Formula injection (G10-TF-17).",
+    "الوثيقة: docs/DATA-PORTABILITY.md (تشمل أمان التصدير وقابلية نقل النظام)."
+   ],
+   "sources": [
+    "M35 §39"
+   ],
+   "decision_refs": [
+    "G17-ND-09"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec (SPEC — READY FOR BUILD): docs/platform/DATA-PORTABILITY.md — spec جزئي: CAREERS-072",
+   "missing_work": "خدمة التصدير الموحدة للكيانات الاثني عشر",
+   "dependencies": [
+    "CAREERS-072",
+    "INFRA-036",
+    "INFRA-039"
+   ],
+   "test_required": "اختبار: تصدير كل كيان ← ملف صالح بالعربية ومخطط موثق؛ Owner فقط",
+   "design_refs": [
+    "docs/platform/DATA-PORTABILITY.md",
+    "docs/FINAL-ARCHITECTURE-REVIEW.md §5",
+    "docs/architecture/PLATFORM-ARCHITECTURE.md §3.5"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "INFRA-036",
+   "area": "49 Infrastructure, Release & Operations",
+   "type": "RULE",
+   "title": "أمان التصدير: Owner only · تأكيد صريح · Audit · إخفاء حيث يلزم",
+   "requirement": "أي Export يحتوي بيانات حساسة: Owner only · explicit confirmation · audit logged · masked where appropriate.",
+   "details": [
+    "يُحدد بالتصنيف (CONFIDENTIAL/SENSITIVE — INFRA-039)؛ إعادة مصادقة قبل التصدير الحساس (OPS-036).",
+    "الملف في منطقة exports الخاصة، رابط تنزيل مؤقت، حذف تلقائي بعد التنزيل أو المهلة (INFRA-038).",
+    "الهوية Masked افتراضيًا (CAREERS-072)؛ كل Data export يدخل Audit (M35 §46)."
+   ],
+   "sources": [
+    "M35 §40"
+   ],
+   "decision_refs": [
+    "G17-ND-09"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec (SPEC — READY FOR BUILD): docs/platform/DATA-PORTABILITY.md — spec جزئي: CAREERS-072/073",
+   "missing_work": "تطبيق القواعد في خدمة التصدير الموحدة",
+   "dependencies": [
+    "INFRA-035",
+    "INFRA-038",
+    "INFRA-039",
+    "OPS-036",
+    "AUDIT-001"
+   ],
+   "test_required": "اختبار: تصدير حساس بلا إعادة مصادقة يُرفض؛ الحقول SENSITIVE مقنعة؛ سطر Audit لكل تصدير؛ الملف يُحذف بعد المهلة",
+   "design_refs": [
+    "docs/platform/DATA-PORTABILITY.md",
+    "docs/FINAL-ARCHITECTURE-REVIEW.md §15"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "INFRA-037",
+   "area": "49 Infrastructure, Release & Operations",
+   "type": "RULE",
+   "title": "قابلية نقل النظام — لا حبس لبيانات SHELTER عند Vendor",
+   "requirement": "تجنب Architecture تجعل بيانات SHELTER محبوسة داخل Vendor بشكل غير قابل للنقل؛ استخدام documented schemas وbackups.",
+   "details": [
+    "ADR-001: Laravel + MySQL/MariaDB تعمل على أي استضافة PHP؛ الـMigrations مصدر المخطط الوحيد.",
+    "النسخ بصيغ قياسية (SQL dump + ملفات)؛ external_references لمعرّفات الأنظمة الخارجية (INT-013، INT-016).",
+    "لا خدمة SaaS لتخزين بيانات الأعمال (CAREERS-003)."
+   ],
+   "sources": [
+    "M35 §41"
+   ],
+   "decision_refs": [
+    "G17-ND-09"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "PARTIAL",
+   "tested": "NO",
+   "existing_impl": "spec (SPEC — READY FOR BUILD): docs/platform/DATA-PORTABILITY.md — docs/adr/ADR-001-platform.md (العواقب)",
+   "missing_work": "توثيق المخططات في DATA-PORTABILITY.md",
+   "dependencies": [
+    "ADR-001",
+    "INFRA-006",
+    "INFRA-035",
+    "CAREERS-003"
+   ],
+   "test_required": "مراجعة: استرجاع نسخة على بيئة MySQL خارج Cloudways ينجح (ضمن تمرين DR)",
+   "design_refs": [
+    "docs/platform/DATA-PORTABILITY.md",
+    "docs/adr/ADR-001-platform.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P06",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "INFRA-038",
+   "area": "49 Infrastructure, Release & Operations",
+   "type": "RULE",
+   "title": "حوكمة تخزين الملفات — أربع مناطق، ولا ملفات خاصة في مجلدات الويب العامة",
+   "requirement": "تحديد واضح: Public Media · Private Careers files · Private Franchise files · System exports. لا تُخزن Private files في Public web directories.",
+   "details": [
+    "Public Media: مكتبة الوسائط الواحدة (MEDIA-012) بأسماء Hash.",
+    "الخاصة: storage/app/private وعلى Cloudways داخل private_html (ADR-001، CAREERS-037، FRAN-051، CW-03) — عبر Endpoint محمي فقط (CW-04).",
+    "System exports: مؤقتة خاصة تُحذف بعد التنزيل/المهلة.",
+    "مرفقات الاستفسارات غير مفعّلة في V1؛ لا منطقة خامسة الآن (G17-CF-12).",
+    "النسخ الاحتياطي يشمل المناطق الخاصة (OPS-041)."
+   ],
+   "sources": [
+    "M35 §52"
+   ],
+   "decision_refs": [
+    "G17-ND-09"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec (SPEC — READY FOR BUILD): docs/platform/DATA-CLASSIFICATION.md — spec: docs/CLOUDWAYS-RECRUITMENT-ARCHITECTURE.md §2 (CW-03/CW-04) · docs/architecture/PLATFORM-ARCHITECTURE.md §1",
+   "missing_work": "إعداد المناطق الأربع + فحص الوصول المباشر",
+   "dependencies": [
+    "CAREERS-037",
+    "FRAN-051",
+    "SEC-009",
+    "MEDIA-012",
+    "OPS-041"
+   ],
+   "test_required": "فحص آلي: طلب مباشر لمسار أي ملف خاص من الويب = 403/404؛ تنزيل الخاص يتطلب جلسة Owner",
+   "design_refs": [
+    "docs/platform/DATA-CLASSIFICATION.md",
+    "docs/CLOUDWAYS-RECRUITMENT-ARCHITECTURE.md §2",
+    "docs/architecture/PLATFORM-ARCHITECTURE.md §1"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "G17-CF-12",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "INFRA-039",
+   "area": "49 Infrastructure, Release & Operations",
+   "type": "RULE",
+   "title": "تصنيف البيانات: PUBLIC · INTERNAL · CONFIDENTIAL · SENSITIVE",
+   "requirement": "تُصنف البيانات داخليًا: PUBLIC · INTERNAL · CONFIDENTIAL · SENSITIVE (مثال: Menu price = PUBLIC · Internal note = INTERNAL · Franchise business docs = CONFIDENTIAL · National/passport number = SENSITIVE)، ويُستخدم التصنيف في access/storage/export rules.",
+   "details": [
+    "تصنيف لكل جدول/حقل (عمود التصنيف في PLATFORM-ARCHITECTURE §3).",
+    "التصنيف يحدد: من يقرأ · أين يُخزن (عام/خاص/مشفّر) · كيف يُصدّر (عادي/مقنّع/بتأكيد) · ماذا يُرسل للتحليلات (PUBLIC فقط ومجمّعًا) — FINAL-ARCHITECTURE-REVIEW §11.",
+    "SENSITIVE مشفّر على مستوى الحقل (application_identity_secure — RECRUITMENT-DATA-MODEL §2.2).",
+    "الوثيقة: docs/DATA-CLASSIFICATION.md (PLATFORM-ARCHITECTURE يشير إلى docs/platform/ — G17-TF-17)."
+   ],
+   "sources": [
+    "M35 §53"
+   ],
+   "decision_refs": [
+    "G17-ND-09"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec (SPEC — READY FOR BUILD): docs/platform/DATA-CLASSIFICATION.md — spec: docs/FINAL-ARCHITECTURE-REVIEW.md §11 · docs/architecture/PLATFORM-ARCHITECTURE.md §3",
+   "missing_work": "DATA-CLASSIFICATION.md + تطبيق التصنيف في الصلاحيات والتخزين والتصدير",
+   "dependencies": [
+    "INFRA-036",
+    "INFRA-038",
+    "PRIV-013",
+    "OPS-037"
+   ],
+   "test_required": "مراجعة: كل حقل في المخطط مصنف؛ اختبار: حقل SENSITIVE لا يظهر في التصدير العادي ولا السجلات ولا التحليلات",
+   "design_refs": [
+    "docs/platform/DATA-CLASSIFICATION.md",
+    "docs/FINAL-ARCHITECTURE-REVIEW.md §11",
+    "docs/RECRUITMENT-DATA-MODEL.md §2.2"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P06",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "INFRA-040",
+   "area": "49 Infrastructure, Release & Operations",
+   "type": "REQUIREMENT",
+   "title": "Command palette / إجراءات سريعة للـOwner — اختياري ولا يعقّد V1",
+   "requirement": "اختياري إذا مفيد: Command/Search interface سريع للـOwner (مثال: البحث عن \"Cappuccino\" يظهر Product · Price · Image · Usage)، لكن لا يُعقّد V1 إذا كان Global Search يكفي.",
+   "details": [
+    "V1 = بحث الـOwner الشامل (DASH-019) فقط؛ الـPalette تقييم بعد الاستخدام الفعلي (P2)."
+   ],
+   "sources": [
+    "M35 §48"
+   ],
+   "decision_refs": [
+    "G17-ND-10"
+   ],
+   "status": "APPROVED WITH CONDITIONS",
+   "owner_approved": "YES",
+   "priority": "P2",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "تقييم بعد V1",
+   "dependencies": [
+    "DASH-019"
+   ],
+   "test_required": "قرار موثق بعد V1: مفيد/غير مفيد بناءً على استخدام البحث",
+   "design_refs": [
+    "docs/FINAL-ARCHITECTURE-REVIEW.md §7–9"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P12",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "INFRA-041",
+   "area": "49 Infrastructure, Release & Operations",
+   "type": "DELIVERABLE",
+   "title": "قائمة جاهزية الإطلاق (LAUNCH READINESS CHECKLIST) — قائمة واحدة",
+   "requirement": "قبل Go-Live النهائي: LAUNCH READINESS CHECKLIST تشمل: DNS · SSL · Cloudflare · robots · sitemap · canonical · hreflang · redirects · Search Console · GA4/GTM · Google Business links · forms · emails/inquiries if used · database backup · restore readiness · media optimization · accessibility · performance · security · privacy · mobile · browser QA · analytics · owner dashboard · monitoring · error tracking.",
+   "details": [
+    "تضم DEPLOY-010 (Before Launch — Google Checklist) وSEO-020 وGBP-014 كأقسام — قائمة واحدة لا ثلاث.",
+    "restore readiness = اختبار استرجاع ناجح قبل الإطلاق (OPS-042، L-8).",
+    "emails/inquiries: V1 بلا بريد (MON-009) — الاستفسارات في الـDashboard.",
+    "error tracking = السجل الذاتي (Sentry فقط بموافقة — INT-005).",
+    "كل بند PASS/FAIL مع دليل؛ الإطلاق نفسه بموافقة الـOwner (DEPLOY-001، BUILD-011).",
+    "الوثيقة: docs/LAUNCH-READINESS.md."
+   ],
+   "sources": [
+    "M35 §54"
+   ],
+   "decision_refs": [
+    "G17-ND-11"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "IMPLEMENTED — NOT TESTED",
+   "tested": "NO",
+   "existing_impl": "spec (SPEC — READY FOR BUILD): docs/platform/LAUNCH-READINESS.md — spec جزئي: DEPLOY-010 · SEO-020 · GBP-014 · docs/google/GOOGLE-ECOSYSTEM-CHECKLIST.md",
+   "missing_work": "تعبئة القائمة بالأدلة قبل الإطلاق (P11)",
+   "dependencies": [
+    "DEPLOY-010",
+    "SEO-020",
+    "GBP-014",
+    "OPS-042",
+    "INFRA-034",
+    "INFRA-042"
+   ],
+   "test_required": "تشغيل القائمة كاملة على Staging/Production المرشح مع دليل لكل بند؛ أي FAIL في P0 = لا إطلاق",
+   "design_refs": [
+    "docs/platform/LAUNCH-READINESS.md",
+    "docs/google/GOOGLE-ECOSYSTEM-CHECKLIST.md",
+    "docs/FINAL-ARCHITECTURE-REVIEW.md §16"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P11",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "INFRA-042",
+   "area": "49 Infrastructure, Release & Operations",
+   "type": "REQUIREMENT",
+   "title": "التحقق بعد الإطلاق: T+1h · T+24h · T+7d (ضمن جدول المراقبة الموحد)",
+   "requirement": "بعد Launch لا تُعتبر المهمة منتهية: verification plan عند T+1 hour · T+24 hours · T+7 days للتحقق من: errors · redirects · indexing · analytics · forms · Search Console · performance · Google integrations · broken links · real-user metrics.",
+   "details": [
+    "يُدمج مع MON-011 (Day 1 · 3 · 7 · 14 · 30) في جدول واحد: T+1h · T+24h (Day 1) · Day 3 · T+7d (Day 7) · Day 14 · Day 30 (G17-CF-09) ومع POST-LAUNCH-GOOGLE-CHECKLIST.",
+    "indexing حسب ما تسمح به الـAPI (GSC-013)؛ real-user metrics من RUM (OPS-025).",
+    "أي فشل ← Issue + قرار تراجع حسب ROLLBACK (INFRA-005).",
+    "الوثيقة: docs/POST-LAUNCH-VERIFICATION.md."
+   ],
+   "sources": [
+    "M35 §55"
+   ],
+   "decision_refs": [
+    "G17-ND-11"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "PARTIAL",
+   "tested": "NO",
+   "existing_impl": "spec (SPEC — READY FOR BUILD): docs/platform/POST-LAUNCH-VERIFICATION.md — spec جزئي: MON-011 · docs/google/POST-LAUNCH-GOOGLE-CHECKLIST.md",
+   "missing_work": "الخطة مكتوبة؛ التنفيذ بعد الإطلاق؛ دمج Day 3 · Day 14 · Day 30 من MON-011 في نفس الوثيقة",
+   "dependencies": [
+    "MON-011",
+    "MON-012",
+    "GSC-013",
+    "OPS-025",
+    "INFRA-005",
+    "INFRA-041"
+   ],
+   "test_required": "تقرير موثق عند كل نقطة زمنية بالنتائج العشر",
+   "design_refs": [
+    "docs/platform/POST-LAUNCH-VERIFICATION.md",
+    "docs/google/POST-LAUNCH-GOOGLE-CHECKLIST.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "G17-CF-09",
+   "business_data": false,
+   "phase": "P11",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "INFRA-043",
+   "area": "49 Infrastructure, Release & Operations",
+   "type": "DELIVERABLE",
+   "title": "الوثائق العشرون لأنظمة M35 (§56)",
+   "requirement": "تُنشأ أو تُحدَّث: docs/ENVIRONMENTS.md · docs/DEPLOYMENT.md · docs/ROLLBACK.md · docs/MONITORING.md · docs/INCIDENTS.md · docs/NOTIFICATIONS.md · docs/INQUIRIES.md · docs/FORM-RELIABILITY.md · docs/LEGACY-URL-MIGRATION.md · docs/CACHE-CDN.md · docs/INTEGRATION-REGISTRY.md · docs/DISASTER-RECOVERY.md · docs/INTERNATIONALIZATION.md · docs/SITE-INVENTORY.md · docs/CONTENT-SOURCE-OF-TRUTH.md · docs/RELEASE-CHECKLIST.md · docs/DATA-PORTABILITY.md · docs/DATA-CLASSIFICATION.md · docs/LAUNCH-READINESS.md · docs/POST-LAUNCH-VERIFICATION.md.",
+   "details": [
+    "الحالة 2026-10-01: الوثائق العشرون كلها موجودة في docs/platform/ بحالة SPEC — READY FOR BUILD (التنفيذ NOT STARTED)؛ وإلى جانبها وثائق M32 في نفس المجلد.",
+    "تغطية الأنظمة غير المسماة بلا وثائق إضافية: Release registry + Migration governance ← DEPLOYMENT · Owner-friendly errors ← INCIDENTS · Scheduler + Network failure ← MONITORING · Secrets + Service ownership ← INTEGRATION-REGISTRY · Export security + System portability ← DATA-PORTABILITY · File storage ← DATA-CLASSIFICATION · Sync confirmation ← CACHE-CDN (يحيل لـMASTER-DATA-HUB).",
+    "CONTENT-SOURCE-OF-TRUTH = DATA SOURCE OF TRUTH وSITE-INVENTORY = SITE INVENTORY في M36 §2؛ INTEGRATION-REGISTRY = INTEGRATION MAP.",
+    "المسار docs/platform/ قرار تنظيمي تقني (لا يغيّر المحتوى المطلوب) — يُعتمد مسارًا واحدًا ولا تُنشأ نسخ في جذر docs/ (G17-TF-17).",
+    "أقسام إلزامية: الغرض + معيار القبول (OPS-003) · Reuse (OPS-002) · أثر البيانات · Owner-only/No-code · الخدمات الخارجية (OPS-052) · DoD (INFRA-034)."
+   ],
+   "sources": [
+    "M35 §56"
+   ],
+   "decision_refs": [
+    "G17-ND-01"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "IMPLEMENTED — NOT TESTED",
+   "tested": "NO",
+   "existing_impl": "20/20 موجودة في docs/platform/ (SPEC — READY FOR BUILD، 2026-10-01) بدل جذر docs/ الذي سماه M35 §56",
+   "missing_work": "مراجعة غير مانعة؛ تحديث كل وثيقة عند بناء نظامها (M36 §18)؛ توحيد المراجع على مسار docs/platform/ وعدم إنشاء نسخ في الجذر",
+   "dependencies": [
+    "OPS-008",
+    "BUILD-002",
+    "BUILD-018"
+   ],
+   "test_required": "فحص: الملفات العشرون موجودة بالمسارات المسماة وكل منها يحتوي الأقسام الإلزامية",
+   "design_refs": [
+    "docs/platform/",
+    "docs/FINAL-ARCHITECTURE-REVIEW.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P06",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "INFRA-044",
+   "area": "49 Infrastructure, Release & Operations",
+   "type": "DELIVERABLE",
+   "title": "المعمارية النهائية المستهدفة (M35 §60)",
+   "requirement": "SHELTER OWNER → OWNER COMMAND CENTER → (MASTER DATA · CONTENT · OPERATIONS) → (WEBSITE · MEDIA/EVENTS · FORMS/LEADS)؛ والـWebsite/Master Data تغذي: Website UI · Google Business · Schema · SEO · Analytics · Future App · Future POS/ERP؛ وتحت كل ذلك: DESIGN SYSTEM · SECURITY · PRIVACY · MONITORING · BACKUPS · AUDIT · PERFORMANCE · ACCESSIBILITY · CI/CD.",
+   "details": [
+    "موثقة في PLATFORM-ARCHITECTURE.md وFINAL-ARCHITECTURE-REVIEW §11–12.",
+    "Future App / POS / ERP عبر external_references وChannel adapters (INT-013، INT-016) — بلا بناء الآن."
+   ],
+   "sources": [
+    "M35 §60"
+   ],
+   "decision_refs": [
+    "G17-ND-01"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "IMPLEMENTED — NOT TESTED",
+   "tested": "NO",
+   "existing_impl": "docs/architecture/PLATFORM-ARCHITECTURE.md · docs/FINAL-ARCHITECTURE-REVIEW.md §11–12",
+   "missing_work": "الإبقاء على الوثيقتين متطابقتين مع الكود أثناء البناء",
+   "dependencies": [
+    "ADR-001",
+    "INT-013",
+    "INT-016"
+   ],
+   "test_required": "مراجعة: كل طبقة في المخطط لها وحدة/وثيقة مالكة",
+   "design_refs": [
+    "docs/architecture/PLATFORM-ARCHITECTURE.md",
+    "docs/FINAL-ARCHITECTURE-REVIEW.md §11–12"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P06",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "INFRA-045",
+   "area": "49 Infrastructure, Release & Operations",
+   "type": "DELIVERABLE",
+   "title": "الاستجابة الأولى لـM35: المراجعة المعمارية ذات البنود الـ17",
+   "requirement": "لا تبدأ Coding فورًا؛ أعطني أولًا: 1. FINAL COMPLETENESS AUDIT · 2. What already exists · 3. What is partial · 4. What is genuinely missing · 5. Duplicate systems found · 6. Architecture conflicts · 7. P0 missing items · 8. P1 missing items · 9. P2 future items · 10. Dashboard IA after all additions · 11. Data architecture map · 12. Integration architecture map · 13. Deployment architecture · 14. Monitoring architecture · 15. Security/privacy gaps · 16. Launch risks · 17. Final phased implementation plan؛ ثم نبدأ التنفيذ حسب الأولوية.",
+   "details": [
+    "المخرج موجود: docs/FINAL-ARCHITECTURE-REVIEW.md (البنود 17 كلها).",
+    "نواقص وُجدت عند التحقق مقابل M35 (G17-TF-16): مفردات التصنيف؛ طبقة Cloudways cache؛ تعارض مقياس الشدة؛ تعارض الرئيسية مع DASH-007/008؛ DASH-026؛ مفردات SEO-010؛ جدول MON-011؛ تداخل الشكاوى مع Voice of Customer؛ منطقة مرفقات الاستفسارات؛ مراقب حالة Search Console؛ شرط عدم منع الطلبات المستقلة؛ تصنيف التوفر في نموذج الصحة؛ مسار docs/platform/؛ معرّف Cappuccino الخاطئ (PRD-00058).",
+    "شرط \"لا Coding قبل الاعتماد\" وحالة \"AWAITING OWNER ARCHITECTURE APPROVAL\" تحولت بـM36 إلى مراجعة غير مانعة (READY FOR REVIEW) — G18-CF-01."
+   ],
+   "sources": [
+    "M35 §61"
+   ],
+   "decision_refs": [
+    "G17-ND-01"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NEEDS FIX",
+   "tested": "N/A",
+   "existing_impl": "docs/FINAL-ARCHITECTURE-REVIEW.md",
+   "missing_work": "تصحيح النواقص المذكورة في المراجعة وتحديث حالتها إلى READY FOR REVIEW",
+   "dependencies": [
+    "INFRA-001",
+    "BUILD-001",
+    "BUILD-026"
+   ],
+   "test_required": "مراجعة: البنود الـ17 موجودة ومتسقة مع G17 بعد التصحيحات",
+   "design_refs": [
+    "docs/FINAL-ARCHITECTURE-REVIEW.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "G18-CF-01",
+   "business_data": false,
+   "phase": "P00",
+   "history": [
+    {
+     "old": "لا Coding قبل اعتماد الـOwner للمراجعة (M35 §61) — المراجعة بحالة DRAFT — AWAITING OWNER ARCHITECTURE APPROVAL",
+     "source": "M35",
+     "superseded_by": "M36 + المتابعتان (البناء بعد إنهاء المهام الحالية؛ المراجعة READY FOR REVIEW غير مانعة) — BUILD-026"
+    }
+   ],
+   "notes": ""
+  }
+ ],
+ "updates_to_existing": [
+  {
+   "id": "OPS-048",
+   "change": "INCIDENTS / NEEDS ATTENTION = نفس محرك الـIssues (لا مركز حوادث ثانٍ): الحادثة = Issue بشدة CRITICAL · HIGH · MEDIUM · LOW · INFO (بدل CRITICAL/WARNING/INFO — G17-CF-05) وحقول: What happened (لغة الـOwner) · When · Affected area · Current status · Recommended action · Technical details under Advanced · resolved/unresolved + سجل؛ الفئات = فئات الصحة التسع (INFRA-010) + بطاقة Website للتوفر",
+   "type": "UPDATE",
+   "source": "M35 §05, §44"
+  },
+  {
+   "id": "OPS-048",
+   "change": "أمثلة الطابور الواحد (M35 §45): Google hours mismatch · Backup failed · English page outdated · Broken link · Unapproved image · Campaign expiring · Form failure · Missing alt · Slow page · Security issue — \"لا يدور الـOwner على 15 Module ليعرف أن هناك مشكلة\"",
+   "type": "UPDATE",
+   "source": "M35 §45"
+  },
+  {
+   "id": "DASH-017",
+   "change": "Needs Attention = INCIDENTS / NEEDS ATTENTION بالمقياس الخماسي (G17-CF-05) وطابور واحد لكل الوحدات (M35 §45)؛ يظهر في SHELTER DIGITAL COMMAND CENTER (INFRA-011)",
+   "type": "UPDATE",
+   "source": "M35 §05, §42, §45"
+  },
+  {
+   "id": "MON-007",
+   "change": "الـAlerts تُكتب في جدول signals الواحد (ISSUE) بالشدات الخمس ومصادر Monitoring Center الخمسة عشر (INFRA-007)",
+   "type": "UPDATE",
+   "source": "M35 §04, §05"
+  },
+  {
+   "id": "MON-001",
+   "change": "Uptime · API health · database connectivity جزء من Monitoring Center (INFRA-007)؛ Uptime الخارجي يحتاج موافقة على مراقب خارجي (I-12)",
+   "type": "UPDATE",
+   "source": "M35 §04"
+  },
+  {
+   "id": "MON-004",
+   "change": "Server errors وfrontend errors مصدران في Monitoring Center (INFRA-007)؛ تُعرض للـOwner برسالة صاحب العمل والتفاصيل تحت Advanced (DASH-034)",
+   "type": "UPDATE",
+   "source": "M35 §04, §06"
+  },
+  {
+   "id": "DASH-034",
+   "change": "OWNER-FRIENDLY ERRORS (M35 §6): لا تُعرض رسائل مثل ECONNREFUSED · 500 stack trace · SQLSTATE · Hydration mismatch كواجهة أساسية؛ مثال: بدل \"Google Business API OAuth token invalid\" ← \"تعذر تحديث ساعات Google Business لأن الاتصال يحتاج إعادة تسجيل الدخول.\" + زر Fix Connection (INFRA-025)، والتفاصيل التقنية expandable",
+   "type": "UPDATE",
+   "source": "M35 §06"
+  },
+  {
+   "id": "DASH-020",
+   "change": "يؤكده M35 §6 (owner-friendly errors) — يُطبق عبر DASH-034",
+   "type": "UPDATE",
+   "source": "M35 §06"
+  },
+  {
+   "id": "DASH-007",
+   "change": "الشاشة الأولى بعد Login = SHELTER DIGITAL COMMAND CENTER (INFRA-011): بطاقات حالة وأعداد وطابور Needs Attention فقط (G17-CF-06)",
+   "type": "UPDATE",
+   "source": "M35 §42, §43"
+  },
+  {
+   "id": "DASH-008",
+   "change": "TOP SUMMARY (10 مؤشرات + المقارنات + mini charts) ينتقل إلى GROWTH › Analytics overview؛ على الرئيسية فقط ما يجتاز الأسئلة الثلاثة (What happened? · Do I need to act? · Where do I click?) بلا Charts تجميلية (G17-CF-06)",
+   "type": "UPDATE",
+   "source": "M35 §42, §43"
+  },
+  {
+   "id": "DASH-018",
+   "change": "NO VANITY DASHBOARD (M35 §43): كل Card تجيب What happened? · Do I need to act? · Where do I click? — وإلا لا تُعرض",
+   "type": "UPDATE",
+   "source": "M35 §43"
+  },
+  {
+   "id": "DASH-026",
+   "change": "SUPERSEDED: لا Overall score (مثل 93/100)؛ نموذج الصحة = 9 فئات × HEALTHY / NEEDS ATTENTION / CRITICAL مع Issues فعلية (INFRA-010، G17-CF-07)",
+   "type": "SUPERSEDE",
+   "source": "M35 §44"
+  },
+  {
+   "id": "SEO-038",
+   "change": "حالة فئة SEO في نموذج الصحة: HEALTHY · NEEDS ATTENTION · CRITICAL (ترجمة GOOD/WARNING/CRITICAL — G17-CF-05)؛ بطاقة Command Center: SEO GOOD / NEEDS ATTENTION",
+   "type": "UPDATE",
+   "source": "M35 §42, §44"
+  },
+  {
+   "id": "MON-008",
+   "change": "الإشعارات بأولويات Critical · Action Required · Important · Information وتجميع بـdedupe_key في مركز واحد (INFRA-012/INFRA-013)",
+   "type": "UPDATE",
+   "source": "M35 §07, §08"
+  },
+  {
+   "id": "MON-009",
+   "change": "مركز NOTIFICATIONS الموحد داخل الـDashboard (INFRA-012) يحقق القاعدة؛ \"emails/inquiries if used\" في قائمة الإطلاق = لا بريد في V1",
+   "type": "UPDATE",
+   "source": "M35 §07, §54"
+  },
+  {
+   "id": "CAREERS-055",
+   "change": "إشعار الطلب الجديد = إشارة EVENT بأولوية Action Required في مركز الإشعارات الموحد (INFRA-012)؛ داخل الوحدة شارة العدد فقط",
+   "type": "UPDATE",
+   "source": "M35 §07, §09"
+  },
+  {
+   "id": "CAREERS-040",
+   "change": "التوليد عبر خدمة الأرقام المرجعية المشتركة reference_sequences (INFRA-019) مع FR وINQ",
+   "type": "UPDATE",
+   "source": "M35 §14"
+  },
+  {
+   "id": "FRAN-046",
+   "change": "التوليد عبر خدمة الأرقام المرجعية المشتركة (INFRA-019)",
+   "type": "UPDATE",
+   "source": "M35 §14"
+  },
+  {
+   "id": "CONTACT-013",
+   "change": "نموذج الاستفسارات (INFRA-014) يضيف تتبعًا برقم INQ بجانب القنوات حسب النية ولا يستبدل الأرقام (AC-6)",
+   "type": "UPDATE",
+   "source": "M35 §09"
+  },
+  {
+   "id": "OPS-030",
+   "change": "Voice of Customer (تقييم تجربة مجهول) منفصل عن Inquiries (رسالة تحتاج متابعة): الشكوى/الاقتراح الذي يطلب ردًا ← INQ (G17-CF-10)؛ المصدران يكتبان في نفس signals",
+   "type": "UPDATE",
+   "source": "M35 §07, §09"
+  },
+  {
+   "id": "SEO-019",
+   "change": "404 ضمن SHELTER Design System وليست framework default؛ الروابط: Home · Menu · Locations · Search",
+   "type": "UPDATE",
+   "source": "M35 §17"
+  },
+  {
+   "id": "SEO-010",
+   "change": "مفردات الإجراء تصبح: KEEP · 301 REDIRECT · 410 (only if truly appropriate) · REVIEW (G17-CF-08)؛ REBUILD/REDIRECT ← 301 REDIRECT إلى أقرب مكافئ؛ REMOVE ← 410 فقط إن لم يوجد مكافئ؛ UNDECIDED ← REVIEW؛ 404 ليس إجراءً مقبولًا لرابط ذي قيمة",
+   "type": "UPDATE",
+   "source": "M35 §15, §16"
+  },
+  {
+   "id": "SEO-009",
+   "change": "الخريطة الرسمية = LEGACY URL INVENTORY (INFRA-032) + REDIRECT MAP (INFRA-033) في docs/LEGACY-URL-MIGRATION.md",
+   "type": "UPDATE",
+   "source": "M35 §15, §16"
+  },
+  {
+   "id": "SEO-018",
+   "change": "Redirect Manager يخزن REDIRECT MAP: أقرب مكافئ، لا تحويل جماعي للرئيسية، 410 نادر (INFRA-033)",
+   "type": "UPDATE",
+   "source": "M35 §16"
+  },
+  {
+   "id": "MON-011",
+   "change": "جدول موحد مع M35 §55: T+1h · T+24h (Day 1) · Day 3 · T+7d (Day 7) · Day 14 · Day 30 (INFRA-042، G17-CF-09)",
+   "type": "UPDATE",
+   "source": "M35 §55"
+  },
+  {
+   "id": "DEPLOY-004",
+   "change": "المسار الكامل (M35 §1): Development → Automated Tests → Staging → Owner Review → Production — بثلاث بيئات منفصلة (INFRA-002)",
+   "type": "UPDATE",
+   "source": "M35 §01"
+  },
+  {
+   "id": "DEPLOY-009",
+   "change": "لا تُعتبر Deployment architecture مكتملة بلا Rollback Plan (INFRA-005) وسجل إصدارات (INFRA-004)",
+   "type": "UPDATE",
+   "source": "M35 §02, §03"
+  },
+  {
+   "id": "DEPLOY-005",
+   "change": "قبل أي Migration حساس: backup · test staging · rollback plan (INFRA-006)",
+   "type": "UPDATE",
+   "source": "M35 §51"
+  },
+  {
+   "id": "DEPLOY-008",
+   "change": "Migrations بإصدارات وExpand → Migrate → Contract؛ لا تعديل يدوي لمخطط الإنتاج (INFRA-006)",
+   "type": "UPDATE",
+   "source": "M35 §51"
+  },
+  {
+   "id": "AUDIT-004",
+   "change": "التراجع يشمل أيضًا code · configuration · migrations (INFRA-005) بجانب نسخ المحتوى",
+   "type": "UPDATE",
+   "source": "M35 §03"
+  },
+  {
+   "id": "AUDIT-008",
+   "change": "Safe rollback على مستوى الإصدار كاملًا (INFRA-005)",
+   "type": "UPDATE",
+   "source": "M35 §03"
+  },
+  {
+   "id": "SEO-028",
+   "change": "جزء من عزل الـStaging (INFRA-003): + لا Analytics Production + نماذج معزولة",
+   "type": "UPDATE",
+   "source": "M35 §01"
+  },
+  {
+   "id": "SEC-004",
+   "change": "جزء من عزل الـStaging (INFRA-003)",
+   "type": "UPDATE",
+   "source": "M35 §01"
+  },
+  {
+   "id": "SEC-002",
+   "change": "SECRETS (M35 §27): كل Secret SERVER-SIDE ONLY؛ لا API secret · client secret · database credentials · private keys داخل client bundle · public repo · CMS content؛ Production secrets منفصلة لكل بيئة (M35 §1)؛ السجل يعرض الحالة بلا القيم (INFRA-025)",
+   "type": "UPDATE",
+   "source": "M35 §27, §01"
+  },
+  {
+   "id": "OPS-041",
+   "change": "يُسجل ويُعرض: Last Backup · Last Restore Test · Result؛ إن لم يُختبر الاسترجاع لا يُعرض نظام النسخ كـfully healthy (فئة BACKUPS — INFRA-010)",
+   "type": "UPDATE",
+   "source": "M35 §30"
+  },
+  {
+   "id": "OPS-042",
+   "change": "نطاق الاختبار يغطي عناصر DR السبعة (INFRA-027)",
+   "type": "UPDATE",
+   "source": "M35 §29, §30"
+  },
+  {
+   "id": "CAREERS-090",
+   "change": "جزء من DISASTER RECOVERY PLAN الموحد (INFRA-027)",
+   "type": "UPDATE",
+   "source": "M35 §29"
+  },
+  {
+   "id": "FRAN-066",
+   "change": "جزء من DISASTER RECOVERY PLAN الموحد (INFRA-027)",
+   "type": "UPDATE",
+   "source": "M35 §29"
+  },
+  {
+   "id": "WEB-002",
+   "change": "يتحقق بإعداد السوق (INFRA-028) ومنع التثبيت (INFRA-029): JO · ar · en · JOD · Asia/Amman كإعداد لا منطق",
+   "type": "UPDATE",
+   "source": "M35 §31, §32"
+  },
+  {
+   "id": "WEB-003",
+   "change": "الهرمية الكاملة: Brand → Country → City → Branch (M35 §33)؛ الواجهة العامة قابلة للتوسع عليها",
+   "type": "UPDATE",
+   "source": "M35 §33"
+  },
+  {
+   "id": "I18N-002",
+   "change": "جزء من Market configuration (INFRA-028): Language/Locale لكل سوق",
+   "type": "UPDATE",
+   "source": "M35 §31"
+  },
+  {
+   "id": "DX-023",
+   "change": "المنطقة الزمنية من إعداد السوق (INFRA-028)؛ القاعدة معممة على كل الأتمتة الزمنية (INFRA-009)",
+   "type": "UPDATE",
+   "source": "M35 §31, §50"
+  },
+  {
+   "id": "TEST-010",
+   "change": "BROWSER QA (M35 §37): Chrome · Safari/WebKit · Firefox · Edge where relevant — Mobile Safari مهم؛ Firefox/WebKit في CI (SHELTER_ALL_BROWSERS=1، I-07)",
+   "type": "UPDATE",
+   "source": "M35 §37",
+   "new_priority": "P0"
+  },
+  {
+   "id": "TEST-011",
+   "change": "DEVICE QA (M35 §38): الاستمرار على Viewport Matrix (tooling/viewports.mjs) مع اختبار touch behavior وmobile navigation logic فعليًا على أجهزة حقيقية قدر الإمكان",
+   "type": "UPDATE",
+   "source": "M35 §38"
+  },
+  {
+   "id": "TEST-002",
+   "change": "يحيل إلى RELEASE-CHECKLIST.md الموحد (INFRA-034)",
+   "type": "UPDATE",
+   "source": "M35 §36"
+  },
+  {
+   "id": "TEST-004",
+   "change": "يحيل إلى RELEASE-CHECKLIST.md (INFRA-034)",
+   "type": "UPDATE",
+   "source": "M35 §36"
+  },
+  {
+   "id": "GOV-086",
+   "change": "بنود الموافقات تُضمن في RELEASE-CHECKLIST.md (CONTENT APPROVAL) — INFRA-034",
+   "type": "UPDATE",
+   "source": "M35 §36"
+  },
+  {
+   "id": "OPS-054",
+   "change": "يصبح إضافة خاصة بأنظمة M32 فوق RELEASE-CHECKLIST.md (INFRA-034)",
+   "type": "UPDATE",
+   "source": "M35 §36"
+  },
+  {
+   "id": "CAREERS-099",
+   "change": "إضافات التوظيف فوق RELEASE-CHECKLIST.md (INFRA-034)",
+   "type": "UPDATE",
+   "source": "M35 §36"
+  },
+  {
+   "id": "FRAN-102",
+   "change": "إضافات الفرنشايز فوق RELEASE-CHECKLIST.md (INFRA-034)",
+   "type": "UPDATE",
+   "source": "M35 §36"
+  },
+  {
+   "id": "SEO-041",
+   "change": "يصبح قسم SEO/SCHEMA في RELEASE-CHECKLIST.md (INFRA-034)",
+   "type": "UPDATE",
+   "source": "M35 §36"
+  },
+  {
+   "id": "DEPLOY-010",
+   "change": "قسم Google داخل LAUNCH READINESS CHECKLIST الموحدة (INFRA-041)",
+   "type": "UPDATE",
+   "source": "M35 §54"
+  },
+  {
+   "id": "SEO-020",
+   "change": "قسم داخل LAUNCH READINESS CHECKLIST (INFRA-041)",
+   "type": "UPDATE",
+   "source": "M35 §54"
+  },
+  {
+   "id": "GBP-014",
+   "change": "بند داخل LAUNCH READINESS CHECKLIST (INFRA-041)",
+   "type": "UPDATE",
+   "source": "M35 §54"
+  },
+  {
+   "id": "CAREERS-072",
+   "change": "يستخدم خدمة التصدير الموحدة (INFRA-035) وقواعد أمان التصدير (INFRA-036)",
+   "type": "UPDATE",
+   "source": "M35 §39, §40"
+  },
+  {
+   "id": "CAREERS-037",
+   "change": "منطقة Private Careers files من المناطق الأربع (INFRA-038)",
+   "type": "UPDATE",
+   "source": "M35 §52"
+  },
+  {
+   "id": "FRAN-051",
+   "change": "إن فُعّلت المرفقات: منطقة Private Franchise files (INFRA-038)",
+   "type": "UPDATE",
+   "source": "M35 §52"
+  },
+  {
+   "id": "SEC-009",
+   "change": "الرفع إلى المنطقة الصحيحة حسب التصنيف (INFRA-038/042)",
+   "type": "UPDATE",
+   "source": "M35 §52, §53"
+  },
+  {
+   "id": "AUDIT-001",
+   "change": "SYSTEM-WIDE AUDIT TRAIL (M35 §46): يمتد خارج الـDashboard ليشمل content publish · price change · hours change · external sync · file deletion · data export · campaign activation (بما فيها التلقائية بفاعل system/scheduler) · rollback · security action — في Audit Log موحد",
+   "type": "UPDATE",
+   "source": "M35 §46"
+  },
+  {
+   "id": "AUDIT-010",
+   "change": "سجل واحد للنظام كله (audit_logs) يشمل الإجراءات الآلية والنشر والتراجع (M35 §46)",
+   "type": "UPDATE",
+   "source": "M35 §46"
+  },
+  {
+   "id": "DASH-019",
+   "change": "GLOBAL OWNER SEARCH (M35 §47): Products · Pages · Branches · Events · Media · Awards · Careers · Franchise · Inquiries · Settings + الأرقام المرجعية؛ يحترم Permission architecture المستقبلية (فلترة من الخادم)؛ Command palette اختياري P2 (INFRA-040)",
+   "type": "UPDATE",
+   "source": "M35 §47, §48",
+   "new_priority": "P1"
+  },
+  {
+   "id": "DASH-032",
+   "change": "OWNER ONLY (M35 §58): أي Security / Export / Deployment / Emergency controls = Owner only مع Server-side enforcement",
+   "type": "UPDATE",
+   "source": "M35 §58"
+  },
+  {
+   "id": "OPS-050",
+   "change": "يشمل وحدات M35: Notifications · Inquiries · Releases/Rollback · Integrations · Exports · Maintenance (M35 §58)",
+   "type": "UPDATE",
+   "source": "M35 §58"
+  },
+  {
+   "id": "CMS-033",
+   "change": "تُضاف إلى الممنوع على الـOwner في العمليات اليومية: terminal · Cloudways file manager (M35 §59)",
+   "type": "UPDATE",
+   "source": "M35 §59"
+  },
+  {
+   "id": "DASH-033",
+   "change": "القائمة الكاملة (M35 §59): بدون GitHub · SQL · Code · Cloudways file manager · terminal",
+   "type": "UPDATE",
+   "source": "M35 §59"
+  },
+  {
+   "id": "GOV-058",
+   "change": "المطور مطلوب فقط لـ: new feature · architecture change · new integration · major redesign · infrastructure change (M35 §59)",
+   "type": "UPDATE",
+   "source": "M35 §59"
+  },
+  {
+   "id": "OPS-003",
+   "change": "اتحاد معايير القبول (G17-CF-11): CUSTOMER EXPERIENCE · OWNER CONTROL · DATA CONSISTENCY (Data quality) · SEARCH VISIBILITY · PERFORMANCE (speed) · SECURITY · RELIABILITY · SCALABILITY · MAINTAINABILITY · Trust — كل Feature تخدم واحدًا أو أكثر؛ Simplicity is mandatory لكن لا تُترك Critical Infrastructure ناقصة",
+   "type": "UPDATE",
+   "source": "M35 §62"
+  },
+  {
+   "id": "OPS-009",
+   "change": "المزامنة تشمل أنظمة M35 (G17): MASTER REQUIREMENTS · DECISION REGISTER · TRACEABILITY MATRIX؛ ما هو منفذ أصلًا لا يُكرر",
+   "type": "UPDATE",
+   "source": "M35 §57"
+  },
+  {
+   "id": "GOV-073",
+   "change": "أنظمة M35 تُضاف للمرجع (INFRA-001…048) ولا يُعتمد على البرومبت وحده",
+   "type": "UPDATE",
+   "source": "M35 §57"
+  },
+  {
+   "id": "DX-012",
+   "change": "Empty states عامة (INFRA-022): الموقع يخفي المكون، والـDashboard يشرح ما يمكن فعله بزر إجراء",
+   "type": "UPDATE",
+   "source": "M35 §20"
+  },
+  {
+   "id": "PERF-015",
+   "change": "جزء من graceful network failure (INFRA-023)",
+   "type": "UPDATE",
+   "source": "M35 §21"
+  },
+  {
+   "id": "DASH-023",
+   "change": "جزء من graceful network failure (INFRA-023)",
+   "type": "UPDATE",
+   "source": "M35 §21"
+  },
+  {
+   "id": "DX-037",
+   "change": "جزء من graceful network failure (INFRA-023)",
+   "type": "UPDATE",
+   "source": "M35 §21"
+  },
+  {
+   "id": "OPS-055",
+   "change": "M35 §21 يؤكد: لا Full PWA الآن — يبقى تقييمًا P2",
+   "type": "UPDATE",
+   "source": "M35 §21"
+  },
+  {
+   "id": "DX-013",
+   "change": "التفعيل والانتهاء من الخادم ويُحسبان عند الطلب أيضًا؛ صحة المجدول مراقبة (INFRA-008/INFRA-009)",
+   "type": "UPDATE",
+   "source": "M35 §49, §50"
+  },
+  {
+   "id": "CMS-009",
+   "change": "Scheduled publishing خاضع لصحة المجدول والحساب عند الطلب (INFRA-008/INFRA-009)",
+   "type": "UPDATE",
+   "source": "M35 §49, §50"
+  },
+  {
+   "id": "CAMP-006",
+   "change": "انتهاء الحملة لا يعتمد على المهمة وحدها (INFRA-009)",
+   "type": "UPDATE",
+   "source": "M35 §50"
+  },
+  {
+   "id": "CF-008",
+   "change": "نطاق توكن Cloudflare يضيف Zone › Cache Purge (أقل صلاحية) للإبطال الذكي (MDH-016) — بموافقة (PO-013)",
+   "type": "UPDATE",
+   "source": "M35 §23"
+  },
+  {
+   "id": "PRIV-013",
+   "change": "AC-2: المراقبة والـRUM والأخطاء مجمعة بلا معرّف ولا IP مخزن؛ الاستفسارات تحتوي PII بطبيعتها ← CONFIDENTIAL، Owner فقط، تصدير مقنّع",
+   "type": "UPDATE",
+   "source": "M35 §04, §10, §53"
+  },
+  {
+   "id": "MEDIA-012",
+   "change": "المصدر الرسمي لـAwards = Media Center (M35 §35)؛ Media missing metadata ← إشعار (INFRA-012)",
+   "type": "UPDATE",
+   "source": "M35 §35, §07"
+  },
+  {
+   "id": "OPS-021",
+   "change": "Event starting soon · Special hours upcoming · Campaign ending = إشارات EVENT من نفس استعلام التقويم (INFRA-012)",
+   "type": "UPDATE",
+   "source": "M35 §07"
+  },
+  {
+   "id": "CF-005",
+   "change": "مراجعة Cloudways تشمل Varnish/Object cache وأثرها على الإبطال (INFRA-024، G17-TF-01)",
+   "type": "UPDATE",
+   "source": "M35 §22"
+  },
+  {
+   "id": "MDH-016",
+   "change": "SMART CACHE INVALIDATION (M35 §23): مثال الـOwner — تغيير سعر Cappuccino يُبطل فقط الأماكن المرتبطة: menu data · relevant page/cache · schema if applicable؛ لا purge everything unnecessarily. تصحيح المثال: CAPPUCCINO = PRD-00014 (ICED CAPPUCCINO = PRD-00041)، أما PRD-00058 في FINAL-ARCHITECTURE-REVIEW §13 وتفاصيل هذا المتطلب = ICED SPANISH LATTE؛ الوسوم: prd:PRD-00014 · menu:ar · menu:en · schema:menu (+ search:ar/en — docs/platform/CACHE-CDN.md)؛ Purge by tag حسب خطة Cloudflare وإلا by URL من Usage graph (PO-013، CF-008)",
+   "type": "UPDATE",
+   "source": "M35 §23"
+  },
+  {
+   "id": "MDH-016",
+   "change": "CRITICAL DATA FRESHNESS (M35 §24): price · availability · regular hours · special hours · closures · campaign · event لا تبقى قديمة بسبب CDN cache: TTL قصير + إبطال فوري عند النشر + TTL الصفحة لا يتجاوز الحد الزمني التالي (افتتاح/إغلاق/انتهاء حملة — G17-TF-07) + الحالة الزمنية من الخادم عند الطلب (INFRA-009)",
+   "type": "UPDATE",
+   "source": "M35 §24"
+  },
+  {
+   "id": "MDH-029",
+   "change": "يشمل فحص حداثة الحافة: ما يُخدم من Cloudflare مقابل الـMaster للبيانات الحساسة للوقت ← OUT OF SYNC/Issue (M35 §24، L-5)",
+   "type": "UPDATE",
+   "source": "M35 §24"
+  },
+  {
+   "id": "MDH-025",
+   "change": "M35 §25 (GLOBAL DATA SYNC CONFIRMATION) = نفس التدفق: Owner edits → Publish → Master Data updated → Website refresh/invalidation → External sync → Verification → Status — لا متطلب ثانٍ؛ الحالة تغذي بطاقات SYNCED في SHELTER DIGITAL COMMAND CENTER (INFRA-011) ولا تُعرض SYNCED قبل VERIFY",
+   "type": "UPDATE",
+   "source": "M35 §25"
+  },
+  {
+   "id": "MDH-033",
+   "change": "جزء من GRACEFUL NETWORK FAILURE العامة (INFRA-023، M35 §21)",
+   "type": "UPDATE",
+   "source": "M35 §21"
+  },
+  {
+   "id": "MDH-034",
+   "change": "حالة الرموز (متصل/يقترب/منتهٍ/ملغى) وزر Fix Connection تُعرض في Integration Registry (INFRA-025، M35 §06 · §26)",
+   "type": "UPDATE",
+   "source": "M35 §06, §26"
+  }
+ ],
+ "conflicts": [
+  {
+   "id": "G17-CF-01",
+   "topic": "AC-2: \"لا PII\" في المراقبة مقابل جمع RUM والأخطاء والاستفسارات",
+   "old_instruction": "لا PII في السجلات والتحليلات (PRIV-013، M25)",
+   "old_source": "M25 · M27",
+   "new_instruction": "مراقبة failed forms/frontend errors + Inquiry data model يحتوي Name/Contact info",
+   "new_source": "M35 §04, §10",
+   "winner": "المراقبة والـRUM والأخطاء: مجمعة بلا معرّف ولا IP مخزن؛ الاستفسارات تحتوي PII بطبيعتها ← CONFIDENTIAL · Owner فقط · تصدير مقنّع · لا تُرسل للتحليلات",
+   "why": "الهدفان متوافقان بفصل نوعي البيانات وتصنيفهما (INFRA-039)",
+   "impact": "PRIV-013 · INFRA-007 · INFRA-015 · INFRA-039",
+   "files": [
+    "docs/FINAL-ARCHITECTURE-REVIEW.md §6"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "id": "G17-CF-02",
+   "topic": "AC-4: Staging لا يرسل Analytics Production مقابل اختبار التتبع",
+   "old_instruction": "اختبار التتبع قبل النشر (GOOGLE-015، TEST-015/016)",
+   "old_source": "M11 · M12",
+   "new_instruction": "Staging لا يرسل Analytics Production",
+   "new_source": "M35 §01",
+   "winner": "الافتراضي: لا إرسال من الـStaging؛ التحقق من dataLayer داخل Playwright؛ GA4 Property/Data stream اختباري ممكن لاحقًا لكنه تغيير إعداد Google يحتاج بوابة P09 والموافقة (GOOGLE-008)",
+   "why": "يحقق الطلبين دون تغيير Google الآن",
+   "impact": "INFRA-003 · GOOGLE-015 · GOOGLE-008",
+   "files": [
+    "docs/FINAL-ARCHITECTURE-REVIEW.md §6"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "id": "G17-CF-03",
+   "topic": "AC-5: الصيانة الكاملة مقابل Safe Mode",
+   "old_instruction": "Safe Mode لا يغلق الموقع أبدًا (OPS-023)",
+   "old_source": "M32 §23",
+   "new_instruction": "SHELTER-branded maintenance state عند الحاجة، وليس الموقع كاملًا إلا عند الضرورة",
+   "new_source": "M35 §19",
+   "winner": "Safe Mode أولًا دائمًا؛ الصيانة الكاملة ملاذ أخير لترحيل أو حادثة أمنية، بمفتاح Owner-only أو ضمن إصدار معتمد، مع 503 + Retry-After",
+   "why": "M35 نفسه يقيد الصيانة بالضرورة",
+   "impact": "OPS-023 · INFRA-021",
+   "files": [
+    "docs/FINAL-ARCHITECTURE-REVIEW.md §6"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "id": "G17-CF-04",
+   "topic": "AC-6: نموذج \"الشكاوى\" في الاستفسارات مقابل الرقم المخصص 0799338445",
+   "old_instruction": "0799338445 = قناة الشكاوى والاقتراحات والفرنشايز وأماكن استخدامه محددة (CONTACT-007، D-057)؛ لا يظهر في بطاقات الفروع (CONTACT-008)",
+   "old_source": "M03 · R2P",
+   "new_instruction": "INQUIRIES يشمل Complaints · Suggestions",
+   "new_source": "M35 §09",
+   "winner": "لا تعارض: قناتان؛ الرقم يبقى ظاهرًا في صفحة التواصل، والنموذج يضيف تتبعًا برقم INQ؛ قاعدة عدم ظهوره في بطاقات الفروع باقية",
+   "why": "M35 لا يلغي القناة الهاتفية",
+   "impact": "CONTACT-007 · CONTACT-008 · CONTACT-013 · INFRA-014",
+   "files": [
+    "docs/FINAL-ARCHITECTURE-REVIEW.md §6"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "id": "G17-CF-05",
+   "topic": "مقياس الشدة والأولوية: 3 مستويات (M25/M32) مقابل 5 مستويات + 4 أولويات + 3 حالات فئة (M35)",
+   "old_instruction": "Needs Attention / Issues بمستويات CRITICAL · WARNING · INFO (DASH-017، MON-007، OPS-048)؛ SEO Health GOOD/WARNING/CRITICAL (SEO-038)",
+   "old_source": "M25 §… · M32 §39",
+   "new_instruction": "Incident Severity: CRITICAL · HIGH · MEDIUM · LOW · INFO (§5)؛ Notification priority: Critical · Action Required · Important · Information (§8)؛ حالة الفئة HEALTHY · NEEDS ATTENTION · CRITICAL (§44)",
+   "new_source": "M35 §05, §08, §44",
+   "winner": "M35 (الأحدث): الشدة خماسية للـIssues؛ الأولوية رباعية للإشعارات؛ الحالة ثلاثية للفئات — ثلاثة محاور مرتبطة بجدول تحويل واحد (G17-TF-03): WARNING القديم ← HIGH أو MEDIUM حسب الأثر، INFO ← LOW/INFO",
+   "why": "آخر قرار صريح؛ المحاور مختلفة الغرض فلا تُدمج في مقياس واحد",
+   "impact": "OPS-048 · DASH-017 · MON-007 · SEO-038 · INFRA-010 · INFRA-013",
+   "files": [
+    "docs/FINAL-ARCHITECTURE-REVIEW.md §14"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "id": "G17-CF-06",
+   "topic": "الرئيسية: Executive KPIs بمؤشرات ومخططات (M25) مقابل Command Center \"فقط المهم\" بلا Charts تجميلية (M35)",
+   "old_instruction": "أول شاشة = Executive Dashboard بـTOP SUMMARY من 10 مؤشرات + مقارنات + percentage/trend arrow/mini chart (DASH-007، DASH-008)",
+   "old_source": "M25",
+   "new_instruction": "الرئيسية = SHELTER DIGITAL COMMAND CENTER تعرض فقط المهم (حالات + أعداد + حملة نشطة + Needs Attention)؛ لا Charts بلا فائدة؛ كل Card تجيب الأسئلة الثلاثة",
+   "new_source": "M35 §42, §43",
+   "winner": "M35 (الأحدث): الرئيسية = Command Center؛ TOP SUMMARY ومؤشراته العشرة ومقارناته تنتقل إلى GROWTH › Analytics overview ولا تُحذف؛ على الرئيسية فقط ما يجتاز الأسئلة الثلاثة",
+   "why": "آخر قرار صريح يحدد محتوى الصفحة الرئيسية؛ المؤشرات نفسها تبقى معتمدة في موضع آخر",
+   "impact": "DASH-007 · DASH-008 · INFRA-011",
+   "files": [
+    "docs/FINAL-ARCHITECTURE-REVIEW.md §10"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "id": "G17-CF-07",
+   "topic": "Summary Health Score الاختياري مقابل منع الرقم الإجمالي",
+   "old_instruction": "Summary Health Score اختياري بقواعد واضحة؛ الـIssues أهم من الرقم (DASH-026 — APPROVED WITH CONDITIONS)",
+   "old_source": "M25 §…",
+   "new_instruction": "لا Overall fake score مثل 93/100؛ استخدم 9 Categories بحالات HEALTHY/NEEDS ATTENTION/CRITICAL",
+   "new_source": "M35 §44",
+   "winner": "M35: لا رقم إجمالي؛ DASH-026 = SUPERSEDED؛ الشفافية (DASH-025) تبقى",
+   "why": "آخر قرار صريح يحدد نموذج الصحة",
+   "impact": "DASH-026 · INFRA-010",
+   "files": [],
+   "status": "RESOLVED"
+  },
+  {
+   "id": "G17-CF-08",
+   "topic": "مفردات إجراءات الروابط القديمة: KEEP/REBUILD/REDIRECT/REMOVE مقابل KEEP/301/410/REVIEW",
+   "old_instruction": "لكل رابط ذي قيمة: KEEP · REBUILD · REDIRECT · REMOVE (410/404 مقبول) (SEO-010)",
+   "old_source": "M01 · 02-url-inventory",
+   "new_instruction": "Actions: KEEP · 301 REDIRECT · 410 only if truly appropriate · REVIEW؛ كل Old URL لأقرب Equivalent؛ لا Mass redirect للرئيسية",
+   "new_source": "M35 §15, §16",
+   "winner": "M35 (الأحدث): مفرداته؛ REBUILD/REDIRECT ← 301 لأقرب مكافئ؛ REMOVE ← 410 فقط إن لم يوجد مكافئ وكان مناسبًا فعلًا؛ UNDECIDED ← REVIEW؛ 404 لا يُعد إجراءً لرابط ذي قيمة",
+   "why": "آخر قرار صريح؛ يشدد قاعدة الحذف",
+   "impact": "SEO-010 · INFRA-032 · INFRA-033 · docs/phase-01-discovery/02-url-inventory-and-migration-seed.md",
+   "files": [
+    "docs/phase-01-discovery/02-url-inventory-and-migration-seed.md"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "id": "G17-CF-09",
+   "topic": "جدول مراقبة ما بعد الإطلاق: Day 1/3/7/14/30 مقابل T+1h/T+24h/T+7d",
+   "old_instruction": "Day 1 · Day 3 · Day 7 · Day 14 · Day 30 (MON-011)",
+   "old_source": "M11/M12",
+   "new_instruction": "T+1 hour · T+24 hours · T+7 days",
+   "new_source": "M35 §55",
+   "winner": "اتحاد بلا إسقاط: T+1h · T+24h (Day 1) · Day 3 · T+7d (Day 7) · Day 14 · Day 30 في جدول واحد",
+   "why": "M35 يضيف نقطة T+1h ولا يلغي النقاط اللاحقة؛ ليس تعارض مضمون",
+   "impact": "MON-011 · INFRA-042",
+   "files": [
+    "docs/google/POST-LAUNCH-GOOGLE-CHECKLIST.md"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "id": "G17-CF-10",
+   "topic": "خطر نظامين للشكاوى: Inquiries (Complaints/Suggestions) مقابل Voice of Customer",
+   "old_instruction": "نظام Feedback داخلي بسيط بلا PII: Branch · Overall Experience · Coffee · Service · Cleanliness · Speed · Comment (OPS-030)",
+   "old_source": "M32 §15",
+   "new_instruction": "INQUIRIES تشمل Complaints · Suggestions؛ والإشعارات تفصل New contact inquiry عن New customer feedback؛ والتصدير يفصل inquiries عن feedback",
+   "new_source": "M35 §07, §09, §39",
+   "winner": "نظامان بغرضين مختلفين لا تكرار: Feedback = تقييم تجربة مجهول بلا متابعة؛ Inquiry = رسالة تطلب ردًا (اسم/تواصل اختياريان) برقم INQ؛ نقطة دخول واضحة لكل منهما ونفس signals",
+   "why": "M35 نفسه يفصلهما في §07 و§39؛ يحقق ONE SOURCE (لكل نوع مالك واحد)",
+   "impact": "OPS-030 · INFRA-014 · INFRA-031",
+   "files": [],
+   "status": "RESOLVED"
+  },
+  {
+   "id": "G17-CF-11",
+   "topic": "معايير قبول الـFeature: 7 (M32) مقابل 9 (M35) مقابل 7 (M36)",
+   "old_instruction": "Customer experience · Owner control · Search visibility · Performance · Trust · Security · Data quality (OPS-003)",
+   "old_source": "M32 §57",
+   "new_instruction": "CUSTOMER EXPERIENCE · OWNER CONTROL · DATA CONSISTENCY · SEARCH VISIBILITY · PERFORMANCE · SECURITY · RELIABILITY · SCALABILITY · MAINTAINABILITY + Simplicity mandatory لكن لا تُترك Critical Infrastructure ناقصة",
+   "new_source": "M35 §62 · M36 §23",
+   "winner": "اتحاد المعايير (Trust يبقى من M32)؛ القاعدة: Feature تخدم واحدًا أو أكثر",
+   "why": "القوائم متوافقة ومتراكمة لا متناقضة",
+   "impact": "OPS-003 · UX-001",
+   "files": [],
+   "status": "RESOLVED"
+  },
+  {
+   "id": "G17-CF-12",
+   "topic": "Attachment if supported للاستفسار مقابل المناطق الأربع للتخزين",
+   "old_instruction": "File storage: Public Media · Private Careers · Private Franchise · System exports فقط",
+   "old_source": "M35 §52",
+   "new_instruction": "Inquiry يتضمن Attachment if supported",
+   "new_source": "M35 §10",
+   "winner": "V1: الاستفسارات بلا مرفقات (Simplicity + تقليل البيانات PRIV-004/014)؛ إن فُعّلت لاحقًا: منطقة خاصة بنفس سياسة CAREERS-037 + فحص ملفات (I-13) — بلا منطقة خامسة الآن",
+   "why": "\"if supported\" يجعل المرفق اختياريًا؛ القرار يحقق القاعدتين",
+   "impact": "INFRA-015 · INFRA-038",
+   "files": [],
+   "status": "RESOLVED"
+  }
+ ],
+ "new_decisions": [
+  {
+   "temp_id": "G17-ND-01",
+   "area": "49 Infrastructure, Release & Operations",
+   "decision": "FINAL COMPLETENESS GAP ADDENDUM (M35 — OWNER APPROVED · P0 ARCHITECTURE REVIEW REQUIRED): ملحق لا يكرر الأنظمة المعتمدة؛ تصنيف IMPLEMENTED/PARTIAL/MISSING/NEEDS IMPROVEMENT/NOT NEEDED ثم تنفيذ النواقص الفعلية فقط؛ الهدف نظام متكامل قابل للإدارة والمراقبة والاستعادة والتوسع؛ 20 وثيقة (§56) + مزامنة المرجع (§57)؛ المعمارية المستهدفة (§60)؛ الاستجابة الأولى بـ17 بندًا (§61)؛ الفلتر التاسع (§62)",
+   "sources": [
+    "M35 §00",
+    "M35 §56",
+    "M35 §57",
+    "M35 §60",
+    "M35 §61",
+    "M35 §62"
+   ],
+   "status": "APPROVED",
+   "reason": "M35 — OWNER APPROVED (FINAL COMPLETENESS GAP ADDENDUM)",
+   "impact": "INFRA-001 · INFRA-043 · INFRA-044 · INFRA-045 · OPS-003 · OPS-009"
+  },
+  {
+   "temp_id": "G17-ND-02",
+   "area": "49 Infrastructure, Release & Operations",
+   "decision": "البيئات والإصدار: DEVELOPMENT/STAGING/PRODUCTION منفصلة (DB/config/secrets)، Staging غير مفهرس وبلا Analytics إنتاج ونماذجه معزولة؛ سجل إصدارات (ID · date/time · changes · status · test result · rollback reference) وWHAT CHANGED؛ Rollback يغطي code/config/migrations/content؛ Migrations بإصدارات بلا تعديل يدوي للإنتاج وBackup/Staging/Rollback plan قبل الحساس",
+   "sources": [
+    "M35 §01",
+    "M35 §02",
+    "M35 §03",
+    "M35 §51"
+   ],
+   "status": "APPROVED",
+   "reason": "M35 — OWNER APPROVED (FINAL COMPLETENESS GAP ADDENDUM)",
+   "impact": "INFRA-002…006 · DEPLOY-004/005/008/009"
+  },
+  {
+   "temp_id": "G17-ND-03",
+   "area": "49 Infrastructure, Release & Operations",
+   "decision": "المراقبة والحوادث والإشعارات: Monitoring Center بالمصادر الخمسة عشر؛ الحادثة = Issue في طابور NEEDS ATTENTION الواحد بشدة CRITICAL/HIGH/MEDIUM/LOW/INFO وحقول الحادثة؛ أخطاء بلغة الـOwner مع Fix Connection؛ مركز NOTIFICATIONS واحد بأولويات Critical/Action Required/Important/Information ولا إخفاء لحرج غير محلول بلا سجل؛ صحة المجدول (Last/Next Run · Failures)؛ الأتمتة الزمنية من الخادم بالمنطقة الزمنية وقابلة للتدقيق",
+   "sources": [
+    "M35 §04",
+    "M35 §05",
+    "M35 §06",
+    "M35 §07",
+    "M35 §08",
+    "M35 §45",
+    "M35 §49",
+    "M35 §50"
+   ],
+   "status": "APPROVED",
+   "reason": "M35 — OWNER APPROVED (FINAL COMPLETENESS GAP ADDENDUM)",
+   "impact": "INFRA-007…009 · INFRA-012 · INFRA-013 · OPS-048 · DASH-017 · DASH-034"
+  },
+  {
+   "temp_id": "G17-ND-04",
+   "area": "49 Infrastructure, Release & Operations",
+   "decision": "الاستفسارات والنماذج: INQUIRIES/INBOX للأنواع السبعة (التوظيف والشراكات مستقلان) بالحقول والحالات NEW/OPEN/IN PROGRESS/RESOLVED/ARCHIVED؛ لا Success قبل تأكيد الحفظ لكل النماذج؛ حفظ المدخلات وإعادة محاولة آمنة؛ Idempotency بلا منع الطلبات المستقلة؛ أرقام مرجعية JOB/FR/INQ بلا PII",
+   "sources": [
+    "M35 §09",
+    "M35 §10",
+    "M35 §11",
+    "M35 §12",
+    "M35 §13",
+    "M35 §14"
+   ],
+   "status": "APPROVED",
+   "reason": "M35 — OWNER APPROVED (FINAL COMPLETENESS GAP ADDENDUM)",
+   "impact": "INFRA-014…019 · CAREERS-040 · FRAN-046"
+  },
+  {
+   "temp_id": "G17-ND-05",
+   "area": "49 Infrastructure, Release & Operations",
+   "decision": "الهجرة والمرونة العامة: LEGACY URL INVENTORY بحقوله وإجراءات KEEP/301/410 (نادرًا)/REVIEW؛ REDIRECT MAP لأقرب مكافئ بلا تحويل جماعي للرئيسية؛ 404/500/صيانة بالهوية؛ Empty states؛ فشل الشبكة برفق بلا Full PWA الآن",
+   "sources": [
+    "M35 §15",
+    "M35 §16",
+    "M35 §17",
+    "M35 §18",
+    "M35 §19",
+    "M35 §20",
+    "M35 §21"
+   ],
+   "status": "APPROVED",
+   "reason": "M35 — OWNER APPROVED (FINAL COMPLETENESS GAP ADDENDUM)",
+   "impact": "INFRA-020…023 · INFRA-032 · INFRA-033 · SEO-010 · SEO-019"
+  },
+  {
+   "temp_id": "G17-ND-06",
+   "area": "49 Infrastructure, Release & Operations",
+   "decision": "الـCache والحداثة: مصدر واستراتيجية إبطال لكل طبقة (Cloudflare · Cloudways · application · browser · image · API)؛ إبطال ذكي للأماكن المرتبطة فقط؛ البيانات الحساسة للوقت لا تبقى قديمة؛ تدفق Publish → Master Data → Invalidation → External sync → Verification → Status",
+   "sources": [
+    "M35 §22",
+    "M35 §23",
+    "M35 §24",
+    "M35 §25"
+   ],
+   "status": "APPROVED",
+   "reason": "M35 — OWNER APPROVED (FINAL COMPLETENESS GAP ADDENDUM)",
+   "impact": "INFRA-024 · MDH-016 · MDH-025 · MDH-029"
+  },
+  {
+   "temp_id": "G17-ND-07",
+   "area": "49 Infrastructure, Release & Operations",
+   "decision": "التكاملات والأسرار والملكية والتعافي: Integration Registry بالحقول الثمانية بلا أسرار؛ الأسرار Server-side فقط (لا client bundle · public repo · CMS content)؛ Service Ownership Register للخدمات التسع؛ DISASTER RECOVERY PLAN للعناصر السبعة؛ Restore test فعلي ولا \"fully healthy\" بدونه",
+   "sources": [
+    "M35 §26",
+    "M35 §27",
+    "M35 §28",
+    "M35 §29",
+    "M35 §30"
+   ],
+   "status": "APPROVED",
+   "reason": "M35 — OWNER APPROVED (FINAL COMPLETENESS GAP ADDENDUM)",
+   "impact": "INFRA-025…030 · SEC-002 · OPS-041/042"
+  },
+  {
+   "temp_id": "G17-ND-08",
+   "area": "49 Infrastructure, Release & Operations",
+   "decision": "التدويل: إعداد سوق (Country · Language · Currency · Timezone · Locale · Date/Phone format · Market content)؛ لا Jordan في المنطق — السوق الحالي JO · ar · en · JOD · Asia/Amman؛ Brand → Country → City → Branch",
+   "sources": [
+    "M35 §31",
+    "M35 §32",
+    "M35 §33"
+   ],
+   "status": "APPROVED",
+   "reason": "M35 — OWNER APPROVED (FINAL COMPLETENESS GAP ADDENDUM)",
+   "impact": "INFRA-028 · INFRA-029 · WEB-002/003"
+  },
+  {
+   "temp_id": "G17-ND-09",
+   "area": "49 Infrastructure, Release & Operations",
+   "decision": "الجرد والجودة والبيانات: SITE-INVENTORY لكل Route بالحقول العشرة؛ مصدر حقيقة لكل نوع محتوى؛ Global DoD بـ17 فحصًا في قائمة واحدة؛ Browser QA (Chrome · Safari/WebKit · Firefox · Edge، Mobile Safari مهم) وDevice QA حقيقي؛ تصدير منظم للكيانات الاثني عشر بأمان (Owner · تأكيد · Audit · إخفاء)؛ قابلية نقل النظام؛ تخزين بأربع مناطق؛ تصنيف PUBLIC/INTERNAL/CONFIDENTIAL/SENSITIVE",
+   "sources": [
+    "M35 §34",
+    "M35 §35",
+    "M35 §36",
+    "M35 §37",
+    "M35 §38",
+    "M35 §39",
+    "M35 §40",
+    "M35 §41",
+    "M35 §52",
+    "M35 §53"
+   ],
+   "status": "APPROVED",
+   "reason": "M35 — OWNER APPROVED (FINAL COMPLETENESS GAP ADDENDUM)",
+   "impact": "INFRA-030 · INFRA-031 · INFRA-034…042 · TEST-010/011"
+  },
+  {
+   "temp_id": "G17-ND-10",
+   "area": "49 Infrastructure, Release & Operations",
+   "decision": "مركز قيادة الـOwner: SHELTER DIGITAL COMMAND CENTER كرئيسية (بطاقات حالة + أعداد + حملة نشطة)؛ لا Dashboard تجميلية (What happened? · Do I need to act? · Where do I click?)؛ صحة بـ9 فئات بلا رقم إجمالي؛ طابور Needs Attention واحد؛ Audit Log موحد على مستوى النظام؛ بحث Owner شامل يحترم الصلاحيات؛ Command palette اختياري؛ Owner only لضوابط الأمن والتصدير والنشر والطوارئ؛ لا GitHub/SQL/Code/Cloudways file manager/terminal",
+   "sources": [
+    "M35 §42",
+    "M35 §43",
+    "M35 §44",
+    "M35 §45",
+    "M35 §46",
+    "M35 §47",
+    "M35 §48",
+    "M35 §58",
+    "M35 §59"
+   ],
+   "status": "APPROVED",
+   "reason": "M35 — OWNER APPROVED (FINAL COMPLETENESS GAP ADDENDUM)",
+   "impact": "INFRA-010 · INFRA-011 · INFRA-040 · DASH-007/008/018/019/026/032/033 · AUDIT-001"
+  },
+  {
+   "temp_id": "G17-ND-11",
+   "area": "49 Infrastructure, Release & Operations",
+   "decision": "الإطلاق: LAUNCH READINESS CHECKLIST بالبنود الستة والعشرين قبل Go-Live؛ والتحقق بعد الإطلاق عند T+1h · T+24h · T+7d للمجالات العشرة",
+   "sources": [
+    "M35 §54",
+    "M35 §55"
+   ],
+   "status": "APPROVED",
+   "reason": "M35 — OWNER APPROVED (FINAL COMPLETENESS GAP ADDENDUM)",
+   "impact": "INFRA-041 · INFRA-042 · DEPLOY-010 · MON-011"
+  }
+ ],
+ "pending_owner": [
+  {
+   "id": "PO-037",
+   "item": "↻ M35: سجل ملكية الخدمات (§28) يحتاج منك: مسجل الدومين وموعد التجديد، مالك حسابات Cloudflare وCloudways وGoogle (Analytics · GTM · Search Console · Business Profiles) والمستودع، ومن هم المديرون — بلا كلمات مرور",
+   "category": "NON-BLOCKING",
+   "type": "ACCESS",
+   "blocks": "اكتمال INFRA-026 قبل الإطلاق (البناء لا يتوقف)",
+   "refs": [
+    "INFRA-026",
+    "M35 §28"
+   ],
+   "count": "",
+   "notes": "إضافة على PO-037 — ليست سؤالًا جديدًا"
+  },
+  {
+   "id": "PO-013",
+   "item": "↻ M35: الإبطال الذكي (§23) يحتاج معرفة خطة Cloudflare وتوكن بأقل صلاحية يضم Zone › Cache Purge (+ قراءة)؛ وإعداد Cache Rules لصفحات HTML عند الإطلاق بموافقتك",
+   "category": "NON-BLOCKING",
+   "type": "ACCESS",
+   "blocks": "MDH-016 على Production (البديل: Purge by URL)",
+   "refs": [
+    "INFRA-024",
+    "MDH-016",
+    "CF-008",
+    "M35 §22",
+    "M35 §23"
+   ],
+   "count": "",
+   "notes": "إضافة على PO-013"
+  },
+  {
+   "id": "PO-039",
+   "item": "↻ M35: موافقات اختيارية بتكلفة/حصة: مراقب Uptime خارجي (خطة مجانية — I-12)، تخزين نسخ Offsite (لكل GB)، دقائق GitHub Actions لتشغيل Firefox/WebKit والـPipeline (I-07)؛ Sentry غير مقترح (I-06)",
+   "category": "NON-BLOCKING",
+   "type": "ACCESS",
+   "blocks": "Uptime الخارجي (INFRA-007) · Offsite (INFRA-027) · Browser QA في CI (TEST-010) — البدائل المحلية متاحة",
+   "refs": [
+    "INFRA-007",
+    "INFRA-027",
+    "TEST-010",
+    "INT-001",
+    "M35 §04",
+    "M35 §29",
+    "M35 §37"
+   ],
+   "count": "",
+   "notes": "إضافة على PO-039؛ التفاصيل في cost_api_dependencies"
+  },
+  {
+   "id": "PO-019",
+   "item": "↻ M35: نموذج الاستفسارات العام (Contact · Complaints · Suggestions · Catering · B2B · Events · General): الحقول المسموح جمعها (الاسم/التواصل اختياريان افتراضيًا) ومدة الاحتفاظ بالاستفسارات وسياسة الأرشفة",
+   "category": "NON-BLOCKING",
+   "type": "BUSINESS DECISION",
+   "blocks": "تفعيل نموذج الاستفسارات على Production (البناء لا يتوقف)",
+   "refs": [
+    "INFRA-014",
+    "INFRA-015",
+    "M35 §09",
+    "M35 §10"
+   ],
+   "count": "",
+   "notes": "إضافة على PO-019 (قرار قانوني)"
+  },
+  {
+   "id": "PO-008",
+   "item": "↻ M35: LEGACY URL INVENTORY الكامل (§15) يحتاج تفعيل الوصول المباشر للموقع القديم (AC-01)",
+   "category": "BLOCKING",
+   "type": "ACCESS",
+   "blocks": "اكتمال INFRA-032 قبل الإطلاق",
+   "refs": [
+    "INFRA-032",
+    "M35 §15"
+   ],
+   "count": "",
+   "notes": "إضافة على PO-008"
+  },
+  {
+   "id": "PO-011",
+   "item": "↻ M35: حقلا indexed? وtraffic في LEGACY URL INVENTORY وحالة تكامل Search Console في المراقبة تحتاج صلاحية/تصدير Search Console",
+   "category": "BLOCKING",
+   "type": "ACCESS",
+   "blocks": "اكتمال INFRA-032 · مراقب GSC في INFRA-007",
+   "refs": [
+    "INFRA-032",
+    "INFRA-007",
+    "M35 §04",
+    "M35 §15"
+   ],
+   "count": "",
+   "notes": "إضافة على PO-011"
+  },
+  {
+   "id": "PO-028",
+   "item": "↻ M35: أنواع الاستفسار Catering · B2B · Events موجودة في النظام، ونقاط دخولها العامة تنتظر قائمة الخدمات الفعلية",
+   "category": "NON-BLOCKING",
+   "type": "CONTENT NEEDED",
+   "blocks": "إظهار هذه الأنواع للزوار فقط",
+   "refs": [
+    "INFRA-014",
+    "IA-008",
+    "M35 §09"
+   ],
+   "count": "",
+   "notes": "إضافة على PO-028"
+  }
+ ],
+ "technical_flags": [
+  {
+   "id": "G17-TF-01",
+   "topic": "طبقة Cloudways Varnish/Object cache غائبة عن معمارية الـCache",
+   "detail": "خوادم Cloudways تشغّل Varnish (وMemcached/Redis اختياريًا) أمام التطبيقات؛ مع Cloudflare أمامها يصبح HTML مخزنًا في طبقتين، وإبطال Cloudflare وحده يترك نسخة قديمة في Varnish. FINAL-ARCHITECTURE-REVIEW §13 لم يذكر طبقة Cloudways رغم أن M35 §22 يسميها.",
+   "recommendation": "تعطيل Varnish لتطبيق Laravel (أو قصره على الأصول الثابتة) والاكتفاء بـCloudflare + Application cache بوسوم؛ يُتحقق في Cloudways audit (CF-005)",
+   "needs_owner": false,
+   "refs": [
+    "INFRA-024",
+    "CF-005",
+    "G10-PO-01"
+   ]
+  },
+  {
+   "id": "G17-TF-02",
+   "topic": "Purge by tag في Cloudflare حسب الخطة",
+   "detail": "أعلنت Cloudflare (2025) إتاحة الإبطال بالوسوم/البادئة/المضيف لكل الخطط بحدود معدل تختلف حسب الخطة، بعد أن كان Cache-Tag للـEnterprise؛ يجب التحقق على الحساب الفعلي. الإبطال بالوسوم يتطلب أن يرسل الخادم رأس Cache-Tag، وتخزين HTML يتطلب Cache Rule (Cloudflare لا يخزن HTML افتراضيًا).",
+   "recommendation": "محوّل إبطال بواجهة واحدة: by tag إن توفر وإلا by URL من Usage graph؛ توكن بأقل صلاحية (PO-013)؛ لا Cloudflare Enterprise add-on من Cloudways (مدفوع)",
+   "needs_owner": false,
+   "refs": [
+    "MDH-016",
+    "PO-013",
+    "CF-009"
+   ]
+  },
+  {
+   "id": "G17-TF-03",
+   "topic": "جدول التحويل بين المحاور الثلاثة (شدة · أولوية · حالة فئة)",
+   "detail": "M35 يعرّف 5 شدات للحوادث، و4 أولويات للإشعارات، و3 حالات للفئات؛ والسجل القديم يستخدم CRITICAL/WARNING/INFO.",
+   "recommendation": "شدة Issue: CRITICAL/HIGH/MEDIUM/LOW/INFO ← أولوية: Critical/Action Required/Important/Information/Information ← حالة الفئة: CRITICAL إن وُجد CRITICAL مفتوح، NEEDS ATTENTION إن وُجد HIGH/MEDIUM، وإلا HEALTHY؛ أحداث الأعمال (طلب جديد) أولوية Action Required بلا شدة",
+   "needs_owner": false,
+   "refs": [
+    "INFRA-010",
+    "INFRA-013",
+    "OPS-048"
+   ]
+  },
+  {
+   "id": "G17-TF-04",
+   "topic": "التوفر والمجدول والنماذج خارج الفئات التسع",
+   "detail": "فئات M35 §44 لا تضم Availability/Server errors/Scheduler/Forms، بينما M35 §42 يعرض \"Website ONLINE\" كبطاقة مستقلة. المراجعة جعلت category = \"الفئات الـ9\" دون معالجة ذلك.",
+   "recommendation": "Issues التوفر والخادم وقاعدة البيانات والمجدول وفشل النماذج تُنسب لبطاقة Website (ONLINE/DEGRADED/OFFLINE) كمؤشر مستقل وليست فئة صحة عاشرة؛ فشل المزامنة ← INTEGRATIONS؛ عدم تطابق البيانات ← DATA CONSISTENCY",
+   "needs_owner": false,
+   "refs": [
+    "INFRA-010",
+    "INFRA-011"
+   ]
+  },
+  {
+   "id": "G17-TF-05",
+   "topic": "تصميم Idempotency",
+   "detail": "المطلوب منع التكرار العرضي دون منع الطلبات المستقلة الصحيحة.",
+   "recommendation": "مفتاح UUID يُولد عند عرض النموذج ويُرسل مخفيًا؛ يُخزن مع بصمة المحتوى ونتيجة الطلب لنافذة 24 ساعة؛ نفس المفتاح ← نفس الرقم المرجعي؛ مفتاح جديد ← طلب جديد؛ حدود الإغراق Rate limit تقنية (SEC-007) بلا تخزين IP طويل الأمد",
+   "needs_owner": false,
+   "refs": [
+    "INFRA-018",
+    "SEC-007"
+   ]
+  },
+  {
+   "id": "G17-TF-06",
+   "topic": "تسلسل الأرقام المرجعية",
+   "detail": "الأرقام المتسلسلة قابلة للتخمين، والتخصيص قبل الحفظ يترك فجوات.",
+   "recommendation": "التخصيص داخل Transaction الحفظ بقفل صفّي على (prefix, year)؛ لا صفحة متابعة عامة لـINQ في V1؛ متابعة التوظيف تتطلب الهاتف (CAREERS-042)",
+   "needs_owner": false,
+   "refs": [
+    "INFRA-019",
+    "CAREERS-042"
+   ]
+  },
+  {
+   "id": "G17-TF-07",
+   "topic": "الحالة الزمنية مع الـCache",
+   "detail": "صفحة مخزنة قد تعرض \"مفتوح الآن\" بعد الإغلاق أو حملة بعد انتهائها.",
+   "recommendation": "TTL لكل صفحة = min(TTL الافتراضي، الزمن حتى الحد التالي) + إبطال من المهمة عند الحدود؛ أجزاء الحالة الحية تُحسب من الخادم مع كل طلب غير مخزن أو بجزء صغير غير مخزن",
+   "needs_owner": false,
+   "refs": [
+    "INFRA-009",
+    "MDH-016"
+   ]
+  },
+  {
+   "id": "G17-TF-08",
+   "topic": "التراجع عبر الـMigrations",
+   "detail": "إعادة نشر كود قديم فوق مخطط جديد قد تفشل إن حُذفت أعمدة.",
+   "recommendation": "Expand → Migrate → Contract: الإصدار N يضيف فقط، والإصدار N+1 (بعد ثبات N) يحذف؛ لا اعتماد على down() في الإنتاج؛ نسخة DB قبل كل Migration",
+   "needs_owner": false,
+   "refs": [
+    "INFRA-005",
+    "INFRA-006"
+   ]
+  },
+  {
+   "id": "G17-TF-09",
+   "topic": "اختبار التتبع على الـStaging",
+   "detail": "Staging لا يرسل Analytics الإنتاج، وإنشاء Property اختباري تغيير على Google.",
+   "recommendation": "اختبارات Playwright تتحقق من dataLayer وأسماء الأحداث بلا إرسال شبكي؛ GA4 test property/stream لاحقًا ضمن P09 بموافقة",
+   "needs_owner": false,
+   "refs": [
+    "INFRA-003",
+    "GOOGLE-008",
+    "GOOGLE-015"
+   ]
+  },
+  {
+   "id": "G17-TF-10",
+   "topic": "مرفقات الاستفسارات",
+   "detail": "M35 §10 \"Attachment if supported\" بلا منطقة تخزين في §52.",
+   "recommendation": "V1 بلا مرفقات؛ عند التفعيل: منطقة خاصة + أنواع محدودة + فحص ClamAV إن سمح Cloudways (I-13)",
+   "needs_owner": false,
+   "refs": [
+    "INFRA-015",
+    "INFRA-038"
+   ]
+  },
+  {
+   "id": "G17-TF-11",
+   "topic": "إشعارات داخل الـDashboard فقط مقابل سرعة الرد على الاستفسارات",
+   "detail": "MON-009 يحصر الإشعارات في الـDashboard؛ الاستفسار لن يُرى إلا عند فتح الـDashboard.",
+   "recommendation": "إظهار عدد Unresolved Inquiries في Command Center + PWA غير مطلوب؛ أي تنبيه خارجي (بريد/واتساب/Push) قرار مستقبلي MON-010 بموافقة — ليس مانعًا",
+   "needs_owner": true,
+   "refs": [
+    "INFRA-012",
+    "MON-009",
+    "MON-010"
+   ]
+  },
+  {
+   "id": "G17-TF-12",
+   "topic": "حالات SYNCED قبل منح الوصول",
+   "detail": "بطاقات Google Business SYNCED / Menu SYNCED تحتاج تكامل GBP غير الممنوح بعد (PO-009).",
+   "recommendation": "عرض PENDING INTEGRATION / NOT CONNECTED بصراحة؛ لا حالة مزيفة (DASH-024/025)",
+   "needs_owner": false,
+   "refs": [
+    "INFRA-011",
+    "MDH-025",
+    "PO-009"
+   ]
+  },
+  {
+   "id": "G17-TF-13",
+   "topic": "Uptime من خارج الخادم",
+   "detail": "الفحص الداخلي لا يكشف توقف الخادم نفسه.",
+   "recommendation": "مراقب خارجي بخطة مجانية بموافقة (I-12) أو Workflow مجدول في GitHub Actions (حصة I-07)؛ Cloudflare Health Checks حسب الخطة",
+   "needs_owner": false,
+   "refs": [
+    "INFRA-007",
+    "PO-039"
+   ]
+  },
+  {
+   "id": "G17-TF-14",
+   "topic": "ملفات التصدير",
+   "detail": "التصدير قد يحمل بيانات CONFIDENTIAL/SENSITIVE.",
+   "recommendation": "توليد غير متزامن إلى منطقة exports الخاصة، رابط موقّع قصير الصلاحية، حذف تلقائي بعد التنزيل أو 24 ساعة، حماية Formula injection، UTF-8 للعربية",
+   "needs_owner": false,
+   "refs": [
+    "INFRA-035",
+    "INFRA-036",
+    "INFRA-038"
+   ]
+  },
+  {
+   "id": "G17-TF-15",
+   "topic": "أهداف RPO/RTO",
+   "detail": "M35 §29 لا يحدد أهدافًا رقمية للتعافي.",
+   "recommendation": "اقتراح تقني يُوثق كاقتراح: RPO ≤ 24 ساعة (نسخ يومي) وRTO ≤ يوم عمل لموقع بفرعين؛ أي التزام أعلى يرفع التكلفة (Offsite/تكرار) ← قرار مالي عند الحاجة",
+   "needs_owner": false,
+   "refs": [
+    "INFRA-027"
+   ]
+  },
+  {
+   "id": "G17-TF-16",
+   "topic": "نواقص FINAL-ARCHITECTURE-REVIEW مقابل M35 (14 بندًا)",
+   "detail": "نواقص docs/FINAL-ARCHITECTURE-REVIEW.md مقابل M35 (التحقق بندًا بندًا). عولجت لاحقًا في مواصفات docs/platform/ (SPEC): (أ) طبقة Cloudways Varnish غائبة عن §13 ← CACHE-CDN/ENVIRONMENTS · (ب) مقياس الشدة 3↔5 غير مسجل كتعارض ← INCIDENTS · (ج) مفردات SEO-010 مقابل KEEP/301/410/REVIEW ← LEGACY-URL-MIGRATION · (د) تداخل Complaints/Suggestions مع Voice of Customer ← INQUIRIES/VOICE-OF-CUSTOMER · (هـ) لا منطقة تخزين لمرفقات الاستفسار ← INQUIRIES (لا مرفقات V1) · (و) مراقب \"Search Console integration status\" غائب عن §14 ← MONITORING · (ز) شرط \"لا منع لطلبات مستقلة صحيحة\" (§13) ← FORM-RELIABILITY · (ح) التوفر/المجدول/النماذج خارج الفئات التسع ← INCIDENTS (فئة OPERATIONS، لم تُثبت بعد في PLATFORM-ARCHITECTURE §3.1) · (ط) مثال الإبطال PRD-00058 (= ICED SPANISH LATTE) للكابتشينو، والصحيح PRD-00014 ← CACHE-CDN. ما زال مفتوحًا: (1) مفردات التصنيف في المراجعة DESIGNED بدل IMPLEMENTED/NEEDS IMPROVEMENT/NOT NEEDED · (2) تعارض الرئيسية مع DASH-007/DASH-008 غير مسجل، وWireframe الرئيسية (d-home) بلا بطاقات الحالة والأعداد من M35 §42 · (3) DASH-026 غير معلَن SUPERSEDED · (4) جدول MON-011 (Day 3/14/30) غير مدمج صراحة مع T+1h/24h/7d · (5) أولوية التدويل P1 في المراجعة مقابل PHASE 1 في M36 · (6) ترويسة المراجعة \"AWAITING OWNER ARCHITECTURE APPROVAL — لا Coding\" وخطة §17 (P00–P12 ببوابات) تجاوزهما M36 · (7) المسار: M35 §56 يسمي docs/*.md والوثائق في docs/platform/.",
+   "recommendation": "تحديث المراجعة بالبنود المفتوحة السبعة وتحويل حالتها إلى READY FOR REVIEW؛ تثبيت OPERATIONS في PLATFORM-ARCHITECTURE §3.1؛ تحديث Wireframe الرئيسية للـDashboard",
+   "needs_owner": false,
+   "refs": [
+    "INFRA-045",
+    "INFRA-001"
+   ]
+  },
+  {
+   "id": "G17-TF-17",
+   "topic": "مسارات الوثائق العشرين",
+   "detail": "M35 §56 يسمي docs/ENVIRONMENTS.md … docs/POST-LAUNCH-VERIFICATION.md في جذر docs؛ الوثائق العشرون (ومعها وثائق M32) كُتبت في docs/platform/، وPLATFORM-ARCHITECTURE §4 يشير إليها هناك.",
+   "recommendation": "قبول docs/platform/ كمسار واحد (قرار تنظيمي تقني — M38 §4) وتسجيله في التتبع؛ لا نسخ في الجذر؛ تحديث أي إحالة تستخدم docs/<NAME>.md",
+   "needs_owner": false,
+   "refs": [
+    "INFRA-043",
+    "INFRA-039"
+   ]
+  }
+ ],
+ "cost_api_dependencies": [
+  {
+   "feature": "Website uptime (INFRA-007)",
+   "service": "مراقب Uptime خارجي (خطة مجانية مثل UptimeRobot) أو Cloudflare Health Checks",
+   "why": "كشف التوقف الكامل من خارج الخادم",
+   "free_alternative": "Workflow مجدول في GitHub Actions (ضمن حصة CI) أو فحص داخلي (لا يكشف توقف الخادم)",
+   "cost_or_quota": "طبقة مجانية محدودة؛ Health Checks حسب خطة Cloudflare",
+   "needs_approval": "YES — حساب خارجي حتى لو مجاني (I-12، PO-039)"
+  },
+  {
+   "feature": "Server/frontend errors (INFRA-007، MON-004)",
+   "service": "Sentry",
+   "why": "تجميع الأخطاء",
+   "free_alternative": "سجل أخطاء ذاتي مجمّع بلا PII",
+   "cost_or_quota": "طبقة مجانية محدودة ثم مدفوع؛ نقل بيانات لطرف ثالث",
+   "needs_approval": "YES — غير مقترح في V1 (INT-005، I-06)"
+  },
+  {
+   "feature": "Smart invalidation (MDH-016)",
+   "service": "Cloudflare Cache Purge API (by tag / by URL)",
+   "why": "إبطال الأماكن المرتبطة فقط",
+   "free_alternative": "Purge by URL (كل الخطط)",
+   "cost_or_quota": "مجاني بتوكن محدود؛ حدود المعدل وتوفر by tag حسب الخطة (يُتحقق — PO-013)",
+   "needs_approval": "YES — نطاق التوكن (CF-008، PO-013)"
+  },
+  {
+   "feature": "Cache layers (INFRA-024)",
+   "service": "Cloudflare Enterprise add-on عبر Cloudways",
+   "why": "—",
+   "free_alternative": "Cloudflare الحالي + Application cache",
+   "cost_or_quota": "مدفوع شهريًا لكل دومين",
+   "needs_approval": "YES — غير مقترح"
+  },
+  {
+   "feature": "Disaster recovery / Offsite (INFRA-027)",
+   "service": "Cloudways Offsite backups أو تخزين كائنات S3-compatible",
+   "why": "نسخة خارج الخادم",
+   "free_alternative": "نسخ على الخادم + تنزيل يدوي دوري",
+   "cost_or_quota": "لكل GB (يُتحقق في A-08)",
+   "needs_approval": "YES — للتكلفة الإضافية (PO-039)"
+  },
+  {
+   "feature": "Browser QA في CI (TEST-010، INFRA-034)",
+   "service": "GitHub Actions (Chromium + Firefox + WebKit × 20 عرضًا)",
+   "why": "تشغيل المصفوفة الكاملة آليًا",
+   "free_alternative": "تشغيل محلي (Chromium فقط في هذه البيئة) أو Runner ذاتي",
+   "cost_or_quota": "مجاني للعام؛ للخاص حصة دقائق شهرية ثم مدفوع",
+   "needs_approval": "YES — إفصاح الحصة (I-07، PO-039)"
+  },
+  {
+   "feature": "Device QA (TEST-011)",
+   "service": "BrowserStack / Sauce Labs (أجهزة حقيقية سحابية)",
+   "why": "—",
+   "free_alternative": "أجهزة الـOwner (iPhone/Android) + Playwright WebKit",
+   "cost_or_quota": "مدفوع",
+   "needs_approval": "YES — غير مقترح"
+  },
+  {
+   "feature": "Analytics tracking health (INFRA-007)",
+   "service": "GA4 Data API",
+   "why": "عدّاد أحداث يومي لكشف توقف التتبع",
+   "free_alternative": "—",
+   "cost_or_quota": "مجاني ضمن الحصص",
+   "needs_approval": "NO تكلفة — صلاحية (PO-012)"
+  },
+  {
+   "feature": "Search Console integration status + Legacy inventory (INFRA-007، INFRA-032)",
+   "service": "Google Search Console API / تصدير",
+   "why": "حالة التكامل وindexed/traffic للروابط القديمة",
+   "free_alternative": "تصدير يدوي من الـOwner",
+   "cost_or_quota": "مجاني",
+   "needs_approval": "NO تكلفة — صلاحية (PO-011)"
+  },
+  {
+   "feature": "Google sync failures (MDH-025)",
+   "service": "Google Business Profile APIs (Business Information)",
+   "why": "مزامنة الساعات والتحقق",
+   "free_alternative": "روابط + لقطات (D-043)",
+   "cost_or_quota": "مجاني بموافقة وصول من Google",
+   "needs_approval": "YES — طلب الوصول (PO-009)"
+  },
+  {
+   "feature": "Legacy URL backlinks (INFRA-032)",
+   "service": "Semrush / Ahrefs",
+   "why": "Backlinks لكل رابط",
+   "free_alternative": "Search Console Links + بيانات Semrush السابقة",
+   "cost_or_quota": "Credits مدفوعة (رصيد Semrush API = 0)",
+   "needs_approval": "YES — غير مقترح (INT-003)"
+  },
+  {
+   "feature": "Inquiry notifications خارج الـDashboard (TF-11)",
+   "service": "بريد معاملات (SMTP/Transactional email) أو WhatsApp API",
+   "why": "تنبيه فوري باستفسار جديد",
+   "free_alternative": "عدد Unresolved Inquiries في Command Center",
+   "cost_or_quota": "طبقات مجانية محدودة/مدفوع؛ WhatsApp API مدفوع لكل محادثة",
+   "needs_approval": "YES — مستقبلي فقط (MON-010)"
+  },
+  {
+   "feature": "Inquiry attachments (مستقبلي)",
+   "service": "ClamAV محلي",
+   "why": "فحص المرفقات",
+   "free_alternative": "منع صارم للأنواع",
+   "cost_or_quota": "مجاني إن سمح Cloudways",
+   "needs_approval": "NO (يُتحقق في الـAudit — I-13)"
+  },
+  {
+   "feature": "Secrets",
+   "service": "Vault / Doppler وما شابه",
+   "why": "—",
+   "free_alternative": ".env لكل بيئة على الخادم (+ Laravel env:encrypt للنسخ)",
+   "cost_or_quota": "مدفوع/خدمة خارجية",
+   "needs_approval": "YES — غير مقترح"
+  },
+  {
+   "feature": "Release registry / Rollback (INFRA-004/005)",
+   "service": "GitHub Releases + Artifacts المحفوظة",
+   "why": "نسخ الإصدارات للتراجع",
+   "free_alternative": "Artifacts على الخادم",
+   "cost_or_quota": "مجاني ضمن حدود تخزين GitHub",
+   "needs_approval": "NO"
+  }
+ ],
+ "dropped": [],
+ "notes": "G17 = مزامنة M35 (FINAL COMPLETENESS GAP ADDENDUM — REMAINING MISSING SYSTEMS ONLY — OWNER APPROVED — P0 ARCHITECTURE REVIEW REQUIRED؛ 62 قسمًا + مقدمة، قُرئت كاملة). المصادر بصيغة \"M35 §NN\" (§00 = المقدمة). الحالة الافتراضية APPROVED (الرسالة OWNER APPROVED وليست FROZEN)؛ Command palette = APPROVED WITH CONDITIONS (اختياري). المنطقة الجديدة \"49 Infrastructure, Release & Operations\" بالبادئة INFRA (INFRA-001…045) — تحتاج INFRA:\"49\" في PREFIX_AREA وAREAS وإضافة G17 إلى EXTRA في build_master. ترقيم المراحل حسب IMPLEMENTATION-PLAN المنشورة (P05 = Brand/Design، P06 = Platform) مثل G10–G16. المواصفات التشغيلية لأنظمة M35 كُتبت بالتوازي في docs/platform/ (الوثائق العشرون كلها SPEC — READY FOR BUILD، التنفيذ NOT STARTED) فأُضيفت كـdesign_refs/existing_impl؛ تصنيف gap_audit يقيس التغطية قبل M35. gap_audit: 64 صفًا (صف لكل نظام؛ §21 مقسوم: Full PWA = NOT NEEDED · Graceful failure = PARTIAL)؛ المفتاح m32_section أُبقي لتوافق المخطط مع G14 ويحمل مراجع M35. لا تكرار مع المجموعات المتوازية: M35 §23/§24/§25 = تحديثات على MDH-016 · MDH-029 · MDH-025 (G15) لا متطلبات INFRA؛ AC-1 من المراجعة = G15-CF-01 (لم يُكرر، وتحديث GBP-003 تركته لـG15)؛ AC-3 = G18-CF-04. التعارضات: AC-2/AC-4/AC-5/AC-6 = G17-CF-01…04، و8 تعارضات لم تسجلها المراجعة = G17-CF-05…12 (الشدة 3↔5، الرئيسية مقابل DASH-007/008، DASH-026، مفردات SEO-010، جدول MON-011، الشكاوى مقابل VoC، معايير القبول، مرفقات الاستفسار). بقية عدم التكرار: Incident Center = OPS-048/DASH-017 (تحديث)؛ 404 = SEO-019؛ Restore test = OPS-041/042؛ Secrets = SEC-002؛ Owner-friendly errors = DASH-034؛ Audit trail = AUDIT-001/010؛ Owner search = DASH-019؛ Browser/Device QA = TEST-010/011؛ Country→City→Branch = WEB-003؛ Owner-only/No-code = DASH-032/OPS-050/CMS-033/DASH-033/GOV-058؛ Master sync = OPS-009/GOV-073؛ الفلتر = OPS-003. نواقص FINAL-ARCHITECTURE-REVIEW مقابل M35: G17-TF-16 (9 عولجت في docs/platform، 7 ما زالت مفتوحة في المراجعة نفسها؛ منها معرّف Cappuccino: PRD-00058 = ICED SPANISH LATTE والصحيح PRD-00014 — والخطأ نفسه منقول في تفاصيل MDH-016). pending_owner: إضافات على PO-037/PO-013/PO-039/PO-019/PO-008/PO-011/PO-028 فقط — لا أسئلة جديدة. updates_to_existing: DASH-026 من نوع SUPERSEDE؛ TEST-010 (P1→P0) وDASH-019 (P2→P1) بحقل new_priority (لا يُطبق آليًا). لم تُعدّل أي ملفات في الـrepo."
+}

@@ -1,0 +1,60 @@
+{
+ "group": "G23",
+ "notes": "PHASE 2 completion + PHASE 4 careers public side (Owner: «اكمل»).",
+ "requirements": [],
+ "updates_to_existing": [],
+ "conflicts": [],
+ "new_decisions": [],
+ "pending_owner": [
+  {
+   "id": "G23-PO-01",
+   "item": "قائمة مدن الأردن لنموذج التوظيف (حقل «المدينة» — قائمة وليست نصًا حرًا): لم يُتحقق من مصدر رسمي كامل (G10-TF-10)، وبيئة العمل لا تصل إلى المصادر الرسمية. A: يرسل الـOwner القائمة المعتمدة · B: يعتمد الـOwner مصدرًا رسميًا (مثل قائمة البلديات — وزارة الإدارة المحلية) ويُستخرج منه · C: مؤقتًا المحافظات الـ12 كقائمة (يخالف «لا استبدال المدينة بالمحافظة» — غير موصى به)",
+   "category": "BLOCKING",
+   "type": "CONTENT NEEDED",
+   "blocks": "فتح نموذج التوظيف فقط (النموذج مبني ومختبر ويبقى مغلقًا تلقائيًا بلا قائمة معتمدة)",
+   "refs": [
+    "CAREERS-REQUIREMENTS §3 #8",
+    "RECRUITMENT-DATA-MODEL §2.12",
+    "G10-TF-10"
+   ],
+   "count": "",
+   "notes": "لا تُخترع القائمة"
+  }
+ ],
+ "technical_flags": [
+  {
+   "id": "G23-TF-01",
+   "topic": "رقم الهوية لا يُحفظ في الجلسة بعد خطأ تحقق",
+   "detail": "بعد أي خطأ تُعاد كل المدخلات للنموذج ما عدا الرقم الوطني/رقم الوثيقة (يُعاد كتابته) حتى لا يُخزن في جدول الجلسات (RECRUITMENT-SECURITY §5). الملفات تبقى في مسودة الرفع على الخادم.",
+   "recommendation": "قرار تقني منفذ ومختبر",
+   "needs_owner": false,
+   "refs": [
+    "CAREERS-REQUIREMENTS §4",
+    "RECRUITMENT-SECURITY §5"
+   ]
+  },
+  {
+   "id": "G23-TF-02",
+   "topic": "زمن التعبئة الأدنى يُحسب من أول فتح للنموذج",
+   "detail": "اكتُشف في اختبار المتصفح: بعد خطأ تحقق كان النموذج يأخذ رمزًا زمنيًا جديدًا فيُرفض تصحيح سريع كأنه Bot. أصبح الرمز الأصلي ينتقل مع إعادة العرض.",
+   "recommendation": "مصلح ومختبر",
+   "needs_owner": false,
+   "refs": [
+    "RECRUITMENT-SECURITY §6"
+   ]
+  },
+  {
+   "id": "G23-TF-03",
+   "topic": "حدود الرفع قبل Cloudways audit",
+   "detail": "حد الملف = min(upload_max_filesize, post_max_size) − 10% من إعدادات PHP الفعلية (المعادلة المعتمدة)، ويُضبط رقم صريح بعد A-07. فحص الفيروسات غير متوفر محليًا (scan_unavailable) والحماية بالمنع الصارم حسب التوقيع.",
+   "recommendation": "مراجعة عند Cloudways audit",
+   "needs_owner": false,
+   "refs": [
+    "CLOUDWAYS-RECRUITMENT-ARCHITECTURE §4",
+    "RECRUITMENT-SECURITY §4.6"
+   ]
+  }
+ ],
+ "cost_api_dependencies": [],
+ "dropped": []
+}

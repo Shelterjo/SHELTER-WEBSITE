@@ -1,0 +1,88 @@
+{
+ "group": "G28",
+ "notes": "Owner: PO-076 — English for the two franchise sections; pillars unchanged.",
+ "requirements": [],
+ "updates_to_existing": [
+  {
+   "id": "PO-076",
+   "type": "RESOLVE",
+   "source": "M49 §1",
+   "change": "✅ 2026-10-02: الـOwner اعتمد النص الإنجليزي للقسمين («Why Partner With SHELTER?» و«Who We Look For» + المعايير السبعة). القسمان ظاهران الآن بالعربية والإنجليزية؛ الركائز التسع تبقى مخفية."
+  },
+  {
+   "id": "FRAN-026",
+   "type": "UPDATE",
+   "source": "M49 §1",
+   "change": "عنوان ومقدمة «لماذا تصبح شريكًا مع SHELTER؟» / «Why Partner With SHELTER?» معتمدة AR/EN وظاهرة. الركائز التسع = PENDING FRANCHISE MASTER APPROVAL ومخفية (لم يتغير).",
+   "new_impl": "PARTIAL",
+   "tested": "YES",
+   "code_refs": [
+    "database/seeders/FranchiseSeeder.php",
+    "resources/views/site/franchise.blade.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Site/FranchisePageTest.php"
+   ]
+  },
+  {
+   "id": "FRAN-030",
+   "type": "UPDATE",
+   "source": "M49 §1",
+   "change": "«ما الذي نبحث عنه في الشريك؟» / «Who We Look For» + المعايير العامة السبعة AR/EN معتمدة وظاهرة (القائمة تكمل القسم مباشرة).",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "database/seeders/FranchiseSeeder.php",
+    "resources/views/site/franchise.blade.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Site/FranchisePageTest.php"
+   ]
+  },
+  {
+   "id": "FRAN-018",
+   "type": "UPDATE",
+   "source": "M49 §1",
+   "change": "قاعدة النشر: لا يُعرض قسم بلغة واحدة، ولا ترجمة آلية لأي محتوى غير معتمد — مطبّقة (Pages + FranchiseSeeder يملأ الإنجليزي المعتمد فقط).",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Services/Content/Pages.php",
+    "database/seeders/FranchiseSeeder.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Site/FranchisePageTest.php"
+   ]
+  }
+ ],
+ "conflicts": [],
+ "new_decisions": [
+  {
+   "temp_id": "G28-ND-01",
+   "area": "16 Franchise",
+   "decision": "PO-076 → النص الإنجليزي المعتمد: «Why Partner With SHELTER?» + «We see partnership as more than simply using a brand name…» · «Who We Look For» + «We look for serious partners…» + المعايير السبعة (Commitment to SHELTER’s identity and standards · Serious commitment to investment and operations · Appropriate management capability · Understanding of the local market · Commitment to quality standards · Willingness to operate within the approved operating system · Interest in building a long-term relationship). القسمان يُعرضان AR + EN؛ لا قسم بلغة واحدة؛ لا ترجمة آلية لغير المعتمد. الركائز التسع = PENDING FRANCHISE MASTER APPROVAL.",
+   "sources": [
+    "M49 §1"
+   ],
+   "status": "APPROVED",
+   "reason": "Owner: PO-076 — ENGLISH CONTENT APPROVAL",
+   "impact": "FRAN-018/026/030 · PO-076 (RESOLVED) · FranchiseSeeder",
+   "date": "2026-10-02"
+  }
+ ],
+ "pending_owner": [],
+ "technical_flags": [
+  {
+   "id": "G28-TF-01",
+   "topic": "تحديث المحتوى المزروع بأمان",
+   "detail": "FranchiseSeeder على صفحة موجودة: يملأ النص الإنجليزي المعتمد فقط في الأقسام التي ما زال إنجليزيها فارغًا (بنفس النوع والنص العربي) ويظهرها؛ أي قسم عدّله الـOwner لا يُلمس. جُرّب على قاعدة البيانات المحلية: 4 أقسام مخفية ← 1 (الركائز فقط).",
+   "recommendation": "قرار تقني منفذ ومختبر",
+   "needs_owner": false,
+   "refs": [
+    "FRAN-018"
+   ]
+  }
+ ],
+ "cost_api_dependencies": [],
+ "dropped": []
+}

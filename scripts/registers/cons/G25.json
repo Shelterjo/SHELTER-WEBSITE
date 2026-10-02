@@ -1,0 +1,46 @@
+{
+ "group": "G25",
+ "notes": "Owner instruction: starting number of partnership (FR) application numbers.",
+ "requirements": [],
+ "updates_to_existing": [
+  {
+   "id": "FRAN-046",
+   "type": "UPDATE",
+   "source": "M46 §1",
+   "change": "بداية الترقيم (D-316): أول رقم على الموقع FR-2026-00100، فأول طلب شراكة FR-2026-00101 والثاني FR-2026-00102 وهكذا. الصيغة FR-YYYY-NNNNN كما هي. مطبّق في ReferenceNumbers (START_AFTER) ومختبر. ترقيم التوظيف JOB لم يتغير (يبدأ 00001)."
+  }
+ ],
+ "conflicts": [],
+ "new_decisions": [
+  {
+   "temp_id": "G25-ND-01",
+   "area": "16 Franchise",
+   "decision": "ترقيم طلبات الشراكة يبدأ من FR-2026-00100: أول طلب FR-2026-00101، الثاني FR-2026-00102، وهكذا (الصيغة FR-YYYY-NNNNN من الخادم بلا تغيير). لا يشمل ترقيم التوظيف JOB.",
+   "sources": [
+    "M46 §1"
+   ],
+   "status": "APPROVED",
+   "reason": "Owner: «اول رقم عالموقع خليه يبلش هيك FR-2026-00100 … الطلب الاول FR-2026-00101 … الثاني FR-2026-00102»",
+   "impact": "FRAN-046 (محدّث) · ReferenceNumbers::START_AFTER · ReferenceNumbersTest · FranchisePageTest",
+   "date": "2026-10-02"
+  }
+ ],
+ "pending_owner": [
+  {
+   "id": "G25-PO-01",
+   "item": "ترقيم طلبات الشراكة مع بداية سنة جديدة: A — كل سنة تبدأ من 00101 (FR-2027-00101) · B — العدّاد يكمل من آخر رقم في السنة السابقة (FR-2027-00(آخر رقم + 1)). مؤقتًا حتى الرد: A (كل سنة تبدأ بعد 00100)",
+   "category": "NON-BLOCKING",
+   "type": "BUSINESS DECISION",
+   "blocks": "لا شيء الآن — يلزم قبل 2027-01-01 فقط",
+   "refs": [
+    "D-316",
+    "FRAN-046"
+   ],
+   "count": "",
+   "notes": "التوصية A: متسقة مع السنة الظاهرة في الرقم"
+  }
+ ],
+ "technical_flags": [],
+ "cost_api_dependencies": [],
+ "dropped": []
+}

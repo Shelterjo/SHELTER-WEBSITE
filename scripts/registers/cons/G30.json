@@ -1,0 +1,263 @@
+{
+ "group": "G30",
+ "notes": "Build: media library + rights, Media Center/Press Kit, Awards, SHELTER Family (public side) — technical only; content still with the Owner (PO-060/062/032).",
+ "requirements": [],
+ "updates_to_existing": [
+  {
+   "id": "OPS-033",
+   "type": "UPDATE",
+   "source": "BUILD PHASE 4",
+   "change": "مكتبة وسائط واحدة `media` + `media_usages` بحقول الحقوق العشرة (المصور، المصدر، صاحب الحق، الترخيص، الاعتماد وتاريخه، موافقة الأشخاص وتفاصيلها، الموقع/الإعلانات، القيود، الانتهاء) + نص بديل AR/EN + نقطة التركيز + sha256. إدخال مؤقت بأوامر `media:import` / `media:approve` حتى مركز الوسائط في الـDashboard.",
+   "new_impl": "PARTIAL",
+   "tested": "YES",
+   "code_refs": [
+    "app/Services/Media/MediaRights.php",
+    "app/Services/Media/MediaLibrary.php",
+    "database/migrations/2026_10_01_001100_create_media_awards_team_tables.php",
+    "app/Console/Commands/MediaImport.php",
+    "app/Console/Commands/MediaApprove.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Media/MediaLibraryTest.php",
+    "tests/Feature/Site/ShowcasePagesTest.php"
+   ]
+  },
+  {
+   "id": "OPS-034",
+   "type": "UPDATE",
+   "source": "BUILD PHASE 4",
+   "change": "قاعدة واحدة MediaRights::canUse: صورة فيها شخص لا تُعرض إلا بموافقة مسجلة لنطاق الاستخدام وبلا سحب؛ السحب يخفيها فورًا من كل مكان (MR-T05).",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Services/Media/MediaRights.php",
+    "app/Services/Media/MediaLibrary.php",
+    "database/migrations/2026_10_01_001100_create_media_awards_team_tables.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Media/MediaLibraryTest.php",
+    "tests/Feature/Site/ShowcasePagesTest.php"
+   ]
+  },
+  {
+   "id": "MEDIA-003",
+   "type": "UPDATE",
+   "source": "BUILD PHASE 4",
+   "change": "كل أصل مستورد يبدأ PENDING OWNER APPROVAL بلا أي قناة مسموحة — الاستيراد لا ينشر.",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Services/Media/MediaRights.php",
+    "app/Services/Media/MediaLibrary.php",
+    "database/migrations/2026_10_01_001100_create_media_awards_team_tables.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Media/MediaLibraryTest.php",
+    "tests/Feature/Site/ShowcasePagesTest.php"
+   ]
+  },
+  {
+   "id": "MEDIA-005",
+   "type": "UPDATE",
+   "source": "BUILD PHASE 4",
+   "change": "Stock/AI/Google/الموقع القديم غير قابلة للاستخدام إلا باعتماد صريح للأصل نفسه (source_explicitly_approved).",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Services/Media/MediaRights.php",
+    "app/Services/Media/MediaLibrary.php",
+    "database/migrations/2026_10_01_001100_create_media_awards_team_tables.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Media/MediaLibraryTest.php",
+    "tests/Feature/Site/ShowcasePagesTest.php"
+   ]
+  },
+  {
+   "id": "MEDIA-011",
+   "type": "UPDATE",
+   "source": "BUILD PHASE 4",
+   "change": "النسخ للويب لأصول المكتبة: PHP GD على الخادم (لا Node على خادم التطبيق — «Sharp حيث تسمح المعمارية»): بلا تكبير، الأصل خاص ومحفوظ بالـsha256، للمعتمد فقط، WebP (+AVIF حيث يدعمه الخادم)، 480/800/1200/1600، أسماء بالـhash. صور المنتجات تبقى بخط Sharp المربع 240–1080.",
+   "new_impl": "PARTIAL",
+   "tested": "YES",
+   "code_refs": [
+    "app/Services/Media/MediaRights.php",
+    "app/Services/Media/MediaLibrary.php",
+    "database/migrations/2026_10_01_001100_create_media_awards_team_tables.php",
+    "resources/views/components/ui/picture.blade.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Media/MediaLibraryTest.php",
+    "tests/Feature/Site/ShowcasePagesTest.php"
+   ]
+  },
+  {
+   "id": "OPS-032",
+   "type": "UPDATE",
+   "source": "BUILD PHASE 4",
+   "change": "Media Center + Press Kit `/ar|en/media/`: 404 حتى ينشر الـOwner صفحته؛ يعرض نص الصفحة + الحقائق المعتمدة (الاسمان، 2019، الفروع) + صور الصحافة المعتمدة (press_kit) + أحدث 3 جوائز موثقة. لا قصة ولا شعار ولا جهة تواصل إعلامية قبل اعتمادها (MR-T09).",
+   "new_impl": "PARTIAL",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Site/MediaCenterController.php",
+    "resources/views/site/media-center.blade.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Media/MediaLibraryTest.php",
+    "tests/Feature/Site/ShowcasePagesTest.php"
+   ]
+  },
+  {
+   "id": "CONTENT-002",
+   "type": "UPDATE",
+   "source": "BUILD PHASE 4",
+   "change": "الجوائز `/ar|en/awards/`: لا تظهر إلا المنشورة بلغتين والموثقة بحقيقة `award.{id}` معتمدة بنفس القيم؛ أي تعديل بعد الاعتماد يخفيها حتى إعادة الاعتماد. 404 بلا جوائز.",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Services/Content/Awards.php",
+    "app/Http/Controllers/Site/AwardsController.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Media/MediaLibraryTest.php",
+    "tests/Feature/Site/ShowcasePagesTest.php"
+   ]
+  },
+  {
+   "id": "DX-002",
+   "type": "UPDATE",
+   "source": "BUILD PHASE 4",
+   "change": "SHELTER Family `/ar|en/family/`: الأعضاء المنشورون بموافقة مسجلة فقط؛ 404 بلا أعضاء؛ يظهر في الـFooter عند وجودهم.",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Services/Content/Team.php",
+    "app/Http/Controllers/Site/FamilyController.php",
+    "resources/views/site/family.blade.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Media/MediaLibraryTest.php",
+    "tests/Feature/Site/ShowcasePagesTest.php"
+   ]
+  },
+  {
+   "id": "DX-003",
+   "type": "UPDATE",
+   "source": "BUILD PHASE 4",
+   "change": "حقول الملف: الاسم والمسمى AR/EN، الصورة (من المكتبة)، الفرع باسمه المعتمد، تاريخ الانضمام والنبذة عند تفعيلهما فقط.",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Models/TeamMember.php",
+    "app/Services/Content/Team.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Media/MediaLibraryTest.php",
+    "tests/Feature/Site/ShowcasePagesTest.php"
+   ]
+  },
+  {
+   "id": "DX-005",
+   "type": "UPDATE",
+   "source": "BUILD PHASE 4",
+   "change": "لا ظهور بلا is_published + publish_consent_at + publish_consent_version، وسحب الموافقة (consent_withdrawn_at) يخفي الملف فورًا.",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Services/Content/Team.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Media/MediaLibraryTest.php",
+    "tests/Feature/Site/ShowcasePagesTest.php"
+   ]
+  },
+  {
+   "id": "DX-036",
+   "type": "UPDATE",
+   "source": "BUILD PHASE 4",
+   "change": "team_members جدول مستقل بلا أي حقل أو ربط بـHR أو بطلبات التوظيف؛ لا Person Schema.",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "database/migrations/2026_10_01_001100_create_media_awards_team_tables.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Media/MediaLibraryTest.php",
+    "tests/Feature/Site/ShowcasePagesTest.php"
+   ]
+  },
+  {
+   "id": "SEO-029",
+   "type": "UPDATE",
+   "source": "BUILD PHASE 4",
+   "change": "الـSitemap يضم الآن الصفحات المنشورة فقط: المحتوى والفرنشايز والمركز الإعلامي (عند نشرها)، التوظيف، الفعاليات عند وجودها، الجوائز وSHELTER Family عند وجود محتوى؛ رأي العميل خارجه دائمًا.",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Site/SitemapController.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Media/MediaLibraryTest.php",
+    "tests/Feature/Site/ShowcasePagesTest.php"
+   ]
+  },
+  {
+   "id": "PO-060",
+   "type": "UPDATE",
+   "source": "BUILD PHASE 4",
+   "change": "الصفحة والبيانات جاهزة: يكفي إرسال (لكل موظف) الاسم AR/EN والمسمى AR/EN والفرع والصورة + **موافقته المكتوبة** (ونسختها)؛ تاريخ الانضمام والنبذة اختياريان."
+  },
+  {
+   "id": "PO-062",
+   "type": "UPDATE",
+   "source": "BUILD PHASE 4",
+   "change": "المركز الإعلامي مبني: ينتظر نص الصفحة، وصور الصحافة المعتمدة، وجهة التواصل الإعلامي، وقرار تنزيل الشعار. الحقائق المعتمدة (الاسمان، 2019، الفروع) تظهر تلقائيًا."
+  },
+  {
+   "id": "PO-032",
+   "type": "UPDATE",
+   "source": "BUILD PHASE 4",
+   "change": "صفحة الجوائز مبنية: لكل جائزة حقيقية — الاسم AR/EN، الجهة المانحة AR/EN، السنة، ورابط عام يثبتها (اختياري: وصف وصورة معتمدة). تظهر بعد اعتمادك لكل جائزة."
+  }
+ ],
+ "conflicts": [],
+ "new_decisions": [],
+ "pending_owner": [],
+ "technical_flags": [
+  {
+   "id": "G30-TF-01",
+   "topic": "خط صور المكتبة على الخادم بـGD",
+   "detail": "خادم التطبيق PHP بلا Node؛ النسخ تُولد بـGD بنفس قواعد MEDIA-011. حدّ معروف: GD يتجاهل ملفات الألوان المضمّنة (ICC) — الصور بنظام ألوان غير sRGB تُحوّل قبل الاستيراد (أو تمرّ على Sharp محليًا).",
+   "recommendation": "قرار تقني منفذ ومختبر",
+   "needs_owner": false,
+   "refs": [
+    "MEDIA-011"
+   ]
+  },
+  {
+   "id": "G30-TF-02",
+   "topic": "x-ui.picture وx-ui.rating في نظام التصميم",
+   "detail": "x-ui.picture يقبل صورة معتمدة فقط (MediaImage): <picture> بـAVIF/WebP، أبعاد حقيقية (CLS 0)، نص بديل باللغة، Lazy؛ أُطر square/portrait/landscape حول نقطة التركيز بفئات (لا style داخلي — CSP). مضاف للكتالوج وStorybook.",
+   "recommendation": "قرار تقني منفذ ومختبر",
+   "needs_owner": false,
+   "refs": [
+    "MEDIA-006",
+    "DS-015"
+   ]
+  },
+  {
+   "id": "G30-TF-03",
+   "topic": "الصفحات الثلاث تظهر بالمحتوى لا بالمفتاح",
+   "detail": "المركز الإعلامي = صفحة `pages` منشورة (بقسم واحد على الأقل)؛ الجوائز = جائزة موثقة واحدة على الأقل؛ SHELTER Family = عضو بموافقة واحد على الأقل — وإلا 404، بلا روابط في الـFooter أو الـSitemap.",
+   "recommendation": "قرار تقني منفذ ومختبر",
+   "needs_owner": false,
+   "refs": [
+    "OPS-032",
+    "CONTENT-002",
+    "DX-002"
+   ]
+  }
+ ],
+ "cost_api_dependencies": [],
+ "dropped": []
+}

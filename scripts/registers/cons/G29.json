@@ -1,0 +1,85 @@
+{
+ "group": "G29",
+ "notes": "Build: Voice of Customer public form (SI-B16) — technical implementation only, no new Owner decision.",
+ "requirements": [],
+ "updates_to_existing": [
+  {
+   "id": "OPS-030",
+   "type": "UPDATE",
+   "source": "BUILD PHASE 4",
+   "change": "الجانب العام مبني ومختبر محليًا: /ar|en/feedback/ — الفرع + التجربة العامة إلزاميان، 4 تقييمات وتعليق اختيارية، بلا PII ولا IP، نفس الشاشة لكل تقييم (VC-T03)، Honeypot + زمن أدنى 3 ث + Idempotency + 5/10 دقائق و60/يوم على مفتاح HMAC. noindex، خارج الـSitemap، غير مربوط بأي صفحة، ومغلق على Production حتى PO-063 (FEEDBACK_FORM_ENABLED). الأسئلة = مثال M32 §15 حتى اعتماد صياغتها.",
+   "new_impl": "PARTIAL",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Site/FeedbackController.php",
+    "app/Services/Feedback/FeedbackForm.php",
+    "resources/views/site/feedback.blade.php",
+    "resources/views/components/ui/rating.blade.php",
+    "database/migrations/2026_10_01_001000_create_feedback_table.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Site/FeedbackFormTest.php"
+   ]
+  },
+  {
+   "id": "SEC-007",
+   "type": "UPDATE",
+   "source": "BUILD PHASE 4",
+   "change": "Rate limits النماذج العامة (التوظيف، الشراكة، رأي العميل، متابعة الطلب) تُحسب على مفتاح HMAC للعنوان (FormGuard::clientKey) — العنوان نفسه لا يُخزن ولا في الـCache.",
+   "new_impl": "PARTIAL",
+   "tested": "YES",
+   "code_refs": [
+    "app/Services/Forms/FormGuard.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Site/FeedbackFormTest.php",
+    "tests/Feature/Careers/CareersFormTest.php",
+    "tests/Feature/Site/FranchisePageTest.php"
+   ]
+  },
+  {
+   "id": "PO-063",
+   "type": "UPDATE",
+   "source": "BUILD PHASE 4",
+   "change": "النموذج مبني ومختبر ومغلق على Production: ينتظر فقط الصياغة النهائية للأسئلة AR/EN ونقاط الدخول (QR في الفرع / صفحة الفرع / صفحة التواصل). رابط الفرع جاهز: /ar/feedback/?branch=drive أو house."
+  }
+ ],
+ "conflicts": [],
+ "new_decisions": [],
+ "pending_owner": [],
+ "technical_flags": [
+  {
+   "id": "G29-TF-01",
+   "topic": "مكوّن x-ui.rating في نظام التصميم",
+   "detail": "سؤال تقييم 1–5 كمجموعة Radio أصلية داخل Fieldset (أسهم لوحة المفاتيح وقارئ الشاشة بلا JS)، خيارات 44px متساوية، المختار مملوء وعريض لا باللون وحده، الخطأ إطار أحمر + نص؛ في العربي يبدأ الصف من اليمين. مضاف إلى الكتالوج وStorybook (Default · Selected · Required · Error).",
+   "recommendation": "قرار تقني منفذ ومختبر",
+   "needs_owner": false,
+   "refs": [
+    "DS-015",
+    "OPS-030"
+   ]
+  },
+  {
+   "id": "G29-TF-02",
+   "topic": "نقطة الدخول تُسجل بلا تتبع",
+   "detail": "feedback.entry_point = branch_link عندما يأتي الفرع محددًا في الرابط (?branch=)، وإلا direct — لا معاملات أخرى تُقرأ، ولا Cookie، ولا IP.",
+   "recommendation": "قرار تقني منفذ ومختبر",
+   "needs_owner": false,
+   "refs": [
+    "OPS-030"
+   ]
+  },
+  {
+   "id": "G29-TF-03",
+   "topic": "Rate limit على مفتاح HMAC",
+   "detail": "FormGuard::clientKey = HMAC-SHA256 للعنوان بمفتاح التطبيق (32 حرفًا) — يُستخدم في التوظيف والشراكة ورأي العميل ومتابعة الطلب بدل العنوان الخام في مفاتيح الـCache (FORM-RELIABILITY §4).",
+   "recommendation": "قرار تقني منفذ ومختبر",
+   "needs_owner": false,
+   "refs": [
+    "SEC-007"
+   ]
+  }
+ ],
+ "cost_api_dependencies": [],
+ "dropped": []
+}

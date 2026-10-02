@@ -1,0 +1,5286 @@
+{
+ "group": "G11",
+ "requirements": [
+  {
+   "id": "FRAN-004",
+   "area": "16 Franchise",
+   "type": "RULE",
+   "title": "M29 = المرجع التنفيذي الحالي لصفحة الفرنشايز + طلب الشراكة + وحدة الـDashboard",
+   "requirement": "مواصفة الـOwner «SHELTER COFFEE — FRANCHISE / PARTNERSHIP — FINAL MASTER WEBSITE SPEC — OWNER-APPROVED DIRECTION» (M29، 100 قسم) هي المرجع التنفيذي الحالي لبناء: صفحة «SHELTER COFFEE FRANCHISE / PARTNERSHIP — كن شريكًا مع SHELTER COFFEE» + نظام SHELTER PARTNERSHIP APPLICATION + وحدة «Franchise & Partnerships» في SHELTER OWNER DASHBOARD، كجزء أصلي من مشروع SHELTER COFFEE WEBSITE + SHELTER OWNER DASHBOARD. لا يُعاد سؤال الـOwner عن أي قرار اعتُمد فيها.",
+   "details": [
+    "النطاق: الصفحة العامة AR/EN + نموذج طلب الشراكة + Pipeline في الـOwner Dashboard + CMS للصفحة.",
+    "§100: «لا تعيد سؤالي عن أي قرار تم اعتماده هنا» — الأسئلة فقط للقرارات التجارية الحقيقية (FRAN-107).",
+    "الحالة: OWNER-APPROVED DIRECTION (ليست FROZEN بنص الرسالة)؛ أي بند تقول M29 إنه اتجاه/مسودة/Franchise Master يفوز يبقى مشروطًا.",
+    "M30 (لاحق، FROZEN) يضيّق الصلاحيات: V1 = Owner فقط (FRAN-062)."
+   ],
+   "sources": [
+    "M29-§00",
+    "M29-§100"
+   ],
+   "decision_refs": [
+    "G11-ND-01",
+    "D-015",
+    "D-071"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "spec: docs/franchise/01-SOURCES-CONFLICTS-MISSING.md (DRAFT — Phase 1، غير مُتتبعة في git)",
+   "missing_work": "مزامنة المرجع الرئيسي (هذا الملف G11) ثم اعتماد حزمة Phase 1 (FRAN-104)",
+   "dependencies": [],
+   "test_required": "مراجعة توثيق: كل قرار في M29 مسجل في Master/Decision Register/Traceability (FRAN-108)؛ لا سؤال مكرر للـOwner عن بند معتمد هنا",
+   "design_refs": [
+    "docs/franchise/01-SOURCES-CONFLICTS-MISSING.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P00",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-005",
+   "area": "16 Franchise",
+   "type": "RULE",
+   "title": "ترتيب السلطة الخاص بالفرنشايز (7 مستويات)",
+   "requirement": "عند التعارض في موضوعات الفرنشايز يُطبق الترتيب: (1) Latest explicit Owner-approved decision · (2) SHELTER Franchise approved master documents · (3) SHELTER Website Master Requirements · (4) Decision Register · (5) Verified official operational source · (6) Old website · (7) AI suggestion. الصفحة القديمة لا تتغلب على Owner-approved data.",
+   "details": [
+    "تخصيص لـD-221/GOV-005 (M27) لمجال الفرنشايز: يُدرج Franchise Master في المستوى 2 فوق المرجع الرئيسي للموقع (G11-CF-06).",
+    "القرارات السابقة غير المستبدلة تبقى ملزمة (قاعدة D-221 رقم 2) لأن المستوى 1 يشملها.",
+    "M29 نفسها تُحيل صراحة لـFranchise Master في: الدعم (§20)، رحلة الشراكة (§22)، حالات الـDashboard (§38)، ركائز «لماذا SHELTER» (§17)، DRIVE/HOUSE كباقة (§16)."
+   ],
+   "sources": [
+    "M29-§AUTHORITY ORDER"
+   ],
+   "decision_refs": [
+    "G11-ND-01",
+    "D-221"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [
+    "GOV-005"
+   ],
+   "test_required": "مراجعة: كل قرار محتوى في وثائق الفرنشايز يذكر مصدره ومستواه؛ لا محتوى من المستوى 6/7 يُنشر كحقيقة",
+   "design_refs": [
+    "docs/franchise/01-SOURCES-CONFLICTS-MISSING.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P00",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-006",
+   "area": "16 Franchise",
+   "type": "RULE",
+   "title": "الصفحة القديمة /franchise-shelter-coffee/ ليست مصدر حقيقة — للهجرة التقنية فقط",
+   "requirement": "الصفحة القديمة https://www.shelterjo.com/franchise-shelter-coffee/ ليست: Content Source of Truth · UX Reference · UI Reference · Design Reference · Architecture Reference · Franchise Policy Reference. تُستخدم لاحقًا فقط لأغراض Technical SEO Migration: old URL · title/meta · canonical · indexing · backlinks · Search Console history · redirects · sitemap migration · old schema · technical legacy tracking. لا يُرجع إليها لاستنتاج Requirements جديدة ولا لتقرير ماذا نبني.",
+   "details": [
+    "المحتوى الأساسي القديم كما لخّصه الـOwner (§07) — لا حاجة لفتح الصفحة: عنوان عام عن فرص الشراكة/Franchise · مقدمة قصيرة · «لماذا تصبح شريكًا» · مزايا (هوية قوية · نموذج ربحي · تدريب · دعم تسويقي · موردون · تصميم موحد) · خطوات الانضمام · وعد بالتواصل خلال ~5 أيام عمل · نموذج بسيط (الاسم · الهاتف · البريد · المنطقة · نبذة عن الخبرة) · Marketing Claims عامة وقوية.",
+    "§99 تكرار صريح: «لا تدخل للصفحة القديمة لتقرر ماذا نبني» — استخدم URL القديم فقط في TECHNICAL SEO MIGRATION AUDIT.",
+    "docs/franchise/01 §1: الصفحة القديمة «لم تُفتح عمدًا»."
+   ],
+   "sources": [
+    "M29-§SOURCE OF TRUTH",
+    "M29-§07",
+    "M29-§99",
+    "M29-§100"
+   ],
+   "decision_refs": [
+    "G11-ND-01",
+    "GOV-004",
+    "BRAND-003"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "مراجعة: لا متطلب أو نص في وثائق الفرنشايز مصدره الصفحة القديمة؛ استخدامها محصور في SEO-MIGRATION-MAP",
+   "design_refs": [
+    "docs/franchise/01-SOURCES-CONFLICTS-MISSING.md",
+    "docs/google/SEO-MIGRATION-MAP.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P00",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-007",
+   "area": "16 Franchise",
+   "type": "RULE",
+   "title": "كل محتوى الفرنشايز التجاري من APPROVED SHELTER FRANCHISE MASTER FILES — ليس من AI",
+   "requirement": "لدى SHELTER مشروع مستقل «SHELTER Franchise». أي: Financial Model · Franchise Fee · Territory Rule · Qualification Policy · Support Promise · Agreement Terms · Expansion Rules · Store Requirements · Partner Criteria — يجب أن يأتي من APPROVED SHELTER FRANCHISE MASTER FILES وليس من AI. هذه الملفات غير متاحة في هذا المستودع ولا في الجلسة = MISSING؛ كل محتوى يعتمد عليها = PENDING VERIFICATION ولا يُنشر كالتزام.",
+   "details": [
+    "المستودع المتاح: Shelterjo/SHELTER-WEBSITE فقط (docs/franchise/01 §1).",
+    "ينطبق على أقسام: لماذا SHELTER (FRAN-026) · أكثر من شعار (FRAN-028) · رحلة الدعم (FRAN-029) · المعايير (FRAN-030) · رحلة الشراكة (FRAN-032) · الأسواق (FRAN-034) · إجابات FAQ (FRAN-036) · حالات الـDashboard (FRAN-055) · خيارات «نوع الاهتمام بالشراكة» في النموذج.",
+    "Deliverable مطلوب: مصفوفة مطابقة (بند الصفحة ← مصدره في Franchise Master ← الحالة APPROVED/PENDING VERIFICATION)."
+   ],
+   "sources": [
+    "M29-§10",
+    "M29-§AUTHORITY ORDER",
+    "M29-§95"
+   ],
+   "decision_refs": [
+    "G11-ND-02"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/franchise/01-SOURCES-CONFLICTS-MISSING.md (DRAFT — Phase 1، غير مُتتبعة في git)",
+   "missing_work": "استلام ملفات Franchise Master (G11-PO-01) ثم مصفوفة المطابقة",
+   "dependencies": [
+    "G11-PO-01"
+   ],
+   "test_required": "Content QA قبل النشر: كل جملة التزام/دعم/عملية/معيار في AR وEN مربوطة ببند Franchise Master معتمد؛ غير المربوط مخفي",
+   "design_refs": [
+    "docs/franchise/01-SOURCES-CONFLICTS-MISSING.md",
+    "docs/franchise/02-PAGE-IA-AND-CONTENT.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P01",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-008",
+   "area": "16 Franchise",
+   "type": "RULE",
+   "title": "المبدأ التجاري: بيع العلامة والنظام — لا وعود مالية",
+   "requirement": "الصفحة لا تحاول بيع الفرنشايز بالوعود المالية. تبيع: THE BRAND · THE EXPERIENCE · THE SYSTEM · THE STANDARDS · THE PARTNERSHIP · THE GROWTH VISION. الهدف أن يشعر المستثمر أن SHELTER: Serious · Structured · Premium · Scalable · Clear، وأن الخطوة الصحيحة التالية: «ابدأ طلب الشراكة».",
+   "details": [],
+   "sources": [
+    "M29-§98"
+   ],
+   "decision_refs": [
+    "G11-ND-03"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/franchise/02-PAGE-IA-AND-CONTENT.md (DRAFT — Phase 1، غير مُتتبعة في git)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "مراجعة محتوى وUX: لا رقم مالي ولا وعد ربح؛ كل قسم يخدم أحد المحاور الستة؛ الـCTA الأساسي هو الخطوة التالية الواضحة",
+   "design_refs": [
+    "docs/franchise/02-PAGE-IA-AND-CONTENT.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P03",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-009",
+   "area": "16 Franchise",
+   "type": "REQUIREMENT",
+   "title": "هدف الصفحة: تجربة شراكة Premium + قصة + فرصة + تأهيل + طلب + Pipeline",
+   "requirement": "الصفحة ليست مجرد Franchise Contact Page، بل: PREMIUM PARTNERSHIP EXPERIENCE + BRAND STORY + FRANCHISE OPPORTUNITY + LEAD QUALIFICATION + PARTNERSHIP APPLICATION + OWNER DASHBOARD PIPELINE. يدخل المستثمر/الشريك المحتمل ويفهم بسرعة: من هي SHELTER؟ · ما تجربة العلامة؟ · لماذا قد يهتم بالشراكة؟ · ماذا يعني أن يصبح شريكًا؟ · ما نوع الدعم والنظام الموجود؟ · ما الذي نبحث عنه في الشريك؟ · كيف تسير رحلة التقديم؟ · كيف يقدم طلبه؟ — ثم يقدم طلب شراكة بسهولة.",
+   "details": [],
+   "sources": [
+    "M29-§01"
+   ],
+   "decision_refs": [
+    "G11-ND-03"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/franchise/02-PAGE-IA-AND-CONTENT.md (DRAFT — Phase 1، غير مُتتبعة في git)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "اختبار فهم (UX validation على الـWireframes): الأسئلة الثمانية لها إجابة ظاهرة في ترتيب الصفحة؛ الوصول للنموذج سهل من أي نقطة",
+   "design_refs": [
+    "docs/franchise/02-PAGE-IA-AND-CONTENT.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P03",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-010",
+   "area": "16 Franchise",
+   "type": "RULE",
+   "title": "الصفحة رحلة: DISCOVER → UNDERSTAND → TRUST → QUALIFY → APPLY",
+   "requirement": "تُبنى الصفحة كرحلة DISCOVER ↓ UNDERSTAND ↓ TRUST ↓ QUALIFY ↓ APPLY. ممنوع أن تكون Hero ثم Form مباشرة ثم Footer؛ المطلوب Brand Experience قوية أولًا.",
+   "details": [
+    "كل قسم في الـIA مربوط بمرحلة من الرحلة (docs/franchise/02 §1)."
+   ],
+   "sources": [
+    "M29-§11"
+   ],
+   "decision_refs": [
+    "G11-ND-03"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/franchise/02-PAGE-IA-AND-CONTENT.md (DRAFT — Phase 1، غير مُتتبعة في git)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "مراجعة الـWireframe: النموذج ليس القسم الثاني؛ أقسام القصة والثقة تسبقه؛ كل قسم موسوم بمرحلته",
+   "design_refs": [
+    "docs/franchise/02-PAGE-IA-AND-CONTENT.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P03",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-011",
+   "area": "16 Franchise",
+   "type": "DECISION",
+   "title": "عنوان الصفحة: «كن شريكًا مع SHELTER COFFEE» — والتوصيف الثانوي FRANCHISE",
+   "requirement": "العنوان الأساسي للصفحة: «كن شريكًا مع SHELTER COFFEE»، ويمكن في الـHero صياغة أقوى: «كن شريكًا في نمو SHELTER COFFEE». يُستخدم «FRANCHISE» أو «FRANCHISE & PARTNERSHIPS» كتوصيف Secondary. ممنوع جعل العنوان الرئيسي «فرص الشراكة» بالشكل القديم الجاف.",
+   "details": [
+    "العنوان العربي نص من الـOwner (معتمد)؛ المقابل الإنجليزي غير مُعطى → يُصاغ (Natural international business English) ويُعرض للاعتماد ضمن PO-020 (مسودة docs/franchise/02: «Grow with SHELTER COFFEE» / «Partner with SHELTER COFFEE»).",
+    "H1 واحد لكل لغة (FRAN-100)."
+   ],
+   "sources": [
+    "M29-§02"
+   ],
+   "decision_refs": [
+    "G11-ND-03"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/franchise/02-PAGE-IA-AND-CONTENT.md (DRAFT — Phase 1، غير مُتتبعة في git)",
+   "missing_work": "اعتماد الصياغة الإنجليزية (PO-020)",
+   "dependencies": [
+    "PO-020"
+   ],
+   "test_required": "Content QA: H1 العربي أحد الصيغتين المعتمدتين؛ «فرص الشراكة» ليس عنوانًا رئيسيًا؛ الإنجليزي معتمد قبل النشر",
+   "design_refs": [
+    "docs/franchise/02-PAGE-IA-AND-CONTENT.md",
+    "docs/franchise/05-SEO-ANALYTICS-PERFORMANCE.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P03",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-012",
+   "area": "16 Franchise",
+   "type": "REQUIREMENT",
+   "title": "الـHero: قوي جدًا — عنوان + جملة اتجاه (ليست التزامًا قانونيًا)",
+   "requirement": "الـHero يجب أن يكون قويًا جدًا. Headline: «كن شريكًا في نمو SHELTER COFFEE» (البديل: «كن شريكًا مع SHELTER COFFEE»). Supporting direction: «نبحث عن شركاء يشاركوننا الاهتمام بالجودة والتجربة والنمو، لبناء حضور SHELTER في أسواق جديدة وفق معايير العلامة.» — لا تُعتبر Legal/Final Business Commitment، وتُصقل Brand Copy-wise فقط بدون اختراع Facts. Primary CTA: «ابدأ طلب الشراكة»؛ Secondary CTA: «تعرّف على SHELTER» أو «اكتشف SHELTER» — تُختبر الصياغة الأفضل.",
+   "details": [
+    "على الموبايل Hero أقصر والـCTA في الشاشة الأولى (FRAN-080).",
+    "الصورة: FRAN-025."
+   ],
+   "sources": [
+    "M29-§13"
+   ],
+   "decision_refs": [
+    "G11-ND-03"
+   ],
+   "status": "APPROVED WITH CONDITIONS",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/franchise/02-PAGE-IA-AND-CONTENT.md (DRAFT — Phase 1، غير مُتتبعة في git)",
+   "missing_work": "صقل الجملة AR/EN واعتمادها (PO-020)؛ اختيار الـCTA الثانوي بالاختبار",
+   "dependencies": [
+    "PO-020",
+    "FRAN-025"
+   ],
+   "test_required": "Content QA: الجملة المصقولة لا تضيف حقائق أو وعودًا؛ اختبار أ/ب أو اختبار فهم للـCTA الثانوي موثق (Decision · Reason · Evidence)",
+   "design_refs": [
+    "docs/franchise/02-PAGE-IA-AND-CONTENT.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P03",
+   "history": [],
+   "notes": "الشرط: الجملة اتجاه وليست نصًا نهائيًا؛ «أسواق جديدة» لا تعني إعلان أسواق (G11-CF-03)."
+  },
+  {
+   "id": "FRAN-013",
+   "area": "16 Franchise",
+   "type": "DECISION",
+   "title": "استراتيجية الـCTA: «ابدأ طلب الشراكة» في 3 مواضع بلا إزعاج",
+   "requirement": "Primary CTA «ابدأ طلب الشراكة» يُستخدم في: Hero · نقطة استراتيجية منتصف الصفحة · Final CTA — بدون تكرار مزعج. Secondary CTAs: «تعرف على SHELTER» · «اكتشف تجربتنا» · «الأسئلة الشائعة».",
+   "details": [
+    "قرار UX تقني موثق في docs/franchise/02 §5 (مقترح): زر مضغوط ثابت على الموبايل بعد تجاوز الـHero يختفي داخل قسم النموذج؛ CTA أساسي واحد في الشاشة.",
+    "كل ضغطة = franchise_cta_click مع cta_location (FRAN-091)."
+   ],
+   "sources": [
+    "M29-§13",
+    "M29-§26"
+   ],
+   "decision_refs": [
+    "G11-ND-03"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/franchise/02-PAGE-IA-AND-CONTENT.md (DRAFT — Phase 1، غير مُتتبعة في git)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "Wireframe/Playwright: الـCTA الأساسي في المواضع الثلاثة؛ ينقل للنموذج (Scroll to form)؛ لا أكثر من CTA أساسي ظاهر في الشاشة",
+   "design_refs": [
+    "docs/franchise/02-PAGE-IA-AND-CONTENT.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P03",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-014",
+   "area": "16 Franchise",
+   "type": "DECISION",
+   "title": "حقائق العلامة المعتمدة للصفحة: 2019 · 20/04 · إربد · DRIVE/HOUSE",
+   "requirement": "Official English Brand: SHELTER COFFEE · Arabic: شلتر كوفي · Founded: 2019 · Anniversary: 20/04 · Origin: Irbid, Jordan · Current public customer-facing concepts: SHELTER COFFEE DRIVE و SHELTER COFFEE HOUSE. القيم 2018 و«Since 2022» أو أي تاريخ متعارض = SUPERSEDED / DO NOT USE.",
+   "details": [
+    "متسق مع D-007 (الاسم) · D-018 (2019 و20/04؛ 2018/«منذ 2022» = OLD OR INCORRECT) · D-008 (الفرعان العامان).",
+    "يدخل في: الـHero، «من هي SHELTER»، الـFAQ، Meta، Organization Schema (foundingDate = 2019).",
+    "أي صياغة عن عدد السنوات تُحسب من 2019 وتُعرض على الـOwner (D-038 / CONTENT-006)."
+   ],
+   "sources": [
+    "M29-§03"
+   ],
+   "decision_refs": [
+    "G11-ND-04",
+    "D-007",
+    "D-018",
+    "D-008"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/franchise/02-PAGE-IA-AND-CONTENT.md (DRAFT — Phase 1، غير مُتتبعة في git)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "Content/Schema QA AR/EN: لا يظهر 2018 أو «منذ 2022» أو أي سنة أخرى؛ foundingDate = 2019؛ الاسم SHELTER COFFEE / شلتر كوفي",
+   "design_refs": [
+    "docs/franchise/02-PAGE-IA-AND-CONTENT.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P07",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-015",
+   "area": "16 Franchise",
+   "type": "RULE",
+   "title": "قسم «من هي SHELTER؟»: حقائق معتمدة فقط — بلا ادعاءات تفوق",
+   "requirement": "قسم «من هي SHELTER؟» يستخدم الحقائق المعتمدة فقط: SHELTER COFFEE · تأسست عام 2019 · انطلقت من إربد · لديها DRIVE · لديها HOUSE · تعمل في مجال القهوة وتجربة المقاهي. ممنوع إضافة Claims عن: market dominance · number one · best · largest · fastest growing — إلا بدليل واعتماد.",
+   "details": [
+    "فقرة القصة الأطول تنتظر مادة قصة SHELTER المعتمدة (PO-017).",
+    "يخدم AEO: سطر حقائق مختصر (FRAN-089)."
+   ],
+   "sources": [
+    "M29-§15"
+   ],
+   "decision_refs": [
+    "G11-ND-04",
+    "D-038"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/franchise/02-PAGE-IA-AND-CONTENT.md (DRAFT — Phase 1، غير مُتتبعة في git)",
+   "missing_work": "",
+   "dependencies": [
+    "PO-017",
+    "PO-032"
+   ],
+   "test_required": "Content QA: القسم يحتوي الحقائق الست فقط (+ نص قصة معتمد إن وُجد)؛ لا كلمات تفوق (الأول/الأفضل/الأكبر/الأسرع نموًا) AR/EN",
+   "design_refs": [
+    "docs/franchise/02-PAGE-IA-AND-CONTENT.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P07",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-016",
+   "area": "16 Franchise",
+   "type": "RULE",
+   "title": "DRIVE/HOUSE = «نماذج تجربة SHELTER الحالية» — وليست باقات فرنشايز",
+   "requirement": "يُعرض SHELTER COFFEE DRIVE و SHELTER COFFEE HOUSE بشكل Visual Premium، لكن Current Customer Concept لا يعني تلقائيًا Approved Franchise Package. تُستخدم صياغة مثل «نماذج تجربة SHELTER الحالية»، وممنوع «اختر نموذج الفرنشايز» إلا إذا أكدت ذلك Franchise Master Files.",
+   "details": [
+    "EN (مسودة): «Today's SHELTER experiences» — اعتماد ضمن PO-020.",
+    "وصف كل تجربة: نص قصير معتمد ⏳؛ الصور: صور حقيقية معتمدة فقط (FRAN-025)."
+   ],
+   "sources": [
+    "M29-§16"
+   ],
+   "decision_refs": [
+    "G11-ND-04",
+    "D-008"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/franchise/02-PAGE-IA-AND-CONTENT.md (DRAFT — Phase 1، غير مُتتبعة في git)",
+   "missing_work": "",
+   "dependencies": [
+    "FRAN-007"
+   ],
+   "test_required": "Content QA: لا «نموذج/باقة فرنشايز» مرتبطة بـDRIVE/HOUSE؛ العنوان يذكر «الحالية»",
+   "design_refs": [
+    "docs/franchise/02-PAGE-IA-AND-CONTENT.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P03",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-017",
+   "area": "16 Franchise",
+   "type": "RULE",
+   "title": "Global-ready بلا إعلان أي دولة/مدينة/Territory متاحة",
+   "requirement": "الصفحة Global-ready من البداية؛ الـArchitecture تدعم مستقبلًا: Jordan · International Markets · Owned Expansion · Franchise Expansion · Country-specific content · Market availability. لكن لا يُعلن حاليًا أي دولة أو مدينة أو Territory على أنها AVAILABLE · EXCLUSIVE · OPEN · RESERVED بدون Owner-approved Franchise Data.",
+   "details": [
+    "متسق مع D-010 (لا تُعرض دولة/فرع مستقبلي قبل موافقة) — مع إذن محصور بالرسالة العامة للنمو (FRAN-034، G11-CF-03).",
+    "حقل market_availability (إن وُجد في النموذج البياني) خاص وغير معروض حتى الاعتماد."
+   ],
+   "sources": [
+    "M29-§04"
+   ],
+   "decision_refs": [
+    "G11-ND-06",
+    "D-010"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/franchise/02-PAGE-IA-AND-CONTENT.md (DRAFT — Phase 1، غير مُتتبعة في git)",
+   "missing_work": "",
+   "dependencies": [
+    "WEB-002",
+    "WEB-004"
+   ],
+   "test_required": "Content/Schema QA: لا كلمات Available/Exclusive/Open/Reserved (ولا «متاح/حصري/مفتوح/محجوز») مقرونة بسوق؛ لا خريطة أسواق",
+   "design_refs": [
+    "docs/franchise/02-PAGE-IA-AND-CONTENT.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P03",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-018",
+   "area": "16 Franchise",
+   "type": "REQUIREMENT",
+   "title": "الصفحة كاملة AR (RTL) وEN (LTR) — بلا ترجمة حرفية",
+   "requirement": "الموقع Arabic + English؛ Arabic RTL و English LTR؛ صفحة الفرنشايز كاملة باللغتين (بما فيها النموذج وصفحة النجاح والـFAQ). لا ترجمة حرفية ضعيفة: Arabic copy = Premium / natural / professional؛ English = Natural international business English.",
+   "details": [
+    "فرق مقصود عن التوظيف: نموذج التوظيف عربي فقط بقرار M28 (G10-CF-02)؛ نموذج الشراكة ثنائي اللغة (G11-CF-09).",
+    "نموذج واحد في الخادم (نفس الجدول ونفس المسار) بواجهتين؛ اللغة تُخزن مع الطلب (FRAN-053)."
+   ],
+   "sources": [
+    "M29-§05",
+    "M29-§82"
+   ],
+   "decision_refs": [
+    "G11-ND-03",
+    "D-014"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/franchise/02-PAGE-IA-AND-CONTENT.md (DRAFT — Phase 1، غير مُتتبعة في git)",
+   "missing_work": "",
+   "dependencies": [
+    "I18N-001",
+    "I18N-003"
+   ],
+   "test_required": "Content QA: كل قسم/خطأ/رسالة نجاح موجود باللغتين؛ مراجعة لغوية بشرية للإنجليزية (ليست ترجمة حرفية)؛ اختبارات RTL وLTR",
+   "design_refs": [
+    "docs/franchise/02-PAGE-IA-AND-CONTENT.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P07",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-019",
+   "area": "16 Franchise",
+   "type": "DECISION",
+   "title": "الروابط: /ar/franchise/ و /en/franchise/ (طبقة العلامة — مبدئي)",
+   "requirement": "الـpreferred architecture: /ar/franchise/ · /en/franchise/. قبل تثبيت الـURL تُراجع Website Master Requirements والـURL architecture الحالية؛ إذا وُجد URL convention مجمد مختلف يُحترم، ولا تُغيّر Architecture مجمدة بصمت.",
+   "details": [
+    "المراجعة تمت: 10-url-architecture-draft §3 يضع franchise/ في Brand Layer (D-019) بنمط P3 (D-031 — معتمد مبدئيًا بشرطين، غير مجمد)؛ نفس الـSlug في اللغتين، Latin lowercase، `/` في النهاية — متسق مع M29 بلا تعارض.",
+    "التجميد النهائي ضمن PO-005؛ x-default لصفحات العلامة معلق (ROOT-02 / SEO-033).",
+    "حتى النشر: مخفية (🔒 D-015) — خارج الـSitemap والـNavigation وhreflang clusters (G11-TF-10)."
+   ],
+   "sources": [
+    "M29-§06"
+   ],
+   "decision_refs": [
+    "G11-ND-13",
+    "D-019",
+    "D-031"
+   ],
+   "status": "APPROVED WITH CONDITIONS",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/franchise/05-SEO-ANALYTICS-PERFORMANCE.md (DRAFT — Phase 1، غير مُتتبعة في git)",
+   "missing_work": "تجميد الـURL Architecture (PO-005)",
+   "dependencies": [
+    "PO-005",
+    "WEB-008"
+   ],
+   "test_required": "URL QA: الروابط الفعلية تطابق الشجرة المعتمدة عند التجميد؛ AR/EN نفس الـSlug؛ لا تحويل تلقائي بين اللغتين",
+   "design_refs": [
+    "docs/phase-01-discovery/10-url-architecture-draft.md §3, §4",
+    "docs/franchise/05-SEO-ANALYTICS-PERFORMANCE.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P03",
+   "history": [],
+   "notes": "الشرط: P3 غير مجمد بعد؛ إن تغيّر النمط عند التجميد يتبعه رابط الفرنشايز."
+  },
+  {
+   "id": "FRAN-020",
+   "area": "16 Franchise",
+   "type": "RULE",
+   "title": "محتوى قديم يُحذف ولا يُعاد استخدامه (9 بنود)",
+   "requirement": "REMOVE / DO NOT REUSE DIRECTLY: العنوان القديم «فرص الشراكة» كعنوان رئيسي · نموذج التقديم القديم · وعد الرد خلال 5 أيام · أي claim عن Guaranteed Profit · أي claim مثل «أفضل…» بدون Evidence · أي claim مثل «نموذج مثبت النجاح» بدون Approved Evidence · أي Financial Claim غير معتمد · أي Investment Number غير معتمد · أي تفاصيل قديمة أو متناقضة.",
+   "details": [
+    "يحسم CR-087 (جزئيًا: «نموذج ربحي واضح بأرقام وإحصائيات» = REMOVE) و CR-088 (النموذج القديم + وعد 5 أيام = REMOVE)."
+   ],
+   "sources": [
+    "M29-§08"
+   ],
+   "decision_refs": [
+    "G11-ND-05"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/franchise/02-PAGE-IA-AND-CONTENT.md (DRAFT — Phase 1، غير مُتتبعة في git)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "Content QA: بحث نصي في الصفحة والـMeta والـFAQ والإيميلات/الرسائل: لا «5 أيام»، لا «مضمون/أفضل/مثبت النجاح»، لا أرقام استثمار",
+   "design_refs": [
+    "docs/franchise/02-PAGE-IA-AND-CONTENT.md",
+    "docs/phase-01-discovery/04-content-approval-register.md CR-087, CR-088"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P07",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-021",
+   "area": "16 Franchise",
+   "type": "RULE",
+   "title": "محتوى قديم يبقى كفكرة ويُعاد كتابته (8 بنود) — بعد المطابقة",
+   "requirement": "KEEP AS A CONCEPT, BUT REWRITE: فكرة الشراكة · Brand identity · Training · Marketing support · Operational support · Supply / procurement concept · Store design standards · Partnership journey/process. إعادة الكتابة لا تجعلها التزامًا: كل بند دعم/عملية يبقى PENDING VERIFICATION حتى مطابقته مع Franchise Master.",
+   "details": [],
+   "sources": [
+    "M29-§08",
+    "M29-§17"
+   ],
+   "decision_refs": [
+    "G11-ND-05"
+   ],
+   "status": "APPROVED WITH CONDITIONS",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/franchise/02-PAGE-IA-AND-CONTENT.md (DRAFT — Phase 1، غير مُتتبعة في git)",
+   "missing_work": "",
+   "dependencies": [
+    "FRAN-007"
+   ],
+   "test_required": "Content QA: البنود الثمانية مكتوبة من جديد (لا نسخ نصي من القديم) وكل بند التزام له حالة APPROVED قبل النشر",
+   "design_refs": [
+    "docs/franchise/02-PAGE-IA-AND-CONTENT.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P07",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-022",
+   "area": "16 Franchise",
+   "type": "RULE",
+   "title": "حظر نشر الشروط المالية (19 بندًا) بدون موافقة من مشروع Franchise",
+   "requirement": "ممنوع نشر أي من التالي بدون Owner Approval من مشروع Franchise: Franchise Fee · Royalty · Marketing Fee · Investment Range · CapEx · Opex assumptions · ROI · Payback Period · Revenue · Profit · Profit Margin · Minimum Capital · Minimum Net Worth · Territory Fee · Renewal Fee · Contract Duration · Exclusive Territory · Minimum Store Area · Opening Cost. الـArchitecture يمكن أن تدعم هذه البيانات مستقبلًا (حقول خاصة Versioned)، لكن لا تُعرض Public قبل اعتمادها.",
+   "details": [
+    "النطاق: نص الصفحة · الـFAQ · خيارات النموذج · Meta/OG · Schema · ملفات قابلة للتنزيل · معاملات Analytics · رسائل النجاح.",
+    "يوسّع FRAN-003/D-071 («Fees · Financial claims») إلى قائمة محددة.",
+    "الإجابة على «هل توجد رسوم فرنشايز؟» = الصياغة المحايدة (FRAN-036)."
+   ],
+   "sources": [
+    "M29-§09"
+   ],
+   "decision_refs": [
+    "G11-ND-06",
+    "D-071"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/franchise/02-PAGE-IA-AND-CONTENT.md · docs/franchise/03-APPLICATION-FIELD-MATRIX.md (DRAFT — Phase 1، غير مُتتبعة في git)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "Content/Schema/Build QA: فحص آلي لكلمات القائمة الـ19 (AR/EN) في الصفحة المنشورة والـJSON-LD والـbundle؛ أي حقل مالي في الـCMS غير معروض ما لم تكن حالته APPROVED",
+   "design_refs": [
+    "docs/franchise/02-PAGE-IA-AND-CONTENT.md",
+    "docs/franchise/03-APPLICATION-FIELD-MATRIX.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P07",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-023",
+   "area": "16 Franchise",
+   "type": "DECISION",
+   "title": "الـIA الأساسية للصفحة: 13 قسمًا",
+   "requirement": "الـInformation Architecture: 1. Hero · 2. Who is SHELTER? · 3. DRIVE / HOUSE Experience · 4. Why Partner With SHELTER? · 5. More Than a Logo · 6. Partnership Support Journey · 7. Who We Look For · 8. Partnership / Franchise Journey · 9. Growth / Markets · 10. FAQ · 11. Partnership Application · 12. Final CTA · 13. Footer. يمكن تحسين ترتيب التفاصيل إذا أثبت UX testing حاجة واضحة، لكن لا يُحذف أي Section مهم بدون سبب موثق.",
+   "details": [
+    "مسودة الـIA النهائية (docs/franchise/02 §1) أعادت ترتيب الرحلتين ونقلت «أسواق النمو» بقرارات UX موثقة (UX-F-01/02) دون حذف أي قسم — تحتاج اعتماد الـOwner ضمن حزمة Phase 1."
+   ],
+   "sources": [
+    "M29-§12"
+   ],
+   "decision_refs": [
+    "G11-ND-03"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/franchise/02-PAGE-IA-AND-CONTENT.md (DRAFT — Phase 1، غير مُتتبعة في git)",
+   "missing_work": "اعتماد الـIA النهائية مع حزمة Phase 1 (FRAN-104)",
+   "dependencies": [],
+   "test_required": "مراجعة الـIA: الأقسام الـ13 موجودة؛ أي تغيير ترتيب له سبب ودليل موثق؛ لا قسم محذوف",
+   "design_refs": [
+    "docs/franchise/02-PAGE-IA-AND-CONTENT.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P03",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-024",
+   "area": "16 Franchise",
+   "type": "RULE",
+   "title": "قصة بصرية متسلسلة — لا Section dump",
+   "requirement": "الصفحة تحكي قصة بصريًا: SHELTER ↓ Experience ↓ System ↓ Support ↓ Partner ↓ Journey ↓ Apply. ممنوع Section dump.",
+   "details": [],
+   "sources": [
+    "M29-§54"
+   ],
+   "decision_refs": [
+    "G11-ND-11"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/franchise/02-PAGE-IA-AND-CONTENT.md (DRAFT — Phase 1، غير مُتتبعة في git)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "مراجعة Visual/UX: تسلسل الأقسام يتبع القصة؛ انتقالات بصرية تربط الأقسام",
+   "design_refs": [
+    "docs/franchise/02-PAGE-IA-AND-CONTENT.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P03",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-025",
+   "area": "16 Franchise",
+   "type": "RULE",
+   "title": "صور الـHero والصفحة: صور SHELTER حقيقية معتمدة فقط",
+   "requirement": "يُستخدم فقط SHELTER-approved real imagery. المفضل: Real DRIVE photography · Real HOUSE photography · Brand architecture · Coffee/product experience · Store environment. ممنوع الاستخدام التلقائي لـ: Stock Coffee Shop · Google Images · Fake franchise location · AI-generated branch pretending to be real · unapproved old website image. إذا الـAsset غير موجود: «MEDIA PENDING OWNER APPROVAL».",
+   "details": [
+    "متسق مع MEDIA-001/MEDIA-005؛ يضيف للفرنشايز: «موقع فرنشايز مزيف» و«فرع مولّد بالـAI يدّعي أنه حقيقي».",
+    "APPROVED-ASSET-LIBRARY فارغة حاليًا (0 صور معتمدة) → الحاجة في G11-PO-10 / PO-021."
+   ],
+   "sources": [
+    "M29-§14"
+   ],
+   "decision_refs": [
+    "G11-ND-11",
+    "D-003"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "صور حقيقية معتمدة (G11-PO-10)",
+   "dependencies": [
+    "PO-021",
+    "MEDIA-001"
+   ],
+   "test_required": "Media QA: كل صورة في الصفحة لها سجل اعتماد في Media Library؛ الـWireframe يعرض «MEDIA PENDING OWNER APPROVAL» عند الغياب",
+   "design_refs": [
+    "docs/franchise/02-PAGE-IA-AND-CONTENT.md",
+    "docs/governance/APPROVED-ASSET-LIBRARY.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P07",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-026",
+   "area": "16 Franchise",
+   "type": "RULE",
+   "title": "«لماذا تصبح شريكًا مع SHELTER؟»: 9 ركائز = PENDING VERIFICATION حتى المطابقة",
+   "requirement": "قسم «لماذا تصبح شريكًا مع SHELTER؟» يُنظم حول ركائز محتملة: Brand & Customer Experience · Coffee & Menu System · Operational Standards · Training · Marketing & Brand Support · Supply & Procurement · Store Design & Experience · Technology & Systems · Quality & Consistency. هذه ليست تلقائيًا Public Promises: يُقارن كل بند مع Franchise Master؛ أي بند غير مثبت = PENDING VERIFICATION ولا يُنشر كالتزام.",
+   "details": [
+    "مسودة التخطيط: 3 صفوف تحريرية × 3 بنود بدل 9 بطاقات متطابقة (docs/franchise/02 — UX، FRAN-027).",
+    "CMS: حالة كل بند (APPROVED/PENDING/MISSING) — غير المعتمد لا يُعرض (FRAN-070)."
+   ],
+   "sources": [
+    "M29-§17"
+   ],
+   "decision_refs": [
+    "G11-ND-02",
+    "G11-ND-06"
+   ],
+   "status": "APPROVED WITH CONDITIONS",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/franchise/02-PAGE-IA-AND-CONTENT.md (DRAFT — Phase 1، غير مُتتبعة في git)",
+   "missing_work": "التحقق من الركائز (G11-PO-04)",
+   "dependencies": [
+    "FRAN-007",
+    "G11-PO-04"
+   ],
+   "test_required": "Content QA: كل ركيزة منشورة مربوطة ببند Franchise Master معتمد؛ الصفحة المنشورة لا تعرض بنود PENDING",
+   "design_refs": [
+    "docs/franchise/02-PAGE-IA-AND-CONTENT.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P07",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-027",
+   "area": "16 Franchise",
+   "type": "RULE",
+   "title": "Visual hierarchy متنوع — لا 9 بطاقات متطابقة ولا شكل Admin Dashboard",
+   "requirement": "ممنوع عمل 9 identical cards لمجرد أنها سهلة. يُستخدم Layout متنوع: editorial sections · feature rows · large imagery · icons when useful · timeline · split layout · storytelling. الصفحة يجب ألا تبدو Admin Dashboard.",
+   "details": [],
+   "sources": [
+    "M29-§18"
+   ],
+   "decision_refs": [
+    "G11-ND-11"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/franchise/02-PAGE-IA-AND-CONTENT.md (DRAFT — Phase 1، غير مُتتبعة في git)",
+   "missing_work": "",
+   "dependencies": [
+    "BRAND-005",
+    "BRAND-006"
+   ],
+   "test_required": "Visual QA: لا شبكة بطاقات متطابقة بعدد ≥ 6؛ تنوع أنماط الأقسام؛ مراجعة بصرية مقابل قائمة الممنوعات (FRAN-074)",
+   "design_refs": [
+    "docs/franchise/02-PAGE-IA-AND-CONTENT.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P05",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-028",
+   "area": "16 Franchise",
+   "type": "REQUIREMENT",
+   "title": "قسم «أكثر من مجرد اسم على الواجهة» — منظومة لا ترخيص شعار",
+   "requirement": "Section بفكرة «أكثر من مجرد اسم على الواجهة»: الشراكة مع SHELTER قد تشمل منظومة متكاملة وليس فقط Logo License. يمكن أن تشمل — إذا كانت معتمدة: Brand Standards · Store Experience · Menu Standards · Recipes · Training · Operations · Quality · Supply · Marketing · Technology. لا يُنشر أي عنصر كالتزام Franchise قبل Verification.",
+   "details": [],
+   "sources": [
+    "M29-§19"
+   ],
+   "decision_refs": [
+    "G11-ND-03",
+    "G11-ND-06"
+   ],
+   "status": "APPROVED WITH CONDITIONS",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/franchise/02-PAGE-IA-AND-CONTENT.md (DRAFT — Phase 1، غير مُتتبعة في git)",
+   "missing_work": "",
+   "dependencies": [
+    "FRAN-007",
+    "G11-PO-04"
+   ],
+   "test_required": "Content QA: العناصر المعروضة = المعتمدة فقط؛ الصياغة «قد تشمل» حتى التحقق؛ لا التزامات",
+   "design_refs": [
+    "docs/franchise/02-PAGE-IA-AND-CONTENT.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P03",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-029",
+   "area": "16 Franchise",
+   "type": "REQUIREMENT",
+   "title": "رحلة الدعم (Support Journey) — 9 مراحل — Franchise Master Process يفوز",
+   "requirement": "يُعرض الدعم على شكل Journey بدل Benefits جامدة. Conceptual flow: Initial Evaluation ↓ Market Review ↓ Location Review ↓ Design ↓ Setup ↓ Training ↓ Pre-opening ↓ Opening ↓ Ongoing Support — تُكتب بالعربي بشكل طبيعي. لكن Franchise Master Process يفوز.",
+   "details": [
+    "قرار UX موثق (UX-F-01 مقترح): فصل رحلة المتقدم (FRAN-032) عن رحلة الدعم مع ربطهما لتجنب تكرار «التجهيز/التدريب/الافتتاح».",
+    "موبايل: Journey عمودية (FRAN-080)؛ ديسكتوب: Visual timeline بلا scroll hijack (FRAN-076)."
+   ],
+   "sources": [
+    "M29-§20"
+   ],
+   "decision_refs": [
+    "G11-ND-03",
+    "G11-ND-02"
+   ],
+   "status": "APPROVED WITH CONDITIONS",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/franchise/02-PAGE-IA-AND-CONTENT.md (DRAFT — Phase 1، غير مُتتبعة في git)",
+   "missing_work": "",
+   "dependencies": [
+    "FRAN-007",
+    "G11-PO-05"
+   ],
+   "test_required": "Content QA: المراحل المنشورة = العملية المعتمدة في Franchise Master؛ UX: Timeline مقروء وقابل للوصول",
+   "design_refs": [
+    "docs/franchise/02-PAGE-IA-AND-CONTENT.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P03",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-030",
+   "area": "16 Franchise",
+   "type": "DECISION",
+   "title": "«ما الذي نبحث عنه في الشريك؟»: 7 معايير عامة قابلة للعرض",
+   "requirement": "Section «ما الذي نبحث عنه في الشريك؟» بمعايير High-level: الالتزام بهوية وقيم SHELTER · الجدية في الاستثمار والتشغيل · القدرة الإدارية المناسبة · فهم السوق المحلي · الالتزام بمعايير الجودة · الالتزام بمعايير التشغيل · الرغبة ببناء علاقة طويلة المدى.",
+   "details": [
+    "يضيّق الحظر العام «Application criteria» في D-071/FRAN-003: المعايير النوعية العامة مسموحة (قرار أحدث)، والمحددة/المالية تبقى ممنوعة (FRAN-031) — G11-CF-01.",
+    "النشر ما زال مشروطًا باعتماد محتوى الصفحة ومطابقة Qualification Policy في Franchise Master (§10)."
+   ],
+   "sources": [
+    "M29-§21"
+   ],
+   "decision_refs": [
+    "G11-ND-06",
+    "D-071"
+   ],
+   "status": "APPROVED WITH CONDITIONS",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/franchise/02-PAGE-IA-AND-CONTENT.md (DRAFT — Phase 1، غير مُتتبعة في git)",
+   "missing_work": "",
+   "dependencies": [
+    "G11-PO-06"
+   ],
+   "test_required": "Content QA: المعايير المنشورة = السبعة (أو صيغتها المعتمدة) بلا أرقام أو اشتراطات محددة",
+   "design_refs": [
+    "docs/franchise/02-PAGE-IA-AND-CONTENT.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "G11-CF-01 (RESOLVED)",
+   "business_data": true,
+   "phase": "P07",
+   "history": [
+    {
+     "old": "لا نشر لـ… Application criteria (D-071 / FRAN-003 — M14 PG-03)",
+     "source": "M14",
+     "superseded_by": "M29 §21 (للمعايير النوعية العامة فقط)"
+    }
+   ],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-031",
+   "area": "16 Franchise",
+   "type": "RULE",
+   "title": "ممنوع نشر اشتراطات الشريك المحددة حتى اعتمادها",
+   "requirement": "لا يُنشر: minimum cash · specific capital · specific industry experience requirement · net worth · company size — حتى اعتمادها.",
+   "details": [
+    "ينطبق على الصفحة والـFAQ (مثل «هل يجب أن تكون لدي خبرة في المقاهي؟») والنموذج (لا حقل مالي بلا اعتماد — FRAN-043/044)."
+   ],
+   "sources": [
+    "M29-§21"
+   ],
+   "decision_refs": [
+    "G11-ND-06",
+    "D-071"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/franchise/02-PAGE-IA-AND-CONTENT.md · docs/franchise/03-APPLICATION-FIELD-MATRIX.md (DRAFT — Phase 1، غير مُتتبعة في git)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "Content QA: لا أرقام رأس مال/ملاءة/حجم شركة/سنوات خبرة محددة كشرط في AR/EN",
+   "design_refs": [
+    "docs/franchise/02-PAGE-IA-AND-CONTENT.md",
+    "docs/franchise/03-APPLICATION-FIELD-MATRIX.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P07",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-032",
+   "area": "16 Franchise",
+   "type": "REQUIREMENT",
+   "title": "رحلة الشراكة العامة (9 خطوات) — تُطابق مع Franchise Master قبل النشر",
+   "requirement": "Public process direction: طلب اهتمام ↓ مراجعة أولية ↓ اجتماع تعريفي ↓ تقييم السوق والموقع ↓ مناقشة النموذج ↓ الموافقات ↓ التعاقد ↓ التجهيز والتدريب ↓ الافتتاح. قبل Publish تُقارن مع Franchise Master؛ إذا الـProcess المعتمد مختلف يُستخدم المعتمد.",
+   "details": [
+    "EN (مسودة): Expression of interest → Initial review → Introductory meeting → Market & site assessment → Model discussion → Approvals → Agreement → Setup & training → Opening."
+   ],
+   "sources": [
+    "M29-§22"
+   ],
+   "decision_refs": [
+    "G11-ND-03",
+    "G11-ND-02"
+   ],
+   "status": "APPROVED WITH CONDITIONS",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/franchise/02-PAGE-IA-AND-CONTENT.md (DRAFT — Phase 1، غير مُتتبعة في git)",
+   "missing_work": "",
+   "dependencies": [
+    "FRAN-007",
+    "G11-PO-05"
+   ],
+   "test_required": "Content QA: الخطوات المنشورة = المعتمدة؛ لا وعد بمدة لأي خطوة",
+   "design_refs": [
+    "docs/franchise/02-PAGE-IA-AND-CONTENT.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P03",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-033",
+   "area": "16 Franchise",
+   "type": "RULE",
+   "title": "لا وعد بمدة رد (لا SLA) — الصياغة البديلة المعتمدة",
+   "requirement": "ممنوع «سنتواصل خلال 5 أيام» أو أي SLA مشابه. بدلًا منه: «سيقوم فريق SHELTER بمراجعة الطلب والتواصل عند الانتقال إلى المرحلة التالية.» أو صياغة أفضل بنفس المعنى.",
+   "details": [
+    "ينطبق على: الصفحة · الـFAQ («ماذا يحدث بعد إرسال الطلب؟») · صفحة النجاح · أي رسالة لاحقة.",
+    "EN (مسودة): «The SHELTER team will review your application and get in touch when it moves to the next stage.»"
+   ],
+   "sources": [
+    "M29-§23",
+    "M29-§08"
+   ],
+   "decision_refs": [
+    "G11-ND-05"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/franchise/02-PAGE-IA-AND-CONTENT.md (DRAFT — Phase 1، غير مُتتبعة في git)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "Content QA: لا أرقام أيام/ساعات/أسابيع مقرونة بالرد في أي نص AR/EN",
+   "design_refs": [
+    "docs/franchise/02-PAGE-IA-AND-CONTENT.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P07",
+   "history": [
+    {
+     "old": "الصفحة القديمة: «سيتواصل معك فريقنا خلال 5 أيام عمل» (CR-088)",
+     "source": "الموقع القديم",
+     "superseded_by": "M29 §23"
+    }
+   ],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-034",
+   "area": "16 Franchise",
+   "type": "RULE",
+   "title": "قسم «أسواق النمو / Where We Grow» عام — Jordan + International Growth بلا Territories",
+   "requirement": "يمكن بناء Section «أسواق النمو» أو «Where We Grow»، لكن لا تُنشر خريطة مليئة بـMarkets غير معتمدة. يمكن الحديث High-level عن Jordan + International Growth بدون تحديد Available Territories.",
+   "details": [
+    "قرار المحتوى النهائي (هل يُذكر النمو الدولي أم يُخفى القسم) ضمن G11-PO-07؛ الافتراضي: نص عام بلا خريطة."
+   ],
+   "sources": [
+    "M29-§24"
+   ],
+   "decision_refs": [
+    "G11-ND-06",
+    "D-010"
+   ],
+   "status": "APPROVED WITH CONDITIONS",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/franchise/02-PAGE-IA-AND-CONTENT.md (DRAFT — Phase 1، غير مُتتبعة في git)",
+   "missing_work": "",
+   "dependencies": [
+    "G11-PO-07"
+   ],
+   "test_required": "Content QA: لا خريطة أسواق، لا أسماء دول/مدن خارج الأردن، لا حالات توفر",
+   "design_refs": [
+    "docs/franchise/02-PAGE-IA-AND-CONTENT.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "G11-CF-03 (RESOLVED)",
+   "business_data": true,
+   "phase": "P03",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-035",
+   "area": "16 Franchise",
+   "type": "REQUIREMENT",
+   "title": "FAQ خاص بالفرنشايز — 10 مواضيع",
+   "requirement": "FAQ خاص بالفرنشايز يغطي: هل يمكن التقديم من داخل الأردن؟ · هل يمكن التقديم من خارج الأردن؟ · هل يجب أن تكون لدي خبرة في المقاهي؟ · كيف يتم تقييم السوق أو الموقع؟ · ماذا يحدث بعد إرسال الطلب؟ · هل توجد رسوم فرنشايز؟ · متى تتم مناقشة الاستثمار؟ · هل توفر SHELTER التدريب؟ · هل توفر SHELTER دعمًا في التصميم والتجهيز؟ · ما الخطوات بعد الموافقة الأولية؟",
+   "details": [
+    "الإجابات تتبع FRAN-036؛ الأسئلة بحالة PENDING لا تُعرض في الصفحة المنشورة.",
+    "يُدار من الـCMS بلا كود (M30: «Changing franchise FAQ must NOT require code» — CMS-029)."
+   ],
+   "sources": [
+    "M29-§25"
+   ],
+   "decision_refs": [
+    "G11-ND-03"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/franchise/02-PAGE-IA-AND-CONTENT.md (DRAFT — Phase 1، غير مُتتبعة في git)",
+   "missing_work": "",
+   "dependencies": [
+    "FRAN-036"
+   ],
+   "test_required": "Content QA + Playwright: الـAccordion يعمل بالكيبورد وقارئ الشاشة؛ franchise_faq_open يُرسل مرة لكل فتح",
+   "design_refs": [
+    "docs/franchise/02-PAGE-IA-AND-CONTENT.md §4"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P03",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-036",
+   "area": "16 Franchise",
+   "type": "RULE",
+   "title": "إجابات FAQ: لا إجابات تجارية مخترعة — الصياغة المحايدة المعتمدة",
+   "requirement": "لا تُخترع Answers تجارية. إذا التفاصيل غير معتمدة تُستخدم صياغة حيادية مثل: «تتم مناقشة التفاصيل التجارية والاستثمارية مع المتقدمين المؤهلين خلال المراحل اللاحقة.»",
+   "details": [
+    "أسئلة التدريب/دعم التصميم/خبرة المقاهي/التقديم من خارج الأردن تحتاج تحققًا (G11-PO-04 · G11-PO-06 · G11-PO-07).",
+    "ملاحظة على المسودة: إجابة Q2 في docs/franchise/02 §4 («نعم… وفق نفس الأسس») تقرر سياسة سوق — تُعدّل لصياغة محايدة (G11-CF-13)."
+   ],
+   "sources": [
+    "M29-§25"
+   ],
+   "decision_refs": [
+    "G11-ND-05",
+    "G11-ND-06"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/franchise/02-PAGE-IA-AND-CONTENT.md (DRAFT — Phase 1، غير مُتتبعة في git)",
+   "missing_work": "",
+   "dependencies": [
+    "FRAN-007"
+   ],
+   "test_required": "Content QA: كل إجابة منشورة إما مطابقة لـFranchise Master/قرار الـOwner أو بالصياغة المحايدة؛ لا أرقام",
+   "design_refs": [
+    "docs/franchise/02-PAGE-IA-AND-CONTENT.md §4"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "G11-CF-13 (DOC FIX NEEDED)",
+   "business_data": true,
+   "phase": "P07",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-037",
+   "area": "16 Franchise",
+   "type": "REQUIREMENT",
+   "title": "الروابط الداخلية: About · Locations · Menu · Coffee Knowledge · Contact",
+   "requirement": "ربط منطقي إلى: About · Locations · Menu · Coffee Knowledge · Contact — لكن الهدف الأساسي يبقى Franchise Application.",
+   "details": [
+    "روابط ثانوية لا تنافس الـCTA الأساسي."
+   ],
+   "sources": [
+    "M29-§67"
+   ],
+   "decision_refs": [
+    "G11-ND-13"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P2",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/franchise/05-SEO-ANALYTICS-PERFORMANCE.md (DRAFT — Phase 1، غير مُتتبعة في git)",
+   "missing_work": "",
+   "dependencies": [
+    "SEO-007"
+   ],
+   "test_required": "SEO QA: الروابط الخمسة موجودة وصحيحة لكل لغة؛ لا روابط مكسورة",
+   "design_refs": [
+    "docs/franchise/05-SEO-ANALYTICS-PERFORMANCE.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P03",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-038",
+   "area": "16 Franchise",
+   "type": "DECISION",
+   "title": "SHELTER PARTNERSHIP APPLICATION أصلي: لا HubSpot/Google Forms/Airtable/CRM — Cloudways",
+   "requirement": "يُبنى SHELTER PARTNERSHIP APPLICATION بلا HubSpot · بلا Google Forms · بلا Airtable · بلا external CRM. البيانات: SHELTER Backend ↓ SHELTER Website Database ↓ SHELTER Owner Dashboard. Infrastructure: Cloudways.",
+   "details": [
+    "نفس مسار التوظيف (G10-ND-01): Public Website → HTTPS → SHELTER Backend → Private Website DB on Cloudways (+ Private Storage للمرفقات إن فُعّلت) → Owner Dashboard.",
+    "قيد على DB-08/PO-006: أي إطار يجب أن يوفر Backend + DB على Cloudways (G10-CF-05).",
+    "DoD: «No HubSpot dependency for new franchise form» (FRAN-102)."
+   ],
+   "sources": [
+    "M29-§27"
+   ],
+   "decision_refs": [
+    "G11-ND-07"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/franchise/03-APPLICATION-FIELD-MATRIX.md (DRAFT — Phase 1، غير مُتتبعة في git)",
+   "missing_work": "قرار المنصة (DB-08) + Cloudways audit (FRAN-040)",
+   "dependencies": [
+    "DB-08",
+    "PO-006",
+    "FRAN-040"
+   ],
+   "test_required": "مراجعة معمارية + Network test: إرسال النموذج لا يستدعي أي نطاق خارجي (HubSpot/Google Forms/Airtable)؛ الطلب يظهر في الـDashboard من قاعدة Cloudways",
+   "design_refs": [
+    "docs/franchise/03-APPLICATION-FIELD-MATRIX.md",
+    "docs/CLOUDWAYS-RECRUITMENT-ARCHITECTURE.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P06",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-039",
+   "area": "16 Franchise",
+   "type": "RULE",
+   "title": "لا قاعدة بيانات محلية — لا Falcon — كل البيانات Server-side",
+   "requirement": "ممنوع إنشاء Database على Owner PC. لا علاقة مع: Falcon · Falcon Database · Local MySQL · Local PostgreSQL. كل Data server-side.",
+   "details": [],
+   "sources": [
+    "M29-§28"
+   ],
+   "decision_refs": [
+    "G11-ND-07"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "مراجعة معمارية/إعدادات: لا Connection string لجهاز محلي أو Falcon في أي بيئة",
+   "design_refs": [
+    "docs/CLOUDWAYS-RECRUITMENT-ARCHITECTURE.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P06",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-040",
+   "area": "16 Franchise",
+   "type": "GATE",
+   "title": "Cloudways audit قبل التنفيذ — بلا عبث بـWordPress القديم أو Production DB",
+   "requirement": "تُستخدم Cloudways architecture المعتمدة للموقع. قبل التنفيذ Audit لـ: Application type · database · storage · server limits · backups · private storage strategy · authentication · backend capabilities. لا عبث بتطبيق WordPress القديم أو Production Database عشوائيًا.",
+   "details": [
+    "يُعاد استخدام قائمة الـAudit A-01…A-13 في CLOUDWAYS-RECRUITMENT-ARCHITECTURE §3 (مشتركة مع التوظيف) — الوصول محجوب حاليًا (G10-PO-01).",
+    "مسار خاص مقترح لمرفقات الشراكة إن فُعّلت: private_html/franchise/ (خارج public_html) — يتحقق من شموله بالـBackup (A-08)."
+   ],
+   "sources": [
+    "M29-§29"
+   ],
+   "decision_refs": [
+    "G11-ND-07",
+    "G10-ND-02"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "وصول قراءة لـCloudways (G10-PO-01)",
+   "dependencies": [
+    "G10-PO-01",
+    "CAREERS-004"
+   ],
+   "test_required": "تقرير Audit موقّع بالأدلة لكل بند من الثمانية قبل أي Backend؛ لا تغيير على Production أثناء الـAudit",
+   "design_refs": [
+    "docs/CLOUDWAYS-RECRUITMENT-ARCHITECTURE.md §3"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P04",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-041",
+   "area": "16 Franchise",
+   "type": "RULE",
+   "title": "فلسفة النموذج: Lead Qualification محترف — ليس طويلًا ولا استجوابًا ماليًا",
+   "requirement": "لا يُستخدم النموذج القديم. المطلوب Lead Qualification Form محترف، لكن ليس طويلًا بشكل مبالغ، ولا Financial interrogation من أول ثانية. النموذج يشعر: Professional · Serious · Easy · Premium.",
+   "details": [],
+   "sources": [
+    "M29-§30"
+   ],
+   "decision_refs": [
+    "G11-ND-08"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/franchise/03-APPLICATION-FIELD-MATRIX.md (DRAFT — Phase 1، غير مُتتبعة في git)",
+   "missing_work": "",
+   "dependencies": [
+    "UX-004"
+   ],
+   "test_required": "UX validation (Friction audit — UX-004): عدد الحقول الإلزامية محدود بالمصفوفة المعتمدة؛ لا سؤال مالي في الخطوة/الجزء الأول",
+   "design_refs": [
+    "docs/franchise/03-APPLICATION-FIELD-MATRIX.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P03",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-042",
+   "area": "16 Franchise",
+   "type": "REQUIREMENT",
+   "title": "بيانات الطلب الأولية (11 حقلًا) — النموذج ثنائي اللغة",
+   "requirement": "Architecture النموذج تدعم: Full Name · Phone · Email · Country · City · Market / Area of Interest · Partnership Interest · Business Experience · Current Business Ownership/Management · Proposed Location Status · Short Message / Introduction.",
+   "details": [
+    "الإلزامي/الاختياري وصيغة كل حقل تُحسم في FIELD MATRIX (FRAN-044) — مسودة docs/franchise/03: كلها إلزامية مقترحة.",
+    "خيارات «Partnership Interest» = بيانات تجارية من Franchise Master (G11-PO-01)؛ حتى ذلك نص حر قصير.",
+    "Country = قائمة ISO 3166؛ City نص حر دوليًا (لا قوائم مخترعة)؛ الهاتف إدخال حر بصيغ دولية مع قيمة مطبّعة للبحث والتطابق (G11-TF-09).",
+    "Consent checkbox لمعالجة البيانات (نصه ⏳ G11-PO-03) — ليس اشتراكًا تسويقيًا (FRAN-050)."
+   ],
+   "sources": [
+    "M29-§31",
+    "M29-§05"
+   ],
+   "decision_refs": [
+    "G11-ND-08"
+   ],
+   "status": "APPROVED WITH CONDITIONS",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/franchise/03-APPLICATION-FIELD-MATRIX.md (DRAFT — Phase 1، غير مُتتبعة في git)",
+   "missing_work": "اعتماد المصفوفة (FRAN-044)",
+   "dependencies": [
+    "FRAN-044",
+    "G11-PO-01"
+   ],
+   "test_required": "Playwright: كل حقل له Label حقيقي AR/EN، تحقق Server-side، رسائل أخطاء باللغتين؛ النص الحر يقبل أي لغة",
+   "design_refs": [
+    "docs/franchise/03-APPLICATION-FIELD-MATRIX.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P03",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-043",
+   "area": "16 Franchise",
+   "type": "REQUIREMENT",
+   "title": "حقول مستقبلية (5) — أي حقل مالي/استثماري لا يُنشر بلا موافقة",
+   "requirement": "يمكن دعم مستقبلًا: Company Name · Company Website · Investment Capacity · Attachments · Business Profile. لكن أي Financial Qualification Field أو Investment Range لا يُنشر بدون Owner Approval.",
+   "details": [
+    "Investment Capacity = PENDING OWNER DECISION (حساسية عالية جدًا) — لا يُضاف للنموذج العام قبل الاعتماد (G11-PO-08).",
+    "Company Name يُستخدم في كشف التكرار عند توفره (FRAN-060)."
+   ],
+   "sources": [
+    "M29-§31"
+   ],
+   "decision_refs": [
+    "G11-ND-08"
+   ],
+   "status": "DEFERRED",
+   "owner_approved": "YES",
+   "priority": "P3",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/franchise/03-APPLICATION-FIELD-MATRIX.md (DRAFT — Phase 1، غير مُتتبعة في git)",
+   "missing_work": "",
+   "dependencies": [
+    "G11-PO-08"
+   ],
+   "test_required": "Data model review: الحقول المستقبلية Nullable وغير معروضة؛ لا حقل مالي في النموذج المنشور بلا سجل اعتماد",
+   "design_refs": [
+    "docs/franchise/03-APPLICATION-FIELD-MATRIX.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P12",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-044",
+   "area": "16 Franchise",
+   "type": "DELIVERABLE",
+   "title": "FRANCHISE APPLICATION FIELD MATRIX قبل التنفيذ النهائي للنموذج",
+   "requirement": "قبل Final Form implementation تُنشأ FRANCHISE APPLICATION FIELD MATRIX؛ لكل Field: Field · Purpose · Required? · Optional? · Business sensitivity · Privacy sensitivity · Owner approval status، وتصنيف: APPROVED · RECOMMENDED · OPTIONAL · PENDING OWNER DECISION. لا يُضاف Field مالي حساس بدون Approval.",
+   "details": [
+    "مسودة موجودة: docs/franchise/03 (18 صفًا + بيانات Attribution تلقائية) — DRAFT — PENDING OWNER DECISION."
+   ],
+   "sources": [
+    "M29-§32"
+   ],
+   "decision_refs": [
+    "G11-ND-08"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "PARTIAL",
+   "tested": "N/A",
+   "existing_impl": "spec: docs/franchise/03-APPLICATION-FIELD-MATRIX.md (DRAFT — Phase 1، غير مُتتبعة في git)",
+   "missing_work": "عرض المصفوفة على الـOwner ضمن حزمة Phase 1",
+   "dependencies": [],
+   "test_required": "مراجعة: كل حقل في النموذج المبني موجود في المصفوفة بحالة APPROVED؛ لا حقل خارجها",
+   "design_refs": [
+    "docs/franchise/03-APPLICATION-FIELD-MATRIX.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P03",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-045",
+   "area": "16 Franchise",
+   "type": "DECISION",
+   "title": "Single Structured Form مقابل Short Multi-step — يُختار الأقل Friction بالاختبار",
+   "requirement": "يُختبر Single Structured Form مقابل Short Multi-step Form (مثال للخطوات: About You → Market → Experience → Opportunity → Review & Submit)، ويُختار الأقل Friction.",
+   "details": [
+    "قرار تقني/UX مفوض لـClaude (D-176: Decision · Reason · Test Evidence) — نفس منهج نموذج التوظيف.",
+    "الخطوات المذكورة مثال من الـOwner وليست إلزامية.",
+    "franchise_form_step يُرسل فقط إذا اختير Multi-step (FRAN-091)."
+   ],
+   "sources": [
+    "M29-§33"
+   ],
+   "decision_refs": [
+    "G11-ND-08",
+    "D-176"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/franchise/03-APPLICATION-FIELD-MATRIX.md (DRAFT — Phase 1، غير مُتتبعة في git)",
+   "missing_work": "إجراء الاختبار وتوثيقه",
+   "dependencies": [],
+   "test_required": "دليل موثق: مقارنة الخيارين على الـWireframes (عدد الشاشات/التفاعلات، الأخطاء، لوحة مفاتيح الموبايل، الوصولية) والنتيجة مسجلة",
+   "design_refs": [
+    "docs/franchise/03-APPLICATION-FIELD-MATRIX.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P03",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-046",
+   "area": "16 Franchise",
+   "type": "DECISION",
+   "title": "رقم طلب فريد FR-YYYY-NNNNN — يُولد في الخادم، قابل للبحث، بلا PII",
+   "requirement": "كل Partnership Application يحصل على Unique Application Number: unique · server-generated · searchable · لا يحتوي PII. الصيغة: FR-YYYY-NNNNN (مثال الـOwner FR-2026-00125) — متسقة مع اتفاقية المشروع الموحدة PREFIX-YYYY-NNNNN (التوظيف JOB-YYYY-NNNNN).",
+   "details": [
+    "الـOwner طلب اتفاقية نظيفة موحدة إن وُجدت؛ الموجودة = JOB-YYYY-NNNNN (RECRUITMENT-DATA-MODEL §3) → FR-… يتبعها.",
+    "تنفيذ: عداد لكل (prefix, year) داخل Transaction ضمن Applications Core المشترك (G11-TF-02/03).",
+    "لا يُرسل لـGA4/GTM ولا يظهر في URL قابل للفهرسة."
+   ],
+   "sources": [
+    "M29-§34"
+   ],
+   "decision_refs": [
+    "G11-ND-07",
+    "CAREERS-040"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "PARTIAL",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/franchise/03-APPLICATION-FIELD-MATRIX.md (DRAFT — Phase 1، غير مُتتبعة في git)",
+   "missing_work": "",
+   "dependencies": [
+    "CAREERS-040"
+   ],
+   "test_required": "Unit/Playwright: أرقام فريدة تحت إرسال متزامن؛ الصيغة FR-YYYY-NNNNN؛ البحث بالرقم في الـDashboard يعمل؛ لا PII في الرقم",
+   "design_refs": [
+    "docs/franchise/03-APPLICATION-FIELD-MATRIX.md",
+    "docs/RECRUITMENT-DATA-MODEL.md §3"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": "owner_approved=PARTIAL: المتطلبات (فريد/خادم/قابل للبحث/بلا PII) من الـOwner؛ الصيغة النهائية قرار تقني مطابق لمثاله."
+  },
+  {
+   "id": "FRAN-047",
+   "area": "16 Franchise",
+   "type": "REQUIREMENT",
+   "title": "صفحة النجاح: شكر + رقم الطلب + المراجعة — بلا أي وعد",
+   "requirement": "بعد Submit تُعرض: «شكراً لاهتمامك بالشراكة مع SHELTER COFFEE» + Application Number + رسالة بأن الطلب سيخضع للمراجعة. لا وعد بـ: مدة رد · موافقة · اجتماع · حق Franchise.",
+   "details": [
+    "AR وEN (FRAN-018)؛ لا بيانات حساسة في الـURL (نمط التوظيف)؛ حالة النجاح مُعلنة لقارئ الشاشة.",
+    "franchise_form_submit يُرسل بعد نجاح الخادم فقط (G11-TF-04)."
+   ],
+   "sources": [
+    "M29-§35"
+   ],
+   "decision_refs": [
+    "G11-ND-07"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/franchise/03-APPLICATION-FIELD-MATRIX.md (DRAFT — Phase 1، غير مُتتبعة في git)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "Playwright (Success state): النص + الرقم يظهران؛ لا أرقام أيام ولا كلمات «موافقة/اجتماع/حق»؛ aria-live يعلن النجاح؛ AR وEN",
+   "design_refs": [
+    "docs/franchise/03-APPLICATION-FIELD-MATRIX.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-048",
+   "area": "16 Franchise",
+   "type": "REQUIREMENT",
+   "title": "Disclaimer قانوني: الإرسال ليس موافقة ولا التزامًا تعاقديًا — الصياغة النهائية معلقة",
+   "requirement": "يجب وجود Disclaimer مناسب بمعنى: «إرسال الطلب لا يمثل موافقة على منح الامتياز ولا التزامًا تعاقديًا». الصياغة القانونية النهائية: PENDING REVIEW / OWNER APPROVAL. لا يكتب Claude Agreement قانونيًا كاملًا من نفسه.",
+   "details": [
+    "يظهر قرب زر الإرسال (وفي صفحة النجاح عند الحاجة) — نصه نسخة Versioned (FRAN-071)."
+   ],
+   "sources": [
+    "M29-§36"
+   ],
+   "decision_refs": [
+    "G11-ND-07"
+   ],
+   "status": "PENDING OWNER INPUT",
+   "owner_approved": "PARTIAL",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/franchise/03-APPLICATION-FIELD-MATRIX.md (DRAFT — Phase 1، غير مُتتبعة في git)",
+   "missing_work": "الصياغة القانونية المعتمدة (G11-PO-02)",
+   "dependencies": [
+    "G11-PO-02",
+    "PO-019"
+   ],
+   "test_required": "Legal/Content QA: النص المنشور = النسخة المعتمدة قانونيًا AR/EN؛ لا نشر للنموذج بدونه",
+   "design_refs": [
+    "docs/franchise/03-APPLICATION-FIELD-MATRIX.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P07",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-049",
+   "area": "16 Franchise",
+   "type": "REQUIREMENT",
+   "title": "أمان النموذج العام (8 ضوابط) — بلا CAPTCHA خارجي تلقائيًا",
+   "requirement": "Public Franchise Form: server-side validation · CSRF where applicable · rate limiting · spam protection · XSS protection · SQL injection protection · safe data storage · generic error responses. لا external CAPTCHA تلقائيًا بدون حاجة.",
+   "details": [
+    "طبقات محلية: honeypot · زمن تعبئة أدنى · rate limit · idempotency token · حدود حجم · رفض الحقول غير المعرّفة (G11-TF-05، مثل G10-TF-08).",
+    "أي CAPTCHA (Turnstile/reCAPTCHA) = خدمة خارجية → «لماذا + البديل المحلي» ثم موافقة (INT-001/G10-ND-03)."
+   ],
+   "sources": [
+    "M29-§74"
+   ],
+   "decision_refs": [
+    "G11-ND-07",
+    "D-166"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/franchise/03-APPLICATION-FIELD-MATRIX.md (DRAFT — Phase 1، غير مُتتبعة في git)",
+   "missing_work": "",
+   "dependencies": [
+    "SEC-006",
+    "SEC-007"
+   ],
+   "test_required": "Security tests: حقن XSS/SQL في كل حقل يُرفض/يُهرّب؛ CSRF token؛ rate limit يعمل؛ أخطاء عامة لا تكشف تفاصيل؛ لا استدعاء CAPTCHA خارجي",
+   "design_refs": [
+    "docs/franchise/03-APPLICATION-FIELD-MATRIX.md",
+    "docs/RECRUITMENT-SECURITY.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-050",
+   "area": "16 Franchise",
+   "type": "RULE",
+   "title": "الخصوصية: لا تحويل للنشرة، لا Marketing opt-in افتراضي، موافقة واضحة",
+   "requirement": "بيانات Partnership Application لا تتحول إلى Newsletter تلقائيًا؛ لا Marketing opt-in by default؛ الـConsent واضح حسب البيانات المجمعة.",
+   "details": [
+    "Consent = لمعالجة الطلب والتواصل بشأنه فقط؛ يُخزن: القبول + الوقت + نسخة النص (نمط التوظيف). النص ⏳ G11-PO-03.",
+    "النشرة البريدية DEFERRED في V1 (IA-012)."
+   ],
+   "sources": [
+    "M29-§75"
+   ],
+   "decision_refs": [
+    "G11-ND-07"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/franchise/03-APPLICATION-FIELD-MATRIX.md (DRAFT — Phase 1، غير مُتتبعة في git)",
+   "missing_work": "",
+   "dependencies": [
+    "PRIV-005",
+    "IA-012",
+    "PO-019"
+   ],
+   "test_required": "Playwright/DB: لا checkbox تسويقي مُعلّم افتراضيًا؛ لا سجل في أي قائمة بريدية بعد الإرسال؛ سجل الموافقة محفوظ بالنسخة",
+   "design_refs": [
+    "docs/franchise/03-APPLICATION-FIELD-MATRIX.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-051",
+   "area": "16 Franchise",
+   "type": "REQUIREMENT",
+   "title": "المرفقات: مستقبلية واختيارية — غير إلزامية في V1 — تخزين خاص فقط",
+   "requirement": "الـArchitecture يمكن أن تدعم مستقبلًا: company profile · proposed location · business document · presentation. لا تُجعل Attachments Required في V1 قبل Owner Approval. إذا فُعّلت: Private Storage only.",
+   "details": [
+    "عند التفعيل تُطبق سياسة الملفات والأمان نفسها في RECRUITMENT-SECURITY §3 والتنزيل عبر Endpoint محمي (CW-04)."
+   ],
+   "sources": [
+    "M29-§76"
+   ],
+   "decision_refs": [
+    "G11-ND-08"
+   ],
+   "status": "DEFERRED",
+   "owner_approved": "YES",
+   "priority": "P2",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/franchise/03-APPLICATION-FIELD-MATRIX.md (DRAFT — Phase 1، غير مُتتبعة في git)",
+   "missing_work": "",
+   "dependencies": [
+    "FRAN-040"
+   ],
+   "test_required": "إن فُعّلت: لا URL عام لأي ملف (اختبار وصول مباشر = 403/404)؛ النموذج يُرسل بلا مرفقات في V1",
+   "design_refs": [
+    "docs/franchise/03-APPLICATION-FIELD-MATRIX.md",
+    "docs/RECRUITMENT-SECURITY.md §3",
+    "docs/CLOUDWAYS-RECRUITMENT-ARCHITECTURE.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-052",
+   "area": "16 Franchise",
+   "type": "RULE",
+   "title": "لا وثائق داخلية في الحزمة العامة للموقع",
+   "requirement": "ممنوع وضع: financial models · franchise manuals · contracts · internal SOPs · territory analysis · fee sheets · profitability files داخل Public Web Bundle.",
+   "details": [
+    "فحص آلي في البناء (G11-TF-16)."
+   ],
+   "sources": [
+    "M29-§77"
+   ],
+   "decision_refs": [
+    "G11-ND-07"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/franchise/04-DASHBOARD-MODULE-IA.md (DRAFT — Phase 1، غير مُتتبعة في git)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "Build/CI check: لا ملفات pdf/xlsx/docx/pptx داخلية في مخرجات البناء أو public/؛ لا روابط لها",
+   "design_refs": [
+    "docs/franchise/04-DASHBOARD-MODULE-IA.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-053",
+   "area": "16 Franchise",
+   "type": "REQUIREMENT",
+   "title": "Attribution آمن للخصوصية يُخزن مع الطلب",
+   "requirement": "Privacy-safe attribution: Source · Medium · Campaign · Landing Page · Language · Country/region only if available safely. لا يُخزن precise location.",
+   "details": [
+    "التقاط First-party بلا Cookies (UTM + نطاق المُحيل + صفحة الهبوط) ثم إرسالها مع النموذج؛ الدولة من حقل المتقدم وليست من الـIP (G11-TF-06، docs/franchise/05 §2).",
+    "متسق مع PRIV-012/D-194."
+   ],
+   "sources": [
+    "M29-§70"
+   ],
+   "decision_refs": [
+    "G11-ND-12",
+    "D-194"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/franchise/03-APPLICATION-FIELD-MATRIX.md · docs/franchise/05-SEO-ANALYTICS-PERFORMANCE.md (DRAFT — Phase 1، غير مُتتبعة في git)",
+   "missing_work": "",
+   "dependencies": [
+    "PRIV-012"
+   ],
+   "test_required": "DB/Playwright: الطلب يحمل utm_source/utm_medium/utm_campaign/landing_page/language عند وجودها؛ لا إحداثيات ولا IP دائم",
+   "design_refs": [
+    "docs/franchise/03-APPLICATION-FIELD-MATRIX.md",
+    "docs/franchise/05-SEO-ANALYTICS-PERFORMANCE.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-054",
+   "area": "16 Franchise",
+   "type": "DECISION",
+   "title": "وحدة «Franchise & Partnerships» أصلية في الـOwner Dashboard — ليست iframe",
+   "requirement": "تُضاف Module داخل SHELTER OWNER DASHBOARD باسم «Franchise & Partnerships» أو Naming أقصر مناسب داخل الـNavigation. ليست iframe؛ Native module.",
+   "details": [
+    "مقترح الاسم المختصر: «الشراكات / Partnerships» (docs/franchise/04).",
+    "تُضاف لقائمة وحدات الـDashboard (DASH-006)."
+   ],
+   "sources": [
+    "M29-§37"
+   ],
+   "decision_refs": [
+    "G11-ND-09"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/franchise/04-DASHBOARD-MODULE-IA.md (DRAFT — Phase 1، غير مُتتبعة في git)",
+   "missing_work": "",
+   "dependencies": [
+    "DASH-006",
+    "DASH-004"
+   ],
+   "test_required": "مراجعة IA الـDashboard: الوحدة ضمن الـNavigation وتعمل بنفس المصادقة؛ لا iframe",
+   "design_refs": [
+    "docs/franchise/04-DASHBOARD-MODULE-IA.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P04",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-055",
+   "area": "16 Franchise",
+   "type": "REQUIREMENT",
+   "title": "IA مبدئية للوحدة (11 عنصرًا) — ليست الحالات النهائية؛ Franchise Master يفوز",
+   "requirement": "Draft IA: Overview · Applications · Qualified · Meetings · Market Review · Site Review · Approved · Contract Stage · Closed · Archived · Settings. ليست Final Franchise Statuses إذا كان في Franchise Master Workflow مختلف — Franchise Master wins.",
+   "details": [
+    "قرار تقني (TD-FR-01 مقترح): المراحل جدول إعداد pipeline_stages وليست Enum ثابتًا؛ كل انتقال مسجل في تاريخ الحالة.",
+    "«جديد» = حالة قراءة منفصلة عن المرحلة (نمط التوظيف)."
+   ],
+   "sources": [
+    "M29-§38"
+   ],
+   "decision_refs": [
+    "G11-ND-09",
+    "G11-ND-02"
+   ],
+   "status": "APPROVED WITH CONDITIONS",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/franchise/04-DASHBOARD-MODULE-IA.md (DRAFT — Phase 1، غير مُتتبعة في git)",
+   "missing_work": "",
+   "dependencies": [
+    "G11-PO-05"
+   ],
+   "test_required": "مراجعة: المراحل قابلة للتعديل من Settings بلا كود؛ تغيير المرحلة يسجل Audit وتاريخًا",
+   "design_refs": [
+    "docs/franchise/04-DASHBOARD-MODULE-IA.md §1, §2"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P04",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-056",
+   "area": "16 Franchise",
+   "type": "REQUIREMENT",
+   "title": "أعمدة قائمة الطلبات المبدئية (7)",
+   "requirement": "مبدئيًا تُعرض: Applicant · Country · City · Proposed Market · Application Date · Status · Last Updated. ويمكن إضافة Approved qualification fields لاحقًا.",
+   "details": [
+    "أنماط التحكم المشتركة مع التوظيف (الأعمدة/الكثافة/حجم الصفحة/الترقيم/الفلاتر المحفوظة) عبر Applications Core."
+   ],
+   "sources": [
+    "M29-§39"
+   ],
+   "decision_refs": [
+    "G11-ND-09"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/franchise/04-DASHBOARD-MODULE-IA.md (DRAFT — Phase 1، غير مُتتبعة في git)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "Playwright (Owner): الأعمدة السبعة تظهر؛ القائمة الأحدث أولًا؛ الموبايل بطاقات/جدول متكيف لا جدول مضغوط",
+   "design_refs": [
+    "docs/franchise/04-DASHBOARD-MODULE-IA.md §3"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P04",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-057",
+   "area": "16 Franchise",
+   "type": "REQUIREMENT",
+   "title": "Quick Side Panel + Full Application Page",
+   "requirement": "Quick Side Panel للمراجعة السريعة + Full Application Page تعرض: application data · status · notes · meetings · attachments · market information · history · audit trail · previous applications if detected.",
+   "details": [],
+   "sources": [
+    "M29-§40"
+   ],
+   "decision_refs": [
+    "G11-ND-09"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/franchise/04-DASHBOARD-MODULE-IA.md (DRAFT — Phase 1، غير مُتتبعة في git)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "Playwright: فتح العرض السريع والصفحة الكاملة؛ كل الأقسام التسعة موجودة (المرفقات فقط إن فُعّلت)",
+   "design_refs": [
+    "docs/franchise/04-DASHBOARD-MODULE-IA.md §3"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P04",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-058",
+   "area": "16 Franchise",
+   "type": "REQUIREMENT",
+   "title": "ملاحظات داخلية متعددة — الكاتب والوقت والمحتوى — بلا Overwrite صامت",
+   "requirement": "Multiple Notes؛ كل Note: Author · Date/Time · Content. No silent overwrite.",
+   "details": [
+    "أي تعديل/حذف لملاحظة يُسجل في الـAudit (نمط التوظيف)."
+   ],
+   "sources": [
+    "M29-§41"
+   ],
+   "decision_refs": [
+    "G11-ND-09"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/franchise/04-DASHBOARD-MODULE-IA.md (DRAFT — Phase 1، غير مُتتبعة في git)",
+   "missing_work": "",
+   "dependencies": [
+    "AUDIT-002"
+   ],
+   "test_required": "Test: إضافة ملاحظتين تبقيان مستقلتين؛ تعديل ملاحظة يحفظ القديم في الـAudit",
+   "design_refs": [
+    "docs/franchise/04-DASHBOARD-MODULE-IA.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-059",
+   "area": "16 Franchise",
+   "type": "REQUIREMENT",
+   "title": "إدارة الاجتماعات — الملاحظات الداخلية لا تُعرض للمتقدم",
+   "requirement": "Architecture تدعم: Meeting Date · Meeting Time · Location/Channel · Internal Notes · Status. لا تُعرض Internal Meeting Notes للمتقدم.",
+   "details": [
+    "Location/Channel = قائمة قابلة للإعداد (Settings)."
+   ],
+   "sources": [
+    "M29-§42"
+   ],
+   "decision_refs": [
+    "G11-ND-09"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/franchise/04-DASHBOARD-MODULE-IA.md (DRAFT — Phase 1، غير مُتتبعة في git)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "Test: لا Endpoint عام يعيد بيانات الاجتماعات؛ الحقول الخمسة قابلة للحفظ والتعديل مع Audit",
+   "design_refs": [
+    "docs/franchise/04-DASHBOARD-MODULE-IA.md §3"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-060",
+   "area": "16 Franchise",
+   "type": "REQUIREMENT",
+   "title": "الطلبات المكررة: لا منع تلقائي، كشف بالهاتف/البريد/اسم الشركة، بلا دمج",
+   "requirement": "إذا قدّم نفس الشخص/الشركة أكثر من مرة: لا يُمنع تلقائيًا. Detect potential match بـ: phone · email · company name when available. لا merge تلقائيًا؛ تُعرض Previous Applications.",
+   "details": [
+    "التطابق على القيم المطبّعة (E.164 للهاتف، lowercase للبريد، اسم شركة مطبّع) — G11-TF-12."
+   ],
+   "sources": [
+    "M29-§43"
+   ],
+   "decision_refs": [
+    "G11-ND-09"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/franchise/04-DASHBOARD-MODULE-IA.md (DRAFT — Phase 1، غير مُتتبعة في git)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "Test: طلبان بنفس الهاتف بصيغتين مختلفتين يُربطان كـ«طلبات سابقة»؛ لا دمج ولا حذف؛ كل طلب برقمه وحالته",
+   "design_refs": [
+    "docs/franchise/04-DASHBOARD-MODULE-IA.md §4"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-061",
+   "area": "16 Franchise",
+   "type": "RULE",
+   "title": "لا قبول ولا رفض آلي — لا تأهيل أو تقييم استثماري آلي",
+   "requirement": "ممنوع: AI acceptance · AI rejection · automatic franchise qualification · automatic investment scoring. AI مستقبلًا يمكن أن: summarize · organize · flag missing info · identify duplicates. القرار النهائي: Owner / Authorized Franchise Team.",
+   "details": [
+    "في V1 «Authorized Franchise Team» = الـOwner فقط (M30 — FRAN-062).",
+    "لا Scores ولا نجوم في الـDashboard (متسق مع التوظيف)."
+   ],
+   "sources": [
+    "M29-§44"
+   ],
+   "decision_refs": [
+    "G11-ND-09",
+    "D-216"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/franchise/04-DASHBOARD-MODULE-IA.md (DRAFT — Phase 1، غير مُتتبعة في git)",
+   "missing_work": "",
+   "dependencies": [
+    "PERM-007"
+   ],
+   "test_required": "مراجعة: لا حقل score/rank؛ تغيير الحالة إلى Approved/Closed يتم فقط بفعل بشري مسجل في الـAudit",
+   "design_refs": [
+    "docs/franchise/04-DASHBOARD-MODULE-IA.md §4"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-062",
+   "area": "16 Franchise",
+   "type": "RULE",
+   "title": "الصلاحيات: بيانات تجارية حساسة — V1 للـOwner فقط — Server-side",
+   "requirement": "Franchise data تجارية حساسة. V1: الـOwner وحده (Full Access) — لا يُنشأ أي مستخدم Franchise أو غيره (M30، FROZEN). Server-side authorization إلزامي في كل طلب، ولا اعتماد على UI hiding. مستقبلًا: أي مستخدم آخر يُنشأ صراحةً بطلب الـOwner ويُمنح صلاحية صريحة مختارة (مثل franchise.view / franchise.manage / franchise.export)؛ لا وصول تلقائي لأحد ولا وراثة من أدوار أخرى.",
+   "details": [
+    "Deny by default؛ فحص على مستوى الكائن لكل application_id؛ 401/403 بلا كشف وجود الطلب (نمط RECRUITMENT-PERMISSIONS §1)."
+   ],
+   "sources": [
+    "M29-§45",
+    "M30"
+   ],
+   "decision_refs": [
+    "G11-ND-09",
+    "G12-ND-01",
+    "D-162"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [
+    "DASH-032",
+    "PERM-004",
+    "PERM-011"
+   ],
+   "test_required": "اختبارات سلبية (نمط P-01…P-08): بلا جلسة 401؛ جلسة غير Owner 403 على كل Route/API؛ تعديل المعرّف لا يصعّد الصلاحية؛ Playwright «unauthorized user denied»",
+   "design_refs": [
+    "docs/franchise/04-DASHBOARD-MODULE-IA.md §4",
+    "docs/RECRUITMENT-PERMISSIONS.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P04",
+   "history": [
+    {
+     "old": "M29 §45: Default Owner Full Access + أي User آخر بـExplicit Permission",
+     "source": "M29",
+     "superseded_by": "M30 (FROZEN): V1 = Owner فقط؛ الصلاحية الصريحة تبقى نموذج المستقبل فقط"
+    }
+   ],
+   "notes": "التعارض M29 §45 ↔ M30 مسجل في G12 (RESOLVED لصالح M30) — لا يُكرر هنا."
+  },
+  {
+   "id": "FRAN-063",
+   "area": "16 Franchise",
+   "type": "REQUIREMENT",
+   "title": "تحليلات الوحدة: القيمة التشغيلية أولًا — لا 30 رسمًا",
+   "requirement": "داخل الوحدة يمكن عرض: Total applications · New applications · Countries · Cities · Markets requested · Status distribution · Form completion · Drop-off. البدء بالـOperational Value؛ لا 30 charts.",
+   "details": [
+    "V1 مقترح: الجديد · الإجمالي · التوزيع على المراحل · الدول/المدن/الأسواق (جدول بسيط)؛ الإكمال والتسرب لاحقًا من أحداث franchise_form_* المجمعة بلا PII (docs/franchise/04 §5)."
+   ],
+   "sources": [
+    "M29-§78"
+   ],
+   "decision_refs": [
+    "G11-ND-09"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P2",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/franchise/04-DASHBOARD-MODULE-IA.md (DRAFT — Phase 1، غير مُتتبعة في git)",
+   "missing_work": "",
+   "dependencies": [
+    "DASH-025"
+   ],
+   "test_required": "مراجعة: كل مؤشر قابل للنقر يفتح القائمة مفلترة؛ لا أرقام مزيفة (DASH-025)",
+   "design_refs": [
+    "docs/franchise/04-DASHBOARD-MODULE-IA.md §5"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P04",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-064",
+   "area": "16 Franchise",
+   "type": "REQUIREMENT",
+   "title": "البحث والفلاتر في وحدة الشراكات",
+   "requirement": "Search by: applicant · phone · email · country · city · market · application number. Filters: status · country · city · date · market — مع إمكانية التطوير لاحقًا.",
+   "details": [
+    "البحث بالقيم المطبّعة للهاتف/البريد؛ الفلاتر مجتمعة."
+   ],
+   "sources": [
+    "M29-§79"
+   ],
+   "decision_refs": [
+    "G11-ND-09"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/franchise/04-DASHBOARD-MODULE-IA.md (DRAFT — Phase 1، غير مُتتبعة في git)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "Playwright: كل مفتاح بحث يعيد الطلب الصحيح (بما فيه رقم الطلب FR-…)؛ الفلاتر الخمسة مجتمعة تعمل",
+   "design_refs": [
+    "docs/franchise/04-DASHBOARD-MODULE-IA.md §3"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-065",
+   "area": "16 Franchise",
+   "type": "REQUIREMENT",
+   "title": "Audit Log للوحدة: 8 أنواع إجراءات + 6 حقول",
+   "requirement": "تُسجل Actions مثل: application created · status changed · note added · meeting scheduled · document added · archived · exported · access-sensitive action — بحقول: Actor · Action · Target · Timestamp · Before · After.",
+   "details": [
+    "جدول audit_logs مشترك مع كل الـDashboard (Insert/Select فقط للمستخدم التطبيقي — CW-06).",
+    "متسق مع D-164/AUDIT-001 وM30 (AUDIT-010)."
+   ],
+   "sources": [
+    "M29-§80"
+   ],
+   "decision_refs": [
+    "G11-ND-09",
+    "D-164"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/franchise/04-DASHBOARD-MODULE-IA.md (DRAFT — Phase 1، غير مُتتبعة في git)",
+   "missing_work": "",
+   "dependencies": [
+    "AUDIT-001",
+    "AUDIT-010"
+   ],
+   "test_required": "Test: كل إجراء من الثمانية ينتج سجلًا بالحقول الستة؛ السجل غير قابل للتعديل من الواجهة",
+   "design_refs": [
+    "docs/franchise/04-DASHBOARD-MODULE-IA.md §4"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-066",
+   "area": "16 Franchise",
+   "type": "GATE",
+   "title": "النسخ الاحتياطي: DB + مرفقات خاصة + إجراء استعادة — يُتحقق ولا يُفترض",
+   "requirement": "تُراجع Cloudways Backups. بيانات Franchise applications تحتاج: database backup · private attachment backup · restore process. لا يُفترض أن الـBackup موجود فقط لأن Cloudways يدعمه — Verify.",
+   "details": [
+    "يُنفذ ضمن A-08 وإجراء الاستعادة في CLOUDWAYS-RECRUITMENT-ARCHITECTURE §6 (اختبار استعادة على Staging قبل الإطلاق)."
+   ],
+   "sources": [
+    "M29-§81"
+   ],
+   "decision_refs": [
+    "G11-ND-07",
+    "G10-ND-02"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [
+    "FRAN-040",
+    "AUDIT-008"
+   ],
+   "test_required": "دليل: آخر نسخة ناجحة + شمول private storage + اختبار استعادة موثق قبل الإطلاق",
+   "design_refs": [
+    "docs/CLOUDWAYS-RECRUITMENT-ARCHITECTURE.md §6"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P04",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-067",
+   "area": "16 Franchise",
+   "type": "REQUIREMENT",
+   "title": "الصفحة قابلة للتحرير بالكامل من الـOwner Dashboard بلا كود (16 عنصرًا)",
+   "requirement": "الـOwner يعدّل بدون Code: Hero Headline · Hero Copy · Hero Media · CTA · Brand Story · DRIVE/HOUSE content · Why SHELTER sections · Partner criteria · Journey · FAQ · Section visibility · Section order within approved constraints · Final CTA · SEO metadata · OG image · Application intro.",
+   "details": [
+    "M30 (CMS-029) يضيف للوحدة نفسها: franchise page content · FAQ · partner criteria · application content · franchise applications · internal notes · meetings · status · archive — «Changing franchise FAQ must NOT require code»."
+   ],
+   "sources": [
+    "M29-§46",
+    "M30"
+   ],
+   "decision_refs": [
+    "G11-ND-10"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [
+    "CMS-001",
+    "CMS-029",
+    "CMS-010"
+   ],
+   "test_required": "Test (Owner): تعديل كل عنصر من الـ16 من الـDashboard يظهر بعد Publish دون أي تعديل كود",
+   "design_refs": [
+    "docs/franchise/02-PAGE-IA-AND-CONTENT.md",
+    "docs/franchise/04-DASHBOARD-MODULE-IA.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P04",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-068",
+   "area": "16 Franchise",
+   "type": "RULE",
+   "title": "Design System Lock: المحتوى قابل للتحرير — التصميم مضبوط",
+   "requirement": "الـCMS يسمح بتعديل Content لكن لا يسمح بتدمير الـDesign System: لا arbitrary CSS · random colors · random fonts · random spacing · breaking layouts. Content editable، Design controlled.",
+   "details": [],
+   "sources": [
+    "M29-§47"
+   ],
+   "decision_refs": [
+    "G11-ND-10",
+    "D-165"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [
+    "CMS-011",
+    "CMS-034"
+   ],
+   "test_required": "Test: محرر الصفحة لا يقبل CSS/HTML حر؛ الخيارات من متغيرات مكونات معتمدة فقط",
+   "design_refs": [
+    "docs/franchise/02-PAGE-IA-AND-CONTENT.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P04",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-069",
+   "area": "16 Franchise",
+   "type": "REQUIREMENT",
+   "title": "Workflow المحتوى: Draft · Review · Scheduled · Published · Archived + Preview + Versions + Audit",
+   "requirement": "دعم Draft · Review · Scheduled · Published · Archived مع Preview · Version History · Audit Log لمحتوى صفحة الفرنشايز.",
+   "details": [
+    "مطابق لـD-163 (IN REVIEW) وM30 (CMS-035)."
+   ],
+   "sources": [
+    "M29-§48"
+   ],
+   "decision_refs": [
+    "G11-ND-10",
+    "D-163"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [
+    "CMS-006",
+    "CMS-035"
+   ],
+   "test_required": "Test: تعديل في Draft لا يظهر على الموقع؛ Preview AR/EN؛ Schedule ينشر في الموعد؛ كل نشر له نسخة وسجل",
+   "design_refs": [
+    "docs/franchise/04-DASHBOARD-MODULE-IA.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P04",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-070",
+   "area": "16 Franchise",
+   "type": "RULE",
+   "title": "حالة لكل محتوى فرنشايز: APPROVED · PENDING · MISSING · SUPERSEDED — المعلّق لا يُنشر كحقيقة",
+   "requirement": "كل Franchise content يحمل Status: APPROVED · PENDING · MISSING · SUPERSEDED. لا يُنشر PENDING أو MISSING كأنه Fact.",
+   "details": [
+    "التخزين بمفردات المشروع (D-224): PENDING = PENDING OWNER APPROVAL أو PENDING VERIFICATION؛ REJECTED يُعامل كغير قابل للنشر (G11-CF-05).",
+    "تطبيق Server-side: البلوك غير APPROVED لا يُعرض في Production (ولا كـPlaceholder) — G11-TF-10."
+   ],
+   "sources": [
+    "M29-§49"
+   ],
+   "decision_refs": [
+    "G11-ND-10",
+    "D-224"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [
+    "GOV-024",
+    "GOV-026"
+   ],
+   "test_required": "Test: بلوك بحالة PENDING/MISSING لا يظهر في Production ولا في JSON-LD؛ يظهر في Preview بعلامة واضحة",
+   "design_refs": [
+    "docs/franchise/02-PAGE-IA-AND-CONTENT.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "G11-CF-05 (RESOLVED)",
+   "business_data": false,
+   "phase": "P04",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-071",
+   "area": "16 Franchise",
+   "type": "REQUIREMENT",
+   "title": "Versioning إلزامي لمحتوى الفرنشايز الحساس (7 أنواع)",
+   "requirement": "كل التالي Versioned: Support promises · Partner criteria · Process · Market availability · Fees · Financial data · Legal content.",
+   "details": [
+    "يشمل نص الـDisclaimer ونص الموافقة (نسخة مخزنة مع كل طلب).",
+    "M30: «franchise content» ضمن المحتوى الذي يحتاج Version History مفهومًا (ماذا/من/إلى/متى) — AUDIT-009."
+   ],
+   "sources": [
+    "M29-§50",
+    "M30"
+   ],
+   "decision_refs": [
+    "G11-ND-10",
+    "D-164"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [
+    "AUDIT-003",
+    "AUDIT-009"
+   ],
+   "test_required": "Test: تعديل أي نوع من السبعة ينشئ نسخة جديدة قابلة للعرض (قديم/جديد/متى/من)",
+   "design_refs": [
+    "docs/franchise/04-DASHBOARD-MODULE-IA.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P04",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-072",
+   "area": "16 Franchise",
+   "type": "RULE",
+   "title": "وسائط الصفحة معتمدة من الـOwner + حقول Media Library",
+   "requirement": "كل صور الصفحة Owner Approved. Media Library تسجل: file · preview · dimensions · size · usage · alt AR · alt EN · focal point · approval status.",
+   "details": [
+    "مطابق لـD-195/MEDIA-012."
+   ],
+   "sources": [
+    "M29-§51"
+   ],
+   "decision_refs": [
+    "G11-ND-10",
+    "D-195"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [
+    "MEDIA-001",
+    "MEDIA-012"
+   ],
+   "test_required": "Media QA: كل صورة منشورة approval_status = APPROVED ولها alt AR/EN وfocal point",
+   "design_refs": [
+    "docs/franchise/02-PAGE-IA-AND-CONTENT.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P07",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-073",
+   "area": "16 Franchise",
+   "type": "RULE",
+   "title": "الاتجاه البصري: Premium · Warm · Minimal · Architectural · Modern · Confident · Global · Coffee-led",
+   "requirement": "المطلوب: Premium · Warm · Minimal · Architectural · Modern · Confident · Global · Coffee-led — بهوية SHELTER؛ Rounded corners؛ Minimal colors؛ Strong imagery؛ Strong whitespace.",
+   "details": [
+    "يوسّع D-178/BRAND-005 بـ: Architectural · Global · Coffee-led · Strong imagery/whitespace.",
+    "القيم الفعلية (ألوان/خطوط) من ملفات الهوية فقط (PO-002)."
+   ],
+   "sources": [
+    "M29-§52"
+   ],
+   "decision_refs": [
+    "G11-ND-11",
+    "D-178"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [
+    "BRAND-005",
+    "PO-002"
+   ],
+   "test_required": "Visual review مقابل الصفات الثماني؛ لا ألوان/خطوط خارج Tokens العلامة",
+   "design_refs": [
+    "docs/franchise/02-PAGE-IA-AND-CONTENT.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P05",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-074",
+   "area": "16 Franchise",
+   "type": "RULE",
+   "title": "ممنوعات التصميم لصفحة الفرنشايز (8)",
+   "requirement": "ممنوع: Generic SaaS · Purple/blue AI gradient · Excessive glassmorphism · Cheap gold luxury theme · Template franchise page · Random floating cards · AI-looking landing page · Overdecorated page.",
+   "details": [
+    "يوسّع BRAND-006 بـ: Cheap gold luxury theme · Template franchise page · AI-looking landing page · Overdecorated page."
+   ],
+   "sources": [
+    "M29-§53"
+   ],
+   "decision_refs": [
+    "G11-ND-11",
+    "D-178"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [
+    "BRAND-006"
+   ],
+   "test_required": "Visual review: قائمة الممنوعات الثمانية Checklist في مراجعة التصميم",
+   "design_refs": [
+    "docs/franchise/02-PAGE-IA-AND-CONTENT.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P05",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-075",
+   "area": "16 Franchise",
+   "type": "RULE",
+   "title": "الـVisual Concept السابق: اتجاه فقط — «أسود/كريمي» ليس Brand Tokens",
+   "requirement": "يوجد Visual Concept سابق تمت الموافقة على اتجاهه العام؛ يُستخدم كـDirection فقط: premium hero · black/cream visual hierarchy · architectural photography · DRIVE/HOUSE · partnership benefits · timeline · partner criteria · application CTA. لا يُنسخ Pixel-for-Pixel، ولا يُعتبر أي image · number · copy · claim فيه Business Fact بدون Source.",
+   "details": [
+    "الملف غير موجود في المشروع (G11-PO-09).",
+    "«black/cream» تراتبية بصرية اتجاهية فقط؛ قيم الألوان من ملفات الهوية (M-10/PO-002)؛ إن اختلفت ملفات الهوية فهي الفائزة (G11-CF-07)."
+   ],
+   "sources": [
+    "M29-§84"
+   ],
+   "decision_refs": [
+    "G11-ND-11"
+   ],
+   "status": "APPROVED WITH CONDITIONS",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "ملف الـConcept (G11-PO-09) + ملفات الهوية (PO-002)",
+   "dependencies": [
+    "G11-PO-09",
+    "PO-002",
+    "BRAND-002"
+   ],
+   "test_required": "Visual review: لا نسخ حرفي؛ لا نص/رقم/صورة من الـConcept منشور بلا مصدر معتمد؛ الألوان من Tokens",
+   "design_refs": [
+    "docs/franchise/01-SOURCES-CONFLICTS-MISSING.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "G11-CF-07 (RESOLVED)",
+   "business_data": false,
+   "phase": "P05",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-076",
+   "area": "16 Franchise",
+   "type": "RULE",
+   "title": "Motion Premium هادف — بلا Scroll hijack — مع prefers-reduced-motion",
+   "requirement": "Motion Premium فقط عندما يخدم: orientation · hierarchy · feedback · storytelling. ممكن: hero reveal · image reveal · timeline progress · subtle scroll transitions · CTA microinteractions · section transitions. ممنوع: heavy animation · constant floating · scroll hijack · meaningless 3D · animation on every element. دعم prefers-reduced-motion.",
+   "details": [],
+   "sources": [
+    "M29-§55"
+   ],
+   "decision_refs": [
+    "G11-ND-11",
+    "D-157",
+    "D-188"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [
+    "MOTION-006",
+    "MOTION-011"
+   ],
+   "test_required": "Test: مع reduced-motion لا حركة غير ضرورية والمحتوى كامل؛ لا تأثير على INP/CLS؛ لا scroll hijack",
+   "design_refs": [
+    "docs/franchise/05-SEO-ANALYTICS-PERFORMANCE.md §3"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P05",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-077",
+   "area": "16 Franchise",
+   "type": "RULE",
+   "title": "أدوات الحركة: الـStack الحالي فقط — لا مكتبة حركة مكررة",
+   "requirement": "يُستخدم Existing Project Stack فقط. إذا كان المشروع يحتوي Motion · GSAP · Lenis تُستخدم كل أداة فقط عندما لها سبب. لا تُضاف Duplicate animation library.",
+   "details": [
+    "الحالي: Motion هي مكتبة الحركة الافتراضية (D-152)؛ GSAP ليست في الـStack → لا تُضاف؛ Lenis مشروط (D-151) ولا يُفعّل افتراضيًا (G11-CF-10)."
+   ],
+   "sources": [
+    "M29-§56"
+   ],
+   "decision_refs": [
+    "G11-ND-11",
+    "D-151",
+    "D-152"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [
+    "MOTION-007",
+    "MOTION-008",
+    "TOOL-006"
+   ],
+   "test_required": "Dependency review: مكتبة حركة واحدة في الحزمة؛ Lenis فقط بدليل اختبار",
+   "design_refs": [
+    "docs/FRONTEND-TOOLING.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "G11-CF-10 (RESOLVED)",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-078",
+   "area": "16 Franchise",
+   "type": "RULE",
+   "title": "الأدوات: أدوات المشروع الحالية — بلا بدائل مكررة",
+   "requirement": "تُستخدم Existing Project Tools عند الحاجة: Playwright · Chrome DevTools · Storybook · axe-core · Lighthouse · Unlighthouse · Motion · shadcn/Radix primitives · Lucide · Sharp — ولا تُثبت duplicate alternatives.",
+   "details": [
+    "المثبت فعليًا: Playwright 1.56.1 · axe-core 4.13.0 · Lighthouse 13.5.0 · Sharp 0.35.5 (tooling/)؛ الباقي مشروط بقرار الـStack (D-192)."
+   ],
+   "sources": [
+    "M29-§85"
+   ],
+   "decision_refs": [
+    "G11-ND-14",
+    "D-192"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P2",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [
+    "TOOL-006",
+    "TOOL-027"
+   ],
+   "test_required": "Dependency review: لا أداة مكررة الوظيفة",
+   "design_refs": [
+    "docs/FRONTEND-TOOLING.md"
+   ],
+   "code_refs": [
+    "tooling/package.json"
+   ],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-079",
+   "area": "16 Franchise",
+   "type": "REQUIREMENT",
+   "title": "Responsive إلزامي: 14 عرضًا · 5 فئات أجهزة · RTL/LTR · Portrait/Landscape · 200% Zoom",
+   "requirement": "الصفحة ممتازة على: 320 · 360 · 375 · 390 · 412 · 430 · 768 · 820 · 1024 · 1280 · 1366 · 1440 · 1536 · 1920؛ Mobile · Tablet · Laptop · Desktop · Large Desktop؛ Arabic RTL · English LTR؛ Portrait · Landscape؛ 200% Browser Zoom.",
+   "details": [
+    "مطابق لـD-217/RESP-004؛ tooling/viewports.mjs يغطي الـ14 + 2560 + 5 landscape + zoom-200."
+   ],
+   "sources": [
+    "M29-§57"
+   ],
+   "decision_refs": [
+    "G11-ND-15",
+    "D-217"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [
+    "RESP-004",
+    "RESP-008"
+   ],
+   "test_required": "Playwright على مصفوفة tooling/viewports.mjs × AR/EN: لا overflow/clipping/overlap؛ zoom 200% بلا فقدان محتوى",
+   "design_refs": [],
+   "code_refs": [
+    "tooling/viewports.mjs"
+   ],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-080",
+   "area": "16 Franchise",
+   "type": "REQUIREMENT",
+   "title": "الموبايل: Mobile-first وليس Desktop مصغرًا (11 قاعدة)",
+   "requirement": "Mobile-first. على الهاتف: Hero أقصر · CTA واضح · Text readable · Journey تتحول Vertical · لا tiny cards · لا horizontal page overflow · FAQ سهلة · Form سهلة · keyboard لا يغطي fields · touch targets ≥ 44px · safe area respected.",
+   "details": [],
+   "sources": [
+    "M29-§58"
+   ],
+   "decision_refs": [
+    "G11-ND-15"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [
+    "RESP-016",
+    "RESP-017",
+    "A11Y-017"
+   ],
+   "test_required": "Playwright (320–430): أهداف ≥ 44×44؛ لا تمرير أفقي؛ الحقل النشط ظاهر فوق لوحة المفاتيح؛ safe-area insets؛ الـCTA في الشاشة الأولى",
+   "design_refs": [
+    "docs/franchise/02-PAGE-IA-AND-CONTENT.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-081",
+   "area": "16 Franchise",
+   "type": "REQUIREMENT",
+   "title": "التابلت حالة UX مستقلة",
+   "requirement": "Tablet حالة UX مستقلة؛ يُختبر: portrait · landscape · timeline · content grid · application form · CTA · navigation.",
+   "details": [],
+   "sources": [
+    "M29-§59"
+   ],
+   "decision_refs": [
+    "G11-ND-15"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [
+    "RESP-021"
+   ],
+   "test_required": "Playwright 768/820/1024 portrait+landscape للعناصر السبعة",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-082",
+   "area": "16 Franchise",
+   "type": "REQUIREMENT",
+   "title": "الديسكتوب يستفيد من المساحة — بحاويات max-width",
+   "requirement": "Desktop يستفيد من المساحة (ممكن: asymmetric layout · large photography · editorial grid · sticky storytelling · split layout · visual timeline) لكن بـmax-width containers؛ لا يُمدد النص عبر شاشة 1920px كاملة.",
+   "details": [],
+   "sources": [
+    "M29-§60"
+   ],
+   "decision_refs": [
+    "G11-ND-15"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [
+    "RESP-019",
+    "RESP-020"
+   ],
+   "test_required": "Playwright 1440–1920/2560: عرض أسطر النص ضمن الحد؛ المحتوى ≤ 1280 (أو حد التصميم المعتمد)",
+   "design_refs": [],
+   "code_refs": [
+    "tooling/tests/prototype/responsive.spec.mjs"
+   ],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-083",
+   "area": "16 Franchise",
+   "type": "REQUIREMENT",
+   "title": "Accessibility: 14 بندًا (بما فيها ملخص أخطاء النموذج وFAQ)",
+   "requirement": "تُطبق: semantic headings · visible focus · keyboard navigation · screen reader support · logical DOM order · form labels · form errors · error summary · contrast · 44px targets · FAQ accessibility · reduced motion · RTL/LTR correctness · image alt.",
+   "details": [
+    "الهدف WCAG 2.2 AA (D-173)؛ الخطأ لا يعتمد على اللون وحده."
+   ],
+   "sources": [
+    "M29-§61"
+   ],
+   "decision_refs": [
+    "G11-ND-15",
+    "D-173"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [
+    "A11Y-001",
+    "A11Y-016"
+   ],
+   "test_required": "axe (serious/critical = 0) + فحص يدوي: كيبورد كامل، قارئ شاشة AR/EN، ملخص أخطاء يستقبل التركيز، Accordion بـaria-expanded",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-084",
+   "area": "16 Franchise",
+   "type": "REQUIREMENT",
+   "title": "الأداء: السرعة أهم من البصريات — LCP/INP/CLS — بلا فيديو ضخم على الموبايل",
+   "requirement": "صفحة Visual قوية لكن السرعة أهم. التركيز على LCP · INP · CLS. الـHero optimized. يُستخدم: AVIF · WebP · srcset · sizes · proper dimensions. لا فيديو ضخم على Mobile؛ إذا Video: poster · lazy strategy · mobile fallback · reduced-motion consideration.",
+   "details": [],
+   "sources": [
+    "M29-§62"
+   ],
+   "decision_refs": [
+    "G11-ND-15",
+    "D-174"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [
+    "PERF-002",
+    "PERF-008"
+   ],
+   "test_required": "Lighthouse/CWV (Mobile throttled): LCP/INP/CLS ضمن الميزانية المعتمدة (FRAN-086)؛ لا فيديو يُحمّل على الموبايل افتراضيًا",
+   "design_refs": [
+    "docs/franchise/05-SEO-ANALYTICS-PERFORMANCE.md §3"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-085",
+   "area": "16 Franchise",
+   "type": "REQUIREMENT",
+   "title": "تحسين كل صورة معتمدة + أولوية تحميل صورة الـLCP",
+   "requirement": "لكل صورة معتمدة: responsive variants · AVIF/WebP · correct dimensions · focal point · compression · lazy load when below fold. صورة الـLCP: optimized priority loading.",
+   "details": [
+    "خط Sharp الموجود (scripts/images.mjs): APPROVED-only، بلا تكبير، 240/360/480/720/1080 (يُوسّع لمقاسات الـHero)."
+   ],
+   "sources": [
+    "M29-§86"
+   ],
+   "decision_refs": [
+    "G11-ND-15"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [
+    "MEDIA-011",
+    "PERF-009"
+   ],
+   "test_required": "Lighthouse: صورة الـLCP غير lazy وبـfetchpriority=high؛ الصور تحت الشاشة lazy؛ لا CLS من الصور",
+   "design_refs": [],
+   "code_refs": [
+    "tooling/scripts/images.mjs"
+   ],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-086",
+   "area": "16 Franchise",
+   "type": "DELIVERABLE",
+   "title": "Performance Budget واقعي للصفحة — بلا Score عشوائي",
+   "requirement": "Performance Budget واقعي يراقب: Hero · Images · Fonts · JS · Animation · Analytics · Third party. لا arbitrary score target بلا سبب.",
+   "details": [
+    "مسودة docs/franchise/05 §3 (أرقام مقترحة من Claude — تحتاج تبريرًا بصور حقيقية): LCP ≤ 2.5s · INP ≤ 200ms · CLS ≤ 0.1 · Hero AVIF ≤ 120KB موبايل/≤ 250KB ديسكتوب · HTML ≤ 40KB · CSS ≤ 30KB · JS ≤ 60KB · خطوط ≤ 120KB WOFF2 (G11-TF-17)."
+   ],
+   "sources": [
+    "M29-§87"
+   ],
+   "decision_refs": [
+    "G11-ND-15",
+    "D-174"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "PARTIAL",
+   "tested": "N/A",
+   "existing_impl": "spec: docs/franchise/05-SEO-ANALYTICS-PERFORMANCE.md (DRAFT — Phase 1، غير مُتتبعة في git)",
+   "missing_work": "",
+   "dependencies": [
+    "PERF-005",
+    "PERF-018"
+   ],
+   "test_required": "مراجعة: كل رقم له مبرر؛ قياس على Staging مقابل الميزانية",
+   "design_refs": [
+    "docs/franchise/05-SEO-ANALYTICS-PERFORMANCE.md §3"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P03",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-087",
+   "area": "16 Franchise",
+   "type": "RULE",
+   "title": "سكربتات الطرف الثالث لا تؤخر الصفحة — تدقيق HubSpot قبل أي إزالة/إبقاء",
+   "requirement": "لا تُجعل GA4 · GTM · legacy HubSpot · motion · chat tools تؤخر الصفحة. Audit existing HubSpot before removing/retaining anything. لكن Franchise Form الجديد ليس HubSpot-dependent.",
+   "details": [
+    "الموقع القديم يحمّل HubSpot Portal 148229555 على كل الصفحات (ANL-001)؛ قرار الإبقاء/الإزالة = DB-14/PO-038 بعد الـAudit؛ لا إزالة عامة في Phase 1 (FRAN-103).",
+    "مقترح: HubSpot والدردشة غير محمّلين في صفحة الفرنشايز الجديدة؛ GA4/GTM بعد load/idle (PERF-011)."
+   ],
+   "sources": [
+    "M29-§63"
+   ],
+   "decision_refs": [
+    "G11-ND-07",
+    "D-206"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [
+    "DB-14",
+    "PO-038",
+    "PERF-011",
+    "ANL-001"
+   ],
+   "test_required": "Network/Lighthouse: لا سكربت HubSpot/Chat على الصفحة الجديدة؛ GA4/GTM لا يحجب التفاعل؛ تقرير HubSpot audit قبل أي إزالة",
+   "design_refs": [
+    "docs/franchise/05-SEO-ANALYTICS-PERFORMANCE.md §3"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P09",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-088",
+   "area": "16 Franchise",
+   "type": "REQUIREMENT",
+   "title": "نية البحث (AR 7 · EN 4) — بلا Keyword Stuffing",
+   "requirement": "الصفحة مهمة للـBrand + Franchise Intent. Arabic intent: فرنشايز قهوة · فرنشايز كوفي شوب · امتياز تجاري قهوة · فرنشايز قهوة الأردن · فرنشايز كوفي الأردن · كن شريكًا مع شلتر · امتياز SHELTER COFFEE. English: coffee franchise Jordan · coffee shop franchise · SHELTER COFFEE franchise · coffee franchise opportunity. لا Keyword Stuffing.",
+   "details": [
+    "كل عبارة في موضع طبيعي واحد (H1/H2/الوصف/الـFAQ) — مسودة docs/franchise/05 §1."
+   ],
+   "sources": [
+    "M29-§64"
+   ],
+   "decision_refs": [
+    "G11-ND-13",
+    "SEO-006"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/franchise/05-SEO-ANALYTICS-PERFORMANCE.md (DRAFT — Phase 1، غير مُتتبعة في git)",
+   "missing_work": "",
+   "dependencies": [
+    "SEO-006",
+    "CONTENT-015"
+   ],
+   "test_required": "SEO review: العبارات حاضرة طبيعيًا؛ لا تكرار مصطنع؛ Title/Meta معتمدة",
+   "design_refs": [
+    "docs/franchise/05-SEO-ANALYTICS-PERFORMANCE.md §1"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P03",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-089",
+   "area": "16 Franchise",
+   "type": "RULE",
+   "title": "AEO/GEO: عناوين واقعية وحقائق مختصرة وFAQ وعلاقات كيان — بلا خداع",
+   "requirement": "الصفحة سهلة الفهم لـGoogle · AI Search · Answer Engines عبر: clear factual headings · concise brand facts · FAQ · structured content · proper entity relationships. لا يُكتب محتوى مخصص لخداع AI Search.",
+   "details": [],
+   "sources": [
+    "M29-§65"
+   ],
+   "decision_refs": [
+    "G11-ND-13"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/franchise/05-SEO-ANALYTICS-PERFORMANCE.md (DRAFT — Phase 1، غير مُتتبعة في git)",
+   "missing_work": "",
+   "dependencies": [
+    "AEO-002"
+   ],
+   "test_required": "مراجعة AEO: سطر حقائق (2019 · إربد · DRIVE/HOUSE) قابل للاقتباس؛ علاقة الكيان مع Organization",
+   "design_refs": [
+    "docs/franchise/05-SEO-ANALYTICS-PERFORMANCE.md §1"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P03",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-090",
+   "area": "16 Franchise",
+   "type": "RULE",
+   "title": "Structured Data: Organization · WebPage · BreadcrumbList · FAQPage (عند الملاءمة) — ممنوع اختراع Offer/Price/Rating/Review/Investment/Availability",
+   "requirement": "Schema مناسب فقط. Potential: Organization · WebPage · BreadcrumbList · FAQPage إذا كان مناسبًا ومدعومًا. ممنوع اختراع: Offer · Price · Rating · Review · Investment Product · Availability — بدون بيانات حقيقية.",
+   "details": [
+    "FAQPage للأسئلة المعتمدة المنشورة فقط؛ Google يقصر نتائج FAQ الغنية على مواقع حكومية/صحية معروفة منذ 2023 → لا توقع Rich Result (G11-TF-07)."
+   ],
+   "sources": [
+    "M29-§66"
+   ],
+   "decision_refs": [
+    "G11-ND-13",
+    "D-183"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/franchise/05-SEO-ANALYTICS-PERFORMANCE.md (DRAFT — Phase 1، غير مُتتبعة في git)",
+   "missing_work": "",
+   "dependencies": [
+    "SCHEMA-003",
+    "SCHEMA-004"
+   ],
+   "test_required": "Rich Results/Schema validator: الأنواع المسموحة فقط؛ لا Offer/Price/Rating/Review/Product/Availability في JSON-LD الصفحة",
+   "design_refs": [
+    "docs/franchise/05-SEO-ANALYTICS-PERFORMANCE.md §1"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P09",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-091",
+   "area": "16 Franchise",
+   "type": "REQUIREMENT",
+   "title": "أحداث Analytics للفرنشايز (7) — ذات معنى فقط",
+   "requirement": "Track meaningful events فقط. Possible: franchise_page_view · franchise_cta_click · franchise_form_start · franchise_form_step · franchise_form_submit · franchise_form_error · franchise_faq_open. يُستخدم Project-wide naming convention إذا مختلف.",
+   "details": [
+    "معاملات مقترحة بلا PII (docs/franchise/05 §2): page_language · entry_context · cta_id · cta_location (hero/mid/final/sticky) · form_variant · step_number/step_name · error_type (قائمة ثابتة) · faq_id.",
+    "تُضاف لقاموس الأحداث (PO-043)؛ الأسماء تُبقى كما أعطاها الـOwner — متسقة مع نمط object_action (menu_view، careers_page_view) — G11-CF-08.",
+    "franchise_form_submit بعد 2xx من الخادم فقط؛ franchise_form_step فقط في Multi-step؛ تجنب ازدواج Enhanced Measurement (G11-TF-04)."
+   ],
+   "sources": [
+    "M29-§68"
+   ],
+   "decision_refs": [
+    "G11-ND-12",
+    "D-185",
+    "D-204"
+   ],
+   "status": "APPROVED WITH CONDITIONS",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/franchise/05-SEO-ANALYTICS-PERFORMANCE.md (DRAFT — Phase 1، غير مُتتبعة في git)",
+   "missing_work": "اعتماد القاموس (PO-043)",
+   "dependencies": [
+    "PO-043",
+    "ANL-008",
+    "ANL-010"
+   ],
+   "test_required": "GTM Preview + DebugView على Staging: كل حدث مرة واحدة لكل فعل بالمعاملات الموثقة",
+   "design_refs": [
+    "docs/franchise/05-SEO-ANALYTICS-PERFORMANCE.md §2",
+    "docs/google/GA4-MEASUREMENT-PLAN.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "G11-CF-08 (RESOLVED)",
+   "business_data": false,
+   "phase": "P09",
+   "history": [],
+   "notes": "الشرط: اعتماد القاموس النهائي ضمن PO-043."
+  },
+  {
+   "id": "FRAN-092",
+   "area": "16 Franchise",
+   "type": "RULE",
+   "title": "لا PII في الـAnalytics",
+   "requirement": "ممنوع إرسال إلى GA4/GTM: name · phone · email · company details · message · investment data · files. يُتتبع event context فقط.",
+   "details": [
+    "ويُضاف: رقم الطلب (FR-…) لا يُرسل (docs/franchise/05 §2)؛ لا قيم حقول حرة في المعاملات."
+   ],
+   "sources": [
+    "M29-§69"
+   ],
+   "decision_refs": [
+    "G11-ND-12",
+    "D-194"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/franchise/05-SEO-ANALYTICS-PERFORMANCE.md (DRAFT — Phase 1، غير مُتتبعة في git)",
+   "missing_work": "",
+   "dependencies": [
+    "CAREERS-076",
+    "PRIV-013"
+   ],
+   "test_required": "Analytics QA: فحص Payloads في DebugView/Network — لا أي قيمة من حقول النموذج",
+   "design_refs": [
+    "docs/franchise/05-SEO-ANALYTICS-PERFORMANCE.md §2"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P09",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-093",
+   "area": "16 Franchise",
+   "type": "GATE",
+   "title": "هجرة الرابط القديم /franchise-shelter-coffee/: لا Redirect الآن — 10 فحوص — 301 بعد موافقة الـOwner",
+   "requirement": "Old URL: /franchise-shelter-coffee/ — لا Redirect الآن. قبل Launch: 1. Search Console baseline · 2. existing ranking check · 3. backlink check · 4. canonical review · 5. indexation review · 6. new URL validation · 7. hreflang · 8. sitemap · 9. internal links · 10. redirect testing. ثم 301 old → appropriate new canonical URL بعد Owner Approval.",
+   "details": [
+    "الوجهة الطبيعية: /ar/franchise/ (10 §5). إذا لم تُعتمد الصفحة الجديدة قبل الإطلاق: وجهة بديلة مؤقتة = قرار الـOwner (G11-CF-04 / G11-PO-12).",
+    "متسق مع نمط /menu (D-054 + D-182)."
+   ],
+   "sources": [
+    "M29-§71"
+   ],
+   "decision_refs": [
+    "G11-ND-13",
+    "D-054",
+    "D-182"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "GSC baseline (PO-011) + قرار الوجهة البديلة إن لزم (G11-PO-12)",
+   "dependencies": [
+    "PO-011",
+    "SEO-009",
+    "SEO-011",
+    "G11-PO-12"
+   ],
+   "test_required": "قائمة الفحوص العشرة موثقة بالأدلة؛ اختبار 301 بقفزة واحدة على Staging؛ سجل موافقة الـOwner قبل التفعيل",
+   "design_refs": [
+    "docs/franchise/05-SEO-ANALYTICS-PERFORMANCE.md §1",
+    "docs/google/SEO-MIGRATION-MAP.md",
+    "docs/phase-01-discovery/10-url-architecture-draft.md §5"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "G11-CF-04 (OWNER DECISION REQUIRED)",
+   "business_data": false,
+   "phase": "P11",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-094",
+   "area": "16 Franchise",
+   "type": "REQUIREMENT",
+   "title": "Canonical + hreflang + x-default للزوج AR/EN — بلا تحويل جغرافي تلقائي",
+   "requirement": "أزواج Arabic/English تحتاج: proper canonical · hreflang · x-default according to approved global architecture. لا يُستخدم auto-geolocation redirect.",
+   "details": [
+    "x-default لصفحات العلامة معلق (ROOT-02 / SEO-033 / PO-005)."
+   ],
+   "sources": [
+    "M29-§72"
+   ],
+   "decision_refs": [
+    "G11-ND-13",
+    "D-031",
+    "D-052"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/franchise/05-SEO-ANALYTICS-PERFORMANCE.md (DRAFT — Phase 1، غير مُتتبعة في git)",
+   "missing_work": "",
+   "dependencies": [
+    "SEO-021",
+    "SEO-032",
+    "SEO-033",
+    "WEB-017"
+   ],
+   "test_required": "SEO QA: canonical ذاتي لكل لغة؛ hreflang متبادل ar↔en؛ x-default حسب القرار؛ لا تحويل حسب IP/Accept-Language",
+   "design_refs": [
+    "docs/franchise/05-SEO-ANALYTICS-PERFORMANCE.md §1"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P03",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-095",
+   "area": "16 Franchise",
+   "type": "REQUIREMENT",
+   "title": "منظومة Google: تدقيق الموجود أولًا — بلا تتبع مكرر — الصفحة في Sitemap/GSC/Analytics/المراقبة",
+   "requirement": "ضمن الموقع: GA4 · GTM · Search Console — Audit existing setup first؛ لا duplicate tracking. صفحة الفرنشايز تدخل في: Sitemap · Search Console · Analytics · Performance monitoring.",
+   "details": [
+    "تدخل الـSitemap وhreflang عند النشر فقط (مخفية حتى الاعتماد — FRAN-001)."
+   ],
+   "sources": [
+    "M29-§73"
+   ],
+   "decision_refs": [
+    "G11-ND-13",
+    "D-051",
+    "D-227"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [
+    "GOOGLE-009",
+    "ANL-003"
+   ],
+   "test_required": "بعد النشر: الصفحة في الـSitemap وفي GSC (Indexing) وفي تقارير GA4 ولوحة الأداء؛ لا GA4/GTM مكرر",
+   "design_refs": [
+    "docs/franchise/05-SEO-ANALYTICS-PERFORMANCE.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P09",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-096",
+   "area": "16 Franchise",
+   "type": "RULE",
+   "title": "نبرة المحتوى AR/EN",
+   "requirement": "Arabic: Professional · Warm · Premium · Confident — بلا مبالغة · ضغط مبيعات · وعد أرباح · corporate jargon زائد. English: Natural · International · Professional · Not literal translation.",
+   "details": [],
+   "sources": [
+    "M29-§82"
+   ],
+   "decision_refs": [
+    "G11-ND-05"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [
+    "CONTENT-015"
+   ],
+   "test_required": "مراجعة تحريرية AR/EN مقابل الصفات والممنوعات",
+   "design_refs": [
+    "docs/franchise/02-PAGE-IA-AND-CONTENT.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P07",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-097",
+   "area": "16 Franchise",
+   "type": "RULE",
+   "title": "كلمات ممنوعة (6) ومفضلة (7)",
+   "requirement": "لا تُستخدم: فرصة العمر · استثمار مضمون · أرباح مضمونة · أفضل فرنشايز · نجاح مضمون · عائد مضمون. المفضل: فرصة شراكة · نمو منظم · معايير العلامة · تقييم السوق · شريك مناسب · رحلة واضحة · تشغيل وفق معايير SHELTER.",
+   "details": [
+    "يُطبق على المقابلات الإنجليزية أيضًا (guaranteed/best franchise/once-in-a-lifetime…)."
+   ],
+   "sources": [
+    "M29-§83"
+   ],
+   "decision_refs": [
+    "G11-ND-05"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/franchise/02-PAGE-IA-AND-CONTENT.md (DRAFT — Phase 1، غير مُتتبعة في git)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "Content QA آلي: بحث نصي عن العبارات الست وأي «مضمون/guaranteed» في الصفحة والـMeta والـFAQ",
+   "design_refs": [
+    "docs/franchise/02-PAGE-IA-AND-CONTENT.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P07",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-098",
+   "area": "16 Franchise",
+   "type": "REQUIREMENT",
+   "title": "مصفوفة QA للصفحة: AR/EN · 10 عروض (ضمن الـ14) · اتجاهان · Zoom · 3 محركات · لمس/كيبورد/حركة مخفضة",
+   "requirement": "تُختبر: Arabic RTL · English LTR؛ 320 · 360 · 390 · 430 · 768 · 820 · 1024 · 1366 · 1536 · 1920؛ Portrait · Landscape · 200% zoom؛ Chrome · Firefox · WebKit؛ Touch · Keyboard · Reduced Motion.",
+   "details": [
+    "الحد الأدنى لـQA؛ التصميم والاختبار الإلزامي يبقى على الـ14 عرضًا (FRAN-079 — G11-CF-11).",
+    "Firefox/WebKit غير متاحين في بيئة العمل الحالية (Chromium فقط) — G11-TF-08."
+   ],
+   "sources": [
+    "M29-§88"
+   ],
+   "decision_refs": [
+    "G11-ND-15",
+    "D-217"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [
+    "TEST-006",
+    "TEST-010"
+   ],
+   "test_required": "تشغيل المصفوفة كاملة على Staging بالمحركات الثلاثة؛ تقرير RESPONSIVE-QA-MATRIX للصفحة",
+   "design_refs": [],
+   "code_refs": [
+    "tooling/viewports.mjs",
+    "tooling/playwright.config.mjs"
+   ],
+   "test_refs": [],
+   "conflict": "G11-CF-11 (RESOLVED)",
+   "business_data": false,
+   "phase": "P10",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-099",
+   "area": "16 Franchise",
+   "type": "REQUIREMENT",
+   "title": "تدفقات Playwright (13 على الأقل)",
+   "requirement": "تُختبر على الأقل: Arabic page opens · English page opens · language switch · Hero CTA · Scroll to form · FAQ interaction · Form validation · Form submission · Form error · Success state · Dashboard receives application · Owner opens application · unauthorized user denied.",
+   "details": [],
+   "sources": [
+    "M29-§89"
+   ],
+   "decision_refs": [
+    "G11-ND-15"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [
+    "TEST-014",
+    "FRAN-062"
+   ],
+   "test_required": "مجموعة Playwright للصفحة + الوحدة تمر بالكامل (13/13) على المصفوفة",
+   "design_refs": [],
+   "code_refs": [
+    "tooling/tests/app/"
+   ],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P10",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-100",
+   "area": "16 Franchise",
+   "type": "REQUIREMENT",
+   "title": "SEO QA للصفحة (12 فحصًا)",
+   "requirement": "Validate: Title · Meta Description · H1 · Heading hierarchy · Canonical · Hreflang · x-default · Sitemap · Robots · Schema · Internal links · Old URL redirect plan.",
+   "details": [],
+   "sources": [
+    "M29-§90"
+   ],
+   "decision_refs": [
+    "G11-ND-13"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [
+    "SEO-027",
+    "SEO-041"
+   ],
+   "test_required": "تقرير SEO QA بالنتائج الـ12 لكل لغة",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P10",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-101",
+   "area": "16 Franchise",
+   "type": "REQUIREMENT",
+   "title": "Analytics QA: 6 تحققات — بلا أحداث مكررة — بلا PII",
+   "requirement": "Verify: Page View · CTA Click · Form Start · Form Step · Submit · Error. No duplicate events. No PII.",
+   "details": [],
+   "sources": [
+    "M29-§91"
+   ],
+   "decision_refs": [
+    "G11-ND-12"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [
+    "TEST-016",
+    "FRAN-091",
+    "FRAN-092"
+   ],
+   "test_required": "GTM Preview/DebugView: كل حدث مرة واحدة؛ فحص Payloads بلا PII؛ تقرير Analytics Validation",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P10",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-102",
+   "area": "16 Franchise",
+   "type": "GATE",
+   "title": "Definition of Done لصفحة الفرنشايز (21 شرطًا)",
+   "requirement": "الصفحة لا تُعتبر Done إلا إذا: Arabic complete · English complete · Mobile tested · Tablet tested · Desktop tested · RTL correct · LTR correct · Accessibility checked · Performance checked · SEO checked · Analytics checked · Form works · Data goes to SHELTER system · Owner Dashboard integration works · No HubSpot dependency for new franchise form · No PII in analytics · No fake claims · No unapproved financial data · Images approved · CMS editable · Audit/versioning works where required.",
+   "details": [
+    "يكمّل بوابة اكتمال الصفحة العامة (D-170/TEST-004)."
+   ],
+   "sources": [
+    "M29-§97"
+   ],
+   "decision_refs": [
+    "G11-ND-15",
+    "D-170"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [
+    "TEST-002",
+    "TEST-004"
+   ],
+   "test_required": "Checklist الـ21 شرطًا بأدلة (روابط تقارير/اختبارات) قبل اعتبار الصفحة منتهية",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P10",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-103",
+   "area": "16 Franchise",
+   "type": "GATE",
+   "title": "لا تغييرات Production في المرحلة الأولى — وثائق وWireframes فقط",
+   "requirement": "المرحلة الأولى: لا Deploy Production · لا Delete old page · لا Redirect old URL · لا change DNS · لا publish unapproved franchise data · لا remove HubSpot globally · لا modify database destructively. البداية: Audit → IA → Content → Wireframes → UX validation → Owner review.",
+   "details": [
+    "متسق مع DEPLOY-001/DEPLOY-007 وبوابات المشروع (لا كود قبل اعتماد الـIA)."
+   ],
+   "sources": [
+    "M29-§92"
+   ],
+   "decision_refs": [
+    "G11-ND-14",
+    "D-002"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [
+    "DEPLOY-001",
+    "DEPLOY-007",
+    "DEPLOY-008"
+   ],
+   "test_required": "مراجعة: لا commit/Deploy يمس Production أو DNS أو الصفحة القديمة أو HubSpot في Phase 1",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P00",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-104",
+   "area": "16 Franchise",
+   "type": "DELIVERABLE",
+   "title": "مخرجات المرحلة الأولى (20) ثم التوقف قبل التنفيذ الكامل",
+   "requirement": "المطلوب أولًا: 1. Confirm project source-of-truth files read · 2. Franchise requirements consolidation · 3. Conflict check · 4. Missing business data list · 5. New Page IA · 6. Arabic content structure · 7. English content structure · 8. Mobile Arabic wireframe · 9. Mobile English wireframe · 10. Desktop Arabic wireframe · 11. Desktop English wireframe · 12. CTA strategy · 13. FAQ draft · 14. Partnership Form Field Matrix · 15. Owner Dashboard Franchise Module IA · 16. SEO migration plan · 17. Analytics plan · 18. Performance plan · 19. Accessibility review · 20. P0 / P1 / P2 issues. ثم التوقف قبل Full Production Implementation إذا Approval Gate ما زالت مطلوبة.",
+   "details": [
+    "مسودات موجودة (غير مُتتبعة): 1–4 → docs/franchise/01 · 5–7 و12–13 → 02 · 14 → 03 · 15 → 04 · 16–18 → 05. لم تظهر بعد: الـWireframes (8–11) · مراجعة الوصولية (19) · قائمة P0/P1/P2 (20).",
+    "البند 2 (التجميع) = هذا الملف G11 + مزامنة المرجع الرئيسي."
+   ],
+   "sources": [
+    "M29-§93"
+   ],
+   "decision_refs": [
+    "G11-ND-14"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "PARTIAL",
+   "tested": "NO",
+   "existing_impl": "spec: docs/franchise/01-SOURCES-CONFLICTS-MISSING.md · docs/franchise/02-PAGE-IA-AND-CONTENT.md · docs/franchise/03-APPLICATION-FIELD-MATRIX.md · docs/franchise/04-DASHBOARD-MODULE-IA.md · docs/franchise/05-SEO-ANALYTICS-PERFORMANCE.md (DRAFT — Phase 1، غير مُتتبعة في git)",
+   "missing_work": "الـWireframes الأربعة + مراجعة الوصولية + قائمة القضايا + اعتماد الـOwner",
+   "dependencies": [],
+   "test_required": "كل مخرج من الـ20 موجود ومرتبط في README الفرنشايز؛ الـWireframes تمر بفحوص النموذج الأولي (tooling)؛ عرض على الـOwner قبل أي بناء",
+   "design_refs": [
+    "docs/franchise/01-SOURCES-CONFLICTS-MISSING.md",
+    "docs/franchise/02-PAGE-IA-AND-CONTENT.md",
+    "docs/franchise/03-APPLICATION-FIELD-MATRIX.md",
+    "docs/franchise/04-DASHBOARD-MODULE-IA.md",
+    "docs/franchise/05-SEO-ANALYTICS-PERFORMANCE.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P03",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-105",
+   "area": "16 Franchise",
+   "type": "RULE",
+   "title": "ترتيب البدء (9 خطوات) + ملخص تنفيذي",
+   "requirement": "STEP 1 قراءة: MASTER REQUIREMENTS · DECISION REGISTER · Franchise Master approved documents · current repository · current Design System · STEP 2 مقارنة الـBrief مع المشروع · STEP 3 تسجيل Conflicts/Pending · STEP 4 Final Franchise Page IA · STEP 5 Arabic + English content structure · STEP 6 Mobile + Desktop Wireframes · STEP 7 Partnership Application Field Matrix · STEP 8 Owner Dashboard Franchise Module IA · STEP 9 UX / Accessibility / SEO / Performance review — ثم Executive Summary واضحة. لا تُستخدم الصفحة القديمة كمصدر Business Requirements.",
+   "details": [
+    "STEP 1: ملفات Franchise Master غير متاحة → مسجلة MISSING (FRAN-007)."
+   ],
+   "sources": [
+    "M29-§100"
+   ],
+   "decision_refs": [
+    "G11-ND-14"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "PARTIAL",
+   "tested": "N/A",
+   "existing_impl": "spec: docs/franchise/01-SOURCES-CONFLICTS-MISSING.md (DRAFT — Phase 1، غير مُتتبعة في git)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "مراجعة: الخطوات التسع منفذة بالترتيب مع دليل لكل خطوة؛ الملخص التنفيذي مقدم للـOwner",
+   "design_refs": [
+    "docs/franchise/01-SOURCES-CONFLICTS-MISSING.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P00",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-106",
+   "area": "16 Franchise",
+   "type": "RULE",
+   "title": "لا أسئلة صغيرة للـOwner — Claude يتخذ أفضل قرار تقني",
+   "requirement": "لا يُسأل الـOwner عن: border radius · card spacing · grid width · breakpoint · component library · icon library · modal implementation · animation duration · CSS approach. يُتخذ أفضل Technical Decision.",
+   "details": [
+    "متسق مع D-176/GOV-015 (Decision · Reason · Test Evidence)."
+   ],
+   "sources": [
+    "M29-§94"
+   ],
+   "decision_refs": [
+    "G11-ND-14",
+    "D-176"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P2",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [
+    "GOV-015"
+   ],
+   "test_required": "مراجعة قائمة الأسئلة للـOwner: لا سؤال من القائمة التسع",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P00",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-107",
+   "area": "16 Franchise",
+   "type": "RULE",
+   "title": "سؤال الـOwner فقط عن القرارات التجارية الحقيقية (12)",
+   "requirement": "يُسأل الـOwner فقط إذا احتجنا: Franchise Fee · Investment Requirement · Territory Rule · Exclusive Rights · Royalty · Contract Terms · Approved Market · Support Commitment · Legal Wording · Financial Qualification · Business Policy · unapproved factual content.",
+   "details": [],
+   "sources": [
+    "M29-§95"
+   ],
+   "decision_refs": [
+    "G11-ND-14"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [
+    "GOV-015"
+   ],
+   "test_required": "مراجعة: كل بند في PENDING-OWNER-INPUT للفرنشايز ينتمي لإحدى الفئات الـ12",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P00",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-108",
+   "area": "16 Franchise",
+   "type": "RULE",
+   "title": "Master Project Sync: كل قرار ← Master/Decision Register/Traceability — والتعارض والنواقص في سجلاتها",
+   "requirement": "أي قرار في هذه المهمة يُحدّث: MASTER REQUIREMENTS · DECISION REGISTER · TRACEABILITY MATRIX. إذا Conflict → CONFLICT REGISTER. إذا Business Data ناقصة → PENDING OWNER INPUT. لا اعتماد على Memory فقط.",
+   "details": [
+    "هذا الملف (G11) مدخل المزامنة؛ وثائق docs/franchise/* ما زالت غير مُتتبعة في git (G11-TF-18)."
+   ],
+   "sources": [
+    "M29-§96"
+   ],
+   "decision_refs": [
+    "G11-ND-14",
+    "D-222"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "PARTIAL",
+   "tested": "N/A",
+   "existing_impl": "this sync (cons/G11.json) → build_master.py",
+   "missing_work": "",
+   "dependencies": [
+    "GOV-014"
+   ],
+   "test_required": "مراجعة: كل FRAN-0xx في Master + كل G11-ND في Decision Register + كل G11-CF في Conflict Register + كل G11-PO في Pending",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P00",
+   "history": [],
+   "notes": ""
+  }
+ ],
+ "updates_to_existing": [
+  {
+   "id": "FRAN-001",
+   "change": "الصفحة لم تعد «قدرة مستقبلية» فقط: M29 يحدد صفحتها ونظام طلبها ووحدتها في الـDashboard (Phase 1 = وثائق وWireframes فقط). تبقى غير منشورة حتى الاعتماد، وشروط النشر صارت محددة: مطابقة Franchise Master (FRAN-007) · Disclaimer قانوني معتمد (FRAN-048) · صور معتمدة (FRAN-025/072) · محتوى APPROVED فقط (FRAN-070) · DoD الـ21 (FRAN-102). حتى النشر: خارج الـSitemap/Navigation/hreflang (G11-TF-10).",
+   "type": "UPDATE",
+   "source": "M29 §01, §92, §93, §97"
+  },
+  {
+   "id": "FRAN-002",
+   "change": "يبقى خيار «استفسارات الفرنشايز → 0799338445» في صفحة التواصل (D-071) — M29 لا يلغيه ولا يذكر الرقم. إضافة رابط «ابدأ طلب الشراكة» للبطاقة عند نشر الصفحة = مقترح (docs/franchise/01 FC-03/PF-12) → G11-PO-11.",
+   "type": "UPDATE",
+   "source": "M29 §27 (صمت عن الهاتف)"
+  },
+  {
+   "id": "FRAN-003",
+   "change": "ضُيّق ووُسّع: «Application criteria» العام → المعايير النوعية السبع مسموحة بعد اعتماد المحتوى (FRAN-030) والاشتراطات المحددة ممنوعة (FRAN-031)؛ «Fees/Financial claims» → قائمة الـ19 (FRAN-022)؛ «Territories» → لا AVAILABLE/EXCLUSIVE/OPEN/RESERVED (FRAN-017)؛ «ادعاء أن التقديم مفتوح» → النموذج جزء من الصفحة ويُنشر معها عند الاعتماد (G11-CF-02).",
+   "type": "UPDATE",
+   "source": "M29 §04, §09, §21, §27 (G11-CF-01)"
+  },
+  {
+   "id": "D-071",
+   "change": "الحظر «Application criteria» يُضيَّق بالقرار الأحدث M29 §21: المعايير العامة السبع قابلة للعرض بعد اعتماد محتوى الصفحة ومطابقة Franchise Master؛ الحظر قائم على الاشتراطات المحددة/المالية. باقي D-071 (خيار التواصل، الصفحة غير منشورة حتى الاعتماد) بلا تغيير.",
+   "type": "UPDATE",
+   "source": "M29 §21 (G11-CF-01)"
+  },
+  {
+   "id": "D-015",
+   "change": "Franchise ما زال ضمن الصفحات المعتمدة؛ M29 يحوله إلى صفحة محددة + طلب شراكة + وحدة Dashboard. قاعدة «لا رسوم أو شروط أو أن التقديم مفتوح قبل اعتماد المحتوى» قائمة (مفصلة في FRAN-022/030/031).",
+   "type": "UPDATE",
+   "source": "M29 §01, §09, §21"
+  },
+  {
+   "id": "PO-030",
+   "change": "أُجيب معظمه: هيكل الصفحة واتجاه محتواها (FRAN-009…037)، ما يُحذف من القديم ووعد 5 أيام (FRAN-020/033)، من يستقبل الطلبات (وحدة الـDashboard — الـOwner وحده في V1 حسب M30)، وما يجوز قوله (اتجاه + PENDING VERIFICATION). «هل يُمنح الامتياز فعلًا؟»: يوجد مشروع SHELTER Franchise مستقل ونية استقبال الطلبات عبر الصفحة، والنشر مشروط. المتبقي محصور في G11-PO-01…12.",
+   "type": "ANSWERS",
+   "source": "M29 §01–§36, §45; M30"
+  },
+  {
+   "id": "PO-032",
+   "change": "للفرنشايز تحديدًا: ممنوع market dominance/number one/best/largest/fastest growing و«مضمون/أفضل فرنشايز/نموذج مثبت النجاح» بلا دليل واعتماد؛ ادعاءات الصفحة القديمة («هوية معروفة ومحبوبة»، «نموذج ربحي بأرقام») = REMOVE أو إعادة كتابة كمفهوم بعد التحقق.",
+   "type": "UPDATE",
+   "source": "M29 §08, §15, §83"
+  },
+  {
+   "id": "CONTACT-007",
+   "change": "M29 لا يحدد ظهور 0799338445 في صفحة الفرنشايز الجديدة (المقترح 14 §2 «الرقم الوحيد في الصفحة» يبقى مقترحًا)؛ القناة الأساسية = طلب الشراكة؛ القرار في G11-PO-11.",
+   "type": "UPDATE",
+   "source": "M29 §26, §27"
+  },
+  {
+   "id": "CONTACT-013",
+   "change": "بطاقة «استفسارات الفرنشايز» تبقى → 0799338445؛ عند نشر الصفحة يُقترح ربط البطاقة بـ/ar/franchise/ و«ابدأ طلب الشراكة» (G11-PO-11).",
+   "type": "UPDATE",
+   "source": "M29 §26, §67"
+  },
+  {
+   "id": "CONTACT-024",
+   "change": "لا يُنشأ ولا يُنشر بريد فرنشايز؛ طلب الشراكة يحل محل الاستقبال بالبريد (info@ كان قناة الصفحة القديمة — CR-042)؛ لا رسائل بريد تلقائية للمتقدم. البريد المنفصل يبقى قدرة مستقبلية (PO-026).",
+   "type": "UPDATE",
+   "source": "M29 §27, §35"
+  },
+  {
+   "id": "PO-043",
+   "change": "يُضاف للقاموس: franchise_page_view · franchise_cta_click · franchise_form_start · franchise_form_step · franchise_form_submit · franchise_form_error · franchise_faq_open بمعاملاتها بلا PII (FRAN-091)، مع توثيق اختلاف نمط التسمية عن أحداث التوظيف (G11-CF-08).",
+   "type": "UPDATE",
+   "source": "M29 §68, §69, §91"
+  },
+  {
+   "id": "ANL-008",
+   "change": "الـEvent Taxonomy يضم الأحداث السبعة للفرنشايز (FRAN-091) — الأسماء كما أعطاها الـOwner؛ أي تعديل تقني بقاعدة D-185.",
+   "type": "UPDATE",
+   "source": "M29 §68"
+  },
+  {
+   "id": "D-204",
+   "change": "قائمة الأحداث تتسع بأحداث الفرنشايز السبعة (FRAN-091).",
+   "type": "UPDATE",
+   "source": "M29 §68"
+  },
+  {
+   "id": "DB-14",
+   "change": "HubSpot: تدقيق الموجود قبل أي إزالة أو إبقاء (§63)؛ لا إزالة عامة في Phase 1 (§92)؛ النموذج الجديد للشراكة (مثل التوظيف) ليس HubSpot-dependent؛ يُفحص في الـAudit أين تذهب إرساليات نموذج الفرنشايز القديم.",
+   "type": "UPDATE",
+   "source": "M29 §27, §63, §92"
+  },
+  {
+   "id": "PO-038",
+   "change": "إضافة لقرار HubSpot: إذا كشف الـAudit طلبات فرنشايز قديمة مخزنة في HubSpot/WordPress، مصيرها قرار لاحق (الافتراضي: لا نقل ولا حذف) — لا يُسأل الآن.",
+   "type": "UPDATE",
+   "source": "M29 §63, §92"
+  },
+  {
+   "id": "PERF-011",
+   "change": "صفحة الفرنشايز: legacy HubSpot وأدوات الدردشة لا تُحمّل فيها، وGA4/GTM/Motion لا تؤخر الصفحة (FRAN-087).",
+   "type": "UPDATE",
+   "source": "M29 §63"
+  },
+  {
+   "id": "PO-021",
+   "change": "احتياج صور الفرنشايز: تصوير حقيقي لـDRIVE وHOUSE، Brand architecture، تجربة القهوة/المنتج، بيئة المكان، صورة OG للصفحة (G11-PO-10).",
+   "type": "UPDATE",
+   "source": "M29 §14, §51"
+  },
+  {
+   "id": "MEDIA-005",
+   "change": "للفرنشايز يُضاف للممنوع: Fake franchise location · AI-generated branch pretending to be real؛ وعند الغياب الوسم «MEDIA PENDING OWNER APPROVAL».",
+   "type": "UPDATE",
+   "source": "M29 §14"
+  },
+  {
+   "id": "BRAND-002",
+   "change": "«black/cream visual hierarchy» في M29 §84 اتجاه من Concept سابق فقط — ليست Brand Tokens؛ القيم تبقى MISSING حتى ملفات الهوية (G11-CF-07).",
+   "type": "UPDATE",
+   "source": "M29 §84"
+  },
+  {
+   "id": "PO-002",
+   "change": "يُطلب مع ملفات الهوية: ملف الـVisual Concept السابق الذي اعتُمد اتجاهه (G11-PO-09)؛ اتجاه أسود/كريمي يُطابق مع الألوان الرسمية عند وصولها.",
+   "type": "UPDATE",
+   "source": "M29 §84"
+  },
+  {
+   "id": "BRAND-006",
+   "change": "تتسع قائمة الممنوع: Cheap gold luxury theme · Template franchise page · AI-looking landing page · Overdecorated page (FRAN-074).",
+   "type": "UPDATE",
+   "source": "M29 §53"
+  },
+  {
+   "id": "BRAND-005",
+   "change": "صفات إضافية لصفحة الفرنشايز: Architectural · Global · Coffee-led · Strong imagery · Strong whitespace (FRAN-073).",
+   "type": "UPDATE",
+   "source": "M29 §52"
+  },
+  {
+   "id": "D-010",
+   "change": "مسموح في صفحة الفرنشايز رسالة نمو عامة («أسواق جديدة»، Jordan + International Growth) بلا أي دولة/مدينة/Territory؛ القاعدة قائمة لكل ما هو محدد (G11-CF-03).",
+   "type": "UPDATE",
+   "source": "M29 §04, §13, §24"
+  },
+  {
+   "id": "WEB-004",
+   "change": "نفس استثناء D-010 لرسالة النمو العامة في صفحة الفرنشايز (FRAN-034).",
+   "type": "UPDATE",
+   "source": "M29 §24"
+  },
+  {
+   "id": "D-018",
+   "change": "إعادة تأكيد في الفرنشايز: 2019 و20/04؛ 2018 و«Since 2022» وأي تاريخ متعارض = SUPERSEDED / DO NOT USE (FRAN-014).",
+   "type": "UPDATE",
+   "source": "M29 §03"
+  },
+  {
+   "id": "D-008",
+   "change": "DRIVE وHOUSE = «Current public customer-facing concepts» وليست باقات فرنشايز معتمدة؛ لا «اختر نموذج الفرنشايز» بلا Franchise Master (FRAN-016).",
+   "type": "UPDATE",
+   "source": "M29 §03, §16"
+  },
+  {
+   "id": "PO-006",
+   "change": "M29 يعيد تأكيد ما أجابه M28: Cloudways («Cloudways architecture المعتمدة للموقع») + Backend Server-side + قاعدة الموقع لبيانات الشراكة؛ الإطار يبقى مفتوحًا (G10-CF-05) — لا سؤال جديد.",
+   "type": "UPDATE",
+   "source": "M29 §27, §29"
+  },
+  {
+   "id": "DB-08",
+   "change": "قيد إضافي من M29: بيانات طلبات الشراكة على قاعدة الموقع في Cloudways (لا CRM/SaaS خارجي)؛ يدعم الحاجة لـApplications Core مشترك مع التوظيف (G11-TF-02).",
+   "type": "UPDATE",
+   "source": "M29 §27–§29"
+  },
+  {
+   "id": "CMS-021",
+   "change": "Supabase «إذا استُخدم» لا ينطبق على بيانات طلبات الشراكة (Cloudways DB) — مثل التوظيف.",
+   "type": "UPDATE",
+   "source": "M29 §27, §28"
+  },
+  {
+   "id": "DASH-006",
+   "change": "تُضاف وحدة «Franchise & Partnerships» (الاسم المختصر المقترح «الشراكات / Partnerships») — Native، ليست iframe (FRAN-054).",
+   "type": "UPDATE",
+   "source": "M29 §37"
+  },
+  {
+   "id": "AUDIT-001",
+   "change": "أحداث Audit خاصة بالشراكات: application created · status changed · note added · meeting scheduled · document added · archived · exported · access-sensitive action (FRAN-065).",
+   "type": "UPDATE",
+   "source": "M29 §80"
+  },
+  {
+   "id": "SCHEMA-003",
+   "change": "في صفحة الفرنشايز يُمنع أيضًا اختراع Offer · Price · Investment Product (إضافة إلى Rating/Review/Availability) — FRAN-090.",
+   "type": "UPDATE",
+   "source": "M29 §66"
+  },
+  {
+   "id": "SCHEMA-004",
+   "change": "FAQPage لأسئلة الفرنشايز المعتمدة المنشورة فقط؛ لا توقع Rich Result (G11-TF-07).",
+   "type": "UPDATE",
+   "source": "M29 §66"
+  },
+  {
+   "id": "SEO-010",
+   "change": "/franchise-shelter-coffee/ = REBUILD → /ar/franchise/؛ 301 فقط بعد الفحوص العشرة وموافقة الـOwner (FRAN-093)؛ الوجهة إن لم تُنشر الصفحة عند الإطلاق = G11-PO-12.",
+   "type": "UPDATE",
+   "source": "M29 §71"
+  },
+  {
+   "id": "DB-04",
+   "change": "للصفحة القديمة /franchise-shelter-coffee/: القرار إعادة بناء صفحة جديدة (ليست حذفًا) بمحتوى جديد؛ محتوى القديم لا يُعاد استخدامه إلا كمفاهيم (FRAN-020/021). يغلق ملاحظة 01-inventory P11 («وعود مالية بخطر قانوني»).",
+   "type": "ANSWERS",
+   "source": "M29 §07, §08, §99"
+  },
+  {
+   "id": "CR-087",
+   "change": "قائمة مزايا الصفحة القديمة: «هوية/تدريب/دعم تسويقي/موردون/تصميم موحد» = KEEP AS CONCEPT + REWRITE (PENDING VERIFICATION)؛ «نموذج ربحي واضح بأرقام وإحصائيات» = REMOVE.",
+   "type": "ANSWERS",
+   "source": "M29 §08"
+  },
+  {
+   "id": "CR-088",
+   "change": "نموذج الشراكة القديم ووعد «خلال 5 أيام عمل» = REMOVE؛ يستبدلهما SHELTER PARTNERSHIP APPLICATION الأصلي (FRAN-038).",
+   "type": "ANSWERS",
+   "source": "M29 §08, §23"
+  },
+  {
+   "id": "CR-089",
+   "change": "الرسوم والشروط تبقى MISSING وممنوعة النشر — القائمة الـ19 (FRAN-022).",
+   "type": "UPDATE",
+   "source": "M29 §09"
+  },
+  {
+   "id": "VQ-04",
+   "change": "يوجد مشروع SHELTER Franchise مستقل، والنية استقبال طلبات شراكة عبر الصفحة الجديدة؛ النشر مشروط باعتماد المحتوى وFranchise Master.",
+   "type": "ANSWERS",
+   "source": "M29 §01, §10"
+  },
+  {
+   "id": "10-url-architecture-draft §5",
+   "change": "صف /franchise-shelter-coffee/: «لا Redirect الآن؛ 10 فحوص؛ 301 بعد الموافقة» (FRAN-093)؛ البديل المؤقت «/ar/about/» يتعارض مع 02-seed «/contact» → G11-CF-04.",
+   "type": "UPDATE",
+   "source": "M29 §71"
+  },
+  {
+   "id": "PRIV-005",
+   "change": "نموذج الشراكة: لا Marketing opt-in افتراضي، لا تحويل للنشرة، Consent واضح لمعالجة الطلب فقط (FRAN-050).",
+   "type": "UPDATE",
+   "source": "M29 §75"
+  },
+  {
+   "id": "IA-012",
+   "change": "بيانات طلبات الشراكة لا تُضاف تلقائيًا لأي نشرة (FRAN-050).",
+   "type": "UPDATE",
+   "source": "M29 §75"
+  },
+  {
+   "id": "PO-019",
+   "change": "يُضاف لنطاقه: نص موافقة نموذج الشراكة ومدة الاحتفاظ بطلبات الفرنشايز وإشعار الخصوصية (G11-PO-03).",
+   "type": "UPDATE",
+   "source": "M29 §36, §75"
+  },
+  {
+   "id": "MOTION-007",
+   "change": "ذكر GSAP في M29 §56 مشروط بوجوده في الـStack — غير موجود؛ Motion هي المكتبة الوحيدة، Lenis حسب D-151 (G11-CF-10).",
+   "type": "UPDATE",
+   "source": "M29 §56"
+  },
+  {
+   "id": "RESP-004",
+   "change": "صفحة الفرنشايز على الـ14 عرضًا (§57)؛ مصفوفة QA في §88 حد أدنى (10 عروض + Chrome/Firefox/WebKit) — G11-CF-11.",
+   "type": "UPDATE",
+   "source": "M29 §57, §88"
+  },
+  {
+   "id": "TEST-010",
+   "change": "الفرنشايز يتطلب Chrome · Firefox · WebKit صراحة؛ البيئة الحالية Chromium فقط (G11-TF-08).",
+   "type": "UPDATE",
+   "source": "M29 §88"
+  },
+  {
+   "id": "GOV-005",
+   "change": "ترتيب سلطة خاص بالفرنشايز يُدرج Franchise Master في المستوى 2 (FRAN-005، G11-CF-06).",
+   "type": "UPDATE",
+   "source": "M29 §AUTHORITY ORDER"
+  },
+  {
+   "id": "D-221",
+   "change": "تخصيص مجالي لترتيب السلطة في موضوعات الفرنشايز (FRAN-005).",
+   "type": "UPDATE",
+   "source": "M29 §AUTHORITY ORDER"
+  },
+  {
+   "id": "GOV-004",
+   "change": "للفرنشايز: الصفحة القديمة للهجرة التقنية فقط بقائمة استثناءات محددة (old URL · title/meta · canonical · indexing · backlinks · GSC history · redirects · sitemap · old schema · legacy tracking) — FRAN-006.",
+   "type": "UPDATE",
+   "source": "M29 §SOURCE OF TRUTH, §99"
+  },
+  {
+   "id": "CAREERS-040",
+   "change": "اتفاقية ترقيم موحدة PREFIX-YYYY-NNNNN: JOB- للتوظيف وFR- للشراكات، بعداد لكل (prefix, year) في Applications Core مشترك (FRAN-046، G11-TF-02/03).",
+   "type": "UPDATE",
+   "source": "M29 §34"
+  },
+  {
+   "id": "CAREERS-077",
+   "change": "أحداث التوظيف (application_started…) تبقى كما اعتمدها M28؛ أحداث الشراكة franchise_form_* بنمط مختلف موثق في القاموس دون إعادة تسمية (G11-CF-08).",
+   "type": "UPDATE",
+   "source": "M29 §68"
+  },
+  {
+   "id": "MON-009",
+   "change": "تنبيه الطلبات الجديدة للشراكات داخل الـDashboard فقط (شارة/عدّاد)؛ لا Email/WhatsApp تلقائي (G11-TF-13).",
+   "type": "UPDATE",
+   "source": "M29 §35, §37"
+  },
+  {
+   "id": "I18N-001",
+   "change": "صفحة الفرنشايز ونموذجها وصفحة نجاحها كاملة AR وEN (بخلاف استثناء نموذج التوظيف العربي — G11-CF-09).",
+   "type": "UPDATE",
+   "source": "M29 §05"
+  },
+  {
+   "id": "PO-005",
+   "change": "/ar/franchise/ و/en/franchise/ متسقة مع الشجرة؛ تجميدها مع حزمة الروابط؛ x-default لصفحات العلامة (ROOT-02) يشمل الفرنشايز.",
+   "type": "UPDATE",
+   "source": "M29 §06, §72"
+  },
+  {
+   "id": "PO-020",
+   "change": "نصوص الفرنشايز تنضم لدفعات اعتماد النصوص: H1 الإنجليزي، صقل جملة الـHero AR/EN، الـCTA الإنجليزي، عناوين الأقسام، وصف DRIVE/HOUSE، إجابات الـFAQ، Title/Meta.",
+   "type": "UPDATE",
+   "source": "M29 §02, §13, §25"
+  },
+  {
+   "id": "CF-M-030",
+   "change": "يُستكمل تاريخ التعارض بقرار M29 §21 (G11-CF-01): المعايير العامة مسموحة، المحددة ممنوعة.",
+   "type": "UPDATE",
+   "source": "M29 §21"
+  },
+  {
+   "id": "GOV-015",
+   "change": "قائمة صريحة للأسئلة الصغيرة الممنوعة (9) والقرارات التجارية المسموح السؤال عنها (12) في مجال الفرنشايز (FRAN-106/107).",
+   "type": "UPDATE",
+   "source": "M29 §94, §95"
+  }
+ ],
+ "conflicts": [
+  {
+   "id": "G11-CF-01",
+   "topic": "نشر معايير الشريك: حظر «Application criteria» مقابل 7 معايير عامة",
+   "old_instruction": "لا نشر لـ: Fees · Requirements · Territories · Financial claims · Application criteria",
+   "old_source": "D-071 (M14 PG-03) · FRAN-003",
+   "new_instruction": "«ما الذي نبحث عنه في الشريك؟»: 7 معايير High-level قابلة للعرض؛ ممنوع minimum cash · specific capital · specific industry experience · net worth · company size حتى اعتمادها",
+   "new_source": "M29 §21",
+   "winner": "M29 §21 للمعايير النوعية العامة؛ D-071 يبقى للمحددة/المالية",
+   "why": "قرار صريح أحدث من الـOwner يحدد نطاقًا أضيق للحظر؛ ليس إلغاءً بل تفصيلًا",
+   "impact": "FRAN-030/031؛ تحديث FRAN-003 وD-071 وCF-M-030؛ النشر ما زال مشروطًا باعتماد المحتوى ومطابقة Franchise Master",
+   "files": [
+    "docs/governance/DECISION-LOG.md D-071",
+    "docs/franchise/01-SOURCES-CONFLICTS-MISSING.md FC-01"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "id": "G11-CF-02",
+   "topic": "«لا ادعاء أن التقديم مفتوح» مقابل بناء Partnership Application بـCTA «ابدأ طلب الشراكة»",
+   "old_instruction": "Franchise قدرة مستقبلية — لا تُنشر رسوم أو شروط أو أن التقديم مفتوح قبل اعتماد المحتوى",
+   "old_source": "D-015 (M03 R1-09)",
+   "new_instruction": "ابنِ SHELTER PARTNERSHIP APPLICATION ونموذج تأهيل وPipeline؛ Phase 1 وثائق وWireframes فقط؛ لا نشر لبيانات غير معتمدة",
+   "new_source": "M29 §01, §27, §92",
+   "winner": "كلاهما — بالتسلسل الزمني",
+   "why": "M29 يعبر عن نية استقبال الطلبات لكنه يمنع النشر في Phase 1؛ نشر الصفحة (ومعها النموذج = التقديم مفتوح فعليًا) يتم فقط عند اعتماد المحتوى، فيتحقق شرط D-015",
+   "impact": "FRAN-001 (شروط النشر)، FRAN-103؛ لا نشر جزئي للنموذج قبل الصفحة",
+   "files": [
+    "docs/governance/DECISION-LOG.md D-015"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "id": "G11-CF-03",
+   "topic": "رسالة التوسع: لا خطة توسع ولا دول مستقبلية مقابل «أسواق جديدة» و«International Growth»",
+   "old_instruction": "لا تُخترع خطة توسع، ولا تُعرض أي دولة أو فرع مستقبلي للجمهور قبل معلومات وموافقة الـOwner",
+   "old_source": "D-010 (M03 R1-04) · WEB-004",
+   "new_instruction": "جملة الـHero: «لبناء حضور SHELTER في أسواق جديدة»؛ قسم «أسواق النمو»: Jordan + International Growth بلا Territories ولا خريطة",
+   "new_source": "M29 §13, §24",
+   "winner": "M29 لرسالة النمو العامة فقط؛ D-010 قائم لكل دولة/مدينة/فرع/Territory",
+   "why": "الـOwner نفسه صاغ الرسالة العامة وأذن بها صراحة مع منع التحديد؛ لا تُذكر دولة",
+   "impact": "FRAN-012/017/034؛ تحديث D-010 وWEB-004",
+   "files": [
+    "docs/governance/DECISION-LOG.md D-010",
+    "docs/franchise/02-PAGE-IA-AND-CONTENT.md"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "id": "G11-CF-04",
+   "topic": "وجهة 301 للرابط القديم /franchise-shelter-coffee/ إذا لم تُنشر الصفحة الجديدة عند الإطلاق",
+   "old_instruction": "10-url-architecture-draft §5: → /ar/franchise/ «(إذا بقيت مخفية: مؤقتًا إلى /ar/about/ — قرار لاحق)»؛ 02-url-inventory: «/franchise إن بقي، وإلا /contact» (DB-04 UNDECIDED)",
+   "old_source": "10 §5 · 02-url-inventory-and-migration-seed (Claude drafts)",
+   "new_instruction": "لا Redirect الآن؛ 10 فحوص قبل الإطلاق؛ ثم 301 old → appropriate new canonical URL بعد Owner Approval",
+   "new_source": "M29 §71",
+   "winner": "— (قرار الـOwner عند P11)",
+   "why": "M29 يحسم المبدأ والوجهة الطبيعية (/ar/franchise/) لكنه لا يحدد البديل إن بقيت الصفحة غير منشورة عند إطلاق الموقع، والمسودتان متعارضتان؛ قرار الـRedirect للـOwner صراحة. التوصية التقنية: /ar/contact/ (فيها «استفسارات الفرنشايز» — مطابقة للنية) بدل /ar/about/",
+   "impact": "SEO-MIGRATION-MAP وخريطة 301 في P11 فقط؛ لا يمنع Phase 1",
+   "files": [
+    "docs/phase-01-discovery/10-url-architecture-draft.md §5",
+    "docs/phase-01-discovery/02-url-inventory-and-migration-seed.md",
+    "docs/google/SEO-MIGRATION-MAP.md"
+   ],
+   "status": "OWNER DECISION REQUIRED"
+  },
+  {
+   "id": "G11-CF-05",
+   "topic": "مفردات حالة المحتوى: M29 (4 حالات) مقابل مفردات المشروع (6)",
+   "old_instruction": "Business data = APPROVED · MISSING · PENDING OWNER APPROVAL · PENDING VERIFICATION · REJECTED · SUPERSEDED",
+   "old_source": "D-224 (M27 §7) · GOV-024",
+   "new_instruction": "كل Franchise content يحمل APPROVED · PENDING · MISSING · SUPERSEDED؛ لا يُنشر PENDING/MISSING كحقيقة",
+   "new_source": "M29 §49",
+   "winner": "كلاهما — تخزين بمفردات D-224 وعرض بتجميع M29",
+   "why": "تفصيل تقني (قاعدة 8): PENDING في M29 = PENDING OWNER APPROVAL ∪ PENDING VERIFICATION؛ REJECTED يُعامل كغير قابل للنشر؛ لا تغيير في المعنى",
+   "impact": "FRAN-070؛ نموذج بيانات المحتوى في الـCMS",
+   "files": [
+    "docs/SHELTER-WEBSITE-MASTER-REQUIREMENTS.md GOV-024"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "id": "G11-CF-06",
+   "topic": "ترتيب السلطة: M27 العام مقابل ترتيب M29 الخاص بالفرنشايز",
+   "old_instruction": "آخر قرار صريح → قرار سابق غير مستبدل → وثيقة معتمدة → مصدر رسمي → الكود → اقتراح AI",
+   "old_source": "D-221 (M27 §42) · GOV-005",
+   "new_instruction": "1 آخر قرار Owner · 2 SHELTER Franchise master documents · 3 Website Master Requirements · 4 Decision Register · 5 مصدر تشغيلي رسمي · 6 الموقع القديم · 7 اقتراح AI",
+   "new_source": "M29 §AUTHORITY ORDER",
+   "winner": "M29 لموضوعات الفرنشايز؛ D-221 لباقي المشروع",
+   "why": "قرار أحدث محصور بمجاله؛ لا يُسقط القرارات السابقة غير المستبدلة لأنها قرارات Owner (المستوى 1)، وM29 نفسه يحيل لـFranchise Master في الدعم والعملية والحالات",
+   "impact": "FRAN-005؛ تحديث GOV-005/D-221",
+   "files": [],
+   "status": "RESOLVED"
+  },
+  {
+   "id": "G11-CF-07",
+   "topic": "«black/cream visual hierarchy» مقابل منع اختيار ألوان قبل ملفات الهوية",
+   "old_instruction": "لا يختار الفريق ألوانًا أو خطوطًا من عنده؛ Visual Design ينتظر ملفات الهوية (M-10)",
+   "old_source": "BRAND-002 · D-003 · CF-M-005 (CF-11)",
+   "new_instruction": "Visual Concept سابق «تمت الموافقة على اتجاهه العام» يُستخدم كـDirection: premium hero · black/cream visual hierarchy · architectural photography …",
+   "new_source": "M29 §84",
+   "winner": "M29 كاتجاه تراتبي فقط؛ القيم من ملفات الهوية",
+   "why": "M29 نفسه يقول «Direction فقط» و«لا تنسخه»؛ الأسود/الكريمي ليست Tokens. إن اختلفت ملفات الهوية الرسمية فهي الفائزة (هوية العلامة للـOwner)",
+   "impact": "FRAN-075؛ لا Tokens قبل PO-002؛ طلب ملف الـConcept (G11-PO-09)",
+   "files": [
+    "design-system/tokens/tokens.template.json",
+    "docs/franchise/01-SOURCES-CONFLICTS-MISSING.md"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "id": "G11-CF-08",
+   "topic": "نمط تسمية الأحداث: franchise_form_* مقابل application_* في التوظيف",
+   "old_instruction": "التوظيف: careers_page_view · application_started · application_submitted · application_error (M28 §57)؛ القائمة العامة object_action (menu_view، phone_click…)",
+   "old_source": "CAREERS-077 · D-204",
+   "new_instruction": "franchise_page_view · franchise_cta_click · franchise_form_start · franchise_form_step · franchise_form_submit · franchise_form_error · franchise_faq_open — «استخدم Project-wide naming convention إذا مختلف»",
+   "new_source": "M29 §68",
+   "winner": "أسماء M29 كما هي",
+   "why": "لا تصادم أسماء (البادئة franchise_ تميزها) ونمطها object_action يطابق القائمة العامة؛ أحداث التوظيف معتمدة ولا تُعاد تسميتها؛ D-185 يسمح بالتعديل فقط لمشكلة تقنية واضحة — غير موجودة. التوثيق المشترك في القاموس (PO-043)",
+   "impact": "FRAN-091؛ PO-043؛ ANL-008",
+   "files": [
+    "docs/google/GA4-MEASUREMENT-PLAN.md",
+    "docs/franchise/05-SEO-ANALYTICS-PERFORMANCE.md §2"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "id": "G11-CF-09",
+   "topic": "لغة النموذج: نموذج التوظيف عربي فقط مقابل صفحة فرنشايز كاملة باللغتين",
+   "old_instruction": "ONE FORM / ONE FLOW: طلب التوظيف ARABIC ONLY و/en/careers/ يحيل للنموذج العربي",
+   "old_source": "M28 §03 · G10-CF-02",
+   "new_instruction": "الصفحة يجب أن تكون كاملة باللغتين (والـPlaywright يختبر فتح الصفحتين وتبديل اللغة)؛ English = natural international business English",
+   "new_source": "M29 §05, §89",
+   "winner": "قرار خاص بكل وحدة",
+   "why": "قراران صريحان بنطاقين مختلفين؛ جمهور الشراكة دولي (Global-ready، International Markets)؛ لا تعارض مع «مصدر واحد» لأن النموذجين بواجهتين يرسلان لنفس الجدول والمسار",
+   "impact": "FRAN-018/042؛ نموذج شراكة AR وEN بخادم واحد",
+   "files": [
+    "docs/CAREERS-REQUIREMENTS.md §2",
+    "docs/franchise/03-APPLICATION-FIELD-MATRIX.md"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "id": "G11-CF-10",
+   "topic": "أدوات الحركة: «Motion · GSAP · Lenis» مقابل Motion افتراضي وLenis مشروط",
+   "old_instruction": "Motion مكتبة الحركة الافتراضية؛ دراسة GSAP لم تعد الافتراض (D-152)؛ Lenis لا يُفعّل globally ويُقيَّم لأقسام immersive فقط بالاختبار (D-151)",
+   "old_source": "D-151 · D-152 (M24)",
+   "new_instruction": "إذا المشروع يحتوي Motion · GSAP · Lenis استخدم كل أداة فقط عندما لها سبب؛ لا Duplicate animation library",
+   "new_source": "M29 §56",
+   "winner": "D-151/D-152 (متسقة مع شرط M29)",
+   "why": "M29 مشروط بما «يحتويه المشروع»: GSAP غير موجود → إضافته = مكتبة مكررة ممنوعة؛ Lenis يبقى بشروط D-151 (الصفحة القصصية قد تؤهل كـimmersive فقط بدليل أداء)",
+   "impact": "FRAN-077؛ لا GSAP",
+   "files": [
+    "docs/FRONTEND-TOOLING.md"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "id": "G11-CF-11",
+   "topic": "مصفوفة العروض: 10 عروض في QA مقابل 14 عرضًا إلزاميًا",
+   "old_instruction": "Responsive mandatory: 320/360/375/390/412/430/768/820/1024/1280/1366/1440/1536/1920",
+   "old_source": "M29 §57 · D-217 (M26)",
+   "new_instruction": "QA MATRIX: 320 · 360 · 390 · 430 · 768 · 820 · 1024 · 1366 · 1536 · 1920",
+   "new_source": "M29 §88",
+   "winner": "الـ14 (§57) للتصميم والاختبار؛ §88 حد أدنى",
+   "why": "الرسالة نفسها تطلب الـ14 كإلزام؛ §88 قائمة QA جزئية منها وتضيف المحركات الثلاثة؛ الأوسع لا يخالف الأضيق",
+   "impact": "FRAN-079/098؛ tooling/viewports.mjs يغطي 20 مشروعًا",
+   "files": [
+    "tooling/viewports.mjs"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "id": "G11-CF-12",
+   "topic": "قناة استفسار الفرنشايز: هاتف 0799338445 في صفحة التواصل مقابل طلب الشراكة كقناة أساسية",
+   "old_instruction": "خيار «استفسارات الفرنشايز / Franchise Inquiries → 0799338445» في صفحة التواصل من يوم الإطلاق",
+   "old_source": "D-071 · D-057 · D-059",
+   "new_instruction": "الهدف الأساسي للصفحة = Franchise Application؛ البيانات إلى الـDashboard؛ M29 لا يذكر الهاتف",
+   "new_source": "M29 §01, §27, §67",
+   "winner": "كلاهما",
+   "why": "لا إلغاء صريح لـD-071؛ القناتان تتكاملان: الهاتف في التواصل من الإطلاق، والنموذج عند نشر الصفحة. ربطهما (رابط من البطاقة) وظهور الرقم في الصفحة = مقترح للـOwner",
+   "impact": "FRAN-002؛ G11-PO-11",
+   "files": [
+    "docs/phase-01-discovery/14-contact-architecture-and-whatsapp.md §2, §4",
+    "docs/franchise/01-SOURCES-CONFLICTS-MISSING.md FC-03"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "id": "G11-CF-13",
+   "topic": "مسودة إجابة FAQ «التقديم من خارج الأردن» تقرر سياسة سوق",
+   "old_instruction": "مسودة Claude (docs/franchise/02 §4 س2): «نعم، يمكن إرسال الطلب من أي دولة، وتتم مراجعته وفق نفس الأسس.» — موسومة «✅ محايدة»",
+   "old_source": "docs/franchise/02-PAGE-IA-AND-CONTENT.md §4 (DRAFT)",
+   "new_instruction": "لا تخترع Answers تجارية؛ Approved Market سؤال تجاري للـOwner؛ لا إعلان توفر أسواق",
+   "new_source": "M29 §04, §25, §95",
+   "winner": "M29",
+   "why": "إمكانية الإرسال من أي دولة مقبولة تقنيًا (حقل Country دولي)، لكن «وفق نفس الأسس» التزام سياسة؛ الصياغة يجب أن تكون محايدة مثل س1 («لا يعني استلام الطلب توفر فرصة في سوق محدد») حتى قرار الأسواق",
+   "impact": "تعديل المسودة + G11-PO-07",
+   "files": [
+    "docs/franchise/02-PAGE-IA-AND-CONTENT.md §4"
+   ],
+   "status": "DOC FIX NEEDED"
+  }
+ ],
+ "new_decisions": [
+  {
+   "temp_id": "G11-ND-01",
+   "area": "16 Franchise",
+   "decision": "مرجع الفرنشايز وسلطته: M29 = المرجع التنفيذي الحالي لصفحة FRANCHISE / PARTNERSHIP + SHELTER PARTNERSHIP APPLICATION + وحدة «Franchise & Partnerships»؛ ترتيب سلطة خاص (Owner ← Franchise Master ← Master Requirements ← Decision Register ← مصدر تشغيلي ← الموقع القديم ← AI)؛ الصفحة القديمة /franchise-shelter-coffee/ ليست مصدر محتوى/UX/UI/تصميم/معمارية/سياسة — للهجرة التقنية فقط؛ لا إعادة سؤال عن قرارات M29",
+   "sources": [
+    "M29-§00",
+    "M29-§AUTHORITY ORDER",
+    "M29-§SOURCE OF TRUTH",
+    "M29-§99",
+    "M29-§100"
+   ],
+   "status": "APPROVED",
+   "reason": "مواصفة الـOwner M29 (OWNER-APPROVED DIRECTION)",
+   "impact": "FRAN-004/005/006؛ GOV-004/005"
+  },
+  {
+   "temp_id": "G11-ND-02",
+   "area": "16 Franchise",
+   "decision": "مصدر المحتوى التجاري للفرنشايز = APPROVED SHELTER FRANCHISE MASTER FILES من المشروع المستقل SHELTER Franchise (Financial Model · Fee · Territory Rule · Qualification Policy · Support Promise · Agreement Terms · Expansion Rules · Store Requirements · Partner Criteria) — ليس AI؛ Franchise Master يفوز في الدعم والعملية وحالات الـDashboard والركائز وباقات DRIVE/HOUSE",
+   "sources": [
+    "M29-§10",
+    "M29-§16",
+    "M29-§17",
+    "M29-§20",
+    "M29-§22",
+    "M29-§38"
+   ],
+   "status": "APPROVED",
+   "reason": "M29 §10",
+   "impact": "FRAN-007 + كل أقسام الالتزام؛ G11-PO-01 (الملفات MISSING)"
+  },
+  {
+   "temp_id": "G11-ND-03",
+   "area": "16 Franchise",
+   "decision": "تموضع الصفحة وتجربتها: العنوان «كن شريكًا مع SHELTER COFFEE» (Hero: «كن شريكًا في نمو SHELTER COFFEE») + FRANCHISE / FRANCHISE & PARTNERSHIPS كتوصيف ثانوي (لا «فرص الشراكة»)؛ رحلة DISCOVER→UNDERSTAND→TRUST→QUALIFY→APPLY؛ IA من 13 قسمًا؛ CTA «ابدأ طلب الشراكة» (Hero/منتصف/ختام) وثانوية «تعرّف على/اكتشف SHELTER · اكتشف تجربتنا · الأسئلة الشائعة»؛ FAQ بعشرة مواضيع؛ المبدأ: بيع العلامة والتجربة والنظام والمعايير والشراكة ورؤية النمو — لا الوعود المالية",
+   "sources": [
+    "M29-§01",
+    "M29-§02",
+    "M29-§11",
+    "M29-§12",
+    "M29-§13",
+    "M29-§25",
+    "M29-§26",
+    "M29-§98"
+   ],
+   "status": "APPROVED",
+   "reason": "M29",
+   "impact": "FRAN-008…013, 023, 035"
+  },
+  {
+   "temp_id": "G11-ND-04",
+   "area": "16 Franchise",
+   "decision": "حقائق صفحة الفرنشايز: SHELTER COFFEE / شلتر كوفي · 2019 · 20/04 · إربد، الأردن · DRIVE وHOUSE كمفاهيم العملاء الحالية (2018 و«Since 2022» SUPERSEDED)؛ «من هي SHELTER» بالحقائق الست فقط بلا ادعاءات تفوق؛ DRIVE/HOUSE = «نماذج تجربة SHELTER الحالية» وليست باقات فرنشايز",
+   "sources": [
+    "M29-§03",
+    "M29-§15",
+    "M29-§16"
+   ],
+   "status": "APPROVED",
+   "reason": "M29",
+   "impact": "FRAN-014/015/016"
+  },
+  {
+   "temp_id": "G11-ND-05",
+   "area": "16 Franchise",
+   "decision": "قرارات المحتوى القديم والنبرة: REMOVE (العنوان القديم، النموذج القديم، وعد 5 أيام، الربح المضمون، «أفضل»/«مثبت النجاح» بلا دليل، أي رقم أو ادعاء مالي غير معتمد، التفاصيل المتناقضة) · KEEP AS CONCEPT + REWRITE (الشراكة، الهوية، التدريب، الدعم التسويقي والتشغيلي، التوريد، معايير تصميم المتجر، رحلة الشراكة)؛ لا SLA للرد — الصياغة «سيقوم فريق SHELTER بمراجعة الطلب والتواصل عند الانتقال إلى المرحلة التالية»؛ FAQ بإجابات محايدة؛ كلمات ممنوعة (6) ومفضلة (7)؛ نبرة AR/EN",
+   "sources": [
+    "M29-§08",
+    "M29-§23",
+    "M29-§25",
+    "M29-§82",
+    "M29-§83"
+   ],
+   "status": "APPROVED",
+   "reason": "M29",
+   "impact": "FRAN-020/021/033/036/096/097؛ CR-087/088"
+  },
+  {
+   "temp_id": "G11-ND-06",
+   "area": "16 Franchise",
+   "decision": "حدود النشر التجاري للفرنشايز: حظر 19 بندًا ماليًا (Fee · Royalty · Marketing Fee · Investment Range · CapEx · Opex · ROI · Payback · Revenue · Profit · Margin · Minimum Capital · Net Worth · Territory Fee · Renewal Fee · Contract Duration · Exclusive Territory · Minimum Store Area · Opening Cost) بلا موافقة من مشروع Franchise؛ لا دولة/مدينة/Territory AVAILABLE/EXCLUSIVE/OPEN/RESERVED؛ نمو عام «Jordan + International Growth» بلا خريطة؛ 7 معايير شريك عامة مسموحة والاشتراطات المحددة (cash/capital/industry experience/net worth/company size) ممنوعة؛ ركائز «لماذا SHELTER» = PENDING VERIFICATION",
+   "sources": [
+    "M29-§04",
+    "M29-§09",
+    "M29-§17",
+    "M29-§21",
+    "M29-§24"
+   ],
+   "status": "APPROVED",
+   "reason": "M29 (يضيّق D-071 للمعايير النوعية)",
+   "impact": "FRAN-017/022/026/030/031/034؛ D-071/FRAN-003 (G11-CF-01)"
+  },
+  {
+   "temp_id": "G11-ND-07",
+   "area": "16 Franchise",
+   "decision": "SHELTER PARTNERSHIP APPLICATION أصلي: لا HubSpot/Google Forms/Airtable/CRM خارجي؛ Backend → Website DB → Owner Dashboard على Cloudways بعد Audit (8 بنود) وبلا عبث بـWordPress أو Production DB؛ لا DB محلية ولا Falcon؛ رقم طلب فريد من الخادم بلا PII (صيغة FR-YYYY-NNNNN)؛ صفحة نجاح بلا وعود؛ Disclaimer «الإرسال ليس موافقة ولا التزامًا تعاقديًا» بصياغة قانونية معلقة؛ أمان النموذج (8 ضوابط، بلا CAPTCHA خارجي تلقائيًا)؛ خصوصية (لا نشرة تلقائية، لا opt-in تسويقي افتراضي، موافقة واضحة)؛ لا وثائق داخلية في الحزمة العامة؛ Backups يُتحقق منها",
+   "sources": [
+    "M29-§27",
+    "M29-§28",
+    "M29-§29",
+    "M29-§34",
+    "M29-§35",
+    "M29-§36",
+    "M29-§63",
+    "M29-§74",
+    "M29-§75",
+    "M29-§77",
+    "M29-§81"
+   ],
+   "status": "APPROVED",
+   "reason": "M29",
+   "impact": "FRAN-038…040, 046…050, 052, 066, 087؛ DB-08/PO-006 (قيد Cloudways)"
+  },
+  {
+   "temp_id": "G11-ND-08",
+   "area": "16 Franchise",
+   "decision": "حوكمة حقول الطلب: نموذج تأهيل احترافي غير طويل وبلا استجواب مالي؛ 11 حقلًا أوليًا (Full Name · Phone · Email · Country · City · Market/Area of Interest · Partnership Interest · Business Experience · Current Business Ownership/Management · Proposed Location Status · Short Message)؛ حقول مستقبلية (Company Name · Website · Investment Capacity · Attachments · Business Profile) والمالي منها بلا موافقة؛ FRANCHISE APPLICATION FIELD MATRIX إلزامية قبل التنفيذ؛ اختبار Single vs Multi-step واختيار الأقل احتكاكًا؛ المرفقات اختيارية وغير إلزامية في V1 وخاصة فقط",
+   "sources": [
+    "M29-§30",
+    "M29-§31",
+    "M29-§32",
+    "M29-§33",
+    "M29-§76"
+   ],
+   "status": "APPROVED",
+   "reason": "M29",
+   "impact": "FRAN-041…045, 051"
+  },
+  {
+   "temp_id": "G11-ND-09",
+   "area": "16 Franchise",
+   "decision": "وحدة «Franchise & Partnerships» الأصلية في الـOwner Dashboard (ليست iframe): IA مبدئية (Overview · Applications · Qualified · Meetings · Market Review · Site Review · Approved · Contract Stage · Closed · Archived · Settings — Franchise Master يفوز)؛ 7 أعمدة؛ Quick panel + صفحة كاملة؛ ملاحظات متعددة بلا overwrite؛ اجتماعات بملاحظات داخلية لا يراها المتقدم؛ تكرار يُكشف بالهاتف/البريد/الشركة بلا دمج؛ لا قبول/رفض/تأهيل/تقييم آلي (AI للتلخيص والتنظيم فقط)؛ تحليلات تشغيلية أولًا؛ بحث وفلاتر؛ Audit بستة حقول؛ الصلاحيات Server-side (V1 للـOwner فقط حسب M30)",
+   "sources": [
+    "M29-§37",
+    "M29-§38",
+    "M29-§39",
+    "M29-§40",
+    "M29-§41",
+    "M29-§42",
+    "M29-§43",
+    "M29-§44",
+    "M29-§45",
+    "M29-§78",
+    "M29-§79",
+    "M29-§80"
+   ],
+   "status": "APPROVED",
+   "reason": "M29 (+ M30 للصلاحيات)",
+   "impact": "FRAN-054…065؛ DASH-006"
+  },
+  {
+   "temp_id": "G11-ND-10",
+   "area": "16 Franchise",
+   "decision": "CMS صفحة الفرنشايز: تحرير بلا كود لـ16 عنصرًا (Hero · CTA · القصة · DRIVE/HOUSE · لماذا SHELTER · المعايير · الرحلة · FAQ · ظهور وترتيب الأقسام ضمن القيود · Final CTA · SEO · OG · مقدمة النموذج) مع Design System Lock؛ Workflow Draft/Review/Scheduled/Published/Archived + Preview + Versions + Audit؛ حالة لكل محتوى (APPROVED/PENDING/MISSING/SUPERSEDED) ولا نشر للمعلّق كحقيقة؛ Versioning للدعم والمعايير والعملية والأسواق والرسوم والمالية والقانوني؛ صور معتمدة بحقول Media Library",
+   "sources": [
+    "M29-§46",
+    "M29-§47",
+    "M29-§48",
+    "M29-§49",
+    "M29-§50",
+    "M29-§51"
+   ],
+   "status": "APPROVED",
+   "reason": "M29",
+   "impact": "FRAN-067…072"
+  },
+  {
+   "temp_id": "G11-ND-11",
+   "area": "16 Franchise",
+   "decision": "الاتجاه البصري للفرنشايز: Premium · Warm · Minimal · Architectural · Modern · Confident · Global · Coffee-led، زوايا مستديرة، ألوان قليلة، صور قوية، مساحات بيضاء؛ ممنوع Generic SaaS · Purple/blue AI gradient · Excessive glassmorphism · Cheap gold luxury · Template franchise page · Random floating cards · AI-looking landing page · Overdecorated؛ قصة بصرية SHELTER→Experience→System→Support→Partner→Journey→Apply؛ لا 9 بطاقات متطابقة؛ صور SHELTER حقيقية معتمدة فقط؛ Motion هادف مع reduced-motion بلا مكتبة مكررة؛ اعتماد الاتجاه العام لـVisual Concept سابق (اتجاه فقط — black/cream ليست Tokens)",
+   "sources": [
+    "M29-§14",
+    "M29-§18",
+    "M29-§52",
+    "M29-§53",
+    "M29-§54",
+    "M29-§55",
+    "M29-§56",
+    "M29-§84"
+   ],
+   "status": "APPROVED WITH CONDITIONS",
+   "reason": "M29 — الشرط: القيم من ملفات الهوية (PO-002)",
+   "impact": "FRAN-024, 025, 027, 073…077"
+  },
+  {
+   "temp_id": "G11-ND-12",
+   "area": "16 Franchise",
+   "decision": "قياس الفرنشايز: 7 أحداث (franchise_page_view · franchise_cta_click · franchise_form_start · franchise_form_step · franchise_form_submit · franchise_form_error · franchise_faq_open) ذات معنى فقط؛ لا PII (name · phone · email · company · message · investment · files)؛ Attribution آمن (Source · Medium · Campaign · Landing Page · Language · Country/region إن أمكن بأمان) بلا موقع دقيق؛ Analytics QA بلا تكرار",
+   "sources": [
+    "M29-§68",
+    "M29-§69",
+    "M29-§70",
+    "M29-§91"
+   ],
+   "status": "APPROVED",
+   "reason": "M29",
+   "impact": "FRAN-053/091/092/101؛ PO-043"
+  },
+  {
+   "temp_id": "G11-ND-13",
+   "area": "16 Franchise",
+   "decision": "SEO الفرنشايز: روابط /ar/franchise/ و/en/franchise/ (مع احترام أي اتفاقية مجمدة)؛ نية بحث AR (7) وEN (4) بلا حشو؛ AEO/GEO بلا خداع؛ Schema مسموح (Organization · WebPage · BreadcrumbList · FAQPage عند الملاءمة) وممنوع اختراع (Offer · Price · Rating · Review · Investment Product · Availability)؛ روابط داخلية لـAbout/Locations/Menu/Coffee Knowledge/Contact؛ الرابط القديم /franchise-shelter-coffee/ بلا Redirect الآن ثم 10 فحوص ثم 301 بعد موافقة الـOwner؛ canonical/hreflang/x-default بلا تحويل جغرافي؛ تدقيق Google الموجود أولًا بلا تتبع مكرر",
+   "sources": [
+    "M29-§06",
+    "M29-§64",
+    "M29-§65",
+    "M29-§66",
+    "M29-§67",
+    "M29-§71",
+    "M29-§72",
+    "M29-§73",
+    "M29-§90"
+   ],
+   "status": "APPROVED",
+   "reason": "M29",
+   "impact": "FRAN-019, 037, 088…090, 093…095, 100"
+  },
+  {
+   "temp_id": "G11-ND-14",
+   "area": "16 Franchise",
+   "decision": "بوابة Phase 1 للفرنشايز: لا Production/حذف الصفحة القديمة/Redirect/DNS/نشر بيانات غير معتمدة/إزالة HubSpot عامة/تعديل DB هدّام؛ الترتيب Audit → IA → Content → Wireframes → UX validation → Owner review؛ 20 مخرجًا ثم التوقف قبل التنفيذ الكامل؛ 9 خطوات بدء + Executive Summary؛ لا أسئلة صغيرة (9) والأسئلة للقرارات التجارية فقط (12)؛ Master Sync إلزامي؛ أدوات المشروع الحالية بلا بدائل مكررة",
+   "sources": [
+    "M29-§85",
+    "M29-§92",
+    "M29-§93",
+    "M29-§94",
+    "M29-§95",
+    "M29-§96",
+    "M29-§100"
+   ],
+   "status": "APPROVED",
+   "reason": "M29",
+   "impact": "FRAN-078, 103…108"
+  },
+  {
+   "temp_id": "G11-ND-15",
+   "area": "16 Franchise",
+   "decision": "جودة صفحة الفرنشايز: Responsive على 14 عرضًا (Mobile-first بـ11 قاعدة، Tablet مستقل، Desktop بحاويات max-width)؛ Accessibility (14 بندًا)؛ الأداء أهم من البصريات (LCP/INP/CLS، AVIF/WebP/srcset، لا فيديو ضخم على الموبايل)؛ Performance Budget واقعي بلا Score عشوائي؛ مصفوفة QA (AR/EN · 10 عروض · Chrome/Firefox/WebKit · Touch/Keyboard/Reduced Motion)؛ 13 تدفق Playwright؛ DoD من 21 شرطًا",
+   "sources": [
+    "M29-§57",
+    "M29-§58",
+    "M29-§59",
+    "M29-§60",
+    "M29-§61",
+    "M29-§62",
+    "M29-§86",
+    "M29-§87",
+    "M29-§88",
+    "M29-§89",
+    "M29-§97"
+   ],
+   "status": "APPROVED",
+   "reason": "M29",
+   "impact": "FRAN-079…086, 098…102"
+  }
+ ],
+ "pending_owner": [
+  {
+   "id": "PO-030",
+   "item": "(مضيّق بعد M29) محتوى صفحة الفرنشايز: الهيكل والاتجاه والممنوعات حُسمت في M29 ولا تُسأل. المتبقي فقط البنود G11-PO-01…12 (ملفات Franchise Master، الصياغة القانونية، التحقق من الدعم/المعايير/العملية، الأسواق، الصور، قنوات التواصل).",
+   "category": "BLOCKING",
+   "type": "CONTENT NEEDED",
+   "blocks": "نشر صفحة الفرنشايز (البناء والـWireframes لا يتوقفان)",
+   "refs": [
+    "M29",
+    "D-071",
+    "FRAN-001"
+   ],
+   "count": "",
+   "notes": "يحل محل الصياغة القديمة للبند."
+  },
+  {
+   "id": "G11-PO-01",
+   "item": "ملفات SHELTER Franchise Master المعتمدة (أو ربط مستودع مشروع SHELTER Franchise بالجلسة): Qualification Policy · Support Promise · العملية (Process/Workflow) · Expansion Rules · Store Requirements · Partner Criteria · Territory Rule · Agreement Terms · Financial Model/Fee — مع تحديد ما هو «APPROVED» منها للنشر، وخيارات «نوع الاهتمام بالشراكة» في النموذج.",
+   "category": "BLOCKING",
+   "type": "CONTENT NEEDED",
+   "blocks": "نشر أقسام: لماذا SHELTER · أكثر من شعار · رحلة الدعم · رحلة الشراكة · الأسواق · إجابات FAQ الالتزامية · حالات الـPipeline النهائية؛ لا يمنع Phase 1",
+   "refs": [
+    "M29 §10",
+    "M29 §17",
+    "M29 §20",
+    "M29 §22",
+    "M29 §38",
+    "FRAN-007",
+    "docs/franchise/01 PF-01, PF-06"
+   ],
+   "count": "حزمة ملفات المشروع المستقل",
+   "notes": "غير متاحة في المستودع ولا الجلسة (المتاح Shelterjo/SHELTER-WEBSITE فقط). الافتراضي: كل ما يعتمد عليها PENDING VERIFICATION ومخفي."
+  },
+  {
+   "id": "G11-PO-02",
+   "item": "الصياغة القانونية النهائية (AR/EN) لإقرار «إرسال الطلب لا يمثل موافقة على منح الامتياز ولا التزامًا تعاقديًا»، ومن يراجعها قانونيًا (محاميكم أم مسودة من Claude يراجعها المحامي).",
+   "category": "BLOCKING",
+   "type": "BUSINESS DECISION",
+   "blocks": "نشر النموذج والصفحة",
+   "refs": [
+    "M29 §36",
+    "FRAN-048",
+    "PO-019",
+    "docs/franchise/01 PF-02"
+   ],
+   "count": "نص واحد AR + EN",
+   "notes": "لا يكتب Claude اتفاقية قانونية كاملة."
+  },
+  {
+   "id": "G11-PO-03",
+   "item": "نص موافقة معالجة بيانات طلب الشراكة (AR/EN) + مدة الاحتفاظ بطلبات الفرنشايز وسياسة الحذف + الإشارة لسياسة الخصوصية (امتداد PO-019).",
+   "category": "BLOCKING",
+   "type": "BUSINESS DECISION",
+   "blocks": "نشر النموذج",
+   "refs": [
+    "M29 §75",
+    "FRAN-050",
+    "PO-019",
+    "docs/franchise/01 PF-03",
+    "G10-TF-06"
+   ],
+   "count": "نص + مدة احتفاظ",
+   "notes": "الافتراضي حتى القرار: موافقة لمعالجة الطلب فقط، لا opt-in تسويقي، لا حذف تلقائي (أرشفة)."
+  },
+  {
+   "id": "G11-PO-04",
+   "item": "التحقق من وعود الدعم: أيّ من الركائز التسع («لماذا SHELTER») وعناصر «أكثر من شعار» العشرة ومراحل «رحلة الدعم» التسع حقيقية ومعتمدة كالتزام؛ وهل نجيب في الـFAQ عن «التدريب» و«دعم التصميم والتجهيز».",
+   "category": "BLOCKING",
+   "type": "VERIFICATION NEEDED",
+   "blocks": "نشر أقسام 4–6 كالتزام وإجابتي FAQ 8–9",
+   "refs": [
+    "M29 §17",
+    "M29 §19",
+    "M29 §20",
+    "M29 §25",
+    "FRAN-026/028/029",
+    "docs/franchise/01 PF-04"
+   ],
+   "count": "9 + 10 + 9 بنود",
+   "notes": "يُجاب من Franchise Master إن توفر (G11-PO-01) دون سؤال إضافي."
+  },
+  {
+   "id": "G11-PO-05",
+   "item": "العملية المعتمدة: هل رحلة الشراكة العامة (9 خطوات) ومراحل الـPipeline في الـDashboard (Qualified · Meetings · Market Review · Site Review · Approved · Contract Stage · Closed) تطابق عملية Franchise Master؟",
+   "category": "BLOCKING",
+   "type": "VERIFICATION NEEDED",
+   "blocks": "نشر قسم رحلة الشراكة؛ (مراحل الـDashboard قابلة للإعداد فلا تمنع البناء)",
+   "refs": [
+    "M29 §22",
+    "M29 §38",
+    "FRAN-032/055",
+    "docs/franchise/01 PF-05"
+   ],
+   "count": "9 خطوات + 7 مراحل",
+   "notes": ""
+  },
+  {
+   "id": "G11-PO-06",
+   "item": "التحقق من معايير الشريك السبع العامة مقابل Qualification Policy، وهل تُذكر الخبرة في المقاهي كشرط أم لا (FAQ «هل يجب أن تكون لدي خبرة في المقاهي؟»).",
+   "category": "NON-BLOCKING",
+   "type": "VERIFICATION NEEDED",
+   "blocks": "الصياغة النهائية لقسم المعايير وإجابة FAQ 3",
+   "refs": [
+    "M29 §21",
+    "M29 §25",
+    "FRAN-030/031"
+   ],
+   "count": "7 معايير + سؤال",
+   "notes": "الافتراضي: المعايير السبع كما صاغها الـOwner، وإجابة FAQ 3 محايدة."
+  },
+  {
+   "id": "G11-PO-07",
+   "item": "الأسواق: من أي دول تُستقبل طلبات الشراكة الآن (الأردن فقط؟ دوليًا؟)، وهل يظهر قسم «أسواق النمو» بنص عام (الأردن + نمو دولي) أم يُخفى حتى وجود أسواق معتمدة؛ وأثر ذلك على إجابتي FAQ 1–2 وحقل الدولة.",
+   "category": "NON-BLOCKING",
+   "type": "BUSINESS DECISION",
+   "blocks": "نص قسم الأسواق وإجابتا FAQ 1–2",
+   "refs": [
+    "M29 §04",
+    "M29 §24",
+    "M29 §25",
+    "M29 §95 (Approved Market)",
+    "FRAN-034/036",
+    "G11-CF-13",
+    "docs/franchise/01 PF-09"
+   ],
+   "count": "قرار واحد",
+   "notes": "الافتراضي: نص عام بلا خريطة ولا Territories؛ النموذج يقبل أي دولة بصياغة «استلام الطلب لا يعني توفر فرصة في سوق محدد»."
+  },
+  {
+   "id": "G11-PO-08",
+   "item": "الشروط المالية (الـ19) وحقل «Investment Capacity»: تبقى غير منشورة — يُسأل فقط إذا أردت نشر أيٍّ منها أو إضافة سؤال مالي للنموذج.",
+   "category": "NON-BLOCKING",
+   "type": "BUSINESS DECISION",
+   "blocks": "لا شيء (الافتراضي: لا نشر ولا حقل مالي)",
+   "refs": [
+    "M29 §09",
+    "M29 §31",
+    "FRAN-022/043"
+   ],
+   "count": "",
+   "notes": "لا يُطرح الآن."
+  },
+  {
+   "id": "G11-PO-09",
+   "item": "ملف الـVisual Concept السابق الذي اعتُمد اتجاهه العام (premium hero · black/cream · تصوير معماري · DRIVE/HOUSE · Timeline …).",
+   "category": "NON-BLOCKING",
+   "type": "CONTENT NEEDED",
+   "blocks": "دقة الاتجاه البصري في P05 (يُستخدم كاتجاه فقط)",
+   "refs": [
+    "M29 §84",
+    "FRAN-075",
+    "G11-CF-07",
+    "docs/franchise/01 PF-08"
+   ],
+   "count": "ملف واحد",
+   "notes": "غير موجود في المشروع."
+  },
+  {
+   "id": "G11-PO-10",
+   "item": "صور حقيقية معتمدة لصفحة الفرنشايز: تصوير DRIVE وHOUSE، العمارة/الواجهة، بيئة المكان، تجربة القهوة/المنتج، صورة OG — مع حقوقها (امتداد PO-021).",
+   "category": "BLOCKING",
+   "type": "CONTENT NEEDED",
+   "blocks": "التصميم النهائي ونشر الصفحة (DoD: Images approved)",
+   "refs": [
+    "M29 §14",
+    "M29 §51",
+    "M29 §97",
+    "FRAN-025/072",
+    "PO-021",
+    "docs/franchise/01 PF-07"
+   ],
+   "count": "Hero + 2 تجارب + أقسام القصة + OG",
+   "notes": "الافتراضي: «MEDIA PENDING OWNER APPROVAL» في الـWireframes."
+  },
+  {
+   "id": "G11-PO-11",
+   "item": "قنوات تواصل الفرنشايز: (أ) هل يظهر 0799338445 في صفحة الفرنشايز كقناة ثانوية أم الطلب فقط؟ (ب) ربط بطاقة «استفسارات الفرنشايز» في صفحة التواصل بالصفحة/النموذج عند النشر؟ (ج) هل يوجد بريد فرنشايز فعلي (أم لا بريد)؟",
+   "category": "NON-BLOCKING",
+   "type": "BUSINESS DECISION",
+   "blocks": "تفاصيل التواصل في الصفحة وصفحة التواصل",
+   "refs": [
+    "D-071",
+    "D-057",
+    "D-024",
+    "CONTACT-007",
+    "CONTACT-024",
+    "PO-026",
+    "G11-CF-12",
+    "docs/franchise/01 FC-03, PF-12"
+   ],
+   "count": "3 أسئلة قصيرة",
+   "notes": "الافتراضي: الهاتف في صفحة التواصل كما في D-071؛ الصفحة: النموذج فقط؛ لا بريد منشور. من يراجع الطلبات = الـOwner وحده (M30) — لا يُسأل."
+  },
+  {
+   "id": "G11-PO-12",
+   "item": "وجهة الرابط القديم /franchise-shelter-coffee/ إذا لم تُعتمد صفحة الفرنشايز الجديدة قبل إطلاق الموقع: /ar/contact/ (توصيتنا) أم /ar/about/ أم غيرها.",
+   "category": "NON-BLOCKING",
+   "type": "BUSINESS DECISION",
+   "blocks": "خريطة 301 في P11 فقط",
+   "refs": [
+    "M29 §71",
+    "FRAN-093",
+    "G11-CF-04",
+    "SEO-MIGRATION-MAP"
+   ],
+   "count": "قرار واحد (مشروط)",
+   "notes": "لا يُسأل الآن؛ يُطرح مع خريطة الهجرة إن لزم."
+  }
+ ],
+ "technical_flags": [
+  {
+   "id": "G11-TF-01",
+   "topic": "ملفات Franchise Master غير متاحة",
+   "detail": "المستودع الوحيد المتاح Shelterjo/SHELTER-WEBSITE؛ M29 يجعل Franchise Master المصدر للدعم والعملية والمعايير والأسواق والحالات. كل ذلك الآن PENDING VERIFICATION.",
+   "recommendation": "مصفوفة مطابقة (قسم/جملة ← بند Master ← حالة) جاهزة للتعبئة عند وصول الملفات؛ الـWireframes تعرض حالة كل بند؛ لا نشر لغير المعتمد.",
+   "needs_owner": true,
+   "refs": [
+    "M29 §10",
+    "FRAN-007",
+    "G11-PO-01"
+   ]
+  },
+  {
+   "id": "G11-TF-02",
+   "topic": "Applications Core مشترك بين التوظيف والشراكات (No Duplicate Architecture)",
+   "detail": "الوحدتان تحتاجان: رقم طلب، ملاحظات متعددة، تاريخ حالة، مواعيد (مقابلات/اجتماعات)، مرفقات خاصة، Audit، فلاتر محفوظة، كشف تكرار بلا دمج. بناؤهما منفصلين = ازدواج معماري (D-227/GOV-078).",
+   "recommendation": "نواة مشتركة (counters · notes · status_history · appointments · private_attachments · audit_logs · saved_filters · duplicate_links) + جداول تفاصيل لكل وحدة؛ مراحل الـPipeline جدول إعداد pipeline_stages لكل وحدة وليست Enum (TD-AC-01/TD-FR-01 في docs/franchise). صلاحيات كل وحدة مستقلة (التوظيف Owner only دائمًا حتى قرار جديد).",
+   "needs_owner": false,
+   "refs": [
+    "M29 §34",
+    "M29 §38",
+    "M29 §41–§43",
+    "docs/RECRUITMENT-DATA-MODEL.md",
+    "docs/franchise/01-SOURCES-CONFLICTS-MISSING.md FC-06",
+    "docs/franchise/04-DASHBOARD-MODULE-IA.md §2"
+   ]
+  },
+  {
+   "id": "G11-TF-03",
+   "topic": "رقم الطلب FR-YYYY-NNNNN",
+   "detail": "تسلسلي وقابل للتخمين؛ M29 لا يطلب صفحة متابعة عامة للفرنشايز (بخلاف التوظيف)، فسطح الـEnumeration محدود بصفحة النجاح.",
+   "recommendation": "عداد لكل (prefix, year) داخل Transaction مع قفل صف؛ VARCHAR(20) يتسع لما بعد 99999؛ لا يظهر في URL مفهرس ولا في GA4؛ صفحة النجاح تعرضه من جلسة الإرسال (لا ?id= في الرابط). لا تُبنى متابعة عامة للفرنشايز ما لم يطلبها الـOwner.",
+   "needs_owner": false,
+   "refs": [
+    "M29 §34",
+    "M29 §35",
+    "G10-TF-07",
+    "CAREERS-040"
+   ]
+  },
+  {
+   "id": "G11-TF-04",
+   "topic": "ازدواج أحداث GA4 التلقائية مع أحداث الفرنشايز",
+   "detail": "GA4 يرسل page_view تلقائيًا؛ وEnhanced Measurement «Form interactions» يرسل form_start/form_submit — يتداخل مع franchise_page_view وfranchise_form_start/submit (M29 §91: No duplicate events).",
+   "recommendation": "تعطيل Form interactions في Enhanced Measurement (أو استبعاد النموذج)، والإبقاء على page_view التلقائي مع franchise_page_view كحدث مخصص موثق (أو بديل content_group — نفس منهج G10-TF-16)؛ franchise_form_submit بعد 2xx فقط؛ تحقق في DebugView.",
+   "needs_owner": false,
+   "refs": [
+    "M29 §68",
+    "M29 §91",
+    "G10-TF-16",
+    "GOOGLE-017",
+    "FRAN-091"
+   ]
+  },
+  {
+   "id": "G11-TF-05",
+   "topic": "حماية السبام بلا CAPTCHA خارجي",
+   "detail": "M29 §74 يمنع CAPTCHA خارجيًا تلقائيًا؛ النموذج دولي وعرضة للسبام.",
+   "recommendation": "honeypot + زمن تعبئة أدنى + rate limit لكل IP/جلسة + idempotency token + حدود حجم + رفض الحقول غير المعرّفة؛ Turnstile/reCAPTCHA فقط إن ثبت سبام فعلي ويُعرض «لماذا + البديل المحلي» للموافقة (INT-001).",
+   "needs_owner": false,
+   "refs": [
+    "M29 §74",
+    "G10-TF-08",
+    "INT-001"
+   ]
+  },
+  {
+   "id": "G11-TF-06",
+   "topic": "التقاط الـAttribution بلا Cookies وبلا موقع جغرافي",
+   "detail": "المطلوب Source/Medium/Campaign/Landing Page/Language وCountry «إذا أمكن بأمان» بلا موقع دقيق.",
+   "recommendation": "التقاط first-party لـUTM ونطاق المُحيل وصفحة الهبوط في sessionStorage ثم إرسالها كحقول مخفية؛ الدولة من حقل المتقدم وليست من الـIP؛ الـIP يُستخدم عابرًا للـrate limit فقط ولا يُخزن مع الطلب؛ الإفصاح في إشعار الخصوصية (G11-PO-03).",
+   "needs_owner": false,
+   "refs": [
+    "M29 §70",
+    "FRAN-053",
+    "PRIV-012",
+    "docs/franchise/05-SEO-ANALYTICS-PERFORMANCE.md §2"
+   ]
+  },
+  {
+   "id": "G11-TF-07",
+   "topic": "FAQPage ونتائج Google الغنية",
+   "detail": "منذ أغسطس 2023 يعرض Google نتائج FAQ الغنية لمواقع حكومية وصحية معروفة فقط؛ الـMarkup صالح لكنه لن يظهر كـRich Result غالبًا.",
+   "recommendation": "إبقاء FAQPage فقط للأسئلة المعتمدة الظاهرة (SCHEMA-004) لقيمة الكيان/AEO؛ لا يُعتبر غياب الـRich Result فشلًا في SEO QA.",
+   "needs_owner": false,
+   "refs": [
+    "M29 §66",
+    "FRAN-090",
+    "SCHEMA-004"
+   ]
+  },
+  {
+   "id": "G11-TF-08",
+   "topic": "Firefox وWebKit غير متاحين في بيئة العمل",
+   "detail": "M29 §88 يطلب Chrome · Firefox · WebKit؛ آخر تشغيل (EVIDENCE) على Chromium فقط.",
+   "recommendation": "تثبيت متصفحات Playwright (firefox/webkit) في بيئة تسمح بذلك (CI أو جهاز محلي) قبل P10، وإضافة المشاريع لـplaywright.config؛ حتى ذلك تُعلّم النتائج «Chromium only».",
+   "needs_owner": false,
+   "refs": [
+    "M29 §88",
+    "TEST-010",
+    "tooling/playwright.config.mjs"
+   ]
+  },
+  {
+   "id": "G11-TF-09",
+   "topic": "النموذج ثنائي اللغة ودولي",
+   "detail": "نموذج AR وEN لنفس المسار؛ أرقام دولية؛ مدن غير أردنية.",
+   "recommendation": "Endpoint وجدول واحد مع حقل language؛ النص الحر يقبل أي لغة؛ الهاتف إدخال حر + تطبيع E.164 (تحويل الأرقام العربية-الهندية) دون فرض +962؛ Country من قائمة ISO 3166 (بيانات قياسية)؛ City نص حر للدول غير الأردن (لا قوائم مخترعة)؛ رسائل التحقق AR/EN؛ Labels حقيقية.",
+   "needs_owner": false,
+   "refs": [
+    "M29 §05",
+    "M29 §31",
+    "FRAN-042",
+    "CAREERS-011"
+   ]
+  },
+  {
+   "id": "G11-TF-10",
+   "topic": "إخفاء الصفحة حتى الاعتماد وبوابة المحتوى في الخادم",
+   "detail": "الصفحة غير منشورة حتى اعتماد المحتوى (D-071)، والمحتوى المعلّق لا يُنشر كحقيقة (M29 §49).",
+   "recommendation": "قبل النشر: الصفحتان خارج الـSitemap وhreflang clusters والـNavigation والروابط الداخلية؛ Staging بمصادقة. بعد النشر: الخادم لا يرسل أي بلوك حالته غير APPROVED (لا Placeholders في Production، ولا في JSON-LD)؛ Preview يعرضها بعلامة.",
+   "needs_owner": false,
+   "refs": [
+    "FRAN-001",
+    "FRAN-070",
+    "SEO-028",
+    "SEO-029"
+   ]
+  },
+  {
+   "id": "G11-TF-11",
+   "topic": "قيد المنصة (DB-08) من بيانات الشراكة",
+   "detail": "M29 §27–§29 يكرر قيد M28: Backend + DB على Cloudways ولا CRM/SaaS خارجي.",
+   "recommendation": "لا سؤال جديد؛ يُغذّى ADR المنصة (G10-TF-01): الإطار المختار يجب أن يخدم الوحدتين على قاعدة واحدة في Cloudways.",
+   "needs_owner": false,
+   "refs": [
+    "M29 §27",
+    "M29 §29",
+    "G10-TF-01",
+    "G10-CF-05",
+    "PO-006"
+   ]
+  },
+  {
+   "id": "G11-TF-12",
+   "topic": "Cloudways audit محجوب بالوصول",
+   "detail": "M29 §29/§81 يطلب Audit (8 بنود) والتحقق من الـBackups قبل التنفيذ؛ لا وصول لـCloudways بعد.",
+   "recommendation": "دمج متطلبات الشراكة في نفس الـAudit (A-01…A-13): مسار خاص private_html/franchise/ للمرفقات إن فُعّلت وشموله بالـBackup واختبار الاستعادة. الوصول مطلوب مرة واحدة (G10-PO-01).",
+   "needs_owner": false,
+   "refs": [
+    "M29 §29",
+    "M29 §81",
+    "G10-PO-01",
+    "docs/CLOUDWAYS-RECRUITMENT-ARCHITECTURE.md"
+   ]
+  },
+  {
+   "id": "G11-TF-13",
+   "topic": "إشعارات الطلبات الجديدة",
+   "detail": "M29 لا يحدد إشعارات للـOwner، ويمنع وعود الرد للمتقدم.",
+   "recommendation": "V1: شارة وعدّاد داخل الـDashboard فقط (MON-009)؛ لا Email/WhatsApp تلقائي للمتقدم أو الـOwner؛ أي قناة خارجية لاحقًا بموافقة (MON-010).",
+   "needs_owner": false,
+   "refs": [
+    "M29 §35",
+    "MON-009",
+    "MON-010"
+   ]
+  },
+  {
+   "id": "G11-TF-14",
+   "topic": "التصدير",
+   "detail": "§80 يذكر «exported» في الـAudit دون مواصفة للتصدير.",
+   "recommendation": "تصدير CSV/Excel للـOwner فقط مع Audit، وحماية حقن الصيغ في CSV (نمط G10-TF-15)؛ النطاق يُعرض ضمن IA الوحدة دون سؤال صغير.",
+   "needs_owner": false,
+   "refs": [
+    "M29 §80",
+    "G10-TF-15"
+   ]
+  },
+  {
+   "id": "G11-TF-15",
+   "topic": "الاحتفاظ والحذف",
+   "detail": "M29 لا يحدد مدة الاحتفاظ بطلبات الشراكة.",
+   "recommendation": "لا حذف تلقائي؛ الأرشفة بدل الحذف (DEPLOY-013)؛ الحذف النهائي وسياسته بعد G11-PO-03.",
+   "needs_owner": false,
+   "refs": [
+    "M29 §80",
+    "DEPLOY-013",
+    "G11-PO-03"
+   ]
+  },
+  {
+   "id": "G11-TF-16",
+   "topic": "منع تسرب الوثائق الداخلية للحزمة العامة",
+   "detail": "M29 §77 يمنع النماذج المالية والأدلة والعقود والـSOPs وتحليلات الأسواق وجداول الرسوم وملفات الربحية في الحزمة العامة.",
+   "recommendation": "فحص CI يرفض ملفات pdf/xlsx/docx/pptx أو مسارات «franchise-internal» في مخرجات البناء والـpublic؛ الملفات الخاصة فقط عبر Endpoint موثّق (نمط CW-04).",
+   "needs_owner": false,
+   "refs": [
+    "M29 §77",
+    "FRAN-052",
+    "docs/CLOUDWAYS-RECRUITMENT-ARCHITECTURE.md CW-04"
+   ]
+  },
+  {
+   "id": "G11-TF-17",
+   "topic": "أرقام ميزانية الأداء المقترحة",
+   "detail": "docs/franchise/05 §3 يقترح: LCP ≤ 2.5s · INP ≤ 200ms · CLS ≤ 0.1 · Hero AVIF ≤ 120KB موبايل/≤ 250KB ديسكتوب · HTML ≤ 40KB · CSS ≤ 30KB · JS ≤ 60KB · خطوط ≤ 120KB — أرقام Claude (M29 §87: لا Score عشوائي).",
+   "recommendation": "التحقق منها على صور حقيقية معتمدة وعلى Staging قبل اعتبارها بوابات؛ توثيق مبرر كل رقم.",
+   "needs_owner": false,
+   "refs": [
+    "M29 §62",
+    "M29 §87",
+    "FRAN-086"
+   ]
+  },
+  {
+   "id": "G11-TF-18",
+   "topic": "فجوة المزامنة مع المرجع الرئيسي",
+   "detail": "M29 §96 يطلب تحديث Master/Decision Register/Traceability؛ وثائق docs/franchise/* الخمس غير مُتتبعة في git (??)، ومجال 16 في الـMaster فيه 3 متطلبات فقط قبل هذه المزامنة.",
+   "recommendation": "تمرير هذا الملف (G11) إلى build_master.py مع G10/G12، ثم commit للوثائق مع README للفرنشايز يربط المخرجات الـ20.",
+   "needs_owner": false,
+   "refs": [
+    "M29 §96",
+    "FRAN-108"
+   ]
+  },
+  {
+   "id": "G11-TF-19",
+   "topic": "موضع رابط الفرنشايز في التنقل",
+   "detail": "M29 لا يحدد مكان الرابط في الـHeader/Footer.",
+   "recommendation": "مقترح ضمن IA الموقع (PO-004): رابط في الـFooter (طبقة العلامة) + من بطاقة التواصل، وليس في الـHeader الأساسي (المنيو والفروع أولوية الزبون) — قرار IA لا سؤال صغير.",
+   "needs_owner": false,
+   "refs": [
+    "M29 §67",
+    "PO-004",
+    "NAV-002"
+   ]
+  }
+ ],
+ "dropped": [],
+ "notes": "G11 = مزامنة M29 (FRANCHISE / PARTNERSHIP — FINAL MASTER WEBSITE SPEC — OWNER-APPROVED DIRECTION، 100 قسم + مقدمة، 2374 سطرًا — قُرئت كاملة). المتطلبات الجديدة FRAN-004…FRAN-108 (مجال 16 Franchise)؛ FRAN-001…003 تُحدَّث عبر updates_to_existing. مفاتيح المصادر M29-§NN (§00 = المقدمة؛ أقسام بلا رقم بأسمائها: §SOURCE OF TRUTH، §AUTHORITY ORDER). الحالة الافتراضية APPROVED (الرسالة «OWNER-APPROVED DIRECTION» وليست FROZEN)؛ APPROVED WITH CONDITIONS حيث تقول M29 إن Franchise Master يفوز أو النص اتجاه. M30 (لاحقة، FROZEN، مجموعة G12) تجعل الـDashboard للـOwner فقط في V1 → FRAN-062 FROZEN مع history؛ تعارض M29 §45 ↔ M30 مسجل في G12 ولا يُكرر. ترقيم المراحل حسب IMPLEMENTATION-PLAN المنشورة (P05 = Brand/Visual، P06 = Platform) لأن build_master.py لا يبدّل مراحل مجموعات EXTRA. D-069 فُحص: هو PG-01 (صفحة Catering/B2B محجوزة) وليس فرنشايز — M29 لا يمسه، فلم يُصدر له تحديث. ملفات Franchise Master غير متاحة = MISSING (G11-PO-01). وثائق docs/franchise/01–05 (مسودات Claude موازية، غير مُتتبعة) استُخدمت كـexisting_impl/design_refs فقط وليست قرارات Owner؛ وُجد فيها بند واحد يحتاج تصحيحًا (G11-CF-13). لم تُعدّل أي ملفات في الـrepo."
+}

@@ -1,0 +1,82 @@
+{
+ "group": "G20",
+ "requirements": [],
+ "updates_to_existing": [],
+ "conflicts": [
+  {
+   "id": "G20-CF-01",
+   "topic": "6 أسماء عربية للكيك والكوكيز: المعتمد (D-132) مقابل ملف Menu List الجديد",
+   "old_instruction": "D-132: الأسماء العربية الـ26 المقترحة معتمدة كما هي — كيكة الجزر · جيرمان شوكليت · ريد فيلفيت كيك · تشيز كيك مانجو · تشيز كيك باشن فروت · كوكيز فستق",
+   "old_source": "D-132",
+   "new_instruction": "ملف Menu List: كاروت كيك · جيرمن شوكليت · ريد فلفيت كيك · مانجو تشيز كيك · باشن فروت تشيز كيك · كوكيز فستق حلبي",
+   "new_source": "OWNER-MENU-LIST-RECEIVED-2026-10-01.xlsx",
+   "winner": "",
+   "why": "لا يتضح هل الملف قرار تسمية صريح أم قائمة تشغيلية (POS) — M38 §6: عرض A/B والسؤال",
+   "impact": "الاسم العربي لستة أصناف في المنيو والـSchema",
+   "files": [
+    "docs/phase-01-discovery/23-menu-list-reconciliation.md"
+   ],
+   "status": "OWNER DECISION REQUIRED"
+  }
+ ],
+ "new_decisions": [],
+ "pending_owner": [
+  {
+   "id": "G20-PO-01",
+   "item": "ملف \"Menu List\" المستلم 2026-10-01 (209 صفًا، SHA-256 7fc13e54…): هل هو قائمة المنيو الرسمية الحالية التي تُضاف فوق MENU INVENTORY v1.0؟ (190 صنفًا مطابقة تمامًا بلا أي تغيير سعر)",
+   "category": "BLOCKING",
+   "type": "BUSINESS DECISION",
+   "blocks": "PHASE 2: إضافة الآيس كريم ومنتجات التجزئة إلى المنيو",
+   "refs": [
+    "D-089",
+    "D-099",
+    "D-135",
+    "docs/phase-01-discovery/23-menu-list-reconciliation.md"
+   ],
+   "count": "",
+   "notes": ""
+  },
+  {
+   "id": "G20-PO-02",
+   "item": "آيس كريم (ICE CREAM 1 SCOOP 1.50 · 2 SCOOPS 2.25، مجموعة ICECREAM / آيس كريم): إضافة صنفين جديدين (PRD-00193/00194) في فئة جديدة CAT-012؟",
+   "category": "NON-BLOCKING",
+   "type": "BUSINESS DECISION",
+   "blocks": "ظهور الآيس كريم في المنيو",
+   "refs": [
+    "D-140",
+    "docs/phase-01-discovery/23-menu-list-reconciliation.md"
+   ],
+   "count": "",
+   "notes": "الأسماء العربية من الملف تُحفظ PENDING OWNER REVIEW (D-091)"
+  },
+  {
+   "id": "G20-PO-03",
+   "item": "16 منتج تجزئة بلا مجموعة (قهوة بالوزن، قهوة مختصة بالوزن، ماتشا 100 غ، زجاجة نكهة، 8 أكياس شاي): هل تظهر في منيو الموقع؟ وفي أي قسم؟",
+   "category": "NON-BLOCKING",
+   "type": "BUSINESS DECISION",
+   "blocks": "قسم منتجات التجزئة",
+   "refs": [
+    "docs/phase-01-discovery/23-menu-list-reconciliation.md"
+   ],
+   "count": "16",
+   "notes": "إملاء كما ورد: SPECIALTY COFE · FALVOR BTL · EARLY GRAY (لا تصحيح تلقائي D-093)"
+  },
+  {
+   "id": "G20-PO-04",
+   "item": "CRUNCHOCO CAKE (PRD-00175) غير موجود في الملف الجديد: هل ما زال يُباع؟",
+   "category": "NON-BLOCKING",
+   "type": "VERIFICATION NEEDED",
+   "blocks": "ظهوره في المنيو",
+   "refs": [
+    "D-099",
+    "docs/phase-01-discovery/23-menu-list-reconciliation.md"
+   ],
+   "count": "",
+   "notes": "حتى التأكيد: NOT PRESENT IN CURRENT OWNER FILE، ولا يُعتبر متوقفًا"
+  }
+ ],
+ "technical_flags": [],
+ "cost_api_dependencies": [],
+ "dropped": [],
+ "notes": "Owner upload: Menu List xlsx (2026-10-01). Reconciliation only; no data changed."
+}

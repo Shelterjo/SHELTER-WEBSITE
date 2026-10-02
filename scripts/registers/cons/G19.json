@@ -1,0 +1,1050 @@
+{
+ "group": "G19",
+ "requirements": [
+  {
+   "id": "TOOL-028",
+   "area": "41 Tooling",
+   "type": "REQUIREMENT",
+   "title": "Toolchain audit أولًا ثم تثبيت الناقص المفيد فقط (M37)",
+   "requirement": "قبل أي تثبيت: تدقيق كل أداة بحالة INSTALLED/CONFIGURED/PARTIAL/MISSING/REDUNDANT/NOT NEEDED، ثم تثبيت الناقص المفيد فقط، بلا أداتين لنفس الوظيفة بدون سبب. الرد الأول: جدول TOOL · CURRENT STATUS · WHY · OVERLAP · INSTALL · CONFIGURE · CI/STAGING/LOCAL · COST/LICENSE + FINAL SHELTER TOOLCHAIN.",
+   "details": [
+    "M37 §0, §33, §34, §35",
+    "Fewer high-quality tools > many overlapping tools"
+   ],
+   "sources": [
+    "M37-000",
+    "M37-033",
+    "M37-034",
+    "M37-035"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "IMPLEMENTED — NOT TESTED",
+   "tested": "NO",
+   "existing_impl": "docs/TOOLCHAIN.md",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "",
+   "design_refs": [
+    "docs/TOOLCHAIN.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P06",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "TOOL-029",
+   "area": "41 Tooling",
+   "type": "REQUIREMENT",
+   "title": "Storybook = مرجع الـDesign System بحالات كاملة",
+   "requirement": "Storybook هو DESIGN SYSTEM REFERENCE (وليس Demo). كل Core Component له Stories: Default, Hover, Focus, Active, Disabled, Loading, Error, Empty × Arabic RTL / English LTR × Mobile / Desktop. التنفيذ (ADR-001): @storybook/html-vite بقصص مولّدة من مكونات Blade نفسها + @storybook/addon-a11y + pseudo-states.",
+   "details": [
+    "قائمة المكونات: Buttons, Inputs, Selects, Checkboxes, Cards, Modals, Drawers, Bottom Sheets, Tabs, Tables, Badges, Alerts, Navigation, Forms, Product Cards, Event Cards, Dashboard Components",
+    "لا default shadcn styling؛ SHELTER Design System overrides everything"
+   ],
+   "sources": [
+    "M37-001",
+    "M37-002"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "تثبيت وضبط Storybook + مولّد القصص من Blade",
+   "dependencies": [],
+   "test_required": "",
+   "design_refs": [
+    "docs/TOOLCHAIN.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P06",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "TOOL-030",
+   "area": "41 Tooling",
+   "type": "REQUIREMENT",
+   "title": "الوصولية: axe آليًا + فحص يدوي إلزامي",
+   "requirement": "axe-core (Playwright) + @storybook/addon-a11y بهدف WCAG 2.2 AA. الفحص الآلي لا يستبدل اليدوي: Keyboard, Focus, Screen reader semantics, Touch, 200% zoom, Reduced motion, Contrast, RTL/LTR.",
+   "details": [],
+   "sources": [
+    "M37-003"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "PARTIAL",
+   "tested": "NO",
+   "existing_impl": "tooling/tests (axe)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "",
+   "design_refs": [
+    "docs/TOOLCHAIN.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P06",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "TOOL-031",
+   "area": "41 Tooling",
+   "type": "REQUIREMENT",
+   "title": "Playwright Core QA للصفحات والتدفقات",
+   "requirement": "Playwright يختبر: Home, Menu, Search, Branches, Contact, Careers, Franchise, Media, Events, Owner Dashboard؛ والتدفقات: Navigation, Forms, Validation, Submission, Authentication, Permissions, Language switch, RTL/LTR, Mobile.",
+   "details": [],
+   "sources": [
+    "M37-004"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "PARTIAL",
+   "tested": "NO",
+   "existing_impl": "tooling/playwright.config.mjs (wireframes)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "",
+   "design_refs": [
+    "docs/TOOLCHAIN.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "TOOL-032",
+   "area": "41 Tooling",
+   "type": "REQUIREMENT",
+   "title": "Visual regression ببصمات ثابتة وحدود صارمة",
+   "requirement": "Playwright screenshot testing بخطوط أساس ثابتة لـ Home, Menu, Branch, About, Careers, Franchise, Media, Contact, Owner Dashboard على الأقل Mobile/Tablet/Desktop × AR/EN. أي تغيير غير متوقع = FAIL/REVIEW. لا thresholds عالية تخفي مشاكل حقيقية.",
+   "details": [],
+   "sources": [
+    "M37-005"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "PARTIAL",
+   "tested": "NO",
+   "existing_impl": "responsive.spec.mjs @visual (disabled)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "",
+   "design_refs": [
+    "docs/TOOLCHAIN.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "TOOL-033",
+   "area": "41 Tooling",
+   "type": "REQUIREMENT",
+   "title": "Chrome DevTools أثناء التطوير (لا الاعتماد على Screenshots)",
+   "requirement": "فحص Network, Rendering, Performance, Layout shifts, Console errors, Memory عند الحاجة, Responsive, Accessibility tree. التنفيذ: Playwright CDP (traces/console/network/coverage) — سكربت perf:trace.",
+   "details": [],
+   "sources": [
+    "M37-006",
+    "M37-008"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "",
+   "design_refs": [
+    "docs/TOOLCHAIN.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "TOOL-034",
+   "area": "41 Tooling",
+   "type": "REQUIREMENT",
+   "title": "Lighthouse CI بميزانيات ومراقبة LCP/INP/CLS",
+   "requirement": "تثبيت Lighthouse CI وتشغيله في CI على الصفحات المهمة: Performance, Accessibility, Best Practices, SEO + Performance Budgets؛ لا الاعتماد على Score وحده: LCP, INP (TBT كبديل مختبري), CLS. النتائج على filesystem (لا رفع لتخزين عام).",
+   "details": [
+    "يحل محل tooling/scripts/lighthouse.mjs (لا تكرار)"
+   ],
+   "sources": [
+    "M37-007"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "PARTIAL",
+   "tested": "NO",
+   "existing_impl": "tooling/scripts/lighthouse.mjs",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "",
+   "design_refs": [
+    "docs/TOOLCHAIN.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P06",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "TOOL-035",
+   "area": "41 Tooling",
+   "type": "REQUIREMENT",
+   "title": "فحص الأنواع والـLint والتنسيق الصارم",
+   "requirement": "TypeScript strict (بلا any عشوائي) لكود الواجهة + Larastan/PHPStan صارم للـPHP؛ ESLint بقواعد مناسبة للـstack (correctness, imports, unsafe patterns) بلا Noise؛ Prettier (TS/CSS/JSON/YAML) + Pint (PHP) لتوحيد التنسيق.",
+   "details": [
+    "لا قواعد React/Hooks: المنصة Blade (ADR-001)"
+   ],
+   "sources": [
+    "M37-009",
+    "M37-010",
+    "M37-011"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "",
+   "design_refs": [
+    "docs/TOOLCHAIN.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P06",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "TOOL-036",
+   "area": "41 Tooling",
+   "type": "REQUIREMENT",
+   "title": "Knip لاكتشاف الكود الميت — بلا حذف تلقائي",
+   "requirement": "Knip (unused files/exports/dependencies) لجانب JS، تقرير فقط؛ لا حذف قبل التحقق.",
+   "details": [],
+   "sources": [
+    "M37-012"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P2",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "",
+   "design_refs": [
+    "docs/TOOLCHAIN.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P06",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "TOOL-037",
+   "area": "41 Tooling",
+   "type": "REQUIREMENT",
+   "title": "اختبارات وحدات لمنطق الأعمال المهم فقط",
+   "requirement": "PHPUnit لمنطق الأعمال (Master Data, pricing, hours, special hours, availability, campaign timing, permissions, validation, formatting, sync)؛ Vitest لوحدات TS في الواجهة. لا Tests تافهة لرفع Coverage.",
+   "details": [],
+   "sources": [
+    "M37-013"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "",
+   "design_refs": [
+    "docs/TOOLCHAIN.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P06",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "TOOL-038",
+   "area": "41 Tooling",
+   "type": "REQUIREMENT",
+   "title": "Security QA: Semgrep CE + Gitleaks + Dependency/Trivy + ZAP على Staging",
+   "requirement": "Semgrep CE (application code, API routes, auth, uploads, DB usage, unsafe patterns) مع التحقق من كل Finding؛ Gitleaks محليًا (pre-commit) وفي CI؛ composer/npm audit + Trivy حسب المعمارية؛ لا ترقيات كاسرة تلقائية على Production؛ OWASP ZAP على Staging فقط (Automation Framework) — لا Active scan عدواني على Production.",
+   "details": [
+    "ZAP: headers, XSS, injection, auth/session, unsafe endpoints, misconfigurations"
+   ],
+   "sources": [
+    "M37-014",
+    "M37-015",
+    "M37-016",
+    "M37-017"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "",
+   "design_refs": [
+    "docs/TOOLCHAIN.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P06",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "TOOL-039",
+   "area": "41 Tooling",
+   "type": "REQUIREMENT",
+   "title": "SEO crawl واحد + Structured data QA من Master Data",
+   "requirement": "زاحف SEO واحد (Titles, Descriptions, Canonicals, Hreflang, Headings, Broken links, Sitemap, Robots, Structured data, Indexable routes, Redirect chains) — لا 3 أدوات لنفس الشيء. فحوص آلية لـ Organization, LocalBusiness, Breadcrumb, Article, Event, FAQ (عند الاستخدام) والبيانات من Master Data، لا Schema مثبت يدويًا.",
+   "details": [
+    "التنفيذ: shelter:seo-audit = نفس محرك Site Health"
+   ],
+   "sources": [
+    "M37-019",
+    "M37-020"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "",
+   "design_refs": [
+    "docs/TOOLCHAIN.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "TOOL-040",
+   "area": "41 Tooling",
+   "type": "REQUIREMENT",
+   "title": "خط جودة GitHub Actions ببوابات حرجة وتقسيم ذكي",
+   "requirement": "INSTALL → TYPE CHECK → LINT → UNIT → BUILD → PLAYWRIGHT → A11Y → VISUAL → SEO → LIGHTHOUSE CI → SECRET SCAN → SECURITY SCAN → DEPENDENCY SCAN؛ فشل بوابة حرجة = لا Release. FAST (lint/types/unit) محليًا؛ PR/CI (build/Playwright/a11y/visual/Lighthouse/secret)؛ STAGING/SECURITY (ZAP, deep scans, full crawl).",
+   "details": [
+    "حصة دقائق GitHub المجانية؛ التجاوز قرار مالي"
+   ],
+   "sources": [
+    "M37-021",
+    "M37-022"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "",
+   "design_refs": [
+    "docs/TOOLCHAIN.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P06",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "TOOL-041",
+   "area": "41 Tooling",
+   "type": "REQUIREMENT",
+   "title": "استخدام أدوات Claude فعليًا والتوثيق الرسمي قبل أي API",
+   "requirement": "استخدام Playwright/DevTools/Design skills/Code review/SEO tooling فعليًا أثناء العمل؛ وقبل استخدام API أو Syntax حديث: Context7 أو التوثيق الرسمي — لا الاعتماد على الذاكرة.",
+   "details": [
+    "Context7 غير متصل بالجلسة → قراءة التوثيق الرسمي مباشرة"
+   ],
+   "sources": [
+    "M37-023",
+    "M37-024"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "PARTIAL",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "",
+   "design_refs": [
+    "docs/TOOLCHAIN.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P06",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "TOOL-042",
+   "area": "41 Tooling",
+   "type": "REQUIREMENT",
+   "title": "إعادة استخدام المكونات وتنظيم الكود وحدود الوحدات",
+   "requirement": "قبل أي Component: REUSE ثم EXTEND ثم CREATE APPROVED VARIANT — لا تكرار. تنظيم واضح (components/features/routes/services/data/types/tests) بلا أسماء مثل utils2/helpers-new/final-v2. Module boundaries: UI لا يصل DB مباشرة، Pages بلا منطق أعمال ضخم، Integrations داخل adapters/services، Master Data داخل domain layer.",
+   "details": [],
+   "sources": [
+    "M37-025",
+    "M37-026",
+    "M37-027"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "",
+   "design_refs": [
+    "docs/TOOLCHAIN.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P06",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "TOOL-043",
+   "area": "41 Tooling",
+   "type": "REQUIREMENT",
+   "title": "Security headers مختبرة",
+   "requirement": "CSP, HSTS, X-Content-Type-Options, Referrer-Policy, Permissions-Policy, frame protection — تُطبق حسب المعمارية بلا كسر الخدمات، مع اختبار آلي.",
+   "details": [],
+   "sources": [
+    "M37-028"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "",
+   "design_refs": [
+    "docs/TOOLCHAIN.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P06",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "TOOL-044",
+   "area": "41 Tooling",
+   "type": "REQUIREMENT",
+   "title": "سياسة الحزم وضبط حجم الحزمة وأداء الـDashboard",
+   "requirement": "ممنوع Package لتوفير 10 أسطر؛ قبل أي dependency: equivalent؟ maintained؟ حجم؟ ثغرات؟ بديل بسيط؟ مراقبة Bundle Size: لا animations/icons/charts/editors/admin components في الحزمة العامة بلا حاجة (code splitting/dynamic imports). الـDashboard سريع: large tables, media library, search, filters, forms — بلا تحميل آلاف السجلات دفعة واحدة (Pagination).",
+   "details": [],
+   "sources": [
+    "M37-029",
+    "M37-030",
+    "M37-031"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "",
+   "design_refs": [
+    "docs/TOOLCHAIN.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P06",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "TOOL-045",
+   "area": "41 Tooling",
+   "type": "REQUIREMENT",
+   "title": "فحص جودة التصميم قبل اعتبار أي صفحة جاهزة",
+   "requirement": "مراجعة كمصمم UX/UI: Hierarchy, Whitespace, Typography, Alignment, Button consistency, Density, Mobile ergonomics, CTA clarity, Empty/Loading/Error states.",
+   "details": [],
+   "sources": [
+    "M37-032"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "",
+   "design_refs": [
+    "docs/TOOLCHAIN.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "TOOL-046",
+   "area": "41 Tooling",
+   "type": "REQUIREMENT",
+   "title": "خط الصور: Original → Variants → WebP/AVIF مع srcset/sizes",
+   "requirement": "Sharp أو مكافئ موجود فقط: Original → resized variants → WebP → AVIF عند الملاءمة، مع srcset, sizes, focal point, dimensions. لا تحميل الأصل عالي الدقة للعميل.",
+   "details": [],
+   "sources": [
+    "M37-018"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "PARTIAL",
+   "tested": "NO",
+   "existing_impl": "tooling/scripts/images.mjs",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "",
+   "design_refs": [
+    "docs/TOOLCHAIN.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "GOV-087",
+   "area": "38 Documentation & Governance",
+   "type": "RULE",
+   "title": "قاعدة التوضيح النهائية — OWNER APPROVED · FROZEN · GLOBAL PROJECT RULE",
+   "requirement": "IF YOU KNOW: BUILD. IF TECHNICAL: DECIDE PROFESSIONALLY AND BUILD. IF UNKNOWN BUSINESS FACT: ASK THE OWNER (عند المنع فعلًا، وإلا PENDING OWNER INPUT ومتابعة المستقل). IF IT AFFECTS MONEY, LEGAL TERMS, PUBLIC CLAIMS, BRAND POLICY, PEOPLE, PRIVACY, OR COMMERCIAL TERMS: DO NOT GUESS. WHEN IN DOUBT: ASK — but do not interrupt progress unnecessarily. UNKNOWN ≠ STOP EVERYTHING.",
+   "details": [
+    "ممنوع تخمين: الأسعار، ساعات الدوام، الهواتف، العناوين، أسماء الفروع، معلومات المنتجات، عروض الخصم، التواريخ، معلومات الموظفين، الجوائز، الفعاليات، معلومات الفرنشايز، الرسوم، الأرباح، شروط الاستثمار، السياسات، البيانات القانونية، بيانات الاتصال، أي Public Fact",
+    "لا أسئلة تقنية صغيرة (spacing, breakpoint, radius, CSS, naming, folders, animation duration, state management, test naming, utilities)",
+    "خيارات تقنية صحيحة متعددة → اختر الأفضل؛ إن أثرت على Business/Brand/Customer promise/Legal/Financial/Public content/Privacy/Commercial policy → اعرض الخيارات واسأل"
+   ],
+   "sources": [
+    "M38-000",
+    "M38-001",
+    "M38-002",
+    "M38-003",
+    "M38-004",
+    "M38-005",
+    "M38-013",
+    "M38-099"
+   ],
+   "decision_refs": [],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "IMPLEMENTED — NOT TESTED",
+   "tested": "NO",
+   "existing_impl": "CLAUDE.md §Owner clarification rule",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "",
+   "design_refs": [
+    "CLAUDE.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P00",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "GOV-088",
+   "area": "38 Documentation & Governance",
+   "type": "RULE",
+   "title": "التعارض غير المحسوم: A / B / Impact / Recommendation ثم السؤال",
+   "requirement": "عند تعارض بين مستندين/قرارين: Latest Explicit Owner Decision؛ إن لم يُعرف الأحدث أو لم يكن الحسم واضحًا: لا تخمين — اعرض A (القائم) · B (المتعارض) · Impact · Recommendation واسأل أيهما يُعتمد.",
+   "details": [],
+   "sources": [
+    "M38-006"
+   ],
+   "decision_refs": [],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "IMPLEMENTED — NOT TESTED",
+   "tested": "NO",
+   "existing_impl": "CLAUDE.md",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "",
+   "design_refs": [
+    "CLAUDE.md",
+    "docs/CONFLICT-REGISTER.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P00",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "GOV-089",
+   "area": "38 Documentation & Governance",
+   "type": "RULE",
+   "title": "لا إصلاح صامت لبيانات الأعمال — CONFLICT DETECTED",
+   "requirement": "لا تغيير لمعلومة Business لاعتقاد أنها خطأ. مثال: Google يعرض دوامًا مختلفًا عن Master Data → لا تعديل تلقائي لـMaster Data؛ اعرض CONFLICT DETECTED واسأل إن لم يكن Source of Truth واضحًا.",
+   "details": [],
+   "sources": [
+    "M38-007"
+   ],
+   "decision_refs": [],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "",
+   "design_refs": [
+    "CLAUDE.md",
+    "docs/MASTER-DATA-HUB.md §10"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P06",
+   "history": [],
+   "notes": "يُطبق في محول القنوات: التغيير الخارجي → Review (لا Adopt تلقائي)."
+  },
+  {
+   "id": "GOV-090",
+   "area": "38 Documentation & Governance",
+   "type": "RULE",
+   "title": "طريقة السؤال: واضح، واحد واحد، مرتب بالأولوية، وتسجيل الجواب",
+   "requirement": "صيغة السؤال: المعلومة المطلوبة / سبب الحاجة / الخيارات إن وجدت / توصيتك ثم الانتظار. الأسئلة المترابطة مرتبة بالأولوية، فقط ما تحتاجه المرحلة الحالية (لا 30 سؤالًا دفعة واحدة). جواب الـOwner يُحدَّث فورًا في MASTER REQUIREMENTS + DECISION REGISTER + TRACEABILITY MATRIX، والقديم SUPERSEDED. عدم الرد ≠ موافقة: يبقى PENDING OWNER APPROVAL.",
+   "details": [],
+   "sources": [
+    "M38-011",
+    "M38-012",
+    "M38-014",
+    "M38-015"
+   ],
+   "decision_refs": [],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "IMPLEMENTED — NOT TESTED",
+   "tested": "NO",
+   "existing_impl": "CLAUDE.md",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "",
+   "design_refs": [
+    "CLAUDE.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P00",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "GOV-091",
+   "area": "38 Documentation & Governance",
+   "type": "RULE",
+   "title": "الخدمات الخارجية والتغييرات الحساسة في Production تحتاج موافقة صريحة",
+   "requirement": "لا تصرف ذاتي في: paid plugin/API/SaaS, account creation, billing, OAuth approval, DNS change, production credential, Google authorization, Cloudflare/Cloudways permission — اشرح What/Why/Cost/Risk/Alternative ثم اسأل. أي تغيير حساس في Production (DNS, redirects, database migration, destructive operation, Google Business, authentication, security rules, live integrations, permanent delete) يحتاج Approval — لا افتراض موافقة.",
+   "details": [],
+   "sources": [
+    "M38-009",
+    "M38-010"
+   ],
+   "decision_refs": [],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "",
+   "design_refs": [
+    "CLAUDE.md",
+    "docs/platform/DEPLOYMENT.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P00",
+   "history": [],
+   "notes": ""
+  }
+ ],
+ "updates_to_existing": [
+  {
+   "id": "TOOL-017",
+   "type": "UPDATE",
+   "source": "M37 §19",
+   "change": "Unlighthouse غير مثبت: M37 يشترط 'إذا مناسب وموجود' ويمنع 3 زواحف لنفس الوظيفة؛ LHCI + shelter:seo-audit يغطيان. DEFERRED — يُعاد النظر فقط إن ظهرت فجوة.",
+   "new_status": "DEFERRED"
+  },
+  {
+   "id": "TOOL-018",
+   "type": "UPDATE",
+   "source": "M37 §33",
+   "change": "sitespeed.io تكرار لـLighthouse CI + Playwright CDP traces. DEFERRED.",
+   "new_status": "DEFERRED"
+  },
+  {
+   "id": "TOOL-019",
+   "type": "UPDATE",
+   "source": "ADR-001 + M37 §1",
+   "change": "شرط الموافقة (توافق الـstack) غير متحقق: shadcn/ui لـReact فقط والمنصة Blade. NOT INSTALLED؛ هدفه يتحقق بمكونات x-ui الموحدة."
+  },
+  {
+   "id": "TOOL-020",
+   "type": "UPDATE",
+   "source": "ADR-001 + M37 §1",
+   "change": "Radix لـReact فقط. البديل: عناصر HTML الأصلية (dialog/popover/details) + ARIA APG + اختبارات axe ولوحة المفاتيح."
+  },
+  {
+   "id": "TOOL-021",
+   "type": "UPDATE",
+   "source": "ADR-001 + M37 §1/§33",
+   "change": "Tailwind REDUNDANT مع Tokens + CSS المكونات (نظاما تنسيق = One-off styling). NOT INSTALLED."
+  },
+  {
+   "id": "TOOL-022",
+   "type": "UPDATE",
+   "source": "ADR-001",
+   "change": "Motion بنسخة vanilla (لا motion/react)، للـSheet المنيو فقط وبتحميل كسول (قرار M24 قائم)."
+  },
+  {
+   "id": "TOOL-023",
+   "type": "UPDATE",
+   "source": "ADR-001",
+   "change": "Lenis غير مستخدم (التمرير الأصلي)."
+  },
+  {
+   "id": "TOOL-024",
+   "type": "UPDATE",
+   "source": "M37 §2",
+   "change": "Storybook مُعتمد ومطلوب: @storybook/html-vite بقصص مولّدة من Blade = DESIGN SYSTEM REFERENCE (TOOL-029). يحل محل معرض /_ds.",
+   "new_status": "APPROVED"
+  },
+  {
+   "id": "TOOL-025",
+   "type": "UPDATE",
+   "source": "ADR-001 + M37",
+   "change": "Lucide كـSVG ثابتة (lucide-static، تطوير) — لا حزمة أيقونات في الواجهة العامة."
+  },
+  {
+   "id": "TOOL-026",
+   "type": "UPDATE",
+   "source": "ADR-001",
+   "change": "React Aria غير قابل للتطبيق (لا React)."
+  },
+  {
+   "id": "TOOL-015",
+   "type": "UPDATE",
+   "source": "M37 §7",
+   "change": "السكربت المخصص يُستبدل بـLighthouse CI (TOOL-034) — لا أداتين."
+  },
+  {
+   "id": "TOOL-012",
+   "type": "UPDATE",
+   "source": "M37",
+   "change": "سجل الأدوات الوحيد أصبح docs/TOOLCHAIN.md؛ FRONTEND-TOOLING.md سجل تاريخي."
+  },
+  {
+   "id": "GOV-085",
+   "type": "UPDATE",
+   "source": "M37",
+   "change": "docs/FRONTEND-TOOLING.md → سجل تاريخي؛ المرجع docs/TOOLCHAIN.md."
+  },
+  {
+   "id": "GOV-022",
+   "type": "UPDATE",
+   "source": "M38 §1",
+   "change": "أُكدت كقاعدة FROZEN GLOBAL PROJECT RULE مع القائمة الموسعة (الموظفين، الجوائز، الفعاليات، الفرنشايز، الرسوم، الأرباح، شروط الاستثمار…) — انظر GOV-087.",
+   "new_status": "FROZEN"
+  },
+  {
+   "id": "GOV-009",
+   "type": "UPDATE",
+   "source": "M38 §15",
+   "change": "FROZEN GLOBAL RULE: ما يحتاج موافقة يبقى PENDING OWNER APPROVAL حتى موافقة صريحة.",
+   "new_status": "FROZEN"
+  },
+  {
+   "id": "GOV-015",
+   "type": "UPDATE",
+   "source": "M38 §4/§5",
+   "change": "التفويض التقني مؤكد (قائمة الأمور التقنية التي لا يُسأل عنها)، وما يمس Business/Brand/Legal/Financial/Public content/Privacy/Commercial يُعرض كخيارات.",
+   "new_status": "FROZEN"
+  },
+  {
+   "id": "GOV-035",
+   "type": "UPDATE",
+   "source": "M38 §2/§13",
+   "change": "UNKNOWN ≠ STOP EVERYTHING — FROZEN.",
+   "new_status": "FROZEN"
+  },
+  {
+   "id": "GOV-031",
+   "type": "UPDATE",
+   "source": "M38 §12",
+   "change": "سؤال واحد في كل مرة عند الإمكان، مرتب بالأولوية — FROZEN.",
+   "new_status": "FROZEN"
+  },
+  {
+   "id": "GOV-002",
+   "type": "UPDATE",
+   "source": "M38 §6",
+   "change": "صيغة عرض التعارض غير المحسوم: A existing / B conflicting / Impact / Recommendation (GOV-088)."
+  }
+ ],
+ "conflicts": [
+  {
+   "id": "G19-CF-01",
+   "topic": "أدوات React (shadcn/Radix/Tailwind/Storybook-react) مقابل منصة Blade",
+   "old_instruction": "M24/M37: استخدم shadcn/ui, Radix, Tailwind, Storybook, Lucide عند الحاجة (مشروطة بالـstack)",
+   "old_source": "M24, M37 §1",
+   "new_instruction": "ADR-001: Laravel + Blade بلا React",
+   "new_source": "ADR-001 (M36 §24 delegation)",
+   "winner": "لا تعارض فعلي: موافقات الـOwner مشروطة بتوافق الـstack؛ الشرط غير متحقق → NOT INSTALLED مع تحقيق الهدف بأدوات المنصة. Storybook مُثبت بصيغة html-vite.",
+   "why": "M37 نفسه يشترط (\"راجع واستخدم عند الحاجة\"، \"إذا TypeScript\"، \"React/framework rules\") ويمنع أداتين لنفس الوظيفة (§33)",
+   "impact": "لا React؛ مكتبة مكونات Blade واحدة + Storybook كمرجع",
+   "files": [
+    "docs/TOOLCHAIN.md",
+    "docs/adr/ADR-001-platform.md"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "id": "G19-CF-02",
+   "topic": "Lighthouse مخصص مقابل Lighthouse CI",
+   "old_instruction": "tooling/scripts/lighthouse.mjs ببوابات",
+   "old_source": "M24",
+   "new_instruction": "ثبت Lighthouse CI",
+   "new_source": "M37 §7",
+   "winner": "Lighthouse CI",
+   "why": "الأحدث + لا تكرار",
+   "impact": "استبدال السكربت",
+   "files": [
+    "tooling/"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "id": "G19-CF-03",
+   "topic": "Unlighthouse (موافقة مشروطة سابقة) مقابل زاحف واحد",
+   "old_instruction": "TOOL-017 Unlighthouse قبل الإطلاق",
+   "old_source": "M24",
+   "new_instruction": "لا تثبت 3 SEO crawlers؛ Unlighthouse إذا مناسب وموجود",
+   "new_source": "M37 §19",
+   "winner": "زاحف واحد: shelter:seo-audit + LHCI",
+   "why": "M37 أحدث ويشترط الملاءمة",
+   "impact": "TOOL-017 DEFERRED",
+   "files": [
+    "docs/TOOLCHAIN.md"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "id": "G19-CF-04",
+   "topic": "gitleaks-action يحتاج ترخيصًا للمؤسسات",
+   "old_instruction": "Gitleaks في CI",
+   "old_source": "M37 §15",
+   "new_instruction": "—",
+   "new_source": "تحقق تقني",
+   "winner": "تشغيل ملف gitleaks التنفيذي مباشرة (MIT) بدل الـAction",
+   "why": "تجنب ترخيص/حساب",
+   "impact": "لا تكلفة",
+   "files": [
+    ".github/workflows/"
+   ],
+   "status": "RESOLVED"
+  }
+ ],
+ "new_decisions": [
+  {
+   "temp_id": "G19-ND-01",
+   "area": "41 Tooling",
+   "decision": "docs/TOOLCHAIN.md هو سجل الأدوات الوحيد (M37)؛ الـToolchain النهائي: PHPUnit, Larastan, Pint, TS strict, ESLint, Prettier, Vitest, Knip, Storybook(html-vite)+a11y, Playwright+axe+visual, Lighthouse CI, shelter:seo-audit, Sharp, Gitleaks, Semgrep CE, composer/npm audit, Trivy (FULL), ZAP (Staging), GitHub Actions.",
+   "sources": [
+    "M37-034"
+   ],
+   "status": "APPROVED",
+   "reason": "M37 §34 + تدقيق",
+   "impact": "لا أدوات مكررة"
+  },
+  {
+   "temp_id": "G19-ND-02",
+   "area": "38 Governance",
+   "decision": "قاعدة التوضيح النهائية M38 = OWNER APPROVED · FROZEN · GLOBAL PROJECT RULE (مسجلة في CLAUDE.md).",
+   "sources": [
+    "M38-099"
+   ],
+   "status": "FROZEN",
+   "reason": "توجيه صريح",
+   "impact": "كل الأسئلة بالصيغة الرباعية وعند المنع فقط"
+  }
+ ],
+ "pending_owner": [
+  {
+   "id": "PO-039",
+   "item": "↻ M37: خط الجودة على GitHub Actions يعمل ضمن الحصة المجانية (تقسيم FAST/CI/FULL)؛ تجاوز الحصة = قرار مالي لك",
+   "category": "NON-BLOCKING",
+   "type": "BUSINESS DECISION",
+   "blocks": "لا شيء ضمن الحصة المجانية",
+   "refs": [
+    "TOOL-040",
+    "I-07"
+   ],
+   "count": "",
+   "notes": "إضافة على PO-039"
+  }
+ ],
+ "technical_flags": [
+  {
+   "flag": "github.com releases و api.github.com محجوبة من شبكة بيئة التطوير (403)؛ git عبر github.com يعمل. Composer يعمل بـ--prefer-source؛ Gitleaks عبر go install؛ Semgrep registry (semgrep.dev) محجوب محليًا → قواعد من مستودع semgrep-rules عبر git أو في CI.",
+   "impact": "أدوات CI تعمل طبيعيًا على GitHub Actions"
+  },
+  {
+   "flag": "Docker daemon غير متاح محليًا → ZAP وTrivy يعملان في CI/Staging فقط.",
+   "impact": "لا"
+  }
+ ],
+ "cost_api_dependencies": [
+  {
+   "feature": "CI",
+   "service": "GitHub Actions",
+   "why": "خط الجودة",
+   "free_alternative": "تشغيل محلي",
+   "cost_or_quota": "حصة مجانية شهرية",
+   "needs_approval": "عند تجاوز الحصة فقط"
+  }
+ ],
+ "dropped": [],
+ "notes": "M37 (toolchain) + M38 (clarification rule). كتبه الـLead مباشرة."
+}

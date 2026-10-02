@@ -1,0 +1,152 @@
+{
+ "group": "G21",
+ "notes": "M39 — Owner access delegation (Cloudways · Cloudflare · Google) + first live read of the old site (2026-10-01). No production change.",
+ "requirements": [
+  {
+   "id": "INFRA-046",
+   "area": "49 Infrastructure, Release & Operations",
+   "type": "RULE",
+   "title": "مكان الأسرار: لا سر في Environment variables لبيئة التطوير",
+   "requirement": "قيم Environment variables في بيئة Claude Code السحابية ظاهرة لكل من يستخدم البيئة ويقرؤها أي أمر في الجلسة، فلا يوضع فيها أي مفتاح أو كلمة مرور. المفاتيح ذات Bearer (Cloudflare) تُضاف كـAPI credentials، فيرفقها الـProxy بالطلب للنطاق المحدد فقط ولا تظهر في الجلسة. مفاتيح النشر (Cloudways SSH) ومفتاح حساب خدمة Google تُحفظ في GitHub Actions secrets وتُستخدم داخل الـCI فقط. أسرار وقت التشغيل في .env على السيرفر. لا أسرار في المحادثة أو Git أو الـFrontend أو الـCMS.",
+   "details": [
+    "Network access = Custom مع Allowed domains لنطاقات الموقع القديم + القائمة الافتراضية للحزم.",
+    "نطاقات الـAPI credentials تُفتح تلقائيًا ولا تُضاف إلى Allowed domains.",
+    "Google: Workflow يدوي في GitHub Actions يكتب تقريرًا مجمّعًا بلا PII، والمفتاح لا يدخل الجلسة."
+   ],
+   "sources": [
+    "M39 §1"
+   ],
+   "decision_refs": [
+    "G21-ND-01"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "IMPLEMENTED — NOT YET VERIFIED",
+   "tested": "NO",
+   "existing_impl": "docs/platform/ACCESS-SETUP.md",
+   "missing_work": "التحقق عند إضافة أول API credential (Cloudflare) وأول GitHub secret",
+   "dependencies": [
+    "CF-009",
+    "SEC-001"
+   ],
+   "test_required": "قراءة واحدة عبر الـcredential دون ظهور المفتاح في env أو الملفات",
+   "design_refs": [
+    "docs/platform/ACCESS-SETUP.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P01",
+   "history": [],
+   "notes": "قرار تقني (M38 §2) يفصّل D-308 دون تغيير قصد الـOwner"
+  }
+ ],
+ "updates_to_existing": [
+  {
+   "id": "PO-008",
+   "type": "RESOLVE",
+   "source": "M39 §1",
+   "change": "✅ 2026-10-01: الـOwner عدّل Network access للبيئة؛ www.shelterjo.com وshelterjo.com وshop.shelterjo.com متاحة. أول جرد مباشر: docs/phase-01-discovery/24-live-site-crawl-2026-10-01.md"
+  },
+  {
+   "id": "D-308",
+   "type": "UPDATE",
+   "source": "M39 §1",
+   "change": "مكان الأسرار (تفصيل تقني لـD-308، M38 §2): لا سر في Environment variables لبيئة التطوير لأنها ظاهرة لكل مستخدم للبيئة. Cloudflare → API credentials (يحتفظ بها الـProxy خارج الجلسة)؛ Cloudways SSH ومفتاح حساب خدمة Google → GitHub Actions secrets؛ أسرار وقت التشغيل → .env على السيرفر. التوثيق: docs/platform/ACCESS-SETUP.md"
+  },
+  {
+   "id": "CF-009",
+   "type": "UPDATE",
+   "source": "M39 §1",
+   "change": "مكان الـToken: API credentials في إعدادات البيئة (Bearer، النطاق api.cloudflare.com)، وليس Environment variable (INFRA-046)"
+  },
+  {
+   "id": "CF-004",
+   "type": "UPDATE",
+   "source": "M39 §1",
+   "change": "api.cloudflare.com أصبح متاحًا من البيئة (2026-10-01). القراءة تبدأ عند إضافة الـToken كـAPI credential (docs/platform/ACCESS-SETUP.md §2)"
+  },
+  {
+   "id": "ANL-001",
+   "type": "UPDATE",
+   "source": "M39 §1",
+   "change": "جرد مباشر 2026-10-01: Google tag عبر Site Kit (GT-NNZXZLP5) على كل الصفحات · Google Ads AW-454452815 (43/43) · Meta Pixel 2425046304590717 (43/43) · لا GTM · لا UA · لا TikTok Pixel · تحقق GSC بـHTML meta tag (24-live-site-crawl §2)"
+  },
+  {
+   "id": "ANL-002",
+   "type": "UPDATE",
+   "source": "M39 §1",
+   "change": "الموقع القديم: Google tag واحد (Site Kit) + Ads + Meta Pixel، بلا ازدواج ظاهر في HTML. معرّف GA4 داخل إعداد الـGoogle tag ويُؤكد بوصول GA4"
+  },
+  {
+   "id": "INT-009",
+   "type": "UPDATE",
+   "source": "M39 §1",
+   "change": "Site Kit 1.188.0 مثبت ويُدير Google tag GT-NNZXZLP5 وتحقق Search Console (meta tag)"
+  },
+  {
+   "id": "GOOGLE-009",
+   "type": "UPDATE",
+   "source": "M39 §1",
+   "change": "الجزء المرئي من الموقع مجرود (24-live-site-crawl §2). الباقي (GA4 Property، Data Streams، GSC Property type) ينتظر حساب الخدمة للقراءة (ACCESS-SETUP §3)"
+  }
+ ],
+ "conflicts": [],
+ "new_decisions": [
+  {
+   "temp_id": "G21-ND-01",
+   "area": "33 Integrations / 34 Hosting",
+   "decision": "**تفويض تنفيذ الإعداد:** الـOwner يمنح الوصول إلى Cloudways وCloudflare وGoogle، ويفوّض Claude بتنفيذ الإعداد التقني بنفسه. **الوصول يتم بأقل صلاحية، والقيم السرية في إعدادات البيئة فقط، وليس في المحادثة.** التغييرات الحساسة على Production (DNS، والتحويلات، وتعديل Google Business، والحذف النهائي) تبقى بموافقة صريحة على كل إجراء (M38 §10)",
+   "sources": [
+    "M39 §1"
+   ],
+   "status": "APPROVED",
+   "reason": "Owner: \"انا بعطيك صلاحيات وصول وانت فوت عدل كل اشي\"",
+   "impact": "ACCESS-SETUP · PO-008…013 · PO-046 · PO-064 · INFRA-046"
+  }
+ ],
+ "pending_owner": [
+  {
+   "id": "G21-PO-01",
+   "item": "shop.shelterjo.com: سجل DNS يشير مباشرة إلى IP سيرفر (لا يمر عبر Cloudflare) وشهادته *.cloudwaysapps.com لا تطابق النطاق (تحذير أمان للزائر). القرار بعد قراءة Cloudflare: A حذف السجل إن لم يُستخدم · B تمريره عبر Cloudflare بشهادة صحيحة · C إبقاؤه",
+   "category": "NON-BLOCKING",
+   "type": "BUSINESS DECISION",
+   "blocks": "لا يمنع البناء؛ خطر تجاوز حماية Cloudflare إذا كان نفس سيرفر www",
+   "refs": [
+    "D-016",
+    "VQ-03",
+    "docs/phase-01-discovery/24-live-site-crawl-2026-10-01.md"
+   ],
+   "count": "",
+   "notes": "تعديل DNS = Production، يحتاج موافقة صريحة (M38 §10)"
+  }
+ ],
+ "technical_flags": [
+  {
+   "id": "G21-TF-01",
+   "topic": "شبكة بيئة التطوير: HTTPS فقط",
+   "detail": "الـProxy يقبل HTTPS CONNECT فقط: لا SSH ولا http:// صريح. النشر إلى Cloudways يتم من GitHub Actions؛ تحويل http→https يُتحقق منه من قواعد Cloudflare.",
+   "recommendation": "Deploy workflow في GitHub Actions بأسرار المستودع",
+   "needs_owner": false,
+   "refs": [
+    "BUILD-025",
+    "PO-064"
+   ]
+  },
+  {
+   "id": "G21-TF-02",
+   "topic": "روابط يستخدمها تطبيق Meta على الأرجح",
+   "detail": "/privacy/ و/terms/ و/data-deletion/ موجودة في الموقع القديم ومرجّح أنها Privacy Policy URL وData Deletion URL لتطبيق Meta.",
+   "recommendation": "KEEP أو 301 عند الإطلاق، والتحقق من إعدادات تطبيق Meta قبل الإطلاق (LEGACY-URL-MIGRATION)",
+   "needs_owner": false,
+   "refs": [
+    "SEO-013",
+    "SEO-014"
+   ]
+  }
+ ],
+ "cost_api_dependencies": [],
+ "dropped": []
+}

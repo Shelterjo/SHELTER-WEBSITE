@@ -1,0 +1,5056 @@
+{
+ "group": "G6",
+ "areas": [
+  "19 Analytics",
+  "20 GA4 / GTM",
+  "33 Integrations & Third-party/Paid services",
+  "34 Cloudflare / Hosting / DNS"
+ ],
+ "requirements": [
+  {
+   "id": "GOOGLE-001",
+   "area": "20 GA4 / GTM",
+   "type": "RULE",
+   "title": "Google Ecosystem Policy إلزامية + نطاق منظومة Google",
+   "requirement": "سياسة Google Ecosystem إلزامية طوال المشروع (وليس فقط في مرحلة SEO) ويستمر العمل وفقها. نطاق التكامل المعتمد: Google Business Profile · Google Maps · Google Search · Google Search Console · Google Analytics 4 (GA4) · Google Tag Manager (GTM) · Google PageSpeed Insights · Lighthouse / Chrome UX (CrUX) related data · Google Structured Data / Rich Results validation · Google indexing · Google Sitemap submission · Google Local SEO · و Google Business Profile Insights إن توفرت.",
+   "details": [
+    "GBP Insights مشروطة بتوفرها للفرعين DRIVE وHOUSE → PENDING VERIFICATION (M11-006).",
+    "GTM ضمن النطاق، لكن طريقة النشر/استخدام GTM تُحسم في GA-01 (GOOGLE-010).",
+    "القواعد الذهبية (GEP §57): DO NOT CHANGE GOOGLE DATA / DO NOT USE GOOGLE PHOTOS / DO NOT USE PAID API QUOTA — WITHOUT OWNER APPROVAL · DO NOT TRUST THIRD-PARTY DATA OVER OFFICIAL GOOGLE DATA WITHOUT A REASON · OWNER IS FINAL AUTHORITY.",
+    "M13 §Google Integration: «استمر حسب السياسة المعتمدة»."
+   ],
+   "sources": [
+    "M11-004",
+    "M11-005",
+    "M11-006",
+    "M13-012"
+   ],
+   "decision_refs": [
+    "D-046",
+    "GEP-§1"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "IMPLEMENTED — NOT TESTED",
+   "tested": "N/A",
+   "existing_impl": "docs/google/GOOGLE-ECOSYSTEM-POLICY.md (§1 + القواعد الذهبية) + GOOGLE-ECOSYSTEM-CHECKLIST.md",
+   "missing_work": "تحديث GEP §26 (قائمة الأحداث قديمة — انظر ANL-008/G6-CON-01/02)؛ التحقق من توفر GBP Insights للفرعين عند منح الوصول.",
+   "dependencies": [
+    "GBP (G4)",
+    "GSC/SEO/SCHEMA (G5)"
+   ],
+   "test_required": "مراجعة توثيقية: كل خدمة في النطاق لها وثيقة/حالة في GOOGLE-ECOSYSTEM-CHECKLIST، ولا تكامل خارج السياسة؛ Final Google Acceptance Test عند P09.",
+   "design_refs": [
+    "docs/google/GOOGLE-ECOSYSTEM-POLICY.md §1 §57",
+    "docs/google/GOOGLE-ECOSYSTEM-CHECKLIST.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P00",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "GOOGLE-002",
+   "area": "20 GA4 / GTM",
+   "type": "RULE",
+   "title": "منظومة Google كنظام واحد مترابط + اتساق بيانات SHELTER",
+   "requirement": "تُربط منظومة Google كنظام واحد مترابط: Website ↕ Google Tag Manager ↕ Google tag ↕ GA4 ↕ Google Search Console ↕ Google Business Profile ↕ Google Maps ↕ Structured Data / Schema ↕ Sitemap ↕ Google Search ↕ PageSpeed / Core Web Vitals — ولا تُعامل أي خدمة كجزيرة منفصلة. الهدف: أن تكون كل معلومات SHELTER على Website · Google · Google Maps · Schema · Search Console · Analytics متناسقة وصحيحة وقابلة للقياس.",
+   "details": [
+    "الاتساق التشغيلي للفروع يتم عبر Branch Data Sync (GBP ↔ Website ↔ Schema ↔ Maps ↔ Search) — مسؤولية G4.",
+    "ربط Search Console ↔ GA4 إن كان مناسبًا ومتاحًا (G5: M12-041)."
+   ],
+   "sources": [
+    "M12-006",
+    "M11-007"
+   ],
+   "decision_refs": [
+    "GIO-§A1/§A2",
+    "GEP-§1",
+    "D-046",
+    "D-049"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "PARTIAL",
+   "tested": "NO",
+   "existing_impl": "spec: docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §A1، GOOGLE-INTEGRATION-ARCHITECTURE.md (DRAFT)، BRANCH-DATA-SYNC.md",
+   "missing_work": "لا تكامل منفّذ؛ ينتظر P09 والصلاحيات وقرارات GA-01 وDB-08.",
+   "dependencies": [
+    "GOOGLE-003",
+    "GOOGLE-009",
+    "BRANCH-DATA-SYNC (G4)",
+    "GSC↔GA4 link (G5)"
+   ],
+   "test_required": "Final Google Acceptance Test (G8 M12-074) PASS: GA4/GTM/Google tag connected · GSC verified · Branch Maps/GBP consistent · Schema valid · لا تحليلات مكررة؛ Branch Data Sync Check بلا فروق غير محلولة.",
+   "design_refs": [
+    "docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §A1",
+    "docs/google/GOOGLE-INTEGRATION-ARCHITECTURE.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P09",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "GOOGLE-003",
+   "area": "20 GA4 / GTM",
+   "type": "DELIVERABLE",
+   "title": "Google Measurement & Search Architecture + المعمارية المستهدفة",
+   "requirement": "تصميم Google Measurement & Search Architecture كاملة للموقع. المعمارية المستهدفة (تقريبًا كما وصفها الـOwner): SHELTER Website → GTM → GA4 · SHELTER Website → Search Console → Google Search · DRIVE/HOUSE → Google Business Profile + Maps ↔ Website + Schema · Google Search Console + GA4 → قياس الأداء واتخاذ قرارات التحسين.",
+   "details": [
+    "«تقريبًا»: مسار GTM → GA4 هو الاتجاه المستهدف لكنه مشروط بـAudit الموجود (GOOGLE-009) وقرار GA-01 (GOOGLE-010) وقرار المنصة DB-08.",
+    "وثيقة نهاية الإعداد GOOGLE-ARCHITECTURE.md تتطور من GOOGLE-INTEGRATION-ARCHITECTURE.md (GIO §C)."
+   ],
+   "sources": [
+    "M12-007",
+    "M12-080"
+   ],
+   "decision_refs": [
+    "GIO-§A1/§A2",
+    "D-050",
+    "D-051"
+   ],
+   "status": "APPROVED WITH CONDITIONS",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "PARTIAL",
+   "tested": "NO",
+   "existing_impl": "docs/google/GOOGLE-INTEGRATION-ARCHITECTURE.md (DRAFT — تكاملات مطلوبة لاحقًا، GA-01…GA-04)",
+   "missing_work": "إضافة المعمارية المستهدفة (postscript M12) وقرار GA-01 بعد الـAudit؛ إنتاج GOOGLE-ARCHITECTURE.md عند التنفيذ.",
+   "dependencies": [
+    "GOOGLE-009",
+    "GOOGLE-010",
+    "DB-08 (G7/P05)"
+   ],
+   "test_required": "مراجعة الـOwner للوثيقة واعتمادها؛ مطابقة المعمارية المنفذة لها في Final Google Acceptance Test.",
+   "design_refs": [
+    "docs/google/GOOGLE-INTEGRATION-ARCHITECTURE.md §2 §3",
+    "docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §C"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "G6-CON-09",
+   "business_data": false,
+   "phase": "P05",
+   "history": [],
+   "notes": "الـpostscript جزء من رسالة الـOwner (M12) — غير مسجل في DECISION-LOG → G6-ND-09."
+  },
+  {
+   "id": "GOOGLE-004",
+   "area": "20 GA4 / GTM",
+   "type": "REQUIREMENT",
+   "title": "جاهزية الموقع لـGA4 وGTM وSearch Console (تكاملات مطلوبة لاحقًا)",
+   "requirement": "الموقع الجديد يُبنى جاهزًا لـGoogle Analytics 4 وGoogle Tag Manager وSearch Console (مع Measurement Plan — ANL-005)، وتُسجَّل Search Console وGA4 وGTM كتكاملات مطلوبة لاحقًا: تسجيل الآن، وتنفيذ في مرحلته.",
+   "details": [
+    "M01 §45 يذكر أيضًا GBP وMaps (G4) وM01-150 لـGSC (G5).",
+    "GEP §58 بند 6 = ✅ (مسجلة في GOOGLE-INTEGRATION-ARCHITECTURE §2)."
+   ],
+   "sources": [
+    "M01-151",
+    "M01-208",
+    "M11-127"
+   ],
+   "decision_refs": [
+    "D-050"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "PARTIAL",
+   "tested": "NO",
+   "existing_impl": "docs/google/GOOGLE-INTEGRATION-ARCHITECTURE.md §2 (تسجيل التكاملات)؛ الموقع غير مبني",
+   "missing_work": "بناء الموقع بنقطة حقن واحدة للتتبع (dataLayer/Google tag) حسب قرار GA-01، بعد قرار المنصة DB-08.",
+   "dependencies": [
+    "DB-08",
+    "GOOGLE-010",
+    "ANL-005"
+   ],
+   "test_required": "على Staging: Google tag/GTM يُحمّل مرة واحدة، dataLayer متاح، GA4 يستقبل page_view وأحداث الخطة، بلا تأثير غير مقبول على LCP/INP/CLS (Performance Budget).",
+   "design_refs": [
+    "docs/google/GOOGLE-INTEGRATION-ARCHITECTURE.md §2",
+    "docs/menu-ia/PERFORMANCE-BUDGET.md (GTM/GA4 بعد load + Idle)"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "GOOGLE-005",
+   "area": "20 GA4 / GTM",
+   "type": "DECISION",
+   "title": "Claude ينفذ إعداد وربط Google بنفسه عند المرحلة والصلاحيات",
+   "requirement": "عند الوصول للمرحلة المناسبة ومع توفر الصلاحيات والأدوات: Claude ينفذ بنفسه الربط والإعداد والاختبار والتوثيق (CONFIGURE → CONNECT → IMPLEMENT → TEST → VERIFY → DOCUMENT) لـGA4 · GTM · Google tag · Event tracking، ويربط الـOwner Dashboard بـGoogle Analytics 4 · Google Tag Manager · Search Console · Google Business Profile (إذا مناسب) — وليس مجرد إعطاء Instructions للـOwner.",
+   "details": [
+    "التنفيذ مؤجل لمرحلته («لاحقًا عندما نصل للمرحلة») — الآن لا تنفيذ (GOOGLE-008).",
+    "مسموح بلا موافقة مسبقة: Configure · Build · Test · Prepare؛ التغييرات الحساسة ذات الأثر المباشر (DNS · GTM Publish · Major GA4 change · Search Console ownership · Business Profile edit) = Summary ← موافقة ← تنفيذ (G8: M12-066/067).",
+    "الطريقة التقنية (GIO §B): Analytics Admin API · Tag Manager API · Search Console API عبر Service Account مفتاحه في إعدادات البيئة فقط (ليس في المحادثة)؛ الصلاحيات تبدأ Viewer/Read وتُرفع بموافقة ثم تُخفّض بعد الإطلاق.",
+    "قائمة M13 الكاملة: Audit الموجود · GA4 · GTM · Google tag · Search Console · Sitemap · Schema · Business Profile consistency · Maps · Event tracking · Testing · Validation · Documentation (الأجزاء خارج GA4/GTM مملوكة لـG4/G5/G1).",
+    "ربط الـDashboard يُنفّذ في PHASE K بعد اعتماد PHASE H (مرحلة الـDashboard)."
+   ],
+   "sources": [
+    "M13-013",
+    "M25-180",
+    "M27-073"
+   ],
+   "decision_refs": [
+    "D-051",
+    "D-055",
+    "GIO-§A1/§A2"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §A2 §B §D",
+   "missing_work": "ينتظر P09 + صلاحيات (AC-05، Service Account) + قرارات GA-01/DB-08.",
+   "dependencies": [
+    "GOOGLE-006",
+    "GOOGLE-008",
+    "GOOGLE-009",
+    "PERM least privilege (G7: M12-077)",
+    "DEPLOY production approval (G8: M12-066/067)"
+   ],
+   "test_required": "Final Google Acceptance Test + GOOGLE-TEST-REPORT.md؛ لا خطوة يدوية طُلبت من الـOwner إلا ضمن GOOGLE-006.",
+   "design_refs": [
+    "docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P09",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "GOOGLE-006",
+   "area": "20 GA4 / GTM",
+   "type": "RULE",
+   "title": "تدخل الـOwner فقط عند Login/OAuth/2FA/Ownership/Permission/Legal-financial",
+   "requirement": "يُطلب تدخل الـOwner في تكاملات Google فقط عند: Login · OAuth · 2FA · Ownership (confirmation) · Permission approval · Legal/financial confirmation — وباقي التنفيذ على Claude؛ عند خطوة كهذه يُقال للـOwner بالضبط ماذا يفعل، ثم يكمل Claude الباقي.",
+   "details": [
+    "M12 §2: Login · 2FA · Ownership confirmation · Billing · Legal acceptance · Google security confirmation.",
+    "M12 §29: Authentication · Approval · 2FA · Account ownership · Billing approval · Legal confirmation · Security confirmation.",
+    "M25 §64: Login · OAuth · 2FA · ownership confirmation · permissions.",
+    "M27 §17 (الأحدث): Login · OAuth · 2FA · Ownership · Permission approval · Legal/financial confirmation.",
+    "المعتمد = اتحاد القوائم (لا تعارض): Billing وGoogle security confirmation باقيتان من M12."
+   ],
+   "sources": [
+    "M25-181",
+    "M27-074"
+   ],
+   "decision_refs": [
+    "D-051",
+    "GIO-§A1/§A2"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "PARTIAL",
+   "tested": "NO",
+   "existing_impl": "docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §A2 §A29 (القائمة تنقصها OAuth وPermission approval وLegal/financial)",
+   "missing_work": "تحديث GIO §A2/§A29 بالقائمة الموحدة (بعد هذا الـAudit).",
+   "dependencies": [
+    "GOOGLE-005",
+    "PERM (G7: M12-069)"
+   ],
+   "test_required": "مراجعة سجل التنفيذ في P09: كل طلب من الـOwner ينتمي لإحدى الفئات المعتمدة.",
+   "design_refs": [
+    "docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §A2 §A29"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "G6-CON-12",
+   "business_data": false,
+   "phase": "P09",
+   "history": [
+    {
+     "old": "M12 §2/§29: القائمة بدون OAuth وPermission approval",
+     "source": "M12-009 / M12-069 (G1/G7)",
+     "superseded_by": "M25-181، M27-074 (توسيع — يُعتمد الاتحاد)"
+    }
+   ],
+   "notes": "القرار موجود جزئيًا في D-051؛ إضافة OAuth/Permission approval/Legal-financial غير مسجلة → G6-ND-05."
+  },
+  {
+   "id": "GOOGLE-007",
+   "area": "20 GA4 / GTM",
+   "type": "DECISION",
+   "title": "وصول GA4/GTM للقراءة فقط لاحقًا (Read-only أولًا)",
+   "requirement": "وصول الفريق إلى GA4 (وGTM) لأغراض الفحص والجرد يكون Read-only لاحقًا عند المرحلة المناسبة (GA4 Viewer · GTM Read — AC-05)، مع تفضيل الخيار المجاني أولًا (Export / Service Account للقراءة)؛ أي صلاحية أعلى (Editor/Publish) فقط عند التنفيذ وبموافقة.",
+   "details": [
+    "AC-05 = REQUESTED: أرسل Measurement ID وContainer ID أولًا؛ تصدير Container (Admin → Export Container) كـJSON يكفي لـGTM.",
+    "MI-027: GA4 / GTM / Search Console / Meta Pixel IDs & access = MISSING.",
+    "تصعيد الصلاحيات (GIO §B): Viewer → Editor (بموافقة) → Publish (بعد Summary وموافقة) ثم تخفيضها بعد الإطلاق."
+   ],
+   "sources": [
+    "M10-047"
+   ],
+   "decision_refs": [
+    "D-042",
+    "AC-05"
+   ],
+   "status": "DEFERRED",
+   "owner_approved": "YES",
+   "priority": "P2",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "docs/phase-01-discovery/08-access-requests.md AC-05 (REQUESTED)",
+   "missing_work": "منح AC-05 من الـOwner (IDs + Viewer/Export).",
+   "dependencies": [
+    "AC-05",
+    "GOOGLE-009"
+   ],
+   "test_required": "التحقق أن الصلاحية الممنوحة = Viewer/Read فقط في مرحلة الجرد.",
+   "design_refs": [
+    "docs/phase-01-discovery/08-access-requests.md AC-05",
+    "docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §B"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "G6-CON-11",
+   "business_data": false,
+   "phase": "P01",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "GOOGLE-008",
+   "area": "20 GA4 / GTM",
+   "type": "GATE",
+   "title": "ممنوع تغيير أي Google property/configuration في المرحلة الحالية",
+   "requirement": "في المرحلة الحالية: ممنوع تغيير أي Google property أو Google configuration، ويشمل ذلك عدم تنفيذ أي تغييرات GA4/GTM واردة في خطط القياس (Menu Measurement Plan: «لا تنفذ Google changes الآن») — حتى الوصول لمرحلة التنفيذ وموافقة الـOwner.",
+   "details": [
+    "GEP §58 بند 8 = ✅ لم يُلمس شيء.",
+    "EVIDENCE: no Google configuration done (GA4/GTM/GSC/GBP untouched)."
+   ],
+   "sources": [
+    "M11-129",
+    "M23-231"
+   ],
+   "decision_refs": [
+    "D-046",
+    "D-149",
+    "GEP-§58"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "IMPLEMENTED — NOT TESTED",
+   "tested": "N/A",
+   "existing_impl": "compliance observed (EVIDENCE.md؛ GEP §58؛ MENU-MEASUREMENT-PLAN header «لا تنفيذ على Google الآن»)",
+   "missing_work": "يبقى سارياً حتى P09.",
+   "dependencies": [],
+   "test_required": "قبل P09: لا أي تغيير في GA4/GTM/GSC/GBP (يُتحقق من Change history عند منح الوصول).",
+   "design_refs": [
+    "docs/google/GOOGLE-ECOSYSTEM-POLICY.md §58",
+    "docs/menu-ia/MENU-MEASUREMENT-PLAN.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P00",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "GOOGLE-009",
+   "area": "20 GA4 / GTM",
+   "type": "GATE",
+   "title": "Audit الإعداد الموجود أولًا قبل إنشاء أي GA4/GTM/Integration",
+   "requirement": "قبل إنشاء أي GA4 Property أو Web Data Stream أو GTM Container أو Google tag أو أي Integration جديد: Audit/Inventory كامل للموجود أولًا، ويُمنع إنشاء أي شيء قبل التأكد أنه غير موجود أصلًا — لتجنب أسوأ سيناريو: تركيب GTM جديد فوق Analytics موجود (Site Kit موجود حاليًا) وظهور أرقام مضاعفة.",
+   "details": [
+    "نطاق الـInventory (M12 §3): Existing GA4 properties · Web Data Streams · Google tags · GTM containers · Search Console properties · verification methods · Site Kit configuration · Google Business Profiles · Google Maps integrations · Analytics IDs · GTM IDs · duplicate tracking · hardcoded scripts · HubSpot tracking · pixels/tags.",
+    "M25 §41 «خصوصًا»: GA4 · GTM · Google Tag · Site Kit · HubSpot.",
+    "الناتج (GIO §D): جرد كامل + خريطة تكرار + توصية «مصدر واحد لكل آلية تتبع» — قراءة فقط؛ لا إنشاء ولا حذف قبل الموافقة.",
+    "المدخلات الناقصة: AC-01 (ممنوح لكن غير مفعّل)، AC-05 (GA4/GTM Read)، G-06 لقطة Site Kit، G-07 قائمة WPCode، G-08 GA4 IDs، G-10 GTM Container، MI-027، R6-01…R6-04، R6-07 (Google Ads)، R6-08 (HubSpot)."
+   ],
+   "sources": [
+    "M12-010",
+    "M12-011",
+    "M12-081",
+    "M25-126",
+    "M27-076"
+   ],
+   "decision_refs": [
+    "D-051",
+    "GIO-§A3/§A4",
+    "GC-06"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: GOOGLE-IMPLEMENTATION-OWNERSHIP.md §A3 §D؛ GTM-TAG-REGISTER.md (جدول جرد القديم فارغ ⏳)",
+   "missing_work": "تفعيل AC-01 + منح AC-05 ثم تنفيذ Google Inventory Audit (قراءة فقط) وإنتاج خريطة التكرار.",
+   "dependencies": [
+    "AC-01",
+    "AC-05",
+    "ANL-001",
+    "ANL-002",
+    "INT-009"
+   ],
+   "test_required": "تقرير الجرد يغطي كل بنود M12 §3 لكل من الموقع القديم والحسابات؛ كل ID موثّق بمصدره؛ لا Property/Container جديد أُنشئ قبل اعتماد التقرير.",
+   "design_refs": [
+    "docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §A3 §D",
+    "docs/google/GTM-TAG-REGISTER.md",
+    "docs/google/GOOGLE-ECOSYSTEM-CHECKLIST.md GC-06"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P09",
+   "history": [],
+   "notes": "الأجزاء القرائية (فحص سكربتات الموقع القديم) يمكن أن تبدأ في P01 بمجرد تفعيل AC-01."
+  },
+  {
+   "id": "GOOGLE-010",
+   "area": "20 GA4 / GTM",
+   "type": "DECISION",
+   "title": "قرار طريقة نشر Google tag واستخدام GTM (GA-01) — Implementation واحد",
+   "requirement": "تحديد أفضل طريقة لنشر Google tag بعد مقارنة الموجود: GTM · Google tag (gtag) مباشرة · Site Kit · Hardcoded implementation — ومقارنة Site Kit vs Native integration vs GTM-based integration من ناحية Performance · Maintainability · Permissions · Tracking quality، ثم تقديم توصية. يُستخدم GTM لتنظيم الـTracking إذا كان مناسبًا. ممنوع أكثر من Implementation واحد للـGoogle tag بدون سبب — الهدف One clean measurement architecture.",
+   "details": [
+    "القاعدة (Implementation واحد) معتمدة؛ الاختيار نفسه معلق حتى الـAudit وقرار المنصة DB-08 (Site Kit = WordPress فقط).",
+    "مسودة المقارنة في GOOGLE-INTEGRATION-ARCHITECTURE §3 (GA-01): Site Kit / Native gtag / GTM — «لا توصية نهائية قبل» فحص Site Kit.",
+    "الاتجاه المستهدف من الـOwner: Website → GTM → GA4 (GOOGLE-003)."
+   ],
+   "sources": [
+    "M11-066",
+    "M11-075",
+    "M12-020",
+    "M12-021"
+   ],
+   "decision_refs": [
+    "GIO-§A7/§A8",
+    "GEP-§32",
+    "GA-01",
+    "GC-14"
+   ],
+   "status": "PENDING OWNER INPUT",
+   "owner_approved": "PARTIAL",
+   "priority": "P1",
+   "impl_status": "PARTIAL",
+   "tested": "NO",
+   "existing_impl": "docs/google/GOOGLE-INTEGRATION-ARCHITECTURE.md §3 GA-01 (جدول مقارنة بلا توصية)",
+   "missing_work": "Audit (GOOGLE-009) + قرار DB-08 ثم توصية مكتوبة وعرضها على الـOwner.",
+   "dependencies": [
+    "GOOGLE-009",
+    "INT-009",
+    "DB-08"
+   ],
+   "test_required": "بعد التنفيذ: صفحة واحدة تحمّل Google tag/GTM مرة واحدة (Network + Tag Assistant)، لا GA4 مكرر عبر Site Kit/hardcoded/GTM.",
+   "design_refs": [
+    "docs/google/GOOGLE-INTEGRATION-ARCHITECTURE.md §3",
+    "docs/google/GOOGLE-ECOSYSTEM-POLICY.md §32",
+    "docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §A7"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "G6-CON-09",
+   "business_data": false,
+   "phase": "P05",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "GOOGLE-011",
+   "area": "20 GA4 / GTM",
+   "type": "RULE",
+   "title": "GTM ليس مستودع Scripts — كل Tag Documented/Named/Justified/Tested",
+   "requirement": "لا يتحول GTM إلى مستودع Scripts عشوائية («لا أريد GTM فوضوي»)؛ كل Tag في GTM يجب أن يكون: Documented · Named clearly · Justified · Tested.",
+   "details": [
+    "السجل: GTM-TAG-REGISTER.md (أعمدة: Tag Name · Type · Trigger · Purpose / Justification · Owner Approval · Tested (Preview + DebugView) · Status) → يتطور إلى GTM-CONTAINER-REGISTER.md."
+   ],
+   "sources": [
+    "M11-067",
+    "M11-068"
+   ],
+   "decision_refs": [
+    "GEP-§28/§29/§30",
+    "D-050"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/google/GTM-TAG-REGISTER.md (سجل فارغ — لا Tags معتمدة)",
+   "missing_work": "ملء السجل لكل Tag عند البناء (P09).",
+   "dependencies": [
+    "GOOGLE-010",
+    "GOOGLE-012"
+   ],
+   "test_required": "كل Tag في الـContainer المنشور له صف كامل في السجل (توثيق + مبرر + اختبار Preview/DebugView)؛ لا Tag يتيم.",
+   "design_refs": [
+    "docs/google/GTM-TAG-REGISTER.md",
+    "docs/google/GOOGLE-ECOSYSTEM-POLICY.md §28"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P09",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "GOOGLE-012",
+   "area": "20 GA4 / GTM",
+   "type": "GATE",
+   "title": "GTM Naming Standard موحد قبل التنفيذ",
+   "requirement": "وضع Naming Standard موحد وواضح لـGTM قبل التنفيذ، على نمط أمثلة الـOwner: Tags «GA4 - Config» و«GA4 - Event - {Name}»؛ Triggers «TR - {Name}»؛ Variables «VAR - {Name}» — وممنوع أسماء مثل Tag 1 · New Tag · Test2.",
+   "details": [
+    "Tags (أمثلة): GA4 - Config · GA4 - Event - Menu View · GA4 - Event - Product View · GA4 - Event - Directions Click · GA4 - Event - Phone Click · GA4 - Event - Campaign Click.",
+    "Triggers (أمثلة): TR - Menu View · TR - Directions Click · TR - Phone Click.",
+    "Variables (أمثلة): VAR - Branch Name · VAR - Product Name · VAR - Category · VAR - Language · VAR - Market.",
+    "GTM-TAG-REGISTER.md الحالي يستخدم `{Platform} - {Type} - {Name}` و`GA4 - Config - Base` و`TRG - {Type} - {Name}` و`VAR - {Type} - {Name}` — يخالف أمثلة الـOwner (G6-CON-10)."
+   ],
+   "sources": [
+    "M11-069",
+    "M12-016",
+    "M12-017",
+    "M12-018",
+    "M12-019"
+   ],
+   "decision_refs": [
+    "GEP-§28/§29/§30",
+    "GIO-§A5/§A6/§A27"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NEEDS FIX",
+   "tested": "NO",
+   "existing_impl": "docs/google/GTM-TAG-REGISTER.md §Naming Convention (TRG بدل TR)",
+   "missing_work": "مواءمة Naming Convention في GTM-TAG-REGISTER مع أمثلة الـOwner وعرض الـStandard النهائي قبل التنفيذ.",
+   "dependencies": [
+    "GOOGLE-011"
+   ],
+   "test_required": "فحص Container (Tag Manager API export): كل الأسماء تطابق الـStandard المعتمد؛ صفر أسماء مبهمة.",
+   "design_refs": [
+    "docs/google/GTM-TAG-REGISTER.md",
+    "docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §A6"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "G6-CON-10",
+   "business_data": false,
+   "phase": "P09",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "GOOGLE-013",
+   "area": "20 GA4 / GTM",
+   "type": "REQUIREMENT",
+   "title": "إعداد GTM Container احترافي (إذا تقرر GTM)",
+   "requirement": "إذا تقرر استخدام GTM: Claude يُعدّ الـContainer باحترافية: Correct container · Environments عند الحاجة · Naming convention · Variables · Triggers · Tags · Folders · Documentation · Preview testing · Versioning · Publishing workflow — لا GTM فوضوي.",
+   "details": [
+    "الشرط: قرار GA-01 (GOOGLE-010) بعد الـAudit.",
+    "GTM Publish = تغيير Production حساس → Summary ← موافقة ← تنفيذ.",
+    "Menu mapping جاهز كمواصفة: Custom Event Trigger لكل حدث · Data Layer Variable لكل Parameter · GA4 Event Tag لكل حدث (MENU-MEASUREMENT-PLAN §5)."
+   ],
+   "sources": [
+    "M12-015"
+   ],
+   "decision_refs": [
+    "GIO-§A5/§A6/§A27",
+    "D-051"
+   ],
+   "status": "APPROVED WITH CONDITIONS",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/menu-ia/MENU-MEASUREMENT-PLAN.md §5 (GTM ← GA4 للمنيو)",
+   "missing_work": "إنشاء/إعداد الـContainer في P09 بعد الموافقة.",
+   "dependencies": [
+    "GOOGLE-010",
+    "GOOGLE-012",
+    "GOOGLE-014",
+    "GOOGLE-015"
+   ],
+   "test_required": "GTM Preview: كل Trigger يطلق الـTag الصحيح مرة واحدة؛ Folders/Environments موثقة؛ Version منشورة بعد موافقة.",
+   "design_refs": [
+    "docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §A5",
+    "docs/menu-ia/MENU-MEASUREMENT-PLAN.md §5"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P09",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "GOOGLE-014",
+   "area": "20 GA4 / GTM",
+   "type": "RULE",
+   "title": "GTM Version Control بأسماء واضحة وNotes",
+   "requirement": "قبل نشر GTM: إنشاء Version باسم واضح (مثال: «SHELTER Website - Initial Production Tracking») مع كتابة Notes لما تغيّر؛ لا تُنشر Versions بأسماء مبهمة.",
+   "details": [],
+   "sources": [
+    "M12-064",
+    "M12-065"
+   ],
+   "decision_refs": [
+    "GIO-§A5/§A6/§A27"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "يُطبّق عند أول نشر.",
+   "dependencies": [
+    "GOOGLE-013"
+   ],
+   "test_required": "سجل Versions في GTM: كل Version منشورة لها اسم وصفي وNotes، ومرتبطة بموافقة مسجلة في DECISION-LOG/GOOGLE-TEST-REPORT.",
+   "design_refs": [
+    "docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §A27"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P09",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "GOOGLE-015",
+   "area": "20 GA4 / GTM",
+   "type": "GATE",
+   "title": "اختبار Debug قبل نشر أي تغيير GA4/GTM — لا Event مرتين",
+   "requirement": "قبل نشر أي GA4/GTM changes: الاختبار باستخدام GTM Preview · GA4 DebugView · Browser Network · Console، والتأكد من عدم إرسال أي Event مرتين.",
+   "details": [
+    "تفصيل الاختبار الكامل (Chrome DevTools · Tag diagnostics · مسارات حقيقية · Analytics Validation Report) عند G8 TEST: M12-057/058/059…063.",
+    "Menu: GTM Preview + GA4 DebugView على نسخة Preview وليس Production، 10 حالات اختبار (MENU-MEASUREMENT-PLAN §6)."
+   ],
+   "sources": [
+    "M11-070",
+    "M11-071"
+   ],
+   "decision_refs": [
+    "GEP-§28/§29/§30"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/menu-ia/MENU-MEASUREMENT-PLAN.md §6",
+   "missing_work": "تنفيذ عند P09/P10.",
+   "dependencies": [
+    "TEST (G8: M12-057, M12-058, M12-063)"
+   ],
+   "test_required": "لكل تغيير: لقطات Preview/DebugView + Network تُظهر Hit واحدًا لكل فعل؛ 0 أحداث مكررة؛ 0 أخطاء Console.",
+   "design_refs": [
+    "docs/google/GOOGLE-ECOSYSTEM-POLICY.md §30",
+    "docs/menu-ia/MENU-MEASUREMENT-PLAN.md §6"
+   ],
+   "code_refs": [],
+   "test_refs": [
+    "tooling/tests/app/menu.spec.mjs (F-01, F-13 — test.fixme)"
+   ],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P09",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "GOOGLE-016",
+   "area": "20 GA4 / GTM",
+   "type": "REQUIREMENT",
+   "title": "إعداد GA4 Property كامل (إن لزم) ومراجعة كل الإعدادات الافتراضية",
+   "requirement": "إعداد GA4 بالكامل إذا احتجنا ذلك (بعد ثبوت عدم وجود Property مناسبة): Property · Web Data Stream · Correct website URL · Time zone · Currency · Event architecture · Key Events / Conversions · Debug testing — ولا اعتماد على Default Settings في GA4 بدون مراجعتها.",
+   "details": [
+    "Time zone وCurrency لم يحددهما الـOwner — لا افتراض؛ تُعرض للتأكيد في Summary قبل الإعداد (المرشحان المنطقيان: Asia/Amman المستخدم في منطق الساعات، وJOD عملة المنيو — للتأكيد فقط).",
+    "Correct website URL يعتمد على DB-11 (Host الرسمي `www` — PROPOSED) وROOT-01 (D-052).",
+    "Key Events → GOOGLE-021؛ Event architecture → ANL-008؛ Debug → GOOGLE-015؛ Enhanced Measurement → GOOGLE-017؛ Filters → GOOGLE-018؛ Retention/Referrals → GOOGLE-019."
+   ],
+   "sources": [
+    "M12-022",
+    "M12-027"
+   ],
+   "decision_refs": [
+    "GIO-§A7/§A8",
+    "D-051"
+   ],
+   "status": "APPROVED WITH CONDITIONS",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "Audit أولًا (GOOGLE-009) ثم إعداد بعد Summary وموافقة.",
+   "dependencies": [
+    "GOOGLE-009",
+    "DB-11",
+    "ANL-008"
+   ],
+   "test_required": "Admin API export لإعدادات الـProperty يطابق GA4-CONFIGURATION.md المعتمد (كل إعداد افتراضي له قرار موثق)؛ DebugView يستقبل الأحداث.",
+   "design_refs": [
+    "docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §A8 §C (GA4-CONFIGURATION.md)"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P09",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "GOOGLE-017",
+   "area": "20 GA4 / GTM",
+   "type": "RULE",
+   "title": "مراجعة Enhanced Measurement في GA4",
+   "requirement": "مراجعة إعدادات Enhanced Measurement في GA4 (لا تُقبل كما هي) وإيقاف ما لا يخدم أو ما يسبب Double counting.",
+   "details": [
+    "Scroll (EM) ليس حدثًا تجاريًا (M12 §9: لا Event لمجرد Scroll).",
+    "Site search (EM `view_search_results`) يراقب Query parameters في الرابط: بحث المنيو لا يغيّر الرابط فلا تعارض (MENU-MEASUREMENT-PLAN §5)، لكن يجب ألا يتكرر مع `site_search` إن وُجد بحث عام.",
+    "Outbound clicks (EM) قد تكرر directions_click / whatsapp_click (روابط خارجية) → تُراجع لمنع Double counting."
+   ],
+   "sources": [
+    "M12-023"
+   ],
+   "decision_refs": [
+    "GIO-§A7/§A8"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: MENU-MEASUREMENT-PLAN.md §5؛ GA4-MEASUREMENT-PLAN.md §مبدأ",
+   "missing_work": "",
+   "dependencies": [
+    "GOOGLE-016",
+    "ANL-025"
+   ],
+   "test_required": "DebugView: لا حدث EM يكرر حدثًا مخصصًا لنفس الفعل؛ قائمة إعدادات EM موثقة في GA4-CONFIGURATION.md.",
+   "design_refs": [
+    "docs/google/GA4-MEASUREMENT-PLAN.md",
+    "docs/menu-ia/MENU-MEASUREMENT-PLAN.md §5"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P09",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "GOOGLE-018",
+   "area": "20 GA4 / GTM",
+   "type": "RULE",
+   "title": "GA4 Internal + Developer traffic filtering",
+   "requirement": "تفعيل Internal traffic filtering عند الحاجة وDeveloper traffic filtering في GA4 حتى لا تلوّث زيارات الفريق/الاختبار البيانات.",
+   "details": [],
+   "sources": [
+    "M12-024"
+   ],
+   "decision_refs": [
+    "GIO-§A7/§A8"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [
+    "GOOGLE-016"
+   ],
+   "test_required": "زيارات Preview/Debug لا تظهر في التقارير القياسية؛ الفلتر موثق ومفعّل.",
+   "design_refs": [
+    "docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §A8"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P09",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "GOOGLE-019",
+   "area": "20 GA4 / GTM",
+   "type": "RULE",
+   "title": "GA4 Data retention + Referral exclusions عند الحاجة",
+   "requirement": "ضبط Data retention settings وReferral exclusions في GA4 عند الحاجة (لا اعتماد على الافتراضي بلا مراجعة).",
+   "details": [
+    "مدة الاحتفاظ تُقرر مع سياسة الخصوصية (MENU-MEASUREMENT-PLAN §3.5: «حسب إعداد GA4 العام»).",
+    "Referral exclusions مرشحة لنطاقات طرف ثالث في مسار المستخدم (مثل منصات الطلب R2B أو shop.shelterjo.com — DB-12) — تُحدد بعد الـAudit."
+   ],
+   "sources": [
+    "M12-026"
+   ],
+   "decision_refs": [
+    "GIO-§A7/§A8"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P2",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [
+    "GOOGLE-016",
+    "PRIV (G1)",
+    "DB-12"
+   ],
+   "test_required": "إعدادات Retention/Referral موثقة ومطابقة في Admin API export.",
+   "design_refs": [
+    "docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §A8"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P09",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "GOOGLE-020",
+   "area": "20 GA4 / GTM",
+   "type": "DECISION",
+   "title": "Cross-domain tracking — مستقبلًا فقط إذا احتجناه",
+   "requirement": "Cross-domain tracking في GA4 يُعدّ فقط إذا احتجناه مستقبلًا.",
+   "details": [
+    "مرشحات محتملة: shop.shelterjo.com (DB-12 — PENDING ACCESS)، Global Domain مستقبلي (D-011)، Direct Online Ordering مستقبلًا (D-073 R2B-05)."
+   ],
+   "sources": [
+    "M12-025"
+   ],
+   "decision_refs": [
+    "GIO-§A7/§A8"
+   ],
+   "status": "DEFERRED",
+   "owner_approved": "YES",
+   "priority": "P3",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [
+    "DB-12",
+    "D-011"
+   ],
+   "test_required": "عند التفعيل: _gl linker يعمل بين النطاقات بدون Self-referrals.",
+   "design_refs": [
+    "docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §A8"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P12",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "GOOGLE-021",
+   "area": "20 GA4 / GTM",
+   "type": "DECISION",
+   "title": "Key Events تُحدد مع الـOwner — ليس كل Click Conversion",
+   "requirement": "تحديد الأحداث المهمة تجاريًا (Key Events / Conversions) بالتشاور مع الـOwner، ثم إعدادها كـKey Events إذا كان مناسبًا؛ ممنوع اعتبار/جعل كل Click Conversion.",
+   "details": [
+    "أمثلة الـOwner (M12 §11): Directions Click · Phone Click · WhatsApp Click · Campaign CTA.",
+    "مقترح GA4-MEASUREMENT-PLAN: directions_click · phone_click · whatsapp_click · campaign_click؛ menu_view مؤشر اهتمام وليس Conversion (للنقاش).",
+    "المنيو: MENU-MEASUREMENT-PLAN يوصي «لا Key Event في المنيو» وD-149 سجّلها «بلا Key Events» — لكنها توصية Claude (M23 طلب «whether key event or not» و«Key Event recommendation») → تحتاج تأكيد الـOwner (G6-CON-08).",
+    "الحسم يُسجّل في GA4-MEASUREMENT-PLAN ثم GA4-CONFIGURATION.md."
+   ],
+   "sources": [
+    "M12-033",
+    "M12-034",
+    "M23-197"
+   ],
+   "decision_refs": [
+    "D-149",
+    "GIO-§A9/§A10"
+   ],
+   "status": "PENDING OWNER INPUT",
+   "owner_approved": "PARTIAL",
+   "priority": "P1",
+   "impl_status": "PARTIAL",
+   "tested": "NO",
+   "existing_impl": "proposal: docs/google/GA4-MEASUREMENT-PLAN.md §Key Events؛ docs/menu-ia/MENU-MEASUREMENT-PLAN.md (Key Event? ❌)",
+   "missing_work": "عرض قائمة Key Events على الـOwner واعتمادها؛ تصحيح صياغة D-149.",
+   "dependencies": [
+    "ANL-008",
+    "GOOGLE-016"
+   ],
+   "test_required": "DebugView/Realtime: الأحداث المعتمدة فقط معلّمة Key Events وتُحتسب مرة واحدة لكل فعل؛ لا Key Event لنقرات عامة.",
+   "design_refs": [
+    "docs/google/GA4-MEASUREMENT-PLAN.md §Key Events",
+    "docs/menu-ia/MENU-MEASUREMENT-PLAN.md §1"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "G6-CON-08",
+   "business_data": false,
+   "phase": "P03",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "GOOGLE-022",
+   "area": "20 GA4 / GTM",
+   "type": "RULE",
+   "title": "Consent (Consent Mode v2) مدمج في معمارية GA4/GTM — بانتظار قرار الخصوصية",
+   "requirement": "أي تتبع GA4/GTM يحترم قرار الـConsent المعتمد: يُدرس Google Consent Mode (v2 حسب المسودات) ويُدمج في GTM/Google tag عندما يكون مطلوبًا، متوافقًا مع Analytics وAdvertising technologies (إن أُضيفت مستقبلًا) وCookie consent؛ لا Advertising Tracking بدون موافقة الـOwner، ولا نشر لتتبع يحتاج Disclosure قانوني قبل تحديث صفحات الخصوصية.",
+   "details": [
+    "المصادر الأصلية مملوكة لـG1 (PRIV): M01-213 (Cookie/Analytics/Marketing Consent)، M12-052…M12-056 (GTM + Consent، Privacy) — هذا السجل ربط تنفيذي فقط ولا يُحتسب مصدرًا مستقلًا.",
+    "MENU-MEASUREMENT-PLAN §3.4 و§5 وPERFORMANCE-BUDGET تفترض «Consent Mode v2 … حسب الإعداد العام (docs/google)» و`analytics_storage` — لكن docs/google لا تحتوي إعدادًا عامًا (GIO §A22: «دراسة … عندما يكون مطلوبًا») (G6-CON-15).",
+    "R11-04 (هل نحتاج Cookie Consent banner؟ لأي زوار؟ يحتاج رأيًا قانونيًا) = مفتوح؛ D-061: شريط الفرع لا يزاحم Cookie/Consent UI.",
+    "Debug: «Consent behavior correct» ضمن معايير القبول (G8 M12-058)؛ Final Google Acceptance: «Consent reviewed»."
+   ],
+   "sources": [],
+   "decision_refs": [
+    "GIO-§A22/§A23 (G1)",
+    "R11-04"
+   ],
+   "status": "PENDING OWNER INPUT",
+   "owner_approved": "PARTIAL",
+   "priority": "P1",
+   "impl_status": "CONFLICT",
+   "tested": "NO",
+   "existing_impl": "spec فقط (MENU-MEASUREMENT-PLAN §3.4؛ PERFORMANCE-BUDGET) — يفترض قرارًا غير متخذ",
+   "missing_work": "قرار الـOwner/القانوني في R11-04 + سياسة الخصوصية والكوكيز؛ ثم تصميم إعداد Consent Mode (default/update states) في docs/google.",
+   "dependencies": [
+    "PRIV (G1: M01-213, M12-052…M12-056)",
+    "R11-04",
+    "GOOGLE-010"
+   ],
+   "test_required": "GTM Preview/Tag Assistant: حالات Consent (default denied/granted) تُرسل الإشارات الصحيحة؛ لا Cookies تحليلية/إعلانية قبل الموافقة إذا تقرر ذلك؛ AR/EN؛ صفحات الخصوصية محدثة قبل النشر.",
+   "design_refs": [
+    "docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §A22 §A23",
+    "docs/menu-ia/MENU-MEASUREMENT-PLAN.md §3 §5",
+    "docs/menu-ia/PERFORMANCE-BUDGET.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "G6-CON-15",
+   "business_data": false,
+   "phase": "P09",
+   "history": [],
+   "notes": "sources فارغة عمدًا لتجنب العد المزدوج — المصدر المعتمد في G1 (PRIV)."
+  },
+  {
+   "id": "GOOGLE-023",
+   "area": "20 GA4 / GTM",
+   "type": "DELIVERABLE",
+   "title": "استخراج كل متطلبات Google السابقة (GA4/GTM/Tag/GSC/GBP/Maps/Schema/Sitemap)",
+   "requirement": "استخراج كل ما طلبه الـOwner سابقًا بخصوص: GA4 · GTM · Google Tag · Search Console · Google Business Profile · Maps · Schema · Sitemap — في سجل متطلبات موحد وقابل للتتبع.",
+   "details": [
+    "GA4/GTM/Google Tag/Consent/التنفيذ = هذا الملف (cons/G6.json)؛ Search Console/Sitemap/Schema = G5؛ GBP/Maps = G4."
+   ],
+   "sources": [
+    "M27-072"
+   ],
+   "decision_refs": [
+    "D-046",
+    "D-051",
+    "D-055"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "IMPLEMENTED — NOT TESTED",
+   "tested": "N/A",
+   "existing_impl": "this audit: cons/G6.json (+ G4/G5)",
+   "missing_work": "مراجعة الـOwner للسجل الموحد (Master Source of Truth).",
+   "dependencies": [
+    "G4",
+    "G5"
+   ],
+   "test_required": "كل بند Google في الرسائل M01…M27 له متطلب canonical أو سبب إسقاط موثق.",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P00",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "ANL-001",
+   "area": "19 Analytics",
+   "type": "DELIVERABLE",
+   "title": "جرد التتبع والتكاملات الحالية في الموقع القديم",
+   "requirement": "جرد Tracking scripts وAnalytics وGoogle integrations الموجودة في الموقع القديم https://www.shelterjo.com (ضمن Current Website Discovery) وتصنيفها KEEP / FIX / REMOVE / MISSING / VERIFY WITH OWNER.",
+   "details": [
+    "المعروف حاليًا: HubSpot (Portal 148229555، EU1، plugin 11.3.45، js-eu1.hs-scripts.com/148229555.js) على كل الصفحات — مؤكد (Semrush #132)؛ Site Kit (by Google) وWPCode مثبتان (12-homepage-screenshots-audit)؛ Newsletter plugin 9.2.1.",
+    "GA4 / GTM / Meta Pixel / Search Console = غير قابلة للفحص (الموقع محجوب عن البيئة — AC-01 ممنوح لكن غير مفعّل).",
+    "أسئلة مفتوحة: R6-01 GSC · R6-02 GA4 · R6-03 GTM · R6-04 Meta/TikTok/Snap Pixel · R6-07 Google Ads · R6-08 HubSpot · R6-10 محتوى WPCode."
+   ],
+   "sources": [
+    "M01-036"
+   ],
+   "decision_refs": [
+    "GC-06",
+    "D-041"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "PARTIAL",
+   "tested": "NO",
+   "existing_impl": "docs/phase-01-discovery/01-current-website-inventory.md (Tracking: HubSpot فقط)، 12-homepage-screenshots-audit.md (Site Kit، WPCode)، GTM-TAG-REGISTER.md §جرد القديم",
+   "missing_work": "فحص مباشر بعد تفعيل AC-01 (DOM/Network/Console لكل الصفحات) + لقطات G-06/G-07 + إجابات R6.",
+   "dependencies": [
+    "AC-01",
+    "GOOGLE-009"
+   ],
+   "test_required": "قائمة بكل سكربت تتبع محمّل على عينة الصفحات (Network) مع المصدر (plugin/hardcoded/GTM) والـID والحالة.",
+   "design_refs": [
+    "docs/phase-01-discovery/01-current-website-inventory.md",
+    "docs/phase-01-discovery/12-homepage-screenshots-audit.md §7",
+    "docs/google/GTM-TAG-REGISTER.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P01",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "ANL-002",
+   "area": "19 Analytics",
+   "type": "RULE",
+   "title": "فحص Duplicate Tracking في الموقع القديم والجديد",
+   "requirement": "فحص الموقع القديم والجديد بحثًا عن: GA4 loaded twice · GTM duplicated · Site Kit duplicate scripts · Plugin analytics · Hardcoded analytics · HubSpot analytics — وفحص وجود GA4 via Site Kit + GA4 hardcoded + GA4 through GTM في نفس الوقت؛ الهدف لا Double Counting وGoogle Architecture نظيفة.",
+   "details": [
+    "WPCode قد يحتوي أكواد تتبع/Pixel (R6-10) — ضمن الفحص.",
+    "HubSpot analytics + GA4 = نظاما تحليلات (انظر ANL-003 وDB-14)."
+   ],
+   "sources": [
+    "M11-072",
+    "M12-012"
+   ],
+   "decision_refs": [
+    "GEP-§31",
+    "D-050",
+    "GIO-§A3/§A4"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "فحص القديم بعد AC-01؛ فحص الجديد في P10 (Pre-launch GC-30) وما بعد الإطلاق.",
+   "dependencies": [
+    "ANL-001",
+    "GOOGLE-009"
+   ],
+   "test_required": "Network/Tag Assistant على صفحات تمثيلية: Measurement ID واحد، page_view واحد لكل تحميل، لا GTM مكرر؛ GC-30 «No duplicate tracking» = ✅ قبل الإطلاق وفي Day 1/7/30.",
+   "design_refs": [
+    "docs/google/GOOGLE-ECOSYSTEM-POLICY.md §31",
+    "docs/google/POST-LAUNCH-GOOGLE-CHECKLIST.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P10",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "ANL-003",
+   "area": "19 Analytics",
+   "type": "RULE",
+   "title": "مصدر واحد لكل آلية تتبع — نظام Analytics واحد بلا GA4/GTM مكرر",
+   "requirement": "لا يُترك Duplicate Tracking: يُحدد Source واحد واضح لكل Tracking mechanism؛ ممنوع duplicate tracking؛ ممنوع وجود two analytics systems أو duplicate GA4 أو duplicate GTM — الهدف ONE SOURCE OF TRUTH.",
+   "details": [
+    "M27 §35: اكتشاف two analytics systems · duplicate GA4 · duplicate GTM (ضمن No Duplicate Architecture).",
+    "HubSpot tracking (Portal 148229555) قائم في الموقع القديم — الإبقاء/الإزالة = DB-14 (PROPOSED) / R6-08 مفتوح.",
+    "أي إزالة على Production تحتاج موافقة (ANL-004، G8 M12-014)."
+   ],
+   "sources": [
+    "M12-013",
+    "M25-127",
+    "M27-075",
+    "M27-142"
+   ],
+   "decision_refs": [
+    "D-050",
+    "D-051",
+    "GEP-§31"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "قرار المصدر الواحد بعد الـAudit (GOOGLE-009) وقرار GA-01 وDB-14.",
+   "dependencies": [
+    "GOOGLE-009",
+    "GOOGLE-010",
+    "DB-14"
+   ],
+   "test_required": "Analytics Validation Report: عمود Duplicate? = No لكل حدث؛ صفحة واحدة = Google tag واحد ونظام تحليلات معتمد واحد.",
+   "design_refs": [
+    "docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §A4 §A33"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P09",
+   "history": [],
+   "notes": "«two analytics systems» (M27 §35) غير مسجلة في DECISION-LOG → G6-ND-08."
+  },
+  {
+   "id": "ANL-004",
+   "area": "19 Analytics",
+   "type": "GATE",
+   "title": "لا حذف لأي Duplicate (Tag/Property/Tracking) بدون موافقة الـOwner",
+   "requirement": "إذا وُجد Duplicate (Tag أو Property أو Tracking): لا يُحذف ولا يُعطّل بدون موافقة الـOwner.",
+   "details": [
+    "متسق مع: «أي إزالة أو تغيير من Production يحتاج موافقتي أولًا» (G8 M12-014)."
+   ],
+   "sources": [
+    "M12-076"
+   ],
+   "decision_refs": [
+    "D-051",
+    "GIO-§A3/§A4"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "IMPLEMENTED — NOT TESTED",
+   "tested": "N/A",
+   "existing_impl": "compliance: لم يُحذف/يُغيّر أي شيء (EVIDENCE.md)؛ GIO §A33",
+   "missing_work": "",
+   "dependencies": [
+    "ANL-003",
+    "DEPLOY (G8: M12-014)"
+   ],
+   "test_required": "كل إزالة Duplicate مرتبطة بموافقة مسجلة (DECISION-LOG) قبل التنفيذ.",
+   "design_refs": [
+    "docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §A33"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P09",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "ANL-005",
+   "area": "19 Analytics",
+   "type": "DELIVERABLE",
+   "title": "Measurement Plan للموقع قبل تنفيذ أي Tracking",
+   "requirement": "بناء Measurement Plan للموقع، ويُنشأ قبل تنفيذ أي Tracking (MEASUREMENT PLAN قبل التنفيذ).",
+   "details": [
+    "المسودة: docs/google/GA4-MEASUREMENT-PLAN.md (DRAFT — الأسماء النهائية تُعرض على الـOwner)؛ خطة المنيو التفصيلية = ANL-011.",
+    "تتطور عند الإعداد إلى GA4-EVENT-DICTIONARY.md (GIO §C)."
+   ],
+   "sources": [
+    "M01-209",
+    "M11-062"
+   ],
+   "decision_refs": [
+    "D-050",
+    "GEP-§25/§27",
+    "GC-13"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "PARTIAL",
+   "tested": "NO",
+   "existing_impl": "docs/google/GA4-MEASUREMENT-PLAN.md (DRAFT)",
+   "missing_work": "تحديث الخطة بالقائمة الحالية (ANL-008) وقاموس Parameters موحد (ANL-028) وKey Events (GOOGLE-021) وConsent (GOOGLE-022) ثم عرضها للاعتماد.",
+   "dependencies": [
+    "ANL-008",
+    "ANL-028",
+    "GOOGLE-021",
+    "GOOGLE-022"
+   ],
+   "test_required": "اعتماد الـOwner للخطة؛ GC-13 = ✅ قبل البناء؛ كل Tag/حدث منفذ يوجد في الخطة.",
+   "design_refs": [
+    "docs/google/GA4-MEASUREMENT-PLAN.md",
+    "docs/google/GOOGLE-ECOSYSTEM-CHECKLIST.md GC-13"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P03",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "ANL-006",
+   "area": "19 Analytics",
+   "type": "RULE",
+   "title": "تتبع ذو معنى تجاري فقط — لا Tracking بلا داعٍ ولا كل Click",
+   "requirement": "GA4 نظيف ومنظم: ممنوع إضافة Tracking بلا داعٍ أو جمع Events عشوائية؛ Business Meaningful Events فقط — لا Event لمجرد Scroll بنسبة 10% أو ضغط أي شيء، ولا تسجيل كل click عشوائي (Meaningful Measurement فقط).",
+   "details": [
+    "مطبّق في المسودات: GA4-MEASUREMENT-PLAN «لا أحداث Scroll ولا كل ضغطة»؛ MENU-MEASUREMENT-PLAN «أحداث ذات معنى فقط»، لا حدث عند التمرير أو ظهور البطاقة."
+   ],
+   "sources": [
+    "M01-212",
+    "M11-061",
+    "M12-031",
+    "M25-042",
+    "M27-092"
+   ],
+   "decision_refs": [
+    "GEP-§25/§27",
+    "GIO-§A9/§A10",
+    "D-050"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: GA4-MEASUREMENT-PLAN.md §مبدأ؛ MENU-MEASUREMENT-PLAN.md",
+   "missing_work": "",
+   "dependencies": [
+    "ANL-008",
+    "GOOGLE-017"
+   ],
+   "test_required": "DebugView أثناء جلسة استكشاف كاملة: لا أحداث خارج القاموس المعتمد؛ التمرير وحده لا يطلق أي حدث (حالة اختبار 7 في MENU-MEASUREMENT-PLAN §6).",
+   "design_refs": [
+    "docs/google/GA4-MEASUREMENT-PLAN.md",
+    "docs/menu-ia/MENU-MEASUREMENT-PLAN.md §6"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P09",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "ANL-007",
+   "area": "19 Analytics",
+   "type": "RULE",
+   "title": "توثيق كل Event بحقول ثابتة",
+   "requirement": "كل Event يُوثّق بـ: Event Name · Trigger · Purpose · Parameters · Page · Destination · Business Value · Example payload · Privacy considerations · هل هو Key Event أم لا.",
+   "details": [
+    "M01 §81: Event Name · Trigger · Purpose · Parameters · Destination.",
+    "M11 §27: + Page · Business Value.",
+    "M23 §56: trigger · parameters · example payload · privacy considerations · whether key event or not."
+   ],
+   "sources": [
+    "M01-211",
+    "M11-065",
+    "M23-196"
+   ],
+   "decision_refs": [
+    "GEP-§25/§27"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "PARTIAL",
+   "tested": "NO",
+   "existing_impl": "GA4-MEASUREMENT-PLAN.md (Event · Trigger · Parameters · Purpose · Page · Destination · Business Value — بلا payload/privacy)؛ MENU-MEASUREMENT-PLAN.md (trigger · params · payload · privacy · Key Event — بلا Purpose/Business Value لكل صف)",
+   "missing_work": "قالب موحد بكل الحقول العشرة في GA4-EVENT-DICTIONARY.md لكل حدث.",
+   "dependencies": [
+    "ANL-008"
+   ],
+   "test_required": "مراجعة: كل حدث في القاموس له الحقول العشرة مكتملة.",
+   "design_refs": [
+    "docs/google/GA4-MEASUREMENT-PLAN.md",
+    "docs/menu-ia/MENU-MEASUREMENT-PLAN.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P03",
+   "history": [
+    {
+     "old": "M01 §81: 5 حقول",
+     "source": "M01-211",
+     "superseded_by": "M11-065 (+Page, Business Value) و M23-196 (+example payload, privacy, key event) — توسيع"
+    }
+   ],
+   "notes": "إضافة حقول M23 §56 غير مسجلة في DECISION-LOG → G6-ND-10."
+  },
+  {
+   "id": "ANL-008",
+   "area": "19 Analytics",
+   "type": "GATE",
+   "title": "Event Taxonomy موحدة قبل التنفيذ — القائمة الـcanonical للأحداث",
+   "requirement": "بناء Event Taxonomy قبل التنفيذ، واستخراج كل Analytics Events المطلوبة سابقًا ومراجعتها. القائمة الحالية المعتمدة (M27 §18): menu_view · menu_search · menu_category_click · product_view · branch_filter_change · directions_click · phone_click · whatsapp_click · campaign_view · campaign_click · article_view · language_switch · site_search · zero_result_search — + أي Events إضافية وردت في المحادثة (branch_view · social_click · event_view = بانتظار قرار، ANL-026). Claude يمكنه اقتراح أحداث إضافية تخضع للاعتماد.",
+   "details": [
+    "التسلسل: M01 §80 (أمثلة «مثلاً»: Menu View · Category Click · Product View · Branch View · Directions Click · Phone Click · WhatsApp Click · Instagram Click · Campaign Click · Event Click · Blog Article View · Language Switch) → M11 §26 (14 للدراسة) → M12 §9 (15 «على الأقل») → M23 §56 (6 للمنيو) → M25 §9 (13 «مثل» + أي Event مهم) → M27 §18 (14 للمراجعة + الإضافية).",
+    "السجل الكامل لكل اسم وحالته: event_registry في هذا الملف.",
+    "المحذوف/المستبدل: search_use → menu_search (+site_search)؛ blog_view → article_view؛ Instagram Click → social_click؛ Category Click → menu_category_click.",
+    "GEP §26 وGA4-MEASUREMENT-PLAN ما زالا يحملان الأسماء القديمة (OBS-06)."
+   ],
+   "sources": [
+    "M01-210",
+    "M12-028",
+    "M12-029",
+    "M12-030",
+    "M25-041",
+    "M27-077"
+   ],
+   "decision_refs": [
+    "D-149",
+    "GIO-§A9/§A10",
+    "GEP-§26",
+    "CF-09"
+   ],
+   "status": "APPROVED WITH CONDITIONS",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NEEDS FIX",
+   "tested": "NO",
+   "existing_impl": "GA4-MEASUREMENT-PLAN.md (DRAFT، أسماء قديمة)؛ GEP §26 (قديم)؛ GIO §A9 (قائمة M12)؛ MENU-MEASUREMENT-PLAN.md (6 أحداث المنيو)",
+   "missing_work": "توحيد القائمة في وثيقة واحدة (GA4-EVENT-DICTIONARY) وتحديث GEP §26 وGA4-MEASUREMENT-PLAN؛ قرار branch_view/social_click/event_view؛ عرض الأسماء النهائية (ANL-009).",
+   "dependencies": [
+    "ANL-009",
+    "ANL-026",
+    "ANL-028"
+   ],
+   "test_required": "القاموس النهائي = مصدر واحد؛ كل حدث منفذ موجود فيه؛ لا حدث فيه بلا متطلب؛ اعتماد الـOwner.",
+   "design_refs": [
+    "docs/google/GA4-MEASUREMENT-PLAN.md",
+    "docs/google/GOOGLE-ECOSYSTEM-POLICY.md §26",
+    "docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §A9",
+    "docs/menu-ia/MENU-MEASUREMENT-PLAN.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "G6-CON-01; G6-CON-02; G6-CON-07",
+   "business_data": false,
+   "phase": "P03",
+   "history": [
+    {
+     "old": "M11 §26: … blog_view · search_use",
+     "source": "M11-063",
+     "superseded_by": "M12-029 (article_view · menu_search · site_search)"
+    },
+    {
+     "old": "M12 §9: 15 حدثًا للدراسة",
+     "source": "M12-029",
+     "superseded_by": "M27-077 (القائمة الحالية 14 + الإضافية)"
+    }
+   ],
+   "notes": "قائمة M25 §9/M27 §18 للأحداث على مستوى الموقع غير مسجلة كقرار في DECISION-LOG (D-149 للمنيو فقط) → G6-ND-01."
+  },
+  {
+   "id": "ANL-009",
+   "area": "19 Analytics",
+   "type": "GATE",
+   "title": "الأسماء النهائية للأحداث تُعرض على الـOwner قبل الاعتماد",
+   "requirement": "الأسماء النهائية للـEvents (ومعها قاموس الـParameters) تُعرض على الـOwner قبل اعتمادها.",
+   "details": [
+    "MENU-MEASUREMENT-PLAN معروض (menu-ia README = READY FOR OWNER REVIEW) — بانتظار الاعتماد.",
+    "القائمة على مستوى الموقع لم تُعرض كقاموس موحد بعد."
+   ],
+   "sources": [
+    "M11-064"
+   ],
+   "decision_refs": [
+    "GEP-§25/§27"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "PARTIAL",
+   "tested": "NO",
+   "existing_impl": "docs/menu-ia/README.md §16 (معروض للمراجعة)",
+   "missing_work": "عرض GA4-EVENT-DICTIONARY الموحد (أحداث + Parameters + Key Events) على الـOwner.",
+   "dependencies": [
+    "ANL-008",
+    "ANL-028"
+   ],
+   "test_required": "سجل موافقة الـOwner (DECISION-LOG) على القاموس النهائي قبل أي Tag.",
+   "design_refs": [
+    "docs/menu-ia/README.md §16"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P03",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "ANL-010",
+   "area": "19 Analytics",
+   "type": "RULE",
+   "title": "قاعدة إعادة التسمية التقنية: نفس المعنى + توثيق أي تعديل",
+   "requirement": "أسماء الأحداث المقترحة ليست نهائية إذا وُجدت naming issue تقني واضح؛ لكن يُحافظ على نفس المعنى ويُوثّق أي تعديل.",
+   "details": [
+    "تطبيق موثّق: `menu_item_id` بدل `item_id` (تعارض مع item_id الخاص بـGA4 E-commerce) — MENU-MEASUREMENT-PLAN §2، README §16.",
+    "أي تعديل يبقى خاضعًا لعرض الأسماء النهائية (ANL-009)."
+   ],
+   "sources": [
+    "M23-198"
+   ],
+   "decision_refs": [
+    "D-149"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P2",
+   "impl_status": "IMPLEMENTED — NOT TESTED",
+   "tested": "N/A",
+   "existing_impl": "docs/menu-ia/MENU-MEASUREMENT-PLAN.md §2؛ docs/menu-ia/README.md §16",
+   "missing_work": "",
+   "dependencies": [
+    "ANL-009"
+   ],
+   "test_required": "كل اسم مختلف عن طلب الـOwner له سطر توثيق (السبب + المعنى نفسه) في القاموس.",
+   "design_refs": [
+    "docs/menu-ia/MENU-MEASUREMENT-PLAN.md §2"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "G6-CON-04",
+   "business_data": false,
+   "phase": "P02",
+   "history": [],
+   "notes": "غير مسجلة في DECISION-LOG → G6-ND-10."
+  },
+  {
+   "id": "ANL-011",
+   "area": "19 Analytics",
+   "type": "DELIVERABLE",
+   "title": "Menu Measurement Plan (Phase I) — أحداث المنيو الستة",
+   "requirement": "تصميم Measurement Plan خاص بصفحة المنيو (PHASE I): Events · Parameters · Triggers · Key Event recommendation · Debug method · GTM/GA4 mapping — بأحداث: menu_view · menu_search · menu_category_click · product_view · branch_filter_change · zero_result_search — بدون تنفيذ Google changes الآن.",
+   "details": [
+    "D-149 = APPROVED (الأحداث + تسجيل البحث Privacy-conscious + لا تنفيذ Google الآن)؛ جزئية «بلا Key Events» توصية (G6-CON-08).",
+    "التفاصيل: Triggers/Parameters/Payload examples/Privacy (تنظيف search_term)/GTM mapping/14 Custom Dimensions/Custom Metric results_count/Debug (10 حالات)."
+   ],
+   "sources": [
+    "M23-194",
+    "M23-195",
+    "M23-250"
+   ],
+   "decision_refs": [
+    "D-149",
+    "CF-09",
+    "CF-10"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "IMPLEMENTED — NOT TESTED",
+   "tested": "N/A",
+   "existing_impl": "docs/menu-ia/MENU-MEASUREMENT-PLAN.md (DRAFT — PENDING OWNER APPROVAL)",
+   "missing_work": "اعتماد الـOwner للخطة؛ مواءمة أسماء الـParameters مع القاموس الموحد (ANL-028).",
+   "dependencies": [
+    "ANL-028",
+    "GOOGLE-021",
+    "GOOGLE-022"
+   ],
+   "test_required": "اعتماد الـOwner؛ لاحقًا tooling/tests/app/menu.spec.mjs (F-01, F-13) + GTM Preview حسب §6.",
+   "design_refs": [
+    "docs/menu-ia/MENU-MEASUREMENT-PLAN.md",
+    "docs/menu-ia/README.md §16",
+    "docs/menu-ia/SHELTER-MENU-IA-SPEC.md §14"
+   ],
+   "code_refs": [],
+   "test_refs": [
+    "tooling/tests/app/menu.spec.mjs"
+   ],
+   "conflict": "G6-CON-08",
+   "business_data": false,
+   "phase": "P02",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "ANL-012",
+   "area": "19 Analytics",
+   "type": "REQUIREMENT",
+   "title": "حدث `menu_view`",
+   "requirement": "تتبع الحدث `menu_view` عند فتح صفحة المنيو (حدث معتمد ضمن أحداث المنيو والقائمة الحالية).",
+   "details": [
+    "Trigger: مرة لكل فتح صفحة منيو، بعد تهيئة الموافقة (MENU-MEASUREMENT-PLAN §1).",
+    "Parameters المقترحة: menu_language (ar/en) · market (jo) · branch_context (all/drive/house) · entry_context (direct/branch_link/internal) · menu_version (MV-2026-10-01)؛ GA4-MEASUREMENT-PLAN القديم: market · language (تعارض تسمية — ANL-028).",
+    "Key Event: لا (توصية — GOOGLE-021).",
+    "Dashboard: Menu Views (TOP SUMMARY + Menu Analytics)؛ «كم شخص فتح المنيو».",
+    "أصل الاسم: M01 «Menu View» → M11 §26 → M12 §9 → M23 §56 → M25 §9 → M27 §18."
+   ],
+   "sources": [
+    "M27-078"
+   ],
+   "decision_refs": [
+    "D-149"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: MENU-MEASUREMENT-PLAN.md §1 §4؛ GA4-MEASUREMENT-PLAN.md",
+   "missing_work": "تنفيذ عند بناء الموقع (P08) وإعداد GA4/GTM (P09) بعد اعتماد القاموس.",
+   "dependencies": [
+    "ANL-008",
+    "ANL-028",
+    "GOOGLE-015"
+   ],
+   "test_required": "GTM Preview + GA4 DebugView على نسخة Preview/Staging (ليس Production): الحدث يُرسل مرة واحدة فقط لكل فعل، بالـParameters المعتمدة في القاموس الموحد، بلا PII؛ يعمل بالعربي (RTL) والإنجليزي (LTR) على الموبايل والديسكتوب؛ سلوك الـConsent حسب القرار المعتمد؛ Network يُظهر Hit واحدًا؛ صف PASS في Analytics Validation Report (Event · Expected Trigger · Actual Trigger · Parameters · GA4 Received? · Duplicate? · Status)؛ لا يتكرر عند Back/استعادة الحالة",
+   "design_refs": [
+    "docs/google/GA4-MEASUREMENT-PLAN.md",
+    "docs/menu-ia/MENU-MEASUREMENT-PLAN.md"
+   ],
+   "code_refs": [],
+   "test_refs": [
+    "tooling/tests/app/menu.spec.mjs (F-01 'menu_view fired once' — test.fixme)"
+   ],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P09",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "ANL-013",
+   "area": "19 Analytics",
+   "type": "REQUIREMENT",
+   "title": "حدث `menu_search`",
+   "requirement": "تتبع الحدث `menu_search` للبحث داخل المنيو — يحل محل `search_use` (SUPERSEDED).",
+   "details": [
+    "Trigger: مرة لكل نص بحث مكتمل (ضغط اقتراح، أو Enter، أو توقف عن الكتابة ثانية واحدة) — لا يُرسل مع كل حرف.",
+    "Parameters المقترحة: search_term (منظّف ≤ 50 حرفًا، حجب @ / 5 أرقام متتالية / http / www → [redacted]) · search_input_language (ar/en/mixed) · results_count (Custom Metric) · search_source (suggestion/submit/pause) · branch_context · menu_language؛ GA4-MEASUREMENT-PLAN: language · market · results_count.",
+    "إجمالي عمليات البحث = عدد menu_search (zero_result_search مجموعة فرعية لا تُجمع معه).",
+    "Dashboard: Searches · Most searched products · Search terms (M25 §2/§8).",
+    "Key Event: لا (توصية)."
+   ],
+   "sources": [
+    "M27-079"
+   ],
+   "decision_refs": [
+    "D-149",
+    "CF-09",
+    "CF-10"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: MENU-MEASUREMENT-PLAN.md §1 §2 §3",
+   "missing_work": "تنفيذ عند بناء الموقع (P08) وإعداد GA4/GTM (P09) بعد اعتماد القاموس.",
+   "dependencies": [
+    "PRIV (G1: M23-199, M23-201)",
+    "ANL-008",
+    "ANL-028",
+    "GOOGLE-015"
+   ],
+   "test_required": "GTM Preview + GA4 DebugView على نسخة Preview/Staging (ليس Production): الحدث يُرسل مرة واحدة فقط لكل فعل، بالـParameters المعتمدة في القاموس الموحد، بلا PII؛ يعمل بالعربي (RTL) والإنجليزي (LTR) على الموبايل والديسكتوب؛ سلوك الـConsent حسب القرار المعتمد؛ Network يُظهر Hit واحدًا؛ صف PASS في Analytics Validation Report (Event · Expected Trigger · Actual Trigger · Parameters · GA4 Received? · Duplicate? · Status)؛ بحث عربي ينتهي باقتراح + نص فيه رقم هاتف → [redacted]؛ لا حدث لكل حرف",
+   "design_refs": [
+    "docs/google/GA4-MEASUREMENT-PLAN.md",
+    "docs/menu-ia/MENU-MEASUREMENT-PLAN.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "G6-CON-01",
+   "business_data": false,
+   "phase": "P09",
+   "history": [
+    {
+     "old": "`search_use` (استخدام بحث المنيو، param query_length بدون نص البحث)",
+     "source": "M11-063 (M11 §26)؛ GEP §26؛ GA4-MEASUREMENT-PLAN",
+     "superseded_by": "M12-029 → `menu_search` (+`site_search` للبحث العام)؛ M23-195؛ M27-079؛ CF-09"
+    }
+   ],
+   "notes": ""
+  },
+  {
+   "id": "ANL-014",
+   "area": "19 Analytics",
+   "type": "REQUIREMENT",
+   "title": "حدث `zero_result_search`",
+   "requirement": "تسجيل Zero Result Search Analytics عبر الحدث `zero_result_search` لمعرفة ما يبحث عنه العملاء ولا يجدونه.",
+   "details": [
+    "Trigger: عندما يكون results_count = 0 في menu_search — حدث مستقل لتقارير وتنبيهات سهلة.",
+    "Parameters المقترحة: search_term (منظّف) · search_input_language · branch_context · menu_language.",
+    "لا يُجمع مع menu_search في «عدد البحث» (مجموعة فرعية).",
+    "UX المرتبط (G3): لا Empty Screen — No results + Clear Search + أقرب فئة إذا منطقي.",
+    "Dashboard: Zero Result Searches (TOP SUMMARY + Menu Analytics: «ماذا يبحث الناس ولا يجدونه؟»).",
+    "إن وُجد بحث عام (site_search) فطريقة تسجيل صفر النتائج له = مفتوحة (results_count=0 أو نفس الحدث) — تُحسم مع ANL-025."
+   ],
+   "sources": [
+    "M27-091",
+    "M23-082"
+   ],
+   "decision_refs": [
+    "D-149"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: MENU-MEASUREMENT-PLAN.md §1 §4",
+   "missing_work": "تنفيذ عند بناء الموقع (P08) وإعداد GA4/GTM (P09) بعد اعتماد القاموس.",
+   "dependencies": [
+    "ANL-008",
+    "ANL-028",
+    "GOOGLE-015"
+   ],
+   "test_required": "GTM Preview + GA4 DebugView على نسخة Preview/Staging (ليس Production): الحدث يُرسل مرة واحدة فقط لكل فعل، بالـParameters المعتمدة في القاموس الموحد، بلا PII؛ يعمل بالعربي (RTL) والإنجليزي (LTR) على الموبايل والديسكتوب؛ سلوك الـConsent حسب القرار المعتمد؛ Network يُظهر Hit واحدًا؛ صف PASS في Analytics Validation Report (Event · Expected Trigger · Actual Trigger · Parameters · GA4 Received? · Duplicate? · Status)؛ بحث إنجليزي بلا نتائج → حدث واحد بنص منظّف",
+   "design_refs": [
+    "docs/google/GA4-MEASUREMENT-PLAN.md",
+    "docs/menu-ia/MENU-MEASUREMENT-PLAN.md"
+   ],
+   "code_refs": [],
+   "test_refs": [
+    "tooling/tests/app/menu.spec.mjs (F-13 'zero_result_search fired with sanitized term' — test.fixme)"
+   ],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P09",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "ANL-015",
+   "area": "19 Analytics",
+   "type": "REQUIREMENT",
+   "title": "حدث `menu_category_click`",
+   "requirement": "تتبع الحدث `menu_category_click` عند ضغط فئة/قسم فرعي في المنيو.",
+   "details": [
+    "Trigger: ضغط فئة أو قسم فرعي من الشريط أو القائمة الجانبية أو «كل الفئات» — لا يُرسل عند تغيّر الزر النشط بالتمرير.",
+    "Parameters المقترحة: category_id (CAT-001… · sweets) · subcategory_id (DSC-… أو فارغ) · nav_source (chip/subchip/sidebar/all_categories) · branch_context · menu_language؛ GA4-MEASUREMENT-PLAN: category_id · market.",
+    "Dashboard: Top Categories · Category clicks.",
+    "أصل الاسم: M01 «Category Click»."
+   ],
+   "sources": [
+    "M27-080"
+   ],
+   "decision_refs": [
+    "D-149"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: MENU-MEASUREMENT-PLAN.md §1",
+   "missing_work": "تنفيذ عند بناء الموقع (P08) وإعداد GA4/GTM (P09) بعد اعتماد القاموس.",
+   "dependencies": [
+    "ANL-008",
+    "ANL-028",
+    "GOOGLE-015"
+   ],
+   "test_required": "GTM Preview + GA4 DebugView على نسخة Preview/Staging (ليس Production): الحدث يُرسل مرة واحدة فقط لكل فعل، بالـParameters المعتمدة في القاموس الموحد، بلا PII؛ يعمل بالعربي (RTL) والإنجليزي (LTR) على الموبايل والديسكتوب؛ سلوك الـConsent حسب القرار المعتمد؛ Network يُظهر Hit واحدًا؛ صف PASS في Analytics Validation Report (Event · Expected Trigger · Actual Trigger · Parameters · GA4 Received? · Duplicate? · Status)؛ التمرير وحده لا يطلق الحدث",
+   "design_refs": [
+    "docs/google/GA4-MEASUREMENT-PLAN.md",
+    "docs/menu-ia/MENU-MEASUREMENT-PLAN.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P09",
+   "history": [
+    {
+     "old": "Category Click (M01 §80 مثال)",
+     "source": "M01-210",
+     "superseded_by": "M11-063 → menu_category_click"
+    }
+   ],
+   "notes": ""
+  },
+  {
+   "id": "ANL-016",
+   "area": "19 Analytics",
+   "type": "REQUIREMENT",
+   "title": "حدث `product_view`",
+   "requirement": "تتبع الحدث `product_view` عند فتح تفاصيل صنف (Bottom Sheet على الموبايل / Modal أو Side Panel على الديسكتوب) — لا صفحات أصناف في V1.",
+   "details": [
+    "Trigger: فتح تفاصيل الصنف فقط (D-146)؛ لا يُرسل عند ظهور البطاقة؛ مرة لكل فتح.",
+    "Parameters المقترحة: menu_item_id (= product_id مثل PRD-00058 — معرّف ثابت لا يتغير) · item_name (الاسم الإنجليزي المعتمد) · category_id · subcategory_id · detail_source (card/search_jump/deep_link) · branch_context · menu_language.",
+    "تعارض: item_id (GA4-MEASUREMENT-PLAN، 18-official-menu-inventory-report، 22-menu-IA) مقابل menu_item_id (MENU-MEASUREMENT-PLAN) — G6-CON-04؛ وأمثلة الـOwner product_name · product_category — G6-CON-06.",
+    "Dashboard: Top Products · Top Product Views.",
+    "أصل الاسم: M01 «Product View»."
+   ],
+   "sources": [
+    "M27-081"
+   ],
+   "decision_refs": [
+    "D-149",
+    "D-146",
+    "D-147"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: MENU-MEASUREMENT-PLAN.md §1 §2؛ GA4-MEASUREMENT-PLAN.md (item_id)",
+   "missing_work": "تنفيذ عند بناء الموقع (P08) وإعداد GA4/GTM (P09) بعد اعتماد القاموس.",
+   "dependencies": [
+    "ANL-008",
+    "ANL-028",
+    "GOOGLE-015"
+   ],
+   "test_required": "GTM Preview + GA4 DebugView على نسخة Preview/Staging (ليس Production): الحدث يُرسل مرة واحدة فقط لكل فعل، بالـParameters المعتمدة في القاموس الموحد، بلا PII؛ يعمل بالعربي (RTL) والإنجليزي (LTR) على الموبايل والديسكتوب؛ سلوك الـConsent حسب القرار المعتمد؛ Network يُظهر Hit واحدًا؛ صف PASS في Analytics Validation Report (Event · Expected Trigger · Actual Trigger · Parameters · GA4 Received? · Duplicate? · Status)؛ فتح صنف ثم Back = حدث واحد",
+   "design_refs": [
+    "docs/google/GA4-MEASUREMENT-PLAN.md",
+    "docs/menu-ia/MENU-MEASUREMENT-PLAN.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "G6-CON-04; G6-CON-06; G6-CON-16",
+   "business_data": false,
+   "phase": "P09",
+   "history": [
+    {
+     "old": "Trigger: «فتح تفاصيل صنف (Drawer أو صفحة صنف)» يعتمد على DB-06",
+     "source": "docs/google/GA4-MEASUREMENT-PLAN.md",
+     "superseded_by": "D-146 (Bottom Sheet/Modal) + D-147 (لا صفحات أصناف في V1)"
+    }
+   ],
+   "notes": ""
+  },
+  {
+   "id": "ANL-017",
+   "area": "19 Analytics",
+   "type": "REQUIREMENT",
+   "title": "حدث `branch_filter_change`",
+   "requirement": "تتبع الحدث `branch_filter_change` عند تغيير المستخدم لمحدد الفرع في المنيو (كل الفروع / DRIVE / HOUSE).",
+   "details": [
+    "Trigger: تغيير الفرع من المستخدم فقط — ليس عند التحميل ولا عند فتح رابط فيه ?branch.",
+    "Parameters المقترحة: branch_from · branch_to (all/drive/house) · branch_status (open/closing_soon/closed) · menu_language.",
+    "Dashboard: Top Branch Filter · DRIVE vs HOUSE · «أي فرع يتم اختياره أكثر؟»."
+   ],
+   "sources": [
+    "M27-082"
+   ],
+   "decision_refs": [
+    "D-149",
+    "D-145"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: MENU-MEASUREMENT-PLAN.md §1",
+   "missing_work": "تنفيذ عند بناء الموقع (P08) وإعداد GA4/GTM (P09) بعد اعتماد القاموس.",
+   "dependencies": [
+    "ANL-008",
+    "ANL-028",
+    "GOOGLE-015"
+   ],
+   "test_required": "GTM Preview + GA4 DebugView على نسخة Preview/Staging (ليس Production): الحدث يُرسل مرة واحدة فقط لكل فعل، بالـParameters المعتمدة في القاموس الموحد، بلا PII؛ يعمل بالعربي (RTL) والإنجليزي (LTR) على الموبايل والديسكتوب؛ سلوك الـConsent حسب القرار المعتمد؛ Network يُظهر Hit واحدًا؛ صف PASS في Analytics Validation Report (Event · Expected Trigger · Actual Trigger · Parameters · GA4 Received? · Duplicate? · Status)؛ تحميل صفحة فيها ?branch → لا حدث",
+   "design_refs": [
+    "docs/google/GA4-MEASUREMENT-PLAN.md",
+    "docs/menu-ia/MENU-MEASUREMENT-PLAN.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P09",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "ANL-018",
+   "area": "19 Analytics",
+   "type": "REQUIREMENT",
+   "title": "حدث `directions_click`",
+   "requirement": "تتبع الحدث `directions_click` عند ضغط «الاتجاهات» (روابط Google Maps من الموقع)، بدون استخدام Tracking parameters بطريقة تكسر رابط Maps.",
+   "details": [
+    "Parameters المقترحة: branch_id (drive/house) · location (header/card/branch_page) — تعارض تسمية مع `placement` المستخدم في phone/whatsapp (ANL-028).",
+    "القيمة التجارية: أعلى (أقرب مؤشر لزيارة الفرع — D-013 الفعل رقم 2).",
+    "التنفيذ: قياس الضغطة (dataLayer/click listener) وليس تعديل الرابط؛ رابط Maps الرسمي لكل فرع ولا نفس الرابط للفرعين (G4).",
+    "Key Event: مرشح (M12 §11) — بانتظار الـOwner (GOOGLE-021).",
+    "Dashboard: Directions Clicks حسب DRIVE · HOUSE (Customer Actions).",
+    "أصل الاسم: M01 «Directions Click»."
+   ],
+   "sources": [
+    "M27-083",
+    "M11-076",
+    "M11-077"
+   ],
+   "decision_refs": [
+    "GEP-§33/§34 (G4)",
+    "D-013"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: GA4-MEASUREMENT-PLAN.md (directions_click)",
+   "missing_work": "تنفيذ عند بناء الموقع (P08) وإعداد GA4/GTM (P09) بعد اعتماد القاموس.",
+   "dependencies": [
+    "ANL-008",
+    "ANL-028",
+    "GOOGLE-015"
+   ],
+   "test_required": "GTM Preview + GA4 DebugView على نسخة Preview/Staging (ليس Production): الحدث يُرسل مرة واحدة فقط لكل فعل، بالـParameters المعتمدة في القاموس الموحد، بلا PII؛ يعمل بالعربي (RTL) والإنجليزي (LTR) على الموبايل والديسكتوب؛ سلوك الـConsent حسب القرار المعتمد؛ Network يُظهر Hit واحدًا؛ صف PASS في Analytics Validation Report (Event · Expected Trigger · Actual Trigger · Parameters · GA4 Received? · Duplicate? · Status)؛ الرابط المفتوح = رابط GBP الرسمي حرفيًا (بلا معاملات مضافة)؛ مسارا Home → Locations → DRIVE/HOUSE → Directions",
+   "design_refs": [
+    "docs/google/GA4-MEASUREMENT-PLAN.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P09",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "ANL-019",
+   "area": "19 Analytics",
+   "type": "REQUIREMENT",
+   "title": "حدث `phone_click`",
+   "requirement": "تتبع الحدث `phone_click` عند ضغط رقم هاتف/زر اتصال.",
+   "details": [
+    "Parameters المقترحة: branch_id · phone_purpose (general · complaints_feedback_franchise · catering_b2b_events — D-059) · placement.",
+    "الأرقام المعتمدة (D-057، G4): 0799009436 عام/الفروع · 0799338445 الشكاوى والاقتراحات والفرنشايز · 0799530383 الكيترنج والأعمال والفعاليات.",
+    "Dashboard: Call Clicks مقسّمة DRIVE · HOUSE · GENERAL CONTACT (M25 §10) — تُشتق من branch_id + phone_purpose.",
+    "Key Event: مرشح (M12 §11).",
+    "أصل الاسم: M01 «Phone Click»."
+   ],
+   "sources": [
+    "M27-084"
+   ],
+   "decision_refs": [
+    "D-057",
+    "D-059"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: GA4-MEASUREMENT-PLAN.md (phone_click)",
+   "missing_work": "تنفيذ عند بناء الموقع (P08) وإعداد GA4/GTM (P09) بعد اعتماد القاموس.",
+   "dependencies": [
+    "ANL-008",
+    "ANL-028",
+    "GOOGLE-015"
+   ],
+   "test_required": "GTM Preview + GA4 DebugView على نسخة Preview/Staging (ليس Production): الحدث يُرسل مرة واحدة فقط لكل فعل، بالـParameters المعتمدة في القاموس الموحد، بلا PII؛ يعمل بالعربي (RTL) والإنجليزي (LTR) على الموبايل والديسكتوب؛ سلوك الـConsent حسب القرار المعتمد؛ Network يُظهر Hit واحدًا؛ صف PASS في Analytics Validation Report (Event · Expected Trigger · Actual Trigger · Parameters · GA4 Received? · Duplicate? · Status)",
+   "design_refs": [
+    "docs/google/GA4-MEASUREMENT-PLAN.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P09",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "ANL-020",
+   "area": "19 Analytics",
+   "type": "REQUIREMENT",
+   "title": "حدث `whatsapp_click`",
+   "requirement": "تتبع الحدث `whatsapp_click` عند ضغط زر واتساب — بدون إرسال نص الرسالة.",
+   "details": [
+    "Parameters المقترحة: branch_id (إن وُجد) · placement — بدون نص الرسالة.",
+    "WhatsApp الرسمي = 0799009436 (D-058 APPROVED)؛ Pre-filled message ومكان/نص الزر بانتظار الـOwner (D-058/D-064)؛ شريط الفرع [الاتجاهات][اتصال][واتساب] (D-061)؛ بلا Floating bubble (D-062).",
+    "Key Event: مرشح (M12 §11).",
+    "Dashboard: WhatsApp Clicks (TOP SUMMARY + Customer Actions).",
+    "GA4-MEASUREMENT-PLAN سطر Key Events ما زال يقول «إذا اعتُمد واتساب — D-023» (مرجع قديم) — G6-CON-14."
+   ],
+   "sources": [
+    "M27-085"
+   ],
+   "decision_refs": [
+    "D-058",
+    "D-061",
+    "D-062"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: GA4-MEASUREMENT-PLAN.md (whatsapp_click)",
+   "missing_work": "تنفيذ عند بناء الموقع (P08) وإعداد GA4/GTM (P09) بعد اعتماد القاموس.",
+   "dependencies": [
+    "ANL-008",
+    "ANL-028",
+    "GOOGLE-015"
+   ],
+   "test_required": "GTM Preview + GA4 DebugView على نسخة Preview/Staging (ليس Production): الحدث يُرسل مرة واحدة فقط لكل فعل، بالـParameters المعتمدة في القاموس الموحد، بلا PII؛ يعمل بالعربي (RTL) والإنجليزي (LTR) على الموبايل والديسكتوب؛ سلوك الـConsent حسب القرار المعتمد؛ Network يُظهر Hit واحدًا؛ صف PASS في Analytics Validation Report (Event · Expected Trigger · Actual Trigger · Parameters · GA4 Received? · Duplicate? · Status)",
+   "design_refs": [
+    "docs/google/GA4-MEASUREMENT-PLAN.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "G6-CON-14",
+   "business_data": true,
+   "phase": "P09",
+   "history": [
+    {
+     "old": "WhatsApp = PENDING OWNER DECISION (D-023)",
+     "source": "D-023",
+     "superseded_by": "D-058 (واتساب معتمد 0799009436)"
+    }
+   ],
+   "notes": ""
+  },
+  {
+   "id": "ANL-021",
+   "area": "19 Analytics",
+   "type": "REQUIREMENT",
+   "title": "حدث `campaign_view`",
+   "requirement": "تتبع الحدث `campaign_view` عند ظهور/فتح حملة في منطقة الحملات.",
+   "details": [
+    "Trigger (GA4-MEASUREMENT-PLAN): ظهور حملة في منطقة الحملات (الرئيسية، الحملات) — يجب تعريف قاعدة ظهور لا تولّد ضجيجًا (مرة لكل حملة لكل صفحة) قبل الاعتماد.",
+    "Parameters المقترحة: campaign_id (الخطة) / campaign_name (أمثلة الـOwner M12 §10) — ANL-028.",
+    "Dashboard: «أي Campaign حصلت على أكبر تفاعل؟»."
+   ],
+   "sources": [
+    "M27-086"
+   ],
+   "decision_refs": [
+    "D-070"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: GA4-MEASUREMENT-PLAN.md (campaign_view)",
+   "missing_work": "تنفيذ عند بناء الموقع (P08) وإعداد GA4/GTM (P09) بعد اعتماد القاموس.",
+   "dependencies": [
+    "ANL-008",
+    "ANL-028",
+    "GOOGLE-015"
+   ],
+   "test_required": "GTM Preview + GA4 DebugView على نسخة Preview/Staging (ليس Production): الحدث يُرسل مرة واحدة فقط لكل فعل، بالـParameters المعتمدة في القاموس الموحد، بلا PII؛ يعمل بالعربي (RTL) والإنجليزي (LTR) على الموبايل والديسكتوب؛ سلوك الـConsent حسب القرار المعتمد؛ Network يُظهر Hit واحدًا؛ صف PASS في Analytics Validation Report (Event · Expected Trigger · Actual Trigger · Parameters · GA4 Received? · Duplicate? · Status)",
+   "design_refs": [
+    "docs/google/GA4-MEASUREMENT-PLAN.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P09",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "ANL-022",
+   "area": "19 Analytics",
+   "type": "REQUIREMENT",
+   "title": "حدث `campaign_click`",
+   "requirement": "تتبع الحدث `campaign_click` عند ضغط CTA حملة.",
+   "details": [
+    "Parameters المقترحة: campaign_id · cta.",
+    "Key Event: مرشح باسم «Campaign CTA» (M12 §11).",
+    "مسار اختبار حقيقي: Campaign → CTA (G8 M12-061).",
+    "أصل الاسم: M01 «Campaign Click»."
+   ],
+   "sources": [
+    "M27-087"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: GA4-MEASUREMENT-PLAN.md (campaign_click)",
+   "missing_work": "تنفيذ عند بناء الموقع (P08) وإعداد GA4/GTM (P09) بعد اعتماد القاموس.",
+   "dependencies": [
+    "ANL-008",
+    "ANL-028",
+    "GOOGLE-015"
+   ],
+   "test_required": "GTM Preview + GA4 DebugView على نسخة Preview/Staging (ليس Production): الحدث يُرسل مرة واحدة فقط لكل فعل، بالـParameters المعتمدة في القاموس الموحد، بلا PII؛ يعمل بالعربي (RTL) والإنجليزي (LTR) على الموبايل والديسكتوب؛ سلوك الـConsent حسب القرار المعتمد؛ Network يُظهر Hit واحدًا؛ صف PASS في Analytics Validation Report (Event · Expected Trigger · Actual Trigger · Parameters · GA4 Received? · Duplicate? · Status)",
+   "design_refs": [
+    "docs/google/GA4-MEASUREMENT-PLAN.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P09",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "ANL-023",
+   "area": "19 Analytics",
+   "type": "REQUIREMENT",
+   "title": "حدث `article_view`",
+   "requirement": "تتبع الحدث `article_view` عند فتح مقال (Blog / Coffee Knowledge Hub) — يحل محل `blog_view` (SUPERSEDED).",
+   "details": [
+    "Parameters المقترحة: content_type · article_id · language (الخطة)؛ topic كان في blog_view.",
+    "مسار اختبار حقيقي: Blog → Article.",
+    "Dashboard: Articles في Top Pages؛ Blog performance (M12 §31)."
+   ],
+   "sources": [
+    "M27-088"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: GA4-MEASUREMENT-PLAN.md (article_view + blog_view قديم)",
+   "missing_work": "تنفيذ عند بناء الموقع (P08) وإعداد GA4/GTM (P09) بعد اعتماد القاموس.",
+   "dependencies": [
+    "ANL-008",
+    "ANL-028",
+    "GOOGLE-015"
+   ],
+   "test_required": "GTM Preview + GA4 DebugView على نسخة Preview/Staging (ليس Production): الحدث يُرسل مرة واحدة فقط لكل فعل، بالـParameters المعتمدة في القاموس الموحد، بلا PII؛ يعمل بالعربي (RTL) والإنجليزي (LTR) على الموبايل والديسكتوب؛ سلوك الـConsent حسب القرار المعتمد؛ Network يُظهر Hit واحدًا؛ صف PASS في Analytics Validation Report (Event · Expected Trigger · Actual Trigger · Parameters · GA4 Received? · Duplicate? · Status)",
+   "design_refs": [
+    "docs/google/GA4-MEASUREMENT-PLAN.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "G6-CON-02",
+   "business_data": false,
+   "phase": "P09",
+   "history": [
+    {
+     "old": "Blog Article View (M01 §80 مثال)",
+     "source": "M01-210",
+     "superseded_by": "M11-063 → blog_view"
+    },
+    {
+     "old": "`blog_view` (article_id, topic)",
+     "source": "M11-063؛ GEP §26؛ GA4-MEASUREMENT-PLAN",
+     "superseded_by": "M12-029 → `article_view`؛ M25-041؛ M27-088"
+    }
+   ],
+   "notes": ""
+  },
+  {
+   "id": "ANL-024",
+   "area": "19 Analytics",
+   "type": "REQUIREMENT",
+   "title": "حدث `language_switch`",
+   "requirement": "تتبع الحدث `language_switch` عند تغيير اللغة (عربي/إنجليزي).",
+   "details": [
+    "Parameters المقترحة: from · to.",
+    "الغرض: حجم جمهور الإنجليزية؛ Dashboard Languages (Arabic · English).",
+    "مسار اختبار حقيقي: Language switch.",
+    "أصل الاسم: M01 «Language Switch»."
+   ],
+   "sources": [
+    "M27-089"
+   ],
+   "decision_refs": [
+    "D-014"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: GA4-MEASUREMENT-PLAN.md (language_switch)",
+   "missing_work": "تنفيذ عند بناء الموقع (P08) وإعداد GA4/GTM (P09) بعد اعتماد القاموس.",
+   "dependencies": [
+    "ANL-008",
+    "ANL-028",
+    "GOOGLE-015"
+   ],
+   "test_required": "GTM Preview + GA4 DebugView على نسخة Preview/Staging (ليس Production): الحدث يُرسل مرة واحدة فقط لكل فعل، بالـParameters المعتمدة في القاموس الموحد، بلا PII؛ يعمل بالعربي (RTL) والإنجليزي (LTR) على الموبايل والديسكتوب؛ سلوك الـConsent حسب القرار المعتمد؛ Network يُظهر Hit واحدًا؛ صف PASS في Analytics Validation Report (Event · Expected Trigger · Actual Trigger · Parameters · GA4 Received? · Duplicate? · Status)",
+   "design_refs": [
+    "docs/google/GA4-MEASUREMENT-PLAN.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P09",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "ANL-025",
+   "area": "19 Analytics",
+   "type": "REQUIREMENT",
+   "title": "حدث `site_search`",
+   "requirement": "تتبع الحدث `site_search` للبحث العام في الموقع — فقط إذا وُجد بحث عام على مستوى الموقع (مستقل عن menu_search).",
+   "details": [
+    "وجود بحث عام في الموقع غير محسوم في الـIA (P03).",
+    "Parameters المقترحة: search_term (بنفس قواعد التنظيف والخصوصية) · results_count.",
+    "التسمية: الـOwner استخدم `site_search` في M12 §9 وM25 §9 وM27 §18 — اقتراح Claude باستخدام اسم Google الموصى به `search` أو حدث EM `view_search_results` غير معتمد (G6-CON-03 RESOLVED).",
+    "شرط: فعل بحث واحد لا يُطلق menu_search وsite_search معًا؛ مراجعة EM Site search لمنع العد المزدوج (GOOGLE-017)."
+   ],
+   "sources": [
+    "M27-090"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED WITH CONDITIONS",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: GA4-MEASUREMENT-PLAN.md (site_search — سؤال مفتوح)",
+   "missing_work": "تنفيذ عند بناء الموقع (P08) وإعداد GA4/GTM (P09) بعد اعتماد القاموس.",
+   "dependencies": [
+    "IA site-wide search decision (P03)",
+    "GOOGLE-017",
+    "ANL-008",
+    "ANL-028",
+    "GOOGLE-015"
+   ],
+   "test_required": "GTM Preview + GA4 DebugView على نسخة Preview/Staging (ليس Production): الحدث يُرسل مرة واحدة فقط لكل فعل، بالـParameters المعتمدة في القاموس الموحد، بلا PII؛ يعمل بالعربي (RTL) والإنجليزي (LTR) على الموبايل والديسكتوب؛ سلوك الـConsent حسب القرار المعتمد؛ Network يُظهر Hit واحدًا؛ صف PASS في Analytics Validation Report (Event · Expected Trigger · Actual Trigger · Parameters · GA4 Received? · Duplicate? · Status)",
+   "design_refs": [
+    "docs/google/GA4-MEASUREMENT-PLAN.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "G6-CON-01; G6-CON-03",
+   "business_data": false,
+   "phase": "P09",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "ANL-026",
+   "area": "19 Analytics",
+   "type": "DECISION",
+   "title": "أحداث مرشحة بانتظار قرار: branch_view · social_click · event_view",
+   "requirement": "الأحداث branch_view · social_click · event_view وردت في قوائم الـOwner السابقة (M01 §80 كأمثلة، M11 §26، M12 §9) ولم تُلغَ صراحة، لكنها غائبة عن قائمتي M25 §9 وM27 §18؛ M27 يطلب مراجعة «أي Events إضافية وردت» → يُعرض على الـOwner قرار إدراج كل منها.",
+   "details": [
+    "branch_view: فتح صفحة فرع، param branch_id (drive/house) — يدعم «Branch interest» (M12 §31) و«أي Branch يحصل على أكثر Intent» (M25 §10). أصل: M01 «Branch View».",
+    "social_click: ضغط حساب سوشال، param platform — أصله M01 «Instagram Click» (عُمّم في M11)؛ معطّل عمليًا حتى تُعتمد الحسابات الاجتماعية (D-036 — كلها PENDING OWNER VERIFICATION).",
+    "event_view: فتح صفحة فعالية، param event_id (أو event_name — G6-CON-05)؛ أصل: M01 «Event Click» (فرق view/click).",
+    "M11 §26 أيضًا: blog_view و search_use → SUPERSEDED (ANL-023/ANL-013)."
+   ],
+   "sources": [
+    "M11-063"
+   ],
+   "decision_refs": [
+    "GIO-§A9/§A10",
+    "GEP-§26",
+    "D-036"
+   ],
+   "status": "PENDING OWNER INPUT",
+   "owner_approved": "PARTIAL",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "GA4-MEASUREMENT-PLAN.md (الثلاثة PROPOSED)؛ GIO §A9",
+   "missing_work": "قرار الـOwner لكل حدث (إدراج/إسقاط) ضمن عرض القاموس النهائي.",
+   "dependencies": [
+    "ANL-008",
+    "ANL-009",
+    "D-036"
+   ],
+   "test_required": "القاموس النهائي يحدد لكل حدث: معتمد أو مُسقط بقرار مسجّل.",
+   "design_refs": [
+    "docs/google/GA4-MEASUREMENT-PLAN.md",
+    "docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §A9"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "G6-CON-07",
+   "business_data": false,
+   "phase": "P03",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "ANL-027",
+   "area": "19 Analytics",
+   "type": "REQUIREMENT",
+   "title": "Search Analytics: ما يجب معرفته من البحث",
+   "requirement": "بيانات البحث المطلوب معرفتها: popular searches · zero result searches · language used · selected branch · result count — مع تسجيل الاستعلامات بشكل Privacy-conscious.",
+   "details": [
+    "المقابلة في الخطة: search_term · zero_result_search · search_input_language · branch_context · results_count.",
+    "الخصوصية (G1: M23-199، M23-201): تنظيف قبل الإرسال، لا PII، لا الفرع المحفوظ كـUser Property."
+   ],
+   "sources": [
+    "M23-200"
+   ],
+   "decision_refs": [
+    "D-149",
+    "CF-10"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: MENU-MEASUREMENT-PLAN.md §1 §2 §3",
+   "missing_work": "",
+   "dependencies": [
+    "ANL-013",
+    "ANL-014",
+    "PRIV (G1)"
+   ],
+   "test_required": "تقرير GA4 (Explorations/Data API) يعرض كل البنود الخمسة من بيانات Preview الاختبارية؛ لا نص بحث خام غير منظّف.",
+   "design_refs": [
+    "docs/menu-ia/MENU-MEASUREMENT-PLAN.md §2 §3"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P09",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "ANL-028",
+   "area": "19 Analytics",
+   "type": "RULE",
+   "title": "قاموس Event Parameters موحد بتسمية ثابتة",
+   "requirement": "استخدام Event Parameters مفيدة بتسمية ثابتة وموحدة عبر الموقع كله (أمثلة الـOwner: branch_name · branch_id · product_name · product_category · campaign_name · event_name · language · market · destination · content_type) — قاموس Parameters واحد يُعتمد مع الأسماء النهائية.",
+   "details": [
+    "تعارضات قائمة: language ↔ menu_language؛ product_name ↔ item_name؛ product_category ↔ category_id؛ branch_name/branch_id ↔ branch_context؛ item_id ↔ menu_item_id؛ location (directions) ↔ placement (phone/whatsapp)؛ campaign_name ↔ campaign_id؛ event_name ↔ بُعد GA4 المدمج «Event name».",
+    "السجل الكامل: parameter_registry في هذا الملف.",
+    "GA4 Custom Dimensions المقترحة للمنيو: 14 من 50 (MENU-MEASUREMENT-PLAN §5) — يجب حساب المجموع على مستوى الموقع."
+   ],
+   "sources": [
+    "M12-032"
+   ],
+   "decision_refs": [
+    "GIO-§A9/§A10"
+   ],
+   "status": "PENDING OWNER INPUT",
+   "owner_approved": "PARTIAL",
+   "priority": "P1",
+   "impl_status": "NEEDS FIX",
+   "tested": "NO",
+   "existing_impl": "ثلاث صيغ متباينة: GIO §A10 (قائمة الـOwner)، GA4-MEASUREMENT-PLAN §معجم، MENU-MEASUREMENT-PLAN §2",
+   "missing_work": "قاموس واحد (GA4-EVENT-DICTIONARY) يحسم التعارضات ويُعرض على الـOwner.",
+   "dependencies": [
+    "ANL-009",
+    "ANL-010"
+   ],
+   "test_required": "كل Parameter مرسل في DebugView موجود في القاموس بنفس الاسم؛ Custom Dimensions مسجلة ≤ الحد؛ لا اسمين لنفس المعنى.",
+   "design_refs": [
+    "docs/google/GA4-MEASUREMENT-PLAN.md §معجم",
+    "docs/menu-ia/MENU-MEASUREMENT-PLAN.md §2 §5"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "G6-CON-04; G6-CON-05; G6-CON-06",
+   "business_data": false,
+   "phase": "P03",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "ANL-029",
+   "area": "19 Analytics",
+   "type": "RULE",
+   "title": "استخدام بيانات GA4 الفعلية بدل التخمين — دون أن تقرر التصميم وحدها",
+   "requirement": "إذا توفرت البيانات في GA4 تُستخدم لفهم الاستخدام الفعلي بدل التخمين، لكن Analytics لا تقرر التصميم وحدها.",
+   "details": [],
+   "sources": [
+    "M11-110",
+    "M11-111"
+   ],
+   "decision_refs": [
+    "GEP-§50/§52 (G8)",
+    "D-042"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P2",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "لا وصول لبيانات GA4 القديمة بعد (AC-05).",
+   "dependencies": [
+    "GOOGLE-007"
+   ],
+   "test_required": "أي توصية تصميم تستند لبيانات GA4 تذكر المصدر والفترة، وتُعرض كمدخل لا كقرار.",
+   "design_refs": [
+    "docs/google/GOOGLE-ECOSYSTEM-POLICY.md §52"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P01",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "ANL-030",
+   "area": "19 Analytics",
+   "type": "RULE",
+   "title": "لا Business Conclusions غير مدعومة بالبيانات",
+   "requirement": "ممنوع إعطاء الـOwner Business Conclusions غير مدعومة بالبيانات (في الـDashboard والتقارير والتحليلات).",
+   "details": [
+    "الـDashboard تساعد على فهم WHAT HAPPENED · WHERE · WHY · WHAT NEEDS ATTENTION مع Action مباشر (G7 M25-205) — لكن كل استنتاج يحمل دليله.",
+    "متسق مع: ممنوع رقم مزيف في Health Score (G7 M25-121)."
+   ],
+   "sources": [
+    "M25-206"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [
+    "DASH (G7: M25-205)",
+    "ANL-044"
+   ],
+   "test_required": "مراجعة كل Insight/Alert في الـDashboard: يعرض المقياس والمصدر والفترة؛ لا نص استنتاجي بلا بيانات.",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "ANL-031",
+   "area": "19 Analytics",
+   "type": "REQUIREMENT",
+   "title": "الـDashboard تجيب أسئلة الـOwner التحليلية (محتوى · أفعال · جمهور)",
+   "requirement": "عند دخول الـDashboard يعرف الـOwner خلال ثوانٍ: أكثر الصفحات زيارة · أكثر المنتجات مشاهدة · أكثر أقسام المنيو مشاهدة · أكثر المنتجات التي يبحث عنها الناس · ماذا يبحث الناس ولا يجدونه (Zero-result) · أكثر الأزرار ضغطًا · كم ضغط على Directions · Call · WhatsApp · أي فرع يتم اختياره أكثر · DRIVE أم HOUSE · كم شخص فتح المنيو · أي Campaign حصلت على أكبر تفاعل · من أين يأتي الزوار (Google · Instagram · Direct · Social · Referral · Search) · أي أجهزة (Mobile أم Desktop) · Arabic أم English.",
+   "details": [
+    "كل سؤال يُربط بمصدره: الصفحات ← page_view؛ المنتجات ← product_view؛ الأقسام ← menu_category_click؛ البحث ← menu_search/zero_result_search؛ الأفعال ← directions_click/phone_click/whatsapp_click؛ الفرع ← branch_filter_change (+branch_view إن اعتُمد)؛ المنيو ← menu_view؛ الحملات ← campaign_view/campaign_click؛ المصادر/الأجهزة/اللغة ← أبعاد GA4 + language.",
+    "أسئلة الـDashboard الأخرى (SEO، صحة الموقع، المحتوى) عند G5/G7."
+   ],
+   "sources": [
+    "M25-005",
+    "M25-006",
+    "M25-007"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none (Dashboard لم يبدأ)",
+   "missing_work": "",
+   "dependencies": [
+    "DASH (G7): SHELTER OWNER DASHBOARD architecture (M25-001…)",
+    "ANL-044",
+    "GOOGLE-005",
+    "ANL-012…ANL-025"
+   ],
+   "test_required": "لكل سؤال: Widget/تقرير يجيب عنه من بيانات LIVE (أو DEMO موسومة) ضمن نطاق التاريخ المختار؛ موبايل/ديسكتوب؛ RTL/LTR.",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [
+    "tooling/scripts/qa-matrix.mjs (صفحة Analytics ضمن مصفوفة QA)"
+   ],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "ANL-032",
+   "area": "19 Analytics",
+   "type": "REQUIREMENT",
+   "title": "Traffic Analytics",
+   "requirement": "قسم Traffic Analytics يعرض: Users · New Users · Returning Users · Sessions · Page Views · Engagement · Average Engagement Time — حسب Day / Week / Month.",
+   "details": [
+    "مصدر: GA4 Data API (أحداث GA4 التلقائية page_view/session_start/first_visit/user_engagement).",
+    "ضمن P0 «Analytics Overview / GA4» (G7 M25-189)."
+   ],
+   "sources": [
+    "M25-031"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [
+    "DASH (G7): SHELTER OWNER DASHBOARD architecture (M25-001…)",
+    "ANL-044",
+    "GOOGLE-005"
+   ],
+   "test_required": "الأرقام تطابق GA4 للفترة نفسها (هامش موثق)؛ تبديل Day/Week/Month؛ حالات Empty/Error/Loading؛ RTL/LTR؛ موبايل.",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "ANL-033",
+   "area": "19 Analytics",
+   "type": "REQUIREMENT",
+   "title": "Traffic Sources: القنوات + Source/Medium + جودة القناة",
+   "requirement": "عرض مصادر الزيارات حسب القنوات: Organic Search · Direct · Social · Referral · Paid · Email · Other، وعرض Source / Medium (مثل google / organic · instagram · facebook · direct) إذا كانت البيانات متوفرة، ومعرفة أي قناة تجلب أعلى تفاعل (Engagement) وليس فقط أعلى Visits.",
+   "details": [
+    "Source/Medium مشروط بتوفر البيانات (M25-034).",
+    "جودة القناة: Engagement rate / Avg engagement time لكل قناة بجانب الحجم."
+   ],
+   "sources": [
+    "M25-033",
+    "M25-034",
+    "M25-035"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED WITH CONDITIONS",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [
+    "DASH (G7): SHELTER OWNER DASHBOARD architecture (M25-001…)",
+    "ANL-044",
+    "GOOGLE-005"
+   ],
+   "test_required": "جدول القنوات يطابق Default Channel Group في GA4؛ ترتيب حسب التفاعل متاح؛ حالة «لا بيانات» لـSource/Medium.",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "ANL-034",
+   "area": "19 Analytics",
+   "type": "REQUIREMENT",
+   "title": "Top Pages مع Drill-down",
+   "requirement": "صفحة Top Pages بجدول: Page · Views · Users · Engagement · Average Time · Entrances · Exits · Trend (مثل Home · Menu · Drive · House · About · Contact · Articles · Campaigns)، والضغط على أي صفحة يفتح تفاصيلها.",
+   "details": [
+    "Drill-down يتكامل مع Page Health View (G7 M25-078)."
+   ],
+   "sources": [
+    "M25-036",
+    "M25-037"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [
+    "DASH (G7): SHELTER OWNER DASHBOARD architecture (M25-001…)",
+    "ANL-044",
+    "GOOGLE-005",
+    "DASH Page Health (G7: M25-078)"
+   ],
+   "test_required": "الجدول قابل للفرز، Trend صحيح، الضغط يفتح تفاصيل الصفحة؛ Table↔Cards على الموبايل؛ RTL/LTR.",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "ANL-035",
+   "area": "19 Analytics",
+   "type": "REQUIREMENT",
+   "title": "Menu Analytics Dashboard (مهمة جدًا لـSHELTER)",
+   "requirement": "Dashboard خاصة بالـMenu تعرض: Menu Views · Searches · Top Categories · Top Products · Top Product Views · Top Branch Filter · DRIVE vs HOUSE · Most searched products · Zero-result searches · Search terms · Category clicks.",
+   "details": [
+    "المصادر: menu_view · menu_search · zero_result_search · menu_category_click · product_view · branch_filter_change.",
+    "Search terms تُعرض من search_term المنظّف فقط (Privacy-conscious).",
+    "أمثلة M25 §8 (ICED SPANISH LATTE 120 product views · SPECIALITY COFFEE 350 category clicks · \"cold brew\" 45 searches · Zero result \"matcha\" 15) = توضيحية فقط وأُسقطت كبيانات (M25-040)."
+   ],
+   "sources": [
+    "M25-038",
+    "M25-039"
+   ],
+   "decision_refs": [
+    "D-149"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [
+    "DASH (G7): SHELTER OWNER DASHBOARD architecture (M25-001…)",
+    "ANL-044",
+    "GOOGLE-005",
+    "ANL-011",
+    "ANL-012…ANL-017"
+   ],
+   "test_required": "كل Widget يطابق أرقام GA4 لبيانات اختبار معروفة؛ zero_result لا يُجمع مع Searches؛ أسماء المنتجات بالاسم المعتمد؛ RTL/LTR؛ موبايل.",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "ANL-036",
+   "area": "19 Analytics",
+   "type": "REQUIREMENT",
+   "title": "Click / Event Analytics Dashboard",
+   "requirement": "Dashboard للأحداث ذات المعنى (ماذا يضغط العملاء) بأعمدة: Event · Count · Unique Users · Page · Branch · Date · Trend.",
+   "details": [
+    "يتطلب أن تحمل الأحداث page و branch_id/branch_context (ANL-028).",
+    "لا يعرض كل click عشوائي — فقط أحداث القاموس."
+   ],
+   "sources": [
+    "M25-043"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [
+    "DASH (G7): SHELTER OWNER DASHBOARD architecture (M25-001…)",
+    "ANL-044",
+    "GOOGLE-005",
+    "ANL-008",
+    "ANL-028"
+   ],
+   "test_required": "الجدول يعرض كل أحداث القاموس فقط مع Unique Users صحيح؛ فلترة بالفرع والتاريخ.",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "ANL-037",
+   "area": "19 Analytics",
+   "type": "REQUIREMENT",
+   "title": "Customer Actions (CTA Analytics) حسب الفرع",
+   "requirement": "قسم Customer Actions: Directions Clicks · Call Clicks · WhatsApp Clicks مقسّمة إلى DRIVE · HOUSE · GENERAL CONTACT (إذا ممكن)، ومعرفة أي Branch يحصل على أكثر Intent.",
+   "details": [
+    "التقسيم «إذا ممكن»: يُشتق من branch_id + phone_purpose (general · complaints_feedback_franchise · catering_b2b_events) — الأرقام غير العامة لا تُنسب لفرع.",
+    "Branch Intent = مجموع directions/phone/whatsapp (+branch_view إن اعتُمد) لكل فرع — التعريف يُعتمد في الـData Source Matrix."
+   ],
+   "sources": [
+    "M25-044",
+    "M25-045"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED WITH CONDITIONS",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [
+    "DASH (G7): SHELTER OWNER DASHBOARD architecture (M25-001…)",
+    "ANL-044",
+    "GOOGLE-005",
+    "ANL-018",
+    "ANL-019",
+    "ANL-020"
+   ],
+   "test_required": "أرقام كل فرع تطابق GA4 مع branch_id؛ GENERAL CONTACT منفصل؛ تعريف Intent موثق.",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "ANL-038",
+   "area": "19 Analytics",
+   "type": "REQUIREMENT",
+   "title": "Device / UX Data",
+   "requirement": "عرض: Mobile · Desktop · Tablet · Browsers (Chrome · Safari · Firefox · etc.) · Operating Systems · Screen sizes (إذا مفيدة) · Languages (Arabic · English).",
+   "details": [],
+   "sources": [
+    "M25-046"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [
+    "DASH (G7): SHELTER OWNER DASHBOARD architecture (M25-001…)",
+    "ANL-044",
+    "GOOGLE-005"
+   ],
+   "test_required": "الأرقام تطابق أبعاد GA4؛ Screen sizes تُعرض فقط إن قُرر أنها مفيدة.",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "ANL-039",
+   "area": "19 Analytics",
+   "type": "REQUIREMENT",
+   "title": "Location Analytics فقط إذا Privacy-safe",
+   "requirement": "Location Analytics (Country · City — مثل Jordan · Irbid · Amman وأي دول أخرى تظهر) فقط إذا أعطاها GA4 بشكل Privacy-safe.",
+   "details": [
+    "ممنوع تخزين precise user location (G1 M25-049).",
+    "مستوى Country/City المجمّع من GA4 فقط."
+   ],
+   "sources": [
+    "M25-048"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED WITH CONDITIONS",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [
+    "DASH (G7): SHELTER OWNER DASHBOARD architecture (M25-001…)",
+    "ANL-044",
+    "GOOGLE-005",
+    "PRIV (G1: M25-049)"
+   ],
+   "test_required": "لا إحداثيات أو IP مخزنة؛ عتبات GA4 للخصوصية محترمة.",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "ANL-040",
+   "area": "19 Analytics",
+   "type": "REQUIREMENT",
+   "title": "Real-Time Overview إذا سمح GA4/API",
+   "requirement": "Real-Time Overview إذا سمح GA4/API: Visitors active now · Pages being viewed now · Current traffic source · Current device type.",
+   "details": [
+    "مشروط بإتاحة GA4 Realtime API؛ ليس ضمن قائمة P0 الصريحة (M25 §68).",
+    "لا real-time polling ثقيل — caching و refresh intervals معقولة (G8 M25-030)."
+   ],
+   "sources": [
+    "M25-029"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED WITH CONDITIONS",
+   "owner_approved": "YES",
+   "priority": "P2",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [
+    "DASH (G7): SHELTER OWNER DASHBOARD architecture (M25-001…)",
+    "ANL-044",
+    "GOOGLE-005",
+    "PERF (G8: M25-030)"
+   ],
+   "test_required": "Refresh interval موثق؛ لا طلبات API زائدة (حدود الحصة)؛ حالة عدم الإتاحة واضحة.",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "ANL-041",
+   "area": "19 Analytics",
+   "type": "RULE",
+   "title": "عرض ما يفيد القرار فقط (Charts بمعنى، لا نسخ لكل GA4)",
+   "requirement": "Charts واضحة وممنوع charts بدون معنى؛ لا تُعرض معلومات لا تضيف قيمة؛ لا تُنسخ كل GA4 — يُعرض فقط ما يفيد Business Decision؛ ولا تُختار Metrics لمجرد أنها متوفرة.",
+   "details": [],
+   "sources": [
+    "M25-032",
+    "M25-047",
+    "M25-129",
+    "M25-173"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [
+    "ANL-043",
+    "ANL-044",
+    "DASH (G7)"
+   ],
+   "test_required": "مراجعة Wireframes/Prototype: كل Metric/Chart مربوط بسؤال قرار أو KPI مصنف؛ لا Widget بلا مبرر.",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P04",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "ANL-042",
+   "area": "19 Analytics",
+   "type": "RULE",
+   "title": "Dashboard SHELTER حقيقية من APIs معتمدة — ليست iframe لـGA",
+   "requirement": "الـDashboard ليست مجرد iframe لـGoogle Analytics؛ هي Dashboard SHELTER حقيقية تسحب البيانات من APIs المعتمدة وتعرضها بطريقة مناسبة للـOwner.",
+   "details": [],
+   "sources": [
+    "M25-128"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [
+    "INT-006",
+    "ANL-044",
+    "DASH (G7)"
+   ],
+   "test_required": "لا iframe لـGA/Looker في الـDashboard؛ كل Widget يقرأ عبر طبقة Server-side من API رسمي.",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P04",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "ANL-043",
+   "area": "19 Analytics",
+   "type": "DELIVERABLE",
+   "title": "تصنيف KPIs: OWNER · MARKETING · SEO · UX · TECHNICAL",
+   "requirement": "تصنيف الـKPIs إلى: OWNER KPI · MARKETING KPI · SEO KPI · UX KPI · TECHNICAL KPI (والـOverview يعرض Owner KPIs فقط — G7 M25-175).",
+   "details": [
+    "R6-09 (مؤشرات الأداء الشهرية التي يريدها الـOwner) مفتوح — مدخل للتصنيف."
+   ],
+   "sources": [
+    "M25-174"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [
+    "ANL-044",
+    "DASH (G7: M25-175)",
+    "R6-09"
+   ],
+   "test_required": "جدول KPIs معتمد: كل KPI له فئة ومصدر وتعريف؛ الـOverview = Owner KPIs فقط.",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P04",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "ANL-044",
+   "area": "19 Analytics",
+   "type": "DELIVERABLE",
+   "title": "Data Source Matrix",
+   "requirement": "إعداد جدول Data Source Matrix بأعمدة: Metric · Source · API · Update Frequency · Cache · Storage · Fallback لكل مقياس في الـDashboard.",
+   "details": [
+    "أمثلة الـOwner (استرشادية، تُؤكد في الـMatrix النهائية): Website visitors ← GA4 ← Analytics Data API ← 5-15 min ← cached ← not permanently duplicated · Google clicks ← Search Console ← Search Analytics API ← daily · Site uptime ← internal health check ← 5 min.",
+    "ضمن خطوات البدء: Audit ← Inventory ← Dashboard IA ← Data Source Matrix ← CMS Architecture ← Permissions Model ← Wireframes (G1 M25-211)."
+   ],
+   "sources": [
+    "M25-171",
+    "M25-172"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [
+    "ANL-045",
+    "DASH (G7)",
+    "INT-006"
+   ],
+   "test_required": "الـMatrix تغطي كل Widget؛ كل صف له Fallback وCache؛ اعتماد الـOwner مع Dashboard IA.",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P04",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "ANL-045",
+   "area": "19 Analytics",
+   "type": "DECISION",
+   "title": "مصادر بيانات الـAnalytics المفضلة",
+   "requirement": "مصادر البيانات المفضلة للـDashboard: Google Analytics 4 · Google Tag Manager · Google Search Console · Google Business Profile (عندما يكون API access مناسبًا) · Cloudflare (إذا متاح) · Internal Website Analytics Events · Lighthouse · Playwright · Site Health Checks.",
+   "details": [
+    "GBP: لا Places API مدفوع (D-043، INT-002) — Business Profile APIs تحتاج طلب وصول معتمد من Google (GIO §B).",
+    "Cloudflare: عبر Token بأقل صلاحية (CF-009) و api.cloudflare.com محجوب حاليًا.",
+    "Internal Website Analytics Events يجب ألا تُنتج Duplicate tracking مع GA4 (ANL-003) ولا تخزن PII أو موقعًا دقيقًا."
+   ],
+   "sources": [
+    "M25-125"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [
+    "ANL-003",
+    "INT-002",
+    "CF-009",
+    "INT-006"
+   ],
+   "test_required": "كل مصدر في الـMatrix ضمن هذه القائمة أو بقرار موثق.",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P04",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "INT-001",
+   "area": "33 Integrations & Third-party/Paid services",
+   "type": "RULE",
+   "title": "لا Paid API/Quota/Credits/Service بدون موافقة مسبقة + إفصاح خماسي",
+   "requirement": "ممنوع بدون موافقة الـOwner المسبقة: Paid API · Paid Google APIs · Places API · Paid quota (Search quota · Supermetrics quota) · Semrush credits · Large API exports · Large crawls / Paid crawl · Paid Search services · paid service (اشتراك) · high-cost external API. قبل أي استخدام يُعرض: service · purpose · expected consumption (expected requests) · cost/quota · free alternative (أو الأقل استهلاكًا) — ثم انتظار approval.",
+   "details": [
+    "M11 §58 بند 7: في هذه المرحلة لا API مدفوع إطلاقًا.",
+    "مسموح محليًا: Playwright · Lighthouse · local testing (INT-004)؛ ممنوع Load testing/Crawling عدواني على Production؛ 150–300 طلب موزعة للفحص الطبيعي (G8 M10-054/055).",
+    "الامتثال المرصود: Semrush API balance = 0 ولم يُستخدم؛ Supermetrics لم يُستعلم؛ لا Places API (08-access-requests، FRONTEND-TOOLING §3)."
+   ],
+   "sources": [
+    "M04-056",
+    "M10-052",
+    "M11-107",
+    "M11-108",
+    "M11-128",
+    "M23-225",
+    "M25-077",
+    "M27-110",
+    "M27-111"
+   ],
+   "decision_refs": [
+    "D-029",
+    "D-044",
+    "D-046",
+    "GEP-§50/§52 (G8)"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "IMPLEMENTED — NOT TESTED",
+   "tested": "N/A",
+   "existing_impl": "DECISION-LOG D-029/D-044؛ GOOGLE-ECOSYSTEM-POLICY §50؛ 08-access-requests.md (جداول الاستهلاك AC-01/AC-03/AC-04)؛ FRONTEND-TOOLING.md §7",
+   "missing_work": "يستمر كقاعدة دائمة؛ قالب إفصاح موحد بالحقول الخمسة.",
+   "dependencies": [
+    "TOOL/TEST (G8: M10-053…M10-055)"
+   ],
+   "test_required": "كل استخدام لخدمة مدفوعة/بحصة في السجل يسبقه إفصاح بالحقول الخمسة + موافقة مسجلة.",
+   "design_refs": [
+    "docs/phase-01-discovery/08-access-requests.md",
+    "docs/FRONTEND-TOOLING.md §7",
+    "docs/google/GOOGLE-ECOSYSTEM-POLICY.md §50"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "G6-CON-13",
+   "business_data": false,
+   "phase": "P00",
+   "history": [
+    {
+     "old": "D-029 (M04): الخدمة · الهدف · الاستهلاك المتوقع · البديل المجاني أو الأقل استهلاكًا (4 حقول)",
+     "source": "M04-056",
+     "superseded_by": "M11-108 (+Expected cost) → M23-225 (+التكلفة/الquota) → M27-111 (service · purpose · expected consumption · cost/quota · free alternative) — توسيع"
+    }
+   ],
+   "notes": ""
+  },
+  {
+   "id": "INT-002",
+   "area": "33 Integrations & Third-party/Paid services",
+   "type": "DECISION",
+   "title": "لا Google Places API مدفوع حاليًا",
+   "requirement": "لا حاجة لـGoogle Places API مدفوع حاليًا؛ بيانات GBP عبر الخيار المجاني (روابط Google Maps + لقطات/بيانات الملف) — وأي استخدام لاحق يمر بـINT-001.",
+   "details": [
+    "AC-03 الخيار B (Place Details ~2–4 طلبات، يتطلب Billing، «غالبًا مجاني لكن غير مضمون») = غير مستخدم."
+   ],
+   "sources": [
+    "M10-050"
+   ],
+   "decision_refs": [
+    "D-043 (G4)"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P2",
+   "impl_status": "IMPLEMENTED — NOT TESTED",
+   "tested": "N/A",
+   "existing_impl": "08-access-requests.md AC-03؛ GOOGLE-INTEGRATION-ARCHITECTURE §5",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "لا مفتاح Places API في البيئة/الكود بلا موافقة.",
+   "design_refs": [
+    "docs/phase-01-discovery/08-access-requests.md AC-03"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P00",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "INT-003",
+   "area": "33 Integrations & Third-party/Paid services",
+   "type": "RULE",
+   "title": "Supermetrics (AC-04): لا استهلاك Quota قبل الإفصاح والموافقة",
+   "requirement": "AC-04 Supermetrics: لا استهلاك لأي quota إضافية قبل إخبار الـOwner: ماذا ستقرأ؟ لماذا؟ كم الاستهلاك المتوقع؟ ثم انتظار موافقته؛ ولا يُستخدم Supermetrics حاليًا إذا كان سيستهلك Quota.",
+   "details": [
+    "خطة AC-04 المقترحة: خطوة 1 data_source_discovery (استدعاء وصفي واحد) → 2 GSC ~4 استعلامات → 2b GA4 ~3 استعلامات (~1+7) — بانتظار الموافقة.",
+    "البديل المجاني الموصى به: تصدير CSV من Search Console (Site Kit مثبت)."
+   ],
+   "sources": [
+    "M04-055",
+    "M10-048"
+   ],
+   "decision_refs": [
+    "D-028 (G7)",
+    "D-042 (G5)"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "IMPLEMENTED — NOT TESTED",
+   "tested": "N/A",
+   "existing_impl": "08-access-requests.md AC-04 (لم يُستخدم)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "لا استدعاءات Supermetrics في السجل بلا موافقة مسجلة.",
+   "design_refs": [
+    "docs/phase-01-discovery/08-access-requests.md AC-04"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P01",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "INT-004",
+   "area": "33 Integrations & Third-party/Paid services",
+   "type": "DECISION",
+   "title": "الأدوات المحلية المجانية مسموحة: Playwright · Lighthouse · local testing",
+   "requirement": "مسموح بشكل طبيعي بدون موافقة مسبقة: Playwright · Lighthouse · local testing.",
+   "details": [
+    "تكرار لـG8 (M10-053، M23-226) — هنا كاستثناء من قاعدة INT-001.",
+    "حدود: لا Load testing ولا Crawling عدواني على Production."
+   ],
+   "sources": [
+    "M27-112"
+   ],
+   "decision_refs": [
+    "D-044"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "IMPLEMENTED — NOT TESTED",
+   "tested": "N/A",
+   "existing_impl": "tooling/ (Playwright 1.56.1، Lighthouse 13.5.0) — مستخدمة على الـWireframes",
+   "missing_work": "",
+   "dependencies": [
+    "TOOL (G8)"
+   ],
+   "test_required": "—",
+   "design_refs": [],
+   "code_refs": [
+    "tooling/"
+   ],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P00",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "INT-005",
+   "area": "33 Integrations & Third-party/Paid services",
+   "type": "GATE",
+   "title": "خدمة مراقبة أخطاء خارجية (مثل Sentry) تُقترح أولًا ولا تُفعّل قبل الموافقة",
+   "requirement": "إذا احتجنا Service خارجية لمراقبة الأخطاء مثل Sentry: تُقترح أولًا (بإفصاح INT-001) ولا تُفعّل قبل موافقة الـOwner.",
+   "details": [
+    "Error Center الداخلي (JavaScript/API errors · 404 · 500 · Failed Requests مع Time · Page · Error · Browser · Device، بلا PII) = G7 M25-074 / G1 M25-075.",
+    "FRONTEND-TOOLING: «Sentry مدفوع جزئيًا: اقتراح أولًا»."
+   ],
+   "sources": [
+    "M25-076"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "docs/FRONTEND-TOOLING.md §3 (Connectors: Sentry — لا استخدام قبل DB-08 والصلاحيات)",
+   "missing_work": "مقارنة بديل داخلي مقابل Sentry عند تصميم Site Health (P04/P08).",
+   "dependencies": [
+    "INT-001",
+    "MON (G7: M25-074)"
+   ],
+   "test_required": "لا SDK لخدمة خارجية في الكود بلا قرار مسجل.",
+   "design_refs": [
+    "docs/FRONTEND-TOOLING.md §3 §7"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": "غير مسجل في DECISION-LOG → G6-ND-07."
+  },
+  {
+   "id": "INT-006",
+   "area": "33 Integrations & Third-party/Paid services",
+   "type": "RULE",
+   "title": "Official APIs فقط (GA Data API · GSC API) — لا scraping لـGoogle dashboards",
+   "requirement": "استخدام Official APIs قدر الإمكان (Google Analytics Data API · Google Search Console API)، وممنوع scraping لـGoogle dashboards.",
+   "details": [
+    "Credentials Server-side آمنة؛ لا API secrets/service credentials/tokens في الـfrontend (G7 SEC M25-132).",
+    "Service Account في إعدادات البيئة (GIO §B)."
+   ],
+   "sources": [
+    "M25-130",
+    "M25-131"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [
+    "SEC (G7: M25-132)",
+    "GOOGLE-005"
+   ],
+   "test_required": "مراجعة الكود: كل قراءة بيانات Google عبر Client رسمي Server-side؛ لا HTML scraping؛ لا أسرار في الـbundle.",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": "غير مسجل في DECISION-LOG → G6-ND-03."
+  },
+  {
+   "id": "INT-007",
+   "area": "33 Integrations & Third-party/Paid services",
+   "type": "GATE",
+   "title": "ممنوع تثبيت WordPress Plugins في هذه المرحلة",
+   "requirement": "في هذه المرحلة: ممنوع تثبيت أي WordPress Plugins (ولا أي Plugins) على الموقع.",
+   "details": [
+    "مكرر في M01 §104 «لا تثبت Plugins».",
+    "تحديثات الموقع القديم تمر بخيار A: Backup → Staging Clone → Review → Updates on Staging → Testing → Owner Approval (D-037)."
+   ],
+   "sources": [
+    "M01-024"
+   ],
+   "decision_refs": [
+    "D-002 (G1)",
+    "D-037"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "IMPLEMENTED — NOT TESTED",
+   "tested": "N/A",
+   "existing_impl": "compliance: لا وصول ولا تثبيت (EVIDENCE.md)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "لا Plugin جديد في الموقع القديم بلا موافقة.",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P00",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "INT-008",
+   "area": "33 Integrations & Third-party/Paid services",
+   "type": "GATE",
+   "title": "No Plugin Bloat + تقييم أي Plugin/أداة طرف ثالث قبل الإضافة",
+   "requirement": "لا تثبت Plugins كثيرة (No Plugin Bloat). قبل أي Plugin (أو مكوّن/أداة طرف ثالث) يُعرض: Plugin Name · Purpose · Why Needed · Alternative · Performance Impact · Security Impact · Keep / Reject Recommendation — للقرار من الـOwner.",
+   "details": [
+    "المنصة غير محسومة (DB-08) — القاعدة تُطبّق على أي Plugin/Package/Integration طرف ثالث.",
+    "FRONTEND-TOOLING §7: «أداة واحدة لكل وظيفة» وسجل Registry (TOOL · PURPOSE · INSTALLED? · CONFIGURED? · USED? · REDUNDANT? · KEEP/REMOVE)."
+   ],
+   "sources": [
+    "M01-182",
+    "M01-183"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "PARTIAL",
+   "tested": "NO",
+   "existing_impl": "docs/FRONTEND-TOOLING.md §3 §7 (Registry لأدوات الجودة)",
+   "missing_work": "قالب تقييم Plugin بالحقول السبعة يُستخدم عند P05/P08.",
+   "dependencies": [
+    "DB-08",
+    "INT-001"
+   ],
+   "test_required": "كل Plugin/Integration في الإنتاج له سجل تقييم بالحقول السبعة وقرار الـOwner.",
+   "design_refs": [
+    "docs/FRONTEND-TOOLING.md §7"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": "صيغة التقييم غير مسجلة في DECISION-LOG → G6-ND-11."
+  },
+  {
+   "id": "INT-009",
+   "area": "33 Integrations & Third-party/Paid services",
+   "type": "RULE",
+   "title": "Google Site Kit (موجود حاليًا): فحص ما يديره — لا افتراض لاستخدامه في الجديد",
+   "requirement": "الموقع الحالي يستخدم Google Site Kit: يُفحص ماذا يدير (Search Console؟ GA4؟ Tag Manager؟ PageSpeed؟) ضمن الـInventory، ولا يُفترض أننا سنستخدم Site Kit في الموقع الجديد.",
+   "details": [
+    "دليل الوجود: 12-homepage-screenshots-audit §7 (Site Kit by Google مثبت — مؤشر قوي على وجود Search Console).",
+    "G-06: لقطة Site Kit (Settings → Connected Services) مطلوبة.",
+    "المقارنة والتوصية: GOOGLE-010."
+   ],
+   "sources": [
+    "M11-073",
+    "M11-074",
+    "M12-082"
+   ],
+   "decision_refs": [
+    "GEP-§32",
+    "GA-01"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "PARTIAL",
+   "tested": "NO",
+   "existing_impl": "12-homepage-screenshots-audit.md §7؛ GTM-TAG-REGISTER.md (Site Kit: ما يديره غير معروف)",
+   "missing_work": "لقطة G-06 أو فحص مباشر بعد AC-01.",
+   "dependencies": [
+    "AC-01",
+    "GOOGLE-009",
+    "GOOGLE-010"
+   ],
+   "test_required": "توثيق الخدمات المتصلة في Site Kit + هل يحقن GA4/GTM tag (Network).",
+   "design_refs": [
+    "docs/phase-01-discovery/12-homepage-screenshots-audit.md §7",
+    "docs/google/GOOGLE-INTEGRATION-ARCHITECTURE.md G-06"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P01",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "INT-010",
+   "area": "33 Integrations & Third-party/Paid services",
+   "type": "RULE",
+   "title": "منصات التوصيل لكل فرع: من الـOwner فقط — لا استنتاج من الموقع القديم أو الإنترنت",
+   "requirement": "تطبيقات التوصيل الحالية وربط كل تطبيق بكل فرع تُسأل في جولة مستقلة (R2B) ولا تُستنتج من الموقع القديم؛ ولا تُعتمد أي منصة توصيل أو رابط وُجد من الإنترنت — الـOwner يعطي المعلومات الرسمية.",
+   "details": [
+    "R2B-02: البنية تدعم زر «اطلب» لكل فرع مستقبلًا دون إبراز Online Ordering كهدف أساسي الآن.",
+    "R2B-04: الهاتف وواتساب ليسا قناة طلب رسمية لمجرد أنهما قنوات تواصل.",
+    "R2B-05: Pre-order · Pickup · Drive-thru pickup · Direct Online Ordering = FUTURE CAPABILITY ONLY."
+   ],
+   "sources": [
+    "M03-059",
+    "M14-041"
+   ],
+   "decision_refs": [
+    "D-016 (G2)",
+    "D-073"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "IMPLEMENTED — NOT TESTED",
+   "tested": "N/A",
+   "existing_impl": "DECISION-LOG D-016/D-073؛ 07-question-backlog (R2B)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "لا رابط/اسم منصة توصيل في أي وثيقة/محتوى بلا مصدر من الـOwner.",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P00",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "INT-011",
+   "area": "33 Integrations & Third-party/Paid services",
+   "type": "DECISION",
+   "title": "R2B-01: منصات التوصيل لكل فرع وروابطها الرسمية = MISSING",
+   "requirement": "R2B-01 (تطبيقات التوصيل التي يعمل عليها كل فرع ورابطها الرسمي) = MISSING — OWNER INPUT REQUIRED؛ لا توقف المشروع (تُسجل MISSING وننتقل).",
+   "details": [
+    "R2B-03 (أسعار التطبيقات) وR2B-04 (قنوات الطلب) = MISSING أيضًا (D-073) — لا تفترض تطابق أو اختلاف أسعار التطبيقات عن الفروع.",
+    "الـOwner: «لما توصلهم فعليًا، أعطيني أنت قنوات التوصيل والطلب الموجودة عند DRIVE وHOUSE»."
+   ],
+   "sources": [
+    "M14-042"
+   ],
+   "decision_refs": [
+    "D-073"
+   ],
+   "status": "PENDING OWNER INPUT",
+   "owner_approved": "PARTIAL",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "07-question-backlog.md R2B-01 (MISSING)",
+   "missing_work": "مدخل الـOwner.",
+   "dependencies": [],
+   "test_required": "عند الاستلام: كل منصة/رابط موثق بمصدر الـOwner ومعتمد في Content Approval Register.",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P07",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "INT-012",
+   "area": "33 Integrations & Third-party/Paid services",
+   "type": "DECISION",
+   "title": "نظام الكاشير (POS) = LATER / MISSING — ممنوع اختراع اسمه",
+   "requirement": "اسم نظام الـPOS غير معروف حاليًا ولا يُعتمد/يُخترع (MISSING — OWNER INPUT REQUIRED / LATER)؛ لا يوقف المشروع؛ الـOwner يعطي معلومات نظام الكاشير لاحقًا إذا احتجنا الربط.",
+   "details": [],
+   "sources": [
+    "M15-014",
+    "M19-031",
+    "M23-136"
+   ],
+   "decision_refs": [
+    "D-077 (G3)",
+    "D-102 (G3)",
+    "D-121"
+   ],
+   "status": "DEFERRED",
+   "owner_approved": "YES",
+   "priority": "P2",
+   "impl_status": "IMPLEMENTED — NOT TESTED",
+   "tested": "N/A",
+   "existing_impl": "DECISION-LOG D-121؛ MENU-DECISION-REGISTER M-08",
+   "missing_work": "مدخل الـOwner عند الحاجة للربط.",
+   "dependencies": [],
+   "test_required": "لا اسم POS في أي وثيقة/حقل بلا مصدر الـOwner.",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P12",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "INT-013",
+   "area": "33 Integrations & Third-party/Paid services",
+   "type": "REQUIREMENT",
+   "title": "حقلا pos_item_id و external_item_id يبقيان nullable وفارغين",
+   "requirement": "الحقلان المستقبليان pos_item_id و external_item_id في نموذج بيانات المنيو يبقيان nullable وفارغين حتى يتوفر نظام الـPOS.",
+   "details": [
+    "تحقق هذا الـAudit: menu-inventory-v1.0.csv = 192 صفًا، العمودان موجودان وفارغان في كل الصفوف."
+   ],
+   "sources": [
+    "M18-032",
+    "M23-137"
+   ],
+   "decision_refs": [
+    "D-077 (G3)",
+    "D-102 (G3)",
+    "D-121"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P2",
+   "impl_status": "PARTIAL",
+   "tested": "YES",
+   "existing_impl": "docs/phase-01-discovery/menu/menu-inventory-v1.0.csv (أعمدة pos_item_id, external_item_id فارغة)؛ 17-menu-data-model-draft.md",
+   "missing_work": "تثبيتهما nullable في مخطط الـCMS/DB عند البناء (P04/P08).",
+   "dependencies": [
+    "CMS data model (G7)"
+   ],
+   "test_required": "Schema الـCMS: الحقلان nullable بلا قيود؛ لا قيم مخترعة.",
+   "design_refs": [
+    "docs/phase-01-discovery/17-menu-data-model-draft.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P04",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "INT-014",
+   "area": "33 Integrations & Third-party/Paid services",
+   "type": "RULE",
+   "title": "عمود # ليس معرّفًا تجاريًا ولا يُستخدم في أي تكامل",
+   "requirement": "لا يُستخدم عمود # في ملف المنيو المصدر كمعرّف تجاري ولا يُعتمد عليه في التكاملات المستقبلية (ليس POS ID ولا Product ID ولا SKU).",
+   "details": [],
+   "sources": [
+    "M19-030"
+   ],
+   "decision_refs": [
+    "D-102 (G3)",
+    "D-120 (G3)"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "IMPLEMENTED — NOT TESTED",
+   "tested": "N/A",
+   "existing_impl": "Inventory v1.0: product_id (PRD-xxxxx) معرّف أساسي؛ source_sequence_number للـLineage فقط",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "لا تكامل/Analytics يستخدم source_sequence_number كمفتاح.",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P04",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "INT-015",
+   "area": "33 Integrations & Third-party/Paid services",
+   "type": "RULE",
+   "title": "لا اتصال مباشر بقاعدة بيانات POS الآن",
+   "requirement": "لا يُعمل اتصال مباشر مع قاعدة بيانات الـPOS الآن.",
+   "details": [],
+   "sources": [
+    "M15-051"
+   ],
+   "decision_refs": [
+    "D-085 (G7)"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "IMPLEMENTED — NOT TESTED",
+   "tested": "N/A",
+   "existing_impl": "compliance (لا تكامل)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "لا Credentials/Connector لـPOS في البيئة.",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P00",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "INT-016",
+   "area": "33 Integrations & Third-party/Paid services",
+   "type": "REQUIREMENT",
+   "title": "جاهزية تكامل مستقبلي: POS / ERP / Customer App / Login",
+   "requirement": "الـArchitecture (خصوصًا المنيو) قابلة للربط مستقبلًا مع POS / ERP / Customer App: POS/ERP قد يصبح مصدرًا لبعض البيانات التشغيلية (Prices · Availability · Item IDs) بدون إعادة بناء النظام، ومع Customer App · Login · Customer Account (لـFavorites وغيرها) — جاهزية فقط، بدون تنفيذ تكامل الآن.",
+   "details": [
+    "V1: CMS/Dashboard = Menu SSOT (A الآن + جاهزية C — D-085).",
+    "Favorites خارج V1 (D-147).",
+    "MENU VERSION يحفظ التاريخ للربط مع ERP/POS (D-107)."
+   ],
+   "sources": [
+    "M15-049",
+    "M23-010",
+    "M23-128"
+   ],
+   "decision_refs": [
+    "D-085 (G7)",
+    "D-077 (G3)",
+    "D-107",
+    "D-147 (G3)"
+   ],
+   "status": "DEFERRED",
+   "owner_approved": "YES",
+   "priority": "P3",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: 17-menu-data-model-draft.md (حقول POS، menu_version)",
+   "missing_work": "",
+   "dependencies": [
+    "INT-013",
+    "CMS (G7)"
+   ],
+   "test_required": "مراجعة Architecture: لا اعتماد يمنع إضافة مصدر خارجي لاحقًا (IDs ثابتة، حقول خارجية nullable).",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P12",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CF-001",
+   "area": "34 Cloudflare / Hosting / DNS",
+   "type": "DECISION",
+   "title": "البنية الحالية: www.shelterjo.com على Cloudways خلف Cloudflare",
+   "requirement": "الحالة الحالية المعتمدة: Domain الموقع https://www.shelterjo.com وعليه موقع حالي فعلي (live)؛ الـHosting الحالي Cloudways؛ طبقة DNS / CDN / Security = Cloudflare.",
+   "details": [
+    "الـDomain نفسه للقديم والجديد؛ أي تغيير يمسه يخضع لقواعد SEO Migration (G5).",
+    "shelterjo.com ليس بالضرورة الدومين العالمي النهائي (D-011).",
+    "Host الرسمي `www` = DB-11 PROPOSED؛ Knowledge Panel يشير لنسخة بدون www (OBS-13)."
+   ],
+   "sources": [
+    "M01-002",
+    "M01-003",
+    "M01-004"
+   ],
+   "decision_refs": [
+    "D-011"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "IMPLEMENTED — NOT TESTED",
+   "tested": "N/A",
+   "existing_impl": "docs/phase-01-discovery/00-access-and-method.md؛ 08-access-requests.md (AC-06، AC-11)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "تأكيد عبر DNS/Headers بعد AC-01/AC-06.",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P01",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CF-002",
+   "area": "34 Cloudflare / Hosting / DNS",
+   "type": "GATE",
+   "title": "Phase 01: ممنوع تغيير Cloudflare أو Cloudways أو DNS",
+   "requirement": "في هذه المرحلة: ممنوع تغيير أي إعداد في Cloudflare، وممنوع تغيير أي إعداد في Cloudways، وممنوع تغيير DNS.",
+   "details": [
+    "مكرر في M01 §104 و§70 («لا تغير أي Production Setting بدون موافقتي» — G8 M01-195)."
+   ],
+   "sources": [
+    "M01-025",
+    "M01-026",
+    "M01-027"
+   ],
+   "decision_refs": [
+    "D-002 (G1)"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "IMPLEMENTED — NOT TESTED",
+   "tested": "N/A",
+   "existing_impl": "compliance: لا وصول ولا تغيير (EVIDENCE.md — no Cloudflare/DNS change)",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "Cloudflare Audit log / Cloudways activity: لا تغييرات من الفريق قبل الموافقة.",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P00",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CF-003",
+   "area": "34 Cloudflare / Hosting / DNS",
+   "type": "GATE",
+   "title": "لا تغيير DNS (أو إعدادات Cloudflare Production) بدون موافقة الـOwner",
+   "requirement": "لا تغيير في DNS بدون موافقة الـOwner — في كل المراحل، بما فيها DNS verification لـSearch Console؛ وأي تغيير Production حساس (DNS) = Summary ← موافقة ← تنفيذ.",
+   "details": [
+    "ممنوع كسر البريد (MX) أو أي نطاق فرعي (shop.shelterjo.com) — سبب طلب قراءة DNS أولًا (AC-06)."
+   ],
+   "sources": [
+    "M12-039"
+   ],
+   "decision_refs": [
+    "GIO-§A13",
+    "D-051"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "IMPLEMENTED — NOT TESTED",
+   "tested": "N/A",
+   "existing_impl": "GIO §A13 §A28؛ compliance",
+   "missing_work": "",
+   "dependencies": [
+    "DEPLOY (G8: M12-067)"
+   ],
+   "test_required": "كل تغيير DNS له Summary + موافقة مسجلة + تحقق بعده (dig) + Rollback موثق.",
+   "design_refs": [
+    "docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §A13 §A28"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P09",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CF-004",
+   "area": "34 Cloudflare / Hosting / DNS",
+   "type": "DELIVERABLE",
+   "title": "مراجعة إعدادات Cloudflare",
+   "requirement": "مراجعة Cloudflare: DNS · SSL/TLS · HTTPS · Redirect Rules · Cache Rules · CDN · Brotli · HTTP/3 · Security Headers · WAF · Bot Protection · Asset Caching — بدون تغيير أي Production Setting بدون موافقة.",
+   "details": [
+    "AC-06 = REQUESTED: Read-only API Token (Zone · DNS · Zone Settings · Page Rules · Firewall — Read)، متغير البيئة CLOUDFLARE_API_TOKEN_READONLY؛ البديل: لقطات DNS/Rules/SSL.",
+    "api.cloudflare.com محجوب في البيئة — يجب إضافته للـAllowed domains.",
+    "الـConnector المتصل (Cloudflare Developer Platform) يغطي Workers/KV/R2/D1 فقط ولا يقرأ DNS.",
+    "الفائدة: خريطة الـRedirects (Redirect/Page Rules)، عدم كسر MX/النطاقات الفرعية، SSL/HSTS/HTTP3/Brotli/WAF baseline."
+   ],
+   "sources": [
+    "M01-194"
+   ],
+   "decision_refs": [
+    "AC-06"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "08-access-requests.md AC-06 (REQUESTED)",
+   "missing_work": "منح AC-06 ثم تقرير مراجعة Cloudflare (قراءة فقط).",
+   "dependencies": [
+    "AC-06",
+    "CF-009"
+   ],
+   "test_required": "تقرير يغطي البنود الـ12 كلها بقيمها الحالية وتوصيات (بدون تغيير).",
+   "design_refs": [
+    "docs/phase-01-discovery/08-access-requests.md AC-06"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P01",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CF-005",
+   "area": "34 Cloudflare / Hosting / DNS",
+   "type": "DELIVERABLE",
+   "title": "مراجعة إعدادات Cloudways",
+   "requirement": "مراجعة Cloudways: Staging · Deployment · Caching · Object Cache · Database · Cron · Backups · SSL · Logs · Monitoring · Performance.",
+   "details": [
+    "AC-11 = REQUESTED: معلومات ولقطات فقط (Server Management · Application Settings · Backups) — لا Cloudways API Key لأنه يعطي تحكمًا كاملًا بالسيرفر.",
+    "قرار الاستضافة للموقع الجديد = DB-08 (P05)."
+   ],
+   "sources": [
+    "M01-196"
+   ],
+   "decision_refs": [
+    "AC-11"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "08-access-requests.md AC-11 (REQUESTED)",
+   "missing_work": "لقطات AC-11 ثم تقرير مراجعة.",
+   "dependencies": [
+    "AC-11"
+   ],
+   "test_required": "تقرير يغطي البنود الـ11 (نسخة PHP، Staging، جدول Backups، هل shop.shelterjo.com على نفس السيرفر…).",
+   "design_refs": [
+    "docs/phase-01-discovery/08-access-requests.md AC-11"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P01",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CF-006",
+   "area": "34 Cloudflare / Hosting / DNS",
+   "type": "REQUIREMENT",
+   "title": "جاهزية Global CDN",
+   "requirement": "الـArchitecture جاهزة لـGlobal CDN (ضمن جاهزية الموقع العالمي: Multi-country · Multi-city · Multi-branch · Multi-language).",
+   "details": [],
+   "sources": [
+    "M01-076"
+   ],
+   "decision_refs": [
+    "D-010",
+    "D-011"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P2",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [
+    "DB-08",
+    "CF-004"
+   ],
+   "test_required": "قرار الاستضافة يوثق طبقة CDN (Cloudflare أو غيرها) وسياسة Cache للأصول؛ اختبار TTFB من مناطق متعددة بعد الإطلاق.",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P05",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CF-007",
+   "area": "34 Cloudflare / Hosting / DNS",
+   "type": "REQUIREMENT",
+   "title": "تجهيز قيمة DNS verification (TXT) لـSearch Console مسبقًا",
+   "requirement": "إذا احتجنا DNS verification لـSearch Console عبر Cloudflare: تُجهّز القيمة المطلوبة (TXT record) مسبقًا، وبعد موافقة الـOwner تُطبّق إن سمحت الصلاحيات، ثم يُتحقق أن الـProperty أصبحت Verified.",
+   "details": [
+    "التطبيق عبر Cloudflare API بـToken صلاحيته DNS Edit للزون فقط — بعد موافقة (GIO §B).",
+    "قرار Domain Property vs URL Prefix = G5 (M12-036/037)."
+   ],
+   "sources": [
+    "M12-038"
+   ],
+   "decision_refs": [
+    "GIO-§A13"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [
+    "CF-003",
+    "CF-009",
+    "GSC (G5: M12-036, M12-037, M12-040)"
+   ],
+   "test_required": "قيمة TXT موثقة قبل الموافقة؛ بعد التطبيق: dig TXT يُظهر القيمة وGSC = Verified؛ لا سجلات أخرى تغيرت.",
+   "design_refs": [
+    "docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §A13 §B"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P09",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CF-008",
+   "area": "34 Cloudflare / Hosting / DNS",
+   "type": "GATE",
+   "title": "Cloudflare API للـSite Health: شرح الصلاحيات الدقيقة أولًا",
+   "requirement": "إذا احتجنا Cloudflare API للـSite Health: تُشرح للـOwner أولًا exact permissions required قبل طلب أي Token.",
+   "details": [
+    "الحالة: الصلاحيات الدقيقة موثقة لـToken الاكتشاف (AC-06: Zone/DNS/Zone Settings/Page Rules/Firewall Read) — أما Token الـSite Health (Analytics/Zone status/SSL) فلم تُحدد بعد."
+   ],
+   "sources": [
+    "M25-182"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "PARTIAL",
+   "tested": "NO",
+   "existing_impl": "08-access-requests.md AC-06",
+   "missing_work": "قائمة صلاحيات Token الـSite Health عند تصميم Site Health (P04).",
+   "dependencies": [
+    "CF-009",
+    "MON Site Health (G7: M25-071)"
+   ],
+   "test_required": "وثيقة طلب الصلاحية تسرد كل Permission ونطاقها (Zone محدد) وسببها قبل الإنشاء.",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P04",
+   "history": [],
+   "notes": "غير مسجل في DECISION-LOG → G6-ND-06."
+  },
+  {
+   "id": "CF-009",
+   "area": "34 Cloudflare / Hosting / DNS",
+   "type": "RULE",
+   "title": "Cloudflare Token بأقل صلاحية — لا Global API Key",
+   "requirement": "استخدام أقل صلاحية ممكنة: API Token محدود (Scoped) لزون shelterjo.com، ولا يُطلب Global API Key إذا كان Token محدود يكفي.",
+   "details": [
+    "اكتشاف: Read-only Token (CLOUDFLARE_API_TOKEN_READONLY) — AC-06.",
+    "تحقق GSC: DNS Edit للزون فقط وبعد موافقة (GIO §B، D-044).",
+    "Site Health: صلاحيات قراءة فقط (CF-008).",
+    "الـToken يُحفظ في إعدادات البيئة فقط — لا في المحادثة ولا git ولا Frontend (FRONTEND-TOOLING §7، 08 قواعد)؛ يُلغى/يُخفّض بعد الاستخدام."
+   ],
+   "sources": [
+    "M25-183"
+   ],
+   "decision_refs": [
+    "GIO-§A13",
+    "D-051"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "IMPLEMENTED — NOT TESTED",
+   "tested": "N/A",
+   "existing_impl": "08-access-requests.md AC-06؛ GIO §B؛ docs/FRONTEND-TOOLING.md §7 (Token محدود بدل Global API Key)",
+   "missing_work": "إنشاء الـToken من الـOwner عند الحاجة.",
+   "dependencies": [
+    "PERM least privilege (G7: M12-077)",
+    "SEC (G7)"
+   ],
+   "test_required": "Cloudflare → API Tokens: نطاق Zone واحد، صلاحيات مطابقة للطلب، مدة/TTL محددة إن أمكن؛ لا Global API Key في أي بيئة.",
+   "design_refs": [
+    "docs/phase-01-discovery/08-access-requests.md AC-06",
+    "docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §B"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P01",
+   "history": [],
+   "notes": "غير مسجل في DECISION-LOG → G6-ND-06."
+  }
+ ],
+ "event_registry": [
+  {
+   "event": "menu_view",
+   "status": "APPROVED",
+   "req": "ANL-012",
+   "first_requested": "M01 §80 «Menu View» (مثال)",
+   "requested_in": [
+    "M01-210",
+    "M11-063",
+    "M12-029",
+    "M23-195",
+    "M25-041",
+    "M27-078"
+   ],
+   "decision_refs": [
+    "D-149"
+   ],
+   "trigger": "مرة لكل فتح صفحة منيو بعد تهيئة Consent",
+   "params_proposed": "menu_language · market · branch_context · entry_context · menu_version (GA4 plan: market · language)",
+   "key_event": "لا (توصية — G6-CON-08)",
+   "conflicts": [
+    "G6-CON-06",
+    "G6-CON-08"
+   ]
+  },
+  {
+   "event": "menu_search",
+   "status": "APPROVED",
+   "req": "ANL-013",
+   "first_requested": "M12 §9",
+   "requested_in": [
+    "M12-029",
+    "M23-195",
+    "M25-041",
+    "M27-079"
+   ],
+   "decision_refs": [
+    "D-149",
+    "CF-09"
+   ],
+   "supersedes": [
+    "search_use (للبحث داخل المنيو)"
+   ],
+   "trigger": "مرة لكل نص بحث مكتمل (اقتراح/Enter/توقف 1s) — لا لكل حرف",
+   "params_proposed": "search_term (منظّف ≤50) · search_input_language · results_count · search_source · branch_context · menu_language",
+   "key_event": "لا (توصية)",
+   "conflicts": [
+    "G6-CON-01",
+    "G6-CON-17"
+   ]
+  },
+  {
+   "event": "zero_result_search",
+   "status": "APPROVED",
+   "req": "ANL-014",
+   "first_requested": "M23 §19 («سجل Zero Result Search Analytics») + §56",
+   "requested_in": [
+    "M23-082",
+    "M23-195",
+    "M27-091"
+   ],
+   "decision_refs": [
+    "D-149"
+   ],
+   "trigger": "results_count = 0 في menu_search (حدث مستقل، مجموعة فرعية لا تُجمع)",
+   "params_proposed": "search_term · search_input_language · branch_context · menu_language",
+   "key_event": "لا (توصية)",
+   "notes": "غائب عن قائمة M25 §9 لكنه مطلوب في M25 §2/§8 وأعيد في M27 §18."
+  },
+  {
+   "event": "menu_category_click",
+   "status": "APPROVED",
+   "req": "ANL-015",
+   "first_requested": "M01 §80 «Category Click» (مثال)",
+   "requested_in": [
+    "M01-210",
+    "M11-063",
+    "M12-029",
+    "M23-195",
+    "M25-041",
+    "M27-080"
+   ],
+   "decision_refs": [
+    "D-149"
+   ],
+   "trigger": "ضغط فئة/قسم فرعي (chip/subchip/sidebar/all_categories) — لا عند تغير النشط بالتمرير",
+   "params_proposed": "category_id · subcategory_id · nav_source · branch_context · menu_language (GA4 plan: category_id · market)",
+   "key_event": "لا (توصية)"
+  },
+  {
+   "event": "product_view",
+   "status": "APPROVED",
+   "req": "ANL-016",
+   "first_requested": "M01 §80 «Product View» (مثال)",
+   "requested_in": [
+    "M01-210",
+    "M11-063",
+    "M12-029",
+    "M23-195",
+    "M25-041",
+    "M27-081"
+   ],
+   "decision_refs": [
+    "D-149",
+    "D-146",
+    "D-147"
+   ],
+   "trigger": "فتح تفاصيل الصنف (Bottom Sheet/Modal) — لا صفحات أصناف V1؛ لا عند ظهور البطاقة",
+   "params_proposed": "menu_item_id (أو item_id — تعارض) · item_name · category_id · subcategory_id · detail_source · branch_context · menu_language",
+   "key_event": "لا (توصية)",
+   "conflicts": [
+    "G6-CON-04",
+    "G6-CON-06",
+    "G6-CON-16"
+   ]
+  },
+  {
+   "event": "branch_filter_change",
+   "status": "APPROVED",
+   "req": "ANL-017",
+   "first_requested": "M23 §56",
+   "requested_in": [
+    "M23-195",
+    "M25-041",
+    "M27-082"
+   ],
+   "decision_refs": [
+    "D-149",
+    "D-145"
+   ],
+   "trigger": "تغيير الفرع من المستخدم فقط (ليس عند التحميل أو ?branch)",
+   "params_proposed": "branch_from · branch_to · branch_status · menu_language",
+   "key_event": "لا (توصية)"
+  },
+  {
+   "event": "directions_click",
+   "status": "APPROVED",
+   "req": "ANL-018",
+   "first_requested": "M01 §80 «Directions Click» (مثال)",
+   "requested_in": [
+    "M01-210",
+    "M11-063",
+    "M11-076",
+    "M12-029",
+    "M25-041",
+    "M27-083"
+   ],
+   "decision_refs": [
+    "GEP-§33/§34"
+   ],
+   "trigger": "ضغط «الاتجاهات» (رابط Google Maps الرسمي) — بلا معاملات تكسر الرابط",
+   "params_proposed": "branch_id · location (header/card/branch_page)",
+   "key_event": "مرشح — بانتظار الـOwner (M12 §11)",
+   "conflicts": [
+    "G6-CON-06",
+    "G6-CON-08"
+   ]
+  },
+  {
+   "event": "phone_click",
+   "status": "APPROVED",
+   "req": "ANL-019",
+   "first_requested": "M01 §80 «Phone Click» (مثال)",
+   "requested_in": [
+    "M01-210",
+    "M11-063",
+    "M12-029",
+    "M25-041",
+    "M27-084"
+   ],
+   "decision_refs": [
+    "D-057",
+    "D-059"
+   ],
+   "aliases": [
+    "Call Clicks (M25 §2/§10)"
+   ],
+   "trigger": "ضغط رقم هاتف/زر اتصال",
+   "params_proposed": "branch_id · phone_purpose (general · complaints_feedback_franchise · catering_b2b_events) · placement",
+   "key_event": "مرشح — بانتظار الـOwner (M12 §11)"
+  },
+  {
+   "event": "whatsapp_click",
+   "status": "APPROVED",
+   "req": "ANL-020",
+   "first_requested": "M01 §80 «WhatsApp Click» (مثال)",
+   "requested_in": [
+    "M01-210",
+    "M11-063",
+    "M12-029",
+    "M25-041",
+    "M27-085"
+   ],
+   "decision_refs": [
+    "D-058",
+    "D-061",
+    "D-062"
+   ],
+   "trigger": "ضغط زر واتساب (0799009436)",
+   "params_proposed": "branch_id (إن وُجد) · placement — بدون نص الرسالة",
+   "key_event": "مرشح — بانتظار الـOwner (M12 §11)",
+   "conflicts": [
+    "G6-CON-14"
+   ]
+  },
+  {
+   "event": "campaign_view",
+   "status": "APPROVED",
+   "req": "ANL-021",
+   "first_requested": "M11 §26",
+   "requested_in": [
+    "M11-063",
+    "M12-029",
+    "M25-041",
+    "M27-086"
+   ],
+   "trigger": "ظهور حملة في منطقة الحملات (قاعدة الظهور تُعرّف)",
+   "params_proposed": "campaign_id (plan) / campaign_name (owner example)",
+   "key_event": "لا"
+  },
+  {
+   "event": "campaign_click",
+   "status": "APPROVED",
+   "req": "ANL-022",
+   "first_requested": "M01 §80 «Campaign Click» (مثال)",
+   "requested_in": [
+    "M01-210",
+    "M11-063",
+    "M12-029",
+    "M25-041",
+    "M27-087"
+   ],
+   "aliases": [
+    "Campaign CTA (M12 §11)"
+   ],
+   "trigger": "ضغط CTA حملة",
+   "params_proposed": "campaign_id · cta",
+   "key_event": "مرشح «Campaign CTA» — بانتظار الـOwner"
+  },
+  {
+   "event": "article_view",
+   "status": "APPROVED",
+   "req": "ANL-023",
+   "first_requested": "M12 §9 (بديل blog_view)",
+   "requested_in": [
+    "M12-029",
+    "M25-041",
+    "M27-088"
+   ],
+   "supersedes": [
+    "blog_view",
+    "Blog Article View (M01)"
+   ],
+   "trigger": "فتح مقال",
+   "params_proposed": "content_type · article_id · language",
+   "key_event": "لا",
+   "conflicts": [
+    "G6-CON-02"
+   ]
+  },
+  {
+   "event": "language_switch",
+   "status": "APPROVED",
+   "req": "ANL-024",
+   "first_requested": "M01 §80 «Language Switch» (مثال)",
+   "requested_in": [
+    "M01-210",
+    "M11-063",
+    "M12-029",
+    "M25-041",
+    "M27-089"
+   ],
+   "trigger": "تغيير اللغة",
+   "params_proposed": "from · to",
+   "key_event": "لا"
+  },
+  {
+   "event": "site_search",
+   "status": "APPROVED WITH CONDITIONS",
+   "req": "ANL-025",
+   "first_requested": "M12 §9 (مع menu_search بدل search_use)",
+   "requested_in": [
+    "M12-029",
+    "M25-041",
+    "M27-090"
+   ],
+   "trigger": "بحث عام في الموقع — فقط إن وُجد بحث عام (غير محسوم في الـIA)",
+   "params_proposed": "search_term (منظّف) · results_count",
+   "key_event": "لا",
+   "conflicts": [
+    "G6-CON-01",
+    "G6-CON-03"
+   ],
+   "notes": "لا يُطلق مع menu_search لنفس الفعل؛ EM view_search_results يُراجع."
+  },
+  {
+   "event": "branch_view",
+   "status": "PENDING OWNER DECISION",
+   "req": "ANL-026",
+   "first_requested": "M01 §80 «Branch View» (مثال)",
+   "requested_in": [
+    "M01-210",
+    "M11-063",
+    "M12-029"
+   ],
+   "trigger": "فتح صفحة فرع",
+   "params_proposed": "branch_id (drive/house)",
+   "conflicts": [
+    "G6-CON-07"
+   ],
+   "notes": "غائب عن M25 §9 وM27 §18 دون إلغاء صريح؛ يدعم Branch interest/Intent."
+  },
+  {
+   "event": "social_click",
+   "status": "PENDING OWNER DECISION",
+   "req": "ANL-026",
+   "first_requested": "M11 §26 (تعميم M01 «Instagram Click»)",
+   "requested_in": [
+    "M11-063",
+    "M12-029"
+   ],
+   "trigger": "ضغط حساب سوشال (Footer)",
+   "params_proposed": "platform",
+   "conflicts": [
+    "G6-CON-07"
+   ],
+   "notes": "معطّل حتى اعتماد الحسابات الاجتماعية (D-036)."
+  },
+  {
+   "event": "event_view",
+   "status": "PENDING OWNER DECISION",
+   "req": "ANL-026",
+   "first_requested": "M11 §26 (M01 «Event Click»)",
+   "requested_in": [
+    "M11-063",
+    "M12-029"
+   ],
+   "trigger": "فتح صفحة فعالية",
+   "params_proposed": "event_id (أو event_name — G6-CON-05)",
+   "conflicts": [
+    "G6-CON-07",
+    "G6-CON-05"
+   ]
+  },
+  {
+   "event": "search_use",
+   "status": "SUPERSEDED",
+   "superseded_by": "menu_search (بحث المنيو) + site_search (البحث العام)",
+   "req": "ANL-013",
+   "first_requested": "M11 §26",
+   "requested_in": [
+    "M11-063"
+   ],
+   "decision_refs": [
+    "CF-09"
+   ],
+   "conflicts": [
+    "G6-CON-01"
+   ],
+   "notes": "ما زال في GEP §26 وGA4-MEASUREMENT-PLAN — يجب تعليمه SUPERSEDED."
+  },
+  {
+   "event": "blog_view",
+   "status": "SUPERSEDED",
+   "superseded_by": "article_view",
+   "req": "ANL-023",
+   "first_requested": "M11 §26",
+   "requested_in": [
+    "M11-063"
+   ],
+   "conflicts": [
+    "G6-CON-02"
+   ],
+   "notes": "ما زال في GEP §26 وGA4-MEASUREMENT-PLAN — يجب تعليمه SUPERSEDED."
+  },
+  {
+   "event": "Instagram Click (instagram_click)",
+   "status": "SUPERSEDED",
+   "superseded_by": "social_click (platform = instagram) — نفسه PENDING",
+   "req": "ANL-026",
+   "first_requested": "M01 §80 (مثال)",
+   "requested_in": [
+    "M01-210"
+   ]
+  },
+  {
+   "event": "Event Click (event_click)",
+   "status": "SUPERSEDED",
+   "superseded_by": "event_view (PENDING) / campaign_click للـCTA",
+   "req": "ANL-026",
+   "first_requested": "M01 §80 (مثال)",
+   "requested_in": [
+    "M01-210"
+   ]
+  },
+  {
+   "event": "Category Click",
+   "status": "SUPERSEDED",
+   "superseded_by": "menu_category_click",
+   "req": "ANL-015",
+   "first_requested": "M01 §80 (مثال)",
+   "requested_in": [
+    "M01-210"
+   ]
+  },
+  {
+   "event": "Blog Article View",
+   "status": "SUPERSEDED",
+   "superseded_by": "blog_view → article_view",
+   "req": "ANL-023",
+   "first_requested": "M01 §80 (مثال)",
+   "requested_in": [
+    "M01-210"
+   ]
+  },
+  {
+   "event": "search (GA4 recommended)",
+   "status": "NOT ADOPTED (AI alternative)",
+   "req": "ANL-025",
+   "first_requested": "docs/google/GA4-MEASUREMENT-PLAN.md (سؤال Claude)",
+   "requested_in": [],
+   "conflicts": [
+    "G6-CON-03"
+   ],
+   "notes": "الـOwner استخدم site_search في M25/M27 بعد طرح السؤال."
+  },
+  {
+   "event": "view_search_results (GA4 Enhanced Measurement)",
+   "status": "NOT ADOPTED as business event — EM setting under review",
+   "req": "GOOGLE-017",
+   "first_requested": "docs/google/GA4-MEASUREMENT-PLAN.md (سؤال Claude)",
+   "requested_in": [],
+   "conflicts": [
+    "G6-CON-03"
+   ],
+   "notes": "يُطلق تلقائيًا من EM عند Query parameters في الرابط؛ يجب ألا يكرر site_search/menu_search."
+  },
+  {
+   "event": "page_view · session_start · first_visit · user_engagement",
+   "status": "GA4 AUTOMATIC (no custom implementation)",
+   "req": "ANL-032",
+   "requested_in": [
+    "M25-031"
+   ],
+   "notes": "مصدر Users/New/Returning/Sessions/Page Views/Engagement في الـDashboard."
+  },
+  {
+   "event": "scroll / click (outbound) / file_download / form_* / video_* (Enhanced Measurement)",
+   "status": "UNDER EM REVIEW — scroll ممنوع كحدث تجاري (M12 §9)",
+   "req": "GOOGLE-017",
+   "requested_in": [
+    "M12-023",
+    "M12-031"
+   ],
+   "notes": "outbound clicks قد تكرر directions_click/whatsapp_click."
+  }
+ ],
+ "parameter_registry": [
+  {
+   "param": "branch_id",
+   "status": "APPROVED (owner example M12 §10)",
+   "used_in": "directions_click · phone_click · whatsapp_click · branch_view",
+   "values": "drive · house"
+  },
+  {
+   "param": "branch_name",
+   "status": "OWNER EXAMPLE — unused in drafts",
+   "notes": "قد يكفي branch_id + جدول بحث"
+  },
+  {
+   "param": "branch_context",
+   "status": "NAMING CONFLICT — OWNER DECISION REQUIRED",
+   "used_in": "أحداث المنيو",
+   "values": "all · drive · house",
+   "conflict": "G6-CON-06 (مقابل branch_id/branch_name)"
+  },
+  {
+   "param": "branch_from · branch_to · branch_status",
+   "status": "PROPOSED (MENU plan)",
+   "used_in": "branch_filter_change"
+  },
+  {
+   "param": "language",
+   "status": "NAMING CONFLICT — OWNER DECISION REQUIRED",
+   "used_in": "GA4 plan (menu_view, menu_search, article_view)",
+   "conflict": "G6-CON-06 (مقابل menu_language)"
+  },
+  {
+   "param": "menu_language",
+   "status": "NAMING CONFLICT — OWNER DECISION REQUIRED",
+   "used_in": "MENU plan (كل أحداث المنيو)",
+   "values": "ar · en",
+   "conflict": "G6-CON-06"
+  },
+  {
+   "param": "market",
+   "status": "APPROVED (owner example)",
+   "values": "jo"
+  },
+  {
+   "param": "product_name · product_category",
+   "status": "OWNER EXAMPLE — not used in drafts",
+   "conflict": "G6-CON-06 (مقابل item_name · category_id)"
+  },
+  {
+   "param": "item_id",
+   "status": "NAMING CONFLICT — OWNER DECISION REQUIRED",
+   "used_in": "GA4 plan product_view؛ 18-report §Analytics؛ 22-menu-IA",
+   "conflict": "G6-CON-04",
+   "notes": "يتعارض مع item_id الخاص بـGA4 E-commerce"
+  },
+  {
+   "param": "menu_item_id",
+   "status": "NAMING CONFLICT — OWNER DECISION REQUIRED (recommended)",
+   "used_in": "MENU plan product_view",
+   "values": "product_id مثل PRD-00058",
+   "conflict": "G6-CON-04"
+  },
+  {
+   "param": "item_variant",
+   "status": "PROPOSED (18-report: Size ID)",
+   "conflict": "G6-CON-04 (يتبع قرار item_id/menu_item_id)"
+  },
+  {
+   "param": "item_name · category_id · subcategory_id · detail_source · nav_source · entry_context · menu_version",
+   "status": "PROPOSED (MENU plan)"
+  },
+  {
+   "param": "search_term",
+   "status": "APPROVED with sanitization (CF-10)",
+   "used_in": "menu_search · zero_result_search · site_search",
+   "notes": "≤50 حرفًا، حجب @/5 أرقام/http/www"
+  },
+  {
+   "param": "search_input_language · search_source · results_count",
+   "status": "PROPOSED (MENU plan)",
+   "notes": "results_count أيضًا Custom Metric"
+  },
+  {
+   "param": "query_length",
+   "status": "SUPERSEDED",
+   "superseded_by": "search_term منظّف (CF-10)",
+   "conflict": "G6-CON-17"
+  },
+  {
+   "param": "location",
+   "status": "NAMING CONFLICT — OWNER DECISION REQUIRED",
+   "used_in": "directions_click (GA4 plan)",
+   "conflict": "G6-CON-06 (مقابل placement)"
+  },
+  {
+   "param": "placement",
+   "status": "PROPOSED (GA4 plan)",
+   "used_in": "phone_click · whatsapp_click"
+  },
+  {
+   "param": "phone_purpose",
+   "status": "PROPOSED (GA4 plan، D-059)",
+   "values": "general · complaints_feedback_franchise · catering_b2b_events"
+  },
+  {
+   "param": "campaign_name",
+   "status": "OWNER EXAMPLE",
+   "conflict": "G6-CON-06 (مقابل campaign_id)"
+  },
+  {
+   "param": "campaign_id · cta",
+   "status": "PROPOSED (GA4 plan)"
+  },
+  {
+   "param": "event_name",
+   "status": "NAMING CONFLICT — OWNER DECISION REQUIRED",
+   "notes": "بُعد GA4 المدمج «Event name» — مقترح shelter_event_name أو event_title",
+   "conflict": "G6-CON-05"
+  },
+  {
+   "param": "event_id · article_id · topic · platform · from · to",
+   "status": "PROPOSED (GA4 plan)"
+  },
+  {
+   "param": "destination · content_type",
+   "status": "APPROVED (owner example)",
+   "notes": "content_type مستخدم في article_view؛ destination غير مستخدم بعد"
+  }
+ ],
+ "new_decisions": [
+  {
+   "temp_id": "G6-ND-01",
+   "area": "19 Analytics",
+   "decision": "قائمة أحداث الموقع الحالية (M25 §9 + M27 §18): menu_view · menu_search · menu_category_click · product_view · branch_filter_change · directions_click · phone_click · whatsapp_click · campaign_view · campaign_click · article_view · language_switch · site_search · zero_result_search + أي حدث إضافي ورد سابقًا للمراجعة؛ لا تتبع لكل click عشوائي.",
+   "sources": [
+    "M25-041",
+    "M25-042",
+    "M27-077",
+    "M27-078",
+    "M27-079",
+    "M27-080",
+    "M27-081",
+    "M27-082",
+    "M27-083",
+    "M27-084",
+    "M27-085",
+    "M27-086",
+    "M27-087",
+    "M27-088",
+    "M27-089",
+    "M27-090",
+    "M27-091",
+    "M27-092"
+   ],
+   "status": "APPROVED WITH CONDITIONS",
+   "reason": "DECISION-LOG يحمل D-149 لأحداث المنيو فقط؛ GEP §26 قديم (blog_view/search_use)؛ لا قرار مسجل للقائمة على مستوى الموقع.",
+   "impact": "تحديث GEP §26 وGA4-MEASUREMENT-PLAN؛ الشرط: الأسماء/Parameters النهائية تُعرض (M11 §26) وbranch_view/social_click/event_view بانتظار قرار."
+  },
+  {
+   "temp_id": "G6-ND-02",
+   "area": "19 Analytics",
+   "decision": "وحدات تحليلات الـOwner Dashboard: Traffic Analytics · Traffic Sources (جودة القناة) · Top Pages + Drill-down · Menu Analytics · Click/Event Analytics · Customer Actions (DRIVE/HOUSE/GENERAL CONTACT) · Device/UX · Location (Privacy-safe) · Real-Time (إذا سمح API).",
+   "sources": [
+    "M25-005",
+    "M25-006",
+    "M25-007",
+    "M25-029",
+    "M25-031",
+    "M25-033",
+    "M25-036",
+    "M25-038",
+    "M25-043",
+    "M25-044",
+    "M25-046",
+    "M25-048"
+   ],
+   "status": "APPROVED",
+   "reason": "رسالة M25 (Owner Dashboard) لاحقة لآخر قرار مسجل (D-149) ولا يوجد أي قرار مسجل لها.",
+   "impact": "نطاق Analytics في Dashboard V1 (P0)."
+  },
+  {
+   "temp_id": "G6-ND-03",
+   "area": "19 Analytics / 33 Integrations",
+   "decision": "معمارية بيانات الـAnalytics: مصادر مفضلة (GA4 · GTM · GSC · GBP عند ملاءمة API · Cloudflare إن أتيح · Internal events · Lighthouse · Playwright · Site Health)؛ Audit أولًا (GA4 · GTM · Google Tag · Site Kit · HubSpot)؛ Dashboard حقيقية من APIs معتمدة وليست iframe ولا نسخًا لكل GA4؛ Official APIs (GA Data API · GSC API) ولا scraping لـGoogle dashboards.",
+   "sources": [
+    "M25-125",
+    "M25-126",
+    "M25-127",
+    "M25-128",
+    "M25-129",
+    "M25-130",
+    "M25-131"
+   ],
+   "status": "APPROVED",
+   "reason": "غير مسجل في DECISION-LOG (M25).",
+   "impact": "Data layer للـDashboard (P04/P08)."
+  },
+  {
+   "temp_id": "G6-ND-04",
+   "area": "19 Analytics",
+   "decision": "Data Source Matrix (Metric · Source · API · Update Frequency · Cache · Storage · Fallback) + تصنيف KPIs (OWNER · MARKETING · SEO · UX · TECHNICAL) + لا Metrics لمجرد توفرها + لا Business Conclusions غير مدعومة بالبيانات.",
+   "sources": [
+    "M25-171",
+    "M25-172",
+    "M25-173",
+    "M25-174",
+    "M25-206"
+   ],
+   "status": "APPROVED",
+   "reason": "غير مسجل في DECISION-LOG.",
+   "impact": "مخرجات P04 قبل Wireframes الـDashboard."
+  },
+  {
+   "temp_id": "G6-ND-05",
+   "area": "20 GA4 / GTM",
+   "decision": "Claude ينفذ ربط Google للـDashboard أيضًا (GA4 · GTM · Search Console · GBP إذا مناسب)؛ نقاط تدخل الـOwner: Login · OAuth · 2FA · Ownership · Permission approval · Legal/financial confirmation (توسيع D-051).",
+   "sources": [
+    "M25-180",
+    "M25-181",
+    "M27-073",
+    "M27-074"
+   ],
+   "status": "APPROVED",
+   "reason": "D-051/D-055 لا تذكر OAuth وPermission approval وLegal/financial ولا ربط الـDashboard.",
+   "impact": "تحديث GIO §A2/§A29."
+  },
+  {
+   "temp_id": "G6-ND-06",
+   "area": "34 Cloudflare / Hosting / DNS",
+   "decision": "Cloudflare API (للـSite Health وغيره): شرح exact permissions للـOwner أولًا؛ أقل صلاحية ممكنة؛ لا Global API Key إذا كفى Token محدود.",
+   "sources": [
+    "M25-182",
+    "M25-183"
+   ],
+   "status": "APPROVED",
+   "reason": "غير مسجل في DECISION-LOG (مذكور جزئيًا في FRONTEND-TOOLING §7 وAC-06 وGIO §A13).",
+   "impact": "طلبات AC-06 وToken الـSite Health وتحقق GSC عبر DNS."
+  },
+  {
+   "temp_id": "G6-ND-07",
+   "area": "33 Integrations",
+   "decision": "أي خدمة خارجية لمراقبة الأخطاء (مثل Sentry) تُقترح أولًا ولا تُفعّل قبل الموافقة؛ لا اشتراك في أي Paid Service دون موافقة الـOwner.",
+   "sources": [
+    "M25-076",
+    "M25-077"
+   ],
+   "status": "APPROVED",
+   "reason": "غير مسجل في DECISION-LOG (مذكور في FRONTEND-TOOLING §3/§7).",
+   "impact": "تصميم Error Center/Site Health."
+  },
+  {
+   "temp_id": "G6-ND-08",
+   "area": "19 Analytics",
+   "decision": "No Duplicate Architecture: اكتشاف two analytics systems · duplicate GA4 · duplicate GTM — الهدف ONE SOURCE OF TRUTH.",
+   "sources": [
+    "M27-142"
+   ],
+   "status": "APPROVED",
+   "reason": "D-050/D-051 تمنع التتبع المكرر لكنها لا تتناول «نظامي تحليلات» (مثل HubSpot analytics + GA4).",
+   "impact": "قرار HubSpot (DB-14) وأي أداة تحليلات ثانية."
+  },
+  {
+   "temp_id": "G6-ND-09",
+   "area": "20 GA4 / GTM",
+   "decision": "المعمارية المستهدفة لمنظومة Google: SHELTER Website → GTM → GA4 · Website → Search Console → Google Search · DRIVE/HOUSE → GBP + Maps ↔ Website + Schema · GSC + GA4 → قياس الأداء وقرارات التحسين.",
+   "sources": [
+    "M12-080"
+   ],
+   "status": "APPROVED WITH CONDITIONS",
+   "reason": "الملاحظة الختامية في M12 غير مسجلة في DECISION-LOG ولا في GIO.",
+   "impact": "اتجاه GA-01 (GTM) — مشروط بالـAudit وDB-08 (G6-CON-09)."
+  },
+  {
+   "temp_id": "G6-ND-10",
+   "area": "19 Analytics",
+   "decision": "أسماء الأحداث غير نهائية إذا وُجدت naming issue تقني واضح، مع الحفاظ على المعنى وتوثيق أي تعديل؛ وتوثيق كل حدث يشمل example payload وprivacy considerations وهل هو Key Event.",
+   "sources": [
+    "M23-196",
+    "M23-198"
+   ],
+   "status": "APPROVED",
+   "reason": "غير مسجل في DECISION-LOG ولا MENU-DECISION-REGISTER (مطبّق في MENU-MEASUREMENT-PLAN فقط).",
+   "impact": "أساس إعادة تسمية menu_item_id واقتراح event_title."
+  },
+  {
+   "temp_id": "G6-ND-11",
+   "area": "33 Integrations",
+   "decision": "No Plugin Bloat: قبل أي Plugin يُعرض Plugin Name · Purpose · Why Needed · Alternative · Performance Impact · Security Impact · Keep / Reject Recommendation.",
+   "sources": [
+    "M01-182",
+    "M01-183"
+   ],
+   "status": "APPROVED",
+   "reason": "D-002 يمنع Plugins في Phase 01 فقط؛ صيغة التقييم غير مسجلة.",
+   "impact": "اختيار الأدوات/الإضافات بعد DB-08."
+  }
+ ],
+ "decision_status": [
+  {
+   "id": "D-046",
+   "category": "APPROVED",
+   "current_text": "Google Ecosystem Policy إلزامية طوال المشروع؛ لا تغيير لبيانات Google ولا صور Google ولا API مدفوع بدون موافقة.",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "كل المراحل؛ GEP §26 داخلها قديم (G6-CON-01/02)."
+  },
+  {
+   "id": "D-050",
+   "category": "APPROVED",
+   "current_text": "GSC وGA4 وGTM تكاملات مطلوبة لاحقًا؛ GA4 بخطة قياس قبل التنفيذ؛ GTM منظم وموثق؛ لا تتبع مكرر.",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "GOOGLE-004، ANL-003/005."
+  },
+  {
+   "id": "D-051",
+   "category": "APPROVED",
+   "current_text": "ملكية التنفيذ الكامل لمنظومة Google عند منح الصلاحيات (Configure → … → Document)؛ Audit قبل الإنشاء؛ لا تكرار؛ أقل صلاحية؛ التغييرات الحساسة Summary ← موافقة ← تنفيذ.",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "D-055 تأكيد وتوسيع وليس استبدالًا (حقل superseded_by في G6-docs مضلل)؛ قائمة تدخل الـOwner وُسّعت بـM25/M27 (G6-ND-05)."
+  },
+  {
+   "id": "D-055",
+   "category": "APPROVED",
+   "current_text": "تأكيد D-051: الفريق يتولى فعليًا Audit · GA4 · GTM · Google tag · GSC · Sitemap · Schema · GBP consistency · Maps · Event tracking · Testing · Validation · Documentation — متى سمحت الأدوات والصلاحيات.",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "GOOGLE-005."
+  },
+  {
+   "id": "D-073",
+   "category": "APPROVED",
+   "current_text": "R2B: لا منصة/رابط من الإنترنت؛ R2B-01/03/04 = MISSING — OWNER INPUT REQUIRED؛ زر «اطلب» مستقبلًا؛ Pre-order/Pickup/Drive-thru pickup/Direct Online Ordering = FUTURE CAPABILITY ONLY.",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "INT-010/011 (البيانات PENDING OWNER INPUT)."
+  },
+  {
+   "id": "D-121",
+   "category": "APPROVED",
+   "current_text": "POS = LATER / MISSING؛ لا يوقف المشروع؛ pos_item_id وexternal_item_id فارغان.",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "INT-012/013 (تم التحقق: الأعمدة فارغة في Inventory v1.0)."
+  },
+  {
+   "id": "D-149",
+   "category": "APPROVED WITH CONDITIONS",
+   "current_text": "أحداث المنيو menu_view · menu_search · zero_result_search · menu_category_click · product_view · branch_filter_change؛ تسجيل البحث Privacy-conscious؛ لا تنفيذ Google الآن — معتمدة. جزئية «بلا Key Events» = توصية Claude بانتظار تأكيد الـOwner.",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "G6-CON-08؛ MENU-MEASUREMENT-PLAN ما زال PENDING OWNER APPROVAL."
+  },
+  {
+   "id": "GEP-§1",
+   "category": "APPROVED",
+   "current_text": "نطاق منظومة Google + هدف الاتساق والقياس.",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "GOOGLE-001/002."
+  },
+  {
+   "id": "GEP-§25/§27",
+   "category": "APPROVED",
+   "current_text": "GA4 نظيف بلا Events عشوائية؛ Measurement Plan قبل التنفيذ؛ توثيق Event Name · Trigger · Parameters · Purpose · Page · Destination · Business Value — موسّع بـM23 §56 (example payload · privacy · key event).",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "ANL-005/006/007."
+  },
+  {
+   "id": "GEP-§26",
+   "category": "SUPERSEDED",
+   "current_text": "القائمة الحالية = M27 §18 (14 حدثًا) + branch_view/social_click/event_view بانتظار قرار.",
+   "superseded_by": "M12 §9 → M25 §9 → M27 §18 (G6-ND-01)",
+   "old_text": "menu_view · menu_category_click · product_view · branch_view · directions_click · phone_click · whatsapp_click · social_click · campaign_view · campaign_click · event_view · blog_view · language_switch · search_use",
+   "impact": "تحديث GOOGLE-ECOSYSTEM-POLICY §26 (إضافي — غير وارد في G6-docs)."
+  },
+  {
+   "id": "GEP-§28/§29/§30",
+   "category": "APPROVED",
+   "current_text": "GTM ليس مستودع Scripts؛ كل Tag Documented/Named/Justified/Tested؛ Naming واضح (أمثلة GA4 - Event - …)؛ اختبار Preview/DebugView/Network/Console قبل النشر بلا حدث مكرر.",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "GOOGLE-011/012/015."
+  },
+  {
+   "id": "GEP-§31",
+   "category": "APPROVED",
+   "current_text": "فحص Duplicate Tracking (GA4 twice · GTM duplicated · Site Kit · Plugin · Hardcoded · HubSpot) — لا Double Counting.",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "ANL-002/003."
+  },
+  {
+   "id": "GEP-§32",
+   "category": "APPROVED",
+   "current_text": "Site Kit: فحص ما يديره، لا افتراض استخدامه، مقارنة Site Kit vs Native vs GTM ثم توصية (GA-01 معلق).",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "INT-009، GOOGLE-010 (إضافي — غير وارد في G6-docs)."
+  },
+  {
+   "id": "GIO-§A1/§A2",
+   "category": "APPROVED",
+   "current_text": "منظومة واحدة مترابطة + تنفيذ لا توصيات؛ التوقف فقط عند Login · 2FA · Ownership · Billing · Legal · Google security (+OAuth · Permission approval · Legal/financial من M25/M27). Phase 01: لا تنفيذ.",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "GOOGLE-002/005/006."
+  },
+  {
+   "id": "GIO-§A5/§A6/§A27",
+   "category": "APPROVED WITH CONDITIONS",
+   "current_text": "GTM احترافي إن تقرر (GA-01 معلق)؛ أمثلة التسمية Tags/TR -/VAR -؛ Version باسم واضح مع Notes.",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "GOOGLE-012/013/014؛ GTM-TAG-REGISTER يخالف أمثلة TR - (G6-CON-10)."
+  },
+  {
+   "id": "GIO-§A7/§A8",
+   "category": "APPROVED",
+   "current_text": "مقارنة طرق Google tag — Implementation واحد؛ إعداد GA4 كامل عند الحاجة مع مراجعة كل الإعدادات الافتراضية (Time zone/Currency بانتظار تأكيد القيم).",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "GOOGLE-010/016…020."
+  },
+  {
+   "id": "GIO-§A9/§A10",
+   "category": "APPROVED WITH CONDITIONS",
+   "current_text": "Event Taxonomy قبل التنفيذ — القائمة الحالية M27 §18 (تضيف branch_filter_change وzero_result_search)؛ branch_view/social_click/event_view بانتظار قرار؛ Parameters ثابتة التسمية بانتظار قاموس موحد.",
+   "superseded_by": "M27 §18 (للقائمة الأساسية)",
+   "old_text": "قائمة M12 §9 (15 حدثًا)",
+   "impact": "ANL-008/026/028؛ G6-CON-04/05/06/07."
+  },
+  {
+   "id": "GIO-§A13",
+   "category": "APPROVED",
+   "current_text": "DNS verification عبر Cloudflare: تجهيز القيمة؛ لا تغيير DNS بلا موافقة؛ Token بصلاحية DNS Edit للزون فقط بعد موافقة.",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "CF-003/007/009."
+  },
+  {
+   "id": "DB-12",
+   "category": "PENDING VERIFICATION",
+   "current_text": "`shop.shelterjo.com`: يُفحص عند توفر الوصول (AC-01) ويُعرض على الـOwner قبل أي قرار (D-016).",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "Cross-domain tracking (GOOGLE-020)، Referral exclusions (GOOGLE-019)، الـCTA."
+  },
+  {
+   "id": "DB-14",
+   "category": "PENDING OWNER INPUT",
+   "current_text": "HubSpot (Portal 148229555) و Newsletter: الإبقاء/الإزالة ونقل المشتركين — Newsletter مؤجلة في V1 (D-040)؛ سؤال HubSpot (R6-08) مفتوح.",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "ANL-003 (نظام تحليلات واحد — G6-ND-08)، الخصوصية، الأداء."
+  }
+ ],
+ "conflicts": [
+  {
+   "id": "G6-CON-01",
+   "topic": "اسم حدث البحث: search_use vs menu_search vs site_search",
+   "old_instruction": "M11 §26: دراسة `search_use` (حدث بحث واحد — في GA4-MEASUREMENT-PLAN: استخدام بحث المنيو، param query_length)",
+   "old_source": "M11-063؛ GEP §26؛ docs/google/GA4-MEASUREMENT-PLAN.md",
+   "new_instruction": "M12 §9: `menu_search` + `site_search` بدل search_use؛ M23 §56: `menu_search` (+zero_result_search)؛ M25 §9 وM27 §18: menu_search + site_search + zero_result_search",
+   "new_source": "M12-029، M23-195، M25-041، M27-079، M27-090؛ CF-09",
+   "winner": "`menu_search` لبحث المنيو + `site_search` للبحث العام (إن وُجد)؛ `search_use` = SUPERSEDED",
+   "why": "تعليمات لاحقة صريحة ومتكررة من الـOwner (M12 ← M27)؛ الأحدث تغلب؛ CF-09 سجّل الحسم للمنيو.",
+   "impact": "تحديث GEP §26 وGA4-MEASUREMENT-PLAN (صف search_use وملاحظة «نختار اسمًا واحدًا»)؛ فعل بحث واحد لا يُطلق الحدثين معًا.",
+   "files": [
+    "docs/google/GOOGLE-ECOSYSTEM-POLICY.md §26",
+    "docs/google/GA4-MEASUREMENT-PLAN.md",
+    "docs/menu-ia/MENU-DECISION-REGISTER.md CF-09"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "id": "G6-CON-02",
+   "topic": "اسم حدث المقال: blog_view vs article_view",
+   "old_instruction": "M11 §26: `blog_view` (وM01 §80: «Blog Article View»)",
+   "old_source": "M11-063، M01-210؛ GEP §26؛ GA4-MEASUREMENT-PLAN (صف blog_view)",
+   "new_instruction": "M12 §9: `article_view` بدل blog_view؛ مؤكد في M25 §9 وM27 §18",
+   "new_source": "M12-029، M25-041، M27-088",
+   "winner": "`article_view`",
+   "why": "استبدال صريح من الـOwner ثم تأكيد مرتين لاحقًا.",
+   "impact": "تعليم blog_view SUPERSEDED في GEP §26 وGA4-MEASUREMENT-PLAN (وحذف «نختار اسمًا واحدًا»).",
+   "files": [
+    "docs/google/GOOGLE-ECOSYSTEM-POLICY.md §26",
+    "docs/google/GA4-MEASUREMENT-PLAN.md"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "id": "G6-CON-03",
+   "topic": "site_search vs أسماء GA4 الموصى بها (`search`) / حدث EM `view_search_results`",
+   "old_instruction": "GA4-MEASUREMENT-PLAN (سؤال Claude): نستخدم أسماء Google الموصى بها (search / view_search_results) أم أسماء مخصصة؟",
+   "old_source": "docs/google/GA4-MEASUREMENT-PLAN.md §إضافات (AI proposal)",
+   "new_instruction": "الـOwner يستخدم `site_search` في M12 §9 ثم M25 §9 وM27 §18 (بعد طرح السؤال)",
+   "new_source": "M12-029، M25-041، M27-090",
+   "winner": "`site_search` (مع مراجعة EM Site search لمنع العد المزدوج)",
+   "why": "سلطة الـOwner أعلى من اقتراح AI؛ لا تعارض تقني مع أسماء محجوزة؛ الحدث EM يُضبط في GOOGLE-017.",
+   "impact": "يبقى مفتوحًا: هل يوجد بحث عام على مستوى الموقع أصلًا (قرار IA في P03).",
+   "files": [
+    "docs/google/GA4-MEASUREMENT-PLAN.md"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "id": "G6-CON-04",
+   "topic": "معرّف الصنف في Analytics: item_id vs menu_item_id",
+   "old_instruction": "`item_id` = Product ID (+ `item_variant` = Size ID)",
+   "old_source": "docs/google/GA4-MEASUREMENT-PLAN.md (product_view)؛ docs/phase-01-discovery/18-official-menu-inventory-report.md (سطر 680)؛ 22-menu-information-architecture.md (سطر 320)",
+   "new_instruction": "`menu_item_id` بدل `item_id` حتى لا يتعارض مع item_id الخاص بـGA4 E-commerce — «تعديل تسمية موثّق، المعنى نفسه» (تطبيقًا لقاعدة M23 §56)",
+   "new_source": "docs/menu-ia/MENU-MEASUREMENT-PLAN.md §2؛ docs/menu-ia/README.md §16 (DRAFT — PENDING OWNER APPROVAL)",
+   "winner": "— (التوصية: menu_item_id بقيمة product_id مثل PRD-00058)",
+   "why": "المحادثة لم تحسمه؛ الوثائق متعارضة؛ خطة المنيو غير معتمدة بعد؛ الأسماء النهائية تُعرض على الـOwner (M11 §26).",
+   "impact": "product_view parameters، Custom Dimensions، تقارير Top Products، item_variant يتبع القرار.",
+   "files": [
+    "docs/google/GA4-MEASUREMENT-PLAN.md",
+    "docs/menu-ia/MENU-MEASUREMENT-PLAN.md",
+    "docs/phase-01-discovery/18-official-menu-inventory-report.md",
+    "docs/phase-01-discovery/22-menu-information-architecture.md"
+   ],
+   "status": "OWNER DECISION REQUIRED"
+  },
+  {
+   "id": "G6-CON-05",
+   "topic": "Parameter `event_name` vs بُعد GA4 المدمج «Event name»",
+   "old_instruction": "M12 §10 (الـOwner): استخدم Parameters مثل … event_name …",
+   "old_source": "M12-032",
+   "new_instruction": "GA4-MEASUREMENT-PLAN (Claude): التباس مع بُعد GA4 المدمج — اقتراح `shelter_event_name` أو `event_title` لاسم الفعالية",
+   "new_source": "docs/google/GA4-MEASUREMENT-PLAN.md §معجم",
+   "winner": "—",
+   "why": "لا حسم في المحادثة؛ قاعدة M23 §56 تسمح بإعادة التسمية التقنية الموثقة لكن الأسماء النهائية تُعرض على الـOwner.",
+   "impact": "event_view/Events & Campaigns reporting وتصدير BigQuery.",
+   "files": [
+    "docs/google/GA4-MEASUREMENT-PLAN.md",
+    "docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §A10"
+   ],
+   "status": "OWNER DECISION REQUIRED"
+  },
+  {
+   "id": "G6-CON-06",
+   "topic": "قاموس الـParameters غير موحد عبر الوثائق",
+   "old_instruction": "M12 §10: branch_name · branch_id · product_name · product_category · campaign_name · event_name · language · market · destination · content_type — «وحافظ على Naming ثابت»",
+   "old_source": "M12-032؛ GIO §A10",
+   "new_instruction": "MENU-MEASUREMENT-PLAN: menu_language · item_name · category_id · branch_context …؛ GA4-MEASUREMENT-PLAN: language · item_id · category_id · campaign_id · location (directions) مقابل placement (phone/whatsapp)",
+   "new_source": "docs/menu-ia/MENU-MEASUREMENT-PLAN.md §2؛ docs/google/GA4-MEASUREMENT-PLAN.md",
+   "winner": "—",
+   "why": "أمثلة الـOwner («مثل») ليست قائمة مغلقة، لكن قاعدة «Naming ثابت» تُخرق بوجود اسمين لنفس المعنى؛ لا حسم في المحادثة.",
+   "impact": "Custom Dimensions، تقارير الـDashboard (Branch/Language)، GTM Variables.",
+   "files": [
+    "docs/google/GA4-MEASUREMENT-PLAN.md",
+    "docs/menu-ia/MENU-MEASUREMENT-PLAN.md",
+    "docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §A10"
+   ],
+   "status": "OWNER DECISION REQUIRED"
+  },
+  {
+   "id": "G6-CON-07",
+   "topic": "نطاق قائمة الأحداث: branch_view · social_click · event_view",
+   "old_instruction": "M11 §26 وM12 §9 (وM01 §80: Branch View · Instagram Click · Event Click) تتضمنها",
+   "old_source": "M01-210، M11-063، M12-029",
+   "new_instruction": "M25 §9 («مثل … وأي Event مهم فعليًا») وM27 §18 («راجع … والأي Events إضافية وردت») لا تذكرها",
+   "new_source": "M25-041، M27-077",
+   "winner": "—",
+   "why": "الغياب ليس إلغاءً (Silence is not approval/cancellation)؛ M27 يطلب صراحة إدراج الأحداث الإضافية للمراجعة؛ social_click معطّل عمليًا بـD-036.",
+   "impact": "Branch interest/Intent في الـDashboard، Footer social links، صفحات الفعاليات.",
+   "files": [
+    "docs/google/GA4-MEASUREMENT-PLAN.md",
+    "docs/google/GOOGLE-ECOSYSTEM-POLICY.md §26"
+   ],
+   "status": "OWNER DECISION REQUIRED"
+  },
+  {
+   "id": "G6-CON-08",
+   "topic": "Key Events: D-149 «بلا Key Events» مسجلة كقرار Owner",
+   "old_instruction": "M12 §11: «حدد معي الأحداث المهمة تجاريًا» (Directions · Phone · WhatsApp · Campaign CTA)؛ M23 §56: «whether key event or not»؛ Phase I: «Key Event recommendation»",
+   "old_source": "M12-033، M23-196، M23-250",
+   "new_instruction": "D-149 (DECISION-LOG): أحداث المنيو «بلا Key Events» = APPROVED؛ MENU-MEASUREMENT-PLAN: «لا Key Event في المنيو» (DRAFT)",
+   "new_source": "docs/governance/DECISION-LOG.md D-149؛ docs/menu-ia/MENU-MEASUREMENT-PLAN.md",
+   "winner": "—",
+   "why": "«بلا Key Events» توصية Claude المطلوبة في Phase I وليست قرارًا صدر عن الـOwner؛ الخطة ما زالت PENDING OWNER APPROVAL؛ Key Events الموقع لم تُحدد مع الـOwner.",
+   "impact": "إعداد Conversions في GA4، تقارير الـDashboard، صياغة D-149.",
+   "files": [
+    "docs/governance/DECISION-LOG.md",
+    "docs/google/GA4-MEASUREMENT-PLAN.md §Key Events",
+    "docs/menu-ia/MENU-MEASUREMENT-PLAN.md"
+   ],
+   "status": "OWNER DECISION REQUIRED"
+  },
+  {
+   "id": "G6-CON-09",
+   "topic": "استخدام GTM: مشروط («إذا كان مناسبًا/إذا تقرر») مقابل المعمارية المستهدفة Website → GTM → GA4",
+   "old_instruction": "M11 §28: استخدم GTM إذا كان مناسبًا؛ M11 §32/M12 §7: قارن Site Kit/Native/GTM/Hardcoded ثم أوصِ؛ M12 §5: إذا تقرر استخدام GTM",
+   "old_source": "M11-066، M11-075، M12-020، M12-015",
+   "new_instruction": "M12 (ملاحظة ختامية): المعمارية التي نريد الوصول لها تقريبًا: SHELTER Website → GTM → GA4",
+   "new_source": "M12-080",
+   "winner": "الاتجاه المستهدف = GTM → GA4؛ القرار النهائي = GA-01 بعد الـAudit وقرار المنصة DB-08",
+   "why": "الصياغة «تقريبًا» لا تلغي شرط المقارنة والـAudit؛ GEP §53/GC-29 «GTM working» يفترض GTM.",
+   "impact": "GOOGLE-010…014، GTM-TAG-REGISTER، Performance budget.",
+   "files": [
+    "docs/google/GOOGLE-INTEGRATION-ARCHITECTURE.md §3 GA-01",
+    "docs/google/GOOGLE-ECOSYSTEM-CHECKLIST.md GC-14 GC-29"
+   ],
+   "status": "OWNER DECISION REQUIRED"
+  },
+  {
+   "id": "G6-CON-10",
+   "topic": "GTM Naming Convention: أمثلة الـOwner vs GTM-TAG-REGISTER",
+   "old_instruction": "GTM-TAG-REGISTER (Claude): `{Platform} - {Type} - {Name}` · `GA4 - Config - Base` · Triggers `TRG - {Type} - {Name}` (TRG - Click - Directions) · Variables `VAR - {Type} - {Name}`",
+   "old_source": "docs/google/GTM-TAG-REGISTER.md §Naming Convention (AI)",
+   "new_instruction": "الـOwner: Tags `GA4 - Config` · `GA4 - Event - Menu View`…؛ Triggers `TR - Menu View` · `TR - Directions Click` · `TR - Phone Click`؛ Variables `VAR - Branch Name` · `VAR - Product Name` · `VAR - Category` · `VAR - Language` · `VAR - Market`",
+   "new_source": "M12-017، M12-018، M12-019 (M11-069)",
+   "winner": "نمط أمثلة الـOwner (TR - / VAR - {Name} / GA4 - Config / GA4 - Event - {Name})",
+   "why": "سلطة الـOwner أعلى من وثيقة AI غير معتمدة؛ الـStandard النهائي يُكتب قبل التنفيذ (M12 §6).",
+   "impact": "تحديث GTM-TAG-REGISTER.md §Naming.",
+   "files": [
+    "docs/google/GTM-TAG-REGISTER.md"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "id": "G6-CON-11",
+   "topic": "مستوى صلاحية GA4/GTM: Read-only لاحقًا vs إعداد كامل بواسطة Claude",
+   "old_instruction": "M10 §12: GA4 لاحقًا Read-only (D-042)؛ AC-05: Viewer/Read",
+   "old_source": "M10-047؛ 08-access-requests AC-05",
+   "new_instruction": "M12 §8/M13/M25 §64/M27 §17: Claude يُعدّ GA4/GTM ويربطها وينشر (يحتاج Editor/Publish)",
+   "new_source": "M12-022، M13-013، M25-180، M27-073",
+   "winner": "كلاهما حسب المرحلة: Read-only للجرد/الاكتشاف؛ Editor/Publish فقط في P09 بعد موافقة، وبأقل صلاحية ثم تخفيضها بعد الإطلاق",
+   "why": "لا تعارض حقيقي — قراءة M10 لمرحلة Discovery، والتنفيذ مؤجل لمرحلته (GIO §B).",
+   "impact": "خطة الصلاحيات في GIO §B.",
+   "files": [
+    "docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §B"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "id": "G6-CON-12",
+   "topic": "قوائم نقاط تدخل الـOwner مختلفة (M12 §2 · §29 · M25 §64 · M27 §17)",
+   "old_instruction": "M12 §2: Login · 2FA · Ownership confirmation · Billing · Legal acceptance · Google security confirmation؛ M12 §29: Authentication · Approval · 2FA · Account ownership · Billing approval · Legal confirmation · Security confirmation",
+   "old_source": "M12-009، M12-069 (G1/G7)",
+   "new_instruction": "M25 §64: Login · OAuth · 2FA · ownership confirmation · permissions؛ M27 §17: Login · OAuth · 2FA · Ownership · Permission approval · Legal/financial confirmation",
+   "new_source": "M25-181، M27-074",
+   "winner": "اتحاد القوائم (الأحدث M27 + Billing وGoogle security confirmation من M12)",
+   "why": "القوائم متوافقة وليست متناقضة؛ اللاحقة تضيف OAuth وPermission approval.",
+   "impact": "تحديث GIO §A2/§A29.",
+   "files": [
+    "docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §A2 §A29"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "id": "G6-CON-13",
+   "topic": "حقول الإفصاح قبل الخدمات المدفوعة",
+   "old_instruction": "D-029 (M04): الخدمة · الهدف · الاستهلاك المتوقع · البديل المجاني أو الأقل استهلاكًا",
+   "old_source": "M04-056",
+   "new_instruction": "M11 §50: Service · Purpose · Expected requests · Expected cost · Free alternative؛ M23 §68 وM27 §22: service · purpose · expected consumption · cost/quota · free alternative",
+   "new_source": "M11-108، M23-225، M27-111",
+   "winner": "صيغة M27 §22 (خمسة حقول)",
+   "why": "الأحدث وتوسيع متسق لا يلغي السابق.",
+   "impact": "قالب الإفصاح في 08-access-requests وFRONTEND-TOOLING.",
+   "files": [
+    "docs/phase-01-discovery/08-access-requests.md",
+    "docs/FRONTEND-TOOLING.md §7"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "id": "G6-CON-14",
+   "topic": "مرجع واتساب قديم في GA4-MEASUREMENT-PLAN",
+   "old_instruction": "Key Events: «whatsapp_click (إذا اعتُمد واتساب — D-023)»",
+   "old_source": "docs/google/GA4-MEASUREMENT-PLAN.md §Key Events؛ D-023",
+   "new_instruction": "D-058: WhatsApp الرسمي 0799009436 APPROVED؛ M25/M27 تطلب whatsapp_click",
+   "new_source": "D-058؛ M25-041؛ M27-085",
+   "winner": "D-058",
+   "why": "D-023 = SUPERSEDED → D-058.",
+   "impact": "تصحيح سطر Key Events.",
+   "files": [
+    "docs/google/GA4-MEASUREMENT-PLAN.md"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "id": "G6-CON-15",
+   "topic": "Consent Mode v2 مفترض كإعداد عام غير موجود",
+   "old_instruction": "M01 §82: جهز الموقع لدعم Cookie/Analytics/Marketing Consent؛ M12 §22: ادرس Google Consent Mode عندما يكون مطلوبًا؛ R11-04 (بانر الكوكيز؟) مفتوح",
+   "old_source": "M01-213، M12-053 (G1)؛ GIO §A22؛ 07-question-backlog R11-04",
+   "new_instruction": "MENU-MEASUREMENT-PLAN §3.4/§5 وPERFORMANCE-BUDGET: «Consent Mode v2: قبل الموافقة إشارات بلا Cookies حسب الإعداد العام (docs/google)» + Tags تتطلب analytics_storage",
+   "new_source": "docs/menu-ia/MENU-MEASUREMENT-PLAN.md؛ docs/menu-ia/PERFORMANCE-BUDGET.md",
+   "winner": "—",
+   "why": "لا إعداد Consent عام في docs/google ولا قرار Owner/قانوني بعد؛ المسودة تفترض قرارًا غير متخذ.",
+   "impact": "Trigger menu_view «بعد تهيئة الموافقة»، اكتمال البيانات، بانر الكوكيز، صفحات الخصوصية.",
+   "files": [
+    "docs/menu-ia/MENU-MEASUREMENT-PLAN.md §3 §5",
+    "docs/menu-ia/PERFORMANCE-BUDGET.md",
+    "docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §A22"
+   ],
+   "status": "OWNER DECISION REQUIRED"
+  },
+  {
+   "id": "G6-CON-16",
+   "topic": "Trigger حدث product_view: Drawer/صفحة صنف vs Sheet/Modal",
+   "old_instruction": "GA4-MEASUREMENT-PLAN: «فتح تفاصيل صنف (Drawer أو صفحة صنف)» يعتمد على DB-06",
+   "old_source": "docs/google/GA4-MEASUREMENT-PLAN.md",
+   "new_instruction": "D-146: Bottom Sheet موبايل · Modal/Side Panel ديسكتوب؛ D-147: لا صفحات أصناف في V1",
+   "new_source": "D-146، D-147 (M23)",
+   "winner": "D-146/D-147",
+   "why": "قرار Owner لاحق وصريح.",
+   "impact": "تحديث صف product_view في GA4-MEASUREMENT-PLAN.",
+   "files": [
+    "docs/google/GA4-MEASUREMENT-PLAN.md"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "id": "G6-CON-17",
+   "topic": "خصوصية نص البحث: query_length فقط vs search_term منظّف",
+   "old_instruction": "GA4-MEASUREMENT-PLAN: search_use بـ`query_length` «بدون نص البحث الكامل حفاظًا على الخصوصية — للنقاش»",
+   "old_source": "docs/google/GA4-MEASUREMENT-PLAN.md",
+   "new_instruction": "M23 §57: سجل Query searches بشكل Privacy-conscious (popular searches، zero result searches…)؛ M25 §8: Search terms",
+   "new_source": "M23-200 (+G1 M23-199/201)، M25-039",
+   "winner": "search_term منظّف ≤50 حرفًا مع حجب @/أرقام هاتف/روابط (CF-10)",
+   "why": "الـOwner طلب معرفة ما يبحث عنه الناس؛ الحل يحقق الخصوصية.",
+   "impact": "قواعد التنظيف تطبق أيضًا على site_search.",
+   "files": [
+    "docs/google/GA4-MEASUREMENT-PLAN.md",
+    "docs/menu-ia/MENU-DECISION-REGISTER.md CF-10"
+   ],
+   "status": "RESOLVED"
+  }
+ ],
+ "dropped": [
+  {
+   "key": "M25-040",
+   "reason": "أمثلة توضيحية فقط (ICED SPANISH LATTE 120 product views · SPECIALITY COFFEE 350 category clicks · \"cold brew\" 45 searches · Zero result \"matcha\" 15) — أرقام وهمية لا تُستخدم كبيانات ولا كدليل على توفر/غياب منتجات؛ مذكورة في notes الخاصة بـANL-035."
+  }
+ ],
+ "notes": "G6 consolidation (2026-10-01). event_registry = القائمة الـcanonical لكل اسم حدث طُلب أو طُرح (14 معتمدة، 3 بانتظار قرار، 6 SUPERSEDED/أسماء M01، 2 بدائل AI غير معتمدة، أحداث GA4 التلقائية/EM). تعديلات وثائق مطلوبة (لم تُعدّل — قاعدة عدم تعديل الـrepo): GOOGLE-ECOSYSTEM-POLICY §26 (blog_view/search_use قديمة)؛ GA4-MEASUREMENT-PLAN (search_use/blog_view، trigger product_view، item_id، سطر D-023، غياب zero_result_search/branch_filter_change)؛ GTM-TAG-REGISTER Naming (TRG → TR)؛ 18-official-menu-inventory-report §Analytics و22-menu-IA (item_id)؛ GIO §A2/§A29 (OAuth/Permission approval/Legal-financial)؛ DECISION-LOG لا يحتوي قرارات M25/M27 (G6-ND-01…11)؛ MENU-MEASUREMENT-PLAN وPERFORMANCE-BUDGET تفترضان Consent Mode v2 كإعداد عام غير موجود. GOOGLE-022 (Consent) sources فارغة عمدًا: مصادره في G1 (PRIV: M01-213، M12-052…056). حقلا event_registry وparameter_registry وid في conflicts إضافات على المخطط بطلب المنسق."
+}

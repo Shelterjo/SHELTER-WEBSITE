@@ -1,0 +1,4391 @@
+{
+ "group": "G4",
+ "requirements": [
+  {
+   "id": "BRANCH-001",
+   "area": "10 Branches & Locations",
+   "type": "GATE",
+   "title": "بوابة نشر بيانات الفروع: لا نشر قبل تحقق/موافقة الـOwner",
+   "requirement": "لا تُنشر للزوار أي بيانات فروع قبل التحقق منها مع الـOwner واعتمادها صراحة: Branch names · Branch addresses · Google Maps links · Opening hours · Opening dates. أي معلومة غير معروفة تُكتب `MISSING — OWNER INPUT REQUIRED` ولا تُخترع.",
+   "details": [
+    "الحالة الحالية: الأسماء AR/EN ✅ (D-008، D-020) · الساعات العادية ✅ (D-020) · العنوان: وصف موقع فقط، الصياغة النهائية AR/EN ⏳ (D-020) · روابط Google Maps ⏳ MISSING — VERIFY (D-020) · تواريخ الافتتاح MISSING (CR-028، CR-037).",
+    "تواريخ إنشاء Snapchat Place (DRIVE 2019-06-18، HOUSE 2022-05-26) وانضمام X @ShelterDrive (يونيو 2019) = تواريخ إنشاء قوائم فقط، ليست تواريخ افتتاح — لا تُستخدم.",
+    "عبارة \"منذ 2022\" = OLD OR INCORRECT (D-018) ولا تُستخدم كتاريخ افتتاح لـHOUSE.",
+    "المسار العام لأي معلومة ظاهرة: Research → Collect → Review → Present → Owner Confirmation → APPROVED → Implementation → Publish (D-003، G1)."
+   ],
+   "sources": [
+    "M01-045"
+   ],
+   "decision_refs": [
+    "D-003",
+    "D-017",
+    "D-008",
+    "D-020"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "PARTIAL",
+   "tested": "N/A",
+   "existing_impl": "process: docs/phase-01-discovery/04-content-approval-register.md (CR-017…CR-037، MI-007…MI-009) + 03-verify-with-owner.md (VQ-02، VQ-09…VQ-12، VQ-15)",
+   "missing_work": "فرض البوابة داخل الـCMS (حالة اعتماد لكل حقل فرع، لا Publish لحقل غير APPROVED) · جمع تواريخ الافتتاح إن أراد الـOwner عرضها · تحديث 04 (MI-008/MI-009 ما زالت MISSING رغم D-020).",
+   "dependencies": [
+    "GOV (G1) approval workflow",
+    "CMS (G7) per-field approval status",
+    "BRANCH-005",
+    "GBP-013"
+   ],
+   "test_required": "مراجعة: كل حقل فرع منشور له مرجع APPROVED في السجل · اختبار CMS: حقل غير معتمد لا يظهر في الصفحة ولا الـSchema ولا الـSitemap.",
+   "design_refs": [
+    "docs/phase-01-discovery/04-content-approval-register.md §A CR-017…CR-037، §B MI-007…MI-009",
+    "docs/phase-01-discovery/03-verify-with-owner.md VQ-02، VQ-09…VQ-12، VQ-15"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P07",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "BRANCH-002",
+   "area": "10 Branches & Locations",
+   "type": "DECISION",
+   "title": "الفروع العامة الحالية = فرعان فقط (DRIVE وHOUSE) في إربد",
+   "requirement": "الفروع العامة الحالية فرعان فقط في الأردن / إربد: `SHELTER COFFEE DRIVE` و`SHELTER COFFEE HOUSE`. لا يوجد فرع Franchise عامل يُعرض على الموقع. أي فرع آخر يُكتشف منشورًا على Google أو الموقع القديم لا يُعتبر فرعًا نشطًا قبل سؤال الـOwner.",
+   "details": [
+    "التشغيل الأساسي الحالي: الأردن / إربد (D-010).",
+    "أي دولة/مدينة/فرع مستقبلي يُنشأ Hidden افتراضيًا ولا يُعرض قبل معلومات وموافقة الـOwner (D-010).",
+    "مشغل الحلويات ليس فرعًا (BRANCH-007).",
+    "قوائم خارجية (Talabat 'shelter-coffee-drive-al-worod'، Snapchat Places، دلائل) ليست مصدرًا لفروع إضافية."
+   ],
+   "sources": [
+    "M03-008",
+    "M03-010",
+    "M03-015",
+    "M23-097"
+   ],
+   "decision_refs": [
+    "D-008",
+    "D-010",
+    "GEP-§3"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "recorded: DECISION-LOG D-008 · 04 CR-017 APPROVED · docs/google/GOOGLE-BUSINESS-PROFILE-SOURCE-OF-TRUTH.md",
+   "missing_work": "بناء صفحة Locations وبطاقات الفروع من مصدر بيانات واحد بحالات status/visibility؛ تطبيق Hidden افتراضيًا للجديد.",
+   "dependencies": [
+    "BRANCH-008",
+    "BRANCH-009",
+    "DB-15"
+   ],
+   "test_required": "صفحة Locations وSchema (LocalBusiness/CafeOrCoffeeShop) وSitemap تحتوي فرعين فقط بالضبط؛ لا Franchise ولا مشغل؛ فرع جديد بحالة Hidden لا يظهر في أي مخرَج.",
+   "design_refs": [
+    "docs/phase-01-discovery/09-architecture-options-after-r1.md AR-02",
+    "docs/google/GOOGLE-BUSINESS-PROFILE-SOURCE-OF-TRUTH.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "BRANCH-003",
+   "area": "10 Branches & Locations",
+   "type": "DECISION",
+   "title": "هوية فرع DRIVE: الاسم AR/EN والموقع ووجود Drive Thru",
+   "requirement": "فرع DRIVE: الاسم بالعربية `شلتر كوفي درايف` · بالإنجليزية `SHELTER COFFEE DRIVE` · الفرع الرئيسي في إربد، بجانب صالة قصر النخيل / أرابيلا، وفيه Drive Thru. العنوان المعروف المعتمد كوصف موقع: \"إربد — بجانب صالة قصر النخيل / منطقة أرابيلا\" — وليس صياغة Street Address نهائية.",
+   "details": [
+    "Slug الفرع: `drive` (D-053 — G5) · الرابط المقترح `/ar/jo/locations/irbid/drive/` و`/en/jo/locations/irbid/drive/` (P3 مبدئي D-031).",
+    "الصياغة النهائية للعنوان AR/EN ⏳ BRANCH-005.",
+    "الهاتف: 0799009436 (D-057) · واتساب: 0799009436 (D-058) · الساعات: HOURS-001."
+   ],
+   "sources": [
+    "M03-005",
+    "M04-011",
+    "M04-012"
+   ],
+   "decision_refs": [
+    "D-008",
+    "D-020",
+    "D-053"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "recorded: DECISION-LOG D-008، D-020 · 04 CR-018 APPROVED · docs/google/GOOGLE-BUSINESS-PROFILE-SOURCE-OF-TRUTH.md",
+   "missing_work": "بناء صفحة الفرع وبطاقته والـSchema من هذه القيم بعد إكمال العنوان والخريطة.",
+   "dependencies": [
+    "BRANCH-005",
+    "GBP-013",
+    "HOURS-001"
+   ],
+   "test_required": "الاسمان يظهران حرفيًا كما اعتُمدا في AR/EN (بطاقة، صفحة، Schema name، title) · لا يظهر أي عنوان شارع غير معتمد.",
+   "design_refs": [
+    "docs/google/GOOGLE-BUSINESS-PROFILE-SOURCE-OF-TRUTH.md (DRIVE)",
+    "docs/phase-01-discovery/04-content-approval-register.md CR-018…CR-024"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "BRANCH-004",
+   "area": "10 Branches & Locations",
+   "type": "DECISION",
+   "title": "هوية فرع HOUSE: الاسم AR/EN والموقع داخل Irbid City Center",
+   "requirement": "فرع HOUSE: الاسم بالعربية `شلتر كوفي هاوس` · بالإنجليزية `SHELTER COFFEE HOUSE` · الموقع: Irbid City Center · الطابق الأول · بجانب البنك الإسلامي الأردني.",
+   "details": [
+    "Slug الفرع: `house` (D-053) · الرابط المقترح `/ar/jo/locations/irbid/house/` · `/en/jo/locations/irbid/house/`.",
+    "تعارض الطابق في الموقع القديم (الأول/الثاني — CR-031) حُسم: الطابق الأول (D-008، D-020).",
+    "اسم المول الرسمي ⏳ BRANCH-006 · العنوان التفصيلي ⏳ BRANCH-005.",
+    "\"لا يوجد Drive Thru في HOUSE\" (CR-033) = PENDING VERIFICATION — لا يُكتب كخدمة/نفي قبل التأكيد (BRANCH-012)."
+   ],
+   "sources": [
+    "M03-006",
+    "M04-021",
+    "M04-022"
+   ],
+   "decision_refs": [
+    "D-008",
+    "D-020",
+    "D-053"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "recorded: DECISION-LOG D-008، D-020 · 04 CR-030، CR-031 · docs/google/GOOGLE-BUSINESS-PROFILE-SOURCE-OF-TRUTH.md",
+   "missing_work": "بناء صفحة/بطاقة/Schema HOUSE بعد إكمال اسم المول والعنوان والخريطة.",
+   "dependencies": [
+    "BRANCH-005",
+    "BRANCH-006",
+    "GBP-013",
+    "HOURS-002"
+   ],
+   "test_required": "الاسمان والطابق والمعلم (البنك الإسلامي الأردني) يظهرون كما اعتُمدوا في AR/EN.",
+   "design_refs": [
+    "docs/google/GOOGLE-BUSINESS-PROFILE-SOURCE-OF-TRUTH.md (HOUSE)",
+    "docs/phase-01-discovery/04-content-approval-register.md CR-030…CR-037"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "تعارض الطابق (الأول vs الثاني) في الموقع القديم — RESOLVED لصالح الـOwner (الطابق الأول).",
+   "business_data": true,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "BRANCH-005",
+   "area": "10 Branches & Locations",
+   "type": "DECISION",
+   "title": "العنوان التفصيلي للفرعين (عربي/إنجليزي) — بانتظار التحقق من GBP ثم الـOwner",
+   "requirement": "لا تُعتمد صياغة Street Address نهائية لأي فرع قبل التحقق من Google Business Profile / Google Maps ثم عرضها على الـOwner: DRIVE English address = `MISSING — VERIFY FROM GOOGLE BUSINESS PROFILE THEN ASK OWNER`؛ HOUSE العنوان التفصيلي = `VERIFY FROM GOOGLE BUSINESS PROFILE`. ينطبق على العنوان العربي والإنجليزي معًا.",
+   "details": [
+    "قيم متعارضة موجودة (لا تُستخدم): DRIVE 'شارع عوض رشيدات' / 'عوض الرشيدات' مقابل 'شارع الجامعة' (CR-019) · الحي: الورود / النزهة / إيدون (CR-020) · الإنجليزية: 'Sharie Eiwad Rashidat'، 'Awad Rshedat St'، 'Awad Rashedat'، 'Awad Irshedat'، 'Awad Rashidat' (CR-021، VQ-21) · الرمز البريدي 21110 غير مؤكد.",
+    "الـSchema القديمة LocalBusiness بلا عنوان (Semrush #45، CR-110) — العنوان مطلوب لـNAP والـSchema.",
+    "المصدر: GBP الرسمي (G-01، G-02) — الـOwner هو المرجع النهائي عند الاختلاف (GBP-004)."
+   ],
+   "sources": [
+    "M04-013",
+    "M04-014",
+    "M04-024"
+   ],
+   "decision_refs": [
+    "D-020",
+    "D-048",
+    "GEP-§5"
+   ],
+   "status": "PENDING VERIFICATION",
+   "owner_approved": "PARTIAL",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "recorded: docs/google/GOOGLE-BUSINESS-PROFILE-SOURCE-OF-TRUTH.md (Address = MISSING في GBP) · 04 CR-019…CR-021 · 03 VQ-09، VQ-21",
+   "missing_work": "استلام بيانات GBP (G-01، G-02 / MI-026) · مقارنة · عرض صيغة AR/EN مقترحة على الـOwner · تسجيل القرار.",
+   "dependencies": [
+    "GBP-008",
+    "GBP-007",
+    "BRANCH-018"
+   ],
+   "test_required": "Branch Data Sync: العنوان AR/EN متطابق بين GBP والموقع والـSchema (PostalAddress) وموافَق عليه من الـOwner.",
+   "design_refs": [
+    "docs/google/GOOGLE-BUSINESS-PROFILE-SOURCE-OF-TRUTH.md",
+    "docs/phase-01-discovery/03-verify-with-owner.md VQ-09، VQ-21",
+    "docs/phase-01-discovery/04-content-approval-register.md CR-019…CR-021"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "DRIVE street/district/English spelling/postal code متعارضة بين المصادر — OWNER DECISION REQUIRED بعد تحقق GBP (انظر conflicts).",
+   "business_data": true,
+   "phase": "P01",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "BRANCH-006",
+   "area": "10 Branches & Locations",
+   "type": "GATE",
+   "title": "اسم المول الرسمي لـHOUSE من GBP/موقع المول ثم موافقة الـOwner",
+   "requirement": "اسم المول لفرع HOUSE يُستخدم بالاسم الرسمي الموجود في Google Business Profile / الموقع الرسمي للمول، ثم يُعرض على الـOwner قبل الاعتماد النهائي.",
+   "details": [
+    "صيغ موجودة: 'Irbid City Center' (الـOwner) · 'إربد ستي سنتر' (الموقع القديم) · 'Irbid City Centre' (ملخصات بحث).",
+    "يؤثر على: صفحة HOUSE، بطاقة الفرع، الـSchema address، title/meta."
+   ],
+   "sources": [
+    "M04-023"
+   ],
+   "decision_refs": [
+    "D-020"
+   ],
+   "status": "PENDING VERIFICATION",
+   "owner_approved": "PARTIAL",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "recorded: docs/google/GOOGLE-BUSINESS-PROFILE-SOURCE-OF-TRUTH.md (HOUSE Address — اسم المول الرسمي يُؤخذ من GBP)",
+   "missing_work": "التحقق من GBP والموقع الرسمي للمول · عرض الاسم AR/EN على الـOwner · تسجيل الاعتماد.",
+   "dependencies": [
+    "GBP-008",
+    "BRANCH-004"
+   ],
+   "test_required": "مراجعة: الاسم المعروض مطابق للمصدر الرسمي وموافق عليه، وبنفس الصيغة في كل المخرجات.",
+   "design_refs": [
+    "docs/google/GOOGLE-BUSINESS-PROFILE-SOURCE-OF-TRUTH.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P01",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "BRANCH-007",
+   "area": "10 Branches & Locations",
+   "type": "RULE",
+   "title": "مشغل الحلويات = NON-PUBLIC LOCATION",
+   "requirement": "مشغل الحلويات منشأة إنتاج (Production / Pastry facility) وليس فرعًا للعملاء: لا يظهر كفرع · لا يُعرض عنوانه · لا يوضع في Locations.",
+   "details": [
+    "ضمنيًا (ليس اقتباسًا): لا يدخل الـSchema ولا الـSitemap ولا الخرائط.",
+    "نموذج البيانات المقترح: type = Production Facility + visibility = Hidden (AR-02 — اقتراح، DB-15).",
+    "إذا كان له ملف على Google أصلًا: نُخبر الـOwner ولا نتصرف (GBP-SoT).",
+    "ذكر وجود Production / Pastry Facility في Brand Story أو وصف المنتجات مستقبلًا فقط إذا قرر الـOwner، وأي صياغة مثل \"حلوياتنا تُحضّر في مشغلنا\" تُعرض قبل النشر (D-026 — بنود G1: M04-045، M04-046)."
+   ],
+   "sources": [
+    "M03-007",
+    "M04-044"
+   ],
+   "decision_refs": [
+    "D-008",
+    "D-026"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "recorded: DECISION-LOG D-026 · 04 OW-002 · docs/phase-01-discovery/10-url-architecture-draft.md URL-10 (لا يظهر في locations)",
+   "missing_work": "تطبيق نوع/رؤية الموقع في نموذج البيانات والـCMS بحيث لا يمكن نشره كفرع.",
+   "dependencies": [
+    "DB-15",
+    "BRANCH-009"
+   ],
+   "test_required": "فحص آلي: لا يوجد أي عنوان أو اسم لمشغل الحلويات في HTML/Schema/Sitemap/Maps links لأي صفحة.",
+   "design_refs": [
+    "docs/phase-01-discovery/09-architecture-options-after-r1.md AR-02",
+    "docs/google/GOOGLE-BUSINESS-PROFILE-SOURCE-OF-TRUTH.md §مواقع غير عامة"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "BRANCH-008",
+   "area": "10 Branches & Locations",
+   "type": "DECISION",
+   "title": "صفحة الفروع (Locations) + صفحة مستقلة لكل فرع",
+   "requirement": "صفحتان معتمدتان: صفحة الفروع (Locations listing) وصفحة مستقلة لكل فرع (DRIVE وHOUSE)، ضمن URL Architecture المعتمدة مبدئيًا.",
+   "details": [
+    "الشجرة (P3 مبدئي، D-031): `/ar/jo/locations/` · `/ar/jo/locations/irbid/drive/` · `/ar/jo/locations/irbid/house/` · ونفسها تحت `/en/jo/…` بنفس الـSlugs.",
+    "Slugs الفروع `drive` / `house` معتمدة (D-053، M13 URL-02)؛ فرع آخر من نفس النوع في نفس المدينة ← `drive-{area}` / `house-{area}`؛ رابط الفرع الأصلي لا يتغير أبدًا؛ لا تنفيذ URLs أو Redirects الآن (G5).",
+    "صفحة المدينة `/ar/jo/locations/irbid/` وصفحة السوق = محجوزة (Progressive Activation — URL-07 توصية، DB-07 مفتوح).",
+    "`locations` مقابل `branches` (URL-10) — التوصية `locations`، غير محسوم صراحة.",
+    "روابط قديمة (مسودة): `/city-centre-branch/` → house · `/drive-thru/` و`/drive-thru-shelter-irbid-how-it-works/` → drive · `/موقعنا` و`/موقع-شلتر-كافية-محافظة-اربد/` → `/ar/jo/locations/` (SEO-MIGRATION — G5).",
+    "روابط قصيرة للطباعة/QR مثل `/drive` و`/house` اختيارية (URL-09 — G5)."
+   ],
+   "sources": [
+    "M03-038",
+    "M03-039",
+    "M01-215"
+   ],
+   "decision_refs": [
+    "D-015",
+    "D-031",
+    "D-053",
+    "DB-07"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/phase-01-discovery/10-url-architecture-draft.md §3 الشجرة، §6 URL-02/URL-07/URL-10",
+   "missing_work": "تجميد URL Architecture (شروط D-031) · قرار DB-07/URL-07/URL-10 · Wireframes لصفحة Locations وصفحة الفرع (لا توجد وثيقة تصميم لهما بعد) · المحتوى.",
+   "dependencies": [
+    "WEB/SEO (G5) URL freeze",
+    "DB-07",
+    "BRANCH-016",
+    "BRANCH-017",
+    "GBP-011"
+   ],
+   "test_required": "الصفحتان تعملان AR/EN بالروابط المعتمدة، hreflang/canonical صحيح، 200 OK، في الـSitemap؛ Definition of Done: functional · responsive (14 mandatory widths 320→1920 + 2560 + landscape + zoom-200) · RTL (ar) + LTR (en) · a11y WCAG 2.2 AA (axe serious/critical = 0, keyboard, touch ≥44px) · performance budget · visual QA · error/empty states · docs updated",
+   "design_refs": [
+    "docs/phase-01-discovery/10-url-architecture-draft.md §3، §5، §6"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P03",
+   "history": [
+    {
+     "old": "M01 §84: ادرس إنشاء صفحة مستقلة لكل Branch، لكن ناقش URL Architecture أولًا",
+     "source": "M01-215",
+     "superseded_by": "M03 R1-09 (✅ صفحة مستقلة لكل فرع) + D-031 + D-053"
+    }
+   ],
+   "notes": ""
+  },
+  {
+   "id": "BRANCH-009",
+   "area": "10 Branches & Locations",
+   "type": "REQUIREMENT",
+   "title": "نموذج بيانات الفرع (Branch data model) — الحقول",
+   "requirement": "كل Branch يجب أن يدعم الحقول: Name · Country · City · Address · Coordinates · Google Maps · Phone · Opening Hours · Images · Services · Status · SEO Data — ضمن نموذج Country → City → Location قابل للتوسع بدون إعادة بناء.",
+   "details": [
+    "إضافات لاحقة من الـOwner (M25 §25 — BRANCH-010): Name AR · Name EN · WhatsApp · Regular Hours · Special Hours · Temporary Closure · Directions Link.",
+    "متطلبات BRANCH-DATA-SYNC: حقل \"رابط GBP الرسمي\" + حقل \"آخر Sync\" لكل فرع؛ مصدر واحد يولّد صفحة الفرع وبطاقته وصفحة التواصل والـSchema (لا إدخال مكرر).",
+    "مقترح AR-02 (غير معتمد — DB-15): type (Branch | Production Facility) · format (Drive Thru | Coffee House | …) · status (Active | Coming Soon | Temporarily Closed | Permanently Closed) · visibility (Public | Hidden افتراضي) · ownership (Owned | Franchise داخلي).",
+    "الخدمات وطرق الدفع بثلاث حالات UNKNOWN/YES/NO (AR-08 — مقترح).",
+    "الساعات: branch_hours + branch_hours_override (SPEC §19 v0.5 — DRAFT)."
+   ],
+   "sources": [
+    "M01-214"
+   ],
+   "decision_refs": [
+    "D-010",
+    "D-049",
+    "DB-15",
+    "DB-07"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/phase-01-discovery/09-architecture-options-after-r1.md AR-02، AR-07، AR-08 (PROPOSED) · docs/google/BRANCH-DATA-SYNC.md §في الموقع الجديد · docs/menu-ia/SHELTER-MENU-IA-SPEC.md §19",
+   "missing_work": "اعتماد نموذج بيانات المواقع (DB-15) · تصميم الـSchema في مرحلة CMS · منصة DB-08.",
+   "dependencies": [
+    "DB-15",
+    "DB-08 (G7/G5 platform)",
+    "BRANCH-010",
+    "HOURS-005"
+   ],
+   "test_required": "مراجعة نموذج البيانات مقابل قائمة الحقول؛ اختبار: تعديل حقل واحد ينعكس في الصفحة والبطاقة والتواصل والـSchema.",
+   "design_refs": [
+    "docs/phase-01-discovery/09-architecture-options-after-r1.md AR-02، AR-08",
+    "docs/google/BRANCH-DATA-SYNC.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P04",
+   "history": [],
+   "notes": "قائمة الحقول توجيه Owner صريح (M01 §83) غير مسجّل كقرار — انظر G4-ND-04."
+  },
+  {
+   "id": "BRANCH-010",
+   "area": "10 Branches & Locations",
+   "type": "DELIVERABLE",
+   "title": "Branch Editor في الـOwner Dashboard مع Preview قبل Publish",
+   "requirement": "Branch Editor لكل فرع بالحقول: Name AR · Name EN · Address · Google Maps · Phone · WhatsApp · Regular Hours · Special Hours · Temporary Closure · Images · Directions Link · SEO · Status — مع Preview قبل Publish لأي تعديل.",
+   "details": [
+    "القيم خاضعة للقرارات: الهاتف/واتساب للفروع = 0799009436 فقط (D-057، D-058)؛ 0799338445 و0799530383 غير مسموحين كرقم فرع.",
+    "أي تعديل على الاسم/العنوان/الهاتف/الساعات يُطلق Branch Data Sync Check (D-049) ولا يغيّر GBP تلقائيًا (GEP §44).",
+    "Images: صور معتمدة فقط (APPROVED-ASSET-LIBRARY — صور Google لا تتحول تلقائيًا، D-056).",
+    "Temporary Closure يطابق D-021 (Temporary Closure / Emergency Notice).",
+    "Audit Log / Version History / Roles للتعديلات (G7)."
+   ],
+   "sources": [
+    "M25-090",
+    "M25-091"
+   ],
+   "decision_refs": [
+    "D-021",
+    "D-049",
+    "D-057",
+    "D-058",
+    "D-056"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none (Owner Dashboard لم يبدأ — EVIDENCE)",
+   "missing_work": "تصميم شاشة المحرر (Dashboard phases A–G) · منطق Preview · قيود القيم · ربط Sync Check.",
+   "dependencies": [
+    "DASH/CMS (G7)",
+    "BRANCH-009",
+    "HOURS-008",
+    "BRANCH-018"
+   ],
+   "test_required": "E2E: تعديل حقل → Preview يعكس التغيير → لا يظهر للزوار قبل Publish → Audit Log يسجل قبل/بعد → Sync Check يُطلق · رفض رقم غير معتمد · موبايل + ديسكتوب.",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P04",
+   "history": [],
+   "notes": "توجيه M25 (برومبت Dashboard) غير مسجّل في DECISION-LOG — G4-ND-01."
+  },
+  {
+   "id": "BRANCH-011",
+   "area": "10 Branches & Locations",
+   "type": "REQUIREMENT",
+   "title": "إمكانية إضافة فرع Coming Soon بدون إطلاق صفحة كاملة",
+   "requirement": "إمكانية إضافة `Coming Soon Branch` بدون الحاجة لإطلاق صفحة الفرع كاملة.",
+   "details": [
+    "مقيّد بـD-010: أي فرع/دولة مستقبلي لا يُعرض للجمهور إلا بعد أن يعطي الـOwner المعلومات ويوافق؛ الإنشاء Hidden افتراضيًا.",
+    "حالة `Coming Soon` موجودة في مقترح AR-02 (DB-15)."
+   ],
+   "sources": [
+    "M01-217"
+   ],
+   "decision_refs": [
+    "D-010",
+    "DB-15"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P2",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/phase-01-discovery/09-architecture-options-after-r1.md AR-02 (status: Coming Soon — PROPOSED)",
+   "missing_work": "تحديد شكل عرض Coming Soon (بطاقة فقط؟ صفحة noindex؟) وقواعد الـSEO/Schema له · اعتماد DB-15.",
+   "dependencies": [
+    "BRANCH-009",
+    "DB-15",
+    "SEO (G5) indexing rules"
+   ],
+   "test_required": "فرع بحالة Coming Soon يظهر فقط بعد موافقة، بلا ساعات/هاتف وهمية، ولا Schema LocalBusiness مفتوح، ولا صفحة 404.",
+   "design_refs": [
+    "docs/phase-01-discovery/09-architecture-options-after-r1.md AR-02"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P04",
+   "history": [],
+   "notes": "غير مسجّل كقرار — G4-ND-03."
+  },
+  {
+   "id": "BRANCH-012",
+   "area": "10 Branches & Locations",
+   "type": "RULE",
+   "title": "خدمات الفروع: Data Model فقط — لا استنتاج ولا نشر True/False قبل تأكيد الـOwner",
+   "requirement": "يُجهَّز Data Model لخدمات كل فرع (Indoor seating · Outdoor seating · Takeaway · Wi-Fi · Parking · Wheelchair accessibility)، لكن: ممنوع استنتاج الخدمات من الصور أو Google أو طبيعة النشاط؛ أي خدمة غير مؤكدة تبقى `MISSING — OWNER INPUT REQUIRED`؛ ولا تُنشر أي قيمة True/False قبل تأكيد الـOwner.",
+   "details": [
+    "ينطبق على الـSchema (amenityFeature) أيضًا — ملاحظة تطبيق.",
+    "مقترح AR-08: ثلاث حالات UNKNOWN (افتراضي، لا يُعرض ولا يدخل الـSchema) / YES / NO؛ Parking بنوع (مجاني / مواقف المول / فاليه / أخرى).",
+    "Drive Thru في DRIVE معتمد (D-008) ويمكن ذكره.",
+    "قيمة UNKNOWN لا تمنع نشر صفحة الفرع؛ فقط تُخفي الخاصية."
+   ],
+   "sources": [
+    "M10-015",
+    "M10-016",
+    "M10-018"
+   ],
+   "decision_refs": [
+    "D-033"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/phase-01-discovery/09-architecture-options-after-r1.md AR-08 (PROPOSED)",
+   "missing_work": "تنفيذ الحالات الثلاث في النموذج والـCMS والعرض والـSchema.",
+   "dependencies": [
+    "BRANCH-009",
+    "BRANCH-013",
+    "SCHEMA (G5)"
+   ],
+   "test_required": "فحص: مع UNKNOWN لا يظهر أي ذكر للخدمة في HTML ولا في JSON-LD؛ بعد YES تظهر في الاثنين؛ Audit Log لكل تغيير.",
+   "design_refs": [
+    "docs/phase-01-discovery/09-architecture-options-after-r1.md AR-08"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P04",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "BRANCH-013",
+   "area": "10 Branches & Locations",
+   "type": "DECISION",
+   "title": "قيم خدمات DRIVE وHOUSE = MISSING — OWNER INPUT REQUIRED",
+   "requirement": "الجلسات / Wi-Fi / accessibility / parking / services لفرعي DRIVE وHOUSE: لا افتراض — VERIFY WITH OWNER. الحقول التي سيؤكدها الـOwner لكل فرع لاحقًا: Indoor seating · Outdoor seating · Takeaway · Wi-Fi · Parking · Wheelchair accessibility.",
+   "details": [
+    "أدلة طرف ثالث غير قابلة للاستخدام (CR-083): Wi-Fi، جلسات داخلية وخارجية، Takeout، Delivery، Wheelchair في بعض المناطق (Accessible Jordan)، Valet (TripAdvisor).",
+    "تعارض Parking لـDRIVE: 'مواقف مجانية' (الموقع القديم) مقابل 'valet parking' (TripAdvisor) — CR-025.",
+    "لا يوقف الـArchitecture (D-045، D-074)."
+   ],
+   "sources": [
+    "M04-019",
+    "M10-017"
+   ],
+   "decision_refs": [
+    "D-020",
+    "D-033",
+    "D-045"
+   ],
+   "status": "PENDING OWNER INPUT",
+   "owner_approved": "NO",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "recorded: 04 CR-025، CR-083 (MISSING) · 03 VQ-24 (⬜ لم يُحسم)",
+   "missing_work": "سؤال الـOwner لكل فرع × 6 حقول وتسجيل القيم.",
+   "dependencies": [
+    "BRANCH-012"
+   ],
+   "test_required": "مراجعة: كل خدمة معروضة لها تأكيد Owner مسجّل.",
+   "design_refs": [
+    "docs/phase-01-discovery/03-verify-with-owner.md VQ-24",
+    "docs/phase-01-discovery/04-content-approval-register.md CR-025، CR-083"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "Parking: مجانية vs فاليه — OWNER DECISION REQUIRED (انظر conflicts).",
+   "business_data": true,
+   "phase": "P01",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "BRANCH-014",
+   "area": "10 Branches & Locations",
+   "type": "RULE",
+   "title": "طرق الدفع: Architecture تدعم 5 طرق — لا نشر قبل تأكيد الـOwner",
+   "requirement": "Architecture الفروع تدعم طرق الدفع: Cash · Credit/Debit Card · CliQ · Mobile Wallet · Other — لكن لا تُنشر أي Payment Method قبل تأكيد الـOwner (Status: PENDING OWNER VERIFICATION).",
+   "details": [
+    "مقترح AR-08: نفس الحالات الثلاث UNKNOWN/YES/NO؛ Other بنص.",
+    "ينطبق على الـSchema (paymentAccepted) — ملاحظة تطبيق."
+   ],
+   "sources": [
+    "M10-019",
+    "M10-020"
+   ],
+   "decision_refs": [
+    "D-034"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/phase-01-discovery/09-architecture-options-after-r1.md AR-08 (PROPOSED)",
+   "missing_work": "تنفيذ الحقول والحالات في النموذج والـCMS.",
+   "dependencies": [
+    "BRANCH-009",
+    "BRANCH-015"
+   ],
+   "test_required": "فحص: لا طريقة دفع في HTML/JSON-LD قبل YES مؤكد.",
+   "design_refs": [
+    "docs/phase-01-discovery/09-architecture-options-after-r1.md AR-08"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P04",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "BRANCH-015",
+   "area": "10 Branches & Locations",
+   "type": "DECISION",
+   "title": "قيم طرق الدفع لـDRIVE وHOUSE = MISSING — OWNER INPUT REQUIRED",
+   "requirement": "طرق الدفع لفرعي DRIVE وHOUSE = `MISSING — OWNER INPUT REQUIRED` حتى يؤكدها الـOwner.",
+   "details": [
+    "أدلة غير قابلة للاستخدام: بطاقات ائتمان (TripAdvisor، Accessible Jordan)، الدفع عند خطوة الطلب في الدرايف (CR-082)."
+   ],
+   "sources": [
+    "M04-020"
+   ],
+   "decision_refs": [
+    "D-020",
+    "D-034"
+   ],
+   "status": "PENDING OWNER INPUT",
+   "owner_approved": "NO",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "recorded: 04 CR-082 (PENDING VERIFICATION ⛔ لا يُنشر)",
+   "missing_work": "سؤال الـOwner لكل فرع.",
+   "dependencies": [
+    "BRANCH-014"
+   ],
+   "test_required": "مراجعة: كل طريقة معروضة مؤكدة.",
+   "design_refs": [
+    "docs/phase-01-discovery/04-content-approval-register.md CR-082"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P01",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "BRANCH-016",
+   "area": "10 Branches & Locations",
+   "type": "REQUIREMENT",
+   "title": "بطاقة الفرع (Branch Card) تعرض حالة الفرع وساعات العمل",
+   "requirement": "حالة الفرع (مفتوح/مغلق) وساعات العمل تظهر داخل Branch Card — معتمد مبدئيًا؛ الشكل البصري النهائي لا يُعتمد حتى مرحلة UX/UI.",
+   "details": [
+    "مقترح البطاقة (09 AR-03، 14 §2): سطر \"مفتوح الآن حتى …\" + [الاتجاهات] + أيقونة اتصال 0799009436 + أيقونة واتساب (D-062).",
+    "ممنوع 0799338445 في Branch Cards (D-057 — CONTACT-008)؛ ولا 0799530383.",
+    "الحالة تُحسب ديناميكيًا (HOURS-009)."
+   ],
+   "sources": [
+    "M04-048"
+   ],
+   "decision_refs": [
+    "D-027",
+    "D-062",
+    "D-057"
+   ],
+   "status": "APPROVED WITH CONDITIONS",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/phase-01-discovery/09-architecture-options-after-r1.md AR-03 · docs/phase-01-discovery/14-contact-architecture-and-whatsapp.md §2",
+   "missing_work": "Wireframe لبطاقة الفرع (Home/Locations/Contact) · التصميم البصري (بعد ملفات الهوية M-10).",
+   "dependencies": [
+    "HOURS-009",
+    "CONTACT-017",
+    "BRANCH-008"
+   ],
+   "test_required": "البطاقة تعرض الحالة الصحيحة لكل وقت محاكى (مفتوح/يغلق قريبًا/مغلق) + الأزرار الثلاثة؛ لا رقم شكاوى؛ Definition of Done: functional · responsive (14 mandatory widths 320→1920 + 2560 + landscape + zoom-200) · RTL (ar) + LTR (en) · a11y WCAG 2.2 AA (axe serious/critical = 0, keyboard, touch ≥44px) · performance budget · visual QA · error/empty states · docs updated",
+   "design_refs": [
+    "docs/phase-01-discovery/09-architecture-options-after-r1.md AR-03",
+    "docs/phase-01-discovery/14-contact-architecture-and-whatsapp.md §2"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P03",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "BRANCH-017",
+   "area": "10 Branches & Locations",
+   "type": "DECISION",
+   "title": "شريط صفحة الفرع على الموبايل: [الاتجاهات] [اتصال] [واتساب]",
+   "requirement": "CT-02 APPROVED: على صفحة كل فرع في الموبايل شريط سفلي: [الاتجاهات] [اتصال] [واتساب]. المنيو يبقى جزءًا من الـNavigation / Header وليس زرًا رابعًا داخل الشريط السفلي.",
+   "details": [
+    "شروط UX Testing (بنود G8/G1/G2: M14-003…M14-008): لا يغطي المحتوى · لا يزاحم Cookie/Consent UI · لا مشكلة مع Safe Area في iPhone · ليس أكبر من اللازم · أي Pattern أفضل في الـPrototype يُعرض على الـOwner قبل تغييره.",
+    "الاتجاهات ← رابط Google Maps الرسمي لذلك الفرع (GBP-011) · اتصال ← `tel:+962799009436` · واتساب ← `https://wa.me/962799009436` مع رسالة W-2 للفرع (CONTACT-019).",
+    "التسميات الإنجليزية للأزرار لم يحددها الـOwner — تُقترح للاعتماد."
+   ],
+   "sources": [
+    "M14-002"
+   ],
+   "decision_refs": [
+    "D-061",
+    "D-062",
+    "D-064",
+    "D-065"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/phase-01-discovery/14-contact-architecture-and-whatsapp.md §3 (M-A)",
+   "missing_work": "Wireframe صفحة الفرع · تنفيذ · اختبارات الشروط الأربعة.",
+   "dependencies": [
+    "GBP-013",
+    "CONTACT-019",
+    "RESP/TEST (G8)"
+   ],
+   "test_required": "على 320→430px و landscape: الشريط لا يحجب محتوى (padding سفلي)، لا تداخل مع شريط الموافقة، يحترم env(safe-area-inset-bottom)، ارتفاعه ≤ حد معتمد، الأزرار ≥44px؛ الروابط الثلاثة صحيحة لكل فرع؛ RTL/LTR.",
+   "design_refs": [
+    "docs/phase-01-discovery/14-contact-architecture-and-whatsapp.md §3",
+    "docs/phase-01-discovery/09-architecture-options-after-r1.md AR-03"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "09 AR-03 كان يقترح [الاتجاهات] [اتصال] [المنيو] — RESOLVED بقرار CT-02 (M14).",
+   "business_data": false,
+   "phase": "P03",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "BRANCH-018",
+   "area": "10 Branches & Locations",
+   "type": "DELIVERABLE",
+   "title": "عملية BRANCH DATA SYNC CHECK بين GBP والموقع والـSchema والخرائط",
+   "requirement": "إنشاء وتطبيق عملية `BRANCH DATA SYNC CHECK` لكل فرع تقارن: Google Business Profile ↔ Website (Branch page + Contact page + Branch card) ↔ Schema ↔ Contact pages ↔ Branch pages ↔ Maps ↔ Search ↔ Owner-approved data، في الحقول: Branch name · Address · Phone · Opening hours · Special hours · Maps URL · Coordinates · Website URL · Business category (+ Business status) + Branch URL. الهدف (\"أهم جزء\"): أي تغيير مستقبلي على DRIVE أو HOUSE يجب أن تحمل فيه Google + الموقع + Schema نفس المعلومة.",
+   "details": [
+    "التطبيع: الأرقام بصيغة دولية، الساعات 24 ساعة بتوقيت الفرع.",
+    "التصنيف: MATCH · MISMATCH — WEBSITE OUTDATED · MISMATCH — GOOGLE OUTDATED (اقتراح تحديث GBP عبر Proposal → Owner Approval → Change) · CONFLICT — OWNER REVIEW REQUIRED · MISSING.",
+    "التقرير: Source A · Source B · Difference · Recommended correction — لا تغيير تلقائي في Production أو Google.",
+    "في الـCMS: مصدر واحد لبيانات الفرع يولّد الصفحة والبطاقة وصفحة التواصل والـSchema · حقل رابط GBP · حقل آخر Sync.",
+    "سجل التشغيلات: SYNC-001 (Discovery) ⏳ بانتظار بيانات GBP (G-01، G-02)."
+   ],
+   "sources": [
+    "M11-020",
+    "M11-021",
+    "M12-048",
+    "M11-126",
+    "M11-133"
+   ],
+   "decision_refs": [
+    "D-049",
+    "GEP-§7/§8",
+    "GIO-§A17/§A18/§A19",
+    "D-047"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "PARTIAL",
+   "tested": "NO",
+   "existing_impl": "doc: docs/google/BRANCH-DATA-SYNC.md (العملية والقالب) — لم يُشغَّل أي Sync؛ لا أداة/CMS",
+   "missing_work": "تشغيل SYNC-001 عند وصول بيانات GBP · أداة/قائمة فحص قابلة للتكرار · تنفيذ المصدر الواحد في الـCMS.",
+   "dependencies": [
+    "GBP-008",
+    "GBP-007",
+    "BRANCH-009",
+    "SCHEMA (G5)"
+   ],
+   "test_required": "تشغيل فعلي ينتج تقريرًا بالقالب لكل فرع × كل حقل؛ اختبار تغيير ساعة/هاتف في staging ينعكس في الصفحة والبطاقة والتواصل والـJSON-LD من مصدر واحد.",
+   "design_refs": [
+    "docs/google/BRANCH-DATA-SYNC.md",
+    "docs/google/GOOGLE-ECOSYSTEM-POLICY.md §4، §7، §8، §11",
+    "docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §17–§19"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P01",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "BRANCH-019",
+   "area": "10 Branches & Locations",
+   "type": "RULE",
+   "title": "متى يُشغَّل Branch Data Sync + فحص اتساق إلزامي عند بناء/تعديل أي صفحة فرع",
+   "requirement": "عند بناء أو تعديل أي صفحة Branch: التحقق أولًا من الـGBP الرسمي للفرع، ومقارنة Website Data ↔ GBP ↔ Structured Data ↔ Owner-approved data، وإنتاج تقرير `BRANCH DATA CONSISTENCY CHECK`. وتُشغَّل BRANCH DATA SYNC: أثناء Discovery · قبل Launch · بعد Launch · بعد تغيير ساعات العمل · بعد تغيير رقم الهاتف · بعد نقل فرع · بعد تغيير اسم فرع · بعد إضافة فرع جديد · بعد تغيير Google Business Profile.",
+   "details": [
+    "في الوثيقة: بعد Launch = Day 1 وDay 7 · دوري مقترح (شهري + قبل رمضان والأعياد) = اقتراح غير معتمد.",
+    "المراقبة الدورية المستقبلية لـGBP (§45) = بند G7 (M11-098)."
+   ],
+   "sources": [
+    "M11-014",
+    "M11-015",
+    "M11-022"
+   ],
+   "decision_refs": [
+    "D-049",
+    "GEP-§4",
+    "GEP-§7/§8"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "PARTIAL",
+   "tested": "NO",
+   "existing_impl": "doc: docs/google/BRANCH-DATA-SYNC.md §متى تُشغَّل",
+   "missing_work": "ربط المحفزات بالـCMS (تغيير الساعات/الهاتف/الاسم يُطلق تذكير/فحص) · تشغيل Discovery الأول.",
+   "dependencies": [
+    "BRANCH-018",
+    "MON (G7)"
+   ],
+   "test_required": "قائمة فحص الإطلاق تتضمن تقرير Sync؛ تغيير في الـCMS يولّد مهمة Sync؛ كل صفحة فرع منشورة لها تقرير اتساق مؤرخ.",
+   "design_refs": [
+    "docs/google/BRANCH-DATA-SYNC.md",
+    "docs/google/GOOGLE-ECOSYSTEM-POLICY.md §4، §8"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P01",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "BRANCH-020",
+   "area": "10 Branches & Locations",
+   "type": "RULE",
+   "title": "NAP Consistency: الاسم والعنوان والهاتف متطابقة وأي اختلاف يُسجَّل",
+   "requirement": "مراقبة NAP (Name · Address · Phone) بحيث تكون متناسقة بين: Website · Google Business Profile · Schema · Contact page · Branch pages. أي اختلاف يُسجَّل (Log) ولا يُصحَّح تلقائيًا.",
+   "details": [
+    "الهاتف المعتمد للفرعين في كل هذه الأماكن = 0799009436 (D-057، D-060).",
+    "أي اختلاف بين GBP وبيانات الـOwner = CONFLICT — OWNER REVIEW REQUIRED (GBP-004)."
+   ],
+   "sources": [
+    "M11-027",
+    "M11-028"
+   ],
+   "decision_refs": [
+    "GEP-§5",
+    "D-060"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/google/GOOGLE-ECOSYSTEM-POLICY.md §11 · docs/google/BRANCH-DATA-SYNC.md",
+   "missing_work": "سجل اختلافات NAP (Log) ضمن تقارير Sync ومراقبة ما بعد الإطلاق.",
+   "dependencies": [
+    "BRANCH-018",
+    "MON (G7)"
+   ],
+   "test_required": "تقرير NAP يغطي المصادر الخمسة لكل فرع؛ اختلاف مصطنع في staging يظهر في السجل.",
+   "design_refs": [
+    "docs/google/GOOGLE-ECOSYSTEM-POLICY.md §11"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P09",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "BRANCH-021",
+   "area": "10 Branches & Locations",
+   "type": "DECISION",
+   "title": "محدد الفرع في المنيو: كل الفروع / DRIVE / HOUSE — اختياري والافتراضي كل الفروع",
+   "requirement": "محدد الفرع مطلوب في المنيو بالخيارات: كل الفروع (All Branches) / DRIVE / HOUSE، والوضع الافتراضي \"كل الفروع\". اختيار الفرع اختياري ولا يُجبر العميل على اختيار فرع قبل رؤية المنيو.",
+   "details": [
+    "قيمته الحالية: الساعات وحالة الفرع فقط لأن التوفر UNKNOWN (CF-02)؛ لا \"متوفر/غير متوفر\" ولا فلترة قبل البيانات (P0-02).",
+    "تحت المحدد سطر الحالة: في \"كل الفروع\" سطران، وعند اختيار فرع سطر واحد (SPEC §9.1)."
+   ],
+   "sources": [
+    "M23-098"
+   ],
+   "decision_refs": [
+    "F-18",
+    "D-145",
+    "CF-02"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "PROTOTYPE",
+   "existing_impl": "spec: docs/menu-ia/SHELTER-MENU-IA-SPEC.md §9.1 · wireframes docs/menu-ia/wireframes/html/m-ar-default.html، m-en-default.html، d-*-default.html",
+   "missing_work": "تنفيذ المكوّن في الموقع (P08) بعد اعتماد حزمة Menu IA.",
+   "dependencies": [
+    "MENU IA approval (P02)",
+    "BRANCH-022",
+    "HOURS-009"
+   ],
+   "test_required": "E2E: يفتح المنيو على \"كل الفروع\" بلا إجبار؛ لا حالة توفر مع UNKNOWN؛ Definition of Done: functional · responsive (14 mandatory widths 320→1920 + 2560 + landscape + zoom-200) · RTL (ar) + LTR (en) · a11y WCAG 2.2 AA (axe serious/critical = 0, keyboard, touch ≥44px) · performance budget · visual QA · error/empty states · docs updated",
+   "design_refs": [
+    "docs/menu-ia/SHELTER-MENU-IA-SPEC.md §9.1، §9.6",
+    "docs/menu-ia/MENU-DECISION-REGISTER.md F-18، CF-02"
+   ],
+   "code_refs": [],
+   "test_refs": [
+    "tooling/tests/prototype/menu-wireframe.spec.mjs"
+   ],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P02",
+   "history": [
+    {
+     "old": "22-menu-information-architecture: محدد الفرع غير مطلوب ما دام التوفر غير معروف (اقتراح Claude)",
+     "source": "docs/phase-01-discovery/22-menu-information-architecture.md",
+     "superseded_by": "M23 §25 (CF-02)"
+    }
+   ],
+   "notes": ""
+  },
+  {
+   "id": "BRANCH-022",
+   "area": "10 Branches & Locations",
+   "type": "DECISION",
+   "title": "Segmented Control 'كل الفروع | DRIVE | HOUSE' قابل للتحول إلى Bottom Sheet",
+   "requirement": "الـprimary implementation لمحدد الفرع مع فرعين = Segmented Control بالشكل `كل الفروع | DRIVE | HOUSE`، ويُبنى الـcomponent بحيث يتحول بسهولة إلى Selector / Bottom Sheet إذا زادت الفروع، ولا يصبح horizontal list ضخمًا.",
+   "details": [
+    "SPEC: من 4 خيارات فأكثر ← زر \"الفرع: كل الفروع ▾\" يفتح Bottom Sheet بقائمة الفروع وحالتها — نفس واجهة البيانات.",
+    "A11y: الأزرار `aria-pressed`، المجموعة `role=\"group\"`، كل زر ≥44px."
+   ],
+   "sources": [
+    "M23-099",
+    "M23-100"
+   ],
+   "decision_refs": [
+    "F-18",
+    "D-145"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "PROTOTYPE",
+   "existing_impl": "spec: docs/menu-ia/SHELTER-MENU-IA-SPEC.md §9.1 · wireframes",
+   "missing_work": "تنفيذ المكوّن مع نمط التحول.",
+   "dependencies": [
+    "BRANCH-021"
+   ],
+   "test_required": "اختبار المكوّن بـ3 خيارات وبـ4+ خيارات (fixture)؛ axe؛ لوحة المفاتيح؛ touch ≥44px؛ RTL/LTR.",
+   "design_refs": [
+    "docs/menu-ia/SHELTER-MENU-IA-SPEC.md §9.1"
+   ],
+   "code_refs": [],
+   "test_refs": [
+    "tooling/tests/prototype/menu-wireframe.spec.mjs"
+   ],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P02",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "BRANCH-023",
+   "area": "10 Branches & Locations",
+   "type": "DECISION",
+   "title": "موضع محدد الفرع: اختبار A/B بالـWireframe والقرار A (تحت البحث وقبل الفئات)",
+   "requirement": "تفويض من الـOwner: اختبار موقعين لمحدد الفرع بصريًا — A: تحت Search وقبل Categories · B: Compact selector بجانب عنوان Menu — واعتماد الأفضل بالـWireframe حسب clarity وmobile space وdiscoverability وinteraction cost، بدون سؤال الـOwner قبل الاختبار، مع شرح سبب الاختيار في التقرير.",
+   "details": [
+    "النتيجة R-01: الموضع A (نقرة واحدة لتغيير الفرع مقابل 2 في B) — UX-VALIDATION §R-01؛ البديل B موثق في wireframes m-*-variantB.",
+    "حزمة Menu IA كاملة ما زالت DRAFT — PENDING OWNER APPROVAL."
+   ],
+   "sources": [
+    "M23-101"
+   ],
+   "decision_refs": [
+    "R-01",
+    "D-142"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "PARTIAL",
+   "priority": "P1",
+   "impl_status": "TESTED",
+   "tested": "PROTOTYPE",
+   "existing_impl": "doc: docs/menu-ia/UX-VALIDATION.md R-01 · docs/menu-ia/wireframes/html/m-ar-variantB.html، m-en-variantB.html",
+   "missing_work": "اعتماد الـOwner لحزمة Menu IA · تأكيد مع اختبار مستخدمين على الـPrototype عند توفره.",
+   "dependencies": [
+    "MENU IA approval (P02)"
+   ],
+   "test_required": "مقارنة موثقة (Decision · Reason · Test Evidence) — موجودة؛ إعادة التحقق في اختبار المستخدمين.",
+   "design_refs": [
+    "docs/menu-ia/UX-VALIDATION.md R-01",
+    "docs/menu-ia/SHELTER-MENU-IA-SPEC.md §9.1"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P02",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "BRANCH-024",
+   "area": "10 Branches & Locations",
+   "type": "DECISION",
+   "title": "حفظ آخر اختيار للفرع على الجهاز دون قفل، وأولوية سياق صفحة الفرع",
+   "requirement": "يُحفظ آخر Branch Selection على الجهاز دون قفل العميل عليه؛ \"كل الفروع\" يبقى خيارًا واضحًا دائمًا. إذا جاء المستخدم من Branch Page فالسياق الجديد (الفرع القادم منه) له الأولوية على الاختيار المحفوظ.",
+   "details": [
+    "ترتيب التحديد (SPEC §9.2): 1) `?branch=` في الرابط 2) آخر اختيار محفوظ (`localStorage`، بلا بيانات شخصية) 3) الافتراضي كل الفروع."
+   ],
+   "sources": [
+    "M23-102",
+    "M23-103"
+   ],
+   "decision_refs": [
+    "F-18",
+    "D-145"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/menu-ia/SHELTER-MENU-IA-SPEC.md §9.2، §12",
+   "missing_work": "تنفيذ الحفظ والأولوية؛ التعامل مع تعذّر localStorage.",
+   "dependencies": [
+    "BRANCH-025",
+    "PRIV (G1) — لا بيانات شخصية"
+   ],
+   "test_required": "E2E: اختيار HOUSE ثم إعادة الفتح ← HOUSE؛ القدوم من صفحة DRIVE ← DRIVE رغم المحفوظ؛ \"كل الفروع\" ظاهر دائمًا؛ تعطيل التخزين لا يكسر الصفحة.",
+   "design_refs": [
+    "docs/menu-ia/SHELTER-MENU-IA-SPEC.md §9.2"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P02",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "BRANCH-025",
+   "area": "10 Branches & Locations",
+   "type": "DECISION",
+   "title": "من صفحة الفرع إلى المنيو: ?branch=drive / ?branch=house بدون سؤال إضافي",
+   "requirement": "من صفحة فرع DRIVE: Menu CTA يفتح `?branch=drive`؛ ومن صفحة HOUSE يفتح `?branch=house` — بدون سؤال إضافي للعميل.",
+   "details": [
+    "أمثلة: `/ar/jo/menu/?branch=drive` · `/en/jo/menu/?branch=house`؛ لا نسخة منيو لكل فرع؛ الـCanonical على الرابط النظيف (بنود G5: M23-104…M23-106)."
+   ],
+   "sources": [
+    "M23-107"
+   ],
+   "decision_refs": [
+    "F-18",
+    "D-145"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/menu-ia/SHELTER-MENU-IA-SPEC.md §1، §9.2",
+   "missing_work": "تنفيذ CTA صفحة الفرع وقراءة المعامل.",
+   "dependencies": [
+    "BRANCH-008",
+    "SEO canonical (G5)"
+   ],
+   "test_required": "F-08/F-09: الدخول من صفحتي DRIVE/HOUSE يختار الفرع مسبقًا في AR/EN؛ canonical نظيف.",
+   "design_refs": [
+    "docs/menu-ia/SHELTER-MENU-IA-SPEC.md §1، §9.2"
+   ],
+   "code_refs": [],
+   "test_refs": [
+    "tooling/tests/app/menu.spec.mjs (F-08/F-09 — fixme)"
+   ],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P02",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "BRANCH-026",
+   "area": "10 Branches & Locations",
+   "type": "DECISION",
+   "title": "تغيير الفرع يحافظ على الفئة الحالية وموضع التمرير",
+   "requirement": "عند تغيير الفرع: الحفاظ على current category وcurrent scroll context قدر الإمكان (مثال: إن كان داخل HOT DRINKS يبقى داخلها)، وعدم الإرجاع لأعلى الصفحة إلا إذا كان ضروريًا.",
+   "details": [
+    "SPEC §9.3: تحديث `?branch=` بـ`replaceState` (لا خطوة في الـHistory) · إرسال `branch_filter_change` (D-149 — G6)."
+   ],
+   "sources": [
+    "M23-108"
+   ],
+   "decision_refs": [
+    "F-18",
+    "D-145",
+    "D-149"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/menu-ia/SHELTER-MENU-IA-SPEC.md §9.3",
+   "missing_work": "تنفيذ.",
+   "dependencies": [
+    "BRANCH-021"
+   ],
+   "test_required": "F-03: تغيير الفرع داخل HOT DRINKS يبقي الموضع؛ لا مدخل History جديد؛ حدث واحد branch_filter_change.",
+   "design_refs": [
+    "docs/menu-ia/SHELTER-MENU-IA-SPEC.md §9.3"
+   ],
+   "code_refs": [],
+   "test_refs": [
+    "tooling/tests/app/menu.spec.mjs (F-03 — fixme)"
+   ],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P02",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "BRANCH-027",
+   "area": "10 Branches & Locations",
+   "type": "DECISION",
+   "title": "تفاصيل الصنف المفتوحة عند تغيير الفرع: 3 حالات",
+   "requirement": "إذا كان Product Detail مفتوحًا وتغيّر الفرع: (1) المنتج available في الفرع الجديد ← تبقى التفاصيل مفتوحة وتتحدث الـavailability؛ (2) Unavailable + Show ← تبقى مفتوحة ويظهر بوضوح أنه غير متوفر في الفرع الجديد؛ (3) Unavailable + Hide ← تُغلق التفاصيل بشكل طبيعي ويُعاد المستخدم لمكانه في القائمة.",
+   "details": [
+    "نص SPEC: \"غير متوفر حاليًا في HOUSE\" · لا يُعرض شيء ما دام التوفر UNKNOWN."
+   ],
+   "sources": [
+    "M23-109",
+    "M23-110",
+    "M23-111"
+   ],
+   "decision_refs": [
+    "F-19",
+    "D-145",
+    "D-146"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/menu-ia/SHELTER-MENU-IA-SPEC.md §7 (تغيير الفرع والتفاصيل مفتوحة)",
+   "missing_work": "تنفيذ.",
+   "dependencies": [
+    "BRANCH-029",
+    "MENU (G3) availability states"
+   ],
+   "test_required": "F-12 + سيناريوهات الحالات الثلاث في AR/EN، موبايل (Bottom Sheet) وديسكتوب (Modal)؛ التركيز يعود صحيحًا عند الإغلاق.",
+   "design_refs": [
+    "docs/menu-ia/SHELTER-MENU-IA-SPEC.md §7"
+   ],
+   "code_refs": [],
+   "test_refs": [
+    "tooling/tests/app/menu.spec.mjs (F-12 — fixme)"
+   ],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P02",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "BRANCH-028",
+   "area": "10 Branches & Locations",
+   "type": "DECISION",
+   "title": "إظهار فرق التوفر بين الفروع فقط عند الحاجة",
+   "requirement": "إذا كان المنتج متوفرًا في DRIVE وHOUSE معًا: لا تُعرض Branch Badges بلا داعٍ. إذا اختلفت الـavailability بين الفروع: يُظهَر الفرق (مثال: \"متوفر في DRIVE فقط\" أو المكافئ الإنجليزي \"Available at DRIVE only\").",
+   "details": [
+    "يظهر فقط إذا كانت البيانات معروفة ومختلفة (SPEC §9.6)؛ مع UNKNOWN (كل الأصناف اليوم) لا شيء."
+   ],
+   "sources": [
+    "M23-112",
+    "M23-113"
+   ],
+   "decision_refs": [
+    "F-19",
+    "D-145",
+    "D-079"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "PROTOTYPE",
+   "existing_impl": "spec: docs/menu-ia/SHELTER-MENU-IA-SPEC.md §6، §9.6 · wireframe m-*-08 (مثال)",
+   "missing_work": "تنفيذ بعد وصول بيانات التوفر.",
+   "dependencies": [
+    "BRANCH-029"
+   ],
+   "test_required": "Fixtures: متوفر في الفرعين ← لا شارة؛ في فرع واحد مع \"كل الفروع\" ← النص الصحيح AR/EN؛ UNKNOWN ← لا شيء.",
+   "design_refs": [
+    "docs/menu-ia/SHELTER-MENU-IA-SPEC.md §9.6"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P02",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "BRANCH-029",
+   "area": "10 Branches & Locations",
+   "type": "RULE",
+   "title": "التوفر لكل فرع غير معروف: لا افتراض — البيانات PENDING OWNER VERIFICATION",
+   "requirement": "التوفر الدقيق الحالي لكل Product عبر DRIVE/HOUSE غير معروف بالكامل؛ ممنوع افتراض أن كل المنتجات available في الفرعين. يمكن تصميم الـarchitecture والـUI للتوفر حسب الفرع الآن؛ أما البيانات نفسها فـ`PENDING OWNER VERIFICATION`.",
+   "details": [
+    "M-01: 191 × 2 = 382 قيمة، كلها UNKNOWN (D-094: DRIVE/HOUSE availability = UNKNOWN).",
+    "أثناء UNKNOWN: لا \"متوفر\" ولا \"غير متوفر\"، ولا تُخفى الأصناف ولا تُفلتر (CF-02، P0-02)."
+   ],
+   "sources": [
+    "M23-209",
+    "M23-210"
+   ],
+   "decision_refs": [
+    "D-079",
+    "D-094",
+    "CF-02",
+    "M-01"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "PROTOTYPE",
+   "existing_impl": "spec: docs/menu-ia/SHELTER-MENU-IA-SPEC.md §9.6 · docs/menu-ia/MENU-DECISION-REGISTER.md M-01",
+   "missing_work": "استلام بيانات التوفر من الـOwner (M-01) · إدارتها من الـCMS (G3/G7).",
+   "dependencies": [
+    "MENU (G3)",
+    "CMS (G7)"
+   ],
+   "test_required": "فحص: مع UNKNOWN لا تظهر أي شارة توفر ولا يختفي أي صنف عند تغيير الفرع.",
+   "design_refs": [
+    "docs/menu-ia/SHELTER-MENU-IA-SPEC.md §9.6",
+    "docs/menu-ia/MENU-DECISION-REGISTER.md CF-02، M-01"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P01",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "BRANCH-030",
+   "area": "10 Branches & Locations",
+   "type": "DECISION",
+   "title": "اختيار فرع مغلق لا يمنع تصفح المنيو ويعرض Closed now وموعد الافتتاح التالي",
+   "requirement": "إذا اختار العميل فرعًا مغلقًا: لا يُمنع من مشاهدة المنيو ويبقى كامل Menu Browsing متاحًا، مع عرض واضح لـ`Closed now` و`Next opening time`.",
+   "details": [
+    "النص: \"مغلق الآن — يفتح 9:00 ص\" / \"يفتح غدًا 9:00 ص\" · \"Closed now — opens 9:00 AM\" (HOURS-010)."
+   ],
+   "sources": [
+    "M23-126"
+   ],
+   "decision_refs": [
+    "F-20",
+    "D-145"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "PROTOTYPE",
+   "existing_impl": "spec: docs/menu-ia/SHELTER-MENU-IA-SPEC.md §9.4، §20 · wireframes m-ar-house-closed.html، m-en-house-closed.html، d-*-house.html",
+   "missing_work": "تنفيذ.",
+   "dependencies": [
+    "HOURS-009"
+   ],
+   "test_required": "F-10: وقت محاكى (HOUSE 08:00) ← التصفح كامل + السطر الصحيح AR/EN.",
+   "design_refs": [
+    "docs/menu-ia/SHELTER-MENU-IA-SPEC.md §9.4"
+   ],
+   "code_refs": [],
+   "test_refs": [
+    "tooling/tests/app/menu.spec.mjs (F-10 — fixme)"
+   ],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P02",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "BRANCH-031",
+   "area": "10 Branches & Locations",
+   "type": "DECISION",
+   "title": "زر \"اطلب\" لكل فرع = قدرة مستقبلية فقط",
+   "requirement": "R2B-02: من حيث الـArchitecture يمكن دعم زر \"اطلب\" لكل فرع مستقبلًا، دون إبراز Online Ordering كهدف أساسي للموقع حاليًا قبل تحديد القنوات الرسمية.",
+   "details": [
+    "قنوات الطلب/التوصيل لكل فرع = MISSING — OWNER INPUT REQUIRED (R2B-01، R2B-03، R2B-04 — G6/G3/CONTACT-022).",
+    "R2B-05 (Pre-order · Pickup · Drive-thru pickup · Direct Online Ordering) = FUTURE CAPABILITY ONLY (G5)."
+   ],
+   "sources": [
+    "M14-043"
+   ],
+   "decision_refs": [
+    "D-073",
+    "D-016"
+   ],
+   "status": "DEFERRED",
+   "owner_approved": "YES",
+   "priority": "P3",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "recorded: DECISION-LOG D-073",
+   "missing_work": "لا شيء الآن؛ عند تحديد القنوات: حقل رابط طلب لكل فرع.",
+   "dependencies": [
+    "CONTACT-022",
+    "INT (G6) R2B-01"
+   ],
+   "test_required": "لاحقًا: لا زر طلب يظهر قبل اعتماد قناة رسمية.",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P12",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "HOURS-001",
+   "area": "11 Hours",
+   "type": "DECISION",
+   "title": "ساعات DRIVE العادية: السبت–الخميس 07:00–02:00 · الجمعة 08:00–02:00",
+   "requirement": "ساعات SHELTER COFFEE DRIVE المعتمدة الحالية (Regular Hours): Saturday–Thursday 07:00 AM – 02:00 AM · Friday 08:00 AM – 02:00 AM.",
+   "details": [
+    "بصيغة 24 ساعة: السبت–الخميس 07:00–02:00 (اليوم التالي) · الجمعة 08:00–02:00 — الوردية تعبر منتصف الليل وتُنسب ليوم الافتتاح (HOURS-012).",
+    "مثبتة في harness: REGULAR['drive'] = Sat…Thu (07:00, 02:00) · Fri (08:00, 02:00).",
+    "مصادر قديمة متعارضة (NEEDS UPDATE — لا تُستخدم): TripAdvisor وmat3am يوميًا 09:00–23:00 · findglocal 08:00–03:00 · arabplaces 06:00–02:00 والجمعة 08:00–02:00 · Cybo 09:00–23:00 (CR-023).",
+    "مقارنة GBP لم تتم (P-08 PENDING VERIFICATION) — أي اختلاف = CONFLICT — OWNER REVIEW REQUIRED وساعات الـOwner لها الأولوية."
+   ],
+   "sources": [
+    "M04-016",
+    "M23-119"
+   ],
+   "decision_refs": [
+    "D-020",
+    "F-20",
+    "P-08"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "PROTOTYPE",
+   "existing_impl": "recorded: DECISION-LOG D-020 · docs/menu-ia/SHELTER-MENU-IA-SPEC.md §9.4 · docs/menu-ia/evidence/hours_logic_check.py (12/12 PASS)",
+   "missing_work": "إدخالها كـRegular Hours في الـCMS · openingHoursSpecification في الـSchema · مقارنة GBP.",
+   "dependencies": [
+    "HOURS-005",
+    "BRANCH-018",
+    "GBP-008"
+   ],
+   "test_required": "حالة صحيحة لكل يوم/ساعة (harness + E2E بساعة Asia/Amman محاكاة)؛ الـSchema تطابق؛ Sync مع GBP.",
+   "design_refs": [
+    "docs/menu-ia/SHELTER-MENU-IA-SPEC.md §9.4",
+    "docs/menu-ia/evidence/hours_logic_check.py",
+    "docs/google/GOOGLE-BUSINESS-PROFILE-SOURCE-OF-TRUTH.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "ساعات الدلائل القديمة تخالف D-020 — RESOLVED لصالح الـOwner؛ GBP لم يُقارن بعد.",
+   "business_data": true,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "HOURS-002",
+   "area": "11 Hours",
+   "type": "DECISION",
+   "title": "ساعات HOUSE العادية: السبت–الأربعاء 09:00–22:00 · الخميس–الجمعة 09:00–23:00",
+   "requirement": "ساعات SHELTER COFFEE HOUSE المعتمدة الحالية (Regular Hours): Saturday–Wednesday 09:00 AM – 10:00 PM · Thursday–Friday 09:00 AM – 11:00 PM.",
+   "details": [
+    "بصيغة 24 ساعة: السبت–الأربعاء 09:00–22:00 · الخميس–الجمعة 09:00–23:00.",
+    "مثبتة في harness: REGULAR['house'] = Sat…Wed (09:00, 22:00) · Thu، Fri (09:00, 23:00).",
+    "مصادر قديمة متعارضة (CR-032): الجمعة 2:00 ظهرًا – 11:00 م · \"يوميًا 9–10، الخميس 9–11\" · Snapchat (الإثنين–الأربعاء والسبت–الأحد 09:00–22:00) — حُسمت بقرار الـOwner.",
+    "ساعات المول الخاصة/المختلفة ← HOURS-004."
+   ],
+   "sources": [
+    "M04-026",
+    "M23-120"
+   ],
+   "decision_refs": [
+    "D-020",
+    "F-20",
+    "P-08"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "PROTOTYPE",
+   "existing_impl": "recorded: DECISION-LOG D-020 · docs/menu-ia/SHELTER-MENU-IA-SPEC.md §9.4 · docs/menu-ia/evidence/hours_logic_check.py",
+   "missing_work": "كما في HOURS-001.",
+   "dependencies": [
+    "HOURS-004",
+    "HOURS-005",
+    "BRANCH-018"
+   ],
+   "test_required": "كما في HOURS-001 (حالات HOUSE في harness: الأربعاء 21:30 ← يغلق بعد 30 دقيقة؛ الخميس 22:30 ← يغلق بعد 30 دقيقة؛ 08:00 ← يفتح 9:00 ص).",
+   "design_refs": [
+    "docs/menu-ia/SHELTER-MENU-IA-SPEC.md §9.4",
+    "docs/menu-ia/evidence/hours_logic_check.py",
+    "docs/google/GOOGLE-BUSINESS-PROFILE-SOURCE-OF-TRUTH.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "جمعة HOUSE في الموقع القديم 2:00 ظ vs 09:00 — RESOLVED لصالح الـOwner.",
+   "business_data": true,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "HOURS-003",
+   "area": "11 Hours",
+   "type": "RULE",
+   "title": "لا فرق بين ساعات الدرايف ثرو والجلسات في DRIVE إلا بمعلومة موثقة وسؤال الـOwner",
+   "requirement": "لا يُعتمد أي فرق بين ساعات الـDrive Thru وساعات الجلسات في DRIVE إلا إذا وُجدت معلومة موثقة وسُئل عنها الـOwner.",
+   "details": [
+    "حاليًا: ساعة واحدة للفرع (D-020: لا فرق معتمد)."
+   ],
+   "sources": [
+    "M04-017"
+   ],
+   "decision_refs": [
+    "D-020"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "recorded: DECISION-LOG D-020",
+   "missing_work": "لا شيء (النموذج يمكنه لاحقًا دعم ساعات لكل خدمة إن اعتُمدت).",
+   "dependencies": [
+    "HOURS-001"
+   ],
+   "test_required": "مراجعة: لا تظهر ساعات منفصلة للدرايف دون قرار مسجّل.",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "HOURS-004",
+   "area": "11 Hours",
+   "type": "RULE",
+   "title": "ساعات المول المختلفة أو الخاصة لـHOUSE تُعرض كتعارض ولا تُغيَّر تلقائيًا",
+   "requirement": "إذا كان لمول Irbid City Center Schedule مختلف أو Special Hours: يُعرض التعارض على الـOwner ولا تُغيَّر ساعات HOUSE تلقائيًا.",
+   "details": [
+    "ينسجم مع GEP §9 وقاعدة \"GBP لا يتجاوز الـOwner\"."
+   ],
+   "sources": [
+    "M04-027"
+   ],
+   "decision_refs": [
+    "D-020",
+    "GEP-§5",
+    "GEP-§9"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "recorded: DECISION-LOG D-020 · docs/google/GOOGLE-BUSINESS-PROFILE-SOURCE-OF-TRUTH.md (Special hours بما فيها ساعات المول)",
+   "missing_work": "فحص ساعات المول عند Sync وعند المواسم.",
+   "dependencies": [
+    "BRANCH-018",
+    "HOURS-013"
+   ],
+   "test_required": "تقرير Sync يحتوي بند ساعات المول؛ لا تغيير بدون موافقة مسجلة.",
+   "design_refs": [
+    "docs/google/GOOGLE-BUSINESS-PROFILE-SOURCE-OF-TRUTH.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P09",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "HOURS-005",
+   "area": "11 Hours",
+   "type": "REQUIREMENT",
+   "title": "بنية الساعات: Regular + Special/Holiday + Temporary Closure + Emergency Closure",
+   "requirement": "الـArchitecture تدعم: Regular Hours + Special Hours / Holiday Override (Holiday Hours) + Temporary Closure + Emergency Closure / Emergency Notice؛ ولكل استثناء: Start Date · End Date · Reason · Branch · Publish Status. الـUX والـCMS لهذا النظام يُناقشان مع الـOwner قبل التنفيذ.",
+   "details": [
+    "SPEC §19 (v0.5 — DRAFT): `branch_hours` (Regular) + `branch_hours_override` (Special · Holiday · Temporary · Emergency، مع تواريخ وسبب وحالة نشر).",
+    "مقترح AR-07 (للنقاش — DB-18): Special بالساعات البديلة لكل يوم؛ Temporary/Emergency بتاريخ/وقت بداية ونهاية ونص إعلان AR/EN؛ تغذية البطاقة والصفحة والـSchema (`openingHoursSpecification` + `specialOpeningHoursSpecification`) وشريط الإعلان الطارئ؛ GBP لا يتحدث تلقائيًا من الموقع.",
+    "بيانات الساعات الخاصة الحالية: لا توجد (M-09)."
+   ],
+   "sources": [
+    "M04-030",
+    "M23-121"
+   ],
+   "decision_refs": [
+    "D-021",
+    "DB-18",
+    "F-20"
+   ],
+   "status": "APPROVED WITH CONDITIONS",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "PROTOTYPE",
+   "existing_impl": "spec: docs/phase-01-discovery/09-architecture-options-after-r1.md AR-07 · docs/menu-ia/SHELTER-MENU-IA-SPEC.md §9.4، §19 · docs/menu-ia/evidence/hours_logic_check.py (override wins — حالة HOUSE إغلاق مؤقت)",
+   "missing_work": "نقاش UX/CMS مع الـOwner (DB-18) عبر Wireframes · تنفيذ النموذج.",
+   "dependencies": [
+    "DB-18",
+    "CMS (G7)",
+    "HOURS-007",
+    "HOURS-008"
+   ],
+   "test_required": "Fixtures لكل نوع استثناء: يتقدم على العادي في الفترة فقط ويعود تلقائيًا بعد End Date؛ لا يظهر قبل Publish؛ Schema صحيحة.",
+   "design_refs": [
+    "docs/phase-01-discovery/09-architecture-options-after-r1.md AR-07",
+    "docs/menu-ia/SHELTER-MENU-IA-SPEC.md §19"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P04",
+   "history": [],
+   "notes": "الحقول Start Date/End Date/Reason/Branch/Publish Status واردة في M04 (بند G7 M04-031) وD-021."
+  },
+  {
+   "id": "HOURS-006",
+   "area": "11 Hours",
+   "type": "RULE",
+   "title": "تعديل رمضان/العيد لا يغيّر الساعات العادية",
+   "requirement": "تعديل ساعات رمضان أو العيد (أو المناسبات والحالات الاستثنائية) لا يحتاج تغيير ساعات الفرع الأساسية — الـRegular Hours تبقى كما هي، والاستثناء يُضاف كـOverride.",
+   "details": [
+    "مقترح AR-07: عند انتهاء End Date تعود الساعات العادية تلقائيًا (لا يحتاج أحد التذكر) — اقتراح ضمن DB-18."
+   ],
+   "sources": [
+    "M04-029"
+   ],
+   "decision_refs": [
+    "D-021"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/phase-01-discovery/09-architecture-options-after-r1.md AR-07",
+   "missing_work": "تنفيذ ضمن نظام الـOverrides.",
+   "dependencies": [
+    "HOURS-005"
+   ],
+   "test_required": "إنشاء Override رمضان لا يغيّر سجل Regular؛ بعد انتهائه تعود الحالة للعادي.",
+   "design_refs": [
+    "docs/phase-01-discovery/09-architecture-options-after-r1.md AR-07"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P04",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "HOURS-007",
+   "area": "11 Hours",
+   "type": "RULE",
+   "title": "أولوية الحالة الخاصة/المؤقتة على الساعات العادية",
+   "requirement": "الحالة الخاصة/المؤقتة (Special/temporary state) لها الأولوية على الساعات العادية حسب الـbusiness rule.",
+   "details": [
+    "ترتيب SPEC §9.4 (DRAFT): Emergency Closure ← Temporary Closure ← Holiday/Special Hours ← Regular.",
+    "مقترح AR-07: الإغلاق المؤقت ← الساعات الخاصة ← الأساسية — متسق؛ الترتيب التفصيلي ينتظر اعتماد الـOwner لحزمة Menu IA/DB-18.",
+    "SPEC §20: الساعات الخاصة أو الطارئة تتقدم على العادية تلقائيًا."
+   ],
+   "sources": [
+    "M23-122"
+   ],
+   "decision_refs": [
+    "D-021",
+    "F-20",
+    "DB-18"
+   ],
+   "status": "APPROVED WITH CONDITIONS",
+   "owner_approved": "PARTIAL",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "PROTOTYPE",
+   "existing_impl": "spec: docs/menu-ia/SHELTER-MENU-IA-SPEC.md §9.4 · docs/menu-ia/evidence/hours_logic_check.py (overrides win over regular)",
+   "missing_work": "اعتماد ترتيب الأولوية التفصيلي.",
+   "dependencies": [
+    "HOURS-005",
+    "DB-18"
+   ],
+   "test_required": "Fixtures متداخلة (طارئ + خاص في نفس اليوم) تُرجع الحالة حسب الترتيب المعتمد.",
+   "design_refs": [
+    "docs/menu-ia/SHELTER-MENU-IA-SPEC.md §9.4"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P02",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "HOURS-008",
+   "area": "11 Hours",
+   "type": "DELIVERABLE",
+   "title": "تعديل الساعات بسهولة من الـDashboard (Regular ثم Special)",
+   "requirement": "تعديل ساعات العمل بسهولة من الـOwner Dashboard: Regular Hours ثم Special Hours (مثل Ramadan · Holiday · Temporary change) بحقول Start Date · End Date · Reason · Branch · Status.",
+   "details": [
+    "الـUX والـCMS يُناقشان مع الـOwner قبل التنفيذ (D-021، DB-18) — عبر Wireframes.",
+    "متاح من الموبايل (\"تعديل ساعات فرع\" — بند G7 من M26).",
+    "أي تعديل للساعات يُطلق Branch Data Sync (BRANCH-019) ولا يغيّر GBP تلقائيًا."
+   ],
+   "sources": [
+    "M25-092"
+   ],
+   "decision_refs": [
+    "D-021",
+    "DB-18",
+    "D-049"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none (Owner Dashboard لم يبدأ)",
+   "missing_work": "Wireframes محرر الساعات · تنفيذ · Preview/Publish/Audit.",
+   "dependencies": [
+    "HOURS-005",
+    "BRANCH-010",
+    "DASH (G7)"
+   ],
+   "test_required": "E2E: إضافة Special Hours لرمضان بتواريخ ← Preview ← Publish ← الحالة على الموقع تتغير في الفترة فقط؛ موبايل وديسكتوب.",
+   "design_refs": [
+    "docs/phase-01-discovery/09-architecture-options-after-r1.md AR-07"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P04",
+   "history": [],
+   "notes": "غير مسجّل كقرار Dashboard — G4-ND-02."
+  },
+  {
+   "id": "HOURS-009",
+   "area": "11 Hours",
+   "type": "RULE",
+   "title": "حالة الفرع تُحسب ديناميكيًا: Open Now · Closed Now · Closing Soon · Next Opening",
+   "requirement": "حالة مفتوح/مغلق تُحسب ديناميكيًا — ممنوع static text. الموقع يحسب تلقائيًا من Regular + Special Hours: Open Now · Closed Now · Closing Soon · Next Opening.",
+   "details": [
+    "SPEC (اختيار تقني — owner N/A): الحساب في المتصفح بتوقيت `Asia/Amman` (UTC+3، بلا توقيت صيفي) مهما كان توقيت الجهاز، ويتحدث كل دقيقة.",
+    "فشل حساب الحالة ← يُخفى سطر الحالة بدل \"مفتوح\" غير مؤكد (SPEC §20).",
+    "الخوارزمية: فحص وردية أمس (إن عبرت منتصف الليل) ووردية اليوم؛ داخل الوردية مفتوح أو \"يغلق بعد N دقيقة\" إذا بقي ≤60؛ خارجها مغلق مع أول افتتاح قادم (+ \"غدًا\")؛ وقت الإغلاق نفسه = مغلق.",
+    "التحقق: hours_logic_check.py = 12/12 PASS."
+   ],
+   "sources": [
+    "M23-118",
+    "M25-093"
+   ],
+   "decision_refs": [
+    "F-20",
+    "D-145",
+    "D-021"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "PROTOTYPE",
+   "existing_impl": "spec: docs/menu-ia/SHELTER-MENU-IA-SPEC.md §9.4، §20 · docs/menu-ia/evidence/hours_logic_check.py (12/12 PASS) · wireframes m-*-drive-closing، m-*-house-closed",
+   "missing_work": "تنفيذ في الموقع (Branch Selector، Branch Card، Branch Page، Contact page) · اختبارات app.",
+   "dependencies": [
+    "HOURS-001",
+    "HOURS-002",
+    "HOURS-005",
+    "HOURS-011",
+    "HOURS-012"
+   ],
+   "test_required": "F-10/F-11 بساعة Asia/Amman محاكاة على كل الحالات (أيام الأسبوع، الحدود، العبور، Overrides، فشل)؛ لا نص ثابت في HTML المولد.",
+   "design_refs": [
+    "docs/menu-ia/SHELTER-MENU-IA-SPEC.md §9.4",
+    "docs/menu-ia/evidence/hours_logic_check.py"
+   ],
+   "code_refs": [
+    "docs/menu-ia/evidence/hours_logic_check.py"
+   ],
+   "test_refs": [
+    "tooling/tests/app/menu.spec.mjs (F-10، F-11 — fixme)",
+    "docs/menu-ia/evidence/hours_logic_check.py"
+   ],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P02",
+   "history": [],
+   "notes": "Next Opening وارد في M23 §38 وM25 §26؛ Asia/Amman اختيار تقني موثق في SPEC وAR-07 وليس نصًا من الـOwner."
+  },
+  {
+   "id": "HOURS-010",
+   "area": "11 Hours",
+   "type": "REQUIREMENT",
+   "title": "عرض الحالة مع معلومات ساعات اليوم داخل محدد الفرع (ونصوص AR/EN)",
+   "requirement": "داخل Branch Selector أو UI مناسب: عرض Open now / Closed now مع معلومات ساعات اليوم. أمثلة الـOwner: \"DRIVE مفتوح الآن — حتى 2:00 ص\"، \"HOUSE مغلق الآن — يفتح 9:00 ص\". قبل نافذة الـ60 دقيقة: \"مفتوح الآن — حتى 2:00 ص\"؛ بعد الإغلاق: \"مغلق الآن — يفتح 7:00 ص\".",
+   "details": [
+    "نصوص SPEC: مفتوح \"مفتوح الآن — حتى 2:00 ص\" / \"Open now — until 2:00 AM\" · يغلق قريبًا \"يغلق بعد 45 دقيقة\" / \"Closes in 45 min\" · مغلق \"مغلق الآن — يفتح 9:00 ص\" / \"يفتح غدًا 9:00 ص\" · \"Closed now — opens 9:00 AM\" / \"opens tomorrow 9:00 AM\".",
+    "الصيغ الإنجليزية وصيغة \"غدًا\" = من الـSPEC (DRAFT) — تحتاج اعتماد المحتوى.",
+    "الحالة نص + رمز شكلي (دائرة ممتلئة/فارغة)، وليست لونًا فقط.",
+    "في \"كل الفروع\" سطران؛ عند اختيار فرع سطر واحد. نفس السطر في Branch Card (BRANCH-016) وبطاقة التواصل العام (14 §4)."
+   ],
+   "sources": [
+    "M23-117",
+    "M23-124"
+   ],
+   "decision_refs": [
+    "F-20",
+    "D-145"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "PARTIAL",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "PROTOTYPE",
+   "existing_impl": "spec: docs/menu-ia/SHELTER-MENU-IA-SPEC.md §9.1، §9.4 · wireframes",
+   "missing_work": "اعتماد النصوص AR/EN النهائية (مرحلة المحتوى) · تنفيذ.",
+   "dependencies": [
+    "HOURS-009",
+    "CONTENT (G1)"
+   ],
+   "test_required": "لقطات/فحوص نصية لكل حالة × لغة؛ تباين ≥4.5:1؛ الحالة مقروءة بقارئ الشاشة.",
+   "design_refs": [
+    "docs/menu-ia/SHELTER-MENU-IA-SPEC.md §9.4"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P02",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "HOURS-011",
+   "area": "11 Hours",
+   "type": "RULE",
+   "title": "يغلق قريبًا: آخر 60 دقيقة قبل الإغلاق مع العد",
+   "requirement": "Closing Soon: خلال آخر 60 minutes قبل الإغلاق تُعرض حالة \"يغلق قريبًا\" مع العد (مثال: \"يغلق بعد 45 دقيقة\").",
+   "details": [
+    "الحدّ (harness): متبقٍ ≤60 دقيقة ← Closing Soon (مثال DRIVE الجمعة 01:00 ← \"يغلق بعد 60 دقيقة\")؛ 61 دقيقة ← مفتوح (00:59 ← \"مفتوح الآن — حتى 2:00 ص\").",
+    "CLOSING_SOON_MIN = 60."
+   ],
+   "sources": [
+    "M23-123"
+   ],
+   "decision_refs": [
+    "F-20",
+    "D-145"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "PROTOTYPE",
+   "existing_impl": "spec: docs/menu-ia/SHELTER-MENU-IA-SPEC.md §9.4 · docs/menu-ia/evidence/hours_logic_check.py · wireframes m-ar-drive-closing.html، m-en-drive-closing.html",
+   "missing_work": "تنفيذ.",
+   "dependencies": [
+    "HOURS-009"
+   ],
+   "test_required": "F-11: حالات 61/60/45/1/0 دقيقة.",
+   "design_refs": [
+    "docs/menu-ia/SHELTER-MENU-IA-SPEC.md §9.4",
+    "docs/menu-ia/evidence/hours_logic_check.py"
+   ],
+   "code_refs": [
+    "docs/menu-ia/evidence/hours_logic_check.py"
+   ],
+   "test_refs": [
+    "tooling/tests/app/menu.spec.mjs (F-11 — fixme)",
+    "docs/menu-ia/evidence/hours_logic_check.py"
+   ],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P02",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "HOURS-012",
+   "area": "11 Hours",
+   "type": "RULE",
+   "title": "التعامل الصحيح مع ساعات تمتد بعد منتصف الليل (\"نقطة مهمة جدًا\")",
+   "requirement": "التعامل بشكل صحيح مع ساعات تمتد بعد منتصف الليل (مثل DRIVE حتى 02:00 AM) — \"هذه نقطة مهمة جدًا\".",
+   "details": [
+    "الوردية العابرة تُخزن كيوم عمل واحد (AR-07) ويُفحص في الحساب وردية أمس + اليوم.",
+    "حالات harness: السبت 19:30 مفتوح حتى 2:00 ص · الأحد 01:15 (وردية السبت) ← يغلق بعد 45 دقيقة · 02:00 ← مغلق، يفتح 7:00 ص · الجمعة 07:30 ← مغلق، يفتح 8:00 ص · الجمعة 01:00 (وردية الخميس) ← يغلق بعد 60 دقيقة.",
+    "التوقيت Asia/Amman (UTC+3) — اختيار تقني."
+   ],
+   "sources": [
+    "M23-125"
+   ],
+   "decision_refs": [
+    "F-20",
+    "D-145"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "PROTOTYPE",
+   "existing_impl": "spec: docs/menu-ia/SHELTER-MENU-IA-SPEC.md §9.4 · docs/menu-ia/evidence/hours_logic_check.py (12/12 PASS)",
+   "missing_work": "تنفيذ + اختبارات app.",
+   "dependencies": [
+    "HOURS-001",
+    "HOURS-009"
+   ],
+   "test_required": "F-11 بساعة محاكاة حول منتصف الليل (السبت→الأحد، الخميس→الجمعة) وتغير اليوم؛ Schema openingHours تعبّر عن العبور صحيحًا.",
+   "design_refs": [
+    "docs/menu-ia/SHELTER-MENU-IA-SPEC.md §9.4",
+    "docs/menu-ia/evidence/hours_logic_check.py"
+   ],
+   "code_refs": [
+    "docs/menu-ia/evidence/hours_logic_check.py"
+   ],
+   "test_refs": [
+    "tooling/tests/app/menu.spec.mjs (F-11 — fixme)",
+    "docs/menu-ia/evidence/hours_logic_check.py"
+   ],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P02",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "HOURS-013",
+   "area": "11 Hours",
+   "type": "RULE",
+   "title": "Google Special Hours تُقارن مع الموقع ولا تغيير تلقائي على Production",
+   "requirement": "Google Special Hours مهمة — خصوصًا Ramadan · Eid · Official holidays · Special events · Temporary closures — وعند وجودها تُقارن مع الموقع؛ إذا كانت على Google محدثة والموقع غير محدث: يُعرض الفرق على الـOwner ولا يُغيَّر Production تلقائيًا.",
+   "details": [
+    "العكس أيضًا: GBP لا يتحدث تلقائيًا من الموقع (AR-07 §6) — أي تحديث لـGBP عبر Proposal → Owner Approval → Change (GBP-009).",
+    "بيانات الساعات الخاصة الحالية غير متوفرة (M-09)."
+   ],
+   "sources": [
+    "M11-023",
+    "M11-024"
+   ],
+   "decision_refs": [
+    "GEP-§9",
+    "D-049",
+    "D-048"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "spec: docs/google/GOOGLE-ECOSYSTEM-POLICY.md §9 · docs/google/BRANCH-DATA-SYNC.md (حدث تغيير الساعات الخاصة)",
+   "missing_work": "إدراج الساعات الخاصة في كل تشغيل Sync؛ فحص قبل رمضان والأعياد (مقترح).",
+   "dependencies": [
+    "BRANCH-018",
+    "GBP-008"
+   ],
+   "test_required": "تقرير Sync يحتوي Special hours لكل فرع؛ لا تعديل Production بدون موافقة مسجلة.",
+   "design_refs": [
+    "docs/google/GOOGLE-ECOSYSTEM-POLICY.md §9",
+    "docs/google/BRANCH-DATA-SYNC.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P09",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CONTACT-001",
+   "area": "14 Contact",
+   "type": "GATE",
+   "title": "بوابة نشر بيانات التواصل: الهاتف وواتساب والبريد والحسابات",
+   "requirement": "قبل نشر أي من: Phone numbers · WhatsApp · Emails · Social accounts · Contact information — يجب التحقق مع الـOwner واعتماده صراحة؛ غير المعروف = `MISSING — OWNER INPUT REQUIRED`.",
+   "details": [
+    "الحالة الحالية: الأرقام الثلاثة ✅ (D-057) · واتساب ✅ 0799009436 (D-058) · البريد ⏳ لا يُنشر (D-035) · الحسابات الاجتماعية ⏳ لا اعتماد (D-036) · الرعايات ⏳ MISSING (D-072) · قنوات الطلب ⏳ MISSING (D-073)."
+   ],
+   "sources": [
+    "M01-046"
+   ],
+   "decision_refs": [
+    "D-003",
+    "D-017",
+    "D-057",
+    "D-058",
+    "D-035",
+    "D-036"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "PARTIAL",
+   "tested": "N/A",
+   "existing_impl": "process: docs/phase-01-discovery/04-content-approval-register.md CR-038…CR-052 · docs/phase-01-discovery/11-social-accounts-verification.md",
+   "missing_work": "فرض البوابة في الـCMS (الإعدادات المركزية لبيانات التواصل) · تحديث 04 (MI-010/MI-011 ما زالت MISSING رغم D-057/D-058).",
+   "dependencies": [
+    "GOV (G1)",
+    "CMS (G7) central components"
+   ],
+   "test_required": "مراجعة: كل قناة تواصل منشورة لها قرار APPROVED؛ فحص آلي لعدم وجود أرقام/بريد غير معتمدة في HTML/JSON-LD.",
+   "design_refs": [
+    "docs/phase-01-discovery/04-content-approval-register.md",
+    "docs/phase-01-discovery/11-social-accounts-verification.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P07",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CONTACT-002",
+   "area": "14 Contact",
+   "type": "DECISION",
+   "title": "صفحة التواصل (Contact) معتمدة",
+   "requirement": "صفحة \"تواصل\" (Contact) ضمن الصفحات المعتمدة للموقع.",
+   "details": [
+    "المسار المقترح على مستوى العلامة: `/ar/contact/` · `/en/contact/` (شجرة P3 — 10 §3؛ URL-06 توصية: على مستوى العلامة مع بيانات السوق داخل صفحات السوق).",
+    "محتواها حسب النية: CONTACT-013."
+   ],
+   "sources": [
+    "M03-043"
+   ],
+   "decision_refs": [
+    "D-015",
+    "D-031",
+    "D-059"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/phase-01-discovery/14-contact-architecture-and-whatsapp.md §4 (Wireframe نصي) · docs/phase-01-discovery/10-url-architecture-draft.md §3",
+   "missing_work": "Wireframe نهائي + محتوى + تنفيذ.",
+   "dependencies": [
+    "CONTACT-013",
+    "WEB (G5) URL freeze"
+   ],
+   "test_required": "الصفحة تعمل AR/EN بالروابط المعتمدة؛ Definition of Done: functional · responsive (14 mandatory widths 320→1920 + 2560 + landscape + zoom-200) · RTL (ar) + LTR (en) · a11y WCAG 2.2 AA (axe serious/critical = 0, keyboard, touch ≥44px) · performance budget · visual QA · error/empty states · docs updated",
+   "design_refs": [
+    "docs/phase-01-discovery/14-contact-architecture-and-whatsapp.md §4",
+    "docs/phase-01-discovery/10-url-architecture-draft.md §3، URL-06"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P03",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CONTACT-003",
+   "area": "14 Contact",
+   "type": "RULE",
+   "title": "لا رقم في أي مكان قبل الاعتماد الصريح من الـOwner، ولا وظيفة رقم من مصادر خارجية",
+   "requirement": "لا تُعتمد استنتاجات المصادر الخارجية كوظيفة رسمية لأي رقم؛ الـOwner يعطي الوظيفة النهائية لكل رقم. ولا يوضع أي رقم غير معتمد صراحة من الـOwner في: الموقع · Schema · Google sync · CTA · WhatsApp · Contact page.",
+   "details": [
+    "الأرقام المعتمدة حاليًا ثلاثة فقط: 0799009436 · 0799338445 · 0799530383 (CONTACT-004).",
+    "أدلة خارجية مرفوضة كوظيفة: \"0799009436 خط حجز الطاولات والحفلات\" (Owner profile/الدلائل CR-038) · \"0799338445 فرع آخر\" (CR-039) · \"0799530383 رعايات/فعاليات\" (CR-040)."
+   ],
+   "sources": [
+    "M13-021",
+    "M13-022"
+   ],
+   "decision_refs": [
+    "D-057"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "recorded: DECISION-LOG D-057",
+   "missing_work": "قيود في الـCMS (قائمة أرقام معتمدة فقط).",
+   "dependencies": [
+    "CONTACT-004"
+   ],
+   "test_required": "فحص آلي: كل رقم هاتف في HTML/JSON-LD/روابط tel:/wa.me ينتمي للقائمة المعتمدة.",
+   "design_refs": [
+    "docs/phase-01-discovery/14-contact-architecture-and-whatsapp.md §1"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CONTACT-004",
+   "area": "14 Contact",
+   "type": "DECISION",
+   "title": "التوزيع الرسمي للأرقام (R2P-04 OFFICIAL MAPPING)",
+   "requirement": "R2P-04 — OFFICIAL MAPPING: Main Brand Phone = 0799009436 · DRIVE Phone = 0799009436 · HOUSE Phone = 0799009436 · Official WhatsApp = 0799009436 · Complaints = 0799338445 · Suggestions / Feedback = 0799338445 · Franchise = 0799338445 · Catering = 0799530383 · B2B = 0799530383 · Events = 0799530383 · Reservations: لا رقم منفصل حاليًا. هذه البيانات OWNER APPROVED ولا يُعاد سؤال الـOwner عنها إلا إذا ظهر تعارض جديد من مصدر رسمي.",
+   "details": [
+    "التسميات (بنود G1: M13-028، M13-033): 0799338445 = \"الشكاوى والاقتراحات والفرنشايز\" / \"Complaints, Feedback & Franchise\" · 0799530383 = \"الكيترنج والأعمال والفعاليات\" / \"Catering, B2B & Events\".",
+    "كل الأرقام أردنية موبايل بصيغة دولية +962 79… (CONTACT-020، CONTACT-021)."
+   ],
+   "sources": [
+    "M13-035",
+    "M04-018",
+    "M04-033",
+    "M04-035",
+    "M10-058"
+   ],
+   "decision_refs": [
+    "D-057",
+    "D-022",
+    "D-058"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "recorded: DECISION-LOG D-057 · docs/phase-01-discovery/14-contact-architecture-and-whatsapp.md §1 · 04 CR-036، CR-038…CR-041، CR-044",
+   "missing_work": "تطبيقها في الإعدادات المركزية والصفحات والـSchema.",
+   "dependencies": [
+    "CONTACT-005…CONTACT-010"
+   ],
+   "test_required": "فحص آلي لكل قالب: الرقم الصحيح لكل نية/فرع.",
+   "design_refs": [
+    "docs/phase-01-discovery/14-contact-architecture-and-whatsapp.md §1"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "RESOLVED: M04 R2-03 (لا نشر/وظائف غير معروفة) ← M13 R2P (اعتماد صريح).",
+   "business_data": true,
+   "phase": "P08",
+   "history": [
+    {
+     "old": "M04 R2-03: 0799009436 و0799338445 و0799530383 كلها PENDING OWNER VERIFICATION، ولا يُنشر أي منها حتى يسمي الـOwner وظيفة كل رقم",
+     "source": "M04-033",
+     "superseded_by": "M13 R2P-01…R2P-04 (D-022 → D-057)"
+    },
+    {
+     "old": "M04 R2-01: رقم فرع DRIVE ورقم فرع HOUSE = MISSING — OWNER INPUT REQUIRED",
+     "source": "M04-018",
+     "superseded_by": "M13 R2P-04: DRIVE Phone = HOUSE Phone = 0799009436"
+    },
+    {
+     "old": "M04 R2-03: اسألني لاحقًا عن كل وظيفة بشكل مستقل (Main Brand Phone · DRIVE · HOUSE · Reservations · Complaints · Franchise · WhatsApp)",
+     "source": "M04-035",
+     "superseded_by": "أُجيب في M13 R2P-04"
+    },
+    {
+     "old": "M10 §15: R2P — كل رقم في سؤال مستقل (ما الرقم؟ وظيفته؟ أين وُجد؟ هل نقترح نشره؟)",
+     "source": "M10-058",
+     "superseded_by": "أُجيب في M13 R2P"
+    }
+   ],
+   "notes": "FROZEN: نص الـOwner \"OWNER APPROVED ولا تحتاج إعادة سؤالي عنها إلا إذا ظهر تعارض جديد من مصدر رسمي\"."
+  },
+  {
+   "id": "CONTACT-005",
+   "area": "14 Contact",
+   "type": "DECISION",
+   "title": "0799009436 = الرقم العام الرئيسي لكل الفروع واستخداماته المسموحة",
+   "requirement": "R2P-01: 0799009436 = Main Public Contact Number لجميع فروع SHELTER COFFEE (يُستخدم لـSHELTER COFFEE DRIVE وSHELTER COFFEE HOUSE). استخداماته المسموحة في الموقع: General Contact · DRIVE Contact · HOUSE Contact · Call CTA · WhatsApp CTA · Contact Page · Branch Pages · Structured Data / Schema عند ملاءمته · Google Business Profile consistency check.",
+   "details": [
+    "الـSchema: telephone لكل فرع = 0799009436 (D-060).",
+    "الـFooter: رقم واحد = 0799009436 + أيقونة واتساب (مقترح 14 §2 — CT-01 لم يُعتمد صراحة؛ وجود واتساب في الـFooter معتمد D-062).",
+    "Branch Card: أيقونة اتصال بهذا الرقم (14 §2)."
+   ],
+   "sources": [
+    "M13-023",
+    "M13-025"
+   ],
+   "decision_refs": [
+    "D-057",
+    "D-060"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "recorded: DECISION-LOG D-057 · docs/phase-01-discovery/14-contact-architecture-and-whatsapp.md §2",
+   "missing_work": "تنفيذ في كل الأماكن.",
+   "dependencies": [
+    "CONTACT-020",
+    "CONTACT-021",
+    "GBP-005"
+   ],
+   "test_required": "فحص آلي: الرقم موجود في الأماكن المسموحة فقط وبالصيغة الصحيحة لكل لغة.",
+   "design_refs": [
+    "docs/phase-01-discovery/14-contact-architecture-and-whatsapp.md §1، §2"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CONTACT-006",
+   "area": "14 Contact",
+   "type": "DECISION",
+   "title": "0799009436 = رقم WhatsApp الرسمي",
+   "requirement": "0799009436 هو أيضًا OFFICIAL WHATSAPP NUMBER لـSHELTER COFFEE.",
+   "details": [
+    "الرابط: `https://wa.me/962799009436` (+ `?text=` مشفّر للرسالة المسبقة — CONTACT-019)."
+   ],
+   "sources": [
+    "M13-024",
+    "M04-036"
+   ],
+   "decision_refs": [
+    "D-058",
+    "D-023"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "recorded: DECISION-LOG D-058 · 04 CR-041 APPROVED",
+   "missing_work": "تنفيذ.",
+   "dependencies": [
+    "CONTACT-016…CONTACT-019"
+   ],
+   "test_required": "كل روابط واتساب تشير للرقم الدولي 962799009436 فقط.",
+   "design_refs": [
+    "docs/phase-01-discovery/14-contact-architecture-and-whatsapp.md §5.4"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "RESOLVED: M04 R2-04 ← M13.",
+   "business_data": true,
+   "phase": "P08",
+   "history": [
+    {
+     "old": "M04 R2-04: WhatsApp = PENDING OWNER DECISION — لا تضف WhatsApp حتى أحدد الرقم والغرض",
+     "source": "M04-036",
+     "superseded_by": "M13 R2P-01 (D-023 → D-058)"
+    }
+   ],
+   "notes": ""
+  },
+  {
+   "id": "CONTACT-007",
+   "area": "14 Contact",
+   "type": "DECISION",
+   "title": "0799338445 = الشكاوى والاقتراحات والفرنشايز — أماكن استخدامه فقط",
+   "requirement": "R2P-02 APPROVED: 0799338445 — الوظائف الرسمية: Complaints · Suggestions / Feedback · Franchise inquiries. يُستخدم فقط في الأماكن المناسبة: Complaints / Feedback · Contact options · Franchise section/page · Relevant forms or CTA.",
+   "details": [
+    "التسمية: \"الشكاوى والاقتراحات والفرنشايز\" / \"Complaints, Feedback & Franchise\".",
+    "صفحة التواصل من يوم الإطلاق: بطاقة \"الشكاوى والاقتراحات\" + خيار \"استفسارات الفرنشايز / Franchise Inquiries\" → 0799338445 (D-071 — بند G2 M14-034)؛ صفحة Franchise الكاملة غير منشورة حتى اعتماد محتواها.",
+    "في صفحة الـFranchise (عند نشرها): الرقم الوحيد في الصفحة (14 §2 — مقترح)."
+   ],
+   "sources": [
+    "M13-027",
+    "M13-030",
+    "M04-034"
+   ],
+   "decision_refs": [
+    "D-057",
+    "D-071"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "recorded: DECISION-LOG D-057 · 04 CR-039، CR-044 · docs/phase-01-discovery/14-contact-architecture-and-whatsapp.md §2، §4",
+   "missing_work": "تنفيذ.",
+   "dependencies": [
+    "CONTACT-008",
+    "CONTACT-013",
+    "FRAN (G2)"
+   ],
+   "test_required": "فحص آلي: 0799338445 يظهر فقط في بطاقات/نماذج الشكاوى والفرنشايز.",
+   "design_refs": [
+    "docs/phase-01-discovery/14-contact-architecture-and-whatsapp.md §2، §4"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "RESOLVED: M04 (شخصي/غير محدد) ← M13 R2P-02.",
+   "business_data": true,
+   "phase": "P08",
+   "history": [
+    {
+     "old": "M04 R2-03: 0799338445 رقم يستخدمه الـOwner شخصيًا في بعض الاتصالات — لا يُعتبر تلقائيًا رقمًا عامًا أو رقم شكاوى",
+     "source": "M04-034",
+     "superseded_by": "M13 R2P-02 (D-057)"
+    }
+   ],
+   "notes": ""
+  },
+  {
+   "id": "CONTACT-008",
+   "area": "14 Contact",
+   "type": "RULE",
+   "title": "0799338445 ليس رقمًا عامًا للفروع ولا يظهر أبدًا في Branch Cards",
+   "requirement": "0799338445 لا يُستخدم كرقم عام للفروع، ولا يظهر داخل Branch Cards كرقم اتصال عادي.",
+   "details": [
+    "تبعًا للتوزيع المقترح (14 §2): لا في صفحة الفرع ولا شريطها السفلي ولا الـHeader ولا الـFooter.",
+    "الـSchema: telephone الفروع = 0799009436 فقط (D-060)؛ إدخال الأرقام الثانوية في الـSchema (CT-06 — توصية: لا) لم يُجب صراحة."
+   ],
+   "sources": [
+    "M13-029"
+   ],
+   "decision_refs": [
+    "D-057",
+    "D-060"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "recorded: DECISION-LOG D-057 (\"ليس رقمًا عامًا ولا يظهر في Branch Cards\")",
+   "missing_work": "تنفيذ القيد في القوالب والـCMS (حقل هاتف الفرع لا يقبل هذا الرقم).",
+   "dependencies": [
+    "BRANCH-016",
+    "BRANCH-010"
+   ],
+   "test_required": "فحص آلي على كل Branch Card/Branch Page/Schema LocalBusiness: لا وجود لـ0799338445.",
+   "design_refs": [
+    "docs/phase-01-discovery/14-contact-architecture-and-whatsapp.md §2"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CONTACT-009",
+   "area": "14 Contact",
+   "type": "GATE",
+   "title": "أي اقتراح مستقبلي لفصل وظائف 0799338445 يُعرض على الـOwner أولًا",
+   "requirement": "إذا اقتُرح مستقبلًا فصل وظائف 0799338445 (Complaints · Feedback · Franchise) إلى أرقام أو قنوات مستقلة: يُعرض الاقتراح على الـOwner أولًا.",
+   "details": [],
+   "sources": [
+    "M13-031"
+   ],
+   "decision_refs": [
+    "D-057"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P2",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "recorded: DECISION-LOG D-057",
+   "missing_work": "لا شيء الآن.",
+   "dependencies": [
+    "CONTACT-007"
+   ],
+   "test_required": "مراجعة: لا قناة جديدة دون قرار مسجّل.",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P12",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CONTACT-010",
+   "area": "14 Contact",
+   "type": "DECISION",
+   "title": "0799530383 = الكيترنج والأعمال والفعاليات — ليس رقمًا عامًا",
+   "requirement": "R2P-03 APPROVED: 0799530383 — الوظائف الرسمية: Catering · B2B · Events. لا يُستخدم كرقم عام للفروع؛ يُستخدم فقط ضمن: Catering · B2B inquiries · Events · Business partnerships عند الحاجة.",
+   "details": [
+    "التسمية: \"الكيترنج والأعمال والفعاليات\" / \"Catering, B2B & Events\".",
+    "صفحة Catering / B2B / Events services = PAGE RESERVED · CONTENT = MISSING — OWNER INPUT REQUIRED · PUBLICATION = NOT APPROVED YET (D-069 — G2)؛ الرقم يظهر في صفحة التواصل ضمن بطاقة نيته (D-059).",
+    "فصل المصطلحات: SHELTER Events & Campaigns ≠ Catering / B2B / Private Events (D-070 — G2/G1).",
+    "\"Business partnerships\" ورد في M13 ولم يُذكر في نص D-057."
+   ],
+   "sources": [
+    "M13-032",
+    "M13-034"
+   ],
+   "decision_refs": [
+    "D-057",
+    "D-059",
+    "D-069",
+    "D-070"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "recorded: DECISION-LOG D-057 · 04 CR-040",
+   "missing_work": "تنفيذ.",
+   "dependencies": [
+    "CONTACT-013",
+    "IA (G2) PG-01"
+   ],
+   "test_required": "فحص آلي: 0799530383 يظهر فقط في سياق Catering/B2B/Events؛ لا في Branch Cards ولا الـFooter ولا Schema الفروع.",
+   "design_refs": [
+    "docs/phase-01-discovery/14-contact-architecture-and-whatsapp.md §1، §2"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CONTACT-011",
+   "area": "14 Contact",
+   "type": "DECISION",
+   "title": "الحجوزات: لا رقم منفصل؛ أي Reservation flow يُسأل عنه أولًا",
+   "requirement": "Reservations: لا يُعتمد رقم منفصل حاليًا؛ إذا احتجنا Reservation flow يُسأل الـOwner قبل ربطه بأي رقم.",
+   "details": [
+    "صفحة الحجز والحفلات مؤجلة للنقاش (D-015) — لا صفحة حجز قبل سؤال الـOwner عن الخدمات الفعلية (VQ-06)."
+   ],
+   "sources": [
+    "M13-036"
+   ],
+   "decision_refs": [
+    "D-057",
+    "D-015"
+   ],
+   "status": "DEFERRED",
+   "owner_approved": "YES",
+   "priority": "P2",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "recorded: DECISION-LOG D-057 · 04 CR-043",
+   "missing_work": "لا شيء الآن.",
+   "dependencies": [
+    "IA (G2) booking page"
+   ],
+   "test_required": "مراجعة: لا CTA حجز ولا رقم حجز في الموقع.",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P12",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CONTACT-012",
+   "area": "14 Contact",
+   "type": "DECISION",
+   "title": "الرعايات: لا رقم ولا قناة تلقائيًا — MISSING",
+   "requirement": "PG-04: لا تُربط الرعايات (Sponsorships) بأي رقم تلقائيًا — `MISSING — OWNER INPUT REQUIRED` — وتُسأل لاحقًا بشكل مستقل.",
+   "details": [
+    "Owner profile القديم ذكر 0799530383 كخط رعايات/فعاليات — لا يُفترض."
+   ],
+   "sources": [
+    "M14-037"
+   ],
+   "decision_refs": [
+    "D-072"
+   ],
+   "status": "PENDING OWNER INPUT",
+   "owner_approved": "YES",
+   "priority": "P2",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "recorded: DECISION-LOG D-072",
+   "missing_work": "سؤال الـOwner لاحقًا.",
+   "dependencies": [
+    "IA (G2)"
+   ],
+   "test_required": "مراجعة: لا ذكر لقناة رعايات قبل القرار.",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P01",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CONTACT-013",
+   "area": "14 Contact",
+   "type": "DECISION",
+   "title": "Contact Architecture حسب نية المستخدم (Intent-based) — لا 3 أرقام بلا سياق",
+   "requirement": "قنوات التواصل تُنظَّم حسب نية المستخدم، وليس عرض 3 أرقام بجانب بعض بدون شرح: General Contact / Branches → 0799009436 → Call + WhatsApp · Complaints & Suggestions → 0799338445 · Franchise → 0799338445 · Catering / B2B / Events → 0799530383. وتصميم UX صفحة التواصل بحيث يفهم المستخدم فورًا أي قناة تناسب طلبه.",
+   "details": [
+    "Wireframe نصي (14 §4): بطاقة \"التواصل العام والفروع\" (📞 0799009436 + 💬 واتساب + سطر حالة كل فرع + [اتجاهات]) · بطاقة \"الشكاوى والاقتراحات\" (0799338445) · بطاقة \"الكيترنج والأعمال والفعاليات\" (0799530383) · بطاقة \"استفسارات الفرنشايز\" (0799338445 / ← صفحة الفرنشايز عند نشرها) · البريد يظهر فقط بعد اعتماده (D-035).",
+    "كل بطاقة تبدأ بالنية بلغة الزائر ثم الرقم؛ الأرقام نص حقيقي قابل للنسخ (ليست صورًا)."
+   ],
+   "sources": [
+    "M13-037",
+    "M14-039",
+    "M14-040"
+   ],
+   "decision_refs": [
+    "D-059",
+    "D-071"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/phase-01-discovery/14-contact-architecture-and-whatsapp.md §1، §4",
+   "missing_work": "Wireframe نهائي + اختبار فهم (5 مستخدمين) + تنفيذ.",
+   "dependencies": [
+    "CONTACT-002",
+    "CONTACT-004",
+    "HOURS-010"
+   ],
+   "test_required": "اختبار مستخدمين: كل مهمة (شكوى/فرنشايز/كيترنج/سؤال فرع) تصل للقناة الصحيحة من أول محاولة؛ Definition of Done: functional · responsive (14 mandatory widths 320→1920 + 2560 + landscape + zoom-200) · RTL (ar) + LTR (en) · a11y WCAG 2.2 AA (axe serious/critical = 0, keyboard, touch ≥44px) · performance budget · visual QA · error/empty states · docs updated",
+   "design_refs": [
+    "docs/phase-01-discovery/14-contact-architecture-and-whatsapp.md §1، §4"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P03",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CONTACT-014",
+   "area": "14 Contact",
+   "type": "DELIVERABLE",
+   "title": "مقترح UX لعرض قنوات التواصل في كل الأسطح (وثيقة 14)",
+   "requirement": "اقتراح أفضل UX لعرض قنوات التواصل في: Contact Page · Footer · Mobile · Branch Pages · Franchise · B2B / Events.",
+   "details": [
+    "سُلّم في `14-contact-architecture-and-whatsapp.md`: جدول الأماكن §2 · الموبايل §3 · صفحة التواصل §4 · واتساب §5 · القرارات CT-01…CT-07 §6.",
+    "اعتمد الـOwner (M14): CT-02 · CT-03 · CT-04 (مبدئي) · CT-05 (W-2؛ النص معلق) · CT-07.",
+    "لم يُجب صراحة: CT-01 (توزيع الأرقام حسب جدول §2) و CT-06 (الأرقام الثانوية لا تدخل الـSchema) — الصمت ≠ موافقة."
+   ],
+   "sources": [
+    "M13-038"
+   ],
+   "decision_refs": [
+    "D-059",
+    "D-061",
+    "D-062",
+    "D-063",
+    "D-064",
+    "D-065"
+   ],
+   "status": "APPROVED WITH CONDITIONS",
+   "owner_approved": "PARTIAL",
+   "priority": "P1",
+   "impl_status": "PARTIAL",
+   "tested": "N/A",
+   "existing_impl": "doc: docs/phase-01-discovery/14-contact-architecture-and-whatsapp.md (✅ معتمد عدا D-064 النص و D-063 الصياغة الأقصر)",
+   "missing_work": "الحصول على قرار صريح لـCT-01 وCT-06 · تفاصيل Franchise وB2B عند اعتماد محتواهما.",
+   "dependencies": [
+    "CONTACT-015",
+    "SCHEMA (G5)"
+   ],
+   "test_required": "مراجعة: كل بند CT له قرار مسجّل.",
+   "design_refs": [
+    "docs/phase-01-discovery/14-contact-architecture-and-whatsapp.md §2، §6"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P03",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CONTACT-015",
+   "area": "14 Contact",
+   "type": "RULE",
+   "title": "الـFooter غير مزدحم بقنوات التواصل",
+   "requirement": "الـFooter لا يكون مزدحمًا بقنوات التواصل.",
+   "details": [
+    "مقترح (14 §2): رقم واحد 0799009436 + أيقونة واتساب + رابط \"كل قنوات التواصل ←\" لصفحة التواصل؛ لا 0799338445 ولا 0799530383 في الـFooter.",
+    "الـFooter مكوّن مركزي يُدار من مكان واحد (G7)."
+   ],
+   "sources": [
+    "M13-039"
+   ],
+   "decision_refs": [
+    "D-059",
+    "D-062"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/phase-01-discovery/14-contact-architecture-and-whatsapp.md §2",
+   "missing_work": "اعتماد CT-01 · تصميم الـFooter.",
+   "dependencies": [
+    "CONTACT-014"
+   ],
+   "test_required": "مراجعة تصميم + فحص آلي لعدد قنوات التواصل في الـFooter.",
+   "design_refs": [
+    "docs/phase-01-discovery/14-contact-architecture-and-whatsapp.md §2"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P03",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CONTACT-016",
+   "area": "14 Contact",
+   "type": "REQUIREMENT",
+   "title": "WhatsApp CTA مناسب للموبايل",
+   "requirement": "تجهيز WhatsApp CTA بطريقة مناسبة للموبايل على الرقم 0799009436.",
+   "details": [
+    "نص الزر CT-04 (مبدئي، D-063 — بنود G1 M14-012/013): \"راسلنا على واتساب\" / \"Message us on WhatsApp\"؛ صياغة أقصر للموبايل تُقترح ولا تُغيّر بدون موافقة.",
+    "الأيقونة فقط (بطاقة الفرع، الـFooter): اسم وصفي للقارئ الآلي \"واتساب SHELTER COFFEE\" / \"SHELTER COFFEE on WhatsApp\" (مقترح 14 §5.2).",
+    "الرابط `https://wa.me/962799009436` يفتح التطبيق؛ يُتتبع `whatsapp_click` (branch_id، placement) بدون نص الرسالة (G6)."
+   ],
+   "sources": [
+    "M13-041"
+   ],
+   "decision_refs": [
+    "D-058",
+    "D-063"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/phase-01-discovery/14-contact-architecture-and-whatsapp.md §5",
+   "missing_work": "تنفيذ.",
+   "dependencies": [
+    "CONTACT-017",
+    "CONTACT-019",
+    "ANL (G6)"
+   ],
+   "test_required": "على iOS/Android: الضغط يفتح واتساب للرقم الصحيح؛ هدف لمس ≥44px؛ اسم وصفي؛ RTL/LTR.",
+   "design_refs": [
+    "docs/phase-01-discovery/14-contact-architecture-and-whatsapp.md §5"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CONTACT-017",
+   "area": "14 Contact",
+   "type": "DECISION",
+   "title": "أماكن واتساب الأربعة فقط: Branch Card · Branch Page · Contact Page · Footer",
+   "requirement": "CT-03 APPROVED: واتساب يظهر في: Branch Card · Branch Page · Contact Page · Footer.",
+   "details": [
+    "Branch Page = زر في الشريط السفلي على الموبايل (BRANCH-017).",
+    "الرئيسية والمنيو: لا أزرار اتصال/واتساب عائمة؛ التواصل عبر بطاقات الفروع والـFooter (14 §3).",
+    "الـHeader: لا أرقام ولا واتساب (14 §2 — مقترح؛ الـHeader للمنيو والفروع D-027)."
+   ],
+   "sources": [
+    "M14-009",
+    "M13-042"
+   ],
+   "decision_refs": [
+    "D-062",
+    "D-058"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/phase-01-discovery/14-contact-architecture-and-whatsapp.md §2، §5.1",
+   "missing_work": "تنفيذ.",
+   "dependencies": [
+    "CONTACT-018",
+    "BRANCH-016",
+    "BRANCH-017"
+   ],
+   "test_required": "فحص آلي لكل القوالب: روابط wa.me موجودة في الأماكن الأربعة فقط.",
+   "design_refs": [
+    "docs/phase-01-discovery/14-contact-architecture-and-whatsapp.md §5.1"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P03",
+   "history": [
+    {
+     "old": "M13 §WHATSAPP: قبل التنفيذ النهائي اعرض علي: مكان ظهوره · نص الزر · هل نستخدم رسالة مسبقة · هل تختلف حسب الصفحة أو الفرع",
+     "source": "M13-042",
+     "superseded_by": "M14 CT-03 · CT-04 · CT-05 (D-062 · D-063 · D-064)"
+    }
+   ],
+   "notes": ""
+  },
+  {
+   "id": "CONTACT-018",
+   "area": "14 Contact",
+   "type": "RULE",
+   "title": "ممنوع Floating WhatsApp Bubble ثابتة على كل الصفحات",
+   "requirement": "ممنوع Floating WhatsApp Bubble ثابتة على كل صفحات الموقع. الهدف: واجهة نظيفة وغير مزعجة وغير شبيهة بالقوالب الجاهزة.",
+   "details": [
+    "السبب في 14 §5.1: تزاحم الشاشة على الموبايل وتتعارض مع شريط الإجراءات وشريط الكوكيز."
+   ],
+   "sources": [
+    "M14-010"
+   ],
+   "decision_refs": [
+    "D-062"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "recorded: DECISION-LOG D-062",
+   "missing_work": "لا شيء (قيد).",
+   "dependencies": [
+    "CONTACT-017"
+   ],
+   "test_required": "فحص آلي: لا عنصر واتساب بـposition: fixed/sticky خارج شريط صفحة الفرع.",
+   "design_refs": [
+    "docs/phase-01-discovery/14-contact-architecture-and-whatsapp.md §5.1"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CONTACT-019",
+   "area": "14 Contact",
+   "type": "DECISION",
+   "title": "رسالة واتساب مسبقة حسب الفرع (W-2) — النص النهائي بانتظار الاعتماد",
+   "requirement": "CT-05: اعتماد W-2 — رسالة WhatsApp مسبقة (Pre-filled) حسب الفرع. المسودة المبدئية فقط: DRIVE \"مرحبًا SHELTER COFFEE، لدي استفسار عن فرع DRIVE.\" · HOUSE \"مرحبًا SHELTER COFFEE، لدي استفسار عن فرع HOUSE.\" — قبل التنفيذ النهائي يُقترح أفضل نص عربي وإنجليزي، قصير وطبيعي، بلا رسائل طويلة أو تسويقية، ويُعتمد من الـOwner.",
+   "details": [
+    "قواعد (14 §5.3): الرسالة بلا بيانات شخصية · لا تُرسل تلقائيًا (الزائر يضغط إرسال) · `?text=` مشفّر.",
+    "غير محدد: نص الرسالة في الأماكن غير المرتبطة بفرع (بطاقة التواصل العام، الـFooter) — W-0 أم W-1؟ يحتاج قرارًا.",
+    "النسخة الإنجليزية لم تُكتب بعد."
+   ],
+   "sources": [
+    "M14-014",
+    "M13-043"
+   ],
+   "decision_refs": [
+    "D-064",
+    "D-058"
+   ],
+   "status": "APPROVED WITH CONDITIONS",
+   "owner_approved": "PARTIAL",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "recorded: DECISION-LOG D-064 · docs/phase-01-discovery/14-contact-architecture-and-whatsapp.md §5.3",
+   "missing_work": "اقتراح نصين AR/EN لكل فرع (+ قرار الأماكن العامة) ← موافقة الـOwner ← تنفيذ.",
+   "dependencies": [
+    "CONTACT-016",
+    "CONTENT (G1)"
+   ],
+   "test_required": "روابط wa.me في سياق كل فرع تحمل النص المعتمد بعد فك الترميز، بالعربية في /ar/ والإنجليزية في /en/.",
+   "design_refs": [
+    "docs/phase-01-discovery/14-contact-architecture-and-whatsapp.md §5.3"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "RESOLVED جزئيًا: الخيار W-2 معتمد؛ النص النهائي PENDING OWNER INPUT.",
+   "business_data": true,
+   "phase": "P07",
+   "history": [
+    {
+     "old": "M13 §WHATSAPP: لا تعتمد Pre-filled Message قبل موافقتي",
+     "source": "M13-043",
+     "superseded_by": "M14 CT-05: W-2 معتمد كخيار؛ النص النهائي ما زال يحتاج الموافقة (D-064)"
+    }
+   ],
+   "notes": ""
+  },
+  {
+   "id": "CONTACT-020",
+   "area": "14 Contact",
+   "type": "DECISION",
+   "title": "صيغة عرض الرقم: عربي 0799009436 · إنجليزي +962 79 900 9436",
+   "requirement": "CT-07 APPROVED: عرض الرقم في الواجهة العربية `0799009436` · في الواجهة الإنجليزية `+962 79 900 9436`.",
+   "details": [
+    "الصيغ القديمة '+962 7 9900 9436' و'+962799009436' كنص ظاهر لا تُستخدم (CR-038).",
+    "تطبيق النمط نفسه على 0799338445 (EN: +962 79 933 8445) و0799530383 (EN: +962 79 953 0383) = استنتاج منطقي يحتاج تأكيدًا في مراجعة المحتوى — CT-07 نصّ على 0799009436 صراحة.",
+    "تقني (N/A): عزل اتجاه الرقم داخل النص العربي (`dir=\"ltr\"`/`<bdi>`) ليظهر صحيحًا."
+   ],
+   "sources": [
+    "M14-018"
+   ],
+   "decision_refs": [
+    "D-065"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "recorded: DECISION-LOG D-065 · docs/phase-01-discovery/14-contact-architecture-and-whatsapp.md §6 CT-07",
+   "missing_work": "تنفيذ + تأكيد صيغة الرقمين الآخرين.",
+   "dependencies": [
+    "CONTACT-021"
+   ],
+   "test_required": "فحص نصي في /ar/ و/en/: الصيغة الصحيحة لكل رقم؛ الرقم لا ينعكس في RTL؛ قابل للنسخ.",
+   "design_refs": [
+    "docs/phase-01-discovery/14-contact-architecture-and-whatsapp.md §6"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CONTACT-021",
+   "area": "14 Contact",
+   "type": "RULE",
+   "title": "روابط tel: وWhatsApp والـSchema بالصيغة الدولية الصحيحة",
+   "requirement": "الروابط التقنية `tel:` وWhatsApp والـSchema تستخدم الصيغة الدولية الصحيحة للرقم.",
+   "details": [
+    "مشتق (غير مقتبس): `tel:+962799009436` · `https://wa.me/962799009436` · Schema telephone `+962799009436` (أو `+962-79-900-9436`) — و`tel:+962799338445` · `tel:+962799530383` في سياقاتهما.",
+    "الأرقام الثانوية في الـSchema (CT-06) غير محسومة."
+   ],
+   "sources": [
+    "M14-019"
+   ],
+   "decision_refs": [
+    "D-065",
+    "D-060"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "spec: docs/phase-01-discovery/14-contact-architecture-and-whatsapp.md §4، §5.4",
+   "missing_work": "تنفيذ + قرار CT-06.",
+   "dependencies": [
+    "CONTACT-020",
+    "SCHEMA (G5)"
+   ],
+   "test_required": "فحص آلي: كل href=tel:/wa.me وكل telephone في JSON-LD بصيغة E.164 الصحيحة؛ Rich Results Test.",
+   "design_refs": [
+    "docs/phase-01-discovery/14-contact-architecture-and-whatsapp.md §5.4"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CONTACT-022",
+   "area": "14 Contact",
+   "type": "DECISION",
+   "title": "واتساب والهاتف ليسا قناة طلب رسمية — MISSING",
+   "requirement": "R2B-04: لا يُعتبر WhatsApp أو الهاتف قناة طلب رسمية لمجرد أنهما قنوات تواصل — `MISSING — OWNER INPUT REQUIRED`.",
+   "details": [
+    "لا نصوص مثل \"اطلب عبر واتساب\" قبل القرار.",
+    "قنوات التوصيل لكل فرع R2B-01 وأسعار التطبيقات R2B-03 = MISSING (G6/G3)."
+   ],
+   "sources": [
+    "M14-046"
+   ],
+   "decision_refs": [
+    "D-073"
+   ],
+   "status": "PENDING OWNER INPUT",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "recorded: DECISION-LOG D-073",
+   "missing_work": "سؤال الـOwner عن قنوات الطلب الرسمية.",
+   "dependencies": [
+    "BRANCH-031",
+    "INT (G6)"
+   ],
+   "test_required": "مراجعة محتوى: لا دعوة للطلب عبر الهاتف/واتساب.",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P01",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CONTACT-023",
+   "area": "14 Contact",
+   "type": "DECISION",
+   "title": "البريد info@shelterjo.com = PENDING OWNER VERIFICATION — لا يُنشر بعد",
+   "requirement": "info@shelterjo.com مرشح للبريد العام، لكنه يبقى `PENDING OWNER VERIFICATION` حتى يتأكد الـOwner أنه البريد العام الذي يريد نشره للزوار — لا يُنشر بعد (لا mailto، لا Footer، لا Schema email، لا صفحة التواصل).",
+   "details": [
+    "الموقع القديم استخدمه للتواصل العام واستفسارات الفرنشايز؛ صيغ مكتوبة: 'info@Shelterjo.com' و'Info@shelterjo.com' (CR-042، VQ-25).",
+    "أرشيف `/author/info/` في WordPress يكشف 'info' كاسم دخول محتمل (أمني — G7)."
+   ],
+   "sources": [
+    "M04-037",
+    "M10-021"
+   ],
+   "decision_refs": [
+    "D-024",
+    "D-035"
+   ],
+   "status": "PENDING VERIFICATION",
+   "owner_approved": "PARTIAL",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "recorded: DECISION-LOG D-024، D-035 · 04 CR-042 (⛔ لا يُنشر بعد)",
+   "missing_work": "تأكيد الـOwner.",
+   "dependencies": [
+    "CONTACT-001"
+   ],
+   "test_required": "فحص آلي: لا ظهور لـinfo@shelterjo.com في أي مخرج قبل الاعتماد.",
+   "design_refs": [
+    "docs/phase-01-discovery/03-verify-with-owner.md VQ-25",
+    "docs/phase-01-discovery/14-contact-architecture-and-whatsapp.md §4"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P01",
+   "history": [
+    {
+     "old": "M04 R2-05: info@shelterjo.com يمكن اعتباره Candidate للبريد العام — VERIFY WITH OWNER قبل النشر",
+     "source": "M04-037",
+     "superseded_by": "M10 R2-10: يبقى PENDING — لا تنشره بعد (D-035)"
+    }
+   ],
+   "notes": ""
+  },
+  {
+   "id": "CONTACT-024",
+   "area": "14 Contact",
+   "type": "REQUIREMENT",
+   "title": "دعم مستقبلي لبريد منفصل: Careers · Franchise · Business inquiries",
+   "requirement": "Architecture مستقبلية تدعم عناوين بريد منفصلة مثل: Careers · Franchise · Business inquiries.",
+   "details": [],
+   "sources": [
+    "M04-038"
+   ],
+   "decision_refs": [
+    "D-024"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P2",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "حقول بريد لكل نية في الإعدادات المركزية/النماذج.",
+   "dependencies": [
+    "CMS (G7)",
+    "CONTACT-025"
+   ],
+   "test_required": "مراجعة نموذج البيانات: بريد لكل نية اختياري وفارغ افتراضيًا.",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P04",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CONTACT-025",
+   "area": "14 Contact",
+   "type": "RULE",
+   "title": "ممنوع إنشاء أو نشر أي بريد غير موجود فعليًا",
+   "requirement": "لا يُنشأ ولا يُنشر أي Email غير موجود فعليًا.",
+   "details": [],
+   "sources": [
+    "M04-039"
+   ],
+   "decision_refs": [
+    "D-024"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "recorded: DECISION-LOG D-024",
+   "missing_work": "لا شيء (قيد).",
+   "dependencies": [
+    "CONTACT-024"
+   ],
+   "test_required": "مراجعة: كل بريد منشور موجود ومعتمد.",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CONTACT-026",
+   "area": "14 Contact",
+   "type": "RULE",
+   "title": "الحسابات الاجتماعية: لا اعتماد لأي حساب حتى الآن ولا اعتماد تلقائي من البحث",
+   "requirement": "الحسابات الرسمية: لا يُعتمد أي حساب وُجد من البحث تلقائيًا، ولا يُعتمد أي Social Account حتى الآن.",
+   "details": [
+    "الأثر: روابط الـFooter الاجتماعية والـSchema `sameAs` لا تُنشر قبل اعتماد كل حساب (D-025، D-036).",
+    "Linktree لا يُستخدم إذا كان الموقع الجديد يوفر تجربة أفضل مباشرة (بند G2 M10-025)."
+   ],
+   "sources": [
+    "M04-040",
+    "M10-022"
+   ],
+   "decision_refs": [
+    "D-025",
+    "D-036"
+   ],
+   "status": "PENDING VERIFICATION",
+   "owner_approved": "PARTIAL",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "recorded: docs/phase-01-discovery/11-social-accounts-verification.md · 04 CR-045…CR-052",
+   "missing_work": "عرض الحسابات على الـOwner واحدًا واحدًا (CONTACT-027).",
+   "dependencies": [
+    "CONTACT-027"
+   ],
+   "test_required": "فحص آلي: لا روابط اجتماعية/ sameAs غير معتمدة.",
+   "design_refs": [
+    "docs/phase-01-discovery/11-social-accounts-verification.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P01",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CONTACT-027",
+   "area": "14 Contact",
+   "type": "DELIVERABLE",
+   "title": "جدول التحقق من الحسابات الاجتماعية وعرضها واحدًا واحدًا",
+   "requirement": "جمع كل الحسابات المعتقد أنها رسمية في جدول بالأعمدة: Platform · Handle · URL · Evidence · Current Website Reference · Search Evidence · Status — كلها `PENDING OWNER VERIFICATION` — وعرضها على الـOwner لاحقًا واحدًا واحدًا.",
+   "details": [
+    "أمثلة مرشحة (غير معتمدة): Instagram @sheltercoffeedrive · Snapchat @shelter_coffee · Facebook sheltercoffeedrive · X @ShelterDrive · YouTube @sheltercoffee · Linktree sheltercoffeedrive."
+   ],
+   "sources": [
+    "M04-041",
+    "M10-023"
+   ],
+   "decision_refs": [
+    "D-025",
+    "D-036"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "PARTIAL",
+   "tested": "N/A",
+   "existing_impl": "doc: docs/phase-01-discovery/11-social-accounts-verification.md (الجدول موجود، الحسابات PENDING)",
+   "missing_work": "العرض على الـOwner واحدًا واحدًا وتسجيل القرار لكل حساب · فحص وجهات روابط الـFooter بعد AC-01.",
+   "dependencies": [
+    "AC-01 access",
+    "CONTACT-026"
+   ],
+   "test_required": "مراجعة: كل صف له قرار Owner مسجّل.",
+   "design_refs": [
+    "docs/phase-01-discovery/11-social-accounts-verification.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P01",
+   "history": [
+    {
+     "old": "M04 R2-06: أعمدة الجدول Platform · Account Name · URL · Evidence · Status",
+     "source": "M04-041",
+     "superseded_by": "M10 R2-11: Platform · Handle · URL · Evidence · Current Website Reference · Search Evidence · Status (D-036)"
+    }
+   ],
+   "notes": ""
+  },
+  {
+   "id": "CONTACT-028",
+   "area": "14 Contact",
+   "type": "RULE",
+   "title": "youtube.com/@sheltercoffee لا يُعتبر رسميًا حتى يؤكده الـOwner",
+   "requirement": "لا يُفترض أن `youtube.com/@sheltercoffee` حساب رسمي حتى يؤكده الـOwner.",
+   "details": [],
+   "sources": [
+    "M04-042"
+   ],
+   "decision_refs": [
+    "D-025"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "recorded: DECISION-LOG D-025 · docs/phase-01-discovery/11-social-accounts-verification.md",
+   "missing_work": "سؤال ضمن CONTACT-027.",
+   "dependencies": [
+    "CONTACT-027"
+   ],
+   "test_required": "فحص: لا رابط YouTube قبل التأكيد.",
+   "design_refs": [
+    "docs/phase-01-discovery/11-social-accounts-verification.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P01",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CONTACT-029",
+   "area": "14 Contact",
+   "type": "RULE",
+   "title": "لا افتراض لقرار تغيير اسم Instagram أو أي Handle قبل النقاش",
+   "requirement": "لا يُفترض أي قرار بتغيير اسم Instagram أو أي Handle قبل مناقشة الـOwner.",
+   "details": [],
+   "sources": [
+    "M04-043"
+   ],
+   "decision_refs": [
+    "D-025"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "recorded: DECISION-LOG D-025",
+   "missing_work": "لا شيء.",
+   "dependencies": [],
+   "test_required": "مراجعة: لا توصية/تنفيذ لتغيير Handle بدون قرار.",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P01",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CONTACT-030",
+   "area": "14 Contact",
+   "type": "RULE",
+   "title": "Snapchat Place ليس حسابًا اجتماعيًا رسميًا",
+   "requirement": "Snapchat Place Account لا يُعتبر حساب Social رسميًا.",
+   "details": [
+    "الأماكن: 74cd05ca-9207-11e9-83fa-93967fb5e6e2 ('SHELTER COFFEE DRIVE'، slug مخطوء shelter-coffe-drive) · 3875adf0-dca7-11ec-b133-1bba295e4827 ('SHELTER COFFEE HOUSE' في Irbid City Centre، ويظهر أيضًا تحت slug shelter-coffee-drive) — CR-049."
+   ],
+   "sources": [
+    "M10-024"
+   ],
+   "decision_refs": [
+    "D-036"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P2",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "recorded: DECISION-LOG D-036 · docs/phase-01-discovery/11-social-accounts-verification.md (قسم الأماكن منفصل)",
+   "missing_work": "لا شيء.",
+   "dependencies": [
+    "CONTACT-027"
+   ],
+   "test_required": "فحص: لا رابط Snapchat Place كحساب اجتماعي.",
+   "design_refs": [
+    "docs/phase-01-discovery/11-social-accounts-verification.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P01",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "GBP-001",
+   "area": "22 Google Business Profile & Maps",
+   "type": "REQUIREMENT",
+   "title": "الموقع جاهز للتكامل مع Google Business Profile وGoogle Maps",
+   "requirement": "الموقع يجب أن يكون جاهزًا للتكامل مع Google Business Profile وGoogle Maps (ضمن منظومة Google: Search Console · GA4 · GTM · GBP · Maps).",
+   "details": [
+    "GBP + Maps جزء من بنية المشروع من البداية وليست إضافات في آخر يوم (بند G1 M11-132).",
+    "§49 السياسة: بيانات GBP للفرعين تتطابق قدر الإمكان مع بيانات الموقع ليفهم Google: SHELTER COFFEE → Jordan → Irbid → DRIVE / HOUSE."
+   ],
+   "sources": [
+    "M01-152"
+   ],
+   "decision_refs": [
+    "D-046",
+    "D-050",
+    "D-051"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/google/GOOGLE-INTEGRATION-ARCHITECTURE.md (DRAFT) · docs/google/GOOGLE-ECOSYSTEM-POLICY.md",
+   "missing_work": "تصميم التكامل وتنفيذه في P09.",
+   "dependencies": [
+    "GOOGLE (G6)",
+    "GBP-003",
+    "BRANCH-018"
+   ],
+   "test_required": "Final Google Acceptance: Branch Maps correct · Business Profiles consistent (M12 §32 — G6/G8).",
+   "design_refs": [
+    "docs/google/GOOGLE-INTEGRATION-ARCHITECTURE.md",
+    "docs/google/GOOGLE-ECOSYSTEM-POLICY.md §1، §49"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P09",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "GBP-002",
+   "area": "22 Google Business Profile & Maps",
+   "type": "DECISION",
+   "title": "ملفان رسميان فقط على Google Business Profile: DRIVE وHOUSE",
+   "requirement": "لدينا فرعان رسميان على Google Business Profile: (1) SHELTER COFFEE DRIVE · (2) SHELTER COFFEE HOUSE.",
+   "details": [
+    "مشغل الحلويات: لا GBP عام؛ إن وُجد له ملف نُخبر الـOwner ولا نتصرف (GBP-SoT).",
+    "روابط الملفين وبياناتهما لم تصل بعد (G-01، G-02، MI-026)."
+   ],
+   "sources": [
+    "M11-012"
+   ],
+   "decision_refs": [
+    "GEP-§3",
+    "D-048",
+    "D-008"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "recorded: docs/google/GOOGLE-BUSINESS-PROFILE-SOURCE-OF-TRUTH.md · docs/google/GOOGLE-ECOSYSTEM-POLICY.md §3",
+   "missing_work": "استلام روابط/لقطات الملفين.",
+   "dependencies": [
+    "GBP-008"
+   ],
+   "test_required": "مراجعة: Sync يغطي ملفين بالضبط.",
+   "design_refs": [
+    "docs/google/GOOGLE-BUSINESS-PROFILE-SOURCE-OF-TRUTH.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P01",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "GBP-003",
+   "area": "22 Google Business Profile & Maps",
+   "type": "DECISION",
+   "title": "GBP الرسمي لكل فرع = OFFICIAL OPERATIONAL SOURCE (تابع للـOwner)",
+   "requirement": "الـGoogle Business Profile الرسمي لكل فرع (DRIVE · HOUSE) = OFFICIAL OPERATIONAL SOURCE ومصدر معلومات رسمي للحقول: Official branch name · Address · Map pin · Google Maps URL · Opening hours · Special hours · Phone number shown publicly · Website URL · Business category · Business status · Location data — ويُقارن مع الموقع، لكنه لا يتغلب على بيانات الـOwner المعتمدة (GBP-004).",
+   "details": [
+    "Source Priority (D-047): 1) Owner Approved Data 2) Official GBP 3) Official SHELTER Website 4) Official SHELTER Social Accounts 5) Other Sources.",
+    "M23 §62: GBP/Maps مصدر موثوق للبيانات التشغيلية (address، map، hours، special hours، phone، category) — والـOwner-approved له الأولوية دائمًا عند التعارض.",
+    "صور GBP لا تتحول تلقائيًا إلى Approved Assets (D-056 — G2).",
+    "Website URL في GBP قد يشير إلى `shelterjo.com/` بدون www (CR-109 — DB-11 مفتوح، G5)؛ تعديله يمر ببوابة GBP-009.",
+    "التوثيق المطلوب (M11 §58 بند 3) منجز: GOOGLE-BUSINESS-PROFILE-SOURCE-OF-TRUTH.md — كل حقول GBP = MISSING (لم تصل)."
+   ],
+   "sources": [
+    "M11-013",
+    "M13-018",
+    "M23-211",
+    "M11-124"
+   ],
+   "decision_refs": [
+    "D-048",
+    "GEP-§3",
+    "D-047",
+    "D-056"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "PARTIAL",
+   "tested": "N/A",
+   "existing_impl": "doc: docs/google/GOOGLE-BUSINESS-PROFILE-SOURCE-OF-TRUTH.md (الجداول جاهزة؛ بيانات GBP لم تصل)",
+   "missing_work": "تعبئة عمود GBP لكل حقل × فرع بعد G-01/G-02 · أول Sync.",
+   "dependencies": [
+    "GBP-008",
+    "BRANCH-018"
+   ],
+   "test_required": "جدول SoT مكتمل لكل الحقول مع حالة لكل حقل.",
+   "design_refs": [
+    "docs/google/GOOGLE-BUSINESS-PROFILE-SOURCE-OF-TRUTH.md",
+    "docs/google/GOOGLE-ECOSYSTEM-POLICY.md §2، §3"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P01",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "GBP-004",
+   "area": "22 Google Business Profile & Maps",
+   "type": "RULE",
+   "title": "GBP لا يتجاوز الـOwner: الاختلاف = CONFLICT — OWNER REVIEW REQUIRED",
+   "requirement": "إذا احتوى Google معلومة مختلفة عن معلومة اعتمدها الـOwner: لا يُعتبر Google صحيحًا تلقائيًا؛ يوضع الوسم `CONFLICT — OWNER REVIEW REQUIRED` ويُبلَّغ الـOwner بالفرق. بيانات الـOwner المعتمدة لها الأولوية دائمًا عند التعارض.",
+   "details": [
+    "صيغة التقرير: Source A · Source B · Difference · Recommended correction ← انتظار الموافقة (D-047).",
+    "ساعات الـOwner (D-020) لها الأولوية؛ GBP مصدر تحقق ومزامنة (SPEC §9.5، P-08)."
+   ],
+   "sources": [
+    "M11-016"
+   ],
+   "decision_refs": [
+    "GEP-§5",
+    "D-048",
+    "D-047"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "spec: docs/google/GOOGLE-ECOSYSTEM-POLICY.md §2، §5 · docs/google/BRANCH-DATA-SYNC.md (تصنيف CONFLICT)",
+   "missing_work": "تطبيق في كل Sync.",
+   "dependencies": [
+    "BRANCH-018"
+   ],
+   "test_required": "تقرير Sync يصنف كل اختلاف عن بيانات الـOwner كـCONFLICT ولا يغيّر شيئًا.",
+   "design_refs": [
+    "docs/google/GOOGLE-ECOSYSTEM-POLICY.md §5",
+    "docs/google/BRANCH-DATA-SYNC.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P01",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "GBP-005",
+   "area": "22 Google Business Profile & Maps",
+   "type": "RULE",
+   "title": "هاتف الفروع في GBP والـSchema = 0799009436؛ المختلف = CONFLICT",
+   "requirement": "الرقم العام المعتمد للفروع في Google Business Profile والـSchema = 0799009436. إذا وُجد في GBP لأي فرع رقم مختلف: `CONFLICT — OWNER REVIEW REQUIRED`، ويُعرض التعارض ولا يُغيَّر Google أو الموقع تلقائيًا.",
+   "details": [
+    "الدلائل الخارجية الحالية كلها تعرض 0799009436 (CR-038) — GBP نفسه لم يُرَ بعد."
+   ],
+   "sources": [
+    "M13-026"
+   ],
+   "decision_refs": [
+    "D-060",
+    "D-057"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "recorded: DECISION-LOG D-060 · docs/google/GOOGLE-BUSINESS-PROFILE-SOURCE-OF-TRUTH.md (Phone shown publicly)",
+   "missing_work": "مقارنة عند وصول بيانات GBP.",
+   "dependencies": [
+    "GBP-008",
+    "BRANCH-018"
+   ],
+   "test_required": "Sync: هاتف GBP لكل فرع = 0799009436 أو تقرير CONFLICT؛ Schema telephone = +962799009436.",
+   "design_refs": [
+    "docs/google/GOOGLE-BUSINESS-PROFILE-SOURCE-OF-TRUTH.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P01",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "GBP-006",
+   "area": "22 Google Business Profile & Maps",
+   "type": "RULE",
+   "title": "لا تُستخدم بيانات منتجات/منيو Google بدل مصدر المنيو الرسمي",
+   "requirement": "ممنوع استخدام Google product/menu info بدل الـofficial menu source.",
+   "details": [
+    "المصدر الرسمي = ملف المنيو من الـOwner / Inventory v1.0 (D-076، D-089، D-135)."
+   ],
+   "sources": [
+    "M23-213"
+   ],
+   "decision_refs": [
+    "D-076",
+    "D-089"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "spec: docs/menu-ia/SHELTER-MENU-IA-SPEC.md §9.5",
+   "missing_work": "لا شيء (قيد).",
+   "dependencies": [
+    "MENU (G3)"
+   ],
+   "test_required": "مراجعة: لا بيانات منيو مصدرها Google في الـCMS.",
+   "design_refs": [
+    "docs/menu-ia/SHELTER-MENU-IA-SPEC.md §9.5"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P08",
+   "history": [],
+   "notes": "مسجّل في SPEC (DRAFT) فقط وليس في DECISION-LOG/REGISTER — G4-ND-05."
+  },
+  {
+   "id": "GBP-007",
+   "area": "22 Google Business Profile & Maps",
+   "type": "DECISION",
+   "title": "AC-03: صلاحية Google Business Profile = Read-only information فقط",
+   "requirement": "AC-03 Google Business Profile: موافقة على Read-only information فقط.",
+   "details": [
+    "الوصول لـGBP ما زال PENDING (EVIDENCE)؛ قراءة GBP عبر الـAPIs تتطلب طلب وصول معتمد من Google — البديل المجاني روابط + لقطات (GIO)."
+   ],
+   "sources": [
+    "M04-054"
+   ],
+   "decision_refs": [
+    "D-028"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "recorded: DECISION-LOG D-028 · docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md (جدول الصلاحيات)",
+   "missing_work": "تفعيل الوصول (أو استلام اللقطات).",
+   "dependencies": [
+    "GBP-008"
+   ],
+   "test_required": "مراجعة: لا صلاحية تعديل مستخدمة.",
+   "design_refs": [
+    "docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P01",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "GBP-008",
+   "area": "22 Google Business Profile & Maps",
+   "type": "DECISION",
+   "title": "جمع بيانات GBP بالخيار المجاني وللتحقق فقط (لا Places API مدفوع)",
+   "requirement": "Google Business Profile: تفضيل الخيار المجاني — Google Maps links + screenshots / profile data؛ لا حاجة لـPlaces API مدفوع؛ والبيانات تُستخدم للتحقق فقط، وليس لتعديل الـBusiness Profile (في هذه المرحلة).",
+   "details": [
+    "المطلوب من الـOwner (GOOGLE-INTEGRATION-ARCHITECTURE §6): G-01 رابط Google Maps الرسمي لكل فرع · G-02 لقطات \"Edit profile\" لكل فرع (الاسم، التصنيف الأساسي والثانوي، العنوان، الـPin، الساعات العادية، الساعات الخاصة، الهاتف، رابط الموقع، الحالة).",
+    "لا Places API (بند G6 M10-050)؛ أي عملية مدفوعة تُعرض أولًا (D-029، D-044).",
+    "تعديل الملف لاحقًا ممكن فقط عبر Proposal → Owner Approval → Change (GBP-009)."
+   ],
+   "sources": [
+    "M10-049",
+    "M10-051"
+   ],
+   "decision_refs": [
+    "D-043",
+    "D-029",
+    "D-044"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "recorded: DECISION-LOG D-043 · docs/google/GOOGLE-INTEGRATION-ARCHITECTURE.md §6 (G-01، G-02)",
+   "missing_work": "استلام G-01/G-02 من الـOwner (غير مستلمة — MI-026).",
+   "dependencies": [
+    "GBP-007",
+    "BRANCH-018"
+   ],
+   "test_required": "مراجعة: البيانات مستلمة ومؤرخة وتُستخدم في Sync فقط.",
+   "design_refs": [
+    "docs/google/GOOGLE-INTEGRATION-ARCHITECTURE.md §6"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "D-043 \"لا تعديل للملف\" vs M11 §44 + M12 §17 (تعديل بعد الموافقة ينفذه Claude) — RESOLVED: D-043 = وضع المرحلة الحالية (Read-only)؛ التعديل لاحقًا عبر بوابة GBP-009.",
+   "business_data": true,
+   "phase": "P01",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "GBP-009",
+   "area": "22 Google Business Profile & Maps",
+   "type": "GATE",
+   "title": "تعديل GBP: Proposal → Owner Approval → Change (ينفذه Claude)",
+   "requirement": "لا تعديل لأي Google Business Profile بدون موافقة الـOwner. أي تغيير في Name · Address · Phone · Hours · Category · Website · Photos · Description يمر بـ: Proposal → Owner Approval → Change. وعند منح الموافقة والصلاحية: ينفذ Claude التعديل بنفسه إذا سمحت الأدوات.",
+   "details": [
+    "تغيير GBP = تغيير Production حساس: Summary أولًا ← موافقة ← تنفيذ (D-051، GIO).",
+    "تعديل GBP عبر API يتطلب وصولًا معتمدًا من Google ودور Manager؛ وإلا يُنفَّذ يدويًا بإرشاد دقيق (GIO جدول الصلاحيات)؛ قد يلزم 2FA من الـOwner.",
+    "DO NOT CHANGE GOOGLE DATA WITHOUT OWNER APPROVAL (القاعدة الذهبية §57)."
+   ],
+   "sources": [
+    "M11-096",
+    "M11-097",
+    "M12-045"
+   ],
+   "decision_refs": [
+    "GEP-§44",
+    "GIO-§A17/§A18/§A19",
+    "D-043",
+    "D-051"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "spec: docs/google/GOOGLE-ECOSYSTEM-POLICY.md §44 · docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §17 · docs/google/BRANCH-DATA-SYNC.md (MISMATCH — GOOGLE OUTDATED)",
+   "missing_work": "قالب Proposal لتغييرات GBP · سجل التغييرات.",
+   "dependencies": [
+    "GBP-010",
+    "AUDIT (G7)"
+   ],
+   "test_required": "مراجعة: كل تغيير GBP له Proposal + موافقة مؤرخة + سجل قبل/بعد.",
+   "design_refs": [
+    "docs/google/GOOGLE-ECOSYSTEM-POLICY.md §44",
+    "docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §17"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P09",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "GBP-010",
+   "area": "22 Google Business Profile & Maps",
+   "type": "REQUIREMENT",
+   "title": "الفريق ينفذ فعليًا اتساق Business Profile وMaps (وليس تعليمات فقط)",
+   "requirement": "الفريق (Claude) يتولى فعليًا لاحقًا — متى سمحت الأدوات والصلاحيات — Business Profile consistency وMaps، وليس إعطاء Instructions فقط.",
+   "details": [
+    "ضمن ملكية التنفيذ الكاملة: Configure → Connect → Implement → Test → Verify → Document (D-051، D-055).",
+    "الـOwner يُطلب منه فقط Authentication/Approval/2FA/Ownership/Billing/Legal/Security."
+   ],
+   "sources": [
+    "M13-016"
+   ],
+   "decision_refs": [
+    "D-055",
+    "D-051",
+    "GIO-§A17/§A18/§A19"
+   ],
+   "status": "APPROVED WITH CONDITIONS",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "spec: docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md",
+   "missing_work": "التنفيذ في P09 بعد الصلاحيات.",
+   "dependencies": [
+    "GBP-009",
+    "GOOGLE (G6)"
+   ],
+   "test_required": "Final Google Acceptance: Business Profiles consistent · Branch Maps correct.",
+   "design_refs": [
+    "docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P09",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "GBP-011",
+   "area": "22 Google Business Profile & Maps",
+   "type": "RULE",
+   "title": "رابط Maps الرسمي لكل فرع في صفحته — لا نفس الرابط للفرعين",
+   "requirement": "لكل فرع استخدام رابط Google Maps الرسمي الصحيح، وربط كل Branch Page مع Google Maps الصحيح: Get Directions · Maps URL · Correct branch · Correct location. ولا يُستخدم نفس Maps Link للفرعين.",
+   "details": [
+    "يُستخدم في: زر الاتجاهات في شريط صفحة الفرع (BRANCH-017) وبطاقة الفرع وبطاقة التواصل العام.",
+    "Directions Click يُتتبع بدون Tracking parameters تكسر رابط Maps (GEP §33 — G6).",
+    "لا Map Embed ثقيل تلقائيًا؛ المقارنة Static preview / Lazy embed / زر اتجاهات (GEP §35 — G8).",
+    "اختبار المسار الحقيقي: Home → Locations → DRIVE/HOUSE → Directions (M12 §25)."
+   ],
+   "sources": [
+    "M11-078",
+    "M12-046",
+    "M12-047"
+   ],
+   "decision_refs": [
+    "GEP-§33/§34",
+    "GIO-§A17/§A18/§A19",
+    "D-013"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: docs/google/GOOGLE-ECOSYSTEM-POLICY.md §33، §34 · docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §18",
+   "missing_work": "الحصول على الرابطين (GBP-013) · تنفيذ.",
+   "dependencies": [
+    "GBP-013",
+    "BRANCH-017",
+    "ANL (G6)"
+   ],
+   "test_required": "E2E على موبايل حقيقي: زر الاتجاهات لكل فرع يفتح موقع ذلك الفرع الصحيح في Google Maps؛ الرابطان مختلفان؛ الحدث directions_click مرة واحدة.",
+   "design_refs": [
+    "docs/google/GOOGLE-ECOSYSTEM-POLICY.md §34",
+    "docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §18"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "GBP-012",
+   "area": "22 Google Business Profile & Maps",
+   "type": "RULE",
+   "title": "لا Pin يدوي إذا كان GBP الرسمي موجودًا",
+   "requirement": "لا يُستخدم Pin يدوي إذا كان Google Business Profile الرسمي موجودًا؛ الإحداثيات/الموقع من الملف الرسمي.",
+   "details": [
+    "Coordinates حقل في نموذج الفرع وفي Sync (BRANCH-009، BRANCH-018)؛ Schema geo من نفس المصدر."
+   ],
+   "sources": [
+    "M11-079"
+   ],
+   "decision_refs": [
+    "GEP-§33/§34"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "spec: docs/google/GOOGLE-ECOSYSTEM-POLICY.md §34",
+   "missing_work": "استلام الـPin من GBP.",
+   "dependencies": [
+    "GBP-008"
+   ],
+   "test_required": "Sync: Coordinates في الموقع/الـSchema = GBP.",
+   "design_refs": [
+    "docs/google/GOOGLE-ECOSYSTEM-POLICY.md §34"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "GBP-013",
+   "area": "22 Google Business Profile & Maps",
+   "type": "DECISION",
+   "title": "روابط Google Maps لـDRIVE وHOUSE = MISSING — VERIFY",
+   "requirement": "DRIVE Google Maps URL = `MISSING — VERIFY` · HOUSE Google Maps URL = `MISSING — VERIFY`.",
+   "details": [
+    "روابط الموقع القديم (غير مؤكدة — لا تُستخدم قبل التحقق): DRIVE `https://share.google/Cko3RPFoBGY21bco4` · HOUSE `https://share.google/d7T2jt7BKhidMHG4A` (CR-026، CR-034، VQ-15).",
+    "المطلوب G-01 من الـOwner."
+   ],
+   "sources": [
+    "M04-015",
+    "M04-025"
+   ],
+   "decision_refs": [
+    "D-020"
+   ],
+   "status": "PENDING VERIFICATION",
+   "owner_approved": "PARTIAL",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "recorded: docs/google/GOOGLE-BUSINESS-PROFILE-SOURCE-OF-TRUTH.md (Google Maps URL = MISSING) · 04 CR-026، CR-034",
+   "missing_work": "استلام/تحقق الرابطين واعتمادهما.",
+   "dependencies": [
+    "GBP-008"
+   ],
+   "test_required": "Sync: الرابط يفتح الملف الرسمي الصحيح لكل فرع.",
+   "design_refs": [
+    "docs/google/GOOGLE-BUSINESS-PROFILE-SOURCE-OF-TRUTH.md",
+    "docs/phase-01-discovery/03-verify-with-owner.md VQ-15"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P01",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "GBP-014",
+   "area": "22 Google Business Profile & Maps",
+   "type": "GATE",
+   "title": "قبل الإطلاق: ملفا GBP للفرعين Verified",
+   "requirement": "قبل Launch: التأكد أن Google Business Profiles للفرعين Verified.",
+   "details": [
+    "ضمن Before Launch — Google Checklist (§53): Branch data matched · Maps correct · Schema validated … (بند G8 M11-112).",
+    "Final Google Acceptance (M12 §32): Branch Maps correct · Business Profiles consistent."
+   ],
+   "sources": [
+    "M11-113"
+   ],
+   "decision_refs": [
+    "D-046",
+    "GEP-§3"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "spec: docs/google/GOOGLE-ECOSYSTEM-CHECKLIST.md (Pre-Launch)",
+   "missing_work": "التحقق عند الإطلاق.",
+   "dependencies": [
+    "DEPLOY (G8) launch gate",
+    "BRANCH-018"
+   ],
+   "test_required": "Checklist موقّع: حالة Verified لكل ملف (لقطة/تأكيد) + تقرير Sync قبل الإطلاق MATCH.",
+   "design_refs": [
+    "docs/google/GOOGLE-ECOSYSTEM-CHECKLIST.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P11",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "GBP-015",
+   "area": "22 Google Business Profile & Maps",
+   "type": "RULE",
+   "title": "Google Reviews تُقرأ كمرجع لفهم تجربة العملاء فقط",
+   "requirement": "Google Reviews يمكن قراءتها كمرجع لفهم تجربة العملاء.",
+   "details": [
+    "لا تُنقل أي Review للموقع تلقائيًا؛ لا نقل Name · Photo · Review text إلا بعد Owner Approval وRights / Usage Review (بند G1 M11-095، GEP §42)."
+   ],
+   "sources": [
+    "M11-094"
+   ],
+   "decision_refs": [
+    "D-046"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P3",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "spec: docs/google/GOOGLE-ECOSYSTEM-POLICY.md §42",
+   "missing_work": "لا شيء الآن.",
+   "dependencies": [
+    "PRIV (G1)"
+   ],
+   "test_required": "مراجعة: لا مراجعات على الموقع بدون موافقة وحقوق.",
+   "design_refs": [
+    "docs/google/GOOGLE-ECOSYSTEM-POLICY.md §42"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P12",
+   "history": [],
+   "notes": ""
+  }
+ ],
+ "new_decisions": [
+  {
+   "temp_id": "G4-ND-01",
+   "area": "10 Branches & Locations",
+   "decision": "Branch Editor في الـOwner Dashboard لكل فرع بالحقول: Name AR · Name EN · Address · Google Maps · Phone · WhatsApp · Regular Hours · Special Hours · Temporary Closure · Images · Directions Link · SEO · Status — مع Preview قبل Publish",
+   "sources": [
+    "M25-090",
+    "M25-091"
+   ],
+   "status": "APPROVED",
+   "reason": "برومبت الـDashboard (M25) غير مسجّل في DECISION-LOG (D-000…D-149) ولا في MENU-DECISION-REGISTER؛ لا وثيقة Dashboard بعد",
+   "impact": "BRANCH-010؛ نموذج بيانات الفرع؛ مرحلة P04"
+  },
+  {
+   "temp_id": "G4-ND-02",
+   "area": "11 Hours",
+   "decision": "تحرير الساعات من الـDashboard بسهولة: Regular Hours ثم Special Hours (Ramadan · Holiday · Temporary change) بحقول Start Date · End Date · Reason · Branch · Status، والموقع يحسب تلقائيًا Open Now · Closed Now · Closing Soon · Next Opening",
+   "sources": [
+    "M25-092",
+    "M25-093"
+   ],
+   "status": "APPROVED",
+   "reason": "متداخل جزئيًا مع D-021 (حقول الاستثناءات) وF-20 (الحالة الديناميكية)، لكن نطاق الـDashboard ومثال 'Temporary change' وحساب Next Opening غير مسجّلة كقرار (Next Opening موجود فقط في SPEC DRAFT §9.4)",
+   "impact": "HOURS-008، HOURS-009؛ DB-18"
+  },
+  {
+   "temp_id": "G4-ND-03",
+   "area": "10 Branches & Locations",
+   "decision": "إمكانية إضافة Coming Soon Branch بدون الحاجة لإطلاق الصفحة كاملة",
+   "sources": [
+    "M01-217"
+   ],
+   "status": "APPROVED",
+   "reason": "يظهر فقط كقيمة status في مقترح AR-02 (DB-15 PROPOSED)؛ غير مسجّل كقرار",
+   "impact": "BRANCH-011؛ مقيّد بـD-010 (لا عرض قبل موافقة)"
+  },
+  {
+   "temp_id": "G4-ND-04",
+   "area": "10 Branches & Locations",
+   "decision": "حقول إدارة الفرع: Name · Country · City · Address · Coordinates · Google Maps · Phone · Opening Hours · Images · Services · Status · SEO Data",
+   "sources": [
+    "M01-214"
+   ],
+   "status": "APPROVED",
+   "reason": "توجيه Master Prompt (M01 §83) غير مسجّل كقرار؛ AR-02/DB-15 يغطي البنية فقط كاقتراح",
+   "impact": "BRANCH-009"
+  },
+  {
+   "temp_id": "G4-ND-05",
+   "area": "22 Google Business Profile & Maps",
+   "decision": "ممنوع استخدام Google product/menu info بدل مصدر المنيو الرسمي؛ والـOwner-approved له الأولوية دائمًا على GBP عند التعارض",
+   "sources": [
+    "M23-213"
+   ],
+   "status": "APPROVED",
+   "reason": "الأولوية مسجلة (D-047، D-048) لكن استبعاد بيانات منيو Google مسجّل فقط في SPEC §9.5 (DRAFT) وليس في DECISION-LOG/REGISTER",
+   "impact": "GBP-006"
+  }
+ ],
+ "decision_status": [
+  {
+   "id": "D-008",
+   "category": "APPROVED",
+   "current_text": "الفروع العامة = فرعان: SHELTER COFFEE DRIVE (الرئيسي، بجانب صالة قصر النخيل / أرابيلا، Drive Thru) وSHELTER COFFEE HOUSE (Irbid City Center، الطابق الأول). مشغل الحلويات ليس فرعًا. لا فرع Franchise عامل. أي فرع آخر لا يُعتبر نشطًا قبل سؤال الـOwner",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "BRANCH-002…004، BRANCH-007، GBP-002"
+  },
+  {
+   "id": "D-020",
+   "category": "APPROVED WITH CONDITIONS",
+   "current_text": "معتمد: الأسماء AR/EN، وصف موقع DRIVE، موقع HOUSE (الطابق الأول، بجانب البنك الإسلامي الأردني)، الساعات العادية (DRIVE السبت–الخميس 07:00–02:00، الجمعة 08:00–02:00 · HOUSE السبت–الأربعاء 09:00–22:00، الخميس–الجمعة 09:00–23:00)، لا فرق لساعات الدرايف، تعارض ساعات المول يُعرض ولا يُغيّر. غير معتمد بعد (PENDING VERIFICATION): العنوان التفصيلي AR/EN، اسم المول الرسمي، روابط Google Maps — من GBP ثم الـOwner",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "BRANCH-003…006، HOURS-001…004، GBP-013. ملاحظة: \"رقم الفرع MISSING\" الوارد في R2-01 حُسم بـD-057"
+  },
+  {
+   "id": "D-021",
+   "category": "APPROVED WITH CONDITIONS",
+   "current_text": "متطلب نظام ساعات: Regular + Special/Holiday Override + Temporary Closure/Emergency Notice بحقول Start Date · End Date · Reason · Branch · Publish Status؛ رمضان/العيد لا يغيّر الأساسية. شرط: الـUX والـCMS يُناقشان مع الـOwner قبل التنفيذ (DB-18 مفتوح)",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "HOURS-005…008؛ M25 §26 أضاف تحرير من الـDashboard وحساب Next Opening (G4-ND-02)"
+  },
+  {
+   "id": "D-022",
+   "category": "SUPERSEDED",
+   "current_text": "—",
+   "superseded_by": "D-057",
+   "old_text": "الأرقام الثلاثة PENDING ولا يُنشر أي رقم حتى تُسمّى وظيفته؛ 0799338445 شخصي وليس رقم شكاوى تلقائيًا",
+   "impact": "CONTACT-004 history. RISK-04 في RISK-REGISTER ما زال يستشهد بـD-022 (يحتاج تحديث)"
+  },
+  {
+   "id": "D-023",
+   "category": "SUPERSEDED",
+   "current_text": "—",
+   "superseded_by": "D-058",
+   "old_text": "WhatsApp PENDING OWNER DECISION — لا يُضاف",
+   "impact": "CONTACT-006 history. 04 MI-011 ما زال MISSING (قديم)"
+  },
+  {
+   "id": "D-024",
+   "category": "APPROVED",
+   "current_text": "البنية تدعم مستقبلًا بريدًا منفصلًا (Careers، Franchise، Business inquiries)؛ لا يُنشأ ولا يُنشر بريد غير موجود فعليًا؛ info@ مرشح — حالته الحالية حسب D-035 (لا يُنشر بعد)",
+   "superseded_by": "D-035 (جزء info@ فقط — تشديد)",
+   "old_text": "info@shelterjo.com Candidate للبريد العام — يُتحقق قبل النشر",
+   "impact": "CONTACT-023…025"
+  },
+  {
+   "id": "D-025",
+   "category": "APPROVED",
+   "current_text": "لا يُعتمد أي حساب من البحث تلقائيًا؛ كلها PENDING وتُعرض واحدًا واحدًا؛ youtube.com/@sheltercoffee غير رسمي حتى التأكيد؛ لا قرار بتغيير أي Handle قبل النقاش",
+   "superseded_by": "D-036 (أعمدة الجدول فقط)",
+   "old_text": "أعمدة الجدول: Platform، Account Name، URL، Evidence، Status",
+   "impact": "CONTACT-026…029"
+  },
+  {
+   "id": "D-026",
+   "category": "APPROVED",
+   "current_text": "مشغل الحلويات NON-PUBLIC LOCATION: لا يظهر كفرع، لا عنوان، لا يظهر في Locations؛ ذكره مستقبلًا في القصة فقط بقرار وصياغة معتمدة",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "BRANCH-007"
+  },
+  {
+   "id": "D-033",
+   "category": "APPROVED",
+   "current_text": "خدمات الفروع: لا استنتاج؛ Data Model جاهز؛ القيم (Indoor/Outdoor seating، Takeaway، Wi-Fi، Parking، Wheelchair) = MISSING — OWNER INPUT REQUIRED؛ لا True/False قبل التأكيد",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "BRANCH-012 (قاعدة APPROVED)، BRANCH-013 (القيم PENDING OWNER INPUT)"
+  },
+  {
+   "id": "D-034",
+   "category": "APPROVED",
+   "current_text": "طرق الدفع: البنية تدعم Cash، Credit/Debit Card، CliQ، Mobile Wallet، Other؛ لا نشر قبل التأكيد — القيم PENDING OWNER VERIFICATION",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "BRANCH-014 (APPROVED)، BRANCH-015 (PENDING)"
+  },
+  {
+   "id": "D-035",
+   "category": "PENDING VERIFICATION",
+   "current_text": "info@shelterjo.com يبقى PENDING OWNER VERIFICATION — لا يُنشر بعد (قاعدة عدم النشر معتمدة؛ البريد نفسه بانتظار تأكيد الـOwner)",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "CONTACT-023"
+  },
+  {
+   "id": "D-036",
+   "category": "APPROVED",
+   "current_text": "لا اعتماد لأي حساب اجتماعي حتى الآن؛ جدول (Platform، Handle، URL، Evidence، Current Website Reference، Search Evidence، Status) كلها PENDING وتُعرض واحدًا واحدًا؛ Snapchat Place ليس حسابًا رسميًا؛ لا Linktree إذا وفّر الموقع تجربة أفضل",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "CONTACT-026، CONTACT-027، CONTACT-030 (الحسابات نفسها PENDING VERIFICATION)"
+  },
+  {
+   "id": "D-043",
+   "category": "APPROVED",
+   "current_text": "GBP: الخيار المجاني (روابط Maps + لقطات/بيانات الملف)، لا Places API مدفوع، البيانات للتحقق فقط في هذه المرحلة. \"لا تعديل للملف\" يُقرأ الآن: لا تعديل بدون Proposal → Owner Approval → Change، وClaude ينفذ بعد الموافقة والصلاحية (M11 §44، M12 §17)",
+   "superseded_by": "مُكمَّل بـGEP-§44 وM12 §17 (GIO-§A17)",
+   "old_text": "البيانات للتحقق فقط، لا تعديل للملف",
+   "impact": "GBP-008، GBP-009 (تعارض RESOLVED)"
+  },
+  {
+   "id": "D-048",
+   "category": "APPROVED",
+   "current_text": "GBP الرسمي لـDRIVE وHOUSE = Official Operational Source (الاسم، العنوان، الـPin، رابط Maps، الساعات، الساعات الخاصة، الهاتف المعروض، رابط الموقع، التصنيف، الحالة) لكنه لا يتغلب على بيانات الـOwner المعتمدة: الاختلاف = CONFLICT — OWNER REVIEW REQUIRED",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "GBP-003، GBP-004"
+  },
+  {
+   "id": "D-049",
+   "category": "APPROVED",
+   "current_text": "Branch Data Sync Check (GBP ↔ Website ↔ Schema ↔ Contact ↔ Branch pages ↔ Maps (+ Search، Branch URL — M12 §19)) يُشغَّل في Discovery وقبل/بعد الإطلاق وعند أي تغيير — BRANCH-DATA-SYNC.md",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "BRANCH-018، BRANCH-019 — لم يُشغَّل بعد (SYNC-001 بانتظار بيانات GBP)"
+  },
+  {
+   "id": "D-057",
+   "category": "FROZEN",
+   "current_text": "0799009436 = Main Public Contact Number لكل الفروع (عام · DRIVE · HOUSE · Call CTA · Contact Page · Branch Pages · Schema · فحص اتساق GBP) · 0799338445 = الشكاوى والاقتراحات والفرنشايز — ليس عامًا ولا في Branch Cards · 0799530383 = الكيترنج والأعمال والفعاليات — ليس عامًا · Reservations لا رقم منفصل · فصل الوظائف مستقبلًا يُعرض أولًا. الـOwner: لا إعادة سؤال إلا عند تعارض جديد من مصدر رسمي",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "CONTACT-003…011. FROZEN لأن الـOwner منع إعادة فتحها إلا بتعارض جديد من مصدر رسمي"
+  },
+  {
+   "id": "D-058",
+   "category": "APPROVED",
+   "current_text": "WhatsApp الرسمي = 0799009436 (الرقم مجمّد ضمن R2P). تفاصيل الـCTA حُسمت لاحقًا: الأماكن D-062، نص الزر D-063 (مبدئي)، الرسالة المسبقة W-2 D-064 (النص النهائي معلق)، الصيغة D-065",
+   "superseded_by": "D-062 · D-063 · D-064 · D-065 (بند \"قبل التنفيذ النهائي يُعرض…\" و\"لا Pre-filled قبل الموافقة\")",
+   "old_text": "قبل التنفيذ النهائي يُعرض: مكان الظهور · نص الزر · رسالة مسبقة أم لا · هل تختلف حسب الصفحة/الفرع. لا Pre-filled Message قبل الموافقة",
+   "impact": "CONTACT-006، CONTACT-016…019. نص D-058 في السجل لم يُحدَّث ليشير إلى D-062…D-065"
+  },
+  {
+   "id": "D-059",
+   "category": "APPROVED WITH CONDITIONS",
+   "current_text": "Contact Architecture حسب النية (عام/فروع ← 0799009436 Call + WhatsApp · شكاوى واقتراحات ← 0799338445 · Franchise ← 0799338445 · Catering/B2B/Events ← 0799530383)، Footer غير مزدحم. مقترح الـUX سُلّم (14) واعتُمد CT-02/03/04/05/07؛ CT-01 (جدول الأماكن) وCT-06 (الأرقام الثانوية في الـSchema) بلا رد صريح",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "CONTACT-013…015"
+  },
+  {
+   "id": "D-060",
+   "category": "APPROVED",
+   "current_text": "الرقم العام للفروع في GBP والـSchema = 0799009436؛ أي رقم مختلف في Google لأي فرع = CONFLICT — OWNER REVIEW REQUIRED، ولا تغيير تلقائي في Google أو الموقع",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "GBP-005، CONTACT-021"
+  },
+  {
+   "id": "D-062",
+   "category": "APPROVED",
+   "current_text": "CT-03: واتساب في Branch Card · Branch Page · Contact Page · Footer — بدون Floating WhatsApp Bubble",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "CONTACT-017، CONTACT-018"
+  },
+  {
+   "id": "D-064",
+   "category": "APPROVED WITH CONDITIONS",
+   "current_text": "CT-05 = W-2 رسالة مسبقة حسب الفرع (مسودة DRIVE/HOUSE). الشرط: النص النهائي AR/EN قصير وطبيعي وغير تسويقي يُقترح ويُعتمد قبل التنفيذ (PENDING OWNER INPUT)",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "CONTACT-019"
+  },
+  {
+   "id": "D-065",
+   "category": "APPROVED",
+   "current_text": "CT-07: العرض العربي 0799009436 · الإنجليزي +962 79 900 9436 · روابط tel: وWhatsApp والـSchema بالصيغة الدولية",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "CONTACT-020، CONTACT-021"
+  },
+  {
+   "id": "D-072",
+   "category": "PENDING OWNER INPUT",
+   "current_text": "PG-04 الرعايات: لا رقم ولا قناة تلقائيًا — MISSING — OWNER INPUT REQUIRED — تُسأل لاحقًا (قاعدة عدم الربط معتمدة)",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "CONTACT-012"
+  },
+  {
+   "id": "F-18",
+   "category": "FROZEN",
+   "current_text": "الفروع: كل الفروع / DRIVE / HOUSE · الافتراضي كل الفروع · Segmented Control قابل للتحول · حفظ آخر اختيار · ?branch=drive|house · Canonical واحد (الموجز §25–§31: يشمل الموضع §27 وأولوية سياق صفحة الفرع §28 والحفاظ على السياق §31)",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "BRANCH-021…026"
+  },
+  {
+   "id": "F-20",
+   "category": "FROZEN",
+   "current_text": "حالة الفرع: مفتوح/مغلق ديناميكي · \"يغلق قريبًا\" خلال آخر 60 دقيقة · الساعات بعد منتصف الليل · المنيو يبقى متاحًا عند الإغلاق (مع Next opening time — §38)",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "HOURS-009…012، BRANCH-030"
+  },
+  {
+   "id": "GEP-§3",
+   "category": "APPROVED",
+   "current_text": "فرعان رسميان على Google (DRIVE، HOUSE)؛ GBP لكل فرع = OFFICIAL OPERATIONAL SOURCE للحقول الأحد عشر",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "GBP-002، GBP-003"
+  },
+  {
+   "id": "GEP-§4",
+   "category": "APPROVED",
+   "current_text": "عند بناء/تعديل أي صفحة فرع: تحقق من GBP أولًا وقارن Website/GBP/Structured Data/Owner-approved وأنتج BRANCH DATA CONSISTENCY CHECK",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "BRANCH-019"
+  },
+  {
+   "id": "GEP-§5",
+   "category": "APPROVED",
+   "current_text": "GBP Does Not Override Owner: الاختلاف = CONFLICT — OWNER REVIEW REQUIRED مع توضيح الفرق",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "GBP-004، HOURS-004"
+  },
+  {
+   "id": "GEP-§7/§8",
+   "category": "APPROVED",
+   "current_text": "BRANCH DATA SYNC CHECK (الحقول التسعة) والمحفزات التسعة (Discovery، قبل/بعد Launch، تغيير الساعات/الهاتف/الموقع/الاسم/فرع جديد/GBP)؛ وسّعها M12 §19 بإضافة Maps وSearch وBranch URL",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "BRANCH-018، BRANCH-019"
+  },
+  {
+   "id": "GEP-§9",
+   "category": "APPROVED",
+   "current_text": "Special Hours (رمضان، العيد، العطل الرسمية، المناسبات، الإغلاق المؤقت) تُقارن؛ إذا Google محدث والموقع لا ← عرض الفرق، لا تغيير تلقائي على Production",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "HOURS-013"
+  },
+  {
+   "id": "GEP-§33/§34",
+   "category": "APPROVED",
+   "current_text": "تتبع Directions Click بلا Tracking parameters تكسر رابط Maps؛ رابط Maps الرسمي الصحيح لكل فرع؛ لا Pin يدوي إذا وُجد GBP رسمي",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "GBP-011، GBP-012"
+  },
+  {
+   "id": "GEP-§44",
+   "category": "APPROVED",
+   "current_text": "لا تعديل لأي GBP بدون موافقة؛ Name · Address · Phone · Hours · Category · Website · Photos · Description ← Proposal → Owner Approval → Change؛ والمنفذ Claude بعد الموافقة والصلاحية (M12 §17)",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "GBP-009"
+  },
+  {
+   "id": "GIO-§A17/§A18/§A19",
+   "category": "APPROVED WITH CONDITIONS",
+   "current_text": "GBP مصدر تشغيلي؛ التعديل بموافقة وينفذه الفريق؛ كل Branch Page مرتبطة بـMaps الصحيح ولا نفس الرابط للفرعين؛ Local SEO Sync (GBP ↔ Website ↔ Schema ↔ Maps ↔ Search). الشرط: التنفيذ عند المرحلة المناسبة والصلاحيات (Phase 01: لا تنفيذ)",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "GBP-009…011، BRANCH-018"
+  },
+  {
+   "id": "DB-07",
+   "category": "PENDING OWNER INPUT",
+   "current_text": "بنية الفروع Country → City → Branch — توصية Hierarchical + Progressive Activation (PROPOSED). الشجرة P3 المعتمدة مبدئيًا (D-031) تستخدم /ar/jo/locations/irbid/{drive|house}/ فعليًا؛ تفعيل صفحة المدينة/السوق (URL-07) غير محسوم",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "BRANCH-008، BRANCH-009"
+  },
+  {
+   "id": "DB-15",
+   "category": "PENDING OWNER INPUT",
+   "current_text": "نموذج بيانات المواقع Country → City → Location بأنواع وحالات ورؤية (AR-02) — PROPOSED",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "BRANCH-007، BRANCH-009، BRANCH-011"
+  },
+  {
+   "id": "DB-18",
+   "category": "PENDING OWNER INPUT",
+   "current_text": "نموذج الساعات الخاصة (UX + CMS) — AR-07 PROPOSED؛ نقاش مع الـOwner قبل التنفيذ (شرط D-021)؛ M25 §26 حدّد متطلبات التحرير في الـDashboard دون اعتماد الـUX",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "HOURS-005، HOURS-007، HOURS-008"
+  }
+ ],
+ "conflicts": [
+  {
+   "topic": "وظائف الأرقام الثلاثة ونشرها (ومنها رقم الفرعين)",
+   "old_instruction": "0799009436 و0799338445 و0799530383 = PENDING OWNER VERIFICATION ولا يُنشر أي منها؛ 0799338445 رقم شخصي ليس رقم شكاوى تلقائيًا؛ رقم DRIVE ورقم HOUSE = MISSING — OWNER INPUT REQUIRED",
+   "old_source": "M04 R2-03، R2-01 (M04-033، M04-034، M04-018)",
+   "new_instruction": "R2P-01…R2P-04 OWNER APPROVED: 0799009436 عام لكل الفروع + واتساب؛ 0799338445 شكاوى/اقتراحات/فرنشايز؛ 0799530383 كيترنج/B2B/فعاليات؛ DRIVE Phone = HOUSE Phone = 0799009436",
+   "new_source": "M13 R2P (M13-023…M13-035)",
+   "winner": "M13 (D-057)",
+   "why": "قرار صريح لاحق من الـOwner يلغي الحالة المعلقة؛ الـOwner نصّ أن الحالة المعلقة تستمر \"حتى أسمي لك وظيفة كل رقم\"",
+   "impact": "CONTACT-004…010؛ D-022 SUPERSEDED",
+   "files": [
+    "docs/governance/DECISION-LOG.md (D-022 → D-057)",
+    "docs/governance/RISK-REGISTER.md (RISK-04 ما زال يستشهد بـD-022)",
+    "docs/phase-01-discovery/04-content-approval-register.md (MI-010 ما زال MISSING)"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "topic": "WhatsApp: إضافته ورقمه",
+   "old_instruction": "WhatsApp = PENDING OWNER DECISION — لا تضف WhatsApp حتى أحدد الرقم والغرض",
+   "old_source": "M04 R2-04 (M04-036)",
+   "new_instruction": "0799009436 = OFFICIAL WHATSAPP NUMBER",
+   "new_source": "M13 R2P-01 (M13-024)",
+   "winner": "M13 (D-058)",
+   "why": "قرار لاحق صريح",
+   "impact": "CONTACT-006؛ D-023 SUPERSEDED",
+   "files": [
+    "docs/governance/DECISION-LOG.md (D-023 → D-058)",
+    "docs/phase-01-discovery/04-content-approval-register.md (MI-011 ما زال MISSING)"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "topic": "تفاصيل WhatsApp CTA والرسالة المسبقة",
+   "old_instruction": "قبل التنفيذ النهائي اعرض: مكان الظهور · نص الزر · رسالة مسبقة أم لا · هل تختلف حسب الصفحة/الفرع؛ لا تعتمد Pre-filled Message قبل موافقتي",
+   "old_source": "M13 §WHATSAPP (M13-042، M13-043)",
+   "new_instruction": "CT-03 الأماكن الأربعة بلا فقاعة · CT-04 \"راسلنا على واتساب\" / \"Message us on WhatsApp\" (مبدئي) · CT-05 W-2 رسالة مسبقة حسب الفرع (النص النهائي يُقترح ويُعتمد) · CT-07 الصيغ",
+   "new_source": "M14 CT-03/04/05/07 (M14-009، M14-014، M14-018)",
+   "winner": "M14 (D-062…D-065)",
+   "why": "الـOwner أجاب عن البنود المطلوبة؛ يبقى النص النهائي للرسالة معلقًا (ليس تعارضًا بل PENDING)",
+   "impact": "CONTACT-017، CONTACT-019؛ نص D-058 في السجل ما زال يقول \"لا Pre-filled قبل الموافقة\" و⏳ التفاصيل",
+   "files": [
+    "docs/governance/DECISION-LOG.md (D-058، D-062…D-065)",
+    "docs/phase-01-discovery/14-contact-architecture-and-whatsapp.md"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "topic": "دور 0799009436: خط حجز أم الرقم العام",
+   "old_instruction": "Owner profile القديم والدلائل: 0799009436 = خط حجز الطاولات والحفلات وأعياد الميلاد؛ الموقع القديم يعرضه كرقم عام/رقم الفرع الرئيسي",
+   "old_source": "03 VQ-13 · 04 CR-038، CR-043 (أدلة خارجية — ليست تعليمات Owner في المحادثة)",
+   "new_instruction": "Main Public Contact Number لكل الفروع؛ Reservations: لا رقم منفصل، وأي Reservation flow يُسأل عنه قبل ربطه برقم؛ لا تُعتمد استنتاجات المصادر الخارجية كوظيفة",
+   "new_source": "M13 R2P-01، R2P-04 (M13-021، M13-023، M13-036)",
+   "winner": "M13 (D-057)",
+   "why": "بيانات الـOwner المعتمدة تتقدم على المصادر الخارجية (D-047)",
+   "impact": "CONTACT-005، CONTACT-011",
+   "files": [
+    "docs/phase-01-discovery/03-verify-with-owner.md VQ-13",
+    "docs/phase-01-discovery/04-content-approval-register.md CR-038، CR-043"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "topic": "البريد info@shelterjo.com",
+   "old_instruction": "Candidate للبريد العام — VERIFY WITH OWNER قبل النشر",
+   "old_source": "M04 R2-05 (M04-037)",
+   "new_instruction": "يبقى PENDING OWNER VERIFICATION — لا تنشره بعد",
+   "new_source": "M10 R2-10 (M10-021)",
+   "winner": "M10 (D-035)",
+   "why": "تشديد لاحق متسق مع السابق",
+   "impact": "CONTACT-023؛ الموقع القديم يستخدمه للفرنشايز (CR-088) — لا يُنقل",
+   "files": [
+    "docs/governance/DECISION-LOG.md (D-024، D-035)",
+    "docs/phase-01-discovery/04-content-approval-register.md CR-042"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "topic": "صفحة مستقلة لكل فرع",
+   "old_instruction": "ادرس إنشاء صفحة مستقلة لكل Branch، لكن ناقش URL Architecture أولًا",
+   "old_source": "M01 §84 (M01-215)",
+   "new_instruction": "✅ صفحة مستقلة لكل فرع (R1-09) + P3 مبدئي + Slugs drive/house",
+   "new_source": "M03 R1-09 (M03-039)؛ M04 AR-01؛ M13 URL-02",
+   "winner": "M03 + D-031 + D-053",
+   "why": "اعتماد لاحق صريح بعد مناقشة الـURL Architecture",
+   "impact": "BRANCH-008",
+   "files": [
+    "docs/governance/DECISION-LOG.md (D-015، D-031، D-053)",
+    "docs/phase-01-discovery/10-url-architecture-draft.md"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "topic": "Slugs الفروع: تفضيل غير مجمّد vs اعتماد",
+   "old_instruction": "أفضل Slugs قصيرة /drive/ /house/ لكن لا تجمد القرار حتى تعرض أثر الخيارين على SEO ووضوح الرابط",
+   "old_source": "M10 §2 (بنود G5 M10-013، M10-014) — D-032 PROPOSED",
+   "new_instruction": "URL-02 APPROVED: drive · house؛ فرع آخر من نفس النوع في نفس المدينة ← drive-{area} / house-{area}؛ الرابط الأصلي لا يتغير؛ توثيق فقط",
+   "new_source": "M13 URL-02 (بند G5 M13-005…M13-008)",
+   "winner": "M13 (D-053)",
+   "why": "اعتماد لاحق صريح",
+   "impact": "BRANCH-003، BRANCH-004، BRANCH-008؛ D-032 ما زال `PROPOSED` في السجل وعمود التوصية لـURL-02 في 10 ما زال \"نقرر بعد تأكيد العناوين من Google\" — يحتاجان تحديثًا (موضوع G5)",
+   "files": [
+    "docs/governance/DECISION-LOG.md (D-032، D-053)",
+    "docs/phase-01-discovery/10-url-architecture-draft.md §6 URL-02"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "topic": "شريط صفحة الفرع على الموبايل",
+   "old_instruction": "مقترح AR-03: شريط سفلي [الاتجاهات] [اتصال] [المنيو] (اقتراح Claude)",
+   "old_source": "docs/phase-01-discovery/09-architecture-options-after-r1.md AR-03؛ 14 §3 M-B",
+   "new_instruction": "CT-02 APPROVED: [الاتجاهات] [اتصال] [واتساب]؛ المنيو في الـNavigation/Header وليس زرًا رابعًا",
+   "new_source": "M14 CT-02 (M14-002)",
+   "winner": "M14 (D-061)",
+   "why": "قرار Owner صريح يتقدم على اقتراح",
+   "impact": "BRANCH-017؛ جدول AR-03 في 09 ما زال يعرض [المنيو]",
+   "files": [
+    "docs/phase-01-discovery/09-architecture-options-after-r1.md AR-03",
+    "docs/phase-01-discovery/14-contact-architecture-and-whatsapp.md §3"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "topic": "الحاجة لمحدد الفرع في المنيو",
+   "old_instruction": "محدد الفرع غير مطلوب ما دام التوفر غير معروف (اقتراح Claude)",
+   "old_source": "docs/phase-01-discovery/22-menu-information-architecture.md",
+   "new_instruction": "محدد الفرع مطلوب (كل الفروع/DRIVE/HOUSE) مع حالة مفتوح/مغلق",
+   "new_source": "M23 §25 (M23-098)",
+   "winner": "M23 (F-18، D-145)",
+   "why": "قرار Owner؛ عولج خطر الإيحاء بالتوفر بقاعدة P0-02 (لا متوفر/غير متوفر قبل البيانات)",
+   "impact": "BRANCH-021، BRANCH-029",
+   "files": [
+    "docs/menu-ia/MENU-DECISION-REGISTER.md CF-02",
+    "docs/menu-ia/SHELTER-MENU-IA-SPEC.md §9.6"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "topic": "تعديل Google Business Profile",
+   "old_instruction": "استخدم البيانات للتحقق فقط، وليس لتعديل Business Profile",
+   "old_source": "M10 §13 (M10-051) — D-043",
+   "new_instruction": "لا تعديل بدون موافقة؛ أي تغيير ← Proposal → Owner Approval → Change؛ وعند الموافقة والصلاحية ينفذ Claude التعديل بنفسه إذا سمحت الأدوات",
+   "new_source": "M11 §44 (M11-096، M11-097)، M12 §17 (M12-045)",
+   "winner": "M12 (مع بقاء D-043 حاكمًا للمرحلة الحالية Read-only — AC-03)",
+   "why": "الرسائل اللاحقة تضيف مسار تعديل مشروطًا بالموافقة؛ لا تلغي أن جمع البيانات الآن للتحقق فقط",
+   "impact": "GBP-008، GBP-009؛ نص D-043 \"لا تعديل للملف\" يحتاج حاشية تشير إلى GEP §44 وGIO §17",
+   "files": [
+    "docs/governance/DECISION-LOG.md (D-043)",
+    "docs/google/GOOGLE-ECOSYSTEM-POLICY.md §44",
+    "docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §17"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "topic": "ساعات DRIVE في المصادر القديمة",
+   "old_instruction": "الدلائل: TripAdvisor وmat3am يوميًا 09:00–23:00 · findglocal 08:00–03:00 · arabplaces 06:00–02:00 والجمعة 08:00–02:00 · Cybo 09:00–23:00",
+   "old_source": "04 CR-023 (أدلة خارجية)",
+   "new_instruction": "السبت–الخميس 07:00 AM – 02:00 AM · الجمعة 08:00 AM – 02:00 AM",
+   "new_source": "M04 R2-01 (M04-016)، مؤكَّد في M23 §36",
+   "winner": "Owner (D-020)",
+   "why": "Source Priority: بيانات الـOwner أولًا؛ GBP لم يُقارن بعد (P-08) وأي اختلاف فيه = CONFLICT — OWNER REVIEW REQUIRED",
+   "impact": "HOURS-001؛ الدلائل الخارجية NEEDS UPDATE (خارج الموقع)",
+   "files": [
+    "docs/phase-01-discovery/04-content-approval-register.md CR-022، CR-023",
+    "docs/menu-ia/MENU-DECISION-REGISTER.md P-08"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "topic": "ساعات HOUSE (خصوصًا الجمعة) في المصادر القديمة",
+   "old_instruction": "الموقع القديم: الجمعة 2:00 ظهرًا – 11:00 مساءً؛ صيغ أخرى (يوميًا 9–10، الخميس 9–11)؛ Snapchat الإثنين–الأربعاء والسبت–الأحد 09:00–22:00",
+   "old_source": "04 CR-032، 03 VQ-12",
+   "new_instruction": "السبت–الأربعاء 09:00 AM – 10:00 PM · الخميس–الجمعة 09:00 AM – 11:00 PM",
+   "new_source": "M04 R2-01 (M04-026)، M23 §36",
+   "winner": "Owner (D-020)",
+   "why": "قرار Owner صريح",
+   "impact": "HOURS-002؛ ساعات المول الخاصة تُعرض كتعارض إن وُجدت (HOURS-004)",
+   "files": [
+    "docs/phase-01-discovery/04-content-approval-register.md CR-032",
+    "docs/phase-01-discovery/03-verify-with-owner.md VQ-12"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "topic": "طابق فرع HOUSE",
+   "old_instruction": "مقتطف: \"الطابق الثاني\"",
+   "old_source": "04 CR-031، 03 VQ-10",
+   "new_instruction": "Irbid City Center · الطابق الأول · بجانب البنك الإسلامي الأردني",
+   "new_source": "M03 R1-02، M04 R2-01 (M03-006، M04-022)",
+   "winner": "Owner (D-008، D-020)",
+   "why": "قرار Owner صريح",
+   "impact": "BRANCH-004",
+   "files": [
+    "docs/phase-01-discovery/04-content-approval-register.md CR-031"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "topic": "عنوان شارع DRIVE وحيّه وتهجئته الإنجليزية والرمز البريدي",
+   "old_instruction": "'إربد، بجانب قاعات قصر النخيل وأرابيلا، شارع عوض رشيدات' / 'عوض الرشيدات'",
+   "old_source": "04 CR-019 (الموقع القديم)",
+   "new_instruction": "'شارع الجامعة بجانب قصر النخيل…' (مصدر آخر) · الحي: الورود (mat3am/Talabat) / النزهة (Accessible Jordan) / إيدون (Cybo) · EN: Eiwad Rashidat / Awad Rshedat / Awad Rashedat / Awad Irshedat / Awad Rashidat · 21110",
+   "new_source": "04 CR-019…CR-021، 03 VQ-09، VQ-21",
+   "winner": "",
+   "why": "الـOwner اعتمد وصف الموقع فقط (\"إربد — بجانب صالة قصر النخيل / منطقة أرابيلا\") وطلب التحقق من GBP ثم سؤاله؛ لا يُختار أي صيغة تلقائيًا",
+   "impact": "BRANCH-005؛ NAP والـSchema address",
+   "files": [
+    "docs/phase-01-discovery/04-content-approval-register.md CR-019…CR-021",
+    "docs/phase-01-discovery/03-verify-with-owner.md VQ-09، VQ-21",
+    "docs/google/GOOGLE-BUSINESS-PROFILE-SOURCE-OF-TRUTH.md"
+   ],
+   "status": "OWNER DECISION REQUIRED"
+  },
+  {
+   "topic": "مواقف DRIVE: مجانية أم فاليه",
+   "old_instruction": "'مواقف مجانية' + مسرب درايف مخصص",
+   "old_source": "04 CR-025، 03 VQ-24 (الموقع القديم)",
+   "new_instruction": "'valet parking'",
+   "new_source": "04 CR-025 (TripAdvisor)",
+   "winner": "",
+   "why": "خدمات الفروع لا تُستنتج ولا تُنشر قبل تأكيد الـOwner (D-033)",
+   "impact": "BRANCH-013",
+   "files": [
+    "docs/phase-01-discovery/04-content-approval-register.md CR-025",
+    "docs/phase-01-discovery/03-verify-with-owner.md VQ-24"
+   ],
+   "status": "OWNER DECISION REQUIRED"
+  },
+  {
+   "topic": "Website URL في GBP (بدون www) مقابل الـHost الرسمي المقترح",
+   "old_instruction": "Knowledge Panel / GBP يشير غالبًا إلى `shelterjo.com/` بدون www (مستنتج)",
+   "old_source": "03 VQ-15، 04 CR-109",
+   "new_instruction": "DB-11 (الـHost الرسمي www) PROPOSED",
+   "new_source": "DECISION-LOG DB-11 (G5)",
+   "winner": "",
+   "why": "تعديل Website URL في GBP يتطلب Proposal → Owner Approval → Change (GBP-009) وقرار الـHost (G5)",
+   "impact": "GBP-003، BRANCH-018 (حقل Website URL)",
+   "files": [
+    "docs/phase-01-discovery/03-verify-with-owner.md VQ-15",
+    "docs/governance/DECISION-LOG.md DB-11",
+    "docs/google/GOOGLE-BUSINESS-PROFILE-SOURCE-OF-TRUTH.md"
+   ],
+   "status": "OWNER DECISION REQUIRED"
+  }
+ ],
+ "dropped": [],
+ "notes": "الأرقام الثلاثة المعتمدة (D-057، FROZEN): 0799009436 عام لكل الفروع + واتساب (Branch Card/Page، Contact، Footer، Call/WhatsApp CTA، Schema) · 0799338445 شكاوى/اقتراحات/فرنشايز — ممنوع في Branch Cards وليس رقمًا عامًا · 0799530383 كيترنج/B2B/فعاليات — ليس رقمًا عامًا · لا رقم حجز. · واتساب: 4 أماكن فقط (Branch Card · Branch Page · Contact Page · Footer) ولا فقاعة عائمة؛ W-2 حسب الفرع معتمد والنص النهائي AR/EN معلق (D-064)؛ نص الأماكن غير المرتبطة بفرع غير محدد. · العرض: AR 0799009436 · EN +962 79 900 9436 · الروابط دولية (tel:+962799009436، wa.me/962799009436)؛ صيغة الرقمين الآخرين بالإنجليزية مشتقة وتحتاج تأكيدًا؛ CT-01 وCT-06 بلا رد صريح. · الساعات مطابقة للوثائق والـharness: DRIVE السبت–الخميس 07:00–02:00 والجمعة 08:00–02:00 · HOUSE السبت–الأربعاء 09:00–22:00 والخميس–الجمعة 09:00–23:00؛ يغلق قريبًا ≤60 دقيقة؛ وقت الإغلاق = مغلق؛ Asia/Amman اختيار تقني في SPEC/AR-07 وليس نص Owner. · Slugs الفروع drive/house معتمدة (D-053) — D-032 ما زال PROPOSED في السجل (قديم). · GBP = مصدر تشغيلي تابع للـOwner؛ أي اختلاف = CONFLICT — OWNER REVIEW REQUIRED؛ لا تغيير تلقائي؛ بيانات GBP (G-01/G-02) لم تصل ولم يُشغَّل أي Branch Data Sync (SYNC-001 معلق). · MISSING/PENDING: العنوان AR/EN للفرعين، اسم المول الرسمي، روابط Maps، الإحداثيات، الخدمات، طرق الدفع، تواريخ الافتتاح، البريد (لا يُنشر)، الحسابات الاجتماعية، الرعايات، قنوات الطلب، بيانات التوفر لكل فرع (382 قيمة UNKNOWN)، الساعات الخاصة. · توثيق قديم يحتاج تحديثًا (لم يُعدَّل أي ملف في الريبو): 04 MI-008…MI-011 ما زالت MISSING رغم D-020/D-057/D-058 (OBS-02) · RISK-04 يستشهد بـD-022 (OBS-09) · GEP §58 بند 10 \"⏳ R2P\" (OBS-07) · D-058 لم يُحدَّث بعد D-062…D-065 · D-032 PROPOSED رغم D-053 · جدول AR-03 في 09 يعرض [المنيو]. · بنود مرتبطة في مجموعات أخرى (للإحالة فقط): شروط شريط صفحة الفرع M14-003…M14-008 (G8/G1/G2) · نص زر واتساب M14-012/013 ومسودة الرسالة M14-015…017 (G1) · Franchise على صفحة التواصل M14-034 (G2) · Schema الهاتف M13-040 (G5) · branch URLs/canonical M23-104…106 (G5) · GBP monitoring M11-098 (G7) · Map embeds M11-080/081 (G8) · Directions tracking M11-076/077 (G6)."
+}

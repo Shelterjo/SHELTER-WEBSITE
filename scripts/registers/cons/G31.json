@@ -1,0 +1,224 @@
+{
+ "group": "G31",
+ "notes": "M50: أبسط Owner Dashboard بلا كود — المرحلة D1 (الهيكل + الشاشة الأولى + محرر الصفحات). الباقي: D2 الوسائط/الجوائز/العائلة · D3 الطلبات · D4 بيانات العمل.",
+ "requirements": [],
+ "updates_to_existing": [
+  {
+   "id": "CMS-001",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D1 (M50)",
+   "change": "D1: نصوص الصفحات الست الثابتة (من نحن، الأسئلة، الفرنشايز، المركز الإعلامي، الخصوصية، الشروط) تُحرَّر بالكامل من الـDashboard: العنوان/الاسم/الوصف + الأقسام (إضافة، ترتيب، إخفاء، حذف = أرشفة) بالعربي والإنجليزي، بلا كود. الوسائط والطلبات وبيانات العمل في D2–D4.",
+   "new_impl": "PARTIAL",
+   "tested": "YES",
+   "code_refs": [
+    "app/Services/Dashboard/PageEditor.php",
+    "app/Http/Controllers/Dashboard/Content/PagesController.php",
+    "resources/views/dashboard/pages/edit.blade.php",
+    "resources/views/dashboard/pages/_section.blade.php",
+    "resources/js/dashboard/page-editor.ts",
+    "database/migrations/2026_10_02_000100_add_archived_at_to_page_sections.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/PageEditorTest.php",
+    "tests/Feature/DesignSystem/PagesTest.php",
+    "resources/js/dashboard/page-editor.test.ts"
+   ]
+  },
+  {
+   "id": "CMS-019",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D1 (M50)",
+   "change": "قائمة الصفحات تقول بوضوح لكل صفحة: منشورة على الموقع · مسودة · منشورة لكن لا تظهر (مع السبب عند الفتح) · لم تُكتب بعد — مع عدد الأقسام وآخر تعديل.",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Dashboard/Content/PagesController.php",
+    "resources/views/dashboard/pages/index.blade.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/PageEditorTest.php",
+    "tests/Feature/DesignSystem/PagesTest.php",
+    "resources/js/dashboard/page-editor.test.ts"
+   ]
+  },
+  {
+   "id": "DASH-006",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D1 (M50)",
+   "change": "قائمة التنقل مجمّعة (المحتوى · الطلبات · بيانات العمل)؛ كل بند يظهر فقط عند جاهزية شاشته — لا روابط ميتة.",
+   "new_impl": "PARTIAL",
+   "tested": "YES",
+   "code_refs": [
+    "app/View/Composers/DashboardChrome.php",
+    "resources/views/layouts/dashboard.blade.php",
+    "resources/css/components/dashboard/shell.css",
+    "app/Http/Middleware/DashboardLocale.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/PageEditorTest.php",
+    "tests/Feature/DesignSystem/PagesTest.php",
+    "resources/js/dashboard/page-editor.test.ts"
+   ]
+  },
+  {
+   "id": "DASH-007",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D1 (M50)",
+   "change": "الشاشة الأولى بعد الدخول (مبسطة لـM50): أرقام فقط — طلبات توظيف جديدة، طلبات شراكة جديدة، آراء العملاء هذا الأسبوع، صور بانتظار الاعتماد، صفحات غير منشورة؛ كل رقم رابط لشاشته عند جاهزيتها؛ لا بيانات شخصية. مؤشرات Analytics لاحقًا (DASH-011).",
+   "new_impl": "PARTIAL",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Dashboard/HomeController.php",
+    "resources/views/dashboard/home.blade.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/PageEditorTest.php",
+    "tests/Feature/DesignSystem/PagesTest.php",
+    "resources/js/dashboard/page-editor.test.ts"
+   ]
+  },
+  {
+   "id": "DASH-027",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D1 (M50)",
+   "change": "شاشات D1 (الدخول، الرئيسية، الصفحات، المحرر) فُحصت في المتصفح على 9 عروض 320–1920 بالعربي RTL والإنجليزي LTR: لا Overflow؛ الحفظ يعمل على الهاتف بشريط حفظ ثابت.",
+   "new_impl": "PARTIAL",
+   "tested": "YES",
+   "code_refs": [
+    "app/View/Composers/DashboardChrome.php",
+    "resources/views/layouts/dashboard.blade.php",
+    "resources/css/components/dashboard/shell.css",
+    "app/Http/Middleware/DashboardLocale.php",
+    "app/Services/Dashboard/PageEditor.php",
+    "app/Http/Controllers/Dashboard/Content/PagesController.php",
+    "resources/views/dashboard/pages/edit.blade.php",
+    "resources/views/dashboard/pages/_section.blade.php",
+    "resources/js/dashboard/page-editor.ts",
+    "database/migrations/2026_10_02_000100_add_archived_at_to_page_sections.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/PageEditorTest.php",
+    "tests/Feature/DesignSystem/PagesTest.php",
+    "resources/js/dashboard/page-editor.test.ts"
+   ]
+  },
+  {
+   "id": "RESP-025",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D1 (M50)",
+   "change": "المحرر على الهاتف: عمود واحد (العربي ثم الإنجليزي)، أزرار ≥44px، شريط «حفظ» ثابت أسفل الشاشة، ملخص أخطاء بروابط للحقل نفسه.",
+   "new_impl": "PARTIAL",
+   "tested": "YES",
+   "code_refs": [
+    "app/View/Composers/DashboardChrome.php",
+    "resources/views/layouts/dashboard.blade.php",
+    "resources/css/components/dashboard/shell.css",
+    "app/Http/Middleware/DashboardLocale.php",
+    "app/Services/Dashboard/PageEditor.php",
+    "app/Http/Controllers/Dashboard/Content/PagesController.php",
+    "resources/views/dashboard/pages/edit.blade.php",
+    "resources/views/dashboard/pages/_section.blade.php",
+    "resources/js/dashboard/page-editor.ts",
+    "database/migrations/2026_10_02_000100_add_archived_at_to_page_sections.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/PageEditorTest.php",
+    "tests/Feature/DesignSystem/PagesTest.php",
+    "resources/js/dashboard/page-editor.test.ts"
+   ]
+  },
+  {
+   "id": "FRAN-067",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D1 (M50)",
+   "change": "نصوص صفحة الفرنشايز وأقسامها الـ17 قابلة للتحرير من محرر الصفحات بنفس قواعد النشر (العبارات التجارية الممنوعة تُرفض بالسبب). نص الموافقات وخيارات النموذج تبقى مقفلة بالإصدار (consent_versions) — تعديلها = إصدار جديد لاحقًا.",
+   "new_impl": "PARTIAL",
+   "tested": "YES",
+   "code_refs": [
+    "app/Services/Dashboard/PageEditor.php",
+    "app/Http/Controllers/Dashboard/Content/PagesController.php",
+    "resources/views/dashboard/pages/edit.blade.php",
+    "resources/views/dashboard/pages/_section.blade.php",
+    "resources/js/dashboard/page-editor.ts",
+    "database/migrations/2026_10_02_000100_add_archived_at_to_page_sections.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/PageEditorTest.php",
+    "tests/Feature/DesignSystem/PagesTest.php",
+    "resources/js/dashboard/page-editor.test.ts"
+   ]
+  }
+ ],
+ "conflicts": [],
+ "new_decisions": [
+  {
+   "temp_id": "G31-ND-01",
+   "area": "Owner Dashboard",
+   "decision": "توجيه الـOwner (M50): «بدي تبني أسهل داشبورد أقدر أعدل منه كل اشي بدي ياه بدون ما أعدل الكود» — كل محتوى الموقع وبياناته تُدار من الـOwner Dashboard بلا تعديل الكود، بأبسط واجهة ممكنة.",
+   "sources": [
+    "M50"
+   ],
+   "status": "APPROVED",
+   "reason": "Owner directive M50",
+   "impact": "CMS-001 · CMS-019 · DASH-006/007/027 · RESP-025 · FRAN-067 · خطة التنفيذ G31-TF-05",
+   "date": "2026-10-02"
+  }
+ ],
+ "pending_owner": [],
+ "technical_flags": [
+  {
+   "id": "G31-TF-01",
+   "topic": "قاعدة النشر واحدة للموقع والمحرر",
+   "detail": "المحرر يطبق قاعدة الموقع نفسها (Pages::sectionComplete + blockedPhrase): العنوان باللغتين، قسم ظاهر واحد على الأقل، كل قسم ظاهر مكتمل باللغتين، لا عبارة ممنوعة. المسودة يمكن أن تبقى ناقصة. الرفض لا يحفظ شيئًا ويذكر رقم القسم والسبب.",
+   "recommendation": "قرار تقني منفذ ومختبر",
+   "needs_owner": false,
+   "refs": [
+    "CMS-001",
+    "FRAN-067"
+   ]
+  },
+  {
+   "id": "G31-TF-02",
+   "topic": "لا يضيع شيء عند رفض الحفظ",
+   "detail": "بعد الرفض تعود كل البطاقات كما أُرسلت (الأقسام الجديدة كلها، بترتيب الشاشة، والمربعات غير المؤشرة تبقى غير مؤشرة)، وكل خطأ يربط ببطاقته. الأرقام على البطاقات تتحدث عند التحريك. بدون JavaScript: بطاقة فارغة في الآخر + رقم الترتيب يؤديان الوظيفة نفسها.",
+   "recommendation": "قرار تقني منفذ ومختبر",
+   "needs_owner": false,
+   "refs": [
+    "RESP-025"
+   ]
+  },
+  {
+   "id": "G31-TF-03",
+   "topic": "لغة الـDashboard",
+   "detail": "الـDashboard بالعربي افتراضيًا (DASHBOARD_LOCALE=ar) والإنجليزي جاهز (LTR) بنفس الشاشات — فُحص الاثنان.",
+   "recommendation": "قرار تقني منفذ ومختبر",
+   "needs_owner": false,
+   "refs": [
+    "DASH-027"
+   ]
+  },
+  {
+   "id": "G31-TF-04",
+   "topic": "حذف القسم = أرشفة + Migration منفصل",
+   "detail": "عمود page_sections.archived_at في Migration جديد (لا تعديل على Migration نُفذ سابقًا) — اكتُشف أثناء الفحص أن تعديل Migration قديم يترك قاعدة بيانات قائمة بدون العمود.",
+   "recommendation": "قرار تقني منفذ ومختبر",
+   "needs_owner": false,
+   "refs": [
+    "CMS-001"
+   ]
+  },
+  {
+   "id": "G31-TF-05",
+   "topic": "تطبيق M50: معيار الشاشات وترتيب التنفيذ (قرار تقني من Claude)",
+   "detail": "كل شاشة: قائمة ← تعديل ← حفظ ← عرض على الموقع؛ عربي أولًا؛ ممتازة على الهاتف؛ بلا مصطلحات تقنية؛ النشر يُرفض بسبب واضح؛ كل حفظ = نسخة (Version) + سجل (Audit). الترتيب: D1 الصفحات ← D2 الصور والجوائز وSHELTER Family ← D3 طلبات التوظيف والشراكة وآراء العملاء ← D4 الفروع والساعات والتواصل والمنيو والفعاليات. أي بيان عمل جديد (سعر، ساعات، رقم…) يبقى قرار الـOwner عند إدخاله.",
+   "recommendation": "قرار تقني منفذ (D1) — الباقي قيد البناء",
+   "needs_owner": false,
+   "refs": [
+    "CMS-001",
+    "DASH-006"
+   ]
+  }
+ ],
+ "cost_api_dependencies": [],
+ "dropped": []
+}

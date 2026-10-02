@@ -1,0 +1,4283 @@
+{
+ "group": "G7",
+ "requirements": [
+  {
+   "id": "DASH-001",
+   "area": "18 Owner Dashboard",
+   "type": "DECISION",
+   "title": "Owner Dashboard = SHELTER Website Control Center (جزء أساسي من المشروع)",
+   "requirement": "بناء لوحة تحكم احترافية خاصة بالـOwner داخل مشروع SHELTER COFFEE Website باسم `SHELTER OWNER DASHBOARD` أو `SHELTER WEBSITE CONTROL CENTER`. ليست لوحة Analytics بسيطة ولا Feature جانبية: نطاقها CONTROL CENTER + CMS + ANALYTICS + SEO + SITE HEALTH + CONTENT MANAGEMENT — مركز تحكم واحد يرى فيه الـOwner الزيارات والنقرات والـSEO وصحة الموقع، ويعدّل منه المحتوى والمنيو والفروع والصور والـSEO بدون الرجوع للمبرمج. الموقع العام في جهة والـOwner Control Center في الجهة الأخرى، ويُبنى الـCMS والـAnalytics والـSite Health على نفس الـArchitecture من البداية (ممنوع إنهاء الموقع ثم تركيب لوحة إدارة فوقه).",
+   "details": [
+    "الاسم النهائي: أحد البديلين (SHELTER OWNER DASHBOARD / SHELTER WEBSITE CONTROL CENTER) — PENDING OWNER INPUT (non-blocking).",
+    "M27 §13: 'هذه ليست Feature جانبية. هي جزء أساسي من المشروع. أريد منها إدارة الموقع بدون Code' + التأكد أن كل متطلبات الـDashboard السابقة موجودة في Master Requirements (التغطية في DASH-006).",
+    "قيد على DB-08 (المنصة): أي منصة تُختار يجب أن تدعم CMS + Analytics + Site Health مدمجة في نفس الـArchitecture من البداية (انظر G7-CF-08).",
+    "وثيقة مطلوبة: DASHBOARD-ARCHITECTURE.md (M25 §71 — المصدر الخام في G1: M25-197).",
+    "تصميم الـDashboard (G2: M25-140/141): Clean · Professional · Owner-focused · Fast · Minimal · Rounded corners · Minimal colors · Clear hierarchy · SHELTER Brand Identity؛ ممنوع Generic admin template · Purple SaaS dashboard · 100 cards · Glassmorphism everywhere · Too many charts · Tiny text."
+   ],
+   "sources": [
+    "M25-001",
+    "M25-002",
+    "M25-003",
+    "M27-040",
+    "M12-071"
+   ],
+   "decision_refs": [
+    "GIO-§31",
+    "DB-08",
+    "D-084",
+    "D-148"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none — لا Dashboard ولا CMS ولا Auth ولا قاعدة بيانات (EVIDENCE 2026-10-01)؛ يوجد فقط نص الاقتراح القديم في GIO §31",
+   "missing_work": "Phases A–N (DASH-004) · DASHBOARD-ARCHITECTURE.md · تحديث GIO §31 ليشير لنطاق الـControl Center · حسم الاسم",
+   "dependencies": [
+    "DB-08",
+    "DASH-004",
+    "PERM-005",
+    "CMS-021"
+   ],
+   "test_required": "Gate H: اعتماد الـOwner للـDashboard IA + Architecture + Wireframes · لاحقًا: Definition of Done للـDashboard (M25 §70 — G8: M25-194/195): Functional · Permission · Security · API Error tests · Mobile + Desktop responsive (14 عرضًا في tooling/viewports.mjs، Portrait/Landscape، Zoom 200%) · RTL (عربي) + LTR (إنجليزي) · Accessibility WCAG 2.2 AA (axe + فحص يدوي) · Performance · Playwright E2E · Visual QA · Error/empty states · Documentation",
+   "design_refs": [
+    "docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §31 (اقتراح قديم — تجاوزه M25)",
+    "docs/phase-01-discovery/05-decisions-before-design.md DB-08",
+    "docs/FRONTEND-TOOLING.md (مكونات الـDashboard لاحقًا: KPI Card · Chart · Table↔Cards · Alert · Editor forms)"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "G7-CF-02 (RESOLVED — M25 يتجاوز صيغة 'الاقتراح' في M12 §31 / GIO §31) · G7-CF-08 (OWNER DECISION REQUIRED — منصة DB-08)",
+   "business_data": false,
+   "phase": "P04",
+   "history": [
+    {
+     "old": "Owner Dashboard مبسطة داخل إدارة الموقع كـ'اقتراح إن أمكن بدون تعقيد أو ثقل كبير' (Visits · Organic traffic · Top pages · Menu views · Product views · Directions clicks · Branch interest · Campaign performance · Blog performance)",
+     "source": "M12 §31 (M12-071) → GIO §31",
+     "superseded_by": "M25 مقدمة/خاتمة (M25-001/002/003) + M27 §13 (M27-040)"
+    }
+   ],
+   "notes": "الأولوية الأعلى في مسار الـDashboard. الـOwner يعتبر الـDashboard جزءًا أساسيًا من الموقع نفسه (نص خارج كتلة البرومبت في M25 — يُعامل كتعليمة)."
+  },
+  {
+   "id": "DASH-002",
+   "area": "18 Owner Dashboard",
+   "type": "RULE",
+   "title": "مبدأ الـDashboard: فهم خلال ثوانٍ + WHAT/WHERE/WHY/ATTENTION + Action",
+   "requirement": "عند الدخول يعرف الـOwner خلال ثوانٍ: كم شخص زار الموقع · كم زيارة اليوم · هذا الأسبوع · هذا الشهر · هل الزيارات ترتفع أم تنخفض. كل المعلومات (الزيارات، أفعال الزوار، المصادر، SEO، الصحة، المحتوى) في مكان واحد. الـDashboard لا تعرض Data فقط؛ تساعد على فهم WHAT HAPPENED · WHERE · WHY · WHAT NEEDS ATTENTION مع Action مباشر.",
+   "details": [
+    "قائمة أسئلة الـOwner الكاملة (M25 الهدف الرئيسي) موزعة: أسئلة الزيارات هنا؛ أكثر الصفحات/المنتجات/أقسام المنيو/البحث/Zero-result/الأزرار/Directions/Call/WhatsApp/أي فرع/DRIVE أم HOUSE/فتح المنيو/أفضل Campaign/المصادر (Google · Instagram · Direct · Social · Referral · Search)/الأجهزة/اللغة → G6 (M25-005/006/007)؛ Search Queries وترتيب Google → G5 (M25-008)؛ أسئلة الصحة → MON-003؛ أسئلة المحتوى → CMS-019.",
+    "قيد (G6: M25-206): ممنوع Business Conclusions غير مدعومة بالبيانات.",
+    "قيد (G1: M25-064): لا تُخترع بيانات غير متاحة من الـAPI."
+   ],
+   "sources": [
+    "M25-004",
+    "M25-012",
+    "M25-205"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none — لا Dashboard ولا CMS ولا Auth ولا قاعدة بيانات (EVIDENCE 2026-10-01)",
+   "missing_work": "تصميم Overview يجيب الأسئلة (Phase B/F) ثم البناء (I–L)",
+   "dependencies": [
+    "DASH-007",
+    "DASH-008",
+    "DASH-017",
+    "DASH-018",
+    "ANL (G6)"
+   ],
+   "test_required": "Owner usability check على الـWireframes (Phase G) · اختبار: من Overview يمكن الوصول لكل سؤال بنقرة/Deep link · Definition of Done للـDashboard (M25 §70 — G8: M25-194/195): Functional · Permission · Security · API Error tests · Mobile + Desktop responsive (14 عرضًا في tooling/viewports.mjs، Portrait/Landscape، Zoom 200%) · RTL (عربي) + LTR (إنجليزي) · Accessibility WCAG 2.2 AA (axe + فحص يدوي) · Performance · Playwright E2E · Visual QA · Error/empty states · Documentation",
+   "design_refs": [
+    "docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §31 (اقتراح قديم — تجاوزه M25)"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P04",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "DASH-003",
+   "area": "18 Owner Dashboard",
+   "type": "DECISION",
+   "title": "أولويات الـDashboard لـVersion 1 (P0 / P1 / P2 حسب M25 §68)",
+   "requirement": "ترتيب أولوية بناء الـDashboard: P0 (V1): Owner Dashboard · Analytics Overview · GA4 · Search Console · Click/Event Analytics · Menu CMS · Pages CMS · Branches · Hours · Campaigns · Media · SEO editor · SEO health · Site health · Audit log · Version history · Preview/publish. P1: Performance history · Accessibility dashboard · Advanced content analytics · More automated health checks · Advanced reports. P2 (مستقبل): AI assistant · Advanced recommendations · Forecasts · Automated anomaly detection.",
+   "details": [
+    "تحويل المقياس (اقتراح — G7-CF-06): M25-P0 = نطاق إطلاق V1 (مشروع P0/P1) · M25-P1 = بعد V1 مباشرة (مشروع P2 مؤقتًا) · M25-P2 = مستقبل (مشروع P3).",
+    "وحدات/كيانات غير مصنفة في §68 تحتاج تصنيفًا عند Gate H: Blog / Knowledge editor · Coffee Knowledge · FAQ · Events · Social Links · About · Users & Permissions UI · Global Search (§37) · Media Health (M27) · Lighthouse module · Page Health View (§20) · Real-Time Overview (§4) · Location analytics (§12) · Accessibility (مذكورة في قائمة M27 §13 الدنيا لكنها P1 في §68).",
+    "اقتراح Claude الافتراضي للتصنيف (غير معتمد): Blog/Knowledge editor + Events + Social Links + FAQ + About ضمن Pages/Campaigns CMS في V1 (لأن M27 §14 يطلب تعديلها من UI)؛ Users & Permissions UI مؤجلة لأن V1 = Owner فقط؛ Global Search + Lighthouse scheduling + Page Health = P1."
+   ],
+   "sources": [
+    "M25-189",
+    "M25-190",
+    "M25-191"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "none — قائمة الأولويات موجودة في الرسالة فقط",
+   "missing_work": "تصنيف الوحدات غير المصنفة + تأكيد معنى P1 عند Gate H؛ تسجيل القرار في MASTER-DECISION-REGISTER",
+   "dependencies": [
+    "DASH-006",
+    "G7-CF-06"
+   ],
+   "test_required": "مراجعة الـOwner لقائمة النطاق V1 عند Gate H (موافقة صريحة)",
+   "design_refs": [
+    "docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §31 (اقتراح قديم — تجاوزه M25)"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "G7-CF-06 (OWNER DECISION REQUIRED — non-blocking): معنى طبقة P1 في §68 مقابل مقياس الأولوية في M27 §33 + الوحدات غير المصنفة",
+   "business_data": false,
+   "phase": "P04",
+   "history": [],
+   "notes": "الصياغة 'VERSION 1 PRIORITY' مع P0/P1/P2 — P2 صراحة مستقبلي (يتسق مع §53 AI Assistant)."
+  },
+  {
+   "id": "DASH-004",
+   "area": "18 Owner Dashboard",
+   "type": "GATE",
+   "title": "تسلسل تنفيذ الـDashboard (Phases A–N) — لا بناء قبل Gate H",
+   "requirement": "لا قفز إلى البرمجة قبل فهم الـArchitecture. ترتيب العمل: PHASE A Current system audit → B Dashboard IA → C Data source/API architecture → D Database/CMS model → E Permissions + security model → F Wireframes → G UX review → H Owner approval → I Dashboard foundation → J CMS modules → K Analytics integrations → L SEO/site-health modules → M Testing → N Production readiness. بعد اعتماد الـIA فقط يُبنى Prototype حقيقي للـDashboard باستخدام mock/sample data أولًا إذا لم تُربط الـAPIs بعد؛ ولا Full Implementation حتى يعتمد الـOwner الـArchitecture والـWireframes.",
+   "details": [
+    "مخرجات 'ابدأ الآن' بالترتيب: 1) Audit المشروع الحالي (`SHELTER DASHBOARD AUDIT`: Existing · Missing · Duplicate · Risk · Recommended — نطاقه: Current architecture · Framework · Database · Authentication · CMS if any · GA4 · GTM · Google Tag · Search Console · Cloudflare · Analytics events · Current admin tools · Current database schema · Existing APIs · Existing design system) 2) Inventory لكل ما هو موجود 3) Dashboard IA (`SHELTER OWNER DASHBOARD IA`: Tree كاملة بـSections · Subsections · Pages · Permissions · Data source · Actions) 4) Data Source Matrix (Metric · Source · API · Update Frequency · Cache · Storage · Fallback) 5) CMS Architecture 6) Permissions Model (PERM-005) 7) Wireframes (DASH-005) — ثم العرض على الـOwner.",
+    "التوثيق المطلوب (M25 §71): DASHBOARD-ARCHITECTURE.md · ANALYTICS-MEASUREMENT-PLAN.md · CMS-DATA-MODEL.md · SEO-HEALTH-SPEC.md · SITE-HEALTH-SPEC.md · PERMISSIONS.md · OWNER-DASHBOARD-GUIDE.md (بسيط جدًا: أغير سعر · أغير صورة · أغير ساعات · أنشر Campaign · أعدل صفحة · أفحص الزيارات · أفحص Google Search · أفحص صحة الموقع).",
+    "قاعدة القرار: القرار الـTechnical الطبيعي يتخذه Claude (أفضل قرار + شرح)؛ قرارات Business أو Content تُسأل للـOwner؛ لا إعادة فتح قرار SHELTER معتمد بدون Conflict حقيقي.",
+    "M27 §27: هذا التجميع لا يلغي أي Approval Gate سابق.",
+    "المصادر الخام الأخرى (مملوكة لمجموعات أخرى): G1 M25-167/168/169/192/193/197–204/210–219 · G2 M25-170 · G6 M25-171/172/173/174 · G7 M25-176 (DASH-005) · M25-214 (PERM-005)."
+   ],
+   "sources": [
+    "M25-178"
+   ],
+   "decision_refs": [
+    "DB-08"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none — لم تبدأ Phase A للـDashboard. يوجد فقط توثيق Phase 01 + Menu IA",
+   "missing_work": "تنفيذ Phases A–G وعرضها للـOwner (Gate H)، ثم I–N",
+   "dependencies": [
+    "DASH-005",
+    "PERM-005",
+    "CMS-021",
+    "DB-08"
+   ],
+   "test_required": "تحقق Gate: لا commit لكود Dashboard قبل سجل موافقة H في DECISION-LOG · الـPrototype يحمل DEMO DATA labels (DASH-024)",
+   "design_refs": [
+    "docs/phase-01-discovery/05-decisions-before-design.md DB-08"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P04",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "DASH-005",
+   "area": "18 Owner Dashboard",
+   "type": "DELIVERABLE",
+   "title": "Low-Fidelity Wireframes للـDashboard قبل الـCoding (12 شاشة)",
+   "requirement": "قبل Coding الـDashboard كاملة: Low-Fidelity Wireframes لـ: Desktop Owner Overview · Mobile Owner Overview · Analytics · Menu Editor · Product Editor · Branch Editor · Campaign Editor · SEO Health · Site Health · Performance · Media Library · Audit Log — وتُعرض على الـOwner للاعتماد.",
+   "details": [
+    "العرض على الـOwner: G1 M25-177.",
+    "Phase F → G UX review → H Owner approval (DASH-004).",
+    "M26: كل شاشات الـDashboard (Owner Dashboard · Menu Editor · Product Editor · Analytics · Site Health) تُختبر Responsive بالعربي والإنجليزي.",
+    "أدوات Wireframe للمنيو موجودة ويمكن إعادة استخدامها: docs/menu-ia/wireframes/tools (wf.py · shots.js · measure.js · compose.js)."
+   ],
+   "sources": [
+    "M25-176"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none — لا Wireframes للـDashboard (Wireframes المنيو فقط)",
+   "missing_work": "إنتاج 12 Wireframe (Mobile + Desktop، AR/EN حسب الحاجة) + Contact sheets + عرضها",
+   "dependencies": [
+    "DASH-004",
+    "DASH-006"
+   ],
+   "test_required": "مراجعة الـOwner + لقطات على 14 عرضًا AR/EN + axe على النماذج منخفضة الدقة",
+   "design_refs": [
+    "docs/qa/RESPONSIVE-QA-MATRIX.md (أعمدة Owner Dashboard · Menu Editor · Product Editor · Analytics · Site Health — غير مبنية)",
+    "docs/menu-ia/wireframes/README.md (نموذج الأسلوب)"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P04",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "DASH-006",
+   "area": "18 Owner Dashboard",
+   "type": "REQUIREMENT",
+   "title": "وحدات الـDashboard والتنقل — القائمة الدنيا الكاملة (M25 §49 ∪ M27 §13)",
+   "requirement": "الـDashboard تضم على الأقل الوحدات: Overview · Analytics · Menu · Pages · Branches · Campaigns · Blog / Knowledge · Media · SEO · Site Health · Performance · Accessibility · Analytics Setup · Users & Permissions · Audit Log · Settings، ومعها كل ما ورد في M27 §13: وحدات المحتوى (CMS · Products · Categories · Branches · Hours · Campaigns · Blog · Pages · SEO editor · Media Library)، سير النشر (Preview · Publish · Scheduling · Version History)، والحوكمة (Audit Log · Permissions · Alerts · Needs Attention)، ووحدات القياس والصحة (DASH-011…DASH-015). القائمة حد أدنى وليست حصرية: لا يُنسى أي شيء ورد في Prompts السابقة. ترتيب الوحدات يُقرر UX-wise (ترتيب الـOwner ليس إلزاميًا إذا وُجد تقسيم أفضل، مع شرحه).",
+   "details": [
+    "خريطة التغطية (M27 §13 → IDs): Analytics Overview/Traffic/Visitors/Sessions/Page Views/Top Pages/Product Views/Menu Analytics/Search Analytics/Zero-result Search/Device/Language/Traffic Sources → DASH-011 (+G6) · Click Analytics/WhatsApp/Phone/Directions/Branch Analytics → DASH-012 (+G6) · Search Console/SEO Health/Indexation → DASH-013 (+G5) · Core Web Vitals/Performance/Lighthouse/Site Health/Errors/404-500/Broken Links/Accessibility → DASH-014 + MON-001…004 (+G8) · Media Health → DASH-015 · CMS/Products/Categories/Branches/Hours/Campaigns/Blog/Pages/SEO editor/Media Library → CMS-001…021 (+G2/G3/G4/G5) · Preview → CMS-008 · Publish → CMS-006/007 · Scheduling → CMS-009 · Version History → AUDIT-003/004 · Audit Log → AUDIT-001/002 · Permissions → PERM-001…005 · Alerts → MON-007…010 · Needs Attention → DASH-017.",
+    "Sidebar يسار/يمين حسب RTL/LTR (G5: M25-142/M25-220).",
+    "وحدات إضافية من M25 لا تظهر في قائمة §49: Global Search (DASH-019) · Page Health (DASH-016) · Real-Time Overview · Location Analytics (G6) · Analytics Setup (GA4/GTM/GSC connections — G6)."
+   ],
+   "sources": [
+    "M25-143",
+    "M25-144",
+    "M27-041",
+    "M27-047",
+    "M27-048",
+    "M27-049"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none — لا Dashboard ولا CMS ولا Auth ولا قاعدة بيانات (EVIDENCE 2026-10-01)",
+   "missing_work": "Dashboard IA tree (Phase B) يغطي كل الوحدات + ترتيب UX مع شرح؛ بناء الـShell والتنقل (Phase I)",
+   "dependencies": [
+    "DASH-003",
+    "DASH-004",
+    "DASH-005"
+   ],
+   "test_required": "Traceability: كل بند في M27 §13 له شاشة/وحدة في الـIA و Wireframe · تنقل Sidebar يعمل RTL/LTR + Keyboard · Definition of Done للـDashboard (M25 §70 — G8: M25-194/195): Functional · Permission · Security · API Error tests · Mobile + Desktop responsive (14 عرضًا في tooling/viewports.mjs، Portrait/Landscape، Zoom 200%) · RTL (عربي) + LTR (إنجليزي) · Accessibility WCAG 2.2 AA (axe + فحص يدوي) · Performance · Playwright E2E · Visual QA · Error/empty states · Documentation",
+   "design_refs": [
+    "docs/FRONTEND-TOOLING.md (مكونات الـDashboard لاحقًا: KPI Card · Chart · Table↔Cards · Alert · Editor forms)",
+    "docs/qa/RESPONSIVE-QA-MATRIX.md (أعمدة Owner Dashboard · Menu Editor · Product Editor · Analytics · Site Health — غير مبنية)"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P04",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "DASH-007",
+   "area": "18 Owner Dashboard",
+   "type": "REQUIREMENT",
+   "title": "الشاشة الأولى بعد Login = Executive Dashboard (Owner KPIs فقط)",
+   "requirement": "أول شاشة بعد Login هي Executive Dashboard واضحة جدًا، مقسمة إلى Sections واضحة (لا 50 Widget عشوائية). الـOverview يعرض Owner KPIs فقط، والتفاصيل داخل الـModules.",
+   "details": [
+    "تصنيف الـKPIs (G6: M25-173/174): OWNER KPI · MARKETING KPI · SEO KPI · UX KPI · TECHNICAL KPI؛ لا اختيار Metrics لمجرد أنها متوفرة.",
+    "الـOverview يتضمن TOP SUMMARY (DASH-008) و Needs Attention (DASH-017).",
+    "لا ألوان مخيفة أو كثيرة؛ SHELTER UI: Minimal · Premium · Clean · Easy (G2: M25-023/024)."
+   ],
+   "sources": [
+    "M25-018",
+    "M25-019",
+    "M25-175"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none — لا Dashboard ولا CMS ولا Auth ولا قاعدة بيانات (EVIDENCE 2026-10-01)",
+   "missing_work": "قائمة Owner KPIs المعتمدة + Wireframe Desktop/Mobile Owner Overview + البناء",
+   "dependencies": [
+    "DASH-005",
+    "DASH-008",
+    "DASH-017",
+    "ANL (G6) KPI classification"
+   ],
+   "test_required": "E2E: بعد Login تفتح Overview مباشرة · عدد الأقسام محدود وواضح · Definition of Done للـDashboard (M25 §70 — G8: M25-194/195): Functional · Permission · Security · API Error tests · Mobile + Desktop responsive (14 عرضًا في tooling/viewports.mjs، Portrait/Landscape، Zoom 200%) · RTL (عربي) + LTR (إنجليزي) · Accessibility WCAG 2.2 AA (axe + فحص يدوي) · Performance · Playwright E2E · Visual QA · Error/empty states · Documentation",
+   "design_refs": [
+    "docs/FRONTEND-TOOLING.md (مكونات الـDashboard لاحقًا: KPI Card · Chart · Table↔Cards · Alert · Editor forms)"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "DASH-008",
+   "area": "18 Owner Dashboard",
+   "type": "REQUIREMENT",
+   "title": "TOP SUMMARY: 10 مؤشرات + مقارنة + percentage/trend arrow/mini chart",
+   "requirement": "TOP SUMMARY في الـOverview يعرض: Visitors Today · Sessions Today · Page Views · Menu Views · Product Views · WhatsApp Clicks · Call Clicks · Directions Clicks · Searches · Zero Result Searches؛ وكل مؤشر يُقارن مع Yesterday · Last 7 Days · Previous Period، ويُعرض بـpercentage change · trend arrow · mini chart.",
+   "details": [
+    "بدون ألوان مخيفة أو كثيرة حتى للانخفاض (G2: M25-023).",
+    "مصادر المؤشرات: GA4 Data API للأحداث `menu_view` · `product_view` · `whatsapp_click` · `phone_click` · `directions_click` · `menu_search`/`site_search` · `zero_result_search` (G6: M25-041، D-149).",
+    "كل مؤشر Deep link إلى تفاصيله (DASH-018)."
+   ],
+   "sources": [
+    "M25-020",
+    "M25-021",
+    "M25-022"
+   ],
+   "decision_refs": [
+    "D-149"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none — لا Dashboard ولا CMS ولا Auth ولا قاعدة بيانات (EVIDENCE 2026-10-01)",
+   "missing_work": "Data Source Matrix لكل مؤشر + تعريف 'Previous Period' + البناء",
+   "dependencies": [
+    "GA4 events (G6)",
+    "DASH-009",
+    "DASH-022"
+   ],
+   "test_required": "اختبار القيم مقابل GA4 (عينة) · حالات: No analytics data · GA4 unavailable (عرض واضح بلا رقم مزيف) · Mobile cards لا تنضغط · Definition of Done للـDashboard (M25 §70 — G8: M25-194/195): Functional · Permission · Security · API Error tests · Mobile + Desktop responsive (14 عرضًا في tooling/viewports.mjs، Portrait/Landscape، Zoom 200%) · RTL (عربي) + LTR (إنجليزي) · Accessibility WCAG 2.2 AA (axe + فحص يدوي) · Performance · Playwright E2E · Visual QA · Error/empty states · Documentation",
+   "design_refs": [
+    "docs/FRONTEND-TOOLING.md (مكونات الـDashboard لاحقًا: KPI Card · Chart · Table↔Cards · Alert · Editor forms)"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "DASH-009",
+   "area": "18 Owner Dashboard",
+   "type": "REQUIREMENT",
+   "title": "Date Selector عام أعلى الـDashboard مع Presets",
+   "requirement": "Date Selector واضح أعلى الـDashboard بـQuick presets: Today · Yesterday · Last 7 Days · Last 30 Days · This Month · Previous Month · Custom Range؛ وكل الـDashboard تتحدث حسب التاريخ المختار (فلتر تاريخ موحّد).",
+   "details": [
+    "أداء: date range queries + caching + Large date range test (G8: M25-137/195)."
+   ],
+   "sources": [
+    "M25-025",
+    "M25-026",
+    "M25-028"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none — لا Dashboard ولا CMS ولا Auth ولا قاعدة بيانات (EVIDENCE 2026-10-01)",
+   "missing_work": "التصميم والبناء",
+   "dependencies": [
+    "DASH-022"
+   ],
+   "test_required": "E2E: تغيير المدى يحدّث كل الوحدات · Custom Range صالح/غير صالح · Large date range · RTL/LTR للتقويم · Keyboard · Definition of Done للـDashboard (M25 §70 — G8: M25-194/195): Functional · Permission · Security · API Error tests · Mobile + Desktop responsive (14 عرضًا في tooling/viewports.mjs، Portrait/Landscape، Zoom 200%) · RTL (عربي) + LTR (إنجليزي) · Accessibility WCAG 2.2 AA (axe + فحص يدوي) · Performance · Playwright E2E · Visual QA · Error/empty states · Documentation",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "DASH-010",
+   "area": "18 Owner Dashboard",
+   "type": "REQUIREMENT",
+   "title": "Comparison: previous period / previous year — فقط إذا البيانات متوفرة",
+   "requirement": "مقارنة اختيارية: Compare to previous period · Compare to previous year — تظهر فقط إذا كانت البيانات متوفرة (لا مقارنة مزيفة عند غياب بيانات السنة السابقة).",
+   "details": [
+    "الموقع الجديد بلا تاريخ GA4 قبل الإطلاق؛ مقارنة السنة السابقة تعتمد على Property الحالية بعد Audit (G6)."
+   ],
+   "sources": [
+    "M25-027"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED WITH CONDITIONS",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none — لا Dashboard ولا CMS ولا Auth ولا قاعدة بيانات (EVIDENCE 2026-10-01)",
+   "missing_work": "البناء + قاعدة إخفاء المقارنة عند غياب البيانات",
+   "dependencies": [
+    "DASH-009",
+    "DASH-025"
+   ],
+   "test_required": "اختبار: لا بيانات سابقة → المقارنة مخفية/معلّمة 'غير متاح' وليست 0% · Definition of Done للـDashboard (M25 §70 — G8: M25-194/195): Functional · Permission · Security · API Error tests · Mobile + Desktop responsive (14 عرضًا في tooling/viewports.mjs، Portrait/Landscape، Zoom 200%) · RTL (عربي) + LTR (إنجليزي) · Accessibility WCAG 2.2 AA (axe + فحص يدوي) · Performance · Playwright E2E · Visual QA · Error/empty states · Documentation",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "DASH-011",
+   "area": "18 Owner Dashboard",
+   "type": "REQUIREMENT",
+   "title": "وحدات Analytics في الـDashboard (حد أدنى)",
+   "requirement": "وحدات Analytics داخل الـDashboard (حد أدنى): Analytics Overview · Traffic · Visitors · Sessions · Page Views · Top Pages · Product Views · Menu Analytics · Search Analytics · Zero-result Search · Device Analytics · Language Analytics · Traffic Sources — بالإضافة لما طُلب سابقًا: Organic traffic · Branch interest · Campaign performance · Blog performance.",
+   "details": [
+    "المواصفات التفصيلية مملوكة لـG6 (ANL): Real-Time (M25-029) · Traffic Analytics Users/New/Returning/Sessions/Page Views/Engagement/Avg Engagement Time حسب Day/Week/Month (M25-031) · Traffic Sources Organic/Direct/Social/Referral/Paid/Email/Other + Source/Medium (M25-033/034/035) · Top Pages جدول Page/Views/Users/Engagement/Average Time/Entrances/Exits/Trend + Drill-down (M25-036/037) · Menu Analytics (M25-038/039) · Device/Browser/OS/Screen/Language (M25-046/047) · Location Country/City privacy-safe (M25-048).",
+    "Dashboard ليست iframe لـGA4 ولا نسخة كاملة منه — فقط ما يفيد Business Decision (G6: M25-128/129).",
+    "Charts بمعنى فقط (G6: M25-032)."
+   ],
+   "sources": [
+    "M27-042",
+    "M12-072"
+   ],
+   "decision_refs": [
+    "D-149"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none — لا Dashboard ولا CMS ولا Auth ولا قاعدة بيانات (EVIDENCE 2026-10-01)",
+   "missing_work": "Data Source Matrix + GA4 Data API integration (Phase K) + الشاشات",
+   "dependencies": [
+    "ANL (G6)",
+    "GOOGLE (G6)",
+    "DASH-021",
+    "DASH-022"
+   ],
+   "test_required": "مقارنة الأرقام مع GA4 UI لعينة · حالات GA4 unavailable/quota exceeded/slow API/No data · Definition of Done للـDashboard (M25 §70 — G8: M25-194/195): Functional · Permission · Security · API Error tests · Mobile + Desktop responsive (14 عرضًا في tooling/viewports.mjs، Portrait/Landscape، Zoom 200%) · RTL (عربي) + LTR (إنجليزي) · Accessibility WCAG 2.2 AA (axe + فحص يدوي) · Performance · Playwright E2E · Visual QA · Error/empty states · Documentation",
+   "design_refs": [
+    "docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §31 (اقتراح قديم — تجاوزه M25)",
+    "docs/google/GA4-MEASUREMENT-PLAN.md (DRAFT)",
+    "docs/menu-ia/MENU-MEASUREMENT-PLAN.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [
+    {
+     "old": "قائمة الاقتراح المبسط: Visits · Organic traffic · Top pages · Menu views · Product views · Directions clicks · Branch interest · Campaign performance · Blog performance",
+     "source": "M12 §31 (M12-072)",
+     "superseded_by": "M25 §5–§12 + M27 §13 (M27-042) — توسيع، والبنود القديمة محفوظة"
+    }
+   ],
+   "notes": ""
+  },
+  {
+   "id": "DASH-012",
+   "area": "18 Owner Dashboard",
+   "type": "REQUIREMENT",
+   "title": "وحدات Click / Customer Actions: WhatsApp · Phone · Directions · Branch",
+   "requirement": "وحدات Click Analytics في الـDashboard: Click Analytics · WhatsApp Clicks · Phone Clicks · Directions Clicks · Branch Analytics — مع تقسيم DRIVE · HOUSE · GENERAL CONTACT إذا ممكن، لمعرفة أي Branch يحصل على أكثر Intent.",
+   "details": [
+    "المواصفات في G6: Events Dashboard (Event · Count · Unique Users · Page · Branch · Date · Trend — M25-043) · Customer Actions (M25-044/045) · أحداث `directions_click` · `phone_click` · `whatsapp_click` · `branch_filter_change` (M25-041).",
+    "WhatsApp الرسمي معتمد (D-058/D-061/D-062 — بدون Floating Bubble) — لا تعارض.",
+    "لا تسجيل كل click عشوائي (G6: M25-042)."
+   ],
+   "sources": [
+    "M27-043"
+   ],
+   "decision_refs": [
+    "D-149"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none — لا Dashboard ولا CMS ولا Auth ولا قاعدة بيانات (EVIDENCE 2026-10-01)",
+   "missing_work": "Event tracking (G6) + الشاشة",
+   "dependencies": [
+    "ANL (G6)",
+    "CONTACT (G4)"
+   ],
+   "test_required": "اختبار أن كل حدث يظهر بعد إطلاقه على Staging (GA4 DebugView) · Definition of Done للـDashboard (M25 §70 — G8: M25-194/195): Functional · Permission · Security · API Error tests · Mobile + Desktop responsive (14 عرضًا في tooling/viewports.mjs، Portrait/Landscape، Zoom 200%) · RTL (عربي) + LTR (إنجليزي) · Accessibility WCAG 2.2 AA (axe + فحص يدوي) · Performance · Playwright E2E · Visual QA · Error/empty states · Documentation",
+   "design_refs": [
+    "docs/phase-01-discovery/14-contact-architecture-and-whatsapp.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "DASH-013",
+   "area": "18 Owner Dashboard",
+   "type": "REQUIREMENT",
+   "title": "وحدات SEO: Search Console · SEO Health · Indexation",
+   "requirement": "وحدات SEO في الـDashboard: Search Console (Google Search Performance) · SEO Health (Center) · Indexation.",
+   "details": [
+    "المواصفات في G5: GSC API — Clicks · Impressions · CTR · Average Position · Top Queries · Top Pages · Countries · Devices + Comparison عبر الزمن (M25-050/051/052) · SEO HEALTH CENTER بحالة GOOD/WARNING/CRITICAL وقائمة الفحوص (M25-053…059) · لا تغييرات SEO تلقائية + Issue/Page/Severity/Explanation/Suggested Fix + موافقة الـOwner (M25-060/061/062) · Google Indexation: Known/Indexed/Not indexed/Noindex/Redirected/404/Error إذا سمح الـAPI (M25-063).",
+    "وثيقة: SEO-HEALTH-SPEC.md (G1: M25-200)."
+   ],
+   "sources": [
+    "M27-044"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none — لا Dashboard ولا CMS ولا Auth ولا قاعدة بيانات (EVIDENCE 2026-10-01)",
+   "missing_work": "GSC API integration + SEO health engine + الشاشات",
+   "dependencies": [
+    "SEO/GSC (G5)",
+    "PERM-010 / AC-02"
+   ],
+   "test_required": "مطابقة مع GSC UI لعينة · GSC unavailable test · Definition of Done للـDashboard (M25 §70 — G8: M25-194/195): Functional · Permission · Security · API Error tests · Mobile + Desktop responsive (14 عرضًا في tooling/viewports.mjs، Portrait/Landscape، Zoom 200%) · RTL (عربي) + LTR (إنجليزي) · Accessibility WCAG 2.2 AA (axe + فحص يدوي) · Performance · Playwright E2E · Visual QA · Error/empty states · Documentation",
+   "design_refs": [
+    "docs/google/SEARCH-CONSOLE-BASELINE.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "DASH-014",
+   "area": "18 Owner Dashboard",
+   "type": "REQUIREMENT",
+   "title": "وحدات الأداء والصحة: CWV · Lighthouse · Site Health · Errors · Accessibility",
+   "requirement": "وحدات الأداء وصحة الموقع في الـDashboard: Core Web Vitals · Performance · Lighthouse · Site Health · Errors · 404/500 · Broken Links · Accessibility.",
+   "details": [
+    "المواصفات: CWV LCP · INP · CLS · FCP · TTFB — Desktop vs Mobile — GOOD/NEEDS IMPROVEMENT/POOR بلغة سهلة (G8: M25-065/066/067) · Lighthouse scheduled/manual على Home · Menu · Locations · Drive · House · About · Contact · Articles مع Root Causes لا Scores فقط (G8: M25-068/069/070) · Accessibility Issues: Contrast · Missing Label · Keyboard · ARIA · Heading · Alt · Language · Dialog Focus مع Page/Severity/Fix + automated + manual checklist (G8: M25-123/124).",
+    "Site Health / Errors / 404/500 / Broken Links → MON-001…MON-004.",
+    "Accessibility dashboard = P1 في §68 (G7-CF-06)."
+   ],
+   "sources": [
+    "M27-045"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none — لا Dashboard ولا CMS ولا Auth ولا قاعدة بيانات (EVIDENCE 2026-10-01)؛ أدوات محلية قابلة لإعادة الاستخدام: tooling/scripts/lighthouse.mjs · @axe-core/playwright",
+   "missing_work": "Scheduler + تخزين التاريخ + الشاشات",
+   "dependencies": [
+    "PERF/A11Y (G8)",
+    "MON-001",
+    "MON-005"
+   ],
+   "test_required": "تشغيل مجدول/يدوي على Staging · Definition of Done للـDashboard (M25 §70 — G8: M25-194/195): Functional · Permission · Security · API Error tests · Mobile + Desktop responsive (14 عرضًا في tooling/viewports.mjs، Portrait/Landscape، Zoom 200%) · RTL (عربي) + LTR (إنجليزي) · Accessibility WCAG 2.2 AA (axe + فحص يدوي) · Performance · Playwright E2E · Visual QA · Error/empty states · Documentation",
+   "design_refs": [
+    "docs/menu-ia/PERFORMANCE-BUDGET.md",
+    "docs/menu-ia/ACCESSIBILITY-CHECKLIST.md"
+   ],
+   "code_refs": [
+    "tooling/scripts/lighthouse.mjs",
+    "tooling/playwright.config.mjs"
+   ],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "DASH-015",
+   "area": "18 Owner Dashboard",
+   "type": "REQUIREMENT",
+   "title": "وحدة Media Health (صحة الصور والوسائط)",
+   "requirement": "وحدة Media Health في الـDashboard تعرض مشاكل الوسائط وتتيح إصلاحها: Oversized Images · Missing Alt · Unused Images · Duplicate Images · Slow Images · Missing responsive variants.",
+   "details": [
+    "الاسم 'Media Health' يظهر أول مرة في M27 §13؛ المحتوى مأخوذ من M25 §30 Image Health (G2: M25-103/104) — القدرة على الإصلاح من الـDashboard.",
+    "مرتبط بـMedia Library (G2: M25-099…102) وخط معالجة الصور Sharp (AVIF/WebP · 240/360/480/720/1080 · APPROVED-only)."
+   ],
+   "sources": [
+    "M27-046"
+   ],
+   "decision_refs": [
+    "D-083"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none — لا Dashboard ولا CMS ولا Auth ولا قاعدة بيانات (EVIDENCE 2026-10-01)؛ tooling/scripts/images.mjs (selftest 7/7) قابل لإعادة الاستخدام",
+   "missing_work": "تحديد مقاييس Media Health + الربط بالـMedia Library",
+   "dependencies": [
+    "MEDIA (G2)",
+    "CMS-002"
+   ],
+   "test_required": "اختبار بحالات صور كبيرة/بلا Alt/مكررة/غير مستخدمة · Definition of Done للـDashboard (M25 §70 — G8: M25-194/195): Functional · Permission · Security · API Error tests · Mobile + Desktop responsive (14 عرضًا في tooling/viewports.mjs، Portrait/Landscape، Zoom 200%) · RTL (عربي) + LTR (إنجليزي) · Accessibility WCAG 2.2 AA (axe + فحص يدوي) · Performance · Playwright E2E · Visual QA · Error/empty states · Documentation",
+   "design_refs": [],
+   "code_refs": [
+    "tooling/scripts/images.mjs"
+   ],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "DASH-016",
+   "area": "18 Owner Dashboard",
+   "type": "REQUIREMENT",
+   "title": "Page Health View لكل صفحة",
+   "requirement": "لكل Page (مثال `/ar/jo/menu/`) Page Health View يعرض: Traffic · Search clicks · Performance · SEO status · Schema · Broken links · Image weight · Last updated · Content status · Language version status — وأي Issues مرتبطة بها.",
+   "details": [
+    "المثال `/ar/jo/menu/` متسق مع D-031/D-054 (طبقة اللغة + السوق).",
+    "غير مصنف في §68 (اقتراح: P1)."
+   ],
+   "sources": [
+    "M25-078"
+   ],
+   "decision_refs": [
+    "D-031",
+    "D-054"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none — لا Dashboard ولا CMS ولا Auth ولا قاعدة بيانات (EVIDENCE 2026-10-01)",
+   "missing_work": "التصميم + الربط بمصادر GA4/GSC/Lighthouse/CMS",
+   "dependencies": [
+    "DASH-011",
+    "DASH-013",
+    "DASH-014",
+    "CMS-019"
+   ],
+   "test_required": "E2E: فتح صفحة → كل الحقول أو 'غير متاح' واضح · Definition of Done للـDashboard (M25 §70 — G8: M25-194/195): Functional · Permission · Security · API Error tests · Mobile + Desktop responsive (14 عرضًا في tooling/viewports.mjs، Portrait/Landscape، Zoom 200%) · RTL (عربي) + LTR (إنجليزي) · Accessibility WCAG 2.2 AA (axe + فحص يدوي) · Performance · Playwright E2E · Visual QA · Error/empty states · Documentation",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "DASH-017",
+   "area": "18 Owner Dashboard",
+   "type": "REQUIREMENT",
+   "title": "Needs Attention (Command Center) أعلى الـOverview — CRITICAL/WARNING/INFO",
+   "requirement": "قسم Needs Attention أعلى الـDashboard/Overview بمستويات CRITICAL · WARNING · INFO (أمثلة: CRITICAL Search tracking not working · WARNING 3 products missing images · INFO Campaign expires in 2 days)؛ الضغط على أي عنصر ينقل مباشرة إلى المشكلة.",
+   "details": [
+    "مصدر العناصر: محرك الـAlerts (MON-007/008).",
+    "على الهاتف: مشاهدة Alerts بسهولة (DASH-028)."
+   ],
+   "sources": [
+    "M25-145",
+    "M25-146"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none — لا Dashboard ولا CMS ولا Auth ولا قاعدة بيانات (EVIDENCE 2026-10-01)",
+   "missing_work": "قواعد الخطورة + البناء",
+   "dependencies": [
+    "MON-007",
+    "MON-008",
+    "DASH-018"
+   ],
+   "test_required": "اختبار: كل مستوى يظهر ويُرتب، والنقر يفتح الوحدة/العنصر الصحيح · Definition of Done للـDashboard (M25 §70 — G8: M25-194/195): Functional · Permission · Security · API Error tests · Mobile + Desktop responsive (14 عرضًا في tooling/viewports.mjs، Portrait/Landscape، Zoom 200%) · RTL (عربي) + LTR (إنجليزي) · Accessibility WCAG 2.2 AA (axe + فحص يدوي) · Performance · Playwright E2E · Visual QA · Error/empty states · Documentation",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "DASH-018",
+   "area": "18 Owner Dashboard",
+   "type": "RULE",
+   "title": "كل Metric أو Alert قابل للتنفيذ عبر Deep Link",
+   "requirement": "كل Metric أو Alert يجب أن يكون Actionable: الضغط يفتح التفاصيل مباشرة (مثال: '8 broken links' ← قائمة الروابط · '12 zero-result searches' ← الكلمات · '3 slow pages' ← الصفحات والمشكلة).",
+   "details": [
+    "Top Pages drill-down (G6: M25-037)."
+   ],
+   "sources": [
+    "M25-147"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none — لا Dashboard ولا CMS ولا Auth ولا قاعدة بيانات (EVIDENCE 2026-10-01)",
+   "missing_work": "Routing/filters لكل وحدة",
+   "dependencies": [
+    "DASH-017"
+   ],
+   "test_required": "Playwright: كل KPI/Alert في Overview له رابط يعمل ويحافظ على فلتر التاريخ · Definition of Done للـDashboard (M25 §70 — G8: M25-194/195): Functional · Permission · Security · API Error tests · Mobile + Desktop responsive (14 عرضًا في tooling/viewports.mjs، Portrait/Landscape، Zoom 200%) · RTL (عربي) + LTR (إنجليزي) · Accessibility WCAG 2.2 AA (axe + فحص يدوي) · Performance · Playwright E2E · Visual QA · Error/empty states · Documentation",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "DASH-019",
+   "area": "18 Owner Dashboard",
+   "type": "REQUIREMENT",
+   "title": "Global Search داخل الـDashboard عبر كل الكيانات",
+   "requirement": "Search داخل الـDashboard نفسها يبحث في كل الكيانات (مثال: 'Spanish' ← Products · Pages · Articles · Campaigns؛ 'Drive' ← Branch · Hours · Pages).",
+   "details": [
+    "غير مذكور في قوائم §68 (اقتراح: P1)."
+   ],
+   "sources": [
+    "M25-117"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P2",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none — لا Dashboard ولا CMS ولا Auth ولا قاعدة بيانات (EVIDENCE 2026-10-01)",
+   "missing_work": "فهرسة الكيانات + الواجهة",
+   "dependencies": [
+    "CMS-002",
+    "DASH-003"
+   ],
+   "test_required": "اختبار بحث بالعربي والإنجليزي عبر الكيانات · Definition of Done للـDashboard (M25 §70 — G8: M25-194/195): Functional · Permission · Security · API Error tests · Mobile + Desktop responsive (14 عرضًا في tooling/viewports.mjs، Portrait/Landscape، Zoom 200%) · RTL (عربي) + LTR (إنجليزي) · Accessibility WCAG 2.2 AA (axe + فحص يدوي) · Performance · Playwright E2E · Visual QA · Error/empty states · Documentation",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "DASH-020",
+   "area": "18 Owner Dashboard",
+   "type": "REQUIREMENT",
+   "title": "لغة سهلة للـOwner + Advanced Details للمطور",
+   "requirement": "الـDashboard تشرح المشاكل بلغة سهلة موجهة للمالك، مع Advanced Details للمطور متاحة عند الحاجة خلف الشرح المبسط.",
+   "details": [
+    "الصيغة (G1: M25-148): عنوان واضح · Reason · Suggested — مثال: 'MENU PAGE IS SLOW / Reason: The main product image is 2.3 MB / Suggested: Compress it to AVIF/WebP' بدل 'Largest Contentful Paint exceeded threshold due to preload candidate prioritization'."
+   ],
+   "sources": [
+    "M25-149"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P2",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none — لا Dashboard ولا CMS ولا Auth ولا قاعدة بيانات (EVIDENCE 2026-10-01)",
+   "missing_work": "قاموس رسائل للمشاكل (AR/EN)",
+   "dependencies": [
+    "MON-007",
+    "DASH-014"
+   ],
+   "test_required": "مراجعة نصوص الرسائل مع الـOwner · Definition of Done للـDashboard (M25 §70 — G8: M25-194/195): Functional · Permission · Security · API Error tests · Mobile + Desktop responsive (14 عرضًا في tooling/viewports.mjs، Portrait/Landscape، Zoom 200%) · RTL (عربي) + LTR (إنجليزي) · Accessibility WCAG 2.2 AA (axe + فحص يدوي) · Performance · Playwright E2E · Visual QA · Error/empty states · Documentation",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "DASH-021",
+   "area": "18 Owner Dashboard",
+   "type": "GATE",
+   "title": "مصادر بيانات الـDashboard: APIs رسمية فقط · لا APIs ثقيلة أو مدفوعة بدون موافقة",
+   "requirement": "الـDashboard لا تعتمد على APIs ثقيلة أو مدفوعة بدون موافقة الـOwner. البيانات تُسحب من Official APIs (Google Analytics Data API · Google Search Console API) — لا iframe لـGA4 ولا scraping لـGoogle dashboards — وتُعرض بطريقة SHELTER مناسبة للـOwner.",
+   "details": [
+    "مصادر البيانات المفضلة (G6: M25-125): GA4 · GTM · GSC · GBP (عندما يكون API access مناسبًا) · Cloudflare (إذا متاح) · Internal Website Analytics Events · Lighthouse · Playwright · Site Health Checks.",
+    "قبل أي Integration: Audit الموجود أولًا (GA4 · GTM · Google Tag · Site Kit · HubSpot) ولا duplicate tracking (G6: M25-126/127؛ GIO-§A3/§A4).",
+    "خدمة خارجية مثل Sentry: اقتراح أولًا؛ لا اشتراك مدفوع بدون موافقة (G6: M25-076/077؛ M27 §22؛ D-029/D-044).",
+    "Cloudflare API: شرح الصلاحيات الدقيقة أولًا · أقل صلاحية · لا Global API Key إذا Token محدود يكفي (G6: M25-182/183).",
+    "المصادر الخام الأخرى: G6 M25-128/130/131."
+   ],
+   "sources": [
+    "M12-073"
+   ],
+   "decision_refs": [
+    "D-029",
+    "D-044",
+    "D-046",
+    "D-051",
+    "GIO-§A3/§A4",
+    "GIO-§31"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none — لا Dashboard ولا CMS ولا Auth ولا قاعدة بيانات (EVIDENCE 2026-10-01)",
+   "missing_work": "Data Source Matrix (Phase C) يحدد لكل Metric: Source · API · Frequency · Cache · Storage · Fallback · الكلفة/الحصة",
+   "dependencies": [
+    "DASH-022",
+    "INT (G6)",
+    "PERM-008"
+   ],
+   "test_required": "مراجعة Data Source Matrix: كل مصدر رسمي ومجاني أو معتمد بالكلفة · فحص الكود: لا iframe GA4 ولا scraping",
+   "design_refs": [
+    "docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §31 (اقتراح قديم — تجاوزه M25)"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P04",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "DASH-022",
+   "area": "18 Owner Dashboard",
+   "type": "REQUIREMENT",
+   "title": "Data freshness indicators + زر Refresh (مع Caching من جهة الخادم)",
+   "requirement": "كل وحدة بيانات تعرض مؤشر حداثة واضح (مثل 'Last updated: 3 minutes ago') وزر Refresh عند الحاجة؛ البيانات من Server-side caching / scheduled sync وليس استدعاء APIs في كل Page Load.",
+   "details": [
+    "Caching/sync (G8: M25-133) · Real-time polling خفيف + sensible refresh intervals (G8: M25-030) · أداء الـDashboard: Lazy sections · server fetching · pagination · date range queries · caching · charts only when visible (G8: M25-137).",
+    "أمثلة تواتر من الـOwner (G6: M25-172): Website visitors ← GA4 Data API ← 5–15 min ← cached ← not permanently duplicated · Google clicks ← Search Console ← daily · Site uptime ← internal health check ← 5 min."
+   ],
+   "sources": [
+    "M25-134"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none — لا Dashboard ولا CMS ولا Auth ولا قاعدة بيانات (EVIDENCE 2026-10-01)",
+   "missing_work": "طبقة Cache/Sync + عرض الحداثة",
+   "dependencies": [
+    "DASH-021",
+    "PERF (G8)"
+   ],
+   "test_required": "اختبار: الطابع الزمني صحيح · Refresh يحدّث ضمن حدود الحصة · Definition of Done للـDashboard (M25 §70 — G8: M25-194/195): Functional · Permission · Security · API Error tests · Mobile + Desktop responsive (14 عرضًا في tooling/viewports.mjs، Portrait/Landscape، Zoom 200%) · RTL (عربي) + LTR (إنجليزي) · Accessibility WCAG 2.2 AA (axe + فحص يدوي) · Performance · Playwright E2E · Visual QA · Error/empty states · Documentation",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "DASH-023",
+   "area": "18 Owner Dashboard",
+   "type": "RULE",
+   "title": "Graceful degradation: الـDashboard لا تنهار إذا توقفت خدمة خارجية",
+   "requirement": "الـDashboard لا تنهار إذا توقف Service خارجي؛ كل وحدة تعرض حالة واضحة (غير متاح / آخر بيانات محفوظة مع تاريخها) وتبقى بقية الـDashboard والـCMS تعمل.",
+   "details": [
+    "سيناريوهات الاختبار الإلزامية (G8: M25-195): GA4 unavailable · Search Console unavailable · API quota exceeded · Slow API · No analytics data · Empty dashboard · Large date range · User without permission · Expired session."
+   ],
+   "sources": [
+    "M25-196"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none — لا Dashboard ولا CMS ولا Auth ولا قاعدة بيانات (EVIDENCE 2026-10-01)",
+   "missing_work": "Fallback لكل مصدر في Data Source Matrix + Error boundaries",
+   "dependencies": [
+    "DASH-021",
+    "DASH-022",
+    "TEST (G8)"
+   ],
+   "test_required": "Playwright مع Mock لكل فشل من القائمة أعلاه · Definition of Done للـDashboard (M25 §70 — G8: M25-194/195): Functional · Permission · Security · API Error tests · Mobile + Desktop responsive (14 عرضًا في tooling/viewports.mjs، Portrait/Landscape، Zoom 200%) · RTL (عربي) + LTR (إنجليزي) · Accessibility WCAG 2.2 AA (axe + فحص يدوي) · Performance · Playwright E2E · Visual QA · Error/empty states · Documentation",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "DASH-024",
+   "area": "18 Owner Dashboard",
+   "type": "RULE",
+   "title": "Labels واضحة: DEMO DATA مقابل LIVE DATA — ممنوع الخلط",
+   "requirement": "أي بيانات تجريبية أو عينات (في الـPrototype أو عند عدم ربط API) تحمل Label واضح DEMO DATA، والبيانات الحقيقية LIVE DATA؛ ممنوع خلط النوعين في نفس العرض بدون تمييز.",
+   "details": [
+    "الـPrototype يُبنى بـmock/sample data بعد اعتماد الـIA (DASH-004)."
+   ],
+   "sources": [
+    "M25-179"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none — لا Dashboard ولا CMS ولا Auth ولا قاعدة بيانات (EVIDENCE 2026-10-01)",
+   "missing_work": "مكوّن Label + قاعدة على مستوى مصدر البيانات",
+   "dependencies": [
+    "DASH-004",
+    "DASH-025"
+   ],
+   "test_required": "اختبار: كل Widget يعرض مصدره (DEMO/LIVE) · لا Widget مختلط",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "DASH-025",
+   "area": "18 Owner Dashboard",
+   "type": "RULE",
+   "title": "لا أرقام مزيفة: أي Score يوضح طريقة حسابه",
+   "requirement": "ممنوع عرض رقم مزيف أو غير قابل للتفسير في الـDashboard؛ أي Score يجب أن يوضح كيف تم حسابه.",
+   "details": [
+    "قواعد مرتبطة: لا اختراع بيانات غير متاحة من الـAPI (G1: M25-064) · لا Business Conclusions غير مدعومة (G6: M25-206) · DEMO/LIVE (DASH-024)."
+   ],
+   "sources": [
+    "M25-121"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none — لا Dashboard ولا CMS ولا Auth ولا قاعدة بيانات (EVIDENCE 2026-10-01)",
+   "missing_work": "توثيق صيغة كل Score في SITE-HEALTH-SPEC/SEO-HEALTH-SPEC",
+   "dependencies": [
+    "DASH-026"
+   ],
+   "test_required": "مراجعة: كل Score له شرح حساب مرئي ومطابق للتوثيق",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "DASH-026",
+   "area": "18 Owner Dashboard",
+   "type": "REQUIREMENT",
+   "title": "Summary Health Score اختياري — فقط بقواعد واضحة؛ الـIssues أهم من الرقم",
+   "requirement": "يمكن عمل Summary Health Score للموقع فقط إذا كان مبنيًا على قواعد واضحة (مثلًا: Performance · SEO · Accessibility · Content · Analytics)؛ الأهم هو الـIssues نفسها وليس الرقم.",
+   "details": [
+    "شرط الشفافية في DASH-025."
+   ],
+   "sources": [
+    "M25-120",
+    "M25-122"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED WITH CONDITIONS",
+   "owner_approved": "YES",
+   "priority": "P2",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none — لا Dashboard ولا CMS ولا Auth ولا قاعدة بيانات (EVIDENCE 2026-10-01)",
+   "missing_work": "قرار: هل يُبنى Score في V1 (اختياري) + صيغة الحساب",
+   "dependencies": [
+    "DASH-025",
+    "MON-003"
+   ],
+   "test_required": "إن بُني: اختبار الصيغة على حالات معروفة + عرض الـIssues قبل الرقم",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "DASH-027",
+   "area": "18 Owner Dashboard",
+   "type": "RULE",
+   "title": "الـOwner Dashboard كاملة الوظائف على Mobile و Desktop",
+   "requirement": "الـOwner Dashboard يجب أن تكون كاملة على Mobile وDesktop — لا تُخفى وظائف مهمة فقط لأنها على الهاتف؛ الـEditing المعقد يمكن أن يكون أكثر راحة على Desktop لكنه متاح على الهاتف.",
+   "details": [
+    "M26: Responsive QA مرحلة إلزامية قبل أي اعتماد نهائي — الموقع والـDashboard على الهاتف والتابلت والديسكتوب بالعربي والإنجليزي؛ Dashboard يجب أن تبقى عملية على الجميع.",
+    "M26 TABLES: لا desktop tables غير قابلة للاستخدام على الهاتف — responsive table · stacked cards · horizontal scroll controlled · column priority · detail drawer — ولا إخفاء بيانات مهمة بدون طريقة للوصول إليها (G8 RESP).",
+    "عناصر تُختبر كحالات مستقلة: Dashboard sidebar · Analytics charts · CMS forms · Product editor · Modal / Bottom Sheet.",
+    "M25 §47 (G8: M25-138/139): يعمل ممتازًا على الهاتف خصوصًا Overview · Alerts · Menu editing · Product availability · Hours · Campaign status."
+   ],
+   "sources": [
+    "M26-028"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none — لا Dashboard ولا CMS ولا Auth ولا قاعدة بيانات (EVIDENCE 2026-10-01)",
+   "missing_work": "تصميم Mobile-first للـDashboard + Responsive QA",
+   "dependencies": [
+    "DASH-028",
+    "RESP (G8)"
+   ],
+   "test_required": "Responsive QA Matrix (14 عرضًا · Portrait/Landscape · 200% zoom · Touch + Keyboard · AR RTL + EN LTR) لأعمدة Owner Dashboard/Menu Editor/Product Editor/Analytics/Site Health = PASS",
+   "design_refs": [
+    "docs/qa/RESPONSIVE-QA-MATRIX.md (أعمدة Owner Dashboard · Menu Editor · Product Editor · Analytics · Site Health — غير مبنية)"
+   ],
+   "code_refs": [
+    "tooling/viewports.mjs"
+   ],
+   "test_refs": [],
+   "conflict": "G7-CF-05 (RESOLVED — M26 'كاملة على Mobile' تتقدم على M25 §47 'المعقد أفضل على Desktop' دون إلغائه)",
+   "business_data": false,
+   "phase": "P08",
+   "history": [
+    {
+     "old": "Editing المعقد يمكن أن يكون أفضل على Desktop (مقبول ألا يكون مثاليًا على الهاتف)",
+     "source": "M25 §47 (G8: M25-139)",
+     "superseded_by": "M26 DASHBOARD RESPONSIVENESS (M26-028): كاملة على Mobile وDesktop ولا إخفاء وظائف"
+    }
+   ],
+   "notes": ""
+  },
+  {
+   "id": "DASH-028",
+   "area": "18 Owner Dashboard",
+   "type": "REQUIREMENT",
+   "title": "9 مهام Owner يجب أن تكون سهلة على الهاتف",
+   "requirement": "على الهاتف يستطيع الـOwner بسهولة: (1) مشاهدة Overview (2) مشاهدة الزيارات (3) مشاهدة Alerts (4) تعديل سعر منتج (5) تغيير توفر منتج (6) تعديل ساعات فرع (7) تشغيل/إيقاف Campaign (8) رفع صورة (9) مراجعة Site Health.",
+   "details": [
+    "تعديل السعر = نسخة جديدة مع Audit (AUDIT-003/006) وتأكيد مناسب (G8: M25-163).",
+    "التوفر بالحالات الثلاث (CMS-015)."
+   ],
+   "sources": [
+    "M26-029",
+    "M26-030",
+    "M26-031",
+    "M26-032",
+    "M26-033",
+    "M26-034",
+    "M26-035",
+    "M26-036",
+    "M26-037"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none — لا Dashboard ولا CMS ولا Auth ولا قاعدة بيانات (EVIDENCE 2026-10-01)",
+   "missing_work": "9 سيناريوهات E2E على الموبايل",
+   "dependencies": [
+    "DASH-027",
+    "CMS-002",
+    "CMS-015",
+    "CMS-013"
+   ],
+   "test_required": "Playwright E2E للمهام التسع على 360/390/412 Portrait + Touch، AR وEN",
+   "design_refs": [
+    "docs/qa/RESPONSIVE-QA-MATRIX.md (أعمدة Owner Dashboard · Menu Editor · Product Editor · Analytics · Site Health — غير مبنية)"
+   ],
+   "code_refs": [
+    "tooling/viewports.mjs"
+   ],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "DASH-029",
+   "area": "18 Owner Dashboard",
+   "type": "REQUIREMENT",
+   "title": "Dashboard cards لا تنضغط بشكل سيئ على الهاتف · Desktop أكثر كثافة عند الفائدة",
+   "requirement": "على الهاتف: Dashboard cards لا تنضغط بشكل سيئ؛ وعلى Desktop تستخدم الـDashboard layout أكثر كثافة عندما يفيد ذلك (Mobile-native على الهاتف ويستفيد Desktop من المساحة).",
+   "details": [],
+   "sources": [
+    "M26-014",
+    "M26-038"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none — لا Dashboard ولا CMS ولا Auth ولا قاعدة بيانات (EVIDENCE 2026-10-01)",
+   "missing_work": "Layout grid للـDashboard",
+   "dependencies": [
+    "DASH-027"
+   ],
+   "test_required": "Responsive screenshots + no overflow/clipping/overlap على كل العروض",
+   "design_refs": [
+    "docs/qa/RESPONSIVE-QA-MATRIX.md (أعمدة Owner Dashboard · Menu Editor · Product Editor · Analytics · Site Health — غير مبنية)"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "DASH-030",
+   "area": "18 Owner Dashboard",
+   "type": "REQUIREMENT",
+   "title": "Charts متجاوبة — وتتحول إلى Summary/Card على الشاشات الصغيرة عند الحاجة",
+   "requirement": "Charts يجب أن تكون Responsive: على الهاتف labels لا تتداخل · legend لا يستهلك الشاشة · tooltip تعمل باللمس · عدد النقاط المعروضة منطقي؛ وإذا كانت chart غير مفيدة على شاشة صغيرة تُحوَّل إلى summary/card أو simplified chart.",
+   "details": [
+    "Charts only when visible (G8: M25-137) · لا charts بلا معنى (G6: M25-032)."
+   ],
+   "sources": [
+    "M26-041",
+    "M26-042"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none — لا Dashboard ولا CMS ولا Auth ولا قاعدة بيانات (EVIDENCE 2026-10-01)",
+   "missing_work": "مكوّن Chart متجاوب",
+   "dependencies": [
+    "DASH-011"
+   ],
+   "test_required": "اختبار Touch tooltip + لقطات على 320–430 · Keyboard/Screen reader بديل نصي",
+   "design_refs": [
+    "docs/FRONTEND-TOOLING.md (مكونات الـDashboard لاحقًا: KPI Card · Chart · Table↔Cards · Alert · Editor forms)"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "DASH-031",
+   "area": "18 Owner Dashboard",
+   "type": "REQUIREMENT",
+   "title": "AI Assistant داخل الـDashboard — مستقبلي (Architecture جاهزة فقط إن لم تعقّد)",
+   "requirement": "AI Assistant داخل الـDashboard مؤجل للمستقبل (P2 في §68)؛ الآن تُجهَّز الـArchitecture له فقط إذا لم يسبب ذلك تعقيدًا.",
+   "details": [
+    "أمثلة أسئلة (توضيحية فقط): 'شو أكثر المنتجات الي انبحث عنها هذا الشهر؟' · 'ليش زيارات الموقع نزلت؟' · 'شو الصفحات البطيئة؟' · 'اعطيني المنتجات الي ناقصها صور'.",
+    "قيد ملزم: AI لا ينفذ تغييرات حساسة بدون Approval (PERM-007)."
+   ],
+   "sources": [
+    "M25-150",
+    "M25-152"
+   ],
+   "decision_refs": [],
+   "status": "DEFERRED",
+   "owner_approved": "YES",
+   "priority": "P3",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "none",
+   "missing_work": "لا عمل في V1 سوى عدم إغلاق الباب معماريًا",
+   "dependencies": [
+    "PERM-007",
+    "DASH-003"
+   ],
+   "test_required": "N/A في V1",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P12",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CMS-001",
+   "area": "17 CMS",
+   "type": "RULE",
+   "title": "95%+ من العمليات اليومية يديرها الـOwner من الـDashboard بدون لمس الكود",
+   "requirement": "الـOwner قادر على إدارة 95%+ من العمليات اليومية للموقع من الـDashboard بدون لمس الكود ومن UI سهلة، بدون الحاجة لمطور لكل تعديل. CMS داخل الـOwner Dashboard هو 'أهم شيء'. عمل المطور يقتصر على: new functionality · architecture · complex integrations · major redesign.",
+   "details": [
+    "حد عمل المطور: G1 M25-208.",
+    "اختبار القبول العملي: OWNER-DASHBOARD-GUIDE.md (G1: M25-203/204) — كيف أغير سعر · أغير صورة · أغير ساعات · أنشر Campaign · أعدل صفحة · أفحص الزيارات · أفحص Google Search · أفحص صحة الموقع.",
+    "ورد في M01 §28 ('بدون الحاجة لمطور لكل تعديل')، M25 مقدمة + §21 + §57 + §73، M27 §14."
+   ],
+   "sources": [
+    "M01-112",
+    "M25-079",
+    "M25-207",
+    "M27-050"
+   ],
+   "decision_refs": [
+    "D-084",
+    "DB-08"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none — لا Dashboard ولا CMS ولا Auth ولا قاعدة بيانات (EVIDENCE 2026-10-01)؛ مواصفات CMS للمنيو فقط: SHELTER-MENU-IA-SPEC §18",
+   "missing_work": "CMS Architecture + CMS-DATA-MODEL.md + الواجهات + OWNER-DASHBOARD-GUIDE.md",
+   "dependencies": [
+    "DB-08",
+    "CMS-002",
+    "CMS-020",
+    "DASH-004"
+   ],
+   "test_required": "Owner acceptance: تنفيذ سيناريوهات OWNER-DASHBOARD-GUIDE بنفسه بدون مساعدة · جرد العمليات اليومية: ≥95% لها UI · Functional E2E (Playwright): إنشاء/تعديل/معاينة/نشر/أرشفة من الـUI بدون كود · Permission tests (Server-side) · Audit Log entry لكل عملية · Responsive (Mobile/Desktop) · RTL/LTR · Accessibility للنماذج (labels/keyboard/focus) · Error states · OWNER-DASHBOARD-GUIDE.md",
+   "design_refs": [
+    "docs/menu-ia/SHELTER-MENU-IA-SPEC.md §18 (CMS — SSOT في V1)",
+    "docs/phase-01-discovery/05-decisions-before-design.md DB-08"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": "'أهم شيء' في M25 §21 و§73."
+  },
+  {
+   "id": "CMS-002",
+   "area": "17 CMS",
+   "type": "REQUIREMENT",
+   "title": "نطاق كيانات الـCMS (القائمة الموحدة القابلة للتعديل من UI)",
+   "requirement": "يدير الـOwner من الـCMS/Dashboard: Pages · Menu · Products · Prices · Categories · Subcategories · Availability · Images / Media · Branches · Opening Hours (Regular) · Special Hours · Phone Numbers · Contact Information · Social Links · Campaigns · Events · Blog / Articles · Coffee Knowledge · FAQ · About · Featured Content · SEO · Metadata (SEO metadata) · content/text.",
+   "details": [
+    "M01 §28: Pages · Menu · Products · Categories · Images · Branches · Opening Hours · Phone Numbers · Contact Info · Social Links · Events · Campaigns · Blog · SEO · Metadata · Featured Content.",
+    "M25 §21: Pages · Menu · Products · Categories · Subcategories · Branches · Hours · Special Hours · Contact Information · Social Links · Campaigns · Events · Blog · Coffee Knowledge · FAQ · About · SEO · Media.",
+    "M25 §73: content · menu · prices · images · branches · hours · campaigns · articles · SEO metadata · availability.",
+    "M27 §14: content · text · images · products · prices · categories · availability · branches · hours · special hours · campaigns · events · articles · SEO metadata · contact information · social links · media.",
+    "محررات تفصيلية مملوكة لمجموعات أخرى: Menu Editor + Bulk (G3: M25-085…088) · Branch Editor (G4: M25-090/091) · Hours (G4: M25-092/093) · Campaigns (G2: M25-094…096) · Blog/Knowledge (G2: M25-097/098) · Media Library (G2: M25-099…104) · SEO Editor + Preview (G5: M25-105…108).",
+    "'Featured Content' في M01 = محتوى مميز في الصفحات (Global/Reusable sections) — يختلف عن FEATURED الداخلي للأصناف (CMS-017).",
+    "SEO للأصناف: لا صفحات أصناف في V1 (G7-CF-01)."
+   ],
+   "sources": [
+    "M01-113",
+    "M01-114",
+    "M01-115",
+    "M01-116",
+    "M25-080",
+    "M25-209",
+    "M27-051",
+    "M27-052",
+    "M27-053",
+    "M27-054"
+   ],
+   "decision_refs": [
+    "D-084",
+    "D-148",
+    "D-021"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none — لا Dashboard ولا CMS ولا Auth ولا قاعدة بيانات (EVIDENCE 2026-10-01)؛ ما يُدار للمنيو موصوف في SHELTER-MENU-IA-SPEC §18",
+   "missing_work": "CMS-DATA-MODEL.md يغطي كل الكيانات + واجهة لكل كيان + تصنيف أولوية Blog/FAQ/Events/Social Links/Coffee Knowledge (G7-CF-06)",
+   "dependencies": [
+    "CMS-001",
+    "CMS-021",
+    "DASH-003",
+    "MENU (G3)",
+    "BRANCH/HOURS (G4)",
+    "CAMP/BLOG/MEDIA (G2)",
+    "SEO (G5)"
+   ],
+   "test_required": "Checklist: لكل كيان Create/Edit/Preview/Publish/Archive من UI + Audit · Functional E2E (Playwright): إنشاء/تعديل/معاينة/نشر/أرشفة من الـUI بدون كود · Permission tests (Server-side) · Audit Log entry لكل عملية · Responsive (Mobile/Desktop) · RTL/LTR · Accessibility للنماذج (labels/keyboard/focus) · Error states · OWNER-DASHBOARD-GUIDE.md",
+   "design_refs": [
+    "docs/menu-ia/SHELTER-MENU-IA-SPEC.md §18 (CMS — SSOT في V1)",
+    "docs/phase-01-discovery/17-menu-data-model-draft.md (v0.4)"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "G7-CF-01 (RESOLVED — SEO لكل Product مقابل لا صفحات أصناف في V1)",
+   "business_data": true,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CMS-003",
+   "area": "17 CMS",
+   "type": "DECISION",
+   "title": "Menu CMS = Single Source of Truth في V1 (A الآن + جاهزية C) — لا Google Sheet",
+   "requirement": "في V1 الـCMS / Dashboard هو Menu Single Source of Truth للموقع (الخيار A الآن + جاهزية C): مستقبلًا قد يصبح POS / ERP مصدرًا لبعض البيانات التشغيلية (Prices · Availability · Item IDs) بدون إعادة بناء. لا يُستخدم Google Sheet كمصدر تشغيل نهائي للمنيو، ولا اتصال مباشر بقاعدة بيانات POS الآن.",
+   "details": [
+    "جاهزية C في الـData Model: `external_reference` (POS / ERP / DRIVE_SYSTEM) · `pos_item_id` · `external_item_id` فارغة (D-110، D-121، M-08).",
+    "الإضافات التشغيلية من الكاشير: `show_on_website = false` دائمًا (D-119)."
+   ],
+   "sources": [
+    "M15-048",
+    "M15-050",
+    "M23-202"
+   ],
+   "decision_refs": [
+    "D-085",
+    "DB-21",
+    "D-142",
+    "D-148"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: SHELTER-MENU-IA-SPEC §18 + 17-menu-data-model v0.4 (external_reference) — لا CMS مبني",
+   "missing_work": "بناء الـCMS كمصدر وحيد + استيراد Inventory v1.0 إليه",
+   "dependencies": [
+    "DB-08",
+    "CMS-004",
+    "AUDIT-005"
+   ],
+   "test_required": "اختبار: كل بيانات المنيو المعروضة تأتي من الـCMS فقط (لا Sheet/ملف ثابت) · Architecture review لجاهزية C (external_reference)",
+   "design_refs": [
+    "docs/menu-ia/SHELTER-MENU-IA-SPEC.md §18 (CMS — SSOT في V1)",
+    "docs/phase-01-discovery/17-menu-data-model-draft.md (v0.4)",
+    "docs/phase-01-discovery/16-menu-intake-and-ssot.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CMS-004",
+   "area": "17 CMS",
+   "type": "RULE",
+   "title": "مصدر واحد للحقيقة: لا CMS مزدوج ولا مصدر منيو مزدوج",
+   "requirement": "ممنوع وجود two CMS sources أو two menu sources (أو أي Architecture مزدوجة للمحتوى)؛ الهدف ONE SOURCE OF TRUTH قدر الإمكان، وأي ازدواج يُكتشف ويُبلغ.",
+   "details": [
+    "M27 §35 يشمل أيضًا: two analytics systems · duplicate GA4 · duplicate GTM (G6) · duplicate components / design systems (G2: M27-144).",
+    "انعكاس على DB-08: لا WordPress admin + CMS آخر منفصل للمحتوى نفسه (G7-CF-08)."
+   ],
+   "sources": [
+    "M27-143"
+   ],
+   "decision_refs": [
+    "D-085"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "تثبيت مصدر واحد في الـArchitecture",
+   "dependencies": [
+    "CMS-003",
+    "DB-08"
+   ],
+   "test_required": "Architecture review: مصدر واحد لكل نوع محتوى · لا نسخ يدوي بين مصدرين",
+   "design_refs": [
+    "docs/phase-01-discovery/05-decisions-before-design.md DB-08"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P05",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CMS-005",
+   "area": "17 CMS",
+   "type": "REQUIREMENT",
+   "title": "إدارة المنيو بعد الإطلاق من الـDashboard",
+   "requirement": "بعد إطلاق الموقع تُدار المنيو من Dashboard الموقع: أي تعديل على Product · Price · Category · Availability · Image · Featured · New · Seasonal يتم من الـCMS/Dashboard (مع Audit Log · Version History · Draft/Publish — AUDIT-003 — وموافقة الـOwner حيث يلزم — PERM-006).",
+   "details": [
+    "Menu Editor التفصيلي (G3: M25-085): Add · Edit · Archive Product · Change Price · Arabic/English Name · Category · Subcategory · Upload Image · Set New · Set Seasonal · Set Availability · Set Sort Order + عرض توفر DRIVE/HOUSE + Bulk Actions (M25-088) مع Confirmation قوية للأسعار (G8: M25-089).",
+    "ما يُدار للمنيو (IA spec §18): الأصناف والأسعار كإصدار منيو جديد (D-107) · الفئات وأسماء العرض والـSlug · الأقسام الفرعية · sort_order · is_featured/is_new · الموسم · التوفر لكل صنف × فرع · الصور (اعتماد، Alt، Focal point، إصدارات) · قاموس البحث · ساعات الفروع."
+   ],
+   "sources": [
+    "M15-045"
+   ],
+   "decision_refs": [
+    "D-084",
+    "D-148"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: SHELTER-MENU-IA-SPEC §18 — لا CMS مبني",
+   "missing_work": "Menu module في الـCMS",
+   "dependencies": [
+    "CMS-003",
+    "AUDIT-003",
+    "PERM-006",
+    "MENU (G3)"
+   ],
+   "test_required": "Functional E2E (Playwright): إنشاء/تعديل/معاينة/نشر/أرشفة من الـUI بدون كود · Permission tests (Server-side) · Audit Log entry لكل عملية · Responsive (Mobile/Desktop) · RTL/LTR · Accessibility للنماذج (labels/keyboard/focus) · Error states · OWNER-DASHBOARD-GUIDE.md",
+   "design_refs": [
+    "docs/menu-ia/SHELTER-MENU-IA-SPEC.md §18 (CMS — SSOT في V1)",
+    "docs/menu-ia/SHELTER-MENU-IA-SPEC.md §19 (Data Model v0.5 delta)"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CMS-006",
+   "area": "17 CMS",
+   "type": "REQUIREMENT",
+   "title": "Workflow لكل المحتوى: DRAFT · IN REVIEW · SCHEDULED · PUBLISHED · ARCHIVED",
+   "requirement": "أي محتوى (وليس المنيو فقط) يدعم حالات: DRAFT · IN REVIEW · SCHEDULED · PUBLISHED · ARCHIVED، مع Preview · Version History · Audit Log · Role Permissions (حزمة D-148).",
+   "details": [
+    "Campaigns لها دورة تشغيل خاصة (G2: M25-095): Draft · Scheduled · Active · Expired · Archived — تُطبَّق كحالة تشغيل مشتقة من Start/End على محتوى PUBLISHED (G7-CF-04).",
+    "الحذف غالبًا = Archive بدل hard delete (G8: M25-164)؛ لا حذف للمنتجات (M23 §34/§60).",
+    "data model v0.5: `publication_state` (IA spec §19)."
+   ],
+   "sources": [
+    "M01-120",
+    "M23-203",
+    "M25-109",
+    "M23-204"
+   ],
+   "decision_refs": [
+    "D-148",
+    "D-084"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: SHELTER-MENU-IA-SPEC §18 (حالات المحتوى) + §19 publication_state — لا CMS مبني",
+   "missing_work": "تطبيق الحالات على كل أنواع المحتوى + الانتقالات المسموحة + الصلاحيات",
+   "dependencies": [
+    "CMS-007",
+    "CMS-008",
+    "AUDIT-001",
+    "AUDIT-003",
+    "PERM-004"
+   ],
+   "test_required": "اختبار كل انتقال حالة لكل نوع محتوى + أن ARCHIVED لا يظهر للعميل ولا يُحذف · Functional E2E (Playwright): إنشاء/تعديل/معاينة/نشر/أرشفة من الـUI بدون كود · Permission tests (Server-side) · Audit Log entry لكل عملية · Responsive (Mobile/Desktop) · RTL/LTR · Accessibility للنماذج (labels/keyboard/focus) · Error states · OWNER-DASHBOARD-GUIDE.md",
+   "design_refs": [
+    "docs/menu-ia/SHELTER-MENU-IA-SPEC.md §18 (CMS — SSOT في V1)",
+    "docs/menu-ia/SHELTER-MENU-IA-SPEC.md §19 (Data Model v0.5 delta)"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "G7-CF-04 (RESOLVED — D-084 → D-148 (CF-07) ومفردات حالات الحملات)",
+   "business_data": false,
+   "phase": "P08",
+   "history": [
+    {
+     "old": "Draft → Review → Published (Draft / Publish للمنيو)",
+     "source": "M15 §R3-09 → D-084",
+     "superseded_by": "M23 §58 → D-148 (+Scheduled +Archived، CF-07)؛ ثم M25 §33 عمّمها على كل المحتوى"
+    }
+   ],
+   "notes": ""
+  },
+  {
+   "id": "CMS-007",
+   "area": "17 CMS",
+   "type": "RULE",
+   "title": "لا يصل أي تعديل للعميل قبل Publish — لا تعديل مباشر على Production",
+   "requirement": "لا يصل أي تعديل للعميل إلا بعد Publish حسب الصلاحيات؛ التحرير لا يغيّر Production مباشرة.",
+   "details": [
+    "G8: M25-110 (لا تغيير Production أثناء التحرير) · M25-163 (Confirmation حسب الخطورة لـPublish · Delete · Bulk Edit · Price Change · Hours Change · SEO Indexing Change)."
+   ],
+   "sources": [
+    "M23-205"
+   ],
+   "decision_refs": [
+    "D-148"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: SHELTER-MENU-IA-SPEC §18 ('لا يصل أي تعديل للعميل قبل Publish')",
+   "missing_work": "فصل Draft عن Published في التخزين والـrendering + فحص صلاحية Publish على الخادم",
+   "dependencies": [
+    "CMS-006",
+    "PERM-004"
+   ],
+   "test_required": "اختبار: تعديل محفوظ كـDraft لا يظهر في الموقع العام (SSR/cache) حتى Publish · مستخدم بلا صلاحية Publish مرفوض Server-side",
+   "design_refs": [
+    "docs/menu-ia/SHELTER-MENU-IA-SPEC.md §18 (CMS — SSOT في V1)"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CMS-008",
+   "area": "17 CMS",
+   "type": "REQUIREMENT",
+   "title": "Preview قبل Publish: Desktop · Mobile (+ Arabic · English إذا أمكن)",
+   "requirement": "قبل نشر أي تعديل مهم: Preview بنسختين Desktop Preview و Mobile Preview، ثم Publish؛ ويُضاف Preview بالعربية والإنجليزية إذا أمكن.",
+   "details": [
+    "Preview للفروع قبل Publish (G4: M25-091) · SEO/Social Preview (G5: M25-108)."
+   ],
+   "sources": [
+    "M01-119",
+    "M25-116"
+   ],
+   "decision_refs": [
+    "D-148"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: SHELTER-MENU-IA-SPEC §18 (Preview لأي تعديل)",
+   "missing_work": "Preview بيئة/رابط آمن غير مفهرس لكل تعديل",
+   "dependencies": [
+    "CMS-006",
+    "SEC-004"
+   ],
+   "test_required": "E2E: Preview يعكس التعديل غير المنشور على Mobile/Desktop وAR/EN، ورابط الـPreview غير عام وnoindex · Functional E2E (Playwright): إنشاء/تعديل/معاينة/نشر/أرشفة من الـUI بدون كود · Permission tests (Server-side) · Audit Log entry لكل عملية · Responsive (Mobile/Desktop) · RTL/LTR · Accessibility للنماذج (labels/keyboard/focus) · Error states · OWNER-DASHBOARD-GUIDE.md",
+   "design_refs": [
+    "docs/menu-ia/SHELTER-MENU-IA-SPEC.md §18 (CMS — SSOT في V1)"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [
+    {
+     "old": "Preview: Desktop Preview + Mobile Preview",
+     "source": "M01 §30 (M01-119)",
+     "superseded_by": "M25 §36 (M25-116): + Arabic + English 'إذا أمكن' (توسيع)"
+    }
+   ],
+   "notes": ""
+  },
+  {
+   "id": "CMS-009",
+   "area": "17 CMS",
+   "type": "REQUIREMENT",
+   "title": "Scheduling والنشر الموسمي: تفعيل/انتهاء تلقائي · تجاوز يدوي · Audit trail",
+   "requirement": "النشر الموسمي (items/sections) يدعم: start_date · end_date · status/publish state · automatic activation · automatic expiration · manual override · audit trail؛ لا تُحذف المنتجات عند انتهاء الموسم. ويُعمَّم الـScheduling على المحتوى (Schedule content في الـPage Editor، Scheduling في M27 §13).",
+   "details": [
+    "SPRING قسم موسمي حاليًا Active (F-17، D-117) — تواريخ SPRING مفقودة (M-04) فالإظهار بالحالة اليدوية فقط.",
+    "Campaigns تختفي تلقائيًا عند انتهاء الوقت (G2: M25-096).",
+    "data model v0.5: `seasonal_status` + `start_date` + `end_date` + `manual_override` على الفئة والصنف."
+   ],
+   "sources": [
+    "M23-095"
+   ],
+   "decision_refs": [
+    "D-148",
+    "F-17",
+    "D-117"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: SHELTER-MENU-IA-SPEC §10, §18, §19",
+   "missing_work": "Scheduler يعمل بتوقيت الفرع (Asia/Amman) + سجل Audit للتفعيل/الانتهاء الآلي",
+   "dependencies": [
+    "CMS-006",
+    "AUDIT-002"
+   ],
+   "test_required": "اختبار بساعة مزيفة: التفعيل والانتهاء في الوقت الصحيح · التجاوز اليدوي يتقدم · سجل Audit للحدث الآلي",
+   "design_refs": [
+    "docs/menu-ia/SHELTER-MENU-IA-SPEC.md §19 (Data Model v0.5 delta)",
+    "docs/menu-ia/MENU-DECISION-REGISTER.md F-17"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": "FROZEN لأن جوهره F-17/D-148 من موجز الـOwner؛ إضافات §60 (publish state، automatic activation، audit trail) من نفس الموجز."
+  },
+  {
+   "id": "CMS-010",
+   "area": "17 CMS",
+   "type": "REQUIREMENT",
+   "title": "Page Editor بسيط مبني على Sections/Blocks (ليس Page Builder مثل Elementor)",
+   "requirement": "Page Editor بسيط — ليس Page Builder معقدًا مثل Elementor — مبني على Sections / Blocks واضحة، يتيح: Edit text · Change image · Hide section · Show section · Reorder approved sections · Edit button · Edit link · Schedule content.",
+   "details": [
+    "مثال Blocks صفحة Home (G2: M25-082 — مثال فقط): Hero · Campaign · About · Menu Preview · Branches · Coffee Story · Blog · CTA · Footer.",
+    "Layout options controlled (CMS-011؛ G2: M25-084).",
+    "Reusable sections ضمن Design System فقط (M01 §90 — G2): Featured Product · New Product · Campaign · Event · Branch Highlight · Coffee Story · Image Section · Video Section · Blog Highlight."
+   ],
+   "sources": [
+    "M25-081",
+    "M25-083"
+   ],
+   "decision_refs": [
+    "DB-08"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none — لا Dashboard ولا CMS ولا Auth ولا قاعدة بيانات (EVIDENCE 2026-10-01)",
+   "missing_work": "نموذج Blocks معتمد لكل نوع صفحة (بعد اعتماد Sitemap/IA للموقع) + المحرر",
+   "dependencies": [
+    "CMS-011",
+    "IA (G2)",
+    "DB-08"
+   ],
+   "test_required": "E2E لكل قدرة من الثماني + أن إعادة الترتيب تقتصر على Sections معتمدة · Functional E2E (Playwright): إنشاء/تعديل/معاينة/نشر/أرشفة من الـUI بدون كود · Permission tests (Server-side) · Audit Log entry لكل عملية · Responsive (Mobile/Desktop) · RTL/LTR · Accessibility للنماذج (labels/keyboard/focus) · Error states · OWNER-DASHBOARD-GUIDE.md",
+   "design_refs": [
+    "docs/phase-01-discovery/05-decisions-before-design.md DB-08"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CMS-011",
+   "area": "17 CMS",
+   "type": "RULE",
+   "title": "Design Lock: الـCMS لا يسمح بكسر الـDesign System",
+   "requirement": "الـDashboard/CMS يجب ألا تسمح للمستخدم بتخريب التصميم: الـContent Editor يعدّل Content فقط وليس Design Language — لا يستطيع اختيار ألوان عشوائية أو Fonts أو Animations أو Layouts غير معتمدة؛ Layout options تكون controlled.",
+   "details": [
+    "G2: M25-084 (Page Editor لا يكسر الـDesign System) · M27-144 (لا duplicate design systems).",
+    "الـDesign tokens فارغة حاليًا (M-10: هوية العلامة غير مستلمة)."
+   ],
+   "sources": [
+    "M01-117",
+    "M01-118",
+    "M27-055"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none — design-system/tokens template فقط (قيم مفقودة)",
+   "missing_work": "Schema الحقول يقتصر على المحتوى + اختيارات Variant مسماة من الـDesign System فقط",
+   "dependencies": [
+    "BRAND (G2)",
+    "CMS-010"
+   ],
+   "test_required": "اختبار: لا حقل حر للون/خط/حركة/Layout في أي نموذج · محتوى طويل/فارغ لا يكسر التصميم (visual QA)",
+   "design_refs": [
+    "design-system/README.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CMS-012",
+   "area": "17 CMS",
+   "type": "REQUIREMENT",
+   "title": "Global Components تُدار من مكان واحد",
+   "requirement": "Central (Global) Components تُدار من مكان واحد: Header · Footer · Social Links · Contact Details · Announcement · Brand Information.",
+   "details": [
+    "بيانات التواصل والأرقام المعتمدة (D-057/D-058) وروابط السوشال تُغذى من مصدر واحد إلى كل الصفحات والـSchema."
+   ],
+   "sources": [
+    "M01-220"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "نموذج Global settings في الـCMS",
+   "dependencies": [
+    "CMS-004",
+    "CONTACT (G4)"
+   ],
+   "test_required": "اختبار: تعديل واحد ينعكس في كل الصفحات AR/EN + Audit",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CMS-013",
+   "area": "17 CMS",
+   "type": "REQUIREMENT",
+   "title": "نظام Special Hours في الـCMS (Regular · Special/Holiday · Closure/Emergency)",
+   "requirement": "نظام Special Hours داخل الـCMS/Dashboard لأن الساعات تتغير في رمضان والأعياد وبعض المناسبات والحالات الاستثنائية: لكل Special Hours / Closure الحقول Start Date · End Date · Reason · Branch · Publish Status، وتعديل رمضان أو العيد لا يغيّر الساعات الأساسية.",
+   "details": [
+    "D-021: Regular Hours + Special Hours / Holiday Override + Temporary Closure / Emergency Notice.",
+    "M25 §26 (G4: M25-092/093): Ramadan · Holiday · Temporary change؛ Start Date · End Date · Reason · Branch · Status؛ الموقع يحسب تلقائيًا Open Now · Closed Now · Closing Soon · Next Opening.",
+    "data model v0.5: `branch_hours` + `branch_hours_override` (Special · Holiday · Temporary · Emergency، مع تواريخ وسبب وحالة نشر).",
+    "الساعات الفعلية للفروع = بيانات Owner (D-020) — لا تُخمَّن؛ M-09 لا بيانات ساعات خاصة معروفة."
+   ],
+   "sources": [
+    "M04-028",
+    "M04-031"
+   ],
+   "decision_refs": [
+    "D-021",
+    "DB-18"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: SHELTER-MENU-IA-SPEC §9.4 + §19 + 09 AR-07 (اقتراح للنقاش) + evidence/hours_logic_check.py (12/12 PASS — منطق فقط)",
+   "missing_work": "حسم نموذج AR-07 مع الـOwner (CMS-014) ثم البناء",
+   "dependencies": [
+    "CMS-014",
+    "HOURS (G4)"
+   ],
+   "test_required": "اختبار المنطق (أولوية الإغلاق ← الخاصة ← العادية · عبور منتصف الليل · Asia/Amman) + E2E للتعديل من الهاتف (DASH-028)",
+   "design_refs": [
+    "docs/phase-01-discovery/09-architecture-options-after-r1.md AR-07 (نموذج الساعات الخاصة — للنقاش)",
+    "docs/menu-ia/SHELTER-MENU-IA-SPEC.md §9.4",
+    "docs/menu-ia/SHELTER-MENU-IA-SPEC.md §19 (Data Model v0.5 delta)"
+   ],
+   "code_refs": [],
+   "test_refs": [
+    "docs/menu-ia/evidence/hours_logic_check.py"
+   ],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CMS-014",
+   "area": "17 CMS",
+   "type": "GATE",
+   "title": "مناقشة UX والـCMS لنظام الساعات الخاصة مع الـOwner قبل التنفيذ",
+   "requirement": "قبل تنفيذ نظام Special Hours: مناقشة الـUX والـCMS مع الـOwner (نموذج AR-07: الطبقات، الأولوية، عبور منتصف الليل، توقيت الفرع، الانتهاء التلقائي، أماكن الظهور، عدم تحديث GBP تلقائيًا).",
+   "details": [
+    "DB-18 = PROPOSED — النقاش لم يحدث بعد.",
+    "M25 §26 أعطى الحقول والحسابات لكنه لا يلغي بوابة النقاش."
+   ],
+   "sources": [
+    "M04-032"
+   ],
+   "decision_refs": [
+    "D-021",
+    "DB-18"
+   ],
+   "status": "PENDING OWNER INPUT",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "spec: 09 AR-07 (للنقاش)",
+   "missing_work": "عرض AR-07 على الـOwner ضمن CMS Architecture (Phase D) وتسجيل القرار",
+   "dependencies": [
+    "CMS-013"
+   ],
+   "test_required": "سجل قرار الـOwner على AR-07 في DECISION-LOG",
+   "design_refs": [
+    "docs/phase-01-discovery/09-architecture-options-after-r1.md AR-07 (نموذج الساعات الخاصة — للنقاش)"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P04",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CMS-015",
+   "area": "17 CMS",
+   "type": "REQUIREMENT",
+   "title": "التوفر لكل Product × Branch: Available · Unavailable + Show · Unavailable + Hide",
+   "requirement": "الـCMS يسمح لكل Product / Branch بثلاث حالات يضبطها الـOwner: Available · Unavailable + Show (يبقى ظاهرًا مع 'غير متوفر حاليًا') · Unavailable + Hide (لا يظهر للعميل)؛ لا يُحذف المنتج.",
+   "details": [
+    "data model v0.5: `availability.state` ∈ UNKNOWN · AVAILABLE · UNAVAILABLE_SHOW · UNAVAILABLE_HIDE — UNKNOWN هي الحالة الافتراضية للبيانات حتى تأكيد الـOwner (D-079، D-094؛ CF-06 مُسجل في MENU-DECISION-REGISTER).",
+    "M-01: 191 × 2 = 382 قيمة كلها UNKNOWN — البيانات PENDING OWNER VERIFICATION.",
+    "Bulk: Set available/unavailable · Change branch availability (G3: M25-088)."
+   ],
+   "sources": [
+    "M23-114"
+   ],
+   "decision_refs": [
+    "D-145",
+    "F-19",
+    "D-079"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: SHELTER-MENU-IA-SPEC §9.6 + §19؛ Inventory v1.0 يحمل availability_drive/house = UNKNOWN",
+   "missing_work": "واجهة التوفر لكل صنف × فرع + السلوك في الموقع",
+   "dependencies": [
+    "MENU (G3)",
+    "AUDIT-001"
+   ],
+   "test_required": "E2E للحالات الثلاث في كل فرع + UNKNOWN لا يعرض أي شارة + Audit",
+   "design_refs": [
+    "docs/menu-ia/SHELTER-MENU-IA-SPEC.md §19 (Data Model v0.5 delta)",
+    "docs/menu-ia/MENU-DECISION-REGISTER.md F-19 · CF-06"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P08",
+   "history": [
+    {
+     "old": "UNKNOWN / AVAILABLE / UNAVAILABLE",
+     "source": "D-079 (R3-04)",
+     "superseded_by": "M23 §34 → D-145/F-19 (+Show/Hide — CF-06، توسيع)"
+    }
+   ],
+   "notes": ""
+  },
+  {
+   "id": "CMS-016",
+   "area": "17 CMS",
+   "type": "RULE",
+   "title": "ترتيب المنتجات بـsort_order يدوي من الـCMS — ممنوع Random Algorithm",
+   "requirement": "ترتيب المنتجات يُدار بـ`sort_order` من الـCMS؛ ممنوع Random Algorithm؛ أي intelligent recommendation system يأتي لاحقًا وليس داخل V1 تلقائيًا.",
+   "details": [],
+   "sources": [
+    "M23-206"
+   ],
+   "decision_refs": [
+    "D-148"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: SHELTER-MENU-IA-SPEC §18 (sort_order يدوي)",
+   "missing_work": "حقل sort_order + واجهة ترتيب",
+   "dependencies": [
+    "CMS-005"
+   ],
+   "test_required": "اختبار: الترتيب ثابت ويطابق sort_order بعد كل نشر",
+   "design_refs": [
+    "docs/menu-ia/SHELTER-MENU-IA-SPEC.md §18 (CMS — SSOT في V1)"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CMS-017",
+   "area": "17 CMS",
+   "type": "DECISION",
+   "title": "FEATURED = خاصية CMS داخلية — لا Badge 'Featured' للعميل",
+   "requirement": "FEATURED خاصية CMS داخلية للتحكم بالترتيب أو إبراز المنتج، ولا يظهر Badge باسم Featured للعميل تلقائيًا؛ ويمكن أن تؤثر على الـpresentation فقط إذا كانت الـbusiness rules واضحة.",
+   "details": [
+    "الشارات العامة: NEW / جديد و SEASONAL / موسمي فقط (F-14، D-144).",
+    "data model: `is_featured` (داخلي)."
+   ],
+   "sources": [
+    "M23-070",
+    "M23-207"
+   ],
+   "decision_refs": [
+    "F-14",
+    "D-144",
+    "D-148"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: SHELTER-MENU-IA-SPEC §18/§19",
+   "missing_work": "قواعد Business لتأثير FEATURED على العرض (إن وُجدت) — PENDING OWNER INPUT عند الحاجة",
+   "dependencies": [
+    "CMS-016"
+   ],
+   "test_required": "اختبار: لا شارة Featured في أي عرض عام",
+   "design_refs": [
+    "docs/menu-ia/MENU-DECISION-REGISTER.md F-14",
+    "docs/menu-ia/SHELTER-MENU-IA-SPEC.md §19 (Data Model v0.5 delta)"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P08",
+   "history": [],
+   "notes": "تأثير FEATURED على الـpresentation = APPROVED WITH CONDITIONS (قواعد Business واضحة يعتمدها الـOwner)."
+  },
+  {
+   "id": "CMS-018",
+   "area": "17 CMS",
+   "type": "REQUIREMENT",
+   "title": "Search Alias Dictionary قابل للإدارة من الـCMS",
+   "requirement": "بناء Search Alias Dictionary (مرادفات وأسماء بديلة بالعربي والإنجليزي) قابل للإدارة من الـCMS، يغذي بحث المنيو ثنائي اللغة.",
+   "details": [
+    "data model v0.5: `search_alias` (قيمة، لغة، صنف، حالة اعتماد).",
+    "P-06: المرادفات نفسها PENDING OWNER APPROVAL — البداية من الأسماء الرسمية والمصدرية فقط؛ لا مرادفات مخترعة (F-15)."
+   ],
+   "sources": [
+    "M23-079"
+   ],
+   "decision_refs": [
+    "D-143",
+    "F-15"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: SHELTER-MENU-IA-SPEC §8 + §19",
+   "missing_work": "واجهة القاموس + حالة اعتماد لكل Alias",
+   "dependencies": [
+    "SRCH (G3)"
+   ],
+   "test_required": "اختبار: Alias معتمد فقط يؤثر على البحث · Audit لكل تعديل",
+   "design_refs": [
+    "docs/menu-ia/SHELTER-MENU-IA-SPEC.md §19 (Data Model v0.5 delta)",
+    "docs/menu-ia/MENU-DECISION-REGISTER.md F-15 · P-06"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CMS-019",
+   "area": "17 CMS",
+   "type": "REQUIREMENT",
+   "title": "حالة المحتوى في الـDashboard: صفحات تحتاج تحديث + Drafts تنتظر النشر",
+   "requirement": "الـDashboard تجيب عن حالة المحتوى: هل هناك صفحات تحتاج تحديث؟ هل هناك محتوى Draft ينتظر النشر؟",
+   "details": [
+    "Page Health: Last updated · Content status (DASH-016).",
+    "معيار 'يحتاج تحديث' يُعرَّف في CMS Architecture (مثل: حقل مراجعة دورية/تاريخ آخر تحديث) — قرار تقني."
+   ],
+   "sources": [
+    "M25-011"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none — لا Dashboard ولا CMS ولا Auth ولا قاعدة بيانات (EVIDENCE 2026-10-01)",
+   "missing_work": "قاعدة 'تحتاج تحديث' + قائمة Drafts/In Review/Scheduled",
+   "dependencies": [
+    "CMS-006",
+    "DASH-017"
+   ],
+   "test_required": "اختبار: Draft جديد يظهر في القائمة/Needs Attention ويختفي بعد النشر",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CMS-020",
+   "area": "17 CMS",
+   "type": "RULE",
+   "title": "لا تعديل يدوي لقاعدة البيانات: كل Business Content اليومي له UI",
+   "requirement": "بعد بناء النظام لا حاجة لـSupabase SQL Editor (أو أي تعديل قاعدة بيانات يدوي) لتعديل Content طبيعي؛ كل Business Content المطلوب يوميًا له UI واضح داخل الـDashboard.",
+   "details": [
+    "ذكر Supabase هنا لا يعني اعتماده كمنصة (DB-08 مفتوح)."
+   ],
+   "sources": [
+    "M25-165",
+    "M25-166"
+   ],
+   "decision_refs": [
+    "DB-08"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none — لا Dashboard ولا CMS ولا Auth ولا قاعدة بيانات (EVIDENCE 2026-10-01)",
+   "missing_work": "جرد العمليات اليومية وربط كل منها بواجهة",
+   "dependencies": [
+    "CMS-001",
+    "CMS-002"
+   ],
+   "test_required": "Owner acceptance: لا خطوة في OWNER-DASHBOARD-GUIDE تتطلب DB/SQL/كود",
+   "design_refs": [
+    "docs/phase-01-discovery/05-decisions-before-design.md DB-08"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CMS-021",
+   "area": "17 CMS",
+   "type": "DECISION",
+   "title": "CMS Data Model والتخزين (CMS-DATA-MODEL.md) — Supabase مشروط بقرار DB-08",
+   "requirement": "إذا كان المشروع يستخدم Supabase: يُستخدم بالطريقة المناسبة لتخزين CMS content · publication states · audit logs · analytics aggregates (عند الملاءمة) · site health history · performance audit history؛ ولا يُنسخ GA4 raw data كاملًا بدون سبب — تخزين ما نحتاجه فقط. نموذج البيانات يوثق في CMS-DATA-MODEL.md (Phase D) ويبني على Menu Data Model v0.4/v0.5.",
+   "details": [
+    "شرطي — المنصة/قاعدة البيانات لم تُحسم (DB-08)؛ ليس اعتمادًا لـSupabase.",
+    "Data minimization: G1 M25-136 · لا PII غير ضروري (M23 §57؛ G1 M25-075).",
+    "أساس النموذج: 17-menu-data-model v0.4 (menu_version · import_batch · source_record · product · price (valid_from/to) · availability · media · content_review · menu_change · audit_log) + دلتا v0.5 (subcategory · display_group · availability.state · seasonal · is_new/new_until · is_featured · search_alias · publication_state · branch_hours/override · media variants · aria_label_en).",
+    "وثيقة مطلوبة: CMS-DATA-MODEL.md (G1: M25-199) و CMS Architecture (G1: M25-213)."
+   ],
+   "sources": [
+    "M25-135"
+   ],
+   "decision_refs": [
+    "DB-08",
+    "D-107",
+    "D-135",
+    "D-136"
+   ],
+   "status": "APPROVED WITH CONDITIONS",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "PARTIAL",
+   "tested": "N/A",
+   "existing_impl": "spec: 17-menu-data-model-draft v0.4 (أساس Inventory v1.0) + SHELTER-MENU-IA-SPEC §19 (v0.5 — للاعتماد) — للمنيو فقط؛ لا نموذج لبقية الكيانات",
+   "missing_work": "CMS-DATA-MODEL.md لكل الكيانات + قرار DB-08",
+   "dependencies": [
+    "DB-08",
+    "CMS-002",
+    "AUDIT-001",
+    "MON-005"
+   ],
+   "test_required": "مراجعة النموذج مقابل CMS-002 (تغطية كل كيان) + اعتماد الـOwner عند Gate H",
+   "design_refs": [
+    "docs/phase-01-discovery/17-menu-data-model-draft.md (v0.4)",
+    "docs/menu-ia/SHELTER-MENU-IA-SPEC.md §19 (Data Model v0.5 delta)",
+    "docs/phase-01-discovery/05-decisions-before-design.md DB-08"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P04",
+   "history": [],
+   "notes": "PARTIAL لأن وثيقة نموذج بيانات المنيو موجودة ومعتمدة كأساس (D-135)، بينما بقية الكيانات بلا نموذج."
+  },
+  {
+   "id": "AUDIT-001",
+   "area": "32 Audit / Versioning",
+   "type": "REQUIREMENT",
+   "title": "Audit Log لكل Action في الـDashboard (Who · What · Before · After · Date/Time)",
+   "requirement": "كل Action داخل الـDashboard يُسجَّل في Audit Log: Who (من غيّر) · What (ماذا) · Before (Old value) · After (New value) · Date/Time (متى)؛ والتسجيل إلزامي خصوصًا لتغييرات: Prices · Opening Hours · Special Hours · Branches · Events · Campaigns · Contact Information · SEO · Permissions (+ Availability · Names · Merges حسب الـData Model).",
+   "details": [
+    "M01 §34: Prices · Opening Hours · Branches · Events · Contact Information.",
+    "M25 §35: Prices · Hours · SEO · Contact · Branches · Campaigns · Permissions.",
+    "17 data model audit_log (D-084): من، متى، الكيان، الحقل، القيمة القديمة والجديدة — إلزامي للأسعار والتوفر والأسماء والدمج (يحتاج توسيعًا لبقية الكيانات).",
+    "AR-08: Audit Log لكل تغيير في قيم خدمات/طرق دفع الفروع.",
+    "Secure API access + audit logging (SEC-008)."
+   ],
+   "sources": [
+    "M01-124",
+    "M01-125",
+    "M25-113",
+    "M25-114"
+   ],
+   "decision_refs": [
+    "D-084",
+    "D-148"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: 17-menu-data-model §2 audit_log (للمنيو) + IA spec §18 — لا نظام مبني",
+   "missing_work": "جدول/خدمة Audit append-only لكل الكيانات + واجهة Audit Log (فلترة حسب الكيان/المستخدم/التاريخ)",
+   "dependencies": [
+    "CMS-021",
+    "PERM-004",
+    "AUDIT-002"
+   ],
+   "test_required": "اختبار: كل عملية (UI أو API) تنتج سجلًا كاملًا بالحقول الخمسة · السجل غير قابل للتعديل من الـUI · Permission changes مسجلة",
+   "design_refs": [
+    "docs/phase-01-discovery/17-menu-data-model-draft.md §2 audit_log · menu_change · menu_version",
+    "docs/menu-ia/SHELTER-MENU-IA-SPEC.md §18 (CMS — SSOT في V1)",
+    "docs/phase-01-discovery/09-architecture-options-after-r1.md AR-08"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P08",
+   "history": [
+    {
+     "old": "Audit Log: Who changed what · When · Old value · New value — خصوصًا Prices · Opening Hours · Branches · Events · Contact Information",
+     "source": "M01 §34",
+     "superseded_by": "M25 §35: كل Action + SEO · Campaigns · Permissions (توسيع)"
+    }
+   ],
+   "notes": ""
+  },
+  {
+   "id": "AUDIT-002",
+   "area": "32 Audit / Versioning",
+   "type": "RULE",
+   "title": "لا Silent Changes",
+   "requirement": "لا تغيير صامت: أي تغيير على المحتوى أو البيانات أو الإعدادات أو الصلاحيات — بما فيه التغييرات الآلية (Scheduled publish/expiry، الاستيراد، أي اقتراح AI معتمد) — يجب أن يكون مسجلًا ومرئيًا.",
+   "details": [
+    "تفسير: التغييرات الآلية تُنسب لفاعل 'system' في الـAudit Log (قرار تقني N/A).",
+    "لا تصحيح تلقائي للبيانات حتى الواضح منه (D-093)."
+   ],
+   "sources": [
+    "M25-115"
+   ],
+   "decision_refs": [
+    "D-093"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "تغطية كل مسارات الكتابة بالـAudit",
+   "dependencies": [
+    "AUDIT-001",
+    "CMS-009"
+   ],
+   "test_required": "Code review: لا مسار كتابة بدون Audit · اختبار الأحداث الآلية",
+   "design_refs": [
+    "docs/phase-01-discovery/17-menu-data-model-draft.md §2 audit_log · menu_change · menu_version"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "AUDIT-003",
+   "area": "32 Audit / Versioning",
+   "type": "REQUIREMENT",
+   "title": "Version History لكل تغيير مهم (User · Time · Old Value · New Value) قابلة للعرض",
+   "requirement": "أي تغيير مهم له Version History بحقول User · Time · Old Value · New Value، ويستطيع الـOwner مشاهدة التاريخ (مثال: سعر منتج 3.25 → 3.50). تعديلات المنيو تتم مع Audit Log · Version History · Draft / Publish؛ وحقول المنتج (الاسم، السعر، الفئة، التوفر، الصورة، الوصف، حالة المنتج) تبقى Versioned وقابلة للتعديل مع Audit History.",
+   "details": [
+    "الأسعار في المثال توضيحية فقط.",
+    "تجميد الـID لا يجمّد الاسم/السعر/الفئة/التوفر/الصورة/الوصف/الحالة (D-136).",
+    "السعر: لا overwrite — يُغلق القديم بـvalid_to ويُضاف جديد بـvalid_from (D-107؛ AUDIT-006)."
+   ],
+   "sources": [
+    "M25-111",
+    "M15-046",
+    "M21-007"
+   ],
+   "decision_refs": [
+    "D-084",
+    "D-136",
+    "D-148"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: 17-menu-data-model (price valid_from/to · menu_change) — لا نظام مبني",
+   "missing_work": "Versioning لكل كيان + واجهة History",
+   "dependencies": [
+    "AUDIT-001",
+    "AUDIT-006",
+    "CMS-021"
+   ],
+   "test_required": "اختبار: تعديل سعر ينشئ نسخة جديدة ويحفظ القديمة · عرض التاريخ من الـUI (Mobile/Desktop)",
+   "design_refs": [
+    "docs/phase-01-discovery/17-menu-data-model-draft.md §2 audit_log · menu_change · menu_version",
+    "docs/phase-01-discovery/17-menu-data-model-draft.md §4 Menu Versioning"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "AUDIT-004",
+   "area": "32 Audit / Versioning",
+   "type": "REQUIREMENT",
+   "title": "Restore / Revert لنسخة سابقة — إذا كان آمنًا",
+   "requirement": "Revision History مع إمكانية الرجوع إلى النسخة السابقة عند حدوث تعديل خاطئ؛ Restore Version للمحتوى مسموح إذا كان آمنًا (الاسترجاع يُنشئ نسخة جديدة ولا يمحو التاريخ، ويمر بـPreview/Publish).",
+   "details": [
+    "تعريف 'آمن' (قرار تقني يوثق في CMS Architecture): لا استرجاع يكسر مرجعًا (Slug/301/صورة مؤرشفة) ولا يكتب فوق Menu Version أحدث بدون تأكيد."
+   ],
+   "sources": [
+    "M01-121",
+    "M25-112"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED WITH CONDITIONS",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "آلية Restore + قواعد الأمان",
+   "dependencies": [
+    "AUDIT-003",
+    "CMS-006"
+   ],
+   "test_required": "اختبار: Restore ينشئ نسخة جديدة + Audit + لا فقد للتاريخ · حالات غير آمنة تُرفض مع شرح",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [
+    {
+     "old": "Revision History: 'نقدر نرجع إلى النسخة السابقة' (بدون شرط)",
+     "source": "M01 §32",
+     "superseded_by": "M25 §34: Restore Version 'إذا كان آمنًا'"
+    }
+   ],
+   "notes": ""
+  },
+  {
+   "id": "AUDIT-005",
+   "area": "32 Audit / Versioning",
+   "type": "DECISION",
+   "title": "MENU VERSION `MV-YYYY-MM-DD` — الحالية MV-2026-10-01 (سارية من 2026-10-01)",
+   "requirement": "مفهوم MENU VERSION معتمد من الآن (صيغة `MV-YYYY-MM-DD`)؛ النسخة الرسمية الحالية `MV-2026-10-01` مع valid_from / effective_from = 2026-10-01 (JOD، شامل الضريبة، price_fils).",
+   "details": [
+    "M20 §10: إنشاء Menu Version MV-2026-10-01 — تم في Inventory v1.0 (D-135، F-01)."
+   ],
+   "sources": [
+    "M18-043",
+    "M19-033",
+    "M20-031"
+   ],
+   "decision_refs": [
+    "D-107",
+    "D-122",
+    "D-135",
+    "F-01"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "FROZEN",
+   "tested": "N/A",
+   "existing_impl": "docs/phase-01-discovery/menu/menu-inventory-v1.0.csv (عمود menu_version = MV-2026-10-01، valid_from = 2026-10-01) + 21 freeze report",
+   "missing_work": "نقل الـMenu Version إلى الـCMS عند بنائه",
+   "dependencies": [
+    "CMS-003",
+    "AUDIT-006"
+   ],
+   "test_required": "تحقق: كل صفوف Inventory v1.0 تحمل MV-2026-10-01 و valid_from = 2026-10-01",
+   "design_refs": [
+    "docs/phase-01-discovery/21-menu-inventory-v1.0-freeze-report.md",
+    "docs/phase-01-discovery/17-menu-data-model-draft.md (v0.4) §2 menu_version",
+    "docs/menu-ia/MENU-DECISION-REGISTER.md F-01"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P01",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "AUDIT-006",
+   "area": "32 Audit / Versioning",
+   "type": "RULE",
+   "title": "استيراد المنيو لا يمسح التاريخ (Previous/Current Price · Effective Date)",
+   "requirement": "كل استيراد رسمي مستقبلي للمنيو لا يمسح التاريخ؛ يجب معرفة: Previous Price · Current Price · Effective Date · Changed Item · Added Item · Archived Item — والهدف معرفة المصدر، وما الذي تغيّر، ومن أي Version جاء السعر (مهم للموقع وللربط مع ERP/POS و SHELTER COFFEE DRIVE SYSTEM).",
+   "details": [
+    "سير الاستيراد (17 §4): import_batch + menu_version DRAFT → مطابقة (غير المؤكد يُعرض على الـOwner) → Diff (مضاف/أسعار/أسماء/NOT PRESENT) → موافقة → menu_change + إغلاق السعر القديم بـvalid_to وإضافة الجديد بـvalid_from → لا حذف ولا overwrite → النسخة السابقة SUPERSEDED.",
+    "الصنف الغائب عن الملف الجديد = NOT PRESENT IN CURRENT OWNER FILE وليس مؤرشفًا تلقائيًا (D-099)."
+   ],
+   "sources": [
+    "M18-044",
+    "M18-042"
+   ],
+   "decision_refs": [
+    "D-107",
+    "D-099"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: 17-menu-data-model §4 Menu Versioning + جداول menu_change/price (valid_from/to) — لا أداة استيراد مبنية",
+   "missing_work": "أداة/واجهة استيراد في الـCMS تنتج Diff وتنتظر الموافقة",
+   "dependencies": [
+    "AUDIT-005",
+    "AUDIT-003",
+    "CMS-003"
+   ],
+   "test_required": "اختبار استيراد ملف تجريبي: Diff صحيح · لا حذف · السعر القديم مغلق بـvalid_to · Audit",
+   "design_refs": [
+    "docs/phase-01-discovery/17-menu-data-model-draft.md §4 Menu Versioning"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "AUDIT-007",
+   "area": "32 Audit / Versioning",
+   "type": "RULE",
+   "title": "الحفاظ على Lineage لكل منتج (المصدر · الصف · الـHash · النسخة · التاريخ)",
+   "requirement": "يجب الحفاظ على الـLineage لكل منتج: source file · sheet · row · hash · source version · product ID · change history — ولا يُعدّل سجل المصدر أبدًا.",
+   "details": [
+    "Source records SRC-00001 → SRC-00192 لا تُعدّل (F-02)؛ PRD-00120 مدموج في PRD-00115 ولا يُعاد استخدامه (F-03، D-136).",
+    "طبقات Source / Normalized / Display منفصلة (F-04)."
+   ],
+   "sources": [
+    "M23-023"
+   ],
+   "decision_refs": [
+    "D-110",
+    "D-133",
+    "D-135",
+    "F-02",
+    "F-04"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "PARTIAL",
+   "tested": "N/A",
+   "existing_impl": "Inventory v1.0 يحمل source_file · source_hash (SHA-256) · source_sheet · source_row · source_sequence_number · source_lineage · menu_version — الـCMS غير مبني",
+   "missing_work": "حمل الـLineage إلى الـCMS كحقول غير قابلة للتعديل + ربطها بالـAudit/Version",
+   "dependencies": [
+    "CMS-021",
+    "AUDIT-006"
+   ],
+   "test_required": "تحقق: بعد الاستيراد للـCMS كل منتج يحتفظ بحقول المصدر كما في Inventory v1.0 (مقارنة Hash)",
+   "design_refs": [
+    "docs/phase-01-discovery/menu/menu-inventory-v1.0.csv + SHELTER-MENU-INVENTORY-v1.0.xlsx",
+    "docs/phase-01-discovery/17-menu-data-model-draft.md (v0.4)"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "AUDIT-008",
+   "area": "32 Audit / Versioning",
+   "type": "REQUIREMENT",
+   "title": "Versioning + Backup strategy + Safe rollback لإدارة المحتوى الحساس",
+   "requirement": "أي Content Management حساس يدعم: Versioning · Backup strategy · Safe rollback — بحيث لا يمكن لخطأ Editor أن يمسح الموقع.",
+   "details": [
+    "G8: M25-162 (خطأ Editor لا يمسح الموقع) · M25-164 (Archive بدل hard delete) · DEPLOY backups/rollback (G8).",
+    "M01 §91 يشمل Backups ضمن الفحص الأمني (SEC-001)."
+   ],
+   "sources": [
+    "M25-161"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "سياسة Backup (تواتر، احتفاظ، اختبار استعادة) + Rollback للمحتوى",
+   "dependencies": [
+    "AUDIT-003",
+    "AUDIT-004",
+    "DEPLOY (G8)"
+   ],
+   "test_required": "اختبار استعادة Backup فعلي على Staging + Rollback لنشر خاطئ",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "PERM-001",
+   "area": "31 Permissions & Auth",
+   "type": "DECISION",
+   "title": "V1: الـOwner وحده لديه Full Control ويرى كل شيء",
+   "requirement": "الـDashboard للمالك أولًا: الـOwner يرى كل شيء، وحاليًا (V1) الـOwner وحده لديه Full Control (دور فعّال واحد).",
+   "details": [
+    "Users & Permissions UI غير مصنفة في §68 (G7-CF-06)."
+   ],
+   "sources": [
+    "M25-013",
+    "M25-015"
+   ],
+   "decision_refs": [
+    "D-148"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none — لا Dashboard ولا CMS ولا Auth ولا قاعدة بيانات (EVIDENCE 2026-10-01)",
+   "missing_work": "حساب Owner + المصادقة",
+   "dependencies": [
+    "SEC-005",
+    "PERM-004"
+   ],
+   "test_required": "اختبار: حساب Owner يصل لكل الوحدات · لا حساب آخر بصلاحيات كاملة",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "G7-CF-03 (RESOLVED — الأدوار)",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "PERM-002",
+   "area": "31 Permissions & Auth",
+   "type": "REQUIREMENT",
+   "title": "أدوار مستقبلية: OWNER · ADMIN · EDITOR · SEO · MARKETING · CONTENT MANAGER",
+   "requirement": "الـArchitecture تدعم مستقبلًا الأدوار: OWNER · ADMIN · EDITOR · SEO · MARKETING · CONTENT MANAGER (Role-based permissions)، بدون تفعيلها في V1.",
+   "details": [
+    "M01 §33 (أمثلة 'مثل'): Owner · Admin · Content Editor · Menu Editor · Marketing — Menu Editor غير موجود في قائمة M25؛ يُقترح كنطاق (Scope) لدور EDITOR/CONTENT MANAGER أو دور مستقل — يُحسم في PERMISSIONS.md عند Gate H.",
+    "D-148 ذكر 'Roles' للـCMS دون قائمة."
+   ],
+   "sources": [
+    "M25-014",
+    "M01-122"
+   ],
+   "decision_refs": [
+    "D-148"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "مصفوفة Role × Permission × Module في PERMISSIONS.md",
+   "dependencies": [
+    "PERM-005",
+    "PERM-004"
+   ],
+   "test_required": "Permission tests لكل دور (عند تفعيله): ممنوع/مسموح Server-side",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "G7-CF-03 (RESOLVED — M25 §1 يتقدم على قائمة M01 §33 النموذجية)",
+   "business_data": false,
+   "phase": "P04",
+   "history": [
+    {
+     "old": "Roles مثل: Owner · Admin · Content Editor · Menu Editor · Marketing",
+     "source": "M01 §33 (M01-122)",
+     "superseded_by": "M25 §1 (M25-014/015): أدوار مستقبلية OWNER · ADMIN · EDITOR · SEO · MARKETING · CONTENT MANAGER؛ V1 = Owner فقط"
+    }
+   ],
+   "notes": ""
+  },
+  {
+   "id": "PERM-003",
+   "area": "31 Permissions & Auth",
+   "type": "RULE",
+   "title": "Least privilege للمستخدمين: لا Full Access للجميع",
+   "requirement": "لا يحصل الجميع على Full Access؛ أي مستخدم آخر مستقبلًا يأخذ Permissions محددة حسب دوره (أقل صلاحية لازمة).",
+   "details": [],
+   "sources": [
+    "M01-123",
+    "M25-016"
+   ],
+   "decision_refs": [
+    "D-051",
+    "GIO-§A29/§A33"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "تعريف الصلاحيات الدنيا لكل دور",
+   "dependencies": [
+    "PERM-002",
+    "PERM-005"
+   ],
+   "test_required": "Permission tests: كل دور يصل فقط لما في المصفوفة",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "PERM-004",
+   "area": "31 Permissions & Auth",
+   "type": "RULE",
+   "title": "الصلاحيات تُفرض Server-side — لا اعتماد على إخفاء الأزرار",
+   "requirement": "ممنوع الاعتماد على إخفاء الأزرار في الـUI فقط؛ الـPermissions تُفرض Server-side أيضًا، مع Server-side authorization لكل عملية Admin.",
+   "details": [
+    "اختبار 'User without permission' و 'Expired session' (G8: M25-195)."
+   ],
+   "sources": [
+    "M25-017",
+    "M25-154"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "Authorization middleware/policies لكل API و Server action",
+   "dependencies": [
+    "SEC-005",
+    "SEC-008"
+   ],
+   "test_required": "Security tests: استدعاء API مباشر بدون صلاحية/بجلسة منتهية = 401/403 + Audit · Security tests (P10): فحص يدوي + آلي حسب البند، اختبار الوصول غير المصرّح، مراجعة الـheaders/الـconfig، لا Secrets في الـbundle (فحص build output)، توثيق النتيجة",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "PERM-005",
+   "area": "31 Permissions & Auth",
+   "type": "DELIVERABLE",
+   "title": "Permissions Model (PERMISSIONS.md) قبل التنفيذ — Phase E",
+   "requirement": "إعداد Permissions Model كمخرج قبل التنفيذ (الخطوة 6 في 'ابدأ الآن'، Phase E Permissions + security model) وتوثيقه في PERMISSIONS.md، ويُعرض على الـOwner ضمن Gate H.",
+   "details": [
+    "PERMISSIONS.md (G1: M25-202).",
+    "يغطي: الأدوار (PERM-002)، المصفوفة، Server-side enforcement، Audit للصلاحيات، سياسة الجلسات والمصادقة (SEC-005)."
+   ],
+   "sources": [
+    "M25-214"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none — لا PERMISSIONS.md",
+   "missing_work": "كتابة PERMISSIONS.md",
+   "dependencies": [
+    "DASH-004",
+    "PERM-002"
+   ],
+   "test_required": "مراجعة الـOwner عند Gate H",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P04",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "PERM-006",
+   "area": "31 Permissions & Auth",
+   "type": "RULE",
+   "title": "تعديلات المنيو الحساسة: موافقة الـOwner حيث يلزم",
+   "requirement": "تعديلات المنيو في الـCMS/Dashboard تتطلب Owner approval where required (موافقة الـOwner حيث يلزم) — عبر حالة IN REVIEW وصلاحية Publish.",
+   "details": [
+    "في V1 الـOwner هو المستخدم الوحيد (PERM-001) فالموافقة = نشره بنفسه؛ يبقى الشرط فعّالًا عند إضافة أدوار.",
+    "Bulk price changes تحتاج Confirmation قوية (G8: M25-089)."
+   ],
+   "sources": [
+    "M15-047"
+   ],
+   "decision_refs": [
+    "D-084"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "قواعد 'حيث يلزم' في PERMISSIONS.md (مثل: الأسعار، التوفر، الأرشفة)",
+   "dependencies": [
+    "CMS-006",
+    "PERM-005"
+   ],
+   "test_required": "اختبار: دور غير Owner لا يستطيع نشر تغيير سعر بدون موافقة (عند تفعيل الأدوار)",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "PERM-007",
+   "area": "31 Permissions & Auth",
+   "type": "RULE",
+   "title": "AI لا ينفذ تغييرات حساسة بدون Approval",
+   "requirement": "لا يُسمح لأي AI (Assistant مستقبلي أو أداة) بتنفيذ تغييرات حساسة بدون Approval من الـOwner؛ AI يمكن أن يقترح فقط.",
+   "details": [
+    "G2: M25-098 (AI يقترح ولا ينشر المقالات من نفسه — OWNER APPROVAL) · G5: M25-060 (لا تغييرات SEO تلقائية) · M27 §24 (AI لا يخترع Business Facts)."
+   ],
+   "sources": [
+    "M25-151"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "none",
+   "missing_work": "أي ميزة AI مستقبلية تمر بـDraft/IN REVIEW",
+   "dependencies": [
+    "DASH-031",
+    "CMS-006"
+   ],
+   "test_required": "عند بناء أي ميزة AI: اختبار أنها لا تملك صلاحية Publish",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P12",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "PERM-008",
+   "area": "31 Permissions & Auth",
+   "type": "RULE",
+   "title": "بروتوكول طلب الصلاحيات (5 بنود) بأقل صلاحية لازمة",
+   "requirement": "أي طلب Access أو Permission لأي خدمة يُقدَّم بالاسم ويتضمن: 1) ما الخدمة؟ 2) لماذا نحتاجها؟ 3) هل المطلوب Read-only أم Write access؟ 4) ماذا سنفحص بها؟ 5) هل فيها أي مخاطرة أو تغيير على Production؟ — ويُطلب دائمًا أقل صلاحية لازمة (Least privilege).",
+   "details": [
+    "AC-RULE-01: كل الطلبات في مرحلة Discovery Read-only (G7-CF-07).",
+    "GIO §B: الصلاحيات تبدأ Viewer/Read، وتُرفع لـEditor/Publish فقط عند الحاجة وبموافقة، ثم تُخفّض بعد الإطلاق.",
+    "Cloudflare: لا Global API Key إذا Token محدود يكفي (G6: M25-183)؛ Cloudways: لا API Key (AC-RULE-04).",
+    "قاعدة الاستهلاك قبل أي طلب مكلف: الخدمة · الهدف · الاستهلاك المتوقع · الكلفة/الحصة · البديل المجاني ثم انتظار الموافقة (D-029/D-044؛ M27 §22)."
+   ],
+   "sources": [
+    "M02-006",
+    "M12-077"
+   ],
+   "decision_refs": [
+    "AC-RULE-01",
+    "AC-RULE-04",
+    "GIO-§B-SEC",
+    "GIO-§A29/§A33",
+    "D-028",
+    "D-029",
+    "D-051"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "IMPLEMENTED — NOT TESTED",
+   "tested": "N/A",
+   "existing_impl": "docs/phase-01-discovery/08-access-requests.md يطبق الصيغة لـAC-01 → AC-13",
+   "missing_work": "الاستمرار بنفس الصيغة لطلبات Phase التنفيذ (GA4/GTM/GSC Editor، Cloudflare DNS token…)",
+   "dependencies": [
+    "PERM-009"
+   ],
+   "test_required": "مراجعة كل طلب صلاحية جديد مقابل البنود الخمسة + مستوى الصلاحية",
+   "design_refs": [
+    "docs/phase-01-discovery/08-access-requests.md",
+    "docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §B (مبادئ الأمان + مصفوفة الصلاحيات)"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "G7-CF-07 (RESOLVED — Read-only في Discovery مقابل تنفيذ Claude للربط لاحقًا)",
+   "business_data": false,
+   "phase": "P00",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "PERM-009",
+   "area": "31 Permissions & Auth",
+   "type": "RULE",
+   "title": "الـOwner يُطلب منه فقط Auth · Approval · 2FA · Ownership · Billing · Legal",
+   "requirement": "لا عمل يدوي على الـOwner إذا أمكن الأتمتة؛ يُطلب منه فقط ما يحتاج: Authentication · Approval · 2FA · Account ownership · Billing approval · Legal confirmation · Security confirmation (وفي M25 §64: Login · OAuth · 2FA · ownership confirmation · permissions).",
+   "details": [
+    "G6: M25-180/181 — Claude ينفذ ربط GA4 · GTM · Search Console · GBP لاحقًا وليس Instructions فقط.",
+    "M27 §17: Login · OAuth · 2FA · Ownership · Permission approval · Legal/financial confirmation."
+   ],
+   "sources": [
+    "M12-069"
+   ],
+   "decision_refs": [
+    "GIO-§A29/§A33",
+    "D-051",
+    "D-055"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "policy: GOOGLE-IMPLEMENTATION-OWNERSHIP §29",
+   "missing_work": "تطبيقه في Phase التنفيذ",
+   "dependencies": [
+    "PERM-008",
+    "GOOGLE (G6)"
+   ],
+   "test_required": "مراجعة: كل خطوة مطلوبة من الـOwner ضمن القائمة فقط",
+   "design_refs": [
+    "docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §29/§33"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P09",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "PERM-010",
+   "area": "31 Permissions & Auth",
+   "type": "DECISION",
+   "title": "AC-01: وصول مباشر للقراءة والفحص فقط على shelterjo.com · www · shop — أولًا",
+   "requirement": "AC-01 معتمد كأول صلاحية: وصول مباشر للقراءة والفحص فقط للمواقع العامة `shelterjo.com` · `www.shelterjo.com` · `shop.shelterjo.com`، ثم إعادة Validation للفحص السابق على الموقع الحقيقي بالأولوية (Crawl → Desktop/Mobile rendering → Navigation → DOM → robots.txt → sitemap → redirects → canonicals → schema → JS/CSS → console/network errors → tracking → Playwright flows → Lighthouse → shop.shelterjo.com)؛ أي تعارض مع Semrush يُعرض على الـOwner.",
+   "details": [
+    "الحالة: GRANTED من الـOwner لكن غير مُفعّل في إعدادات بيئة العمل (آخر اختبار 2026-10-01: محجوب) — RISK-07.",
+    "D-028: AC-02 Search Console Read-only/Restricted · AC-03 GBP معلومات Read-only · AC-04 Supermetrics بعد موافقة على خطة الاستهلاك."
+   ],
+   "sources": [
+    "M04-050",
+    "M10-040"
+   ],
+   "decision_refs": [
+    "D-028",
+    "D-041"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "docs/phase-01-discovery/08-access-requests.md AC-01 = GRANTED — ⏳ لم يُفعَّل (الشبكة تحجب الدومين)",
+   "missing_work": "تفعيل الـAllowed domains من الـOwner ثم تنفيذ الفحص الحقيقي (لا يزيد عن ~150–300 طلب بهدوء — D-044)",
+   "dependencies": [
+    "SEC-001",
+    "MON-006"
+   ],
+   "test_required": "اختبار الوصول (curl/Playwright) + تقرير Validation",
+   "design_refs": [
+    "docs/phase-01-discovery/08-access-requests.md",
+    "docs/governance/RISK-REGISTER.md RISK-07"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P01",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "SEC-001",
+   "area": "30 Security",
+   "type": "DELIVERABLE",
+   "title": "فحص أمني شامل (الموقع الحالي ثم الجديد قبل الإطلاق)",
+   "requirement": "فحص أمني يشمل: Exposed API Keys · Secrets · WordPress Vulnerabilities · Plugin Vulnerabilities · Admin Security · File Permissions · Security Headers · CSP · Rate Limiting · Forms · Spam · Authentication · Backups.",
+   "details": [
+    "الموقع الحالي WordPress على Cloudways: 15 Update معلقة + 73 Comment (RISK-01) — الفحص بالقراءة فقط وبدون تغييرات (SEC-010).",
+    "الموقع الجديد: نفس القائمة ضمن QA gate قبل الإطلاق (P10).",
+    "خطر بيانات حساسة في نموذج التوظيف القديم (RISK-06 — PRIV G1)."
+   ],
+   "sources": [
+    "M01-222",
+    "M01-223"
+   ],
+   "decision_refs": [
+    "D-037",
+    "D-028"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none — فحص الـHeaders/CSP مخطط ضمن AC-01 (08) لكنه لم يُنفذ لأن الوصول محجوب",
+   "missing_work": "تقرير فحص أمني للموقع الحالي (بعد AC-01) + Security checklist للموقع الجديد",
+   "dependencies": [
+    "PERM-010",
+    "SEC-010"
+   ],
+   "test_required": "تقرير موثق لكل بند (PASS/FAIL/N/A) للموقعين",
+   "design_refs": [
+    "docs/governance/RISK-REGISTER.md RISK-01",
+    "docs/phase-01-discovery/08-access-requests.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P10",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "SEC-002",
+   "area": "30 Security",
+   "type": "RULE",
+   "title": "لا Secrets في الـFront-End — الـCredentials Server-side وفي إعدادات البيئة فقط",
+   "requirement": "ممنوع وضع أي Secret في الـFront-End: الـCredentials تُحفظ Server-side بشكل آمن، ولا تُكشف API secrets أو service credentials أو tokens في الـfrontend أبدًا؛ ولا تُرسل أي كلمة مرور أو Token أو API Key في المحادثة — توضع في إعدادات البيئة فقط.",
+   "details": [
+    "AC-RULE-02: المفاتيح في Environment settings ويُخبر الـOwner باسم المتغير؛ المفاتيح الجديدة تُقرأ في جلسة جديدة.",
+    "GIO §B: مفتاح الـService Account في إعدادات البيئة فقط.",
+    "GEP §38: لا Secret في Front-End (Maps)."
+   ],
+   "sources": [
+    "M01-224",
+    "M11-087",
+    "M25-132"
+   ],
+   "decision_refs": [
+    "AC-RULE-02",
+    "GIO-§B-SEC",
+    "GEP-§38"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "policy فقط (08 header، GIO §B) — لا كود",
+   "missing_work": "Secrets management في المنصة المختارة + فحص آلي للـbundle",
+   "dependencies": [
+    "DB-08",
+    "SEC-008"
+   ],
+   "test_required": "فحص build output والـrepo (secret scanning) = 0 أسرار · Security tests (P10): فحص يدوي + آلي حسب البند، اختبار الوصول غير المصرّح، مراجعة الـheaders/الـconfig، لا Secrets في الـbundle (فحص build output)، توثيق النتيجة",
+   "design_refs": [
+    "docs/phase-01-discovery/08-access-requests.md",
+    "docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §B (مبادئ الأمان + مصفوفة الصلاحيات)"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P05",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "SEC-003",
+   "area": "30 Security",
+   "type": "RULE",
+   "title": "Maps API Key (إن لزم) مقيد: HTTP referrer · API restrictions · Usage limits",
+   "requirement": "إذا احتجنا Maps API: لا يُعرض API Key غير مقيد؛ يُستخدم HTTP referrer restrictions · API restrictions · Usage limits.",
+   "details": [
+    "البديل المجاني أولًا: روابط Google Maps (D-043) — لا Places API مدفوع."
+   ],
+   "sources": [
+    "M11-086"
+   ],
+   "decision_refs": [
+    "GEP-§38",
+    "D-043",
+    "D-046"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "policy: GEP §38",
+   "missing_work": "قرار هل نحتاج Maps API أصلًا",
+   "dependencies": [
+    "GBP (G4)"
+   ],
+   "test_required": "مراجعة إعداد المفتاح في Google Cloud Console + اختبار رفض Referrer غير مسموح",
+   "design_refs": [
+    "docs/google/GOOGLE-ECOSYSTEM-POLICY.md §38 Google Maps API"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P09",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "SEC-004",
+   "area": "30 Security",
+   "type": "RULE",
+   "title": "حماية الـStaging: Authentication + noindex — robots.txt وحده ليس حماية أمنية",
+   "requirement": "لا يُعتمد على robots.txt وحده كحماية أمنية للـStaging؛ الـStaging محمي بـAuthentication + noindex + Search engine blocking.",
+   "details": [
+    "روابط الـPreview في الـCMS تخضع لنفس القاعدة (CMS-008)."
+   ],
+   "sources": [
+    "M11-044"
+   ],
+   "decision_refs": [
+    "GEP-§18",
+    "D-046"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "policy: GEP §18 — لا Staging",
+   "missing_work": "إعداد الـStaging بالمصادقة",
+   "dependencies": [
+    "DEPLOY (G8)"
+   ],
+   "test_required": "اختبار: طلب Staging بدون مصادقة = 401 · وجود noindex header/meta",
+   "design_refs": [
+    "docs/google/GOOGLE-ECOSYSTEM-POLICY.md §18 Staging Must Not Index"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "SEC-005",
+   "area": "30 Security",
+   "type": "REQUIREMENT",
+   "title": "Secure authentication + Session security لنظام الـAdmin",
+   "requirement": "نظام الـAdmin يستخدم Secure authentication و Session security (انتهاء الجلسة، حماية الـcookies، إبطال الجلسة عند الخروج).",
+   "details": [
+    "التفاصيل التقنية (مثل 2FA للـOwner، مدة الجلسة) قرار تقني يوثق في PERMISSIONS.md — N/A للـOwner ما لم تؤثر على الاستخدام.",
+    "اختبار Expired session (G8: M25-195)."
+   ],
+   "sources": [
+    "M25-153",
+    "M25-155"
+   ],
+   "decision_refs": [
+    "DB-08"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none — لا Auth",
+   "missing_work": "اختيار آلية المصادقة مع DB-08 + التنفيذ",
+   "dependencies": [
+    "DB-08",
+    "PERM-005"
+   ],
+   "test_required": "Security tests: brute force محدود (SEC-007) · جلسة منتهية تُرفض · Cookies Secure/HttpOnly/SameSite · Security tests (P10): فحص يدوي + آلي حسب البند، اختبار الوصول غير المصرّح، مراجعة الـheaders/الـconfig، لا Secrets في الـbundle (فحص build output)، توثيق النتيجة",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P05",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "SEC-006",
+   "area": "30 Security",
+   "type": "REQUIREMENT",
+   "title": "CSRF protection حسب الـArchitecture",
+   "requirement": "تفعيل CSRF protection لعمليات الـAdmin بما يناسب الـArchitecture المختارة.",
+   "details": [],
+   "sources": [
+    "M25-156"
+   ],
+   "decision_refs": [
+    "DB-08"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "حسب المنصة",
+   "dependencies": [
+    "SEC-005"
+   ],
+   "test_required": "اختبار طلب Cross-site على عملية تعديل = مرفوض · Security tests (P10): فحص يدوي + آلي حسب البند، اختبار الوصول غير المصرّح، مراجعة الـheaders/الـconfig، لا Secrets في الـbundle (فحص build output)، توثيق النتيجة",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "SEC-007",
+   "area": "30 Security",
+   "type": "REQUIREMENT",
+   "title": "Rate limiting حيث يلزم (Login · Forms · APIs)",
+   "requirement": "Rate limiting حيث يلزم: مسارات الدخول، النماذج العامة (Forms/Spam)، و APIs الإدارية.",
+   "details": [
+    "M01 §91 يضم Rate Limiting · Forms · Spam ضمن الفحص."
+   ],
+   "sources": [
+    "M25-157"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "تحديد الحدود + التنفيذ (Cloudflare/التطبيق)",
+   "dependencies": [
+    "CF (G6)"
+   ],
+   "test_required": "اختبار تجاوز الحد = 429 بدون كسر الاستخدام الطبيعي",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "SEC-008",
+   "area": "30 Security",
+   "type": "RULE",
+   "title": "Secure API access + audit logging — لا Admin APIs عامة بدون Authorization",
+   "requirement": "وصول آمن للـAPIs مع audit logging، وممنوع كشف Admin APIs للعامة بدون Authorization.",
+   "details": [
+    "Audit logging → AUDIT-001."
+   ],
+   "sources": [
+    "M25-158",
+    "M25-160"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "جرد كل Endpoints الإدارية + Authorization + Audit",
+   "dependencies": [
+    "PERM-004",
+    "AUDIT-001"
+   ],
+   "test_required": "اختبار كل Endpoint إداري بدون Token = 401/403 · Security tests (P10): فحص يدوي + آلي حسب البند، اختبار الوصول غير المصرّح، مراجعة الـheaders/الـconfig، لا Secrets في الـbundle (فحص build output)، توثيق النتيجة",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "SEC-009",
+   "area": "30 Security",
+   "type": "REQUIREMENT",
+   "title": "Safe file uploads في الـMedia Library",
+   "requirement": "رفع الملفات آمن: التحقق من النوع والحجم، منع الملفات التنفيذية، تنظيف الأسماء/Metadata، وتخزين معزول.",
+   "details": [
+    "الصور تمر بخط Sharp (APPROVED-only، بلا upscaling، تحقق Hash للأصل) وحالة اعتماد قبل العرض (D-083)."
+   ],
+   "sources": [
+    "M25-159"
+   ],
+   "decision_refs": [
+    "D-083"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none (tooling/scripts/images.mjs يعالج الصور محليًا فقط)",
+   "missing_work": "Upload pipeline آمن في الـCMS",
+   "dependencies": [
+    "MEDIA (G2)"
+   ],
+   "test_required": "اختبار رفع ملف تنفيذي/مزيف الامتداد/كبير = مرفوض · Security tests (P10): فحص يدوي + آلي حسب البند، اختبار الوصول غير المصرّح، مراجعة الـheaders/الـconfig، لا Secrets في الـbundle (فحص build output)، توثيق النتيجة",
+   "design_refs": [],
+   "code_refs": [
+    "tooling/scripts/images.mjs"
+   ],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "SEC-010",
+   "area": "30 Security",
+   "type": "DECISION",
+   "title": "أمان الموقع القديم: الخيار A — Backup → Staging → … → Owner Approval",
+   "requirement": "الموقع القديم (15 Update معلقة و73 Comment): الخيار A بالترتيب فقط: Backup → Staging Clone → Security / Compatibility Review → Updates on Staging → Testing → Owner Approval → Production if necessary. لا Update على Production الآن. الهدف: يبقى الموقع القديم آمنًا ومستقرًا حتى إطلاق الموقع الجديد.",
+   "details": [
+    "يُسجَّل كخطر (RISK-01) ولا يشغل مسار الموقع الجديد."
+   ],
+   "sources": [
+    "M10-026",
+    "M10-027",
+    "M10-030"
+   ],
+   "decision_refs": [
+    "D-037"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "registered: RISK-01 — لا تنفيذ",
+   "missing_work": "Backup + Staging clone (يحتاج وصول Cloudways/WordPress بموافقة) ثم المراجعة",
+   "dependencies": [
+    "PERM-010",
+    "SEC-001"
+   ],
+   "test_required": "سجل تنفيذ كل خطوة بالترتيب + موافقة الـOwner قبل Production",
+   "design_refs": [
+    "docs/governance/RISK-REGISTER.md RISK-01"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P01",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "SEC-011",
+   "area": "30 Security",
+   "type": "RULE",
+   "title": "ممنوع حذف Comments أو Users أو Plugins أو Content بدون موافقة الـOwner",
+   "requirement": "ممنوع حذف Comments أو Users أو Plugins أو Content (في الموقع القديم وأي نظام) بدون موافقة الـOwner.",
+   "details": [
+    "متسق مع 'Archive بدل hard delete' (G8: M25-164) و'التكرار لا يُحذف بدون موافقة' (GIO §33)."
+   ],
+   "sources": [
+    "M10-029"
+   ],
+   "decision_refs": [
+    "D-037",
+    "GIO-§A29/§A33"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "rule only",
+   "missing_work": "—",
+   "dependencies": [
+    "SEC-010"
+   ],
+   "test_required": "مراجعة: لا عملية حذف بدون سجل موافقة",
+   "design_refs": [
+    "docs/governance/RISK-REGISTER.md RISK-01"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P01",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "MON-001",
+   "area": "37 Monitoring & Alerts",
+   "type": "REQUIREMENT",
+   "title": "Site Health — التوفر: Online · SSL · Domain · DNS · Cloudflare · Response time",
+   "requirement": "صفحة SITE HEALTH تعرض: Site Online / Offline · SSL status · Domain status (إذا متاح) · DNS status (إذا متاح) · Cloudflare status (إذا API متاحة) · Response time.",
+   "details": [
+    "Cloudflare API بأقل صلاحية وشرح الصلاحيات الدقيقة أولًا (G6: M25-182/183)؛ api.cloudflare.com محجوب حاليًا في بيئة العمل.",
+    "Site uptime ← internal health check ← 5 min (مثال الـOwner — G6: M25-172).",
+    "وثيقة: SITE-HEALTH-SPEC.md (G1: M25-201)."
+   ],
+   "sources": [
+    "M25-071"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none — لا Dashboard ولا CMS ولا Auth ولا قاعدة بيانات (EVIDENCE 2026-10-01)",
+   "missing_work": "Health checks + الشاشة",
+   "dependencies": [
+    "MON-005",
+    "CF (G6)"
+   ],
+   "test_required": "محاكاة Offline/SSL منتهي/بطء + عرض 'غير متاح' للبنود المشروطة · Definition of Done للـDashboard (M25 §70 — G8: M25-194/195): Functional · Permission · Security · API Error tests · Mobile + Desktop responsive (14 عرضًا في tooling/viewports.mjs، Portrait/Landscape، Zoom 200%) · RTL (عربي) + LTR (إنجليزي) · Accessibility WCAG 2.2 AA (axe + فحص يدوي) · Performance · Playwright E2E · Visual QA · Error/empty states · Documentation",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "MON-002",
+   "area": "37 Monitoring & Alerts",
+   "type": "REQUIREMENT",
+   "title": "Site Health — الأخطاء وملفات الزحف",
+   "requirement": "صفحة SITE HEALTH تعرض أيضًا: Server errors · JavaScript errors · 404 count · 500 count · Broken links · Failed API calls · Failed images · Missing assets · Sitemap health · Robots.txt health — وأي مشاكل مهمة أخرى.",
+   "details": [],
+   "sources": [
+    "M25-072",
+    "M25-073"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none — لا Dashboard ولا CMS ولا Auth ولا قاعدة بيانات (EVIDENCE 2026-10-01)",
+   "missing_work": "جمع الأخطاء + فحص Sitemap/Robots",
+   "dependencies": [
+    "MON-004",
+    "MON-005",
+    "SEO (G5)"
+   ],
+   "test_required": "إدخال أخطاء/روابط مكسورة متعمدة على Staging وظهورها بالأرقام الصحيحة · Definition of Done للـDashboard (M25 §70 — G8: M25-194/195): Functional · Permission · Security · API Error tests · Mobile + Desktop responsive (14 عرضًا في tooling/viewports.mjs، Portrait/Landscape، Zoom 200%) · RTL (عربي) + LTR (إنجليزي) · Accessibility WCAG 2.2 AA (axe + فحص يدوي) · Performance · Playwright E2E · Visual QA · Error/empty states · Documentation",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "MON-003",
+   "area": "37 Monitoring & Alerts",
+   "type": "REQUIREMENT",
+   "title": "الـDashboard تجيب عن أسئلة صحة الموقع والتكاملات",
+   "requirement": "الـDashboard تجيب عن: هل هناك مشاكل SEO؟ هل الموقع سريع؟ صفحات بطيئة؟ روابط مكسورة؟ صور كبيرة جدًا؟ صفحات غير مفهرسة؟ مشاكل Schema؟ هل Sitemap سليمة؟ هل Analytics تعمل؟ هل GTM يعمل؟ هل Search Console يعمل؟ JavaScript Errors؟ 404؟ 500؟ هل الموقع Online؟ هل Cloudflare يعمل؟ هل SSL سليم؟ هل هناك مشاكل أمنية؟",
+   "details": [
+    "أمثلة Alerts: 'Search Console disconnected' · 'GA4 stopped receiving data' (MON-007)؛ فحص دوري لـAnalytics connection (MON-005).",
+    "مصدر فحص 'المشاكل الأمنية' غير محدد — يُعرّف في SITE-HEALTH-SPEC (مثلًا: انتهاء SSL، Headers ناقصة، تحديثات أمنية) بدون ادعاء ما لا يُقاس (DASH-025)."
+   ],
+   "sources": [
+    "M25-009",
+    "M25-010"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none — لا Dashboard ولا CMS ولا Auth ولا قاعدة بيانات (EVIDENCE 2026-10-01)",
+   "missing_work": "SITE-HEALTH-SPEC.md يربط كل سؤال بفحص ومصدر",
+   "dependencies": [
+    "MON-001",
+    "MON-002",
+    "DASH-013",
+    "DASH-014"
+   ],
+   "test_required": "Traceability: كل سؤال له مؤشر/فحص في الـDashboard · Definition of Done للـDashboard (M25 §70 — G8: M25-194/195): Functional · Permission · Security · API Error tests · Mobile + Desktop responsive (14 عرضًا في tooling/viewports.mjs، Portrait/Landscape، Zoom 200%) · RTL (عربي) + LTR (إنجليزي) · Accessibility WCAG 2.2 AA (axe + فحص يدوي) · Performance · Playwright E2E · Visual QA · Error/empty states · Documentation",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P04",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "MON-004",
+   "area": "37 Monitoring & Alerts",
+   "type": "REQUIREMENT",
+   "title": "Error Center: JS · API · 404 · 500 · Failed Requests — بدون PII",
+   "requirement": "Error Center يعرض: JavaScript Errors · API Errors · 404 · 500 · Failed Requests — مع Time · Page · Error · Browser · Device، بدون تخزين PII.",
+   "details": [
+    "بدون PII (G1: M25-075).",
+    "خدمة خارجية مثل Sentry: تُقترح أولًا ولا تُفعّل قبل الموافقة؛ لا اشتراك مدفوع بدون موافقة (G6: M25-076/077)."
+   ],
+   "sources": [
+    "M25-074"
+   ],
+   "decision_refs": [
+    "D-044"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none — لا Dashboard ولا CMS ولا Auth ولا قاعدة بيانات (EVIDENCE 2026-10-01)",
+   "missing_work": "آلية جمع الأخطاء (داخلية أو مقترح خدمة) + الشاشة",
+   "dependencies": [
+    "DASH-021",
+    "PRIV (G1)"
+   ],
+   "test_required": "اختبار: خطأ JS متعمد يظهر بالحقول الخمسة · فحص أن السجلات لا تحتوي IP كامل/بريد/هاتف",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "MON-005",
+   "area": "37 Monitoring & Alerts",
+   "type": "REQUIREMENT",
+   "title": "Periodic checks: Uptime · Broken pages · Performance · Sitemap · Robots",
+   "requirement": "تجهيز النظام لـPeriodic checks: Uptime · Broken pages · Performance · Sitemap · Robots · Analytics connection — بجدول منطقي، وحفظ التاريخ (site health history / performance audit history).",
+   "details": [
+    "Lighthouse scheduled/manual (G8: M25-068) · More automated health checks = P1 (§68)."
+   ],
+   "sources": [
+    "M25-184"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none — tooling محلي فقط (lighthouse.mjs)",
+   "missing_work": "Scheduler + تخزين النتائج",
+   "dependencies": [
+    "MON-006",
+    "CMS-021"
+   ],
+   "test_required": "تشغيل الجدول على Staging والتحقق من الحفظ والتواتر",
+   "design_refs": [],
+   "code_refs": [
+    "tooling/scripts/lighthouse.mjs"
+   ],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "MON-006",
+   "area": "37 Monitoring & Alerts",
+   "type": "RULE",
+   "title": "لا Aggressive crawling — جدول فحص منطقي",
+   "requirement": "الفحوص الدورية لا تعمل aggressive crawling؛ يُستخدم schedule منطقي (تأكيد D-044: ممنوع Load Testing أو Crawling عدواني على Production؛ 150–300 طلب موزعة بهدوء مقبولة للفحص الطبيعي).",
+   "details": [],
+   "sources": [
+    "M25-185"
+   ],
+   "decision_refs": [
+    "D-044"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "rule: D-044",
+   "missing_work": "حدود التواتر في SITE-HEALTH-SPEC",
+   "dependencies": [
+    "MON-005"
+   ],
+   "test_required": "مراجعة إعداد الجدول: معدل الطلبات ضمن الحد",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "MON-007",
+   "area": "37 Monitoring & Alerts",
+   "type": "REQUIREMENT",
+   "title": "Alerts / Attention Needed داخل الـDashboard",
+   "requirement": "داخل الـDashboard قسم Alerts / Attention Needed (أمثلة: 5 SEO issues · 2 broken links · 1 page performance problem · 3 menu items missing images · 1 campaign expires tomorrow · Search Console disconnected · GA4 stopped receiving data).",
+   "details": [
+    "يغذي Needs Attention (DASH-017) بمستويات CRITICAL/WARNING/INFO.",
+    "على الهاتف: مشاهدة Alerts (DASH-028)."
+   ],
+   "sources": [
+    "M25-118"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none — لا Dashboard ولا CMS ولا Auth ولا قاعدة بيانات (EVIDENCE 2026-10-01)",
+   "missing_work": "قواعد توليد التنبيهات لكل مصدر",
+   "dependencies": [
+    "DASH-017",
+    "MON-008"
+   ],
+   "test_required": "اختبار كل نوع تنبيه بحالة مصطنعة + Deep link · Definition of Done للـDashboard (M25 §70 — G8: M25-194/195): Functional · Permission · Security · API Error tests · Mobile + Desktop responsive (14 عرضًا في tooling/viewports.mjs، Portrait/Landscape، Zoom 200%) · RTL (عربي) + LTR (إنجليزي) · Accessibility WCAG 2.2 AA (axe + فحص يدوي) · Performance · Playwright E2E · Visual QA · Error/empty states · Documentation",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "MON-008",
+   "area": "37 Monitoring & Alerts",
+   "type": "RULE",
+   "title": "لا noisy alerts ولا notification spam — ترتيب حسب الأولوية",
+   "requirement": "لا ترسل noisy alerts ولا تبني notification spam؛ التنبيهات مرتبة حسب الأولوية (Prioritize) ومجمعة.",
+   "details": [
+    "تفاصيل تقنية (N/A): تجميع، عتبات، إلغاء التكرار، إخفاء المحلول تلقائيًا."
+   ],
+   "sources": [
+    "M25-119",
+    "M25-188"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none — لا Dashboard ولا CMS ولا Auth ولا قاعدة بيانات (EVIDENCE 2026-10-01)",
+   "missing_work": "عتبات وقواعد تجميع",
+   "dependencies": [
+    "MON-007"
+   ],
+   "test_required": "اختبار: نفس المشكلة لا تولد تنبيهات متكررة · الترتيب CRITICAL أولًا",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "MON-009",
+   "area": "37 Monitoring & Alerts",
+   "type": "DECISION",
+   "title": "V1: الإشعارات داخل الـDashboard فقط",
+   "requirement": "في V1 تكون الإشعارات Dashboard notifications فقط (داخل الـDashboard).",
+   "details": [],
+   "sources": [
+    "M25-186"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none — لا Dashboard ولا CMS ولا Auth ولا قاعدة بيانات (EVIDENCE 2026-10-01)",
+   "missing_work": "—",
+   "dependencies": [
+    "MON-007"
+   ],
+   "test_required": "اختبار: لا قنوات خارجية مفعلة في V1",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "MON-010",
+   "area": "37 Monitoring & Alerts",
+   "type": "REQUIREMENT",
+   "title": "مستقبلًا: Email / WhatsApp / Push — فقط إذا اعتُمدت",
+   "requirement": "قنوات الإشعار الخارجية Email / WhatsApp / Push مؤجلة للمستقبل ولا تُبنى إلا بعد موافقة الـOwner.",
+   "details": [],
+   "sources": [
+    "M25-187"
+   ],
+   "decision_refs": [],
+   "status": "DEFERRED",
+   "owner_approved": "YES",
+   "priority": "P3",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "none",
+   "missing_work": "—",
+   "dependencies": [
+    "MON-009"
+   ],
+   "test_required": "N/A",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P12",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "MON-011",
+   "area": "37 Monitoring & Alerts",
+   "type": "REQUIREMENT",
+   "title": "مراقبة ما بعد الإطلاق: Day 1 · 3 · 7 · 14 · 30 — المشروع لا ينتهي عند الـLaunch",
+   "requirement": "المشروع لا يُعتبر منتهيًا مباشرة بعد الـLaunch. بعد الإطلاق تُفحص: Google Indexing · Search Console · Sitemap · Core Web Vitals · Structured Data · 404 · Redirects · Analytics · Event Tracking · Mobile Performance؛ وتُراقب في Day 1 · Day 3 · Day 7 · Day 14 · Day 30 خصوصًا: Indexing · Sitemap · 404 · Redirects · Canonical errors · Coverage issues · Core Web Vitals · Traffic drops · Landing pages · Analytics · Events.",
+   "details": [],
+   "sources": [
+    "M01-237",
+    "M01-238",
+    "M11-115"
+   ],
+   "decision_refs": [
+    "GEP-§45/§54/§55",
+    "D-046"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "checklist: docs/google/POST-LAUNCH-GOOGLE-CHECKLIST.md (لم يُستخدم — لا إطلاق)",
+   "missing_work": "تنفيذ بعد الإطلاق + تقرير لكل يوم مراقبة",
+   "dependencies": [
+    "SEO migration (G5)",
+    "MON-012"
+   ],
+   "test_required": "تقرير Day 1/3/7/14/30 موثق بالأرقام",
+   "design_refs": [
+    "docs/google/GOOGLE-ECOSYSTEM-POLICY.md §54 After Launch · §55 Traffic Drop Alert",
+    "docs/google/POST-LAUNCH-GOOGLE-CHECKLIST.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P12",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "MON-012",
+   "area": "37 Monitoring & Alerts",
+   "type": "RULE",
+   "title": "هبوط الزيارات بعد الـMigration: لا افتراض للسبب — فحص منهجي ثم Diagnosis",
+   "requirement": "عند هبوط كبير في الزيارات بعد Migration: لا تفترض السبب؛ تحقق من Redirects · Indexing · Canonicals · robots.txt · Sitemap · hreflang · Server errors · Page performance · Tracking errors — ثم اعرض Diagnosis.",
+   "details": [
+    "RISK-03: انخفاض عضوي تقديري ~75% منذ مارس 2026 (Semrush) — يُتحقق بأرقام GSC الحقيقية قبل أي استنتاج."
+   ],
+   "sources": [
+    "M11-116"
+   ],
+   "decision_refs": [
+    "GEP-§45/§54/§55"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "policy: GEP §55",
+   "missing_work": "—",
+   "dependencies": [
+    "MON-011"
+   ],
+   "test_required": "عند الحدث: تقرير Diagnosis يغطي البنود التسعة بالأدلة",
+   "design_refs": [
+    "docs/google/GOOGLE-ECOSYSTEM-POLICY.md §54 After Launch · §55 Traffic Drop Alert"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P12",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "MON-013",
+   "area": "37 Monitoring & Alerts",
+   "type": "REQUIREMENT",
+   "title": "مستقبلًا: فحص دوري لتطابق GBP مع الموقع",
+   "requirement": "مستقبلًا: عملية دورية تفحص في Google Business Profile: Branch name · Hours · Special hours · Phone · Website URL · Maps link · Business status — وتقارنها بالموقع.",
+   "details": [
+    "GBP API يتطلب طلب وصول معتمد من Google (GIO §B)؛ البديل الحالي: روابط + لقطات (D-043). GBP لا يتحدث تلقائيًا من الموقع (AR-07 §6)."
+   ],
+   "sources": [
+    "M11-098"
+   ],
+   "decision_refs": [
+    "GEP-§45/§54/§55",
+    "D-043"
+   ],
+   "status": "DEFERRED",
+   "owner_approved": "YES",
+   "priority": "P2",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "policy: GEP §45 + docs/google/BRANCH-DATA-SYNC.md",
+   "missing_work": "—",
+   "dependencies": [
+    "GBP (G4)",
+    "PERM-008"
+   ],
+   "test_required": "N/A حتى التفعيل",
+   "design_refs": [
+    "docs/google/GOOGLE-ECOSYSTEM-POLICY.md §45 GBP Monitoring",
+    "docs/google/BRANCH-DATA-SYNC.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P12",
+   "history": [],
+   "notes": ""
+  }
+ ],
+ "new_decisions": [
+  {
+   "temp_id": "G7-ND-01",
+   "area": "18 Owner Dashboard",
+   "decision": "Owner Dashboard = SHELTER OWNER DASHBOARD / WEBSITE CONTROL CENTER: CONTROL CENTER + CMS + ANALYTICS + SEO + SITE HEALTH + CONTENT MANAGEMENT؛ جزء أساسي من المشروع (ليست Feature جانبية) ويُبنى مع الموقع على نفس الـArchitecture من البداية",
+   "sources": [
+    "M25-001",
+    "M25-002",
+    "M25-003",
+    "M27-040"
+   ],
+   "status": "APPROVED",
+   "reason": "برومبت الـOwner M25 + تأكيد M27 §13",
+   "impact": "يتجاوز صيغة الاقتراح في GIO §31؛ قيد على DB-08؛ خطة P04"
+  },
+  {
+   "temp_id": "G7-ND-02",
+   "area": "17 CMS",
+   "decision": "CMS داخل الـOwner Dashboard: الـOwner يدير 95%+ من العمليات اليومية بدون كود (content · menu · prices · images · branches · hours · special hours · campaigns · events · articles · SEO metadata · contact information · social links · media · availability)؛ عمل المطور فقط لـnew functionality · architecture · complex integrations · major redesign؛ لا SQL/DB يدوي لمحتوى طبيعي",
+   "sources": [
+    "M01-112",
+    "M01-113",
+    "M01-114",
+    "M01-115",
+    "M01-116",
+    "M25-079",
+    "M25-080",
+    "M25-165",
+    "M25-166",
+    "M25-207",
+    "M25-209",
+    "M27-050",
+    "M27-051",
+    "M27-052",
+    "M27-053",
+    "M27-054"
+   ],
+   "status": "APPROVED",
+   "reason": "M01 §28 + M25 §21/§57/§73 + M27 §14",
+   "impact": "CMS-001/002/020 — D-084 كان للمنيو فقط"
+  },
+  {
+   "temp_id": "G7-ND-03",
+   "area": "31 Permissions & Auth",
+   "decision": "نموذج الصلاحيات: V1 = Owner وحده Full Control ويرى كل شيء؛ Architecture جاهزة لأدوار OWNER · ADMIN · EDITOR · SEO · MARKETING · CONTENT MANAGER؛ Least privilege؛ الصلاحيات تُفرض Server-side (لا إخفاء أزرار فقط)؛ PERMISSIONS.md قبل التنفيذ",
+   "sources": [
+    "M25-013",
+    "M25-014",
+    "M25-015",
+    "M25-016",
+    "M25-017",
+    "M25-154",
+    "M25-214",
+    "M01-122",
+    "M01-123"
+   ],
+   "status": "APPROVED",
+   "reason": "M25 §1/§54 (يتقدم على M01 §33)",
+   "impact": "PERM-001…005 · D-148 'Roles' تفصيلها هنا"
+  },
+  {
+   "temp_id": "G7-ND-04",
+   "area": "17 CMS",
+   "decision": "Workflow النشر لكل المحتوى (وليس المنيو فقط): DRAFT · IN REVIEW · SCHEDULED · PUBLISHED · ARCHIVED مع Preview (Desktop · Mobile + Arabic · English إذا أمكن)؛ لا تغيير Production أثناء التحرير؛ لا يصل تعديل للعميل قبل Publish",
+   "sources": [
+    "M25-109",
+    "M25-116",
+    "M01-119",
+    "M01-120"
+   ],
+   "status": "APPROVED",
+   "reason": "M25 §33/§36 + M01 §30/§31",
+   "impact": "يعمّم D-148 · CMS-006/007/008"
+  },
+  {
+   "temp_id": "G7-ND-05",
+   "area": "32 Audit / Versioning",
+   "decision": "Audit Log لكل Action في الـDashboard (Who · What · Before · After · Date/Time) خصوصًا Prices · Hours · SEO · Contact · Branches · Campaigns · Permissions (+ Events من M01)؛ لا Silent Changes؛ Version History لكل تغيير مهم مع Restore إذا كان آمنًا؛ Versioning + Backup strategy + Safe rollback",
+   "sources": [
+    "M01-121",
+    "M01-124",
+    "M01-125",
+    "M25-111",
+    "M25-112",
+    "M25-113",
+    "M25-114",
+    "M25-115",
+    "M25-161"
+   ],
+   "status": "APPROVED",
+   "reason": "M01 §32/§34 + M25 §34/§35/§55",
+   "impact": "AUDIT-001…004/008 — يوسّع audit_log في 17 (كان للمنيو فقط)"
+  },
+  {
+   "temp_id": "G7-ND-06",
+   "area": "17 CMS",
+   "decision": "Design Lock: الـCMS لا يسمح بكسر الـDesign System — المحرر يعدّل Content فقط، بلا ألوان/خطوط/حركات/Layouts غير معتمدة؛ Page Editor مبني على Sections/Blocks معتمدة (ليس Elementor) مع Edit text · Change image · Hide/Show section · Reorder approved sections · Edit button/link · Schedule content",
+   "sources": [
+    "M01-117",
+    "M01-118",
+    "M27-055",
+    "M25-081",
+    "M25-083"
+   ],
+   "status": "APPROVED",
+   "reason": "M01 §29 + M25 §22 + M27 §14",
+   "impact": "CMS-010/011 · معيار لـDB-08"
+  },
+  {
+   "temp_id": "G7-ND-07",
+   "area": "30 Security",
+   "decision": "Admin security baseline: Secure authentication · server-side authorization · session security · CSRF حسب الـArchitecture · rate limiting حيث يلزم · secure API access + audit logging · safe file uploads · لا Admin APIs عامة بدون Authorization · Credentials Server-side ولا Secrets/tokens في الـfrontend",
+   "sources": [
+    "M25-132",
+    "M25-153",
+    "M25-155",
+    "M25-156",
+    "M25-157",
+    "M25-158",
+    "M25-159",
+    "M25-160",
+    "M01-224"
+   ],
+   "status": "APPROVED",
+   "reason": "M25 §43/§54 + M01 §91",
+   "impact": "SEC-002, SEC-005…009"
+  },
+  {
+   "temp_id": "G7-ND-08",
+   "area": "18 Owner Dashboard",
+   "decision": "أولويات الـDashboard (M25 §68): P0 V1 = Owner Dashboard · Analytics Overview · GA4 · Search Console · Click/Event Analytics · Menu CMS · Pages CMS · Branches · Hours · Campaigns · Media · SEO editor · SEO health · Site health · Audit log · Version history · Preview/publish؛ P1 = Performance history · Accessibility dashboard · Advanced content analytics · More automated health checks · Advanced reports؛ P2 = AI assistant · Advanced recommendations · Forecasts · Automated anomaly detection",
+   "sources": [
+    "M25-189",
+    "M25-190",
+    "M25-191"
+   ],
+   "status": "APPROVED",
+   "reason": "M25 §68",
+   "impact": "DASH-003 — معنى P1 والوحدات غير المصنفة: G7-CF-06 (OWNER DECISION REQUIRED)"
+  },
+  {
+   "temp_id": "G7-ND-09",
+   "area": "18 Owner Dashboard",
+   "decision": "تسلسل الـDashboard PHASE A→N مع Gate H (Owner approval) قبل أي Dashboard foundation؛ Low-Fi Wireframes لـ12 شاشة قبل الـCoding؛ Prototype بـmock/sample data بعد اعتماد الـIA مع Labels DEMO DATA / LIVE DATA بدون خلط",
+   "sources": [
+    "M25-176",
+    "M25-178",
+    "M25-179"
+   ],
+   "status": "APPROVED",
+   "reason": "M25 §62/§63/§69 + ابدأ الآن",
+   "impact": "DASH-004/005/024 — قد يتقاطع مع سجل G1 (M25-192/193)"
+  },
+  {
+   "temp_id": "G7-ND-10",
+   "area": "37 Monitoring & Alerts",
+   "decision": "Site Health + Error Center + Alerts: صفحة Site Health (Online/Offline · SSL · Domain/DNS/Cloudflare إذا متاح · Response time · أخطاء Server/JS/404/500 · Broken links · Failed API calls/images · Missing assets · Sitemap/Robots health)؛ Error Center بدون PII (Sentry يُقترح أولًا)؛ Periodic checks بلا aggressive crawling؛ Alerts داخل الـDashboard بلا noise مرتبة بالأولوية؛ V1 إشعارات داخل الـDashboard فقط و Email/WhatsApp/Push مستقبلًا إذا اعتُمدت",
+   "sources": [
+    "M25-071",
+    "M25-072",
+    "M25-073",
+    "M25-074",
+    "M25-118",
+    "M25-119",
+    "M25-184",
+    "M25-185",
+    "M25-186",
+    "M25-187",
+    "M25-188"
+   ],
+   "status": "APPROVED",
+   "reason": "M25 §18/§19/§38/§66/§67",
+   "impact": "MON-001…010"
+  },
+  {
+   "temp_id": "G7-ND-11",
+   "area": "18 Owner Dashboard",
+   "decision": "شفافية البيانات في الـDashboard: لا أرقام مزيفة؛ أي Score يوضح طريقة حسابه؛ Summary Health Score اختياري بقواعد واضحة والـIssues أهم من الرقم؛ مؤشرات حداثة 'Last updated' + Refresh؛ لا انهيار عند توقف خدمة خارجية",
+   "sources": [
+    "M25-120",
+    "M25-121",
+    "M25-122",
+    "M25-134",
+    "M25-196"
+   ],
+   "status": "APPROVED",
+   "reason": "M25 §39/§44/§70",
+   "impact": "DASH-022/023/025/026"
+  },
+  {
+   "temp_id": "G7-ND-12",
+   "area": "18 Owner Dashboard",
+   "decision": "AI Assistant داخل الـDashboard مستقبلي (Architecture جاهزة فقط إن لم تعقّد)؛ AI لا ينفذ تغييرات حساسة بدون Approval",
+   "sources": [
+    "M25-150",
+    "M25-151",
+    "M25-152"
+   ],
+   "status": "DEFERRED",
+   "reason": "M25 §53",
+   "impact": "DASH-031 · PERM-007"
+  },
+  {
+   "temp_id": "G7-ND-13",
+   "area": "18 Owner Dashboard",
+   "decision": "الـOwner Dashboard كاملة الوظائف على Mobile وDesktop؛ 9 مهام سهلة على الهاتف (Overview · الزيارات · Alerts · سعر منتج · توفر منتج · ساعات فرع · Campaign on/off · رفع صورة · Site Health)؛ Charts متجاوبة تتحول لـsummary/card عند الحاجة؛ cards لا تنضغط وDesktop أكثر كثافة",
+   "sources": [
+    "M26-014",
+    "M26-028",
+    "M26-029",
+    "M26-030",
+    "M26-031",
+    "M26-032",
+    "M26-033",
+    "M26-034",
+    "M26-035",
+    "M26-036",
+    "M26-037",
+    "M26-038",
+    "M26-041",
+    "M26-042"
+   ],
+   "status": "APPROVED",
+   "reason": "M26 (شرط إلزامي)",
+   "impact": "DASH-027…030 — يتقدم على M25 §47 (G7-CF-05)"
+  },
+  {
+   "temp_id": "G7-ND-14",
+   "area": "17 CMS",
+   "decision": "Global Components تُدار من مكان واحد: Header · Footer · Social Links · Contact Details · Announcement · Brand Information",
+   "sources": [
+    "M01-220"
+   ],
+   "status": "APPROVED",
+   "reason": "M01 §89",
+   "impact": "CMS-012"
+  },
+  {
+   "temp_id": "G7-ND-15",
+   "area": "30 Security",
+   "decision": "نطاق الفحص الأمني: Exposed API Keys · Secrets · WordPress Vulnerabilities · Plugin Vulnerabilities · Admin Security · File Permissions · Security Headers · CSP · Rate Limiting · Forms · Spam · Authentication · Backups",
+   "sources": [
+    "M01-222",
+    "M01-223"
+   ],
+   "status": "APPROVED",
+   "reason": "M01 §91",
+   "impact": "SEC-001 (الموقع القديم بعد AC-01 + الجديد في P10)"
+  },
+  {
+   "temp_id": "G7-ND-16",
+   "area": "37 Monitoring & Alerts",
+   "decision": "المشروع لا يُعتبر منتهيًا عند الـLaunch؛ فحص ما بعد الإطلاق يشمل Google Indexing · Search Console · Sitemap · Core Web Vitals · Structured Data · 404 · Redirects · Analytics · Event Tracking · Mobile Performance (يكمل GEP §54 Day 1/3/7/14/30)",
+   "sources": [
+    "M01-237",
+    "M01-238"
+   ],
+   "status": "APPROVED",
+   "reason": "M01 §97",
+   "impact": "MON-011"
+  }
+ ],
+ "decision_status": [
+  {
+   "id": "D-028",
+   "category": "APPROVED",
+   "current_text": "AC-01 (وصول مباشر أولًا + فحص حقيقي كامل، لا اعتماد على Semrush وحده) · AC-02 Search Console Read-only/Restricted · AC-03 GBP معلومات Read-only · AC-04 Supermetrics بعد موافقة على خطة الاستهلاك",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "مُفصَّل بـD-041 (نطاق AC-01 للقراءة فقط على 3 دومينات)؛ AC-01 غير مُفعّل في البيئة (RISK-07) → PERM-010"
+  },
+  {
+   "id": "D-037",
+   "category": "APPROVED",
+   "current_text": "أمان الموقع القديم: الخيار A بالترتيب Backup → Staging Clone → Security/Compatibility Review → Updates on Staging → Testing → Owner Approval → Production if necessary؛ لا Update على Production الآن؛ لا حذف بدون موافقة",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "SEC-010/SEC-011 · RISK-01 — لم يُنفذ"
+  },
+  {
+   "id": "D-041",
+   "category": "APPROVED",
+   "current_text": "AC-01 للقراءة والفحص فقط على shelterjo.com · www.shelterjo.com · shop.shelterjo.com + ترتيب Validation (17 خطوة)؛ تعارض Semrush يُعرض على الـOwner",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "PERM-010 — بانتظار تفعيل الـAllowed domains"
+  },
+  {
+   "id": "D-084",
+   "category": "APPROVED",
+   "current_text": "إدارة المنيو بعد الإطلاق من الـDashboard (Product · Price · Category · Availability · Image · Featured · New · Seasonal) مع Audit Log · Version History · Draft/Publish · Owner approval where required",
+   "superseded_by": "D-148 (قائمة حالات النشر فقط — CF-07)؛ M25 §33 عمّم الـWorkflow على كل المحتوى",
+   "old_text": "Draft → Review → Published",
+   "impact": "CMS-005 · CMS-006 · AUDIT-003 · PERM-006 — باقي مضمونه ساري"
+  },
+  {
+   "id": "D-085",
+   "category": "APPROVED",
+   "current_text": "A الآن + جاهزية C: V1 الـCMS/Dashboard = Menu SSOT؛ POS/ERP مستقبلًا لـPrices · Availability · Item IDs بدون إعادة بناء؛ لا Google Sheet كمصدر نهائي؛ لا اتصال مباشر بـPOS الآن",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "CMS-003 (أُعيد تأكيده في M23 §58)"
+  },
+  {
+   "id": "D-148",
+   "category": "APPROVED",
+   "current_text": "الـCMS: Draft/Review/Scheduled/Published/Archived + Preview + Version History + Audit Log + Roles · sort_order يدوي · نشر موسمي بتواريخ وانتهاء تلقائي وتجاوز يدوي",
+   "superseded_by": "",
+   "old_text": "D-084: Draft → Review → Published",
+   "impact": "CMS-006/009/016 · مُعمّم على كل المحتوى (M25 §33) · Roles: V1 = Owner فقط (M25 §1)"
+  },
+  {
+   "id": "AC-RULE-01",
+   "category": "APPROVED",
+   "current_text": "كل طلبات الصلاحيات Read-only في مرحلة Discovery؛ Write/Edit فقط لاحقًا في مرحلة التنفيذ بأقل دور وبموافقة (G7-CF-07)",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "PERM-008 — قاعدة مرحلية"
+  },
+  {
+   "id": "AC-RULE-02",
+   "category": "APPROVED",
+   "current_text": "لا كلمات مرور/Tokens/API Keys في المحادثة؛ المفاتيح في Environment settings فقط مع إخبار الـOwner باسم المتغير؛ تُقرأ في جلسة جديدة",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "SEC-002 (متسق مع M01 §91 وM25 §43)"
+  },
+  {
+   "id": "AC-RULE-04",
+   "category": "APPROVED WITH CONDITIONS",
+   "current_text": "Cloudways: لا API Key (تحكم كامل بالسيرفر) — معلومات ولقطات فقط (AC-11 REQUESTED)؛ Remote Desktop Commander (AC-13) لا يُستخدم إلا بطلب صريح من الـOwner",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "قاعدة صاغها الفريق تطبيقًا لمبدأ Least privilege المعتمد من الـOwner (M12 §33، M25 §65، D-051) — الطلبات نفسها لم يُرد عليها"
+  },
+  {
+   "id": "GEP-§18",
+   "category": "APPROVED",
+   "current_text": "Staging Must Not Index: Authentication + noindex + Search engine blocking — robots.txt وحده ليس حماية أمنية",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "SEC-004 · CMS-008 (روابط Preview)"
+  },
+  {
+   "id": "GEP-§38",
+   "category": "APPROVED",
+   "current_text": "Google Maps API: لا API Key غير مقيد (HTTP referrer · API restrictions · Usage limits)؛ لا Secret في Front-End",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "SEC-002 · SEC-003"
+  },
+  {
+   "id": "GEP-§45/§54/§55",
+   "category": "APPROVED",
+   "current_text": "§54 مراقبة بعد الإطلاق Day 1 · 3 · 7 · 14 · 30 · §55 هبوط الزيارات: لا افتراض — فحص Redirects · Indexing · Canonicals · robots.txt · Sitemap · hreflang · Server errors · Performance · Tracking errors ثم Diagnosis · §45 GBP Monitoring دوري = مستقبلي (DEFERRED)",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "MON-011 · MON-012 · MON-013 (DEFERRED)"
+  },
+  {
+   "id": "GIO-§A3/§A4",
+   "category": "APPROVED",
+   "current_text": "فحص الموجود أولًا (GA4 · GTM · GSC · Site Kit · GBP · IDs · Duplicate/Hardcoded/HubSpot/Pixels) قبل إنشاء أي شيء؛ مصدر واحد لكل آلية تتبع؛ أي إزالة/تغيير على Production بموافقة — لا تنفيذ في Phase 01",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "DASH-021 (أعاد M25 §41 تأكيده)"
+  },
+  {
+   "id": "GIO-§A29/§A33",
+   "category": "APPROVED",
+   "current_text": "لا عمل يدوي على الـOwner إذا أمكن الأتمتة (Authentication · Approval · 2FA · Account ownership · Billing · Legal · Security فقط)؛ الموجود يُفحص قبل البديل؛ التكرار لا يُحذف بدون موافقة؛ أقل صلاحية لازمة؛ تغيير Production: خطة ← موافقة ← تنفيذ ← اختبار ← توثيق",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "PERM-003 · PERM-008 · PERM-009 · SEC-011"
+  },
+  {
+   "id": "GIO-§B-SEC",
+   "category": "APPROVED WITH CONDITIONS",
+   "current_text": "مفتاح Service Account في إعدادات البيئة فقط؛ الصلاحيات تبدأ Viewer/Read وتُرفع لـEditor/Publish عند الحاجة وبموافقة ثم تُخفّض بعد الإطلاق؛ كل تغيير Production يُسجل في GOOGLE-TEST-REPORT.md وDECISION-LOG؛ ملكية Search Console تبقى للـOwner",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "مصفوفة §B من إعداد الفريق ('تُحدّث عند التنفيذ') تطبيقًا لـD-051؛ تُؤكد عند P09 — SEC-002 · PERM-008"
+  },
+  {
+   "id": "DB-08",
+   "category": "PENDING OWNER INPUT",
+   "current_text": "المنصة / الـCMS غير محسومة (PROPOSED): خيارات A WordPress Block Theme · B WordPress Headless + Astro/Cloudflare · C Sanity/Payload + Astro/Next — تُقارن بجدول (Editor UX · Performance · Motion · SEO · Security · Cost · Maintenance) بعد اعتماد الـSitemap/IA",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "قيود جديدة من M25/M27: CMS داخل الـOwner Dashboard، نفس الـArchitecture للـCMS/Analytics/Site Health، لا Elementor-like builder، مصدر واحد، Supabase مشروط (G7-CF-08) — يمنع P08"
+  },
+  {
+   "id": "DB-21",
+   "category": "APPROVED",
+   "current_text": "المصدر الوحيد للمنيو: A الآن + جاهزية C (حُسم بـD-085)",
+   "superseded_by": "D-085",
+   "old_text": "سؤال مفتوح: مصدر المنيو SSOT",
+   "impact": "CMS-003"
+  }
+ ],
+ "conflicts": [
+  {
+   "topic": "G7-CF-01: حقول SEO لكل Product (SEO editor) مقابل 'لا صفحات أصناف في V1'",
+   "old_instruction": "F-09 / F-21 / D-143 (IA-07) / D-147: Hybrid صفحة منيو واحدة — لا صفحة لكل صنف في V1؛ صفحات لاحقة فقط لأصناف لها محتوى حقيقي (IA spec §13)",
+   "old_source": "M23 (موجز Menu IA) → D-143/D-147 · MENU-DECISION-REGISTER F-09/F-21 (FROZEN)",
+   "new_instruction": "SEO Editor 'لكل Page/Product/Article': SEO Title · Meta Description · Canonical · Index/Noindex · OG Title/Description/Image + Schema fields؛ والـOwner يدير SEO metadata من الـDashboard",
+   "new_source": "M25 §31 (G5: M25-105/106) + M25 §73 (M25-209) + M27 §13 'SEO editor' (M27-047)",
+   "winner": "F-21 / D-147 (لا صفحات أصناف في V1) — SEO Editor في V1 يعمل على Pages · Articles · Branch/Location pages · Campaign pages · صفحة المنيو لكل لغة؛ حقول SEO/OG/Canonical/Index على مستوى الـProduct لا تُعرض في V1 (لا URL تُطبق عليه) ويمكن حجزها في الـData Model بحالة dormant لصفحات أصناف مستقبلية. بيانات الصنف تبقى تغذي Menu schema (MenuItem name + offers.price)",
+   "why": "قرار FROZEN سابق ومعتمد؛ M25 نفسها تقول 'لا تعيد فتح أي قرار SHELTER سبق اعتماده بدون Conflict حقيقي'، وM27 §16 (الأحدث) 'لا تعيد فتح Menu IA التي تم اعتمادها' ويذكر SEO ضمن قرارات المنيو المحفوظة؛ M25 §31 قائمة عامة لم تطلب صراحة صفحات أصناف",
+   "impact": "CMS-002/SEO editor scope في V1 · CMS-DATA-MODEL (حقول dormant) · Sitemap (لا URLs أصناف) · أي رغبة لاحقة بصفحات أصناف = قرار جديد صريح يعيد فتح F-09/F-21",
+   "files": [
+    "docs/menu-ia/MENU-DECISION-REGISTER.md F-09/F-21",
+    "docs/menu-ia/SHELTER-MENU-IA-SPEC.md §13",
+    "docs/governance/DECISION-LOG.md D-143/D-147"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "topic": "G7-CF-02: نطاق الـOwner Dashboard — 'اقتراح مبسط إن أمكن' مقابل 'Control Center أساسي'",
+   "old_instruction": "اقترح Dashboard مبسطة داخل إدارة الموقع إذا كان ممكنًا بدون تعقيد أو ثقل كبير (Visits · Organic traffic · Top pages · Menu views · Product views · Directions clicks · Branch interest · Campaign performance · Blog performance)؛ لا APIs ثقيلة/مدفوعة بدون موافقة",
+   "old_source": "M12 §31 → GOOGLE-IMPLEMENTATION-OWNERSHIP §31",
+   "new_instruction": "SHELTER OWNER DASHBOARD / WEBSITE CONTROL CENTER = CONTROL CENTER + CMS + ANALYTICS + SEO + SITE HEALTH + CONTENT MANAGEMENT؛ جزء أساسي من الموقع ومبني على نفس الـArchitecture من البداية",
+   "new_source": "M25 (مقدمة + خاتمة) + M27 §13",
+   "winner": "M25 / M27 — الـDashboard متطلب أساسي (DASH-001)؛ يبقى قيد M12 'لا APIs ثقيلة أو مدفوعة بدون موافقة' (DASH-021)",
+   "why": "قرار صريح لاحق من الـOwner؛ M27 §13 يؤكد 'ليست Feature جانبية'",
+   "impact": "تحديث GIO §31 · DB-08 يجب أن يدعم Dashboard مدمجة · خطة P04",
+   "files": [
+    "docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §31"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "topic": "G7-CF-03: قائمة الأدوار",
+   "old_instruction": "Roles مثل: Owner · Admin · Content Editor · Menu Editor · Marketing — ولا يحصل الجميع على Full Access",
+   "old_source": "M01 §33 (+ D-148 'Roles' بدون قائمة)",
+   "new_instruction": "Architecture تدعم مستقبلًا OWNER · ADMIN · EDITOR · SEO · MARKETING · CONTENT MANAGER؛ لكن حاليًا Owner وحده Full Control؛ أي مستخدم آخر Permissions محددة",
+   "new_source": "M25 §1",
+   "winner": "M25 §1 — V1 = Owner فقط؛ كتالوج الأدوار المستقبلي = قائمة M25 (Menu Editor من M01 يُقترح كنطاق ضمن EDITOR/CONTENT MANAGER) ويُثبت في PERMISSIONS.md عند Gate H",
+   "why": "الأحدث والأكثر تحديدًا؛ قائمة M01 كانت أمثلة ('مثل')",
+   "impact": "PERM-001/002/005 · لا واجهة Users & Permissions كاملة في V1 (تصنيف G7-CF-06)",
+   "files": [
+    "docs/governance/DECISION-LOG.md D-148"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "topic": "G7-CF-04: مفردات حالات النشر (D-084 → D-148 → M25 §33) وحالات الحملات",
+   "old_instruction": "Draft / Publish (Draft → Review → Published) لتعديلات المنيو",
+   "old_source": "M15 §R3-09 → D-084",
+   "new_instruction": "Draft · Review · Scheduled · Published · Archived (D-148، M23 §58) — ثم M25 §33 لكل المحتوى: DRAFT · IN REVIEW · SCHEDULED · PUBLISHED · ARCHIVED؛ والحملات (M25 §27): Draft · Scheduled · Active · Expired · Archived",
+   "new_source": "M23 §58 → D-148 · M25 §33 · M25 §27",
+   "winner": "publication_state موحد لكل المحتوى = DRAFT · IN REVIEW · SCHEDULED · PUBLISHED · ARCHIVED؛ Active/Expired للحملات = حالة تشغيل مشتقة من Start/End على حملة PUBLISHED (قرار نمذجة تقني متسق مع النصين)",
+   "why": "D-148 يوسع D-084 صراحة (CF-07)؛ M25 §33 يعمم؛ مفردات الحملات وصف لدورة حياة زمنية وليست حالة اعتماد منفصلة",
+   "impact": "CMS-006 · CMS-009 · CAMP (G2) · CMS-DATA-MODEL",
+   "files": [
+    "docs/menu-ia/MENU-DECISION-REGISTER.md CF-07",
+    "docs/menu-ia/SHELTER-MENU-IA-SPEC.md §18/§19"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "topic": "G7-CF-05: اكتمال الـDashboard على الهاتف",
+   "old_instruction": "الـDashboard تعمل ممتاز على الهاتف خصوصًا Overview · Alerts · Menu editing · Product availability · Hours · Campaign status — لكن editing المعقد يمكن أن يكون أفضل على desktop",
+   "old_source": "M25 §47 (G8: M25-138/139)",
+   "new_instruction": "Owner Dashboard يجب أن تكون كاملة على Mobile وDesktop + 9 مهام سهلة على الهاتف + لا تخفي وظائف مهمة فقط لأنها على الهاتف",
+   "new_source": "M26 DASHBOARD RESPONSIVENESS + RESPONSIVE COMPONENTS",
+   "winner": "M26 — كل الوظائف متاحة على الهاتف؛ يبقى مسموحًا أن يكون التحرير المعقد أكثر راحة على Desktop (توسيع لا إلغاء)",
+   "why": "تعليمة لاحقة صريحة وإلزامية ('شرط إلزامي للموقع كامل وللـDashboard')",
+   "impact": "DASH-027/028 · Responsive QA matrix للـDashboard",
+   "files": [
+    "docs/qa/RESPONSIVE-QA-MATRIX.md"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "topic": "G7-CF-06: معنى طبقات أولوية الـDashboard (M25 §68) مقابل مقياس P0–P3 للمشروع (M27 §33) + وحدات غير مصنفة",
+   "old_instruction": "VERSION 1 PRIORITY — P0: (17 بندًا) · P1: Performance history · Accessibility dashboard · Advanced content analytics · More automated health checks · Advanced reports · P2: AI assistant · Advanced recommendations · Forecasts · Automated anomaly detection",
+   "old_source": "M25 §68",
+   "new_instruction": "مقياس المشروع: P0 يمنع الإطلاق · P1 مهم جدًا قبل Production · P2 تحسين مهم · P3 مستقبل؛ وM27 §13 يضع Accessibility · Lighthouse · Media Health · Blog ضمن الحد الأدنى للوحدات",
+   "new_source": "M27 §33 + M27 §13",
+   "winner": "غير محسوم — افتراض عمل مؤقت (غير معتمد): M25-P0 = نطاق إطلاق V1، M25-P1 = بعد الإطلاق (P2 مشروع)، M25-P2 = P3؛ والوحدات غير المصنفة (Blog/Knowledge editor · Events · FAQ · Social Links · About · Coffee Knowledge · Users & Permissions UI · Global Search · Media Health · Lighthouse · Page Health · Real-Time · Location) تُقترح تصنيفاتها ضمن Dashboard IA",
+   "why": "§68 يسمي الطبقات 'VERSION 1 PRIORITY' فيحتمل أن P1 داخل V1 قبل الإنتاج؛ وM27 §33 يعرّف P1 كـ'قبل Production' — لا يمكن الحسم من المحادثة",
+   "impact": "نطاق V1 للـDashboard والجدول الزمني (DASH-003, DASH-014, DASH-015, DASH-016, DASH-019, CMS-002, PERM-001) — لا يمنع Phases A–G",
+   "files": [],
+   "status": "OWNER DECISION REQUIRED"
+  },
+  {
+   "topic": "G7-CF-07: Read-only في كل الطلبات مقابل تنفيذ Claude للربط والإعداد لاحقًا",
+   "old_instruction": "كل طلبات الصلاحيات Read-only؛ لا يُطلب Write access لأي خدمة في هذه المرحلة",
+   "old_source": "08-access-requests.md header (AC-RULE-01) + D-028 (Read-only)",
+   "new_instruction": "لاحقًا Claude ينفذ الربط (GA4 · GTM · Search Console · GBP) وليس Instructions فقط؛ الـOwner يتدخل فقط عند Login/OAuth/2FA/Ownership/Permissions",
+   "new_source": "M25 §64 + M27 §17 (+ D-051/D-055)",
+   "winner": "كلاهما بنطاق المرحلة: Read-only طوال Discovery/التصميم؛ Edit/Publish فقط في مرحلة التنفيذ (P09) بأقل دور لازم وبعد موافقة، ثم تخفيض الصلاحية بعد الإطلاق (GIO §B)",
+   "why": "AC-RULE-01 مصرح أنه 'في هذه المرحلة'؛ D-051 وM25 §64 يحددان 'عندما نصل لهذه المرحلة'",
+   "impact": "PERM-008/009 · طلبات الصلاحيات في P09",
+   "files": [
+    "docs/phase-01-discovery/08-access-requests.md",
+    "docs/google/GOOGLE-IMPLEMENTATION-OWNERSHIP.md §B"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "topic": "G7-CF-08: خيارات المنصة في DB-08 مقابل متطلبات الـControl Center (CMS داخل الـOwner Dashboard، نفس الـArchitecture، مصدر واحد، Supabase مشروط)",
+   "old_instruction": "DB-08 (PROPOSED): A WordPress Block Theme مقفل على Cloudways · B WordPress Headless + واجهة Static/Edge (Astro) عبر Cloudflare · C Headless CMS حديث (Sanity/Payload) + Astro/Next — يُقارن بعد اعتماد الـSitemap",
+   "old_source": "05-decisions-before-design.md DB-08 (اقتراح الفريق)",
+   "new_instruction": "CMS داخل Owner Dashboard (M25 §21) · CMS + Analytics + Site Health على نفس الـArchitecture من البداية (M25 خاتمة) · لا Page Builder معقد مثل Elementor (M25 §22) · لا two CMS sources (M27 §35) · 'إذا المشروع يستخدم Supabase' (M25 §45/§57)",
+   "new_source": "M25 §21/§22/§45/§57 + خاتمة · M27 §35",
+   "winner": "لا فائز بعد — المتطلبات الجديدة تصبح معايير إلزامية لمقارنة DB-08 (لوحة واحدة للـOwner؛ إن استُخدم WordPress فلا يجوز أن يصبح WP-admin واجهة ثانية منفصلة للمحتوى نفسه)؛ القرار يُتخذ في P05 ويُعرض للموافقة عند Gate H (له أثر كلفة/استضافة/صيانة)",
+   "why": "اختيار المنصة له أثر Business (كلفة، استضافة Cloudways/Cloudflare، صيانة) ولم يُحسم؛ Supabase ورد بصيغة شرطية فقط",
+   "impact": "DASH-001 · CMS-001/004/010/020/021 · SEC-002/005 · كل P08",
+   "files": [
+    "docs/phase-01-discovery/05-decisions-before-design.md DB-08",
+    "docs/governance/DECISION-LOG.md DB-08"
+   ],
+   "status": "OWNER DECISION REQUIRED"
+  }
+ ],
+ "dropped": [],
+ "notes": "G7 = CMS · DASH · SEC · PERM · AUDIT · MON. كل 178 مفتاحًا خامًا مُسند لمتطلب واحد (لا dropped). مفاتيح GOV ذات المجال 18 (M25-176/189/190/191) أُسندت لـDASH. متطلبات الـDashboard التي تقع مصادرها الخام في مجموعات أخرى مذكورة كمراجع تقاطع داخل details/dependencies (وليست في sources) لتفادي الازدواج: G1 (Phases A–N/Gate H M25-192/193، الوثائق السبع M25-197…204، Audit M25-167…169، no-PII M25-075، data minimization M25-136، لا اختراع بيانات M25-064، لغة سهلة M25-148)، G2 (Media Library/Image Health M25-099…104، Campaigns M25-094…096، Blog M25-097/098، تصميم الـDashboard M25-140/141، Page Editor design lock M25-084)، G3 (Menu Editor/Bulk M25-085…088)، G4 (Branch/Hours editors M25-090…093)، G5 (GSC/SEO Health/Indexation/SEO editor M25-050…063/105…108، RTL sidebar M25-142/220)، G6 (Analytics modules M25-005…048، official APIs/no iframe/no scraping M25-128…131، Sentry/paid M25-076/077، Data Source Matrix M25-171/172، KPI classes M25-173/174، Cloudflare least-privilege M25-182/183)، G8 (CWV/Lighthouse/A11y dashboards M25-065…070/123/124، caching/perf M25-030/133/137، mobile M25-138/139، Archive not hard delete + confirmations M25-162…164، Testing matrix M25-194/195). تعارضات مفتوحة: G7-CF-06 (طبقات الأولوية/الوحدات غير المصنفة — non-blocking) و G7-CF-08 (منصة DB-08 مقابل متطلبات الـControl Center — يمنع P08). تنفيذيًا: لا شيء من الـDashboard/CMS/Auth مبني؛ المنجز = Menu Version MV-2026-10-01 و Lineage في Inventory v1.0 (FROZEN) ونموذج بيانات المنيو v0.4 (أساس CMS-DATA-MODEL)، وبروتوكول طلب الصلاحيات في 08."
+}

@@ -1,0 +1,387 @@
+{
+ "group": "G35",
+ "notes": "M50 / D-327: Dashboard — تفاصيل أصناف المنيو (D4e) وأدوات صندوق التوظيف (M28: جماعي، تصدير، ZIP، بحث حي، محفوظ، أعمدة، نظرة سريعة، انتظار، إعدادات).",
+ "requirements": [],
+ "updates_to_existing": [
+  {
+   "id": "CAREERS-058",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D3x/D4e (M50)",
+   "change": "البحث الحي أثناء الكتابة: Debounce 400ms، من حرفين أو صندوق فارغ؛ تُستبدل منطقة النتائج فقط ويبقى التركيز في البحث، والرابط يتبع البحث.",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Dashboard/Requests/CareersController.php",
+    "app/Services/Requests/CareersView.php",
+    "resources/views/dashboard/requests/careers/index.blade.php",
+    "resources/js/dashboard/careers-list.ts"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/CareersListToolsTest.php",
+    "resources/js/dashboard/careers-list.test.ts"
+   ]
+  },
+  {
+   "id": "CAREERS-060",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D3x/D4e (M50)",
+   "change": "البحث المحفوظ باسم يختاره الـOwner (حتى 20)، يظهر كأزرار ويُفتح بضغطة؛ لا يحذف أحد بحث غيره.",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Dashboard/Requests/CareersController.php",
+    "app/Services/Requests/CareersView.php",
+    "resources/views/dashboard/requests/careers/index.blade.php",
+    "resources/js/dashboard/careers-list.ts"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/CareersListToolsTest.php",
+    "resources/js/dashboard/careers-list.test.ts"
+   ]
+  },
+  {
+   "id": "CAREERS-061",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D3x/D4e (M50)",
+   "change": "إظهار/إخفاء الأعمدة (7 أعمدة إضافية متاحة) وترتيبها بزرّي «أعلى/أسفل» (بديل لوحة المفاتيح واللمس) و«العرض الافتراضي»، محفوظ لكل Owner. السحب والإفلات نفسه لم يُبنَ.",
+   "new_impl": "PARTIAL",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Dashboard/Requests/CareersController.php",
+    "app/Services/Requests/CareersView.php",
+    "resources/views/dashboard/requests/careers/index.blade.php",
+    "resources/js/dashboard/careers-list.ts"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/CareersListToolsTest.php",
+    "resources/js/dashboard/careers-list.test.ts"
+   ]
+  },
+  {
+   "id": "CAREERS-062",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D3x/D4e (M50)",
+   "change": "كثافة مريحة/مضغوطة محفوظة لكل Owner؛ بطاقات تحت 1200px.",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Dashboard/Requests/CareersController.php",
+    "app/Services/Requests/CareersView.php",
+    "resources/views/dashboard/requests/careers/index.blade.php",
+    "resources/js/dashboard/careers-list.ts"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/CareersListToolsTest.php",
+    "resources/js/dashboard/careers-list.test.ts"
+   ]
+  },
+  {
+   "id": "CAREERS-063",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D3x/D4e (M50)",
+   "change": "25/50/100، الافتراضي 50، ويُتذكر آخر اختيار لكل Owner.",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Dashboard/Requests/CareersController.php",
+    "app/Services/Requests/CareersView.php",
+    "resources/views/dashboard/requests/careers/index.blade.php",
+    "resources/js/dashboard/careers-list.ts"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/CareersListToolsTest.php",
+    "resources/js/dashboard/careers-list.test.ts"
+   ]
+  },
+  {
+   "id": "CAREERS-065",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D3x/D4e (M50)",
+   "change": "نظرة سريعة في لوحة جانبية: الاسم، الوظيفة، المدينة، الخبرة، الراتب، الهاتف، البريد، الملفات (تنزيل فقط)، تغيير الحالة، ورابط الصفحة الكاملة؛ فتحها يُحتسب اطلاعًا.",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Dashboard/Requests/CareersController.php",
+    "app/Services/Requests/CareersView.php",
+    "resources/views/dashboard/requests/careers/index.blade.php",
+    "resources/js/dashboard/careers-list.ts"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/CareersListToolsTest.php",
+    "resources/js/dashboard/careers-list.test.ts"
+   ]
+  },
+  {
+   "id": "CAREERS-068",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D3x/D4e (M50)",
+   "change": "تحديد عدة طلبات (وتحديد الكل ظاهر في كل العروض) ثم: تغيير الحالة، الأرشفة، التصدير، تنزيل المرفقات. لا حذف نهائي جماعي.",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Dashboard/Requests/CareersBulkController.php",
+    "app/Services/Requests/CareersExport.php",
+    "resources/views/dashboard/requests/careers/export.blade.php",
+    "resources/js/dashboard/bulk.ts"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/CareersBulkTest.php",
+    "resources/js/dashboard/bulk.test.ts"
+   ]
+  },
+  {
+   "id": "CAREERS-069",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D3x/D4e (M50)",
+   "change": "تأكيد واحد واضح «أنت على وشك تغيير حالة N طلبًا إلى …»؛ لكل طلب سجله + حدث جماعي واحد في السجل (بلا بيانات شخصية).",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Dashboard/Requests/CareersBulkController.php",
+    "app/Services/Requests/CareersExport.php",
+    "resources/views/dashboard/requests/careers/export.blade.php",
+    "resources/js/dashboard/bulk.ts"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/CareersBulkTest.php",
+    "resources/js/dashboard/bulk.test.ts"
+   ]
+  },
+  {
+   "id": "CAREERS-071",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D3x/D4e (M50)",
+   "change": "«ينتظر منذ مدة» على الطلب المفتوح بلا تحديث منذ N يومًا (افتراضي 14، يُعدل من الإعدادات)؛ عمود «آخر تحديث» متاح؛ لا حذف بسبب العمر.",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Dashboard/Requests/CareersController.php",
+    "app/Services/Requests/CareersView.php",
+    "resources/views/dashboard/requests/careers/index.blade.php",
+    "resources/js/dashboard/careers-list.ts",
+    "app/Http/Controllers/Dashboard/Requests/CareersSettingsController.php",
+    "app/Services/Requests/RecruitmentSettings.php",
+    "resources/views/dashboard/requests/careers/settings.blade.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/CareersListToolsTest.php",
+    "resources/js/dashboard/careers-list.test.ts"
+   ]
+  },
+  {
+   "id": "CAREERS-072",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D3x/D4e (M50)",
+   "change": "تصدير Excel وCSV (UTF-8 BOM) وPDF (صفحة طباعة) لنتائج البحث أو المحدد أو الكل؛ الهوية مقنّعة إلا بطلب صريح؛ لا خلية تبدأ معادلة؛ خلف إعادة التأكيد؛ كل تصدير مسجل بلا بيانات شخصية.",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Dashboard/Requests/CareersBulkController.php",
+    "app/Services/Requests/CareersExport.php",
+    "resources/views/dashboard/requests/careers/export.blade.php",
+    "resources/js/dashboard/bulk.ts"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/CareersBulkTest.php",
+    "resources/js/dashboard/bulk.test.ts"
+   ]
+  },
+  {
+   "id": "CAREERS-073",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D3x/D4e (M50)",
+   "change": "تنزيل مرفقات المحدد في ZIP واحد (حتى 50 طلبًا)، مجلد لكل رقم طلب (لا أسماء في المسارات)، خلف إعادة التأكيد ومسجل.",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Dashboard/Requests/CareersBulkController.php",
+    "app/Services/Requests/CareersExport.php",
+    "resources/views/dashboard/requests/careers/export.blade.php",
+    "resources/js/dashboard/bulk.ts"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/CareersBulkTest.php",
+    "resources/js/dashboard/bulk.test.ts"
+   ]
+  },
+  {
+   "id": "CAREERS-075",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D3x/D4e (M50)",
+   "change": "الإعدادات: عتبة الانتظار، أماكن المقابلة (إضافة، إعادة تسمية، إطفاء)، مدن النموذج (إضافة، إطفاء) — لا حذف، والطلبات القديمة تحتفظ بقيمها؛ كل تغيير مسجل.",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Dashboard/Requests/CareersSettingsController.php",
+    "app/Services/Requests/RecruitmentSettings.php",
+    "resources/views/dashboard/requests/careers/settings.blade.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/CareersListToolsTest.php",
+    "resources/js/dashboard/careers-list.test.ts"
+   ]
+  },
+  {
+   "id": "INFRA-036",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D3x/D4e (M50)",
+   "change": "تصدير التوظيف: Owner فقط، إعادة تأكيد، زر صريح، سجل، إخفاء الهوية افتراضيًا.",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Dashboard/Requests/CareersBulkController.php",
+    "app/Services/Requests/CareersExport.php",
+    "resources/views/dashboard/requests/careers/export.blade.php",
+    "resources/js/dashboard/bulk.ts"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/CareersBulkTest.php",
+    "resources/js/dashboard/bulk.test.ts"
+   ]
+  },
+  {
+   "id": "CMS-028",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D3x/D4e (M50)",
+   "change": "التوظيف بلا كود: صندوق الطلبات كاملًا (بحث حي، فلاتر، محفوظ، أعمدة، جماعي، تصدير، ZIP، نظرة سريعة، إعدادات). الوظائف المعلنة وحالة التوظيف من الـDashboard لاحقًا.",
+   "new_impl": "PARTIAL",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Dashboard/Requests/CareersController.php",
+    "app/Services/Requests/CareersView.php",
+    "resources/views/dashboard/requests/careers/index.blade.php",
+    "resources/js/dashboard/careers-list.ts",
+    "app/Http/Controllers/Dashboard/Requests/CareersBulkController.php",
+    "app/Services/Requests/CareersExport.php",
+    "resources/views/dashboard/requests/careers/export.blade.php",
+    "resources/js/dashboard/bulk.ts",
+    "app/Http/Controllers/Dashboard/Requests/CareersSettingsController.php",
+    "app/Services/Requests/RecruitmentSettings.php",
+    "resources/views/dashboard/requests/careers/settings.blade.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/CareersListToolsTest.php",
+    "resources/js/dashboard/careers-list.test.ts",
+    "tests/Feature/Dashboard/CareersBulkTest.php",
+    "resources/js/dashboard/bulk.test.ts"
+   ]
+  },
+  {
+   "id": "CMS-017",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D3x/D4e (M50)",
+   "change": "«صنف مميز» علامة داخلية في شاشة الصنف ولا تظهر للعميل أبدًا (مختبر).",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Services/Dashboard/MenuManager.php",
+    "app/Services/Menu/MenuEditor.php",
+    "app/Services/Menu/Page/MenuPage.php",
+    "resources/views/dashboard/menu/show.blade.php",
+    "resources/views/site/menu.blade.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/MenuDashboardTest.php"
+   ]
+  },
+  {
+   "id": "CMS-022",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D3x/D4e (M50)",
+   "change": "+ تفاصيل الصنف: إظهار/إخفاء من المنيو والبحث، الوصف باللغتين، صورة معتمدة، شارة «جديد» بتاريخ انتهاء، «مميز» داخلي، الترتيب، النطق الإنجليزي؛ وأسماء الفئات العربية. المتبقي: قاموس البحث، حالات النشر المجدولة، الموسم.",
+   "new_impl": "PARTIAL",
+   "tested": "YES",
+   "code_refs": [
+    "app/Services/Dashboard/MenuManager.php",
+    "app/Services/Menu/MenuEditor.php",
+    "app/Services/Menu/Page/MenuPage.php",
+    "resources/views/dashboard/menu/show.blade.php",
+    "resources/views/site/menu.blade.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/MenuDashboardTest.php"
+   ]
+  }
+ ],
+ "conflicts": [],
+ "new_decisions": [],
+ "pending_owner": [],
+ "technical_flags": [
+  {
+   "id": "G35-TF-01",
+   "topic": "صيغ التصدير بلا مكتبات",
+   "detail": "Excel يُكتب مباشرة (OOXML عبر ZipArchive، ورقة من اليمين لليسار)، وCSV بـUTF-8 BOM. PDF = صفحة جاهزة للطباعة يحفظها المتصفح PDF: تشكيل عربي صحيح بلا مكتبة PDF على الخادم (المكتبات المتاحة إما لا تشكّل العربية جيدًا أو برخصة GPL). عُوين PDF فعلي A4 من Chromium.",
+   "recommendation": "قرار تقني منفذ ومختبر",
+   "needs_owner": false,
+   "refs": [
+    "CAREERS-072",
+    "INFRA-036"
+   ]
+  },
+  {
+   "id": "G35-TF-02",
+   "topic": "ZIP المرفقات",
+   "detail": "توليد متزامن بحد 50 طلبًا للمرة (ضمن حدود الخادم — G10-TF-18) بدل مهمة خلفية؛ ملف مؤقت يُحذف بعد الإرسال؛ مجلد لكل رقم طلب وأسماء ملفات آمنة.",
+   "recommendation": "قرار تقني منفذ ومختبر",
+   "needs_owner": false,
+   "refs": [
+    "CAREERS-073"
+   ]
+  },
+  {
+   "id": "G35-TF-03",
+   "topic": "ترتيب الأعمدة",
+   "detail": "زرا «أعلى/أسفل» لكل عمود ظاهر (يعملان بلوحة المفاتيح واللمس — A11Y-007)؛ السحب والإفلات لم يُبنَ بعد، لذلك CAREERS-061 = PARTIAL.",
+   "recommendation": "قرار تقني؛ السحب والإفلات لاحقًا إن لزم",
+   "needs_owner": false,
+   "refs": [
+    "CAREERS-061"
+   ]
+  },
+  {
+   "id": "G35-TF-04",
+   "topic": "البحث الحي والنظرة السريعة",
+   "detail": "Debounce 400ms ومن حرفين؛ يُجلب نفس الصفحة وتُستبدل منطقة النتائج (DOMParser + importNode، بلا innerHTML) مع replaceState. النظرة السريعة تجلب جزءًا بترويسة X-Quick-View؛ فتح الرابط مباشرة يحوّل للصفحة الكاملة. بدون JavaScript يعمل زر البحث والصفحة الكاملة.",
+   "recommendation": "قرار تقني منفذ ومختبر",
+   "needs_owner": false,
+   "refs": [
+    "CAREERS-058",
+    "CAREERS-065"
+   ]
+  },
+  {
+   "id": "G35-TF-05",
+   "topic": "عتبة «ينتظر منذ مدة»",
+   "detail": "افتراضي تقني 14 يومًا بلا أي تحديث على طلب مفتوح (ليس مقبولًا/مرفوضًا/مؤرشفًا)، قابل للتعديل من الإعدادات (1–365). تنبيه داخل الـDashboard فقط، ولا حذف.",
+   "recommendation": "قرار تقني منفذ ومختبر",
+   "needs_owner": false,
+   "refs": [
+    "CAREERS-071"
+   ]
+  },
+  {
+   "id": "G35-TF-06",
+   "topic": "تفاصيل الصنف في المنيو",
+   "detail": "الإخفاء من المنيو = publish_status=archived (يُستبعد من الصفحة والبحث، والإظهار يعيده published)؛ الوصف باللغتين أو لا شيء ويظهر في نافذة الصنف؛ الصورة من المعتمد فقط (قسم مختلط يحجز مساحة الصورة)؛ شارة «جديد» بتاريخ انتهاء اختياري (شارة واحدة: موسمي أولًا)؛ «مميز» داخلي؛ aria-label إنجليزي اختياري. لا يُخزّن اسم عربي غير معتمد في أعمدة العرض (D-091/D-133)، والاسم المصدري يبقى في menu_source_rows.",
+   "recommendation": "قرار تقني منفذ ومختبر",
+   "needs_owner": false,
+   "refs": [
+    "CMS-022",
+    "CMS-017",
+    "PO-003"
+   ]
+  },
+  {
+   "id": "G35-TF-07",
+   "topic": "طباعة الـDashboard",
+   "detail": "عند الطباعة تُخفى الأشرطة والقائمة، وتُقلب ألوان العلامة (الخلفية الداكنة حبرًا والنص الفاتح ورقًا) عبر الـTokens نفسها بلا ألوان خام.",
+   "recommendation": "قرار تقني منفذ ومختبر",
+   "needs_owner": false,
+   "refs": [
+    "DS-013"
+   ]
+  }
+ ],
+ "cost_api_dependencies": [],
+ "dropped": []
+}

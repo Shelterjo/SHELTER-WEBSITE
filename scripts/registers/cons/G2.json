@@ -1,0 +1,5155 @@
+{
+ "group": "G2",
+ "requirements": [
+  {
+   "id": "BRAND-001",
+   "area": "01 Brand & Design System",
+   "type": "DECISION",
+   "title": "الاسم الرسمي للعلامة: SHELTER COFFEE / شلتر كوفي",
+   "requirement": "الاسم الرسمي بالإنجليزية `SHELTER COFFEE`، والاسم المستخدم بالعربية «شلتر كوفي»، والكلمة الوصفية المفضلة بالعربية «كوفي». كلمتا «كافيه / كافية» ليستا جزءًا من الاسم الرسمي، وتُستخدمان فقط في محتوى SEO أو وصف النشاط عند الحاجة وبعد موافقة الـOwner.",
+   "details": [
+    "EN: SHELTER COFFEE · AR: شلتر كوفي · الوصف المفضل: «كوفي»",
+    "«كافيه / كافية»: فقط في محتوى SEO أو وصف النشاط، وكل صياغة تُعرض على الـOwner قبل النشر",
+    "الموقع القديم يستخدم «شلتر كافيه / كافية» في كل مكان (H1، الـFooter) — لا يُنقل (`12` §6)",
+    "يدخل في: الشعار، العناوين، الـHeader/Footer، Meta، Schema `Organization.name`"
+   ],
+   "sources": [
+    "M03-001",
+    "M03-002",
+    "M03-003",
+    "M03-004"
+   ],
+   "decision_refs": [
+    "D-007",
+    "DB-01"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "decision recorded D-007; used as H1 draft in 15-root-gateway-wireframe §3 (docs only)",
+   "missing_work": "تطبيق الاسم في كل القوالب والنصوص والـSchema عند البناء؛ عرض أي صياغة SEO تستخدم «كافيه» على الـOwner",
+   "dependencies": [
+    "CONTENT (copy approval)",
+    "SCHEMA Organization"
+   ],
+   "test_required": "Content QA على مخرجات البناء: لا يظهر «شلتر كافيه/كافية» كاسم للعلامة في أي صفحة أو Meta أو Schema (AR/EN)؛ Schema validation: name = SHELTER COFFEE",
+   "design_refs": [
+    "docs/governance/DECISION-LOG.md D-007",
+    "docs/phase-01-discovery/12-homepage-screenshots-audit.md §6",
+    "docs/phase-01-discovery/15-root-gateway-wireframe.md §3"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P07",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "BRAND-002",
+   "area": "01 Brand & Design System",
+   "type": "GATE",
+   "title": "الهوية البصرية المعتمدة فقط — ملفاتها مفقودة وتمنع Visual Design (M-10)",
+   "requirement": "يُستخدم Brand Identity الخاص بـSHELTER COFFEE كما يسلّمه الـOwner، ولا يغيّر Claude هوية العلامة أو ألوانها أو خطوطها من نفسه. ملفات الهوية غير موجودة في المشروع (M-10: Logo Vector · الألوان · الخطوط · دليل الهوية = `MISSING — OWNER INPUT REQUIRED`)، لذلك مرحلة Visual Design ممنوعة حتى استلامها.",
+   "details": [
+    "MI-021 Logo master files (SVG/vector, all lockups, AR/EN) = MISSING",
+    "MI-022 Brand colors / fonts / brand guide (if any) = MISSING",
+    "الموقع القديم يستخدم 5 خطوط غير معتمدة — لا تُعتبر هوية",
+    "CF-11: لا نختار ألوانًا أو خطوطًا من عندنا",
+    "كل قيم `tokens.template.json` البصرية = MISSING",
+    "اقتراح تقني (PERFORMANCE-BUDGET): عائلتا خطوط كحد أقصى، WOFF2، Subset، ≤ 120KB — يُطبق بعد استلام الخطوط وتراخيصها"
+   ],
+   "sources": [
+    "M23-260"
+   ],
+   "decision_refs": [
+    "M-10",
+    "CF-11",
+    "MI-021",
+    "MI-022"
+   ],
+   "status": "PENDING OWNER INPUT",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "design-system/README.md + tokens.template.json (structure only; every visual value MISSING)",
+   "missing_work": "استلام ملفات الهوية من الـOwner (Logo vector بكل الصيغ AR/EN، الألوان، الخطوط مع ترخيص الويب، دليل الهوية إن وجد) ← تسجيلها في APPROVED-ASSET-LIBRARY ← تعبئة الـTokens ← اعتماد",
+   "dependencies": [
+    "MI-021",
+    "MI-022",
+    "BRAND-008",
+    "BRAND-010"
+   ],
+   "test_required": "مراجعة: كل قيمة Token مصدرها ملف هوية معتمد؛ ترخيص الخط يسمح بالاستخدام على الويب؛ لا لون أو خط خارج الهوية (token diff review)",
+   "design_refs": [
+    "docs/menu-ia/MENU-DECISION-REGISTER.md M-10, CF-11",
+    "docs/phase-01-discovery/04-content-approval-register.md MI-021, MI-022",
+    "design-system/README.md",
+    "design-system/tokens/tokens.template.json",
+    "docs/menu-ia/PERFORMANCE-BUDGET.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "CF-11: موجز المنيو (M23 §73) يفترض وجود Brand Identity في المشروع، ولا يوجد ملف هوية — لا يُحل باختيار ألوان/خطوط من عندنا",
+   "business_data": true,
+   "phase": "P06",
+   "history": [],
+   "notes": "هذا هو الـblocker الأساسي لمرحلة P06."
+  },
+  {
+   "id": "BRAND-003",
+   "area": "01 Brand & Design System",
+   "type": "RULE",
+   "title": "الموقع الحالي ليس مرجعًا للتصميم أو الـUI أو الـUX أو الحركة",
+   "requirement": "الموقع الحالي www.shelterjo.com مصدر معلومات فقط؛ ممنوع اعتباره Design Reference أو UI Reference أو UX Reference أو Motion Reference للموقع الجديد.",
+   "details": [],
+   "sources": [
+    "M01-006"
+   ],
+   "decision_refs": [
+    "D-000"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "IMPLEMENTED — NOT TESTED",
+   "tested": "N/A",
+   "existing_impl": "rule recorded D-000; discovery docs (01, 12) treat the old site as inventory only",
+   "missing_work": "الالتزام في مرحلة التصميم؛ مراجعة التصميم لا تستند لأي نمط من الموقع القديم",
+   "dependencies": [],
+   "test_required": "Design review: لا مكوّن أو تخطيط أو حركة منسوخ من الموقع القديم",
+   "design_refs": [
+    "docs/governance/DECISION-LOG.md D-000",
+    "docs/phase-01-discovery/12-homepage-screenshots-audit.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P06",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "BRAND-004",
+   "area": "01 Brand & Design System",
+   "type": "REQUIREMENT",
+   "title": "تصميم Bespoke لعلامة قهوة مختصة عالمية — ليس قالبًا",
+   "requirement": "التصميم BESPOKE SHELTER COFFEE DESIGN مخصص لـSHELTER: الزائر يشعر أنه داخل موقع GLOBAL SPECIALTY COFFEE BRAND، وليس WordPress Template أو Local Cafe Template أو AI Generated Website أو Vibe Coding Project. الصفات المستهدفة: Premium · Fast · Minimal · Visual · Motion Rich · Easy · Mobile First · Scalable · SEO Strong · AI Search Ready · Accessible · Secure · Easy To Manage · Built Specifically For SHELTER.",
+   "details": [
+    "ليس: WordPress Template · Local Cafe Template · AI Generated Website · Vibe Coding Project",
+    "الصفات الـ14 كما وردت في M01 §103",
+    "«Motion Rich» محكوم بـD-004 (Motion آخر أولوية عند التعارض) وبقاعدة «Performance always wins» (MOTION-003)"
+   ],
+   "sources": [
+    "M01-207",
+    "M01-247",
+    "M01-248"
+   ],
+   "decision_refs": [
+    "D-005",
+    "D-004"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [
+    "BRAND-002",
+    "BRAND-005",
+    "BRAND-006"
+   ],
+   "test_required": "مراجعة الـOwner البصرية + Design critique checklist مقابل القائمة؛ بوابات Lighthouse/axe للـFast/Accessible؛ لا أنماط قوالب",
+   "design_refs": [
+    "design-system/README.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P06",
+   "history": [],
+   "notes": "الصفات التقنية (SEO/AEO/Security/Easy to manage) تُتحقق في مجموعات SEO/AEO/SEC/CMS."
+  },
+  {
+   "id": "BRAND-005",
+   "area": "01 Brand & Design System",
+   "type": "RULE",
+   "title": "مبادئ التصميم المثبتة (Design Principles)",
+   "requirement": "مبادئ التصميم: SHELTER brand · Premium · Minimal · Warm · Modern · Fast · Confident · Distinctive؛ Rounded corners؛ Minimal color usage؛ واجهة نظيفة وغير مزعجة وغير شبيهة بالقوالب الجاهزة (No template feel).",
+   "details": [
+    "Premium · Minimal · Warm · Modern · Fast · Confident · Distinctive (M23 §73، مثبتة في M27 §19)",
+    "Rounded corners · Minimal color usage (M27 §19، ومكررة للـDashboard في M25 §48)",
+    "No template feel — سبب منع Floating WhatsApp Bubble (D-062)"
+   ],
+   "sources": [
+    "M23-259",
+    "M27-093",
+    "M27-094",
+    "M27-095",
+    "M14-011",
+    "M27-101"
+   ],
+   "decision_refs": [
+    "D-005",
+    "D-062"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "PARTIAL",
+   "tested": "N/A",
+   "existing_impl": "مسجلة نصيًا في design-system/README.md §Rules؛ قيم radius/palette في tokens = MISSING",
+   "missing_work": "تحويل المبادئ إلى Tokens (radius، palette محدود) بعد ملفات الهوية؛ Visual Design واعتماد الـOwner",
+   "dependencies": [
+    "BRAND-002"
+   ],
+   "test_required": "Design review لكل صفحة/مكوّن مقابل المبادئ؛ عدد الألوان المستخدمة = Palette الهوية فقط؛ radius من الـTokens فقط",
+   "design_refs": [
+    "design-system/README.md §Rules",
+    "design-system/tokens/tokens.template.json"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P06",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "BRAND-006",
+   "area": "01 Brand & Design System",
+   "type": "RULE",
+   "title": "ممنوع AI / Vibe-coding look (قائمة الأنماط المحظورة)",
+   "requirement": "ممنوع في الموقع: Generic AI Website · Purple / Blue Gradient Overload (No purple/blue AI gradients) · Neon · Glassmorphism Everywhere / glassmorphism showcase / excessive glassmorphism · Glowing Cards · Random Floating Cards · Generic SaaS Layout · Random Blobs · Excessive Blur · Generic AI Illustrations · Random Gradients · template look · over-designed concept.",
+   "details": [
+    "M01 §78: 11 نمطًا محظورًا",
+    "M23 §73: AI generated · template · generic SaaS · purple/blue gradient site · glassmorphism showcase · over-designed concept",
+    "M27 §19: No generic AI look · No purple/blue AI gradients · No excessive glassmorphism · No random floating cards"
+   ],
+   "sources": [
+    "M01-206",
+    "M23-258",
+    "M27-096",
+    "M27-098",
+    "M27-099",
+    "M27-100"
+   ],
+   "decision_refs": [
+    "D-005"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "مسجلة في design-system/README.md §Rules",
+   "missing_work": "",
+   "dependencies": [
+    "BRAND-005"
+   ],
+   "test_required": "Design review checklist لكل صفحة ومكوّن (Storybook + screenshots) + موافقة الـOwner البصرية",
+   "design_refs": [
+    "design-system/README.md §Rules",
+    "docs/governance/DECISION-LOG.md D-005"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "صياغة D-005 في DECISION-LOG تذكر Glassmorphism بلا قيد، بينما نص الـOwner دائمًا مقيّد (Everywhere / showcase / excessive) — RESOLVED لصالح نص الـOwner (انظر conflicts)",
+   "business_data": false,
+   "phase": "P06",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "BRAND-007",
+   "area": "01 Brand & Design System",
+   "type": "RULE",
+   "title": "shadcn/Radix أساس هندسي فقط — ممنوع هوية shadcn الافتراضية",
+   "requirement": "ممنوع سيناريو «shadcn install → الموقع كله يصير شكله shadcn». shadcn/ui وRadix (وأي مكتبة مكونات) = engineering foundation / primitives فقط؛ لا default shadcn visual identity، ولا يتحول الموقع إلى مجموعة أنماط third-party components؛ SHELTER لها Design System خاص بها. العناصر التالية تُبنى من SHELTER COFFEE Design System: Typography + Radius + Spacing + Cards + Navigation + Motion + Images + Layout + Buttons.",
+   "details": [
+    "وصفها الـOwner بـ«أهم نقطة» (M24)",
+    "CRITICAL ARCHITECTURE RULE: Do NOT turn the site into a collection of third-party component styles",
+    "shadcn/Radix غير مثبتة — مؤجلة لقرار المنصة DB-08 (تفترض React)"
+   ],
+   "sources": [
+    "M24-046",
+    "M24-047",
+    "M24-048"
+   ],
+   "decision_refs": [
+    "DB-08"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "docs/FRONTEND-TOOLING.md §2 (shadcn: أساس هندسي فقط، ممنوع شكله الافتراضي)؛ design-system/README.md §Rules",
+   "missing_work": "عند اعتماد DB-08: إدخال الـprimitives بدون theme افتراضي، وربط كل الأنماط بـSHELTER tokens",
+   "dependencies": [
+    "DB-08",
+    "BRAND-002",
+    "BRAND-010"
+   ],
+   "test_required": "Code review: لا قيم theme افتراضية لـshadcn (CSS variables الافتراضية)؛ Storybook يعرض SHELTER tokens فقط؛ Visual regression مقابل التصميم المعتمد",
+   "design_refs": [
+    "docs/FRONTEND-TOOLING.md §2",
+    "design-system/README.md §Rules"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P06",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "BRAND-008",
+   "area": "01 Brand & Design System",
+   "type": "DELIVERABLE",
+   "title": "Design System كامل (15 مجالًا)",
+   "requirement": "إنشاء Design System كامل يشمل: Typography · Colors · Spacing · Grid · Containers · Border Radius · Buttons · Forms · Icons · Cards · Navigation · Motion · Images · Breakpoints · States.",
+   "details": [
+    "الموجود الآن قيم غير بصرية مثبتة بالأدلة فقط: breakpoints 360/600/1024/1200 (Menu IA R-02/R-03)، touch target 44px، container 1280px (للتأكيد في Visual Design)"
+   ],
+   "sources": [
+    "M01-204"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "PARTIAL",
+   "tested": "N/A",
+   "existing_impl": "design-system/README.md (STRUCTURE ONLY) + design-system/tokens/tokens.template.json (DTCG، القيم البصرية MISSING)",
+   "missing_work": "كل القيم البصرية بعد ملفات الهوية؛ مواصفات Grid · Forms · Buttons · Cards · Icons · States؛ اعتماد الـOwner",
+   "dependencies": [
+    "BRAND-002",
+    "IA-014 (اعتماد الـIA والـWireframes)",
+    "DB-08 (للتنفيذ)"
+   ],
+   "test_required": "توثيق كامل للمجالات الـ15؛ تغطية Storybook؛ تباين ألوان الـTokens ≥ WCAG 2.2 AA؛ موافقة الـOwner",
+   "design_refs": [
+    "design-system/README.md",
+    "design-system/tokens/tokens.template.json"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P06",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "BRAND-009",
+   "area": "01 Brand & Design System",
+   "type": "REQUIREMENT",
+   "title": "هيكلية الـDesign System بطبقات",
+   "requirement": "هيكلية الـDesign System: Design Tokens → Primitives → Components → Patterns → Page Sections → Pages.",
+   "details": [],
+   "sources": [
+    "M24-049"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "PARTIAL",
+   "tested": "N/A",
+   "existing_impl": "الطبقات موثقة في design-system/README.md §Layers (أمثلة من Menu IA)",
+   "missing_work": "التنفيذ الفعلي بعد DB-08 وملفات الهوية",
+   "dependencies": [
+    "DB-08",
+    "BRAND-002"
+   ],
+   "test_required": "مراجعة بنية الكود: كل طبقة موجودة؛ المكونات تستهلك الـTokens فقط؛ الصفحات تُركّب من Sections",
+   "design_refs": [
+    "design-system/README.md §Layers"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P06",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "BRAND-010",
+   "area": "01 Brand & Design System",
+   "type": "REQUIREMENT",
+   "title": "الحد الأدنى للـDesign Tokens + منع الـhardcode",
+   "requirement": "Design Tokens تشمل على الأقل: colors · backgrounds · foregrounds · borders · radius · spacing · typography · font sizes · line heights · shadows · container widths · breakpoints · motion durations · motion easing · z-index · focus styles. ممنوع hardcode لتنسيقات عشوائية متكررة عبر الـcomponents.",
+   "details": [
+    "القالب الحالي ينقصه: z-index · line heights · font sizes (body فقط) · container widths (قيمة واحدة) · focus styles (لون الحلقة فقط بلا width/offset)",
+    "الأقرب للموجود: color.bg/text ≈ backgrounds/foregrounds · elevation ≈ shadows"
+   ],
+   "sources": [
+    "M24-050",
+    "M24-051"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "PARTIAL",
+   "tested": "N/A",
+   "existing_impl": "design-system/tokens/tokens.template.json (DTCG، معظم القيم MISSING)",
+   "missing_work": "إضافة المجموعات الناقصة للقالب؛ تعبئة القيم بعد M-10؛ تصحيح مراجع القالب (stickyStack يذكر «R-03» والصحيح R-06، والـbreakpoints تذكر «R-01» والصحيح R-02/R-03) وعكس R-09 (الشاشات القصيرة) على stickyStack؛ قاعدة lint تمنع القيم الخام",
+   "dependencies": [
+    "BRAND-002",
+    "BRAND-009"
+   ],
+   "test_required": "Lint (stylelint/eslint) يمنع hex/px خام خارج الـTokens؛ DTCG schema validation؛ تغطية كل المجموعات الـ16",
+   "design_refs": [
+    "design-system/tokens/tokens.template.json",
+    "docs/menu-ia/MENU-DECISION-REGISTER.md R-02, R-03, R-06, R-09"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "tokens.template.json يشير لمراجع Menu IA خاطئة (R-03 / R-01) — السجل: R-06 الأشرطة اللاصقة، R-02/R-03 الأعمدة، R-01 مكان محدد الفرع؛ R-09 غير منعكس",
+   "business_data": false,
+   "phase": "P06",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "BRAND-011",
+   "area": "01 Brand & Design System",
+   "type": "RULE",
+   "title": "Design Lock بعد اعتماد الـDesign System",
+   "requirement": "بعد اعتماد الـDesign System ممنوع اختراع Styles جديدة عشوائيًا: لا New Color · New Font Style · New Radius · New Shadow · New Button Type · New Animation Pattern إلا بعد مناقشة الـOwner.",
+   "details": [],
+   "sources": [
+    "M01-205"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "يفعّل بعد اعتماد الـDesign System؛ آلية مراجعة لكل Token جديد",
+   "dependencies": [
+    "BRAND-008"
+   ],
+   "test_required": "Token diff review في كل تغيير (أي Token جديد يحتاج رابط موافقة الـOwner)؛ Visual regression",
+   "design_refs": [
+    "design-system/README.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P06",
+   "history": [],
+   "notes": "Design Lock في الـCMS (المحرر لا يكسر الـDesign System) في BRAND-013."
+  },
+  {
+   "id": "BRAND-012",
+   "area": "01 Brand & Design System",
+   "type": "RULE",
+   "title": "Design System واحد — لا مكونات أو أنظمة تصميم مكررة",
+   "requirement": "لا duplicate components ولا duplicate design systems — مصدر واحد للحقيقة للتصميم (ONE SOURCE OF TRUTH).",
+   "details": [],
+   "sources": [
+    "M27-144"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "PARTIAL",
+   "tested": "N/A",
+   "existing_impl": "مجلد design-system/ واحد فقط (structure only)؛ لا مكتبة UI مثبتة",
+   "missing_work": "الحفاظ على مصدر واحد عند بناء المكونات؛ فحص التكرار قبل كل إصدار",
+   "dependencies": [],
+   "test_required": "Duplicate audit: جرد المكونات، مصدر Tokens واحد، لا UI kit ثانٍ ولا نسخ مكررة لنفس المكوّن",
+   "design_refs": [
+    "design-system/README.md",
+    "docs/FRONTEND-TOOLING.md §3"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P06",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "BRAND-013",
+   "area": "01 Brand & Design System",
+   "type": "RULE",
+   "title": "الـPage Editor / CMS لا يسمح بكسر الـDesign System",
+   "requirement": "الـPage Editor يجب ألا يسمح للمستخدم بكسر الـDesign System: Layout options تكون Controlled (فقط Sections معتمدة وخيارات محددة)؛ الـCMS يعدّل المحتوى فقط وليس الـTokens أو أنماط المكونات.",
+   "details": [],
+   "sources": [
+    "M25-084"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "قاعدة مسجلة في design-system/README.md §Rules («The CMS edits content, never tokens»)",
+   "missing_work": "تصميم نموذج الـSections المعتمدة وخيارات الـLayout المحدودة في CMS architecture (P04)",
+   "dependencies": [
+    "CMS architecture (P04)",
+    "BRAND-014",
+    "DB-08"
+   ],
+   "test_required": "اختبارات صلاحيات الـCMS: المحرر لا يستطيع تعيين ألوان/خطوط/مسافات/HTML حر؛ فقط Section types معتمدة؛ Preview يعرض ناتجًا مطابقًا للـDesign System",
+   "design_refs": [
+    "design-system/README.md §Rules"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P04",
+   "history": [],
+   "notes": "قدرات الـPage Editor (Edit text · Change image · Hide/Show section · Reorder approved sections · Edit button · Edit link · Schedule content) في مجموعة CMS (G7: M25-081، M25-083، M27-055)."
+  },
+  {
+   "id": "BRAND-014",
+   "area": "01 Brand & Design System",
+   "type": "REQUIREMENT",
+   "title": "Reusable Sections ضمن الـDesign System",
+   "requirement": "إنشاء Reusable Components / Sections ضمن الـDesign System فقط، مثل: Featured Product · New Product · Campaign · Event · Branch Highlight · Coffee Story · Image Section · Video Section · Blog Highlight.",
+   "details": [],
+   "sources": [
+    "M01-221"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "تصميم وتنفيذ الـSections بعد اعتماد الـDesign System وربطها بقائمة Sections المعتمدة في الـCMS",
+   "dependencies": [
+    "BRAND-008",
+    "BRAND-013"
+   ],
+   "test_required": "Story لكل Section (AR/EN، mobile/desktop)؛ تُستخدم عبر قائمة Sections المعتمدة في الـCMS فقط",
+   "design_refs": [
+    "design-system/README.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P06",
+   "history": [],
+   "notes": "Global Components (Header · Footer · Social Links · Contact Details · Announcement · Brand Information — M01 §89) خارج عناصر هذه المجموعة."
+  },
+  {
+   "id": "BRAND-015",
+   "area": "01 Brand & Design System",
+   "type": "DELIVERABLE",
+   "title": "Storybook: ورشة مكونات SHELTER (20 مكونًا × 11 حالة)",
+   "requirement": "Storybook يصبح الـvisual component workshop لـSHELTER: isolated stories على الأقل لـ: Button · Input · Search · Navigation · Header · Footer · ProductCard · ProductGrid · CategoryNavigation · BranchSelector · BottomSheet · Modal · Badge · CampaignBanner · ArticleCard · BranchCard · Announcement · EmptyState · LoadingState · ErrorState؛ وكل story تغطي الحالات: default · hover · focus · active · disabled · loading · error · RTL · LTR · mobile · desktop.",
+   "details": [
+    "الشرط: توافق الـstack (Storybook يحتاج إطارًا — DB-08)",
+    "القائمة مسبوقة بـ«such as» لكنها الحد الأدنى المقصود"
+   ],
+   "sources": [
+    "M24-015",
+    "M24-016"
+   ],
+   "decision_refs": [
+    "DB-08"
+   ],
+   "status": "APPROVED WITH CONDITIONS",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "docs/FRONTEND-TOOLING.md §6 (خطة مؤجلة لـDB-08) — قائمتها أقل من قائمة الـOwner",
+   "missing_work": "تحديث خطة FRONTEND-TOOLING §6 لتطابق المكونات الـ20 والحالات الـ11؛ تثبيت Storybook بعد DB-08 مع a11y + viewport addons وبلا theme افتراضي",
+   "dependencies": [
+    "DB-08",
+    "BRAND-002",
+    "BRAND-008"
+   ],
+   "test_required": "Storybook build ينجح؛ كل مكوّن مذكور له stories للحالات الـ11؛ axe addon = 0 serious/critical؛ تبديل RTL/LTR",
+   "design_refs": [
+    "docs/FRONTEND-TOOLING.md §6"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "FRONTEND-TOOLING §6 لا يغطي: Button · Input · Navigation · Badge · CampaignBanner · ArticleCard · BranchCard · Announcement · EmptyState · LoadingState · ErrorState، ولا الحالات hover/focus/active/disabled/error صراحة — قائمة الـOwner هي المرجع",
+   "business_data": false,
+   "phase": "P06",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "BRAND-016",
+   "area": "01 Brand & Design System",
+   "type": "RULE",
+   "title": "الأيقونات فقط عندما تحسّن الفهم",
+   "requirement": "تُستخدم الأيقونات فقط عندما تحسّن الفهم (comprehension)، ولا يُبالغ في تزيين الواجهة (no overdecoration)؛ نظام أيقونات واحد موحّد (اختيار الأداة Lucide في مجموعة TOOL).",
+   "details": [],
+   "sources": [
+    "M24-018"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P2",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [
+    "DB-08 (lucide-react)",
+    "TOOL (G8: M24-017)"
+   ],
+   "test_required": "Design review: كل أيقونة لها نص أو اسم وصول (accessible name)؛ لا أيقونات زخرفية متكدسة؛ مجموعة أيقونات واحدة في الـbundle",
+   "design_refs": [
+    "docs/FRONTEND-TOOLING.md §2"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P06",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "BRAND-017",
+   "area": "01 Brand & Design System",
+   "type": "RULE",
+   "title": "لا قلب (Mirror) للـLogo في RTL",
+   "requirement": "ممنوع قلب (Mirror) الـLogo في واجهة RTL.",
+   "details": [],
+   "sources": [
+    "M01-203"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [
+    "BRAND-002 (ملف الشعار)"
+   ],
+   "test_required": "Playwright screenshot AR/EN: اتجاه الشعار متطابق؛ لا `transform: scaleX(-1)` أو flip منطقي على الشعار",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P06",
+   "history": [],
+   "notes": "قائمة اختبارات RTL/LTR الكاملة في M01 §75 (Direction · Navigation · Icons · Arrows · Typography · Alignment · Animations · Forms · Layout) ضمن مجموعة I18N."
+  },
+  {
+   "id": "BRAND-018",
+   "area": "01 Brand & Design System",
+   "type": "GATE",
+   "title": "الشكل البصري النهائي للـCTA وBranch Card في مرحلة UX/UI فقط",
+   "requirement": "الشكل البصري النهائي للـCTA (Menu، Locations / Directions) ولـBranch Card لا يُعتمد حتى مرحلة UX/UI؛ أي Pattern أفضل يظهر في الـPrototype يُعرض على الـOwner قبل التغيير.",
+   "details": [],
+   "sources": [
+    "M04-049"
+   ],
+   "decision_refs": [
+    "D-027",
+    "D-061"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "سجل موافقة الـOwner على الشكل البصري للـCTA وBranch Card في مرحلة UX/UI",
+   "design_refs": [
+    "docs/governance/DECISION-LOG.md D-027",
+    "docs/phase-01-discovery/09-architecture-options-after-r1.md AR-03"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P06",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "BRAND-019",
+   "area": "01 Brand & Design System",
+   "type": "REQUIREMENT",
+   "title": "أسلوب تصميم الـOwner Dashboard",
+   "requirement": "الـDashboard ليست Website Marketing Page. التصميم: SHELTER UI = Minimal · Premium · Clean · Easy؛ Clean · Professional · Owner-focused · Fast · Minimal · Rounded corners · Minimal colors · Clear hierarchy · SHELTER Brand Identity. لا ألوان مخيفة أو كثيرة (حتى لمؤشرات الانخفاض: percentage change · trend arrow · mini chart).",
+   "details": [],
+   "sources": [
+    "M25-023",
+    "M25-024",
+    "M25-140"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "Dashboard IA + wireframes (Phases A–G) ثم التصميم بعد ملفات الهوية",
+   "dependencies": [
+    "BRAND-002",
+    "IA-022",
+    "DASH (G7)"
+   ],
+   "test_required": "مراجعة wireframes/visual للـDashboard؛ تباين AA؛ palette محدود؛ نص الواجهة ≥ 12px (قاعدة الـtooling)",
+   "design_refs": [
+    "design-system/README.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P04",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "BRAND-020",
+   "area": "01 Brand & Design System",
+   "type": "RULE",
+   "title": "أنماط ممنوعة في الـDashboard",
+   "requirement": "ممنوع في الـOwner Dashboard: Generic admin template · Purple SaaS dashboard · generic SaaS admin style · 100 cards · Glassmorphism everywhere · Too many charts · Tiny text.",
+   "details": [],
+   "sources": [
+    "M25-141",
+    "M27-097"
+   ],
+   "decision_refs": [
+    "D-005"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "Design review checklist للـDashboard؛ فحص Playwright لحجم النص الأدنى؛ عدد الـwidgets/charts في Dashboard Home محدود وواضح (لا 50 Widget عشوائية — M25 §2)",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P04",
+   "history": [],
+   "notes": "امتداد D-005 إلى الـDashboard."
+  },
+  {
+   "id": "UX-001",
+   "area": "43 UX Principles",
+   "type": "RULE",
+   "title": "Simplicity wins في كل قرار",
+   "requirement": "في كل قرار: Simplicity wins. إذا Feature تزيد التعقيد ولا تضيف قيمة واضحة: لا تُضاف.",
+   "details": [
+    "نفس المبدأ ورد في موجز المنيو M23 §72 («إذا Feature تزيد التعقيد ولا تضيف قيمة واضحة: لا تضفها»)"
+   ],
+   "sources": [
+    "M27-104"
+   ],
+   "decision_refs": [
+    "D-004"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "PARTIAL",
+   "tested": "N/A",
+   "existing_impl": "مطبق في Menu IA (SHELTER-MENU-IA-SPEC: «المبادئ: Simplicity wins»؛ D-147 خارج V1)",
+   "missing_work": "تطبيقه على الـIA الشاملة للموقع وكل صفحة",
+   "dependencies": [],
+   "test_required": "UX review لكل Flow: كل Feature مبررة بقيمة واضحة؛ سجل Friction audit",
+   "design_refs": [
+    "docs/menu-ia/SHELTER-MENU-IA-SPEC.md (المبادئ)",
+    "docs/menu-ia/UX-VALIDATION.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P03",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "UX-002",
+   "area": "43 UX Principles",
+   "type": "RULE",
+   "title": "مبادئ UX العالمية — الموقع سهل جدًا",
+   "requirement": "تطبيق أفضل مبادئ UX العالمية: Clear Hierarchy · Predictable Navigation · Low Cognitive Load · Minimal Friction · Minimal Decision Fatigue · Progressive Disclosure · Readable Typography · Scannable Content · Clear CTAs · Fast Feedback · Mobile Ergonomics · Large Touch Targets · Consistency · Accessibility · Easy Recovery؛ والموقع يجب أن يكون سهلًا جدًا.",
+   "details": [],
+   "sources": [
+    "M01-091",
+    "M01-092"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "PARTIAL",
+   "tested": "PROTOTYPE",
+   "existing_impl": "Menu IA: UX-VALIDATION قيّم الـwireframes؛ أهداف لمس ≥ 44px مختبرة في الـprototype",
+   "missing_work": "تطبيق وتقييم على كل صفحات الموقع؛ اختبار مستخدمين حقيقيين",
+   "dependencies": [],
+   "test_required": "Heuristic checklist لكل صفحة؛ touch targets ≥ 44px (Playwright)؛ usability test مع مستخدمين",
+   "design_refs": [
+    "docs/menu-ia/UX-VALIDATION.md"
+   ],
+   "code_refs": [],
+   "test_refs": [
+    "tooling/tests/prototype/menu-wireframe.spec.mjs"
+   ],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P03",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "UX-003",
+   "area": "43 UX Principles",
+   "type": "RULE",
+   "title": "كل صفحة تجيب بسرعة عن أربعة أسئلة — Do not bore the user",
+   "requirement": "انتباه المستخدم ثمين: كل صفحة تجيب بسرعة عن: Where am I? · What is this page? · What can I do? · Where should I go next? — وتتجنب: Long unnecessary paragraphs · Repeated sections · Slow intros · Unnecessary popups · Long meaningless scroll · Too many options · Complex menus.",
+   "details": [
+    "الرئيسية القديمة (16 قسمًا، أقسام مكررة) مثال على المخالفة (`12` §6)"
+   ],
+   "sources": [
+    "M01-093"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "5-second test / UX review لكل صفحة؛ مراجعة عدد الأقسام والتكرار؛ لا popups غير ضرورية",
+   "design_refs": [
+    "docs/phase-01-discovery/12-homepage-screenshots-audit.md §6"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P03",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "UX-004",
+   "area": "43 UX Principles",
+   "type": "RULE",
+   "title": "Friction Audit لكل Flow",
+   "requirement": "في كل Flow: هل يمكن إزالة Click · Step · Menu · Popup · Form Field · Scroll · Delay · Animation · Choice بدون فقدان قيمة؟ إذا نعم تُبسّط التجربة. الهدف تقليل: friction · clicks · cognitive load · confusion.",
+   "details": [],
+   "sources": [
+    "M01-095",
+    "M27-105"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "PARTIAL",
+   "tested": "PROTOTYPE",
+   "existing_impl": "Menu IA: UX-VALIDATION قاس time-to-product وعدد الضغطات وطول التمرير",
+   "missing_work": "Friction audit موثق لكل User Flow في الموقع (ليس المنيو فقط)",
+   "dependencies": [],
+   "test_required": "Friction audit موثق لكل Flow مع عدد الضغطات/الخطوات قبل وبعد",
+   "design_refs": [
+    "docs/menu-ia/UX-VALIDATION.md",
+    "docs/menu-ia/USER-FLOWS.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P03",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "UX-005",
+   "area": "43 UX Principles",
+   "type": "RULE",
+   "title": "أولويات الـUX: clarity · speed · mobile · discoverability · a11y · consistency",
+   "requirement": "الأولوية في قرارات الـUX لـ: clarity · speed · mobile usability · discoverability · accessibility · consistency؛ ضمن ترتيب الأولويات المعتمد عند التعارض التقني (D-004: UX → Accuracy → Speed → Mobile → Accessibility → SEO/AEO/GEO → Security → Maintainability → Visual → Motion) دون استخدامه لتغيير قرار تجاري.",
+   "details": [],
+   "sources": [
+    "M27-106"
+   ],
+   "decision_refs": [
+    "D-004"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "PARTIAL",
+   "tested": "N/A",
+   "existing_impl": "معايير UX-VALIDATION للمنيو تشمل clarity وdiscoverability وaccessibility",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "UX review يوثق كل قرار مقابل هذه المعايير",
+   "design_refs": [
+    "docs/menu-ia/UX-VALIDATION.md",
+    "docs/governance/DECISION-LOG.md D-004"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P03",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "IA-001",
+   "area": "02 Information Architecture",
+   "type": "DECISION",
+   "title": "غرض الموقع ونطاقه الحالي",
+   "requirement": "غرض الموقع حاليًا: Brand Website + Menu Website + Locations + Content Website + Coffee Knowledge Website؛ والهدف الحالي المعتمد: Brand + Menu + Locations + Content + Events + Blog.",
+   "details": [],
+   "sources": [
+    "M01-066",
+    "M03-057"
+   ],
+   "decision_refs": [
+    "D-016"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "decision D-016 recorded; URL tree draft (10 §3) يعكس النطاق (DRAFT)",
+   "missing_work": "Sitemap شاملة معتمدة تعكس النطاق (P03)",
+   "dependencies": [],
+   "test_required": "مراجعة الـSitemap: كل مكونات النطاق ممثلة بصفحات/أقسام معتمدة",
+   "design_refs": [
+    "docs/governance/DECISION-LOG.md D-016",
+    "docs/phase-01-discovery/10-url-architecture-draft.md §1, §3"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P03",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "IA-002",
+   "area": "02 Information Architecture",
+   "type": "DECISION",
+   "title": "الموقع ليس E-Commerce حاليًا — جاهز للطلب أونلاين لاحقًا",
+   "requirement": "الموقع ليس E-Commerce حاليًا (لا متجر ولا طلب أونلاين في النطاق الحالي)، والـArchitecture قابلة لإضافة Online Ordering / E-Commerce لاحقًا بدون إعادة بناء.",
+   "details": [],
+   "sources": [
+    "M01-067"
+   ],
+   "decision_refs": [
+    "D-016",
+    "D-073"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "09 AR-06 (جاهزية مستقبلية — PROPOSED)",
+   "missing_work": "تثبيت نقاط الجاهزية في الـIA والـData model (IDs ثابتة، أسعار بالسوق، توفر بالفرع، مكان محجوز لزر «اطلب»)",
+   "dependencies": [],
+   "test_required": "مراجعة الـArchitecture: لا تبعية لمنصة متجر؛ مكان محجوز غير ظاهر لزر «اطلب»",
+   "design_refs": [
+    "docs/phase-01-discovery/09-architecture-options-after-r1.md AR-06"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P03",
+   "history": [],
+   "notes": "«حاليًا» = خارج النطاق الآن دون استبعاده مستقبلًا. shop.shelterjo.com = DB-12 (مجموعة WEB)."
+  },
+  {
+   "id": "IA-003",
+   "area": "02 Information Architecture",
+   "type": "REQUIREMENT",
+   "title": "مهام الزائر السريعة",
+   "requirement": "الزائر يجب أن يستطيع بسرعة: فهم SHELTER · مشاهدة المنيو · مشاهدة صور المنتجات · تصفح Categories · معرفة الفروع · معرفة أوقات العمل · فتح Google Maps · الاتصال · الوصول للسوشال ميديا · مشاهدة Events · مشاهدة Campaigns · قراءة المدونة · معرفة معلومات عن القهوة المختصة.",
+   "details": [
+    "P0: فهم SHELTER، المنيو، صور المنتجات، الفئات، الفروع، الساعات، Google Maps، الاتصال، السوشال",
+    "P1: Events، Campaigns، المدونة، معلومات القهوة المختصة",
+    "صور المنتجات: 0/191 معتمدة (M-02) — الإطلاق ببطاقات نصية ممكن"
+   ],
+   "sources": [
+    "M01-068",
+    "M01-069",
+    "M01-070"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [
+    "MEDIA-007",
+    "BRANCH/HOURS/CONTACT (G4)"
+   ],
+   "test_required": "Task-based usability test (time-to-task) لكل مهمة على الموبايل AR/EN؛ أحداث القياس (menu_view، directions/call/whatsapp clicks)",
+   "design_refs": [
+    "docs/phase-01-discovery/09-architecture-options-after-r1.md AR-04"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P03",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "IA-004",
+   "area": "02 Information Architecture",
+   "type": "DECISION",
+   "title": "أهم أفعال الزائر بالترتيب",
+   "requirement": "أهم أفعال الزائر حاليًا: 1) مشاهدة المنيو 2) معرفة الفروع والوصول إليها / Get Directions 3) معرفة معلومات الفرع وساعات العمل والتواصل.",
+   "details": [],
+   "sources": [
+    "M03-027"
+   ],
+   "decision_refs": [
+    "D-013",
+    "D-027"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "15-root-gateway-wireframe (أزرار المنيو + الفروع)؛ ترتيب الـCTA المبدئي D-027",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "الوصول للمنيو والفروع بضغطة واحدة من الرئيسية والجذر (AR/EN، موبايل)",
+   "design_refs": [
+    "docs/governance/DECISION-LOG.md D-013",
+    "docs/phase-01-discovery/15-root-gateway-wireframe.md §2"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P03",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "IA-005",
+   "area": "02 Information Architecture",
+   "type": "GATE",
+   "title": "بوابة الصفحات: سؤال الـOwner قبل بناء أي صفحة",
+   "requirement": "قبل بناء الصفحات يُسأل الـOwner: ما الصفحات المطلوبة؟ ما القوائم الرئيسية؟ ماذا في الـHeader؟ ماذا في الـFooter؟ ماذا في الصفحة الرئيسية؟ ما أول معلومة يجب أن يراها العميل؟ ما الصفحات التي تحتاج URL مستقل؟ (Menu · Locations · About · Blog · Contact · FAQ · Branch Pages · Campaign Pages · Event Pages) — ولا تُعتمد أي صفحة قبل مناقشته.",
+   "details": [
+    "أُجيب جزئيًا: قائمة الصفحات R1-09 → D-015",
+    "مفتوح: R4-01 (أول رسالة)، R4-03 (ترتيب الرئيسية)، R4-04 (الـHeader)، R4-05 (الـFooter)، صفحات الحملات/الفعاليات المستقلة (URL-04 مقترح)"
+   ],
+   "sources": [
+    "M01-079",
+    "M01-080",
+    "M01-081"
+   ],
+   "decision_refs": [
+    "D-015",
+    "DB-04",
+    "DB-05"
+   ],
+   "status": "PENDING OWNER INPUT",
+   "owner_approved": "PARTIAL",
+   "priority": "P0",
+   "impl_status": "PARTIAL",
+   "tested": "N/A",
+   "existing_impl": "06-owner-interview-round-1 (R1-09 → D-015)؛ 07-question-backlog R4-01..R4-05 مفتوحة",
+   "missing_work": "جولة R4 مع الـOwner (Header، Footer، الرئيسية، أول معلومة) + قرار URL المستقل للحملات/الفعاليات",
+   "dependencies": [],
+   "test_required": "كل صفحة في الـSitemap لها قرار Owner مسجل (D-xxx)",
+   "design_refs": [
+    "docs/phase-01-discovery/07-question-backlog.md R4-01..R4-05",
+    "docs/phase-01-discovery/10-url-architecture-draft.md §6 URL-04"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P03",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "IA-006",
+   "area": "02 Information Architecture",
+   "type": "DECISION",
+   "title": "صفحة FAQ معتمدة (ضمن قائمة صفحات V1)",
+   "requirement": "صفحة FAQ معتمدة. قائمة الصفحات المعتمدة (D-015): الرئيسية · المنيو · الفروع · صفحة لكل فرع · من نحن · Coffee Knowledge Hub · الفعاليات والحملات · تواصل · FAQ · سياسة الخصوصية · الشروط (عند الحاجة القانونية) · التوظيف (يعاد تصميمه) · Franchise (كقدرة مستقبلية — غير منشورة).",
+   "details": [
+    "FAQ على مستوى العلامة مع أسئلة خاصة بالسوق داخل صفحات السوق (URL-06 مقترح)",
+    "MI-019 أسئلة FAQ + إجابات معتمدة = MISSING"
+   ],
+   "sources": [
+    "M03-044"
+   ],
+   "decision_refs": [
+    "D-015",
+    "URL-06"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "محتوى FAQ معتمد من الـOwner (MI-019)؛ القرار النهائي لمكان الـFAQ",
+   "dependencies": [],
+   "test_required": "FAQ تعرض فقط أسئلة/إجابات APPROVED؛ FAQPage schema عند الملاءمة (مجموعة SCHEMA)",
+   "design_refs": [
+    "docs/governance/DECISION-LOG.md D-015",
+    "docs/phase-01-discovery/10-url-architecture-draft.md §3, §6",
+    "docs/phase-01-discovery/04-content-approval-register.md MI-019"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P03",
+   "history": [],
+   "notes": "بقية صفحات D-015 (المنيو، الفروع، تواصل، الخصوصية، الشروط) في مجموعات MENU/BRANCH/CONTACT/PRIV."
+  },
+  {
+   "id": "IA-007",
+   "area": "02 Information Architecture",
+   "type": "DECISION",
+   "title": "صفحة التوظيف (Careers): معتمدة مع إعادة تصميم كاملة",
+   "requirement": "صفحة التوظيف (Careers) معتمدة، لكن يُعاد تصميمها بالكامل مع مراجعة البيانات التي تُطلب من المتقدمين وسياسة الخصوصية.",
+   "details": [
+    "الموقع القديم يجمع بيانات حساسة (رقم الهوية، الجنسية، الصورة، الراتب) — RISK-06",
+    "بريد Careers منفصل مستقبلًا (D-024) — لا يُنشأ بريد غير موجود"
+   ],
+   "sources": [
+    "M03-049"
+   ],
+   "decision_refs": [
+    "D-015",
+    "RISK-06",
+    "D-024"
+   ],
+   "status": "APPROVED WITH CONDITIONS",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "تحديد الحقول المسموح جمعها، سياسة الخصوصية، قناة الاستلام، المحتوى المعتمد",
+   "dependencies": [
+    "PRIV (سياسة الخصوصية)",
+    "SEC (حماية النماذج)"
+   ],
+   "test_required": "مراجعة النموذج: لا حقول حساسة غير معتمدة؛ موافقة خصوصية؛ اختبار النموذج Functional/Responsive/RTL/LTR/a11y",
+   "design_refs": [
+    "docs/phase-01-discovery/10-url-architecture-draft.md §3 careers/"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P03",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "IA-008",
+   "area": "02 Information Architecture",
+   "type": "DECISION",
+   "title": "صفحة Catering / B2B / Business inquiries / Events services = PAGE RESERVED",
+   "requirement": "خدمات الحجز والحفلات لم تُعتمد كصفحة؛ والقرار الحالي (PG-01): Architecture جاهزة لصفحة مستقلة لـCatering · B2B · Business inquiries · Events services بحالة PAGE RESERVED · CONTENT = MISSING — OWNER INPUT REQUIRED · PUBLICATION = NOT APPROVED YET؛ لا تُكتب أي خدمات من عندنا قبل أن يسلم الـOwner التفاصيل.",
+   "details": [
+    "رقم القناة المعتمد للكيترنج والأعمال والفعاليات 0799530383 (D-057 — مجموعة CONTACT)"
+   ],
+   "sources": [
+    "M03-047",
+    "M14-029"
+   ],
+   "decision_refs": [
+    "D-015",
+    "D-069",
+    "D-057"
+   ],
+   "status": "APPROVED WITH CONDITIONS",
+   "owner_approved": "YES",
+   "priority": "P2",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "تفاصيل الخدمات الفعلية من الـOwner ثم المحتوى والاعتماد قبل النشر",
+   "dependencies": [],
+   "test_required": "الصفحة غير منشورة وغير مفهرسة (noindex/غير موجودة في الـsitemap) حتى موافقة النشر",
+   "design_refs": [
+    "docs/governance/DECISION-LOG.md D-069"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P03",
+   "history": [
+    {
+     "old": "الحجز والحفلات: لا تُعتمد الآن؛ اسألني لاحقًا عن الخدمات الفعلية قبل إنشاء الصفحة",
+     "source": "M03-047 (M03 §R1-09)",
+     "superseded_by": "M14-029 (PG-01 — PAGE RESERVED، المحتوى MISSING، النشر غير معتمد)"
+    }
+   ],
+   "notes": ""
+  },
+  {
+   "id": "IA-009",
+   "area": "02 Information Architecture",
+   "type": "DECISION",
+   "title": "فصل مصطلح Events: حملات SHELTER ≠ Catering / B2B / Private Events",
+   "requirement": "فصل تام بين (1) SHELTER Events & Campaigns = فعاليات وعروض وحملات تنظمها SHELTER للزبائن، و(2) Catering / B2B / Private Events = خدمات تقدمها SHELTER للعملاء والشركات؛ لا استخدام ملتبس لكلمة Events؛ Naming نهائي بالعربي والإنجليزي يُقترح لاحقًا للاعتماد.",
+   "details": [],
+   "sources": [
+    "M14-031"
+   ],
+   "decision_refs": [
+    "D-070"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "اقتراح Naming عربي/إنجليزي للقسمين وعرضه على الـOwner",
+   "dependencies": [],
+   "test_required": "مراجعة النصوص والـNavigation والـURLs: لا استخدام ملتبس لكلمة Events بين القسمين",
+   "design_refs": [
+    "docs/governance/DECISION-LOG.md D-070"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P03",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "IA-010",
+   "area": "02 Information Architecture",
+   "type": "DECISION",
+   "title": "الرعايات: غير معتمدة — MISSING",
+   "requirement": "الرعايات (Sponsorships): لا تُعتمد الآن، ولا تُربط بأي رقم أو قناة تلقائيًا؛ `MISSING — OWNER INPUT REQUIRED`؛ تُسأل لاحقًا بشكل مستقل.",
+   "details": [],
+   "sources": [
+    "M03-048",
+    "M14-038"
+   ],
+   "decision_refs": [
+    "D-015",
+    "D-072",
+    "DB-04"
+   ],
+   "status": "PENDING OWNER INPUT",
+   "owner_approved": "YES",
+   "priority": "P3",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "جولة مستقلة مع الـOwner عن الرعايات",
+   "dependencies": [],
+   "test_required": "لا صفحة أو رقم للرعايات في الموقع قبل قرار الـOwner",
+   "design_refs": [
+    "docs/governance/DECISION-LOG.md D-072"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P03",
+   "history": [
+    {
+     "old": "الرعايات: لا تعتمدها الآن. ناقشني أولًا",
+     "source": "M03-048",
+     "superseded_by": "M14-038 (PG-04: MISSING — لا رقم تلقائيًا)"
+    }
+   ],
+   "notes": ""
+  },
+  {
+   "id": "IA-011",
+   "area": "02 Information Architecture",
+   "type": "DECISION",
+   "title": "صفحة الفريق / SHELTER Family: مؤجلة للنقاش",
+   "requirement": "صفحة الفريق / SHELTER Family («عائلة شلتر»): تُناقش مع الـOwner لاحقًا قبل اعتمادها.",
+   "details": [
+    "أي صور أو أسماء أشخاص تحتاج موافقتهم وموافقة الـOwner (MEDIA-001)"
+   ],
+   "sources": [
+    "M03-053"
+   ],
+   "decision_refs": [
+    "D-015",
+    "DB-04",
+    "VQ-19"
+   ],
+   "status": "DEFERRED",
+   "owner_approved": "YES",
+   "priority": "P3",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "نقاش مع الـOwner (VQ-19)",
+   "dependencies": [],
+   "test_required": "لا صفحة فريق منشورة قبل القرار",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P03",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "IA-012",
+   "area": "02 Information Architecture",
+   "type": "DECISION",
+   "title": "النشرة البريدية DEFERRED في V1 — «قائمة الولاء» ليست Loyalty Program",
+   "requirement": "Newsletter في V1 = DEFERRED إلا إذا اقتُرح لاحقًا Use Case مقنع واعتمده الـOwner؛ «قائمة الولاء» الحالية ليست Loyalty Program، وتُصنّف Email Newsletter.",
+   "details": [
+    "AR-05 (09): مكان جاهز في الـArchitecture لنموذج اشتراك لاحقًا",
+    "HubSpot + إضافة Newsletter على الموقع القديم = DB-14 (مجموعة INT)"
+   ],
+   "sources": [
+    "M03-054",
+    "M10-038",
+    "M10-039"
+   ],
+   "decision_refs": [
+    "D-040",
+    "DB-17",
+    "DB-14"
+   ],
+   "status": "DEFERRED",
+   "owner_approved": "YES",
+   "priority": "P3",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "لا شيء في V1؛ إعادة القرار عند تعريف نظام الولاء",
+   "dependencies": [],
+   "test_required": "لا نموذج نشرة أو «قائمة ولاء» في V1",
+   "design_refs": [
+    "docs/phase-01-discovery/09-architecture-options-after-r1.md AR-05",
+    "docs/phase-01-discovery/12-homepage-screenshots-audit.md §2-15"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P12",
+   "history": [
+    {
+     "old": "النشرة البريدية ليست أولوية حاليًا؛ اقترح فائدتها وتكلفة/أثر إضافتها قبل القرار",
+     "source": "M03-054",
+     "superseded_by": "M10-039 (Newsletter = DEFERRED في V1 — D-040)"
+    }
+   ],
+   "notes": ""
+  },
+  {
+   "id": "IA-013",
+   "area": "02 Information Architecture",
+   "type": "RULE",
+   "title": "لا Linktree إذا كان الموقع يقدم تجربة أفضل",
+   "requirement": "لا يُستخدم Linktree إذا كان الموقع الجديد قادرًا على توفير تجربة أفضل مباشرة (الروابط والتواصل من الموقع نفسه).",
+   "details": [],
+   "sources": [
+    "M10-025"
+   ],
+   "decision_refs": [
+    "D-036"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P2",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "لا روابط Linktree في الموقع؛ روابط السوشال الرسمية المعتمدة مباشرة",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P03",
+   "history": [],
+   "notes": "الحسابات الاجتماعية نفسها PENDING OWNER VERIFICATION (D-036 — مجموعة CONTACT/GBP)."
+  },
+  {
+   "id": "IA-014",
+   "area": "02 Information Architecture",
+   "type": "GATE",
+   "title": "لا UI Design قبل اعتماد الـInformation Architecture",
+   "requirement": "ممنوع البدء بـUI Design حتى يُعتمد الـInformation Architecture؛ ولا Coding حتى يعتمد الـOwner: Pages · Navigation · Sitemap · URL Architecture · Content Structure · SEO Architecture.",
+   "details": [
+    "Menu IA + Wireframes: READY FOR OWNER REVIEW (docs/menu-ia/README.md)",
+    "URL Architecture: P3 معتمد مبدئيًا بشرطين (D-031) — غير مجمّد",
+    "لا توجد بعد وثائق: Sitemap شاملة · Page Architecture · Navigation Architecture · Content Structure للموقع"
+   ],
+   "sources": [
+    "M01-257"
+   ],
+   "decision_refs": [
+    "D-001",
+    "D-017",
+    "D-142"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "PARTIAL",
+   "tested": "N/A",
+   "existing_impl": "Menu IA package (DRAFT — PENDING OWNER APPROVAL)؛ 10-url-architecture-draft (provisional)",
+   "missing_work": "Site-wide IA (P03): Sitemap، Page architecture، Navigation، Content structure، SEO architecture + موافقة الـOwner على Menu IA والـWireframes",
+   "dependencies": [],
+   "test_required": "سجل موافقة الـOwner على كل عنصر قبل فتح P06/P08",
+   "design_refs": [
+    "docs/menu-ia/README.md",
+    "docs/phase-01-discovery/10-url-architecture-draft.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P03",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "IA-015",
+   "area": "02 Information Architecture",
+   "type": "DECISION",
+   "title": "Hybrid Menu Architecture: صفحة منيو واحدة",
+   "requirement": "اعتماد Hybrid Menu Architecture: صفحة Menu واحدة أساسية لكل لغة؛ كل المنتجات موجودة في الـHTML وقابلة للفهرسة والوصول؛ لا virtualization يخفي المحتوى عن SEO · Accessibility · screen readers · browser find؛ لا Infinite Scroll ولا Pagination ولا Load More.",
+   "details": [
+    "`/ar/jo/menu/` · `/en/jo/menu/` (SPEC §1)",
+    "معنى «Hybrid» تغيّر: في 05 DB-06 كان = منيو + صفحات للمنتجات المميزة؛ قرار الـOwner = صفحة واحدة بلا صفحات أصناف في V1"
+   ],
+   "sources": [
+    "M23-035"
+   ],
+   "decision_refs": [
+    "D-143",
+    "F-09",
+    "DB-06"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "PROTOTYPE",
+   "existing_impl": "spec: docs/menu-ia/SHELTER-MENU-IA-SPEC.md §1–§3؛ wireframes بكل الأصناف (اختبار 186 بطاقة في الشبكة)",
+   "missing_work": "بناء الصفحة (P08) بعد اعتماد الـSpec والـWireframes وDB-08",
+   "dependencies": [],
+   "test_required": "App tests (F-01): كل الأسماء والأسعار في HTML من الخادم قبل JS؛ browser find يجد أي صنف؛ لا pagination/infinite/load more",
+   "design_refs": [
+    "docs/menu-ia/SHELTER-MENU-IA-SPEC.md §1–§3",
+    "docs/menu-ia/MENU-DECISION-REGISTER.md F-09"
+   ],
+   "code_refs": [],
+   "test_refs": [
+    "tooling/tests/prototype/menu-wireframe.spec.mjs",
+    "tooling/tests/app/menu.spec.mjs"
+   ],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [
+    {
+     "old": "DB-06 Option C (توصية Claude): /menu + URL مستقل فقط للمنتجات المميزة (Signature / V60 / Seasonal) كـDrawer مع Deep Link",
+     "source": "docs/phase-01-discovery/05-decisions-before-design.md DB-06 · 22-menu-information-architecture",
+     "superseded_by": "M23-035 / M23-036 (D-143، F-09)"
+    }
+   ],
+   "notes": ""
+  },
+  {
+   "id": "IA-016",
+   "area": "02 Information Architecture",
+   "type": "DECISION",
+   "title": "لا Product Page مستقلة لكل صنف في V1",
+   "requirement": "لا يوجد Product Page مستقل لكل صنف في V1 (لا Product Detail Pages مستقلة)؛ التفاصيل داخل الصفحة (Bottom Sheet / Modal).",
+   "details": [],
+   "sources": [
+    "M23-036"
+   ],
+   "decision_refs": [
+    "D-143",
+    "D-147",
+    "F-09",
+    "F-21"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "SPEC §1/§13 (لا صفحات أصناف؛ `#p-{slug}` في الـHistory فقط لا يُفهرس)",
+   "missing_work": "تحديث شجرة الروابط في 10-url-architecture-draft (ما زالت تعرض `menu/{item-slug}/`)",
+   "dependencies": [],
+   "test_required": "لا روابط `/menu/{item}/` في الـsitemap أو الـHTML؛ `#p-{slug}` غير قابل للفهرسة",
+   "design_refs": [
+    "docs/menu-ia/SHELTER-MENU-IA-SPEC.md §1, §13",
+    "docs/phase-01-discovery/10-url-architecture-draft.md §3"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "10-url-architecture-draft.md §3 يعرض `/ar/jo/menu/{item-slug}/` «صنف مميز فقط (DB-06 Hybrid)» — مستبدل بقرار الـOwner (RESOLVED)",
+   "business_data": false,
+   "phase": "P03",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "IA-017",
+   "area": "02 Information Architecture",
+   "type": "DECISION",
+   "title": "تسلسل مكونات صفحة المنيو",
+   "requirement": "تسلسل الصفحة: Menu Header ← Search ← Branch Selector ← Seasonal Section (إذا Active) ← Category Navigation ← Subcategory Navigation (عند الحاجة) ← Product Grid ← Product Detail UI.",
+   "details": [
+    "R-01: محدد الفرع الموضع A (تحت البحث وقبل الفئات) — مقرر بالاختبار"
+   ],
+   "sources": [
+    "M23-037"
+   ],
+   "decision_refs": [
+    "D-143",
+    "F-15",
+    "F-17",
+    "R-01"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "PROTOTYPE",
+   "existing_impl": "spec: SHELTER-MENU-IA-SPEC §2–§3؛ wireframes m-*/d-*",
+   "missing_work": "البناء (P08) بعد الاعتماد",
+   "dependencies": [],
+   "test_required": "App test: ترتيب DOM والعرض مطابق؛ هرمية العناوين H1→H2→H3",
+   "design_refs": [
+    "docs/menu-ia/SHELTER-MENU-IA-SPEC.md §2, §3"
+   ],
+   "code_refs": [],
+   "test_refs": [
+    "tooling/tests/prototype/menu-wireframe.spec.mjs"
+   ],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "IA-018",
+   "area": "02 Information Architecture",
+   "type": "DELIVERABLE",
+   "title": "وثيقة SHELTER MENU IA SPEC (Phase B)",
+   "requirement": "PHASE B: وثيقة كاملة «SHELTER MENU IA SPEC» تحتوي: page hierarchy · component hierarchy · content hierarchy · category architecture · subcategory architecture · search behavior · branch behavior · product detail behavior · responsive behavior · URL state · SEO behavior · accessibility behavior · analytics events · performance requirements · CMS requirements · error/empty states — مع diagrams/text flows عند الفائدة.",
+   "details": [],
+   "sources": [
+    "M23-238"
+   ],
+   "decision_refs": [
+    "D-142"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "IMPLEMENTED — NOT TESTED",
+   "tested": "N/A",
+   "existing_impl": "docs/menu-ia/SHELTER-MENU-IA-SPEC.md §1–§20 (DRAFT — PENDING OWNER APPROVAL)، Mermaid diagrams",
+   "missing_work": "موافقة الـOwner على الـSpec (ومنها Data Model v0.5 delta §19)",
+   "dependencies": [],
+   "test_required": "مراجعة الـOwner؛ تتبع: كل موضوع من الـ16 في Phase B موجود في الـSpec",
+   "design_refs": [
+    "docs/menu-ia/SHELTER-MENU-IA-SPEC.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P02",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "IA-019",
+   "area": "02 Information Architecture",
+   "type": "DELIVERABLE",
+   "title": "User Flows للمنيو (Phase D)",
+   "requirement": "PHASE D: User Flows واضحة على الأقل لـ: User opens Menu · searches product · changes branch · opens product · closes product · selects category · selects all categories · opens menu from DRIVE branch page · opens menu from HOUSE branch page · views closed branch · views closing-soon branch · views unavailable product · gets zero search results.",
+   "details": [],
+   "sources": [
+    "M23-240"
+   ],
+   "decision_refs": [
+    "D-142"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "IMPLEMENTED — NOT TESTED",
+   "tested": "N/A",
+   "existing_impl": "docs/menu-ia/USER-FLOWS.md (F-01 → F-13)؛ سيناريوهات app معلقة (test.fixme) في tooling/tests/app/menu.spec.mjs",
+   "missing_work": "موافقة الـOwner؛ تفعيل اختبارات الـapp عند وجود الصفحة",
+   "dependencies": [],
+   "test_required": "كل Flow له سيناريو Playwright ينجح AR/EN على كل الـviewports (عند البناء)",
+   "design_refs": [
+    "docs/menu-ia/USER-FLOWS.md"
+   ],
+   "code_refs": [],
+   "test_refs": [
+    "tooling/tests/app/menu.spec.mjs"
+   ],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P02",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "IA-020",
+   "area": "02 Information Architecture",
+   "type": "DELIVERABLE",
+   "title": "Low-Fi Wireframes للمنيو: 4 نسخ وحالات مهمة (Phase E)",
+   "requirement": "PHASE E: Low-Fi Wireframes حقيقية لأربع نسخ: MOBILE ARABIC · MOBILE ENGLISH · DESKTOP ARABIC · DESKTOP ENGLISH — تُظهر الحالات المهمة وليس شاشة واحدة. موبايل: Menu top · Search · Branch selector · SPRING · Categories · Subcategories · 2-column grid · 1-column breakpoint example · Product Bottom Sheet · Search suggestions · Zero-results · Unavailable state · Closed branch · All Categories selector. ديسكتوب: Sticky side category nav · 4-column product grid · 3-column breakpoint · Search · Branch selector · Product detail Modal/Side Panel · Seasonal area · Unavailable state.",
+   "details": [
+    "موبايل AR/EN: 13 حالة لكل لغة (png m-*-01…13)",
+    "ديسكتوب AR/EN: 4 حالات (top 4-col، 3-col 1024، modal، house closed + unavailable)",
+    "آخر تشغيل: 456 passed / 0 failed (Chromium فقط)"
+   ],
+   "sources": [
+    "M23-241",
+    "M23-242",
+    "M23-243"
+   ],
+   "decision_refs": [
+    "D-142"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "TESTED",
+   "tested": "PROTOTYPE",
+   "existing_impl": "docs/menu-ia/wireframes/ (30 HTML + PNG + contact sheets) — READY FOR OWNER REVIEW",
+   "missing_work": "موافقة الـOwner؛ حالة البحث/الاقتراحات على الديسكتوب غير معروضة كإطار مستقل (تحقق مقابل قائمة Phase E)؛ تشغيل Firefox/WebKit في CI",
+   "dependencies": [],
+   "test_required": "Prototype tests (lang/dir، headings، overflow، touch ≥ 44، axe WCAG 2.2 AA) على 20 viewport؛ مراجعة الـOwner",
+   "design_refs": [
+    "docs/menu-ia/wireframes/README.md"
+   ],
+   "code_refs": [],
+   "test_refs": [
+    "tooling/tests/prototype/menu-wireframe.spec.mjs",
+    "tooling/tests/prototype/responsive.spec.mjs"
+   ],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P02",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "IA-021",
+   "area": "02 Information Architecture",
+   "type": "DELIVERABLE",
+   "title": "UX Validation للـWireframes (Phase F)",
+   "requirement": "PHASE F: تقييم الـwireframes بمعايير clarity · time-to-product · thumb reach · scroll length · visual density · cognitive load · accessibility · performance · SEO · branch discoverability · search discoverability — وإخراج مشاكل P0 / P1 / P2.",
+   "details": [],
+   "sources": [
+    "M23-244"
+   ],
+   "decision_refs": [
+    "D-142"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "IMPLEMENTED — NOT TESTED",
+   "tested": "N/A",
+   "existing_impl": "docs/menu-ia/UX-VALIDATION.md (P0: 5 مُصلحة · P1: 9 · P2: 6؛ قرارات R-01 → R-09)",
+   "missing_work": "موافقة الـOwner؛ P1-04 يتطلب اختبار مستخدمين (5 أشخاص) على الـPrototype",
+   "dependencies": [],
+   "test_required": "مراجعة الـOwner؛ تنفيذ اختبارات المستخدمين الموصى بها",
+   "design_refs": [
+    "docs/menu-ia/UX-VALIDATION.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P02",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "IA-022",
+   "area": "02 Information Architecture",
+   "type": "DELIVERABLE",
+   "title": "SHELTER OWNER DASHBOARD IA (Tree كاملة)",
+   "requirement": "بعد الـAudit: تصميم «SHELTER OWNER DASHBOARD IA» — Tree كاملة للـDashboard توضح لكل عنصر: Sections · Subsections · Pages · Permissions · Data source · Actions.",
+   "details": [],
+   "sources": [
+    "M25-170"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "Phase A (Audit) ثم Phase B (Dashboard IA) ثم الاعتماد",
+   "dependencies": [
+    "Dashboard Phase A audit (M25 §58)",
+    "Data Source Matrix (M25 §60)",
+    "PERM (G7)"
+   ],
+   "test_required": "مراجعة الـOwner؛ كل شاشة في الـTree لها Permissions وData source وActions",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P04",
+   "history": [],
+   "notes": "مرتبط بمجموعة DASH (G7) وتسلسل الـDashboard (G1: M25-192، M25-211)."
+  },
+  {
+   "id": "HOME-001",
+   "area": "06 Homepage",
+   "type": "DECISION",
+   "title": "الصفحة الرئيسية معتمدة",
+   "requirement": "الصفحة الرئيسية صفحة معتمدة (`/ar/` و`/en/` حسب مسودة الروابط)، ومنفصلة عن الجذر `/` الذي هو Global Brand Gateway وليس نسخة ثالثة كاملة من الموقع.",
+   "details": [],
+   "sources": [
+    "M03-036"
+   ],
+   "decision_refs": [
+    "D-015",
+    "D-052",
+    "D-066"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "URL tree draft (10 §3)؛ wireframe الجذر (15) — ليس الرئيسية",
+   "missing_work": "Homepage story architecture + wireframe + اعتماد (HOME-002/003)",
+   "dependencies": [],
+   "test_required": "الرئيسية AR/EN موجودة بروابطها المعتمدة؛ الجذر لا يكرر الرئيسية",
+   "design_refs": [
+    "docs/phase-01-discovery/10-url-architecture-draft.md §3",
+    "docs/phase-01-discovery/15-root-gateway-wireframe.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P03",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "HOME-002",
+   "area": "06 Homepage",
+   "type": "REQUIREMENT",
+   "title": "لا Homepage Template عادية — Story Architecture خاصة بـSHELTER",
+   "requirement": "ممنوع Homepage Template عادية تُبنى فقط من Hero / About / Menu / Contact / Footer؛ المطلوب Story Architecture خاصة بـSHELTER للصفحة الرئيسية.",
+   "details": [],
+   "sources": [
+    "M01-087",
+    "M01-088"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "09 AR-04: ترتيب مقترح للنقاش (PROPOSED — غير معتمد)",
+   "missing_work": "Story architecture للرئيسية بعد إجابات R4 ثم Wireframe واعتماد",
+   "dependencies": [
+    "HOME-003",
+    "HOME-004"
+   ],
+   "test_required": "مراجعة الـOwner: البنية ليست قالب Hero/About/Menu/Contact/Footer؛ لها قصة SHELTER مقصودة",
+   "design_refs": [
+    "docs/phase-01-discovery/09-architecture-options-after-r1.md AR-04"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "مثال Blocks الرئيسية في M25 §22 («مثلاً» Hero · Campaign · About · Menu Preview · Branches · Coffee Story · Blog · CTA · Footer) مثال للـPage Editor فقط وليس اعتمادًا — RESOLVED (انظر conflicts)",
+   "business_data": false,
+   "phase": "P03",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "HOME-003",
+   "area": "06 Homepage",
+   "type": "DELIVERABLE",
+   "title": "أسئلة الرئيسية للـOwner ثم اقتراح أفضل User Flow",
+   "requirement": "قبل تصميم الرئيسية يُسأل الـOwner: ماذا يعرف العميل أولًا؟ ما الرسالة الرئيسية؟ هل نبرز: Brand · Menu · Products · Locations · Seasonal Products · Coffee Story · Events · Offers · Blog؟ — ثم يُقترح أفضل User Flow للرئيسية للاعتماد.",
+   "details": [
+    "أسئلة مفتوحة: R4-01 (أول رسالة: العلامة / المنيو / الفرع)، R4-02 (جملة التعريف؛ هل «STAY SHELTERED» شعار معتمد؟)، R4-03 (ترتيب الأقسام)",
+    "نصوص الرئيسية: 3 خيارات لكل نص (A Minimal/Premium · B Brand-led · C SEO-aware) — D-068"
+   ],
+   "sources": [
+    "M01-089",
+    "M01-090"
+   ],
+   "decision_refs": [
+    "D-068"
+   ],
+   "status": "PENDING OWNER INPUT",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "07-question-backlog R4-01..R4-03 (مفتوحة)؛ 09 AR-04 (اقتراح)",
+   "missing_work": "إجابات الـOwner ثم User Flow + Wireframe للرئيسية",
+   "dependencies": [],
+   "test_required": "User Flow معتمد من الـOwner؛ usability test لمهام الرئيسية (المنيو/الفروع بضغطة)",
+   "design_refs": [
+    "docs/phase-01-discovery/07-question-backlog.md R4-01..R4-03",
+    "docs/phase-01-discovery/09-architecture-options-after-r1.md AR-04"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P03",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "HOME-004",
+   "area": "06 Homepage",
+   "type": "DECISION",
+   "title": "ترتيب الجمهور مدخل فقط — يُشرح أثره قبل قرارات التصميم",
+   "requirement": "ترتيب الجمهور الحالي (مدخل وليس قرار تصميم): 1) سكان إربد 2) الموظفون ومستخدمو الـDrive Thru 3) طلاب الجامعات 4) العائلات 5) زوار إربد من مدن أخرى 6) الأجانب المقيمون أو الزوار 7) شركاء الأعمال؛ لا يُستخدم لقرارات تصميم نهائية قبل شرح أثره على الـUX والـHomepage للـOwner.",
+   "details": [],
+   "sources": [
+    "M03-025",
+    "M03-026"
+   ],
+   "decision_refs": [
+    "D-012"
+   ],
+   "status": "APPROVED WITH CONDITIONS",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "PARTIAL",
+   "tested": "N/A",
+   "existing_impl": "09 AR-04 شرح الأثر (PROPOSED، بانتظار نقاش R4)",
+   "missing_work": "نقاش الأثر مع الـOwner في R4 قبل أي قرار تصميم نهائي",
+   "dependencies": [],
+   "test_required": "قرار تصميم الرئيسية يذكر أثر ترتيب الجمهور ومعتمد من الـOwner",
+   "design_refs": [
+    "docs/phase-01-discovery/09-architecture-options-after-r1.md AR-04",
+    "docs/governance/DECISION-LOG.md D-012"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P03",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "HOME-005",
+   "area": "06 Homepage",
+   "type": "RULE",
+   "title": "لا إبراز Online Ordering كهدف أساسي حاليًا",
+   "requirement": "لا يُبرز Online Ordering كهدف أساسي للموقع (في الرئيسية أو الـCTA) قبل تحديد القنوات الرسمية للطلب؛ البنية تدعم زر «اطلب» لكل فرع مستقبلًا.",
+   "details": [
+    "R2B-04 قنوات الطلب = MISSING؛ الهاتف وواتساب ليسا قناة طلب رسمية لمجرد أنهما قنوات تواصل (D-073)"
+   ],
+   "sources": [
+    "M14-044"
+   ],
+   "decision_refs": [
+    "D-073",
+    "D-016"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "لا CTA «اطلب أونلاين» بارز في الرئيسية/الـHeader في V1",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P03",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "NAV-001",
+   "area": "05 Navigation",
+   "type": "DELIVERABLE",
+   "title": "دراسة الـHeaders والـMobile Navigation",
+   "requirement": "دراسة أفضل حل لـDesktop Header · Mobile Header · Sticky Header · Mobile Navigation، وعرض Options على الـOwner قبل الاعتماد.",
+   "details": [
+    "DB-05 (PROPOSED): Option A Top Header + Bottom Action Bar · Option B Top Sticky Header باختصارات ظاهرة (التوصية) · Option C Hamburger كامل (يتعارض مع NAV-004)",
+    "جزء محسوم: شريط صفحة الفرع السفلي [الاتجاهات] [اتصال] [واتساب] (D-061)",
+    "R4-04: ما يظهر دائمًا في الـHeader (توصية: المنيو + الفروع + اللغة)"
+   ],
+   "sources": [
+    "M01-099"
+   ],
+   "decision_refs": [
+    "DB-05",
+    "D-061"
+   ],
+   "status": "PENDING OWNER INPUT",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "PARTIAL",
+   "tested": "N/A",
+   "existing_impl": "05-decisions-before-design DB-05 (مقارنة Options)",
+   "missing_work": "قرار الـOwner على DB-05 + R4-04؛ اختبار Option A في الـPrototype كما أوصت 05",
+   "dependencies": [],
+   "test_required": "Prototype test للـHeader على 320–1920 AR/EN؛ sticky chrome ≤ 30% من ارتفاع الشاشة؛ قرار مسجل",
+   "design_refs": [
+    "docs/phase-01-discovery/05-decisions-before-design.md DB-05",
+    "docs/phase-01-discovery/07-question-backlog.md R4-04"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P03",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "NAV-002",
+   "area": "05 Navigation",
+   "type": "REQUIREMENT",
+   "title": "اختصارات سريعة: Menu · Locations · Contact",
+   "requirement": "دراسة اختصارات سريعة ظاهرة في الـNavigation: Menu Shortcut · Locations Shortcut · Contact Shortcut.",
+   "details": [],
+   "sources": [
+    "M01-100"
+   ],
+   "decision_refs": [
+    "DB-05",
+    "D-027"
+   ],
+   "status": "PENDING OWNER INPUT",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [
+    "NAV-001"
+   ],
+   "test_required": "الوصول للمنيو والفروع والتواصل بضغطة واحدة من أي صفحة (موبايل/ديسكتوب)",
+   "design_refs": [
+    "docs/phase-01-discovery/05-decisions-before-design.md DB-05"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P03",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "NAV-003",
+   "area": "05 Navigation",
+   "type": "REQUIREMENT",
+   "title": "دراسة Event Indicator و Campaign Indicator في الـNavigation",
+   "requirement": "دراسة Event Indicator و Campaign Indicator في الـNavigation (يظهر عند وجود حملة/فعالية نشطة من الـEvent Manager).",
+   "details": [],
+   "sources": [
+    "M01-102"
+   ],
+   "decision_refs": [],
+   "status": "PENDING OWNER INPUT",
+   "owner_approved": "YES",
+   "priority": "P2",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [
+    "CAMP-004",
+    "CAMP-006",
+    "NAV-001"
+   ],
+   "test_required": "المؤشر يظهر فقط عند وجود حملة Active ويختفي تلقائيًا؛ لا يزاحم الـHeader على 320px",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P03",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "NAV-004",
+   "area": "05 Navigation",
+   "type": "RULE",
+   "title": "لا إخفاء للمعلومات أو الوظائف المهمة على الموبايل",
+   "requirement": "ممنوع إخفاء أهم المعلومات داخل Hamburger Menu بلا داعٍ، ولا تُخفى وظائف مهمة فقط لأن المستخدم على الهاتف.",
+   "details": [
+    "يستبعد DB-05 Option C (Hamburger كامل)"
+   ],
+   "sources": [
+    "M01-103",
+    "M26-027"
+   ],
+   "decision_refs": [
+    "DB-05"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "Screenshots 320–430: المنيو والفروع ظاهران دون فتح القائمة؛ Feature parity audit بين الموبايل والديسكتوب",
+   "design_refs": [
+    "docs/phase-01-discovery/05-decisions-before-design.md DB-05"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P03",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "NAV-005",
+   "area": "05 Navigation",
+   "type": "RULE",
+   "title": "Navigation حسب السياق بنفس الـIA",
+   "requirement": "تصميم Navigation منفصل UX-wise لكل context: Mobile = compact navigation / menu، Desktop = full navigation — مع نفس Information Architecture (نفس الوجهات والهرمية).",
+   "details": [],
+   "sources": [
+    "M26-026"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "IA parity test: نفس مجموعة الروابط قابلة للوصول على 390 و1280 (Playwright crawl لروابط الـnav) AR/EN",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P03",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "NAV-006",
+   "area": "05 Navigation",
+   "type": "DECISION",
+   "title": "ترتيب الـCTA على الموبايل (مبدئي): Menu ثم Locations / Directions",
+   "requirement": "CTA على الموبايل (مبدئي): 1) Menu 2) Locations / Directions؛ حالة الفرع وساعات العمل داخل Branch Card؛ الاتصال المباشر مهم لكنه ليس بالضرورة CTA رقم 3 إذا وُجد UX أفضل؛ لا ترتيب نهائي ولا شكل بصري نهائي بدون موافقة الـOwner في مرحلة UX/UI.",
+   "details": [
+    "AR-03 (09): زرّان أساسيان كحد أقصى في أي شاشة، والباقي معلومات أو أيقونات داخل السياق (مقترح)"
+   ],
+   "sources": [
+    "M03-028",
+    "M03-029",
+    "M04-047"
+   ],
+   "decision_refs": [
+    "D-013",
+    "D-027",
+    "DB-16"
+   ],
+   "status": "APPROVED WITH CONDITIONS",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "09 AR-03؛ 15 root wireframe (أزرار المنيو + الفروع)",
+   "missing_work": "الشكل البصري في UX/UI (BRAND-018) واعتماد نهائي",
+   "dependencies": [],
+   "test_required": "Prototype/usability test على الموبايل: Menu أولًا ثم Locations؛ حالة الفرع داخل البطاقة",
+   "design_refs": [
+    "docs/phase-01-discovery/09-architecture-options-after-r1.md AR-03",
+    "docs/governance/DECISION-LOG.md D-027"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P03",
+   "history": [
+    {
+     "old": "اقترح أفضل ترتيب للـCTA بناءً على Mobile UX، ولا تعتمد ترتيبًا نهائيًا بدون موافقتي",
+     "source": "M03-029",
+     "superseded_by": "M04-047 (D-027 — مبدئي: Menu ثم Locations/Directions)"
+    }
+   ],
+   "notes": ""
+  },
+  {
+   "id": "NAV-007",
+   "area": "05 Navigation",
+   "type": "DECISION",
+   "title": "المنيو في الـHeader وليس زرًا رابعًا في شريط صفحة الفرع",
+   "requirement": "المنيو يبقى جزءًا من الـNavigation / Header وليس زرًا رابعًا داخل الشريط السفلي لصفحة الفرع (الشريط = [الاتجاهات] [اتصال] [واتساب]).",
+   "details": [
+    "D-061 UX testing: الشريط لا يغطي المحتوى · لا يزاحم Cookie/Consent UI · لا مشكلة Safe Area في iPhone · ليس أكبر من اللازم"
+   ],
+   "sources": [
+    "M14-003"
+   ],
+   "decision_refs": [
+    "D-061",
+    "D-062"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "Branch page test: الشريط 3 أزرار فقط؛ المنيو قابل للوصول من الـHeader؛ شروط D-061 الأربعة",
+   "design_refs": [
+    "docs/governance/DECISION-LOG.md D-061",
+    "docs/phase-01-discovery/09-architecture-options-after-r1.md AR-03"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "09 AR-03 (اقتراح Claude السابق) يضع [المنيو] في شريط صفحة الفرع — مستبدل بقرار الـOwner D-061 (RESOLVED)",
+   "business_data": false,
+   "phase": "P03",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "NAV-008",
+   "area": "05 Navigation",
+   "type": "DELIVERABLE",
+   "title": "دراسة Menu IA تجيب عن أسئلة التنقل 9 و13",
+   "requirement": "دراسة Menu IA تجيب عن السؤال 9/15 (هل نحتاج Sticky Category Navigation؟) والسؤال 13/15 (ما أفضل Mobile-first navigation للمنيو؟).",
+   "details": [],
+   "sources": [
+    "M21-033",
+    "M21-037"
+   ],
+   "decision_refs": [
+    "D-141",
+    "D-142",
+    "F-16"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "IMPLEMENTED — NOT TESTED",
+   "tested": "N/A",
+   "existing_impl": "docs/phase-01-discovery/22-menu-information-architecture.md (الأسئلة الـ15) ثم قرار الـOwner F-16",
+   "missing_work": "لا شيء — الإجابة حُسمت بقرار الـOwner (F-16)",
+   "dependencies": [],
+   "test_required": "تتبع: إجابات Q9/Q13 موثقة ومطابقة لـF-16",
+   "design_refs": [
+    "docs/phase-01-discovery/22-menu-information-architecture.md",
+    "docs/menu-ia/MENU-DECISION-REGISTER.md F-16"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P02",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "NAV-009",
+   "area": "05 Navigation",
+   "type": "DECISION",
+   "title": "موبايل: Horizontal Sticky Category Bar مع active state تلقائي",
+   "requirement": "Category Navigation على الموبايل: Horizontal Sticky Category Bar مع active category state يتغير تلقائيًا حسب مكان المستخدم في الصفحة (scroll-spy).",
+   "details": [
+    "R-06: شريط الفئات 56px (فيه أيقونة البحث المضغوطة وزر «كل الفئات») + شريط فرعي 56px داخل HOT/COLD/FIZZY فقط — المجموع 112px ≈ 15% من الشاشة",
+    "R-09: الشاشات القصيرة (ارتفاع ≤ 500px، Landscape): شريط الفئات وحده لاصق والفرعي غير لاصق"
+   ],
+   "sources": [
+    "M23-084"
+   ],
+   "decision_refs": [
+    "F-16",
+    "R-06",
+    "R-09"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "PROTOTYPE",
+   "existing_impl": "spec: SHELTER-MENU-IA-SPEC §2, §5؛ wireframes m-*-scrolled / house-cold",
+   "missing_work": "البناء (P08)",
+   "dependencies": [],
+   "test_required": "Playwright: الـchip النشط يتغير مع التمرير AR/EN؛ sticky chrome ≤ 30% من الارتفاع؛ حالة R-09 في Landscape",
+   "design_refs": [
+    "docs/menu-ia/SHELTER-MENU-IA-SPEC.md §2, §5",
+    "docs/menu-ia/MENU-DECISION-REGISTER.md R-06, R-09"
+   ],
+   "code_refs": [],
+   "test_refs": [
+    "tooling/tests/prototype/responsive.spec.mjs"
+   ],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "NAV-010",
+   "area": "05 Navigation",
+   "type": "DECISION",
+   "title": "زر «كل الفئات / All Categories»",
+   "requirement": "زر «كل الفئات / All Categories» يفتح قائمة كاملة بالفئات.",
+   "details": [],
+   "sources": [
+    "M23-085"
+   ],
+   "decision_refs": [
+    "F-16"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "PROTOTYPE",
+   "existing_impl": "spec: All Categories Sheet (SPEC §2)؛ wireframes m-*-allcats",
+   "missing_work": "البناء (P08)",
+   "dependencies": [],
+   "test_required": "App test F-07: الزر يفتح الـSheet ويقفز للقسم الصحيح تحت الأشرطة اللاصقة؛ إدارة التركيز",
+   "design_refs": [
+    "docs/menu-ia/SHELTER-MENU-IA-SPEC.md §2",
+    "docs/menu-ia/USER-FLOWS.md F-07"
+   ],
+   "code_refs": [],
+   "test_refs": [
+    "tooling/tests/app/menu.spec.mjs"
+   ],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "NAV-011",
+   "area": "05 Navigation",
+   "type": "REQUIREMENT",
+   "title": "وضوح التمرير الأفقي في شريط الفئات",
+   "requirement": "الـhorizontal scrolling في شريط الفئات يجب أن يكون واضحًا بصريًا؛ لا يعتقد المستخدم أن أول 3 categories هي كل القائمة.",
+   "details": [
+    "المعالجة المقترحة (UX-VALIDATION P1-04): تدرّج عند الحافة + زر جزئي ظاهر + «كل الفئات»"
+   ],
+   "sources": [
+    "M23-086"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "PROTOTYPE",
+   "existing_impl": "UX-VALIDATION P1-04 (معالجة موثقة)؛ wireframes",
+   "missing_work": "اختبار مستخدمين (5 أشخاص) على الـPrototype كما أوصت P1-04؛ التنفيذ البصري",
+   "dependencies": [],
+   "test_required": "Usability test: المستخدم يكتشف وجود فئات إضافية دون مساعدة؛ screenshot 320–430 يظهر chip جزئيًا",
+   "design_refs": [
+    "docs/menu-ia/UX-VALIDATION.md P1-04"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "NAV-012",
+   "area": "05 Navigation",
+   "type": "DECISION",
+   "title": "ديسكتوب: Sticky Side Category Navigation بجانب الشبكة",
+   "requirement": "Category Navigation على الديسكتوب: الأساس Sticky Side Category Navigation مع Product Grid بجانبها؛ مع Responsive fallback إذا كان الـviewport غير مناسب، واختبار ألا يقل عرض الشبكة بشكل سيئ.",
+   "details": [
+    "≥1024px: قائمة جانبية 240px؛ 3 أعمدة (1024–1199px) ← 4 أعمدة (≥1200px) بحاوية حتى 1280px؛ أقل من 1024px: الشريط الأفقي"
+   ],
+   "sources": [
+    "M23-087"
+   ],
+   "decision_refs": [
+    "F-16",
+    "R-03"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "PROTOTYPE",
+   "existing_impl": "spec: SHELTER-MENU-IA-SPEC §2, §11؛ wireframes d-*",
+   "missing_work": "البناء (P08)",
+   "dependencies": [],
+   "test_required": "Playwright 1024/1280/1366/1440/1920: لا overflow، عرض الشبكة مقبول، القائمة لاصقة",
+   "design_refs": [
+    "docs/menu-ia/SHELTER-MENU-IA-SPEC.md §11",
+    "docs/menu-ia/MENU-DECISION-REGISTER.md R-03"
+   ],
+   "code_refs": [],
+   "test_refs": [
+    "tooling/tests/prototype/responsive.spec.mjs"
+   ],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "NAV-013",
+   "area": "05 Navigation",
+   "type": "REQUIREMENT",
+   "title": "Category anchors بـslug conventions نظيفة وثابتة",
+   "requirement": "كل Category لها anchor usable بـslug conventions نظيفة وثابتة (أمثلة منطقية: #speciality-coffee، #hot-drinks، #cold-drinks)؛ الـslug يُخزن ثابتًا ولا يُعاد توليده عند تغيير الاسم.",
+   "details": [
+    "المقترح: #spring · #speciality-coffee · #hot-drinks · #cold-drinks · #frappe · #milkshake · #smoothies · #fizzy-drinks · #tea · #sweets (SPEC §4)",
+    "الأمثلة في الموجز إرشادية؛ الاختيار متروك لـClaude بشرط النظافة والثبات"
+   ],
+   "sources": [
+    "M23-089"
+   ],
+   "decision_refs": [
+    "F-16"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "PARTIAL",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "PROTOTYPE",
+   "existing_impl": "SPEC §4 (anchors مقترحة ضمن الـSpec بانتظار الاعتماد)",
+   "missing_work": "اعتماد الـSpec؛ تخزين الـslug في الـCMS",
+   "dependencies": [],
+   "test_required": "كل anchor فريد وثابت؛ تغيير اسم الفئة لا يغير الـanchor (CMS test)",
+   "design_refs": [
+    "docs/menu-ia/SHELTER-MENU-IA-SPEC.md §4"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "NAV-014",
+   "area": "05 Navigation",
+   "type": "REQUIREMENT",
+   "title": "روابط الفئات تعمل بدون JavaScript",
+   "requirement": "روابط الفئات تعمل حتى بدون JavaScript قدر الإمكان، وتبقى الـanchors مفيدة إذا فشل جزء من JS (Category navigation anchors يجب أن تبقى useful).",
+   "details": [],
+   "sources": [
+    "M23-090"
+   ],
+   "decision_refs": [
+    "F-16"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "PROTOTYPE",
+   "existing_impl": "SPEC §20 (فشل JavaScript: الأسماء والأسعار والفئات والـAnchors تعمل من HTML الخادم)",
+   "missing_work": "البناء + اختبار مع تعطيل JS",
+   "dependencies": [],
+   "test_required": "Playwright مع javaScriptEnabled=false: روابط الفئات تقفز للأقسام؛ المحتوى والأسعار ظاهرة",
+   "design_refs": [
+    "docs/menu-ia/SHELTER-MENU-IA-SPEC.md §20"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "NAV-015",
+   "area": "05 Navigation",
+   "type": "REQUIREMENT",
+   "title": "Sticky header offset عند القفز للـanchor",
+   "requirement": "حساب Sticky Header offset حتى لا يختفي عنوان القسم تحت الـnavigation عند القفز للـanchor.",
+   "details": [],
+   "sources": [
+    "M23-091"
+   ],
+   "decision_refs": [
+    "R-06",
+    "R-09"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "PROTOTYPE",
+   "existing_impl": "prototype test: «category anchor lands below sticky bars (not covered)» في responsive.spec",
+   "missing_work": "التنفيذ في الموقع الحقيقي (scroll-padding/scroll-margin)",
+   "dependencies": [],
+   "test_required": "App test F-06/F-07 على كل الـviewports: عنوان القسم غير مغطى بعد القفز (AR/EN، Landscape)",
+   "design_refs": [
+    "docs/menu-ia/SHELTER-MENU-IA-SPEC.md"
+   ],
+   "code_refs": [],
+   "test_refs": [
+    "tooling/tests/prototype/responsive.spec.mjs",
+    "tooling/tests/app/menu.spec.mjs"
+   ],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAMP-001",
+   "area": "12 Campaigns & Events",
+   "type": "DECISION",
+   "title": "صفحة «الفعاليات والحملات» معتمدة",
+   "requirement": "صفحة «الفعاليات والحملات» معتمدة = SHELTER Events & Campaigns (فعاليات وعروض وحملات تنظمها SHELTER للزبائن) ومنفصلة عن Catering / B2B / Private Events.",
+   "details": [
+    "مسودة الروابط: `/ar/jo/events/` و`/{event-slug}/` تحت طبقة السوق (URL-04 مقترح — غير معتمد)"
+   ],
+   "sources": [
+    "M03-042"
+   ],
+   "decision_refs": [
+    "D-015",
+    "D-070",
+    "URL-04"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "الـNaming النهائي (IA-009) + موضع الروابط (URL-04) + Wireframe",
+   "dependencies": [],
+   "test_required": "الصفحة تعرض فقط حملات/فعاليات Active ومعتمدة؛ أرشيف المنتهية لا يظهر كحالي",
+   "design_refs": [
+    "docs/phase-01-discovery/10-url-architecture-draft.md §3, §6 URL-04",
+    "docs/governance/DECISION-LOG.md D-070"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P03",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAMP-002",
+   "area": "12 Campaigns & Events",
+   "type": "REQUIREMENT",
+   "title": "مساحة مخصصة للحملات والفعاليات ضمن الـDesign System — ليست Banner عشوائية",
+   "requirement": "مساحة مخصصة داخل تصميم الموقع للفعاليات والحملات (Events / Campaigns Area)؛ ليست Banner عشوائية، ويجب أن تكون جزءًا من الـDesign System.",
+   "details": [
+    "أمثلة الـOwner للأنواع (International Coffee Day · 50% Discount · New Drink · Seasonal Menu · New Branch · Event · Announcement) أمثلة فقط — لا عرض معتمد",
+    "مكونات ذات صلة: Campaign / Event sections (BRAND-014)، CampaignBanner وAnnouncement في Storybook (BRAND-015)"
+   ],
+   "sources": [
+    "M01-126",
+    "M01-128"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [
+    "BRAND-014",
+    "BRAND-015",
+    "CAMP-004"
+   ],
+   "test_required": "الـSection من مكونات الـDesign System فقط؛ Storybook stories؛ لا CLS عند ظهور/اختفاء الحملة",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P06",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAMP-003",
+   "area": "12 Campaigns & Events",
+   "type": "GATE",
+   "title": "العروض والخصومات والفعاليات والحملات تُتحقق مع الـOwner قبل النشر",
+   "requirement": "يجب التحقق مع الـOwner قبل نشر أي: Promotions · Discounts · Events · Campaigns.",
+   "details": [
+    "MI-015 Current promotions / campaigns / events = MISSING",
+    "R4-06/R4-07/R4-10 (أنواع الحملات، من ينشئها، المواسم) مفتوحة"
+   ],
+   "sources": [
+    "M01-048"
+   ],
+   "decision_refs": [
+    "D-003",
+    "MI-015"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "مسار Draft → Review → Owner approval → Scheduled في الـCMS؛ بيانات الحملات من الـOwner",
+   "dependencies": [],
+   "test_required": "لا حملة تُنشر بدون حالة اعتماد من الـOwner (CMS workflow test)",
+   "design_refs": [
+    "docs/phase-01-discovery/04-content-approval-register.md MI-015",
+    "docs/phase-01-discovery/07-question-backlog.md R4-06, R4-07, R4-10"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P07",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAMP-004",
+   "area": "12 Campaigns & Events",
+   "type": "REQUIREMENT",
+   "title": "Event / Campaign Manager في الـDashboard — الحقول",
+   "requirement": "إدارة Campaigns / Events من الـDashboard بالحقول: Campaign Name · Title AR · Title EN · Description · Image · Video (Image/Video) · CTA · URL / Link · Start Date · Start Time · End Date · End Time · Priority · Branches · Status.",
+   "details": [
+    "M01 §36: Campaign Name · Arabic Title · English Title · Description · Image · Video · CTA · URL · Start/End Date/Time · Priority · Branches · Enabled/Disabled",
+    "M25 §27: Title AR · Title EN · Description · Image/Video · CTA · Link · Start/End Date/Time · Branches · Priority · Status",
+    "International Coffee Day مثال فقط — ليس حملة معتمدة",
+    "Dashboard V1 P0 يشمل Campaigns (M25 §68)"
+   ],
+   "sources": [
+    "M01-129",
+    "M01-130",
+    "M25-094"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "نموذج بيانات الحملة + شاشات الـDashboard + wireframes",
+   "dependencies": [
+    "CMS architecture (P04)",
+    "MEDIA-001 (الصور/الفيديو معتمدة)",
+    "BRANCH (G4)"
+   ],
+   "test_required": "CRUD test لكل الحقول AR/EN؛ validation للتواريخ؛ ربط الفروع؛ Responsive Dashboard",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P04",
+   "history": [
+    {
+     "old": "Enabled / Disabled (مفتاح تفعيل)",
+     "source": "M01-130",
+     "superseded_by": "M25-094 / M25-095 (Status بدورة حياة كاملة)"
+    }
+   ],
+   "notes": ""
+  },
+  {
+   "id": "CAMP-005",
+   "area": "12 Campaigns & Events",
+   "type": "REQUIREMENT",
+   "title": "دورة حياة الحملة: Draft · Scheduled · Active · Expired · Archived",
+   "requirement": "حالات الحملة/الفعالية: Draft · Scheduled · Active · Expired · Archived.",
+   "details": [
+    "متسق مع حالات النشر في Menu CMS (Draft / Review / Scheduled / Published / Archived — D-148)",
+    "تفصيل تقني لـClaude: Expired = تُحسب تلقائيًا عند وقت النهاية (تختفي من الموقع)، ثم Archived (M01: «بعد انتهائها: Archive»)"
+   ],
+   "sources": [
+    "M25-095"
+   ],
+   "decision_refs": [
+    "D-148"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "State machine + انتقالات تلقائية",
+   "dependencies": [
+    "CAMP-004",
+    "CAMP-006"
+   ],
+   "test_required": "State transition tests بساعة مُحاكاة (Asia/Amman): Draft→Scheduled→Active→Expired→Archived",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P04",
+   "history": [
+    {
+     "old": "Enabled / Disabled",
+     "source": "M01-130",
+     "superseded_by": "M25-095"
+    }
+   ],
+   "notes": ""
+  },
+  {
+   "id": "CAMP-006",
+   "area": "12 Campaigns & Events",
+   "type": "REQUIREMENT",
+   "title": "الجدولة التلقائية: ظهور واختفاء تلقائي ثم Archive",
+   "requirement": "الحملة/الفعالية تظهر تلقائيًا عند وقت البداية، وتختفي تلقائيًا من الموقع عند وقت النهاية بدون حذف يدوي، وبعد انتهائها تنتقل إلى Archive.",
+   "details": [
+    "نفس مبدأ النشر الموسمي للمنيو: تواريخ + انتهاء تلقائي + تجاوز يدوي (D-148 / F-17)",
+    "لا حذف — Archive (قاعدة الأرشفة بدل الحذف)"
+   ],
+   "sources": [
+    "M01-131",
+    "M01-132",
+    "M01-133",
+    "M25-096"
+   ],
+   "decision_refs": [
+    "D-148",
+    "F-17"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "Scheduler + cache invalidation عند البداية والنهاية",
+   "dependencies": [
+    "CAMP-005"
+   ],
+   "test_required": "اختبار بساعة مُحاكاة: الظهور عند البداية والاختفاء عند النهاية دون تدخل؛ لا يبقى محتوى منتهي في الـcache/الـsitemap",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P04",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "CAMP-007",
+   "area": "12 Campaigns & Events",
+   "type": "REQUIREMENT",
+   "title": "Emergency Announcement سريع",
+   "requirement": "خيار Emergency Announcement سريع لحالات مثل: Branch closed today · Special opening hours · Maintenance · Temporary notice — يظهر فورًا ويمكن إيقافه بسهولة.",
+   "details": [
+    "مرتبط بطبقة Temporary Closure / Emergency Notice في نظام الساعات (D-021، AR-07): نفس البيانات تغذي البطاقة وصفحة الفرع والـSchema وشريط الإعلان",
+    "R4-08: أمثلة فعلية ومن يملك صلاحية التفعيل — مفتوح"
+   ],
+   "sources": [
+    "M01-134",
+    "M01-135"
+   ],
+   "decision_refs": [
+    "D-021"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "تصميم الـAnnouncement component (Storybook: Announcement) + صلاحية التفعيل + نصوص AR/EN",
+   "dependencies": [
+    "HOURS (G4)",
+    "PERM (G7)"
+   ],
+   "test_required": "التفعيل يظهر فورًا (بعد purge الـcache) والإيقاف بضغطة؛ لا يغطي المحتوى ولا يزاحم الـCookie UI؛ AR/EN؛ a11y (role=status/alert مناسب)",
+   "design_refs": [
+    "docs/phase-01-discovery/09-architecture-options-after-r1.md AR-07",
+    "docs/phase-01-discovery/07-question-backlog.md R4-08"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P04",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "ABOUT-001",
+   "area": "13 About",
+   "type": "DECISION",
+   "title": "صفحة «من نحن» معتمدة",
+   "requirement": "صفحة «من نحن» (About / قصة SHELTER) معتمدة.",
+   "details": [
+    "مسودة الروابط: `/ar/about/` · `/en/about/` (طبقة العلامة)",
+    "Lenis يُقيّم لصفحة About/Story فقط إذا أثبت الاختبار أنه لا يضر الأداء (MOTION-008)"
+   ],
+   "sources": [
+    "M03-040"
+   ],
+   "decision_refs": [
+    "D-015"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "محتوى معتمد (ABOUT-002) + Wireframe",
+   "dependencies": [],
+   "test_required": "الصفحة تعرض فقط نصوصًا وحقائق APPROVED",
+   "design_refs": [
+    "docs/phase-01-discovery/10-url-architecture-draft.md §3"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P03",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "ABOUT-002",
+   "area": "13 About",
+   "type": "GATE",
+   "title": "معلومات الهوية تُتحقق مع الـOwner قبل النشر",
+   "requirement": "يجب التحقق مع الـOwner قبل نشر: Official company name · Brand name · Brand description · About Us · Story · Vision · Mission · Values.",
+   "details": [
+    "MI-002 Brand one-line description = MISSING · MI-003 Story / About Us = MISSING · MI-004 Vision / Mission / Values = MISSING · MI-006 Legal entity name = MISSING",
+    "Brand name معتمد (D-007)",
+    "ادعاءات الرئيسية القديمة لا تُنقل (D-038)"
+   ],
+   "sources": [
+    "M01-044"
+   ],
+   "decision_refs": [
+    "D-003",
+    "D-007",
+    "D-038"
+   ],
+   "status": "PENDING OWNER INPUT",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "المحتوى من الـOwner ثم 3 خيارات صياغة (D-068) ثم الاعتماد",
+   "dependencies": [],
+   "test_required": "Content approval register: كل نص في About بحالة APPROVED قبل النشر",
+   "design_refs": [
+    "docs/phase-01-discovery/04-content-approval-register.md MI-002, MI-003, MI-004, MI-006"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P07",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "ABOUT-003",
+   "area": "13 About",
+   "type": "DECISION",
+   "title": "سنة التأسيس: 2019",
+   "requirement": "سنة تأسيس SHELTER COFFEE المعتمدة رسميًا = 2019. القيم 2018 و«منذ 2022» = OLD OR INCORRECT ولا تُستخدم في الموقع ولا في SEO ولا في الـSchema ولا في «من نحن»؛ أي عدد سنوات يُحسب من 2019 وأي صياغة تسويقية عنه تُعرض على الـOwner قبل النشر.",
+   "details": [
+    "Schema `foundingDate` = 2019 (مجموعة SCHEMA)"
+   ],
+   "sources": [
+    "M03-011",
+    "M04-001"
+   ],
+   "decision_refs": [
+    "D-018",
+    "D-009",
+    "D-038"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "decision recorded D-018 (يستبدل D-009)؛ مسودة حقائق الجذر (15 §3) تستخدم 2019",
+   "missing_work": "التطبيق في About والـSchema عند البناء",
+   "dependencies": [],
+   "test_required": "Content/Schema QA: لا «2018» ولا «منذ 2022» ولا «سبع سنوات» ثابتة في أي مخرج",
+   "design_refs": [
+    "docs/governance/DECISION-LOG.md D-018"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "M03 R1-03 (2018) مقابل تصحيح M04 (2019) — RESOLVED لصالح 2019 (D-018)",
+   "business_data": true,
+   "phase": "P07",
+   "history": [
+    {
+     "old": "سنة التأسيس 2018 (D-009)",
+     "source": "M03-011",
+     "superseded_by": "M04-001 (D-018: 2019)"
+    }
+   ],
+   "notes": ""
+  },
+  {
+   "id": "ABOUT-004",
+   "area": "13 About",
+   "type": "DECISION",
+   "title": "تاريخ السنوية 20/04 واستخداماته",
+   "requirement": "تاريخ السنوية الرسمي = 20/04 (معتمد، وليس NEEDS VERIFICATION)، ويمكن استخدامه مستقبلًا في: Brand Story · Anniversary campaigns · Events · Content؛ وأي صياغة تسويقية عن المناسبة تُعرض على الـOwner قبل النشر.",
+   "details": [],
+   "sources": [
+    "M03-012",
+    "M04-002",
+    "M04-004"
+   ],
+   "decision_refs": [
+    "D-018"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "N/A",
+   "existing_impl": "decision recorded D-018",
+   "missing_work": "استخدامه في Brand Story وحملات السنوية بصياغة معتمدة",
+   "dependencies": [],
+   "test_required": "أي نص يذكر السنوية بحالة APPROVED",
+   "design_refs": [
+    "docs/governance/DECISION-LOG.md D-018"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P07",
+   "history": [
+    {
+     "old": "20/04 ظهر ملتبسًا بجانب «NEEDS VERIFICATION / OLD OR INCORRECT CONTENT»",
+     "source": "M03-012",
+     "superseded_by": "M04-002 (معتمد كتاريخ السنوية)"
+    }
+   ],
+   "notes": ""
+  },
+  {
+   "id": "BLOG-001",
+   "area": "15 Blog / Coffee Knowledge",
+   "type": "DECISION",
+   "title": "قسم BLOG / Coffee Knowledge Hub معتمد",
+   "requirement": "قسم «BLOG / المدونة» = Coffee Knowledge Hub صفحة معتمدة.",
+   "details": [
+    "اسم ومسار القسم مفتوحان: `/blog/` (يحافظ على الرابط الحالي) أم `/coffee/` أو `/learn/` أو `journal` — DB-09 / URL-03 / R8-04",
+    "شجرة الروابط المقترحة: `/{ll}/{coffee}/{topic}/` + `/{ll}/{coffee}/{article-slug}/` (رابط مقال مسطح)"
+   ],
+   "sources": [
+    "M01-136",
+    "M03-041"
+   ],
+   "decision_refs": [
+    "D-015",
+    "DB-09",
+    "URL-03"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "قرار الـOwner على DB-09 (الاسم والمسار)",
+   "dependencies": [
+    "DB-09",
+    "SEO migration (G5)"
+   ],
+   "test_required": "القسم موجود AR/EN بالمسار المعتمد؛ 301 من `/blog/` القديم حسب خريطة النقل",
+   "design_refs": [
+    "docs/phase-01-discovery/05-decisions-before-design.md DB-09",
+    "docs/phase-01-discovery/10-url-architecture-draft.md §3, §6 URL-03",
+    "docs/phase-01-discovery/07-question-backlog.md R8-04"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P03",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "BLOG-002",
+   "area": "15 Blog / Coffee Knowledge",
+   "type": "REQUIREMENT",
+   "title": "Knowledge Hub مترابط وليس Posts عشوائية",
+   "requirement": "المدونة ليست Posts عشوائية فقط؛ تصبح COFFEE KNOWLEDGE HUB: المقالات ترتبط ببعضها في مسارات معرفية (مثال: Specialty Coffee → Beans → Roasting → Grinding → Brewing → V60) مع Internal Linking قوية.",
+   "details": [
+    "المسار المذكور مثال",
+    "صفحات المواضيع (topic hubs) + مقالات مسطحة الرابط (10 §3)"
+   ],
+   "sources": [
+    "M01-139",
+    "M01-140"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "Content architecture للـHub (topic clusters + مسارات) واعتمادها",
+   "dependencies": [],
+   "test_required": "كل مقال يرتبط بموضوعه وبمقال سابق/تالي في المسار؛ لا orphan articles (crawl)",
+   "design_refs": [
+    "docs/phase-01-discovery/10-url-architecture-draft.md §3"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P03",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "BLOG-003",
+   "area": "15 Blog / Coffee Knowledge",
+   "type": "REQUIREMENT",
+   "title": "مواضيع المدونة وبناء Topic Authority",
+   "requirement": "مواضيع المدونة: Specialty Coffee · Coffee Basics · V60 · Espresso · Coffee Beans · Origins · Roasting · Grinding · Brewing · Brewing Guides · Coffee Education · SHELTER Stories؛ واستخدام الـHub لبناء Topic Authority حول: Specialty Coffee · Coffee Beans · Brewing · V60 · Espresso · Grinding · Roasting.",
+   "details": [
+    "R8-03: ترتيب المواضيع مفتوح · R8-08: Brewing Guides (HowTo) مفتوح"
+   ],
+   "sources": [
+    "M01-137",
+    "M11-102"
+   ],
+   "decision_refs": [
+    "GEP-§47"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P2",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "ترتيب المواضيع مع الـOwner (R8-03) + خطة محتوى",
+   "dependencies": [
+    "BLOG-004"
+   ],
+   "test_required": "كل موضوع معتمد له topic page ومقالات معتمدة",
+   "design_refs": [
+    "docs/google/GOOGLE-ECOSYSTEM-POLICY.md §47",
+    "docs/phase-01-discovery/07-question-backlog.md R8-03, R8-08"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P07",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "BLOG-004",
+   "area": "15 Blog / Coffee Knowledge",
+   "type": "RULE",
+   "title": "لا اختراع للمحتوى — فقط محتوى صحيح ومعتمد",
+   "requirement": "الـOwner يعطي المعلومات للمدونة؛ ممنوع اختراع المحتوى؛ محتوى الـKnowledge Hub فقط محتوى صحيح ومعتمد.",
+   "details": [
+    "MI-020 Blog / Knowledge Hub source content = MISSING",
+    "R8-01 (من يكتب، كم مقالًا) و R8-06 (مصادر خارجية) مفتوحة"
+   ],
+   "sources": [
+    "M01-138",
+    "M11-103"
+   ],
+   "decision_refs": [
+    "D-003",
+    "GEP-§47"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "المادة الخام من الـOwner",
+   "dependencies": [],
+   "test_required": "كل مقال منشور له سجل اعتماد ومصادر",
+   "design_refs": [
+    "docs/phase-01-discovery/04-content-approval-register.md MI-020",
+    "docs/phase-01-discovery/07-question-backlog.md R8-01, R8-06"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P07",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "BLOG-005",
+   "area": "15 Blog / Coffee Knowledge",
+   "type": "GATE",
+   "title": "حزمة اعتماد المقال قبل النشر — AI لا ينشر من نفسه",
+   "requirement": "قبل نشر أي مقال يُعرض على الـOwner: Title · URL · Outline · Full Content · Headings · Meta Title · Meta Description · Suggested Images · Internal Links · Schema · Sources — ثم انتظار موافقته. AI يمكن أن يقترح محتوى، لكن لا ينشر من نفسه؛ OWNER APPROVAL مطلوب للنشر.",
+   "details": [],
+   "sources": [
+    "M01-142",
+    "M25-098"
+   ],
+   "decision_refs": [
+    "D-003"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "قالب حزمة الاعتماد + Draft/Review/Publish في الـCMS مع منع النشر الآلي",
+   "dependencies": [
+    "MEDIA-001 (Suggested Images)",
+    "CMS workflow (G7)"
+   ],
+   "test_required": "CMS test: لا انتقال إلى Published بدون موافقة الـOwner؛ أي محتوى مولّد بالـAI يبقى Draft",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P07",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "BLOG-006",
+   "area": "15 Blog / Coffee Knowledge",
+   "type": "REQUIREMENT",
+   "title": "Content Editor للمقالات — الحقول",
+   "requirement": "Content Editor للمقالات بالحقول: Title · Slug · Arabic · English · Cover · Content · Author · Category · SEO · Schema · Internal Links · Publish Date · Scheduled Publish.",
+   "details": [
+    "الأولوية: غير مذكور صراحة في قائمة P0 لـ§68 (قد يغطيه Pages CMS) — يحتاج تأكيد",
+    "R8-05: الكاتب باسم العلامة أم بأسماء الباريستا — مفتوح"
+   ],
+   "sources": [
+    "M25-097"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "نموذج بيانات المقال + المحرر",
+   "dependencies": [
+    "CMS architecture (P04)",
+    "BLOG-005"
+   ],
+   "test_required": "CRUD + Scheduled Publish بساعة مُحاكاة؛ AR/EN؛ Slug ثابت بعد النشر",
+   "design_refs": [
+    "docs/phase-01-discovery/07-question-backlog.md R8-05"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P04",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-001",
+   "area": "16 Franchise",
+   "type": "DECISION",
+   "title": "صفحة Franchise الكاملة: قدرة مستقبلية — غير منشورة حتى اعتماد المحتوى",
+   "requirement": "Franchise معتمد كقدرة مستقبلية للموقع (لدى SHELTER مشروع Franchise)، وصفحة Franchise الكاملة تبقى غير منشورة حتى يعتمد الـOwner محتواها.",
+   "details": [
+    "مسودة الروابط: `/ar/franchise/` 🔒 Hidden حتى اعتماد المحتوى (10 §3)",
+    "لا فرع Franchise عامل يُعرض (D-008)"
+   ],
+   "sources": [
+    "M03-051",
+    "M14-035"
+   ],
+   "decision_refs": [
+    "D-015",
+    "D-071",
+    "D-010"
+   ],
+   "status": "APPROVED WITH CONDITIONS",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "محتوى من الـOwner ثم الاعتماد؛ قرار مصير الرابط القديم `/franchise-shelter-coffee/` أثناء الإخفاء (مجموعة SEO)",
+   "dependencies": [],
+   "test_required": "الصفحة غير منشورة وغير مفهرسة وغير موجودة في الـsitemap/الـNavigation حتى موافقة النشر",
+   "design_refs": [
+    "docs/phase-01-discovery/10-url-architecture-draft.md §3, §5",
+    "docs/governance/DECISION-LOG.md D-071"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P03",
+   "history": [
+    {
+     "old": "Franchise كقدرة مستقبلية للموقع فقط",
+     "source": "M03-051",
+     "superseded_by": "M14-034 / M14-035 (خيار استفسارات من يوم الإطلاق + الصفحة الكاملة غير منشورة — D-071)"
+    }
+   ],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-002",
+   "area": "16 Franchise",
+   "type": "DECISION",
+   "title": "خيار «Franchise Inquiries / استفسارات الفرنشايز» في صفحة التواصل من يوم الإطلاق",
+   "requirement": "صفحة التواصل تعرض من يوم الإطلاق خيارًا واضحًا «Franchise Inquiries / استفسارات الفرنشايز» مرتبطًا بالرقم 0799338445.",
+   "details": [
+    "0799338445 = الشكاوى والاقتراحات والفرنشايز — ليس رقمًا عامًا ولا يظهر في Branch Cards (D-057)",
+    "Contact architecture حسب نية المستخدم (D-059 — مجموعة CONTACT)"
+   ],
+   "sources": [
+    "M14-034"
+   ],
+   "decision_refs": [
+    "D-071",
+    "D-057",
+    "D-059"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "تصميم صفحة التواصل (Intent-based) بما فيها هذا الخيار",
+   "dependencies": [
+    "CONTACT (G4)"
+   ],
+   "test_required": "Contact page: الخيار ظاهر AR/EN ويربط tel:/WhatsApp الصحيح بالصيغة الدولية (+962 79 933 8445) — بلا وعود أو شروط",
+   "design_refs": [
+    "docs/governance/DECISION-LOG.md D-071, D-057, D-059"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P03",
+   "history": [
+    {
+     "old": "Franchise كقدرة مستقبلية فقط",
+     "source": "M03-051",
+     "superseded_by": "M14-034"
+    }
+   ],
+   "notes": ""
+  },
+  {
+   "id": "FRAN-003",
+   "area": "16 Franchise",
+   "type": "RULE",
+   "title": "ممنوع نشر رسوم أو شروط أو ادعاءات Franchise من عندنا",
+   "requirement": "ممنوع نشر أي: Fees · Requirements · Territories · Financial claims · Application criteria، أو ادعاء أن التقديم مفتوح، إلا بعد اعتماد الـOwner للمحتوى النهائي.",
+   "details": [],
+   "sources": [
+    "M03-052",
+    "M14-036"
+   ],
+   "decision_refs": [
+    "D-015",
+    "D-071"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "Content QA: لا رسوم/شروط/مناطق/ادعاءات مالية/معايير تقديم في أي صفحة أو Meta أو Schema بدون سجل اعتماد",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P07",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "MOTION-001",
+   "area": "28 Motion",
+   "type": "REQUIREMENT",
+   "title": "الموقع يجب أن يشعر بأنه حيّ (Alive) — Premium وليس Static",
+   "requirement": "الموقع يجب ألا يشعر بأنه Static — THE WEBSITE MUST FEEL ALIVE: Premium · Fluid · Interactive · Modern · Smooth · Dynamic؛ SHELTER should feel alive and premium؛ Motion: purposeful and premium.",
+   "details": [
+    "M01 تصفه CRITICAL REQUIREMENT، لكن Motion هي الأولوية رقم 10 عند التعارض (D-004) و«Performance always wins» (MOTION-003)"
+   ],
+   "sources": [
+    "M01-164",
+    "M24-054",
+    "M27-102"
+   ],
+   "decision_refs": [
+    "D-004"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [
+    "MOTION-004"
+   ],
+   "test_required": "مراجعة الـOwner للـPrototype التفاعلي؛ Motion QA (Motion Testing ضمن تسلسل M01 §4)",
+   "design_refs": [
+    "design-system/tokens/tokens.template.json motion"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P06",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "MOTION-002",
+   "area": "28 Motion",
+   "type": "RULE",
+   "title": "الحركة تخدم الـUX — لا حركة لمجرد أن المكتبة تدعمها",
+   "requirement": "MOTION MUST SERVE UX: الحركة تخدم orientation · feedback · hierarchy · brand experience؛ لا تُستخدم كل التقنيات بل فقط ما يخدم التجربة؛ ممنوع إنشاء حركة لمجرد أن المكتبة تدعمها.",
+   "details": [],
+   "sources": [
+    "M01-165",
+    "M01-170",
+    "M24-055"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "Motion inventory: كل حركة موثقة بغرضها (orientation/feedback/hierarchy/brand)؛ مراجعة تصميم",
+   "design_refs": [
+    "docs/menu-ia/SHELTER-MENU-IA-SPEC.md §17"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P06",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "MOTION-003",
+   "area": "28 Motion",
+   "type": "RULE",
+   "title": "Performance always wins over decorative motion — لا مساس بـLCP / INP / CLS",
+   "requirement": "الأداء يتغلب دائمًا على الحركة الزخرفية؛ الحركة purposeful ولا يُسمح أبدًا بأن تضر LCP أو INP أو CLS.",
+   "details": [
+    "M01 §67 (مجموعة PERF): فضّل transform/opacity وتجنب Layout Thrashing/Forced Reflow/Jank/CLS/Heavy Main-thread Work",
+    "بوابات Lighthouse (FRONTEND-TOOLING §5): LCP ≤ 2.5s · CLS ≤ 0.1 · TBT ≤ 200ms"
+   ],
+   "sources": [
+    "M27-103",
+    "M24-009"
+   ],
+   "decision_refs": [
+    "D-004"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [
+    "PERF (G8)"
+   ],
+   "test_required": "Lighthouse + Web Vitals قبل/بعد إضافة أي حركة؛ INP في field data؛ performance trace بلا long tasks من الحركة",
+   "design_refs": [
+    "docs/FRONTEND-TOOLING.md §5",
+    "docs/menu-ia/PERFORMANCE-BUDGET.md"
+   ],
+   "code_refs": [
+    "tooling/scripts/lighthouse.mjs"
+   ],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P06",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "MOTION-004",
+   "area": "28 Motion",
+   "type": "DELIVERABLE",
+   "title": "Motion Design System",
+   "requirement": "إنشاء Motion System يحدد: Motion Principles · Duration Tokens · Easing Tokens · Entrance Behavior · Exit Behavior · Hover Behavior · Scroll Behavior · Page Transition Behavior · Image Motion · Typography Motion · Mobile Motion · Reduced Motion.",
+   "details": [
+    "تسلسل M01 §4: Design System → Motion Design System → UI Design → Interactive Prototype"
+   ],
+   "sources": [
+    "M01-166",
+    "M01-167",
+    "M01-168"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "PARTIAL",
+   "tested": "N/A",
+   "existing_impl": "tokens.template.json: motion.duration / motion.easing = MISSING؛ Menu IA SPEC §17 (حركة المنيو 150–300ms مقترحة)",
+   "missing_work": "وثيقة Motion System كاملة + Tokens + اعتماد",
+   "dependencies": [
+    "BRAND-008",
+    "BRAND-002"
+   ],
+   "test_required": "Tokens للمدة والـeasing مستخدمة فقط؛ Storybook يعرض كل سلوك؛ Reduced motion variant لكل سلوك",
+   "design_refs": [
+    "design-system/tokens/tokens.template.json",
+    "docs/menu-ia/SHELTER-MENU-IA-SPEC.md §17"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P06",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "MOTION-005",
+   "area": "28 Motion",
+   "type": "DELIVERABLE",
+   "title": "دراسة تقنيات الحركة الممكنة (ليست كلها معتمدة)",
+   "requirement": "دراسة استخدام: Scroll Reveals · Text Reveals · Mask Reveals · Image Reveals · Image Scale · Parallax · Product Reveals · Category Transitions · Sticky Storytelling · Section Transitions · Page Transitions · Navigation Animation · Hover Micro-interactions · Button Feedback · SVG Animation · Lottie · Logo Motion · Loading States — واختيار ما يخدم التجربة فقط.",
+   "details": [
+    "التقنيات نفسها غير معتمدة؛ المعتمد هو أمر الدراسة والاختيار",
+    "Parallax المفرط ممنوع (MOTION-006)"
+   ],
+   "sources": [
+    "M01-169"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P2",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "مصفوفة: التقنية · الغرض · الصفحة · تكلفة الأداء · القرار — تُعرض على الـOwner",
+   "dependencies": [
+    "MOTION-004"
+   ],
+   "test_required": "لكل تقنية مختارة: مبرر UX + قياس أداء + reduced-motion fallback",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P06",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "MOTION-006",
+   "area": "28 Motion",
+   "type": "RULE",
+   "title": "ممنوعات الحركة (Do not over-animate)",
+   "requirement": "ممنوع: Forced Intro · Scroll Hijacking · Excessive Parallax · Random Bouncing · Constant Floating Elements / objects · Random Rotation · Heavy Cursor Effects · Animation Delaying Content · Motion that makes navigation slower · animations on every product · long entrance animations · heavy WebGL بدون سبب تصميمي حقيقي.",
+   "details": [
+    "Autoplay Audio ممنوع أيضًا (MEDIA-016)"
+   ],
+   "sources": [
+    "M01-171",
+    "M01-172",
+    "M24-056"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "Motion review checklist؛ Playwright: المحتوى ظاهر دون انتظار حركة؛ لا تعطيل للتمرير الأصلي؛ لا intro إجباري",
+   "design_refs": [
+    "docs/menu-ia/SHELTER-MENU-IA-SPEC.md §17"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P06",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "MOTION-007",
+   "area": "28 Motion",
+   "type": "DECISION",
+   "title": "تقنية الحركة: Motion كخيار أساسي (يحل محل دراسة GSAP / Motion.page)",
+   "requirement": "مكتبة الحركة المختارة في قائمة الـOwner النهائية هي Motion (motiondivision/motion) إذا كان الـstack متوافقًا، ولا تُضاف مكتبة حركة ثانية مكررة؛ دراسة GSAP (ScrollTrigger · Flip · Observer · SplitText إذا كان الترخيص مناسبًا) و Motion.page (إذا كانت WordPress Architecture مناسبة) ومقارنة Motion.page vs Custom GSAP لم تعد الافتراض — تُطرح فقط إذا ظهرت حاجة حقيقية لا تغطيها Motion، مع عرضها على الـOwner حسب سياسة الاعتماديات.",
+   "details": [
+    "المصدر الأحدث: M24 «المجموعة التي أريدها فعليًا: shadcn/Radix + Tailwind + Motion + Storybook + Lucide + …» (مجموعة TOOL G8: M24-072)",
+    "`motion/react` يحتاج React — قرار المنصة DB-08 مفتوح؛ نسخة JS العامة متاحة",
+    "ممنوع في حزمة المنيو (CSS transitions فقط) — FRONTEND-TOOLING"
+   ],
+   "sources": [
+    "M01-174",
+    "M01-175",
+    "M01-176"
+   ],
+   "decision_refs": [
+    "DB-08"
+   ],
+   "status": "APPROVED WITH CONDITIONS",
+   "owner_approved": "YES",
+   "priority": "P2",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "docs/FRONTEND-TOOLING.md §1–§2 (Motion: RECOMMENDED شرطي، مؤجل لـDB-08؛ ممنوع مكتبة حركة ثانية)",
+   "missing_work": "التأكيد بعد DB-08؛ تقسيم Motion (lazy) خارج المسار الحرج",
+   "dependencies": [
+    "DB-08",
+    "TOOL (G8)"
+   ],
+   "test_required": "Bundle analysis: مكتبة حركة واحدة فقط؛ Motion محمّلة lazy؛ لا تؤثر على LCP",
+   "design_refs": [
+    "docs/FRONTEND-TOOLING.md §1, §2"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "M01 §56 (ادرس GSAP / Motion.page وقارن قبل القرار) مقابل M24 (Motion ضمن المجموعة النهائية) — RESOLVED لصالح M24 (انظر conflicts)",
+   "business_data": false,
+   "phase": "P05",
+   "history": [
+    {
+     "old": "ادرس GSAP (ScrollTrigger، Flip، Observer، SplitText إذا كان الترخيص مناسبًا)؛ ويمكن دراسة Motion.page إذا كانت WordPress Architecture مناسبة؛ قارن Motion.page vs Custom GSAP قبل القرار",
+     "source": "M01-174, M01-175, M01-176 (M01 §56)",
+     "superseded_by": "M24 (Motion في الـToolchain النهائية للـOwner — G8 M24-072)"
+    }
+   ],
+   "notes": ""
+  },
+  {
+   "id": "MOTION-008",
+   "area": "28 Motion",
+   "type": "RULE",
+   "title": "Lenis: اختياري ومشروط — ليس عامًا، وليس على المنيو افتراضيًا",
+   "requirement": "Lenis لا يُفعَّل globally كإعداد افتراضي؛ يُقيَّم أساسًا لـHomepage وAbout/Story وimmersive brand sections، ويُستخدم فقط إذا أثبت الاختبار أنه: لا يؤثر على Accessibility · لا يكسر Native Scroll · لا يسبب مشاكل Mobile · لا يكسر Anchor Links · لا يسبب Performance Issues (ولا يضر browser history). لا يُشغَّل على صفحة المنيو (191 منتجًا) إلا إذا أثبت الاختبار أنه يحسّن الـUX. إذا كان Native Scroll أفضل: يُستخدم Native Scroll.",
+   "details": [
+    "قاعدة المنيو مسجلة أيضًا في مجموعة MENU (G3: M24-013)",
+    "FRONTEND-TOOLING يكتب «ممنوع على صفحة المنيو» — أشد من نص الـOwner (مسموح فقط إذا أثبت الاختبار)"
+   ],
+   "sources": [
+    "M01-177",
+    "M01-178",
+    "M24-012"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED WITH CONDITIONS",
+   "owner_approved": "YES",
+   "priority": "P2",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "docs/FRONTEND-TOOLING.md §1–§2 (Lenis: OPTIONAL، غير مثبت)",
+   "missing_work": "اختبار مقارن native vs Lenis على Home/About عند وجودهما؛ تصحيح صياغة FRONTEND-TOOLING لتطابق الشرط",
+   "dependencies": [],
+   "test_required": "A/B: a11y (keyboard، screen reader)، anchors + scroll-padding، history/back، mobile Safari/Chrome، INP — قبل أي تفعيل",
+   "design_refs": [
+    "docs/FRONTEND-TOOLING.md §1, §2"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P06",
+   "history": [
+    {
+     "old": "يمكن استخدام Lenis (أي صفحة) بخمسة شروط؛ وإلا Native Scroll",
+     "source": "M01-177, M01-178",
+     "superseded_by": "M24-012 (ليس globally؛ Home/About/immersive فقط بعد الاختبار؛ ليس على المنيو افتراضيًا)"
+    }
+   ],
+   "notes": ""
+  },
+  {
+   "id": "MOTION-009",
+   "area": "28 Motion",
+   "type": "RULE",
+   "title": "مكتبات مشروطة: Lottie · Swiper · Three.js",
+   "requirement": "Lottie فقط للرسوم الخفيفة والمخصصة وممنوع كزينة عشوائية؛ Swiper لـProduct Galleries و Menu Sliders و Mobile Carousels عند الحاجة فقط؛ Three.js فقط إذا وُجد Use Case حقيقي — ممنوع 3D لمجرد الاستعراض.",
+   "details": [
+    "أي ملف Lottie = Asset يحتاج موافقة الـOwner (APPROVED-ASSET-LIBRARY)",
+    "صفحة المنيو V1 = شبكة بطاقات بلا Sliders (F-09/F-12) — Swiper غير مطلوب للمنيو",
+    "Swiper وLottie وThree.js ليست في الـToolchain النهائية (M24) — أي إضافة تمر بسياسة الاعتماديات (Package · Purpose · Bundle impact · Where used · Alternative · Decision)"
+   ],
+   "sources": [
+    "M01-179",
+    "M01-180",
+    "M01-181"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED WITH CONDITIONS",
+   "owner_approved": "YES",
+   "priority": "P3",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "لكل استخدام: Use case موثق + موافقة + قياس أداء + reduced-motion؛ لا WebGL بلا سبب تصميمي",
+   "design_refs": [
+    "docs/governance/APPROVED-ASSET-LIBRARY.md",
+    "docs/FRONTEND-TOOLING.md §7"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P06",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "MOTION-010",
+   "area": "28 Motion",
+   "type": "RULE",
+   "title": "Progressive Enhancement: المحتوى لا يعتمد على الحركة",
+   "requirement": "إذا تعطلت الـAnimation يبقى الموقع usable؛ ممنوع أن يكون GSAP أو أي animation framework شرطًا لعرض المنيو (أو أي محتوى).",
+   "details": [],
+   "sources": [
+    "M01-192",
+    "M23-177"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "SPEC §16 (لا مكتبة حركة شرطًا للعرض)، §20 (فشل JS)",
+   "missing_work": "التنفيذ: المحتوى من HTML الخادم؛ الحركة طبقة تحسين فقط",
+   "dependencies": [],
+   "test_required": "Playwright مع JS معطل أو حظر مكتبة الحركة: المحتوى والأسعار والروابط تعمل؛ لا opacity:0 دائمة بانتظار JS",
+   "design_refs": [
+    "docs/menu-ia/SHELTER-MENU-IA-SPEC.md §16, §20"
+   ],
+   "code_refs": [],
+   "test_refs": [
+    "tooling/tests/app/menu.spec.mjs"
+   ],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "MOTION-011",
+   "area": "28 Motion",
+   "type": "REQUIREMENT",
+   "title": "دعم prefers-reduced-motion",
+   "requirement": "دعم `prefers-reduced-motion` وتخفيف الحركة تلقائيًا (انتقالات فورية، والقفز بلا تمرير ناعم).",
+   "details": [],
+   "sources": [
+    "M23-178"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "SPEC §17 + ACCESSIBILITY-CHECKLIST (بنود reduced motion — spec فقط)",
+   "missing_work": "التنفيذ + الاختبار",
+   "dependencies": [],
+   "test_required": "Playwright `reducedMotion: 'reduce'`: لا smooth scroll، لا حركة للنوافذ، لا إبراز متحرك؛ Storybook reduced-motion story",
+   "design_refs": [
+    "docs/menu-ia/SHELTER-MENU-IA-SPEC.md §17",
+    "docs/menu-ia/ACCESSIBILITY-CHECKLIST.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "MOTION-012",
+   "area": "28 Motion",
+   "type": "REQUIREMENT",
+   "title": "حركة المنيو: High Motion للموقع لكن المنيو سريعة",
+   "requirement": "الموقع High Motion لكن صفحة الـMenu يجب أن تبقى سريعة؛ Micro-interactions فقط عندما تحسّن التجربة: category active transition · product sheet transition · search result transition · subtle card interaction · branch selector state change؛ ممنوع animation ثقيل لكل Card أثناء الـscroll.",
+   "details": [
+    "SPEC §17 (مقترح): 150–300ms والإغلاق أسرع؛ ممنوع: حركة لكل بطاقة أثناء التمرير · Parallax · أي حركة تؤخر الإدخال",
+    "CSS transitions فقط في حزمة المنيو (FRONTEND-TOOLING)"
+   ],
+   "sources": [
+    "M23-174",
+    "M23-175",
+    "M23-176"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "spec: SHELTER-MENU-IA-SPEC §17",
+   "missing_work": "اعتماد الـSpec ثم التنفيذ",
+   "dependencies": [
+    "MOTION-004"
+   ],
+   "test_required": "Performance trace أثناء التمرير السريع (لا long tasks، لا CLS)؛ INP للتفاعلات؛ reduced motion",
+   "design_refs": [
+    "docs/menu-ia/SHELTER-MENU-IA-SPEC.md §17",
+    "docs/menu-ia/PERFORMANCE-BUDGET.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "MOTION-013",
+   "area": "28 Motion",
+   "type": "REQUIREMENT",
+   "title": "نطاق حركة الواجهة المسموح",
+   "requirement": "استخدامات الحركة للواجهة: page transitions · menu transitions · bottom sheets · modals · hover/focus states · small reveals · navigation transitions (High-quality UI animation and micro-interactions).",
+   "details": [],
+   "sources": [
+    "M24-008"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P2",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [
+    "MOTION-004",
+    "MOTION-007"
+   ],
+   "test_required": "كل انتقال يحترم الـTokens وreduced-motion ولا يؤخر التفاعل (INP)",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P06",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "MEDIA-001",
+   "area": "29 Media & Images",
+   "type": "GATE",
+   "title": "قاعدة صارمة: لا صورة أو Asset بدون موافقة الـOwner (كل صورة بموافقة منفصلة)",
+   "requirement": "ممنوع استخدام أي صورة على الموقع بدون عرضها على الـOwner أولًا؛ أي Image تُستخدم في الموقع يجب أن تكون OWNER APPROVED، وكل صورة تحتاج موافقة منفصلة. النطاق: Hero Images · Product Images · Branch Images · Blog Images · Background Images · Stock Images · AI-generated Images · Graphics · Illustrations · Videos · Decorative Assets (ويشمل Lottie والأيقونات المخصصة حسب سجل الأصول).",
+   "details": [
+    "M27 §23 طلب استخراج كل قواعد الصور — هذه المجموعة (MEDIA-001 → MEDIA-016) هي الاستخراج الموحد",
+    "0 صور معتمدة حاليًا (media/manifest.json = [])"
+   ],
+   "sources": [
+    "M01-055",
+    "M01-056",
+    "M13-020",
+    "M23-049",
+    "M27-114",
+    "M27-113"
+   ],
+   "decision_refs": [
+    "D-003",
+    "D-056",
+    "D-083",
+    "F-11",
+    "AAL-RULE-01"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "PARTIAL",
+   "tested": "YES",
+   "existing_impl": "docs/governance/APPROVED-ASSET-LIBRARY.md (قاعدة + سجل فارغ)؛ media/README.md؛ tooling/scripts/images.mjs يعالج فقط approval_status = APPROVED",
+   "missing_work": "فرض القاعدة في الـCMS / Media Library (لا نشر لصورة غير APPROVED)؛ عرض الأصول على الـOwner عند توفرها",
+   "dependencies": [],
+   "test_required": "Pipeline selftest (غير المعتمد يُتخطى)؛ CMS test: لا يمكن ربط صورة غير APPROVED بصفحة منشورة؛ تدقيق قبل الإطلاق: كل صورة في الـbuild لها سجل اعتماد",
+   "design_refs": [
+    "docs/governance/APPROVED-ASSET-LIBRARY.md",
+    "media/README.md"
+   ],
+   "code_refs": [
+    "tooling/scripts/images.mjs"
+   ],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P07",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "MEDIA-002",
+   "area": "29 Media & Images",
+   "type": "REQUIREMENT",
+   "title": "حزمة عرض الصورة المقترحة",
+   "requirement": "عند عرض أي صورة مقترحة يجب توضيح: Source · License / Rights · Suggested Placement · Why you selected it.",
+   "details": [],
+   "sources": [
+    "M01-057"
+   ],
+   "decision_refs": [
+    "AAL-RULE-01"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "PARTIAL",
+   "tested": "N/A",
+   "existing_impl": "حقول السجل في APPROVED-ASSET-LIBRARY (Source · Rights / License · Suggested Placement)؛ media/README («why selected»)",
+   "missing_work": "إضافة حقل «Why selected» صراحة لجدول السجل؛ استخدام الحزمة عند كل اقتراح",
+   "dependencies": [],
+   "test_required": "كل سجل Asset مقترح يحتوي الحقول الأربعة قبل عرضه",
+   "design_refs": [
+    "docs/governance/APPROVED-ASSET-LIBRARY.md",
+    "media/README.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P07",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "MEDIA-003",
+   "area": "29 Media & Images",
+   "type": "RULE",
+   "title": "كل صورة مقترحة أو مطلوبة تبدأ PENDING OWNER APPROVAL",
+   "requirement": "كل صورة مقترحة أو نحتاجها تبدأ بحالة PENDING OWNER APPROVAL ولا تُستخدم حتى يوافق الـOwner (يشمل كل صورة منتج).",
+   "details": [],
+   "sources": [
+    "M01-058",
+    "M15-042",
+    "M27-116"
+   ],
+   "decision_refs": [
+    "D-083",
+    "AAL-RULE-01"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "PARTIAL",
+   "tested": "YES",
+   "existing_impl": "media/README: manifest entry الافتراضي `approval_status: PENDING OWNER APPROVAL`؛ الـpipeline يتخطى غير المعتمد (selftest 7/7)",
+   "missing_work": "نفس الحالة الافتراضية في الـCMS Media Library",
+   "dependencies": [],
+   "test_required": "Asset جديد = PENDING افتراضيًا (CMS test)؛ selftest الـpipeline",
+   "design_refs": [
+    "media/README.md"
+   ],
+   "code_refs": [
+    "tooling/scripts/images.mjs"
+   ],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P07",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "MEDIA-004",
+   "area": "29 Media & Images",
+   "type": "RULE",
+   "title": "صور Google ليست Approved Assets",
+   "requirement": "وجود صورة على Google Business Profile أو Google Maps أو Reviews أو Search Results لا يعني السماح باستخدامها على الموقع؛ Google Photo ≠ Approved Website Asset؛ صور Google لا تتحول تلقائيًا إلى Approved Assets، وكل صورة تخضع لـOWNER IMAGE APPROVAL وتُعرض على الـOwner قبل أي استخدام.",
+   "details": [],
+   "sources": [
+    "M13-019",
+    "M11-017",
+    "M11-018",
+    "M11-019"
+   ],
+   "decision_refs": [
+    "D-056",
+    "D-046",
+    "GEP-§6/§43"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "IMPLEMENTED — NOT TESTED",
+   "tested": "N/A",
+   "existing_impl": "قاعدة مسجلة (D-056، GOOGLE-ECOSYSTEM-POLICY §6/§43)؛ لم تُستخدم أي صورة Google",
+   "missing_work": "فرضها في الـMedia Library (حقل Source = Google يتطلب موافقة)",
+   "dependencies": [],
+   "test_required": "تدقيق الأصول: أي Source = Google بلا سجل موافقة = فشل",
+   "design_refs": [
+    "docs/google/GOOGLE-ECOSYSTEM-POLICY.md §6, §43",
+    "docs/governance/DECISION-LOG.md D-056"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P07",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "MEDIA-005",
+   "area": "29 Media & Images",
+   "type": "RULE",
+   "title": "لا Stock ولا AI ولا Google ولا صور الموقع القديم تلقائيًا",
+   "requirement": "ممنوع استخدام Stock Image أو Google Image أو AI-generated Image أو Old website image تلقائيًا لمجرد توفرها؛ وحتى استلام صور الـOwner: لا بحث عن بدائل من Google · لا Stock Images · لا AI images · لا صور الموقع القديم.",
+   "details": [],
+   "sources": [
+    "M15-040",
+    "M15-041",
+    "M23-048",
+    "M27-115"
+   ],
+   "decision_refs": [
+    "D-083",
+    "F-11",
+    "F-23"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "IMPLEMENTED — NOT TESTED",
+   "tested": "N/A",
+   "existing_impl": "الـwireframes تستخدم مربعات رمادية بدل الصور؛ لا صور مستخدمة في الريبو",
+   "missing_work": "فرضها في الـCMS والـbuild",
+   "dependencies": [],
+   "test_required": "تدقيق الأصول قبل الإطلاق: Source لكل صورة ≠ Stock/AI/Google/Old-site بدون موافقة صريحة",
+   "design_refs": [
+    "docs/menu-ia/MENU-DECISION-REGISTER.md F-11",
+    "docs/menu-ia/wireframes/README.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P07",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "MEDIA-006",
+   "area": "29 Media & Images",
+   "type": "DELIVERABLE",
+   "title": "نظام Approved Asset Library",
+   "requirement": "إنشاء نظام Approved Assets: كل Asset يحتوي Name · Type · Category · Source · Rights · Alt Text · Focal Point · Usage · Approval Status؛ وحالاته: Pending · Approved · Rejected · Archived.",
+   "details": [
+    "السجل الحالي يضيف: Asset ID `AST-###` · Alt Text AR/EN · Suggested Placement · Owner Decision Date",
+    "media/manifest.json يستخدم `MED-#####` و`approval_status` — توحيد المعرّفين مطلوب عند بناء الـMedia Library"
+   ],
+   "sources": [
+    "M01-059",
+    "M01-060"
+   ],
+   "decision_refs": [
+    "AAL-RULE-01"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "PARTIAL",
+   "tested": "N/A",
+   "existing_impl": "docs/governance/APPROVED-ASSET-LIBRARY.md (سجل Markdown فارغ) + media/manifest.json = []",
+   "missing_work": "نقل السجل إلى الـMedia Library في الـCMS (MEDIA-012) مع نفس الحقول والحالات؛ توحيد AST-### و MED-#####",
+   "dependencies": [
+    "MEDIA-012"
+   ],
+   "test_required": "كل Asset له الحقول التسعة والحالة؛ الانتقالات Pending→Approved/Rejected→Archived مسجلة في الـAudit log",
+   "design_refs": [
+    "docs/governance/APPROVED-ASSET-LIBRARY.md",
+    "media/README.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P07",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "MEDIA-007",
+   "area": "29 Media & Images",
+   "type": "REQUIREMENT",
+   "title": "صور المنتجات من الـOwner وربطها بالـProduct ID",
+   "requirement": "الـOwner سيعطي صور المنتجات لاحقًا؛ بعد استلامها تُربط كل صورة بالـProduct ID الصحيح.",
+   "details": [
+    "M-02: 0 / 191 صورة معتمدة — الإطلاق ببطاقات نصية ممكن (صُممت واختُبرت)",
+    "توصية Menu IA: تصوير كل فئة كاملة دفعة واحدة",
+    "MI-024 صور الفروع وMI-025 الفيديو = MISSING"
+   ],
+   "sources": [
+    "M15-039",
+    "M15-043"
+   ],
+   "decision_refs": [
+    "D-083",
+    "M-02",
+    "MI-023"
+   ],
+   "status": "PENDING OWNER INPUT",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "PARTIAL",
+   "tested": "YES",
+   "existing_impl": "manifest schema يربط `product_id` (مثل PRD-00058)؛ pipeline قص 1:1 حول الـfocal point",
+   "missing_work": "استلام الصور من الـOwner ← Pending ← عرض ← Approved ← ربط بالـProduct ID",
+   "dependencies": [],
+   "test_required": "كل صورة منتج مرتبطة بـPRD-ID موجود في Inventory v1.0؛ لا ID متقاعد (PRD-00120)",
+   "design_refs": [
+    "docs/menu-ia/MENU-DECISION-REGISTER.md M-02",
+    "media/README.md",
+    "docs/menu-ia/SHELTER-MENU-IA-SPEC.md §6"
+   ],
+   "code_refs": [
+    "tooling/scripts/images.mjs"
+   ],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": true,
+   "phase": "P07",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "MEDIA-008",
+   "area": "29 Media & Images",
+   "type": "REQUIREMENT",
+   "title": "Media Architecture / Media Model",
+   "requirement": "Media Architecture تدعم: Main image · Additional images (if needed) · Alt text · Focal point · WebP / AVIF · Responsive variants / sizes · Image approval status · Version history.",
+   "details": [],
+   "sources": [
+    "M15-044",
+    "M23-051"
+   ],
+   "decision_refs": [
+    "D-083"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "PARTIAL",
+   "tested": "N/A",
+   "existing_impl": "media/manifest.json schema (role main، focal_point، alt_ar/alt_en، approval_status) + pipeline variants",
+   "missing_work": "Version history وAdditional images في نموذج الـCMS؛ data model للـMedia في CMS architecture",
+   "dependencies": [
+    "CMS architecture (P04)",
+    "AUDIT (version history — G7)"
+   ],
+   "test_required": "Schema validation للـmedia model؛ استبدال صورة يحفظ النسخة السابقة",
+   "design_refs": [
+    "media/README.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P04",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "MEDIA-009",
+   "area": "29 Media & Images",
+   "type": "DECISION",
+   "title": "صورة بطاقة المنتج: كبيرة بنسبة 1:1",
+   "requirement": "الصورة داخل بطاقة المنتج: Large product image بنسبة أساسية نهائية 1:1؛ يمكن crop مختلف في Product Detail إذا احتاج (قرار الاختبار R-04: صورة 1:1 واحدة في البطاقة والتفاصيل بأحجام متعددة من نفس الأصل).",
+   "details": [
+    "CF-05: الصورة المصغرة 96–128px في `22` §4 استُبدلت بصورة كبيرة؛ الحجم المطلوب 360–480px",
+    "تحت 360px: عمود واحد أفقي بصورة 96px (R-02)"
+   ],
+   "sources": [
+    "M23-046",
+    "M23-047"
+   ],
+   "decision_refs": [
+    "F-11",
+    "R-04",
+    "CF-05"
+   ],
+   "status": "FROZEN",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "PROTOTYPE",
+   "existing_impl": "SPEC §6؛ pipeline قص 1:1 بالأحجام 240/360/480/720/1080",
+   "missing_work": "البناء + صور معتمدة",
+   "dependencies": [],
+   "test_required": "Visual/Playwright: البطاقة 1:1 بلا تشوه AR/EN؛ srcset صحيح لكل عرض",
+   "design_refs": [
+    "docs/menu-ia/SHELTER-MENU-IA-SPEC.md §6",
+    "docs/menu-ia/MENU-DECISION-REGISTER.md F-11, R-04, CF-05"
+   ],
+   "code_refs": [
+    "tooling/scripts/images.mjs"
+   ],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [
+    {
+     "old": "صورة مصغرة 96–128px في صفوف نصية مضغوطة (22 §4)",
+     "source": "docs/phase-01-discovery/22-menu-information-architecture.md §4",
+     "superseded_by": "M23-046 (Large 1:1 — CF-05)"
+    }
+   ],
+   "notes": ""
+  },
+  {
+   "id": "MEDIA-010",
+   "area": "29 Media & Images",
+   "type": "REQUIREMENT",
+   "title": "أداء الصور و Responsive images",
+   "requirement": "أداء الصور: Responsive Images · Correct Dimensions · srcset · sizes · Lazy Loading · WebP · AVIF · Compression · correct aspect ratios؛ ممنوع إرسال صورة Desktop ضخمة للهاتف؛ مع الحفاظ على جودة صور المنتجات.",
+   "details": [
+    "ميزانية الصور معدّلة لـCF-05 في PERFORMANCE-BUDGET",
+    "صور above-the-fold بدون lazy؛ الباقي lazy (SPEC: النص والأسعار أولًا والصور لاحقًا)"
+   ],
+   "sources": [
+    "M01-187",
+    "M01-188",
+    "M26-024"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "PARTIAL",
+   "tested": "YES",
+   "existing_impl": "tooling/scripts/images.mjs (AVIF q55 + WebP q72، 240–1080، srcset في derived-manifest)؛ PERFORMANCE-BUDGET.md",
+   "missing_work": "تطبيق `<picture>/srcset/sizes` في الموقع؛ قياس على الصور الحقيقية",
+   "dependencies": [],
+   "test_required": "Lighthouse (properly sized images، modern formats، offscreen images)؛ فحص أن 390px يحمّل variant ≤ 480w؛ مقارنة بصرية لجودة صور المنتجات",
+   "design_refs": [
+    "docs/menu-ia/PERFORMANCE-BUDGET.md",
+    "media/README.md"
+   ],
+   "code_refs": [
+    "tooling/scripts/images.mjs",
+    "tooling/scripts/lighthouse.mjs"
+   ],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "MEDIA-011",
+   "area": "29 Media & Images",
+   "type": "REQUIREMENT",
+   "title": "Sharp image pipeline: بلا تكبير، الأصول الأصلية محفوظة، الاعتماد قائم",
+   "requirement": "Automated image optimization pipeline بـSharp حيث تسمح الـarchitecture: resize · responsive variants · WebP · AVIF · quality optimization؛ ممنوع تكبير (upscale) صور المصدر الضعيفة؛ الاحتفاظ بالأصول الأصلية (originals) منفصلة عن النسخ المعالجة؛ صور المنتجات تبقى خاضعة لقواعد OWNER APPROVAL حتى بعد المعالجة.",
+   "details": [
+    "قص 1:1 حول الـfocal point؛ الأحجام 240 / 360 / 480 / 720 / 1080؛ sRGB؛ حذف الـmetadata",
+    "الأصول الأصلية hash-checked قبل وبعد؛ المصدر < 720px يُعلّم كصغير",
+    "selftest 7/7 PASS بصور اصطناعية فقط"
+   ],
+   "sources": [
+    "M24-041",
+    "M24-042",
+    "M24-043",
+    "M24-044"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "TESTED",
+   "tested": "YES",
+   "existing_impl": "tooling/scripts/images.mjs (Sharp 0.35.5) + media/README.md؛ originals/ وderived/ خارج git (قرار التخزين معلق)",
+   "missing_work": "قرار تخزين الأصول (originals) مع المنصة/CMS؛ تشغيل على صور حقيقية معتمدة؛ دمجه في الـCMS",
+   "dependencies": [
+    "DB-08",
+    "MEDIA-001"
+   ],
+   "test_required": "`npm run images:selftest`؛ اختبار على صور حقيقية: لا upscale، الأصل لم يتغير (hash)، غير المعتمد يُتخطى",
+   "design_refs": [
+    "media/README.md",
+    "docs/FRONTEND-TOOLING.md §2"
+   ],
+   "code_refs": [
+    "tooling/scripts/images.mjs"
+   ],
+   "test_refs": [
+    "tooling/scripts/images.mjs (selftest)"
+   ],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P08",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "MEDIA-012",
+   "area": "29 Media & Images",
+   "type": "REQUIREMENT",
+   "title": "Media Library في الـDashboard",
+   "requirement": "Media Library ممتازة تدعم: Images · Videos · Documents (إذا لزم)؛ ولكل ملف: Preview · File size · Dimensions · Usage · Alt AR · Alt EN · Focal Point · Approval Status.",
+   "details": [
+    "Media ضمن أولويات P0 للـDashboard V1 (M25 §68)",
+    "alt_ar/alt_en محتوى يحتاج موافقة الـOwner (فارغ → alt=\"\" في البطاقات الزخرفية)"
+   ],
+   "sources": [
+    "M25-099",
+    "M25-100"
+   ],
+   "decision_refs": [
+    "D-083",
+    "D-056",
+    "AAL-RULE-01"
+   ],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "تصميم الـMedia Library ضمن Dashboard IA + wireframes ثم البناء",
+   "dependencies": [
+    "CMS architecture (P04)",
+    "MEDIA-006",
+    "MEDIA-008"
+   ],
+   "test_required": "Upload/preview/metadata AR/EN؛ Approval Status يمنع الاستخدام قبل APPROVED؛ Responsive Dashboard",
+   "design_refs": [
+    "media/README.md"
+   ],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P04",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "MEDIA-013",
+   "area": "29 Media & Images",
+   "type": "REQUIREMENT",
+   "title": "تتبع استخدام كل صورة (Usage tracking)",
+   "requirement": "معرفة كل صورة مستخدمة في أي Pages (Usage tracking).",
+   "details": [],
+   "sources": [
+    "M25-101"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P0",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [
+    "MEDIA-012"
+   ],
+   "test_required": "ربط صورة بصفحتين يظهر الاستخدامين؛ إزالة الربط يحدّث الاستخدام؛ لا حذف لصورة مستخدمة (Archive)",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P04",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "MEDIA-014",
+   "area": "29 Media & Images",
+   "type": "REQUIREMENT",
+   "title": "لا ملفات مكررة في الـMedia Library",
+   "requirement": "لا ملفات مكررة في الـMedia Library (De-duplication).",
+   "details": [
+    "تفصيل تقني لـClaude: hash للمحتوى عند الرفع (الـpipeline يحسب hash للأصول أصلًا)"
+   ],
+   "sources": [
+    "M25-102"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [
+    "MEDIA-012"
+   ],
+   "test_required": "رفع نفس الملف مرتين يُكتشف ويُربط بالموجود بدل التكرار",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P04",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "MEDIA-015",
+   "area": "29 Media & Images",
+   "type": "REQUIREMENT",
+   "title": "Image Health في الـDashboard مع الإصلاح",
+   "requirement": "Image Health في الـDashboard يعرض: Oversized Images · Missing Alt · Unused Images · Duplicate Images · Slow Images · Missing responsive variants — مع القدرة على إصلاحها من الـDashboard نفسها.",
+   "details": [
+    "الإصلاح لا يعني استبدال الصورة بأخرى غير معتمدة؛ أي حذف = Archive"
+   ],
+   "sources": [
+    "M25-103",
+    "M25-104"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [
+    "MEDIA-012",
+    "MEDIA-013",
+    "MEDIA-014",
+    "MON (G7 site health)"
+   ],
+   "test_required": "كل فئة من الستّ تُكتشف ببيانات اختبار؛ الإصلاح (إعادة توليد variants، إضافة alt بحالة Pending) يعمل؛ لا حذف نهائي",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P04",
+   "history": [],
+   "notes": ""
+  },
+  {
+   "id": "MEDIA-016",
+   "area": "29 Media & Images",
+   "type": "RULE",
+   "title": "ممنوع Autoplay Audio",
+   "requirement": "ممنوع Autoplay Audio في الموقع.",
+   "details": [
+    "ضمن قائمة «DO NOT OVER-ANIMATE» (M01 §55)"
+   ],
+   "sources": [
+    "M01-173"
+   ],
+   "decision_refs": [],
+   "status": "APPROVED",
+   "owner_approved": "YES",
+   "priority": "P1",
+   "impl_status": "NOT STARTED",
+   "tested": "NO",
+   "existing_impl": "none",
+   "missing_work": "",
+   "dependencies": [],
+   "test_required": "فحص: كل `<video>` بلا صوت تلقائي (muted أو بلا autoplay)؛ لا `<audio autoplay>`",
+   "design_refs": [],
+   "code_refs": [],
+   "test_refs": [],
+   "conflict": "",
+   "business_data": false,
+   "phase": "P06",
+   "history": [],
+   "notes": ""
+  }
+ ],
+ "new_decisions": [
+  {
+   "temp_id": "G2-ND-01",
+   "area": "01 Brand & Design System",
+   "decision": "shadcn/Radix = engineering primitives فقط؛ ممنوع default shadcn visual identity؛ Typography + Radius + Spacing + Cards + Navigation + Motion + Images + Layout + Buttons من SHELTER Design System؛ الـDesign System بطبقات Tokens → Primitives → Components → Patterns → Page Sections → Pages؛ حد أدنى للـTokens (16 مجموعة)؛ ممنوع hardcode متكرر.",
+   "sources": [
+    "M24-046",
+    "M24-047",
+    "M24-048",
+    "M24-049",
+    "M24-050",
+    "M24-051"
+   ],
+   "status": "APPROVED",
+   "reason": "قاعدة الـOwner («أهم نقطة» + CRITICAL ARCHITECTURE RULE) مسجلة فقط في design-system/README.md وFRONTEND-TOOLING.md، وليست في DECISION-LOG",
+   "impact": "يحكم كل مرحلة P06/P08 واختيار المكتبات بعد DB-08"
+  },
+  {
+   "temp_id": "G2-ND-02",
+   "area": "01 Brand & Design System",
+   "decision": "مبادئ التصميم المثبتة: SHELTER brand · Premium · Minimal · Warm · Modern · Fast · Confident · Distinctive · Rounded corners · Minimal color usage · No template feel · No generic SaaS admin style · No purple/blue AI gradients · No excessive glassmorphism · No random floating cards.",
+   "sources": [
+    "M23-259",
+    "M27-093",
+    "M27-094",
+    "M27-095",
+    "M27-096",
+    "M27-097",
+    "M27-098",
+    "M27-099",
+    "M27-100",
+    "M27-101"
+   ],
+   "status": "APPROVED",
+   "reason": "D-005 يغطي الممنوعات العامة فقط؛ الصفات الإيجابية وRounded corners وMinimal color غير مسجلة في DECISION-LOG",
+   "impact": "مدخل مباشر للـTokens (radius، palette) والـVisual Design"
+  },
+  {
+   "temp_id": "G2-ND-03",
+   "area": "28 Motion",
+   "decision": "MOTION RULE: SHELTER حيّ وPremium؛ الحركة تخدم orientation · feedback · hierarchy · brand experience؛ لا حركة لأن المكتبة تدعمها؛ تجنب excessive parallax · constant floating objects · scroll hijacking · animations on every product · long entrance animations · heavy WebGL بلا سبب؛ لا مساس بـLCP/INP/CLS؛ Performance always wins over decorative motion.",
+   "sources": [
+    "M24-054",
+    "M24-055",
+    "M24-056",
+    "M24-009",
+    "M27-102",
+    "M27-103"
+   ],
+   "status": "APPROVED",
+   "reason": "غير مسجلة في DECISION-LOG (D-004 يرتب الأولويات فقط)",
+   "impact": "Motion System (MOTION-004) وبوابات الأداء"
+  },
+  {
+   "temp_id": "G2-ND-04",
+   "area": "28 Motion",
+   "decision": "Lenis: لا يُفعَّل globally؛ يُقيَّم لـHome وAbout/Story وimmersive sections فقط إذا أثبت الاختبار أنه لا يضر الأداء؛ لا يُشغَّل على صفحة المنيو (191 منتجًا) إلا إذا أثبت الاختبار أنه يحسن UX دون الإضرار بالـnative scrolling والـa11y والـhistory والأداء.",
+   "sources": [
+    "M24-012",
+    "M01-177",
+    "M01-178"
+   ],
+   "status": "APPROVED WITH CONDITIONS",
+   "reason": "مسجلة فقط في FRONTEND-TOOLING.md (وبصياغة أشد: «ممنوع على المنيو»)",
+   "impact": "صفحات Home/About؛ أداء المنيو"
+  },
+  {
+   "temp_id": "G2-ND-05",
+   "area": "28 Motion",
+   "decision": "مكتبة الحركة الافتراضية = Motion (ضمن Toolchain الـOwner النهائية إذا توافق الـstack)؛ دراسة GSAP/Motion.page في M01 لم تعد الافتراض.",
+   "sources": [
+    "M01-174",
+    "M01-175",
+    "M01-176",
+    "M24-072 (G8)"
+   ],
+   "status": "APPROVED WITH CONDITIONS",
+   "reason": "اختيار الـOwner في M24 غير مسجل في DECISION-LOG؛ الشرط: DB-08",
+   "impact": "MOTION-007؛ منع مكتبتي حركة"
+  },
+  {
+   "temp_id": "G2-ND-06",
+   "area": "43 UX Principles",
+   "decision": "UX PRINCIPLE: في كل قرار Simplicity wins؛ قلّل friction · clicks · cognitive load · confusion؛ أعط الأولوية لـclarity · speed · mobile usability · discoverability · accessibility · consistency.",
+   "sources": [
+    "M27-104",
+    "M27-105",
+    "M27-106"
+   ],
+   "status": "APPROVED",
+   "reason": "غير مسجل كقرار (ورد في M23 §72 وM27 §20)",
+   "impact": "كل قرارات الـIA/UX"
+  },
+  {
+   "temp_id": "G2-ND-07",
+   "area": "01 Brand & Design System",
+   "decision": "Storybook = ورشة مكونات SHELTER: stories لـ20 مكونًا على الأقل (Button … ErrorState) × الحالات default · hover · focus · active · disabled · loading · error · RTL · LTR · mobile · desktop.",
+   "sources": [
+    "M24-015",
+    "M24-016"
+   ],
+   "status": "APPROVED WITH CONDITIONS",
+   "reason": "خطة FRONTEND-TOOLING §6 لا تطابق القائمة؛ غير مسجل في DECISION-LOG",
+   "impact": "BRAND-015؛ QA المكونات"
+  },
+  {
+   "temp_id": "G2-ND-08",
+   "area": "01 Brand & Design System",
+   "decision": "الأيقونات فقط عندما تحسّن الفهم؛ لا overdecoration؛ نظام أيقونات واحد.",
+   "sources": [
+    "M24-018"
+   ],
+   "status": "APPROVED",
+   "reason": "غير مسجل في DECISION-LOG",
+   "impact": "Design System (Icons)"
+  },
+  {
+   "temp_id": "G2-ND-09",
+   "area": "12 Campaigns & Events",
+   "decision": "إدارة الحملات/الفعاليات من الـDashboard: الحقول (Campaign Name · Title AR/EN · Description · Image/Video · CTA · URL/Link · Start/End Date/Time · Priority · Branches · Status)؛ الحالات Draft · Scheduled · Active · Expired · Archived؛ ظهور واختفاء تلقائي ثم Archive؛ Emergency Announcement فوري وقابل للإيقاف بسهولة؛ مساحة الحملات جزء من الـDesign System وليست Banner عشوائية.",
+   "sources": [
+    "M01-126",
+    "M01-128",
+    "M01-129",
+    "M01-130",
+    "M01-131",
+    "M01-132",
+    "M01-133",
+    "M01-134",
+    "M01-135",
+    "M25-094",
+    "M25-095",
+    "M25-096"
+   ],
+   "status": "APPROVED",
+   "reason": "DECISION-LOG يسجل فقط فصل المصطلح (D-070) وطبقة Emergency Notice في الساعات (D-021)",
+   "impact": "CMS/Dashboard V1 P0 (Campaigns)"
+  },
+  {
+   "temp_id": "G2-ND-10",
+   "area": "15 Blog / Coffee Knowledge",
+   "decision": "المدونة = COFFEE KNOWLEDGE HUB مترابطة بـInternal Linking قوية؛ حزمة اعتماد المقال (Title · URL · Outline · Full Content · Headings · Meta Title · Meta Description · Suggested Images · Internal Links · Schema · Sources)؛ AI يقترح ولا ينشر؛ Content Editor بالحقول (Title · Slug · Arabic · English · Cover · Content · Author · Category · SEO · Schema · Internal Links · Publish Date · Scheduled Publish).",
+   "sources": [
+    "M01-139",
+    "M01-140",
+    "M01-142",
+    "M25-097",
+    "M25-098"
+   ],
+   "status": "APPROVED",
+   "reason": "غير مسجلة في DECISION-LOG (D-015 يعتمد الصفحة فقط؛ GEP §47 يغطي Topic Authority)",
+   "impact": "BLOG-002/005/006؛ CMS"
+  },
+  {
+   "temp_id": "G2-ND-11",
+   "area": "29 Media & Images",
+   "decision": "Media Library (Images · Videos · Documents) بحقول Preview · File size · Dimensions · Usage · Alt AR · Alt EN · Focal Point · Approval Status؛ Usage tracking؛ لا تكرار؛ Image Health (Oversized · Missing Alt · Unused · Duplicate · Slow · Missing responsive variants) مع الإصلاح من الـDashboard.",
+   "sources": [
+    "M25-099",
+    "M25-100",
+    "M25-101",
+    "M25-102",
+    "M25-103",
+    "M25-104"
+   ],
+   "status": "APPROVED",
+   "reason": "غير مسجلة في DECISION-LOG (D-083 يغطي Media Architecture للمنتجات فقط)",
+   "impact": "Dashboard V1 P0 (Media)"
+  },
+  {
+   "temp_id": "G2-ND-12",
+   "area": "29 Media & Images",
+   "decision": "Sharp pipeline: never upscale poor source images؛ preserve originals separately؛ product media still follow OWNER APPROVAL rules.",
+   "sources": [
+    "M24-041",
+    "M24-042",
+    "M24-043",
+    "M24-044"
+   ],
+   "status": "APPROVED",
+   "reason": "مسجلة في media/README.md فقط",
+   "impact": "MEDIA-011"
+  },
+  {
+   "temp_id": "G2-ND-13",
+   "area": "01 Brand & Design System",
+   "decision": "الـPage Editor لا يسمح بكسر الـDesign System؛ Layout options controlled (Sections معتمدة فقط).",
+   "sources": [
+    "M25-084"
+   ],
+   "status": "APPROVED",
+   "reason": "غير مسجل في DECISION-LOG (مكرر في M27 §14 — مجموعة CMS)",
+   "impact": "CMS architecture"
+  },
+  {
+   "temp_id": "G2-ND-14",
+   "area": "01 Brand & Design System",
+   "decision": "تصميم الـOwner Dashboard: Minimal · Premium · Clean · Easy · Professional · Owner-focused · Fast · Rounded corners · Minimal colors · Clear hierarchy · SHELTER Brand Identity؛ لا ألوان مخيفة أو كثيرة؛ ممنوع Generic admin template · Purple SaaS dashboard · 100 cards · Glassmorphism everywhere · Too many charts · Tiny text.",
+   "sources": [
+    "M25-023",
+    "M25-024",
+    "M25-140",
+    "M25-141"
+   ],
+   "status": "APPROVED",
+   "reason": "غير مسجل في DECISION-LOG",
+   "impact": "Dashboard design (P04)"
+  },
+  {
+   "temp_id": "G2-ND-15",
+   "area": "05 Navigation",
+   "decision": "Navigation حسب السياق: Mobile = compact، Desktop = full، بنفس الـIA؛ لا تُخفى وظائف مهمة لأن المستخدم على الهاتف.",
+   "sources": [
+    "M26-026",
+    "M26-027"
+   ],
+   "status": "APPROVED",
+   "reason": "غير مسجل في DECISION-LOG (DB-05 ما زال PROPOSED)",
+   "impact": "قرار DB-05"
+  },
+  {
+   "temp_id": "G2-ND-16",
+   "area": "01 Brand & Design System",
+   "decision": "Master Prompt — الـDesign System: يشمل Typography · Colors · Spacing · Grid · Containers · Border Radius · Buttons · Forms · Icons · Cards · Navigation · Motion · Images · Breakpoints · States؛ Design Lock (لا New Color/Font Style/Radius/Shadow/Button Type/Animation Pattern بلا نقاش)؛ لا Mirror للـLogo في RTL؛ Reusable Sections ضمن الـDesign System؛ لا duplicate components/design systems.",
+   "sources": [
+    "M01-203",
+    "M01-204",
+    "M01-205",
+    "M01-221",
+    "M27-144"
+   ],
+   "status": "APPROVED",
+   "reason": "DECISION-LOG يسجل من الـMaster Prompt فقط D-000…D-005",
+   "impact": "P06"
+  },
+  {
+   "temp_id": "G2-ND-17",
+   "area": "06 Homepage",
+   "decision": "لا Homepage Template عادية (ليس فقط Hero/About/Menu/Contact/Footer)؛ Story Architecture خاصة بـSHELTER بعد أسئلة الـOwner ثم اقتراح User Flow.",
+   "sources": [
+    "M01-087",
+    "M01-088",
+    "M01-089",
+    "M01-090"
+   ],
+   "status": "APPROVED",
+   "reason": "غير مسجل كقرار (أسئلة R4 مفتوحة)",
+   "impact": "P03 Homepage"
+  },
+  {
+   "temp_id": "G2-ND-18",
+   "area": "28 Motion",
+   "decision": "Master Prompt — Motion: Motion Design System (Principles · Duration/Easing Tokens · Entrance/Exit/Hover/Scroll/Page-transition/Image/Typography motion · Mobile Motion · Reduced Motion)؛ ممنوعات (Forced Intro · Scroll Hijacking · Excessive Parallax · Random Bouncing · Constant Floating Elements · Random Rotation · Heavy Cursor Effects · Animation Delaying Content · Autoplay Audio · Motion that makes navigation slower)؛ Lottie/Swiper/Three.js مشروطة؛ Progressive Enhancement.",
+   "sources": [
+    "M01-164",
+    "M01-165",
+    "M01-166",
+    "M01-167",
+    "M01-168",
+    "M01-170",
+    "M01-171",
+    "M01-172",
+    "M01-173",
+    "M01-179",
+    "M01-180",
+    "M01-181",
+    "M01-192"
+   ],
+   "status": "APPROVED",
+   "reason": "غير مسجلة في DECISION-LOG (D-004 فقط)",
+   "impact": "P06 Motion System"
+  },
+  {
+   "temp_id": "G2-ND-19",
+   "area": "02 Information Architecture",
+   "decision": "SHELTER OWNER DASHBOARD IA: Tree كاملة (Sections · Subsections · Pages · Permissions · Data source · Actions) بعد الـAudit.",
+   "sources": [
+    "M25-170"
+   ],
+   "status": "APPROVED",
+   "reason": "غير مسجل في DECISION-LOG",
+   "impact": "P04 (Phase B للـDashboard)"
+  }
+ ],
+ "decision_status": [
+  {
+   "id": "D-005",
+   "category": "APPROVED",
+   "current_text": "ممنوع AI / Vibe-coding look؛ تصميم Bespoke لـSHELTER (مؤكد في M23 §73، M25 §48، M27 §19). نص الـOwner يقيّد Glassmorphism بـ«Everywhere / showcase / excessive»",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "BRAND-006، BRAND-020"
+  },
+  {
+   "id": "D-007",
+   "category": "APPROVED",
+   "current_text": "الاسم الرسمي SHELTER COFFEE / شلتر كوفي؛ «كوفي» مفضلة؛ «كافيه/كافية» للـSEO فقط بموافقة",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "BRAND-001"
+  },
+  {
+   "id": "D-009",
+   "category": "SUPERSEDED",
+   "current_text": "سنة التأسيس 2019 (D-018)",
+   "superseded_by": "D-018",
+   "old_text": "سنة التأسيس 2018 (قراءة خاطئة لـR1-03)",
+   "impact": "ABOUT-003"
+  },
+  {
+   "id": "D-012",
+   "category": "APPROVED WITH CONDITIONS",
+   "current_text": "ترتيب الجمهور (7 فئات) مدخل فقط؛ لا قرارات تصميم نهائية قبل شرح أثره على الـUX والـHomepage (شُرح في 09 AR-04 — بانتظار نقاش R4)",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "HOME-004"
+  },
+  {
+   "id": "D-013",
+   "category": "APPROVED",
+   "current_text": "أهم أفعال الزائر: المنيو ← الفروع/الاتجاهات ← معلومات الفرع والساعات والتواصل. جزء ترتيب الـCTA حُسم مبدئيًا في D-027",
+   "superseded_by": "D-027 (جزء ترتيب الـCTA فقط)",
+   "old_text": "ترتيب الـCTA النهائي غير معتمد",
+   "impact": "IA-004، NAV-006"
+  },
+  {
+   "id": "D-015",
+   "category": "APPROVED",
+   "current_text": "الصفحات المعتمدة: الرئيسية · المنيو · الفروع · صفحة لكل فرع · من نحن · Coffee Knowledge Hub · الفعاليات والحملات · تواصل · FAQ · الخصوصية · الشروط · التوظيف (يعاد تصميمه) · Franchise (قدرة مستقبلية). التعديلات اللاحقة: الحجز والحفلات → صفحة Catering/B2B محجوزة (D-069)؛ Franchise → خيار استفسارات من يوم الإطلاق والصفحة الكاملة مخفية (D-071)؛ الرعايات MISSING (D-072)؛ النشرة DEFERRED (D-040)؛ الفريق مؤجل",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "IA-006…IA-012، HOME-001، ABOUT-001، BLOG-001، CAMP-001، FRAN-001"
+  },
+  {
+   "id": "D-016",
+   "category": "APPROVED",
+   "current_text": "ليس E-Commerce الآن (Brand + Menu + Locations + Content + Events + Blog)؛ جاهزية Online Ordering لاحقًا؛ shop.shelterjo.com يُفحص قبل أي قرار؛ التوصيل جولة مستقلة",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "IA-001، IA-002، HOME-005"
+  },
+  {
+   "id": "D-018",
+   "category": "APPROVED",
+   "current_text": "سنة التأسيس 2019؛ تاريخ السنوية 20/04 (Brand Story، حملات السنوية، Events، المحتوى)؛ 2018 و«منذ 2022» = OLD OR INCORRECT؛ أي صياغة تسويقية تُعرض قبل النشر",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "ABOUT-003، ABOUT-004"
+  },
+  {
+   "id": "D-027",
+   "category": "APPROVED WITH CONDITIONS",
+   "current_text": "CTA الموبايل مبدئيًا: 1) Menu 2) Locations/Directions؛ الحالة والساعات داخل Branch Card؛ الشكل البصري في UX/UI",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "NAV-006، BRAND-018"
+  },
+  {
+   "id": "D-040",
+   "category": "DEFERRED",
+   "current_text": "«قائمة الولاء» = Email Newsletter وليست Loyalty Program؛ Newsletter في V1 = DEFERRED إلا بـUse Case مقنع معتمد",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "IA-012"
+  },
+  {
+   "id": "D-056",
+   "category": "APPROVED",
+   "current_text": "صور GBP/Google لا تتحول تلقائيًا إلى Approved Assets — كل صورة بموافقة منفصلة",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "MEDIA-001، MEDIA-004"
+  },
+  {
+   "id": "D-061",
+   "category": "APPROVED",
+   "current_text": "شريط صفحة الفرع: [الاتجاهات] [اتصال] [واتساب]؛ المنيو في الـHeader؛ شروط UX testing (لا يغطي المحتوى، لا يزاحم Consent، Safe Area، ليس كبيرًا)",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "NAV-007"
+  },
+  {
+   "id": "D-066",
+   "category": "APPROVED",
+   "current_text": "RG-02: Header مختصر جدًا على `/`؛ الجذر ليس نسخة ثالثة كاملة — تعريف سريع، اختيار اللغة/السوق، وصول للمنيو والفروع",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "HOME-001 (الجذر ≠ الرئيسية)؛ التفاصيل في مجموعة WEB"
+  },
+  {
+   "id": "D-069",
+   "category": "APPROVED WITH CONDITIONS",
+   "current_text": "PG-01: صفحة Catering / B2B / Business inquiries / Events services = PAGE RESERVED · CONTENT MISSING · PUBLICATION NOT APPROVED",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "IA-008"
+  },
+  {
+   "id": "D-070",
+   "category": "APPROVED",
+   "current_text": "PG-02: فصل SHELTER Events & Campaigns عن Catering / B2B / Private Events؛ Naming نهائي AR/EN يُقترح لاحقًا",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "IA-009، CAMP-001"
+  },
+  {
+   "id": "D-071",
+   "category": "APPROVED",
+   "current_text": "PG-03: خيار «استفسارات الفرنشايز / Franchise Inquiries» → 0799338445 في صفحة التواصل من يوم الإطلاق؛ صفحة Franchise الكاملة غير منشورة؛ لا Fees/Requirements/Territories/Financial claims/Application criteria",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "FRAN-001…FRAN-003"
+  },
+  {
+   "id": "D-083",
+   "category": "APPROVED",
+   "current_text": "R3-08: صور المنتجات لاحقًا؛ لا Google/Stock/AI/صور قديمة تلقائيًا؛ كل صورة PENDING OWNER APPROVAL ومرتبطة بالـProduct ID؛ Media Architecture (Main · Additional · Alt · Focal point · WebP/AVIF · Responsive variants · Approval status)",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "MEDIA-003، MEDIA-005، MEDIA-007، MEDIA-008"
+  },
+  {
+   "id": "D-143",
+   "category": "APPROVED",
+   "current_text": "IA-01 → IA-08: Hybrid بصفحة واحدة · ترتيب الفئات · SWEETS · أقسام فرعية HOT/COLD/FIZZY · SPRING أعلى المنيو · لا صفحات أصناف في V1 · بحث بلغتين بقاموس Aliases (التفاصيل مجمّدة F-06…F-21؛ الـSpec والـWireframes بانتظار الاعتماد)",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "IA-015، IA-016، IA-017"
+  },
+  {
+   "id": "F-06",
+   "category": "FROZEN",
+   "current_text": "ترتيب العرض: SPECIALITY COFFEE ← HOT ← COLD ← FRAPPE ← MILKSHAKE ← SMOOTHIES ← FIZZY ← TEA ← SWEETS؛ SPRING قسم موسمي أعلى المنيو",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "NAV-013 (anchors)؛ التفاصيل في مجموعة MENU"
+  },
+  {
+   "id": "F-07",
+   "category": "FROZEN",
+   "current_text": "SWEETS / حلويات: CAKE + COOKIES بصريًا، والفئتان الأصليتان محفوظتان داخليًا",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "مجموعة MENU"
+  },
+  {
+   "id": "F-08",
+   "category": "FROZEN",
+   "current_text": "الأقسام الفرعية داخل HOT وCOLD وFIZZY فقط",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "NAV-009 (الشريط الفرعي)"
+  },
+  {
+   "id": "F-09",
+   "category": "FROZEN",
+   "current_text": "Hybrid: صفحة منيو واحدة · لا صفحة لكل صنف في V1 · كل الأصناف في الـHTML · لا Virtualization/Infinite Scroll/Pagination/Load More",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "IA-015، IA-016"
+  },
+  {
+   "id": "F-11",
+   "category": "FROZEN",
+   "current_text": "الصور 1:1 كبيرة في البطاقة · فقط OWNER APPROVED · لا Stock/Google/AI/صور الموقع القديم",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "MEDIA-001، MEDIA-005، MEDIA-009"
+  },
+  {
+   "id": "F-16",
+   "category": "FROZEN",
+   "current_text": "التنقل: موبايل شريط فئات أفقي لاصق + «كل الفئات»؛ ديسكتوب قائمة جانبية لاصقة؛ Anchors تعمل بلا JS",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "NAV-008…NAV-014"
+  },
+  {
+   "id": "R-01",
+   "category": "APPROVED",
+   "current_text": "محدد الفرع الموضع A (تحت البحث وقبل الفئات) — مقرر بالاختبار بتفويض الـOwner (M23 §70 Phase G: «احسمها بنفسك»)",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "IA-017"
+  },
+  {
+   "id": "R-04",
+   "category": "APPROVED",
+   "current_text": "صورة 1:1 واحدة في البطاقة وفي التفاصيل بأحجام متعددة من نفس الأصل — مقرر بالاختبار بتفويض الـOwner (Phase G)",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "MEDIA-009"
+  },
+  {
+   "id": "R-06",
+   "category": "APPROVED",
+   "current_text": "الأشرطة اللاصقة: شريط الفئات 56px + شريط فرعي 56px داخل HOT/COLD/FIZZY فقط (112px ≈ 15%) — مقرر بالاختبار؛ يكمله R-09 (الشاشات القصيرة ≤ 500px: شريط الفئات وحده لاصق)",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "NAV-009، NAV-015، BRAND-010 (stickyStack token)"
+  },
+  {
+   "id": "AAL-RULE-01",
+   "category": "APPROVED",
+   "current_text": "ممنوع أي صورة/فيديو/Graphic/Illustration/Lottie/أيقونة مخصصة قبل عرضها والحصول على Approved؛ الحقول الإلزامية (AST-### · Name · Type · Category · Source · Rights · Alt AR/EN · Focal Point · Suggested Placement · Usage · Approval Status · Owner Decision Date)",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "MEDIA-001، MEDIA-002، MEDIA-006"
+  },
+  {
+   "id": "GEP-§6/§43",
+   "category": "APPROVED",
+   "current_text": "Google Images Rule: صورة على GBP/Maps/Reviews/Search لا تعني الإذن؛ Google Photo ≠ Approved Website Asset (D-046، D-056)",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "MEDIA-004"
+  },
+  {
+   "id": "DB-01",
+   "category": "APPROVED",
+   "current_text": "حُسم: الاسم (D-007)، الفروع (D-008، D-020)، سنة التأسيس 2019 (D-018)",
+   "superseded_by": "D-007، D-008، D-018، D-020",
+   "old_text": "الحقائق التأسيسية مطلوبة قبل أي Sitemap",
+   "impact": "BRAND-001، ABOUT-003"
+  },
+  {
+   "id": "DB-04",
+   "category": "PENDING OWNER INPUT",
+   "current_text": "حُسم جزئيًا (D-015، D-040، D-069، D-071، D-072)؛ المتبقي: صفحة الفريق (مؤجلة)، الرعايات (MISSING)، دليل كافيهات إربد (R7-03 — مجموعة SEO)، محتوى Catering/B2B",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "IA-007…IA-012"
+  },
+  {
+   "id": "DB-05",
+   "category": "PENDING OWNER INPUT",
+   "current_text": "نموذج الـNavigation على الموبايل: PROPOSED (التوصية Option B + Contextual Sticky Action)؛ جزء صفحة الفرع محسوم (D-061)؛ Option C مستبعد بقاعدة NAV-004؛ قيد M26: compact موبايل / full ديسكتوب بنفس الـIA",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "NAV-001، NAV-002، NAV-004، NAV-005"
+  },
+  {
+   "id": "DB-09",
+   "category": "PENDING OWNER INPUT",
+   "current_text": "اسم ومسار قسم المعرفة: `/blog/` أم `/coffee/` أم `/learn/` (URL-03، R8-04) — غير محسوم",
+   "superseded_by": "",
+   "old_text": "",
+   "impact": "BLOG-001"
+  },
+  {
+   "id": "DB-16",
+   "category": "APPROVED WITH CONDITIONS",
+   "current_text": "ترتيب الـCTA على الموبايل مبدئيًا (D-027)؛ الشكل البصري في UX/UI",
+   "superseded_by": "D-027",
+   "old_text": "",
+   "impact": "NAV-006"
+  },
+  {
+   "id": "DB-17",
+   "category": "DEFERRED",
+   "current_text": "النشرة البريدية DEFERRED في V1 (D-040)",
+   "superseded_by": "D-040",
+   "old_text": "",
+   "impact": "IA-012"
+  }
+ ],
+ "conflicts": [
+  {
+   "topic": "تقنية الحركة (Motion library)",
+   "old_instruction": "ادرس GSAP (ScrollTrigger، Flip، Observer، SplitText إذا كان الترخيص مناسبًا)؛ ويمكن دراسة Motion.page إذا كانت WordPress Architecture مناسبة؛ قارن Motion.page vs Custom GSAP قبل القرار",
+   "old_source": "M01 §56 (M01-174، M01-175، M01-176)",
+   "new_instruction": "المجموعة التي أريدها فعليًا: shadcn/Radix + Tailwind + Motion + Storybook + Lucide + …؛ Motion للـmicro-interactions والانتقالات؛ لا أدوات مكررة",
+   "new_source": "M24 (§جدول الأدوات + §المجموعة التي أريدها فعليًا؛ G8 M24-072)",
+   "winner": "M24 — Motion هي مكتبة الحركة الافتراضية (بشرط توافق الـstack / DB-08)؛ GSAP أو Motion.page فقط عند حاجة حقيقية لا تغطيها Motion وبعد عرضها على الـOwner",
+   "why": "تعليمة لاحقة وصريحة من الـOwner تختار الأداة؛ قاعدة منع الأدوات المكررة (M24/M27 §21) تمنع مكتبتي حركة",
+   "impact": "MOTION-007؛ تبقى المقارنة القديمة غير مطلوبة إلا عند ظهور فجوة",
+   "files": [
+    "docs/FRONTEND-TOOLING.md"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "topic": "نطاق Lenis",
+   "old_instruction": "يمكن استخدام Lenis (بلا تحديد صفحات) بشروط: لا يؤثر على Accessibility، لا يكسر Native Scroll، لا مشاكل Mobile، لا يكسر Anchor Links، لا Performance Issues؛ وإلا Native Scroll",
+   "old_source": "M01 §57 (M01-177، M01-178)",
+   "new_instruction": "DO NOT enable globally by default؛ يُقيَّم لـHomepage وAbout/Story وimmersive sections؛ لا يُستخدم على المنيو (191 منتجًا) إلا إذا أثبت الاختبار تحسين UX دون الإضرار بالـnative scrolling والـa11y والـhistory والأداء",
+   "new_source": "M24 (§أهم نقطة + Prompt 5؛ M24-012، وG3 M24-013)",
+   "winner": "M24 (تضييق لاحق مع بقاء شروط M01). ملاحظة: FRONTEND-TOOLING يكتب «ممنوع على صفحة المنيو» وهو أشد من نص الـOwner (مسموح فقط إذا أثبت الاختبار) — يجب تصحيح الصياغة",
+   "why": "الأحدث والأكثر تحديدًا من الـOwner؛ لا تناقض مع شروط M01",
+   "impact": "MOTION-008؛ صياغة FRONTEND-TOOLING §1–§2",
+   "files": [
+    "docs/FRONTEND-TOOLING.md"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "topic": "صفحات الأصناف ومعنى «Hybrid» في المنيو",
+   "old_instruction": "Option C Hybrid: `/menu` سريعة + URL مستقل فقط للمنتجات المميزة (Signature / V60 / Seasonal) كـDrawer مع Deep Link؛ شجرة الروابط تتضمن `/ar/jo/menu/{item-slug}/` «صنف مميز فقط»",
+   "old_source": "05-decisions-before-design.md DB-06 + 10-url-architecture-draft.md §3 (اقتراحات Claude)",
+   "new_instruction": "اعتمد Hybrid Menu Architecture: صفحة Menu واحدة؛ لا يوجد Product Page مستقل لكل صنف في V1",
+   "new_source": "M23 §7 + §42 (M23-035، M23-036؛ D-143، F-09، F-21)",
+   "winner": "M23 — لا صفحات أصناف في V1",
+   "why": "قرار Owner صريح لاحق ومجمّد (F-09) يتغلب على اقتراح سابق",
+   "impact": "يجب تحديث شجرة الروابط في 10 §3 وملاحظة DB-06 في 05؛ لا روابط أصناف في الـsitemap",
+   "files": [
+    "docs/phase-01-discovery/10-url-architecture-draft.md",
+    "docs/phase-01-discovery/05-decisions-before-design.md"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "topic": "أزرار الشريط السفلي لصفحة الفرع",
+   "old_instruction": "في صفحة الفرع فقط: شريط سفلي ثابت [الاتجاهات] [اتصال] [المنيو]",
+   "old_source": "09-architecture-options-after-r1.md AR-03 (اقتراح Claude)",
+   "new_instruction": "الشريط = [الاتجاهات] [اتصال] [واتساب]؛ المنيو يبقى في الـNavigation/Header وليس زرًا رابعًا",
+   "new_source": "M14 CT-02 (M14-003؛ D-061)",
+   "winner": "M14 / D-061",
+   "why": "قرار Owner صريح يتغلب على اقتراح",
+   "impact": "NAV-007؛ جدول AR-03 في 09 قديم",
+   "files": [
+    "docs/phase-01-discovery/09-architecture-options-after-r1.md"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "topic": "سنة التأسيس",
+   "old_instruction": "اعتمد سنة التأسيس: 2018",
+   "old_source": "M03 §R1-03 (M03-011؛ D-009)",
+   "new_instruction": "D-009 مكتوب عندك أن سنة التأسيس 2018، وهذا غير صحيح — التأسيس 2019",
+   "new_source": "M04 §correction (M04-001؛ D-018)",
+   "winner": "2019",
+   "why": "تصحيح صريح لاحق من الـOwner",
+   "impact": "ABOUT-003؛ Schema foundingDate = 2019؛ لا 2018 ولا «منذ 2022»",
+   "files": [
+    "docs/governance/DECISION-LOG.md"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "topic": "صياغة منع Glassmorphism",
+   "old_instruction": "D-005: ممنوع «AI / Vibe-coding look» (Gradients عشوائية، Neon، Glassmorphism، Blobs…) — Glassmorphism بلا قيد في نص السجل",
+   "old_source": "docs/governance/DECISION-LOG.md D-005 (صياغة الوثيقة)",
+   "new_instruction": "Glassmorphism Everywhere (M01) · glassmorphism showcase (M23) · No excessive glassmorphism (M27)",
+   "new_source": "M01 §78، M23 §73، M27 §19 (M01-206، M23-258، M27-099)",
+   "winner": "نص الـOwner: الممنوع هو الإفراط/الاستعراض؛ لكن أي استخدام لتأثير زجاجي = Style جديد يمر بـDesign Lock وموافقة الـOwner",
+   "why": "نص الـOwner الصريح يتقدم على صياغة الوثيقة؛ ولا يوجد اعتماد إيجابي لاستخدام Glassmorphism",
+   "impact": "BRAND-006؛ توضيح صياغة D-005 في السجل الرئيسي",
+   "files": [
+    "docs/governance/DECISION-LOG.md",
+    "design-system/README.md"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "topic": "تسلسل Design System / UI Design مقابل Technical Architecture",
+   "old_instruction": "تسلسل المشروع (36 خطوة): … Wireframes → Design System → Motion Design System → UI Design → Interactive Prototype → Technical Architecture → CMS Architecture → Development …؛ لا قفز قبل اعتماد المرحلة",
+   "old_source": "M01 §4 (G1 M01-030؛ D-001) — مؤكد في M27 §27 (البرومبت لا يلغي sequencing/approval rules)",
+   "new_instruction": "مراحل الخطة الموحدة: P05 Platform/technical architecture (DB-08) قبل P06 Brand & Design System + Visual Design؛ وFRONTEND-TOOLING/CLAUDE.md يؤجلان أدوات الـDesign System المعتمدة على React (Storybook، shadcn، Tailwind) لـDB-08",
+   "new_source": "خطة التدقيق (CONSOLIDATE.md phases) + docs/FRONTEND-TOOLING.md + CLAUDE.md — بناء Claude، ليس قرار Owner",
+   "winner": "تسلسل الـOwner (D-001): الـDesign System والـMotion System والـUI Design والـInteractive Prototype تأتي بعد اعتماد الـIA والـWireframes وقبل Technical/CMS Architecture؛ فقط أدوات التنفيذ المعتمدة على React تنتظر DB-08",
+   "why": "قرار Owner معتمد غير مستبدل يتغلب على ترتيب مقترح من Claude (Authority 1–2 > 6). أي إعادة ترتيب (المنصة قبل التصميم) تُعرض على الـOwner",
+   "impact": "يجب ألا تجعل الخطة الموحدة P05 شرطًا لبدء P06 (القيود الفعلية لـP06: اعتماد الـIA/Wireframes + ملفات الهوية M-10)",
+   "files": [
+    "docs/IMPLEMENTATION-PLAN.md (قيد الإنشاء)",
+    "docs/FRONTEND-TOOLING.md",
+    "CLAUDE.md"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "topic": "مثال Blocks الرئيسية مقابل منع القالب العادي",
+   "old_instruction": "لا أريد Homepage Template عادية؛ لا تبنها فقط Hero/About/Menu/Contact/Footer؛ أريد Story Architecture خاصة بـSHELTER",
+   "old_source": "M01 §18 (M01-087، M01-088)",
+   "new_instruction": "«مثلاً Home: Hero · Campaign · About · Menu Preview · Branches · Coffee Story · Blog · CTA · Footer» لشرح Sections الـPage Editor",
+   "new_source": "M25 §22 (M25-082)",
+   "winner": "M01 تبقى سارية؛ مثال M25 لا يعتمد بنية الرئيسية ولا ترتيبها",
+   "why": "M25 صرّح بأنه مثال («مثلاً») لقدرات المحرر؛ لا يُحوَّل المثال إلى متطلب",
+   "impact": "HOME-002/003: بنية الرئيسية PENDING OWNER INPUT (R4-01..R4-03)",
+   "files": [
+    "docs/phase-01-discovery/09-architecture-options-after-r1.md"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "topic": "قائمة مكونات Storybook وحالاتها",
+   "old_instruction": "خطة Storybook: Header، شريط الفئات، SearchField، BranchSelector، SeasonalBlock، ProductCard، ProductGrid، ProductSheet/Modal، AllCategoriesSheet، Footer؛ الحالات AR/EN، 320/390/768/1280، مع/بلا صورة، اسم طويل، تحميل/خطأ، Reduced motion",
+   "old_source": "docs/FRONTEND-TOOLING.md §6 (Claude)",
+   "new_instruction": "20 مكونًا على الأقل (Button · Input · Search · Navigation · Header · Footer · ProductCard · ProductGrid · CategoryNavigation · BranchSelector · BottomSheet · Modal · Badge · CampaignBanner · ArticleCard · BranchCard · Announcement · EmptyState · LoadingState · ErrorState) × default/hover/focus/active/disabled/loading/error/RTL/LTR/mobile/desktop",
+   "new_source": "M24 Prompt 6 (M24-015، M24-016)",
+   "winner": "قائمة الـOwner (M24) كحد أدنى، مع إبقاء إضافات FRONTEND-TOOLING المفيدة (مع/بلا صورة، اسم طويل، reduced motion)",
+   "why": "تعليمة Owner صريحة تتقدم على خطة Claude",
+   "impact": "BRAND-015؛ تحديث §6",
+   "files": [
+    "docs/FRONTEND-TOOLING.md"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "topic": "مراجع Menu IA داخل قالب الـTokens",
+   "old_instruction": "tokens.template.json: stickyStack 112px «Menu IA R-03» · breakpoints «Menu IA R-01»",
+   "old_source": "design-system/tokens/tokens.template.json",
+   "new_instruction": "MENU-DECISION-REGISTER: R-06 = الأشرطة اللاصقة (56+56)، R-02/R-03 = الأعمدة والـbreakpoints، R-01 = مكان محدد الفرع؛ R-09 (جديد): الشاشات القصيرة ≤ 500px شريط الفئات وحده لاصق",
+   "new_source": "docs/menu-ia/MENU-DECISION-REGISTER.md §5 (R-01…R-09)",
+   "winner": "السجل (MENU-DECISION-REGISTER)",
+   "why": "السجل هو المرجع المعتمد لقرارات الاختبار؛ القالب نقل المراجع خطأً",
+   "impact": "BRAND-010: تصحيح المراجع وعكس R-09 على stickyStack",
+   "files": [
+    "design-system/tokens/tokens.template.json"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "topic": "Swiper لـ«Menu Sliders» مقابل شبكة المنيو المجمّدة",
+   "old_instruction": "يمكن استخدام Swiper لـProduct Galleries و Menu Sliders و Mobile Carousels عند الحاجة فقط",
+   "old_source": "M01 §59 (M01-180)",
+   "new_instruction": "المنيو صفحة واحدة بشبكة بطاقات (عمودان موبايل، 3/4 ديسكتوب)، لا Virtualization/Infinite/Pagination/Load More",
+   "new_source": "M23 §7، §10–§11 (F-09، F-12)",
+   "winner": "F-09/F-12 لصفحة المنيو V1 (لا Sliders)؛ Swiper يبقى مشروطًا لاستخدامات أخرى مبررة",
+   "why": "M01 جعل Swiper اختياريًا «عند الحاجة»؛ قرار المنيو اللاحق المجمّد لا يحتاجه",
+   "impact": "MOTION-009",
+   "files": [
+    "docs/menu-ia/SHELTER-MENU-IA-SPEC.md"
+   ],
+   "status": "RESOLVED"
+  }
+ ],
+ "dropped": [
+  {
+   "key": "M01-127",
+   "reason": "example-only: أمثلة أنواع الحملات (International Coffee Day · 50% Discount · New Drink · Seasonal Menu · New Branch · Event · Announcement) — ليست متطلبًا ولا عرضًا معتمدًا؛ مذكورة كأمثلة في تفاصيل CAMP-002"
+  },
+  {
+   "key": "M25-082",
+   "reason": "example-only: Blocks الرئيسية («مثلاً» Hero · Campaign · About · Menu Preview · Branches · Coffee Story · Blog · CTA · Footer) لشرح الـPage Editor — ليست اعتمادًا لبنية الرئيسية؛ موثقة في conflict «مثال Blocks الرئيسية» وفي HOME-002"
+  }
+ ],
+ "notes": "G2 consolidation (2026-10-01). 219 raw items → 116 canonical requirements + 2 dropped (example-only). Key blockers: (1) BRAND-002 brand identity files MISSING (M-10/MI-021/MI-022) block P06 Visual Design; (2) IA-014 no UI design before site-wide IA approval — only the Menu IA package exists (READY FOR OWNER REVIEW); site-wide sitemap/page/navigation/content-structure docs do not exist; (3) DB-05 (mobile navigation model) and DB-09 (Knowledge Hub name/path) still PROPOSED; Homepage questions R4-01..R4-05 open. Page inventory: V1 approved = Home, About, Coffee Knowledge Hub, Events & Campaigns, FAQ, Careers (redesign) [+ Menu/Locations/Branch/Contact/Legal in other groups]; Franchise full page = reserved & unpublished, but 'Franchise Inquiries' option on Contact from launch (D-071); Catering/B2B page = RESERVED, not published (D-069); Sponsorships = MISSING; Team page = deferred; Newsletter = DEFERRED V1. Image approval rule (MEDIA-001…005) is the strictest P0 gate; 0 approved images. Motion: performance always wins; Motion lib selected over GSAP study (M24); Lenis not global, not on menu by default. Sequence note: owner 36-step order puts Design System/UI before Technical Architecture — the unified plan must not make P05 a prerequisite of P06. Doc fixes needed (not done — read-only audit): 10-url-architecture-draft §3 (remove menu/{item-slug}), 09 AR-03 (branch bar), FRONTEND-TOOLING §1–§2 Lenis wording and §6 Storybook list, tokens.template.json refs + missing groups. R-09 (short screens) was added to MENU-DECISION-REGISTER during this audit by a parallel edit and is reflected in NAV-009/NAV-015."
+}

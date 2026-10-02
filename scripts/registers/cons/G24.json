@@ -1,0 +1,54 @@
+{
+ "group": "G24",
+ "notes": "Owner answer to PO-074 (city list).",
+ "requirements": [],
+ "updates_to_existing": [
+  {
+   "id": "PO-074",
+   "type": "RESOLVE",
+   "source": "M45 §1",
+   "change": "✅ 2026-10-02: الـOwner أرسل القائمة (12 بندًا بالترتيب): عمان · إربد · الزرقاء · البلقاء · المفرق · جرش · عجلون · مادبا · الكرك · الطفيلة · معان · العقبة. مزروعة في jordan_cities والنموذج يعمل (يبقى مغلقًا على Production حتى بوابات الإطلاق)."
+  },
+  {
+   "id": "CAREERS-020",
+   "type": "UPDATE",
+   "source": "M45 §1",
+   "change": "قائمة «المدينة» = الـ12 بندًا التي أرسلها الـOwner (D-315): عمان · إربد · الزرقاء · البلقاء · المفرق · جرش · عجلون · مادبا · الكرك · الطفيلة · معان · العقبة. تُدار لاحقًا من Settings (CAREERS-075)."
+  }
+ ],
+ "conflicts": [
+  {
+   "id": "G24-CF-01",
+   "topic": "قائمة «المدينة» في نموذج التوظيف: مدن أم محافظات",
+   "old_instruction": "M28: Dropdown لمدن الأردن، «ولا تُستبدل المدينة بالمحافظة بصمت»",
+   "old_source": "M28 §06 · CAREERS-020 · RECRUITMENT-DATA-MODEL §2.12",
+   "new_instruction": "الـOwner أرسل القائمة صراحة: عمان · إربد · الزرقاء · البلقاء · المفرق · جرش · عجلون · مادبا · الكرك · الطفيلة · معان · العقبة (أسماء المحافظات الـ12)",
+   "new_source": "M45 §1",
+   "winner": "قرار الـOwner الأحدث الصريح (M45): القائمة كما أرسلها، وبنفس ترتيبه",
+   "why": "قاعدة السلطة 1: آخر قرار صريح من الـOwner. ليس استبدالًا صامتًا — الـOwner اختار القائمة بنفسه بعد عرض الخيارات (PO-074)",
+   "impact": "CAREERS-020 محدّث · jordan_cities = 12 بندًا · تسمية الحقل تبقى «المدينة» (نص الـOwner المعتمد)",
+   "files": [
+    "database/seeders/RecruitmentSeeder.php",
+    "docs/RECRUITMENT-DATA-MODEL.md"
+   ],
+   "status": "RESOLVED"
+  }
+ ],
+ "new_decisions": [
+  {
+   "temp_id": "G24-ND-01",
+   "area": "44 Careers & Recruitment",
+   "decision": "PO-074 → قائمة «المدينة» في نموذج التوظيف = 12 بندًا أرسلها الـOwner بالترتيب: عمان · إربد · الزرقاء · البلقاء · المفرق · جرش · عجلون · مادبا · الكرك · الطفيلة · معان · العقبة.",
+   "sources": [
+    "M45 §1"
+   ],
+   "status": "APPROVED",
+   "reason": "Owner: أرسل القائمة صراحة ردًا على PO-074",
+   "impact": "CAREERS-020 · PO-074 (RESOLVED) · G24-CF-01"
+  }
+ ],
+ "pending_owner": [],
+ "technical_flags": [],
+ "cost_api_dependencies": [],
+ "dropped": []
+}

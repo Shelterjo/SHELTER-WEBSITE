@@ -1,0 +1,588 @@
+{
+ "group": "G26",
+ "notes": "Owner: franchise page FINAL CONTENT V1 (Parts 1–5) — PO-030, PF-02, PF-03, PF-06 resolved; success wording; commercial safety.",
+ "requirements": [],
+ "updates_to_existing": [
+  {
+   "id": "PO-030",
+   "type": "RESOLVE",
+   "source": "M47 §1",
+   "change": "✅ 2026-10-02: الـOwner اعتمد محتوى صفحة الفرنشايز V1 كاملًا (AR/EN): اسم الصفحة، الـHero، من هي SHELTER، نماذج التجربة الحالية، أكثر من مجرد اسم، رحلة الشراكة (9)، أسواق النمو، 7 أسئلة، الـCTA الختامي. مزروع في `pages` (FranchiseSeeder) ومنشور ومختبر. قسما «لماذا تصبح شريكًا» و«ما الذي نبحث عنه» وصلا بالعربية فقط فهما مخفيان حتى نصهما الإنجليزي (PO جديد غير معطِّل)."
+  },
+  {
+   "id": "PO-049",
+   "type": "RESOLVE",
+   "source": "M47 §3",
+   "change": "✅ 2026-10-02 (PF-02): نص الإقرار AR/EN معتمد من الـOwner V1 — Checkbox إلزامي منفصل `non_binding_acknowledgement` غير محدد مسبقًا، تُخزن نسخته ووقت الموافقة. ليس موافقة تسويقية."
+  },
+  {
+   "id": "PO-050",
+   "type": "RESOLVE",
+   "source": "M47 §4",
+   "change": "✅ 2026-10-02 (PF-03): نص موافقة معالجة البيانات AR/EN معتمد — Checkbox إلزامي منفصل `data_processing_consent`، تُخزن نسخته ووقته؛ لا يُدمج مع أي موافقة تسويقية (مستقبلًا: اختيارية ومنفصلة وغير محددة). مدة الاحتفاظ: الافتراضي المعتمد (أرشفة بلا حذف تلقائي) يبقى حتى سياسة الخصوصية (PO-019)."
+  },
+  {
+   "id": "PO-048",
+   "type": "RECLASSIFY",
+   "source": "M47 §4",
+   "change": "خيارات «نوع الاهتمام بالشراكة» حُسمت (PF-06 — 6 قيم ثابتة). الركائز التسع لقسم «لماذا SHELTER» تبقى PENDING VERIFICATION ومخفية حتى ملفات Franchise Master. باقي الملفات (الرسوم، المعايير، الـTerritory…) كما هي ولا يُنشر منها شيء."
+  },
+  {
+   "id": "FRAN-001",
+   "type": "UPDATE",
+   "source": "M47 §1",
+   "change": "المحتوى V1 معتمد ومنشور (M47) — الصفحة تعمل AR/EN؛ الإطلاق على Production يتبع بوابات الإصدار.",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Site/FranchiseController.php",
+    "resources/views/site/franchise.blade.php",
+    "database/seeders/FranchiseSeeder.php",
+    "app/Services/Content/Pages.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Site/FranchisePageTest.php"
+   ]
+  },
+  {
+   "id": "FRAN-011",
+   "type": "UPDATE",
+   "source": "M47 §1",
+   "change": "اسم الصفحة: «كن شريكًا مع SHELTER COFFEE» / «Partner With SHELTER COFFEE» (العنوان، الـBreadcrumb، الـFooter، البحث). التوصيف الثانوي: Franchise & Partnerships. الـH1: «كن شريكًا في نمو / SHELTER COFFEE» · «Grow With / SHELTER COFFEE» على سطرين.",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Site/FranchiseController.php",
+    "resources/views/site/franchise.blade.php",
+    "database/seeders/FranchiseSeeder.php",
+    "app/Services/Content/Pages.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Site/FranchisePageTest.php"
+   ]
+  },
+  {
+   "id": "FRAN-012",
+   "type": "UPDATE",
+   "source": "M47 §1",
+   "change": "الـHero V1: Eyebrow «FRANCHISE & PARTNERSHIPS» + الـH1 + النص المعتمد (2019، إربد) + CTA أساسي «ابدأ طلب الشراكة» / «Start Your Partnership Application» + ثانوي «تعرّف على SHELTER» / «Discover SHELTER» (ينزل لقسم «من هي SHELTER؟» في الصفحة).",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Site/FranchiseController.php",
+    "resources/views/site/franchise.blade.php",
+    "database/seeders/FranchiseSeeder.php",
+    "app/Services/Content/Pages.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Site/FranchisePageTest.php"
+   ]
+  },
+  {
+   "id": "FRAN-013",
+   "type": "UPDATE",
+   "source": "M47 §1",
+   "change": "مواضع الـCTA: الـHero + منتصف الصفحة + الـCTA الختامي («مهتم ببناء SHELTER في سوقك؟» — زر «ابدأ طلب الشراكة» / «Start Your Application») + شريط الهاتف + العمود الجانبي من 1024.",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Site/FranchiseController.php",
+    "resources/views/site/franchise.blade.php",
+    "database/seeders/FranchiseSeeder.php",
+    "app/Services/Content/Pages.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Site/FranchisePageTest.php"
+   ]
+  },
+  {
+   "id": "FRAN-015",
+   "type": "UPDATE",
+   "source": "M47 §1",
+   "change": "نص «من هي SHELTER؟» V1 معتمد AR/EN.",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Site/FranchiseController.php",
+    "resources/views/site/franchise.blade.php",
+    "database/seeders/FranchiseSeeder.php",
+    "app/Services/Content/Pages.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Site/FranchisePageTest.php"
+   ]
+  },
+  {
+   "id": "FRAN-016",
+   "type": "UPDATE",
+   "source": "M47 §1",
+   "change": "النصان المعتمدان لـDRIVE وHOUSE يُعرضان كبطاقتين تحت «نماذج تجربة SHELTER الحالية» — تجارب حالية للعلامة، لا «باقات فرنشايز» حتى اعتماد ذلك في Franchise Master.",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Site/FranchiseController.php",
+    "resources/views/site/franchise.blade.php",
+    "database/seeders/FranchiseSeeder.php",
+    "app/Services/Content/Pages.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Site/FranchisePageTest.php"
+   ]
+  },
+  {
+   "id": "FRAN-026",
+   "type": "UPDATE",
+   "source": "M47 §1",
+   "change": "عنوان ومقدمة «لماذا تصبح شريكًا مع SHELTER؟» وصلا بالعربية فقط (مخفيان حتى النص الإنجليزي)؛ الركائز التسع PENDING VERIFICATION ومخفية — لا تُنشر كوعد عام قبل Franchise Master.",
+   "new_impl": "PARTIAL",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Site/FranchiseController.php",
+    "resources/views/site/franchise.blade.php",
+    "database/seeders/FranchiseSeeder.php",
+    "app/Services/Content/Pages.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Site/FranchisePageTest.php"
+   ]
+  },
+  {
+   "id": "FRAN-028",
+   "type": "UPDATE",
+   "source": "M47 §1",
+   "change": "نص «أكثر من مجرد اسم على الواجهة» V1 معتمد AR/EN ومنشور.",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Site/FranchiseController.php",
+    "resources/views/site/franchise.blade.php",
+    "database/seeders/FranchiseSeeder.php",
+    "app/Services/Content/Pages.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Site/FranchisePageTest.php"
+   ]
+  },
+  {
+   "id": "FRAN-030",
+   "type": "UPDATE",
+   "source": "M47 §1",
+   "change": "نص «ما الذي نبحث عنه في الشريك؟» + المعايير العامة السبعة وصلت بالعربية فقط — مخزنة ومخفية حتى النص الإنجليزي.",
+   "new_impl": "PARTIAL",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Site/FranchiseController.php",
+    "resources/views/site/franchise.blade.php",
+    "database/seeders/FranchiseSeeder.php",
+    "app/Services/Content/Pages.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Site/FranchisePageTest.php"
+   ]
+  },
+  {
+   "id": "FRAN-031",
+   "type": "UPDATE",
+   "source": "M47 §1",
+   "change": "ممنوع النشر بلا موافقة: Minimum Capital · Net Worth · Required Investment · Required Experience · Territory Requirement (M47 §2).",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Site/FranchiseController.php",
+    "resources/views/site/franchise.blade.php",
+    "database/seeders/FranchiseSeeder.php",
+    "app/Services/Content/Pages.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Site/FranchisePageTest.php"
+   ]
+  },
+  {
+   "id": "FRAN-032",
+   "type": "UPDATE",
+   "source": "M47 §1",
+   "change": "رحلة الشراكة العامة (9 خطوات AR/EN) معتمدة للنشر V1؛ إذا احتوى Franchise Master عملية أدق فهو يفوز.",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Site/FranchiseController.php",
+    "resources/views/site/franchise.blade.php",
+    "database/seeders/FranchiseSeeder.php",
+    "app/Services/Content/Pages.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Site/FranchisePageTest.php"
+   ]
+  },
+  {
+   "id": "FRAN-034",
+   "type": "UPDATE",
+   "source": "M47 §1",
+   "change": "نص «أسواق النمو» V1 معتمد ومنشور، ويقول صراحة إن تقديم الطلب لا يعني أن السوق أو المنطقة متاحة أو محجوزة.",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Site/FranchiseController.php",
+    "resources/views/site/franchise.blade.php",
+    "database/seeders/FranchiseSeeder.php",
+    "app/Services/Content/Pages.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Site/FranchisePageTest.php"
+   ]
+  },
+  {
+   "id": "FRAN-035",
+   "type": "UPDATE",
+   "source": "M47 §1",
+   "change": "7 أسئلة V1 معتمدة AR/EN (الأردن، خارج الأردن، الخبرة، الموقع، بعد الإرسال، التكلفة، ضمان الأرباح) + FAQPage للمنشور فقط.",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Site/FranchiseController.php",
+    "resources/views/site/franchise.blade.php",
+    "database/seeders/FranchiseSeeder.php",
+    "app/Services/Content/Pages.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Site/FranchisePageTest.php"
+   ]
+  },
+  {
+   "id": "FRAN-036",
+   "type": "UPDATE",
+   "source": "M47 §1",
+   "change": "إجابتا التكلفة وضمان الأرباح بالصياغة العامة المعتمدة — بلا أرقام ولا وعود.",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Site/FranchiseController.php",
+    "resources/views/site/franchise.blade.php",
+    "database/seeders/FranchiseSeeder.php",
+    "app/Services/Content/Pages.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Site/FranchisePageTest.php"
+   ]
+  },
+  {
+   "id": "FRAN-022",
+   "type": "UPDATE",
+   "source": "M47 §1",
+   "change": "قائمة الحظر المالية (M47 §5: الرسوم، الإتاوة، الاستثمار، ROI، فترة الاسترداد، الإيراد/الربح المتوقع، رأس المال، الـTerritory، مدة العقد، المساحة، الضمانات…) + ممنوع «أرباح/عائد/نجاح مضمون» و«أفضل فرصة استثمار». حارس تقني: عبارة محظورة في المحتوى تُبقي الصفحة غير منشورة (config/content.php).",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "config/content.php",
+    "app/Services/Content/Pages.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Site/FranchisePageTest.php"
+   ]
+  },
+  {
+   "id": "FRAN-042",
+   "type": "UPDATE",
+   "source": "M47 §1",
+   "change": "حقل «نوع اهتمامك بالشراكة» = 6 خيارات ثابتة (PF-06) بدل النص الحر + «وضح نوع اهتمامك» عند «أخرى» فقط.",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "resources/views/site/franchise/form.blade.php",
+    "app/Services/Franchise/PartnershipValidator.php",
+    "app/Services/Franchise/PartnershipSubmitter.php",
+    "app/Services/Franchise/FranchiseForm.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Site/FranchisePageTest.php"
+   ]
+  },
+  {
+   "id": "FRAN-046",
+   "type": "UPDATE",
+   "source": "M47 §1",
+   "change": "مطبّق: FR-YYYY-NNNNN من الخادم، يبدأ FR-2026-00101 (D-316).",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Services/Core/ReferenceNumbers.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Core/ReferenceNumbersTest.php",
+    "tests/Feature/Site/FranchisePageTest.php"
+   ]
+  },
+  {
+   "id": "FRAN-047",
+   "type": "UPDATE",
+   "source": "M47 §1",
+   "change": "نص صفحة النجاح V1 (M47 §5) AR/EN: الشكر + «تم استلام طلبك بنجاح» + رقم الطلب + المراجعة والتواصل إذا انتقل الطلب + الاحتفاظ بالرقم. لا مدة رد، لا اجتماع، لا موافقة؛ لا تظهر إلا بعد الحفظ.",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "resources/views/site/franchise-submitted.blade.php",
+    "app/Http/Controllers/Site/FranchiseController.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Site/FranchisePageTest.php"
+   ]
+  },
+  {
+   "id": "FRAN-048",
+   "type": "UPDATE",
+   "source": "M47 §1",
+   "change": "PF-02: Checkbox إلزامي `non_binding_acknowledgement` بالنص المعتمد (التسمية = النص نفسه)، غير محدد مسبقًا، والنسخة ووقت القبول في application_consents.",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "resources/views/site/franchise/form.blade.php",
+    "app/Services/Franchise/PartnershipValidator.php",
+    "app/Services/Franchise/PartnershipSubmitter.php",
+    "app/Services/Franchise/FranchiseForm.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Site/FranchisePageTest.php"
+   ]
+  },
+  {
+   "id": "FRAN-050",
+   "type": "UPDATE",
+   "source": "M47 §1",
+   "change": "PF-03: Checkbox إلزامي منفصل `data_processing_consent` بالنص المعتمد؛ لا Marketing opt-in؛ بيانات المتقدم لا تصل للتحليلات.",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "resources/views/site/franchise/form.blade.php",
+    "app/Services/Franchise/PartnershipValidator.php",
+    "app/Services/Franchise/PartnershipSubmitter.php",
+    "app/Services/Franchise/FranchiseForm.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Site/FranchisePageTest.php"
+   ]
+  },
+  {
+   "id": "FRAN-053",
+   "type": "UPDATE",
+   "source": "M47 §1",
+   "change": "مطبّق: UTM + مسار الدخول + نطاق المُحيل فقط — بلا IP ولا رابط كامل.",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Site/FranchiseController.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Site/FranchisePageTest.php"
+   ]
+  }
+ ],
+ "conflicts": [
+  {
+   "id": "G26-CF-01",
+   "topic": "نص صفحة نجاح طلب الشراكة",
+   "old_instruction": "«شكرًا لاهتمامك بالشراكة مع SHELTER COFFEE» + «سيقوم فريق SHELTER بمراجعة الطلب والتواصل عند الانتقال إلى المرحلة التالية.»",
+   "old_source": "M29 (docs/franchise/02 §5) — مطبّق في lang/*/franchise.php",
+   "new_instruction": "«شكراً لاهتمامك بالشراكة مع SHELTER COFFEE» + «تم استلام طلبك بنجاح.» + رقم الطلب + «سيتم مراجعة المعلومات المقدمة، وسيتم التواصل معك إذا انتقل الطلب إلى مرحلة لاحقة.» + «يرجى الاحتفاظ برقم الطلب للرجوع إليه عند الحاجة.» (وما يقابله EN)",
+   "new_source": "M47 §5",
+   "winner": "قرار الـOwner الأحدث (M47 Part 5)",
+   "why": "قاعدة السلطة 1",
+   "impact": "FRAN-047 · lang/ar|en/franchise.php · الصياغة القديمة SUPERSEDED",
+   "files": [
+    "lang/ar/franchise.php",
+    "lang/en/franchise.php",
+    "resources/views/site/franchise-submitted.blade.php"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "id": "G26-CF-02",
+   "topic": "شكل إقرار «الطلب ليس التزامًا» (PF-02)",
+   "old_instruction": "تصميم تقني سابق: نص Disclaimer يظهر فوق الموافقة (قيمة Setting معتمدة عبر الـFact Registry) بلا Checkbox خاص",
+   "old_source": "بناء PHASE 4 (b380ebf) — قرار تقني لا قرار Owner",
+   "new_instruction": "Checkbox إلزامي منفصل non_binding_acknowledgement، غير محدد مسبقًا، وتُخزن نسخة النص ووقت القبول",
+   "new_source": "M47 §3",
+   "winner": "قرار الـOwner (M47)",
+   "why": "قرار Owner صريح يعلو على الاقتراح التقني",
+   "impact": "FRAN-048 · consent_versions scope partnership_ack · application_consents (سطر لكل نص) · حُذف config franchise.disclaimer_keys",
+   "files": [
+    "app/Services/Franchise/FranchiseForm.php",
+    "database/migrations/2026_10_01_000800_create_recruitment_tables.php"
+   ],
+   "status": "RESOLVED"
+  },
+  {
+   "id": "G26-CF-03",
+   "topic": "حقل «نوع الاهتمام بالشراكة»",
+   "old_instruction": "نص حر قصير حتى اعتماد الخيارات (PF-06)",
+   "old_source": "Field Matrix (docs/franchise/03) — مؤقت",
+   "new_instruction": "6 خيارات ثابتة + «أخرى» مع وصف مشروط؛ تُخزن القيمة الثابتة لا النص الظاهر",
+   "new_source": "M47 §4",
+   "winner": "قرار الـOwner (M47)",
+   "why": "حسم البند المؤقت",
+   "impact": "FRAN-042 · partnership_applications.partnership_interest_type/other",
+   "files": [
+    "database/migrations/2026_10_01_000900_create_partnership_applications_table.php"
+   ],
+   "status": "RESOLVED"
+  }
+ ],
+ "new_decisions": [
+  {
+   "temp_id": "G26-ND-01",
+   "area": "16 Franchise",
+   "decision": "محتوى صفحة الفرنشايز V1 (OWNER APPROVED): اسم الصفحة «كن شريكًا مع SHELTER COFFEE» / «Partner With SHELTER COFFEE» · التوصيف الثانوي Franchise & Partnerships · الـHero (Eyebrow + «كن شريكًا في نمو / SHELTER COFFEE» · «Grow With / SHELTER COFFEE» + النص + «ابدأ طلب الشراكة» و«تعرّف على SHELTER») · من هي SHELTER؟ · نماذج تجربة SHELTER الحالية (DRIVE، HOUSE) · أكثر من مجرد اسم على الواجهة · رحلة الشراكة (9 خطوات) · أسواق النمو · 7 أسئلة · CTA ختامي «مهتم ببناء SHELTER في سوقك؟». PO-030 = RESOLVED.",
+   "sources": [
+    "M47 §1"
+   ],
+   "status": "APPROVED",
+   "reason": "Owner: FRANCHISE PAGE — FINAL CONTENT PART 1–3 · OWNER APPROVED — V1",
+   "impact": "FRAN-001/011/012/013/015/028/032/034/035/036 · PO-030 · FranchiseSeeder",
+   "date": "2026-10-02"
+  },
+  {
+   "temp_id": "G26-ND-02",
+   "area": "16 Franchise",
+   "decision": "DRIVE وHOUSE = CURRENT SHELTER BRAND EXPERIENCES — لا يوصفان كـFRANCHISE PACKAGES إلا بعد اعتماد ذلك رسميًا ضمن SHELTER Franchise Master Files. ركائز «لماذا تصبح شريكًا» التسع تُستخدم عند اعتمادها في Franchise Master فقط؛ أي بند غير موثق كالتزام فعلي = PENDING VERIFICATION ولا يُنشر كوعد عام. معايير الشريك العامة (7) معتمدة كنص؛ ممنوع نشر Minimum Capital · Net Worth · Required Investment · Required Experience · Territory Requirement بلا موافقة.",
+   "sources": [
+    "M47 §1",
+    "M47 §2"
+   ],
+   "status": "APPROVED",
+   "reason": "Owner: IMPORTANT (Part 1) + WHY PARTNER / WHO WE LOOK FOR (Part 2)",
+   "impact": "FRAN-016/026/030/031",
+   "date": "2026-10-02"
+  },
+  {
+   "temp_id": "G26-ND-03",
+   "area": "16 Franchise",
+   "decision": "PF-02 = RESOLVED: Checkbox إلزامي `non_binding_acknowledgement` (افتراضي false) بالنص المعتمد AR/EN («أفهم أن تقديم هذا الطلب يعبر عن اهتمامي… تخضع جميع الطلبات للمراجعة والتقييم…»)؛ لا يُحدد مسبقًا، لا إرسال بدونه، تُخزن acknowledgement_version وacknowledgement_timestamp، ليس موافقة تسويقية، ولا صياغة توحي بأن التقديم موافقة على الفرنشايز.",
+   "sources": [
+    "M47 §3"
+   ],
+   "status": "APPROVED",
+   "reason": "Owner: PF-02 — NON-BINDING APPLICATION ACKNOWLEDGEMENT",
+   "impact": "FRAN-048 · PO-049 (RESOLVED) · G26-CF-02",
+   "date": "2026-10-02"
+  },
+  {
+   "temp_id": "G26-ND-04",
+   "area": "16 Franchise",
+   "decision": "PF-03 = RESOLVED: Checkbox إلزامي منفصل `data_processing_consent` (افتراضي false) بالنص المعتمد AR/EN (صحة المعلومات + جمع واستخدام وتخزين ومعالجة البيانات لمراجعة الطلب وتقييم الفرصة والتواصل + «لا تعتبر هذه الموافقة اشتراكًا في الرسائل التسويقية»)؛ تُخزن consent_version وconsent_timestamp (وprivacy_policy_version عند وجود سياسة منشورة)؛ لا دمج مع Marketing Consent (مستقبلًا: OPTIONAL · SEPARATE · UNCHECKED)؛ لا بيانات متقدم في Analytics.",
+   "sources": [
+    "M47 §4"
+   ],
+   "status": "APPROVED",
+   "reason": "Owner: PF-03 — DATA PROCESSING CONSENT",
+   "impact": "FRAN-050 · PO-050 (RESOLVED)",
+   "date": "2026-10-02"
+  },
+  {
+   "temp_id": "G26-ND-05",
+   "area": "16 Franchise",
+   "decision": "PF-06 = RESOLVED: «نوع اهتمامك بالشراكة» / «Type of Partnership Interest» (`partnership_interest_type`، إلزامي) = single_location (امتياز لفرع واحد) · multi_location (تطوير أكثر من فرع) · market_development (تطوير SHELTER في سوق أو مدينة) · proposed_location (لدي موقع مقترح وأرغب بدراسة ملاءمته) · general_interest (أرغب بالتعرف على فرص الشراكة المتاحة) · other (أخرى) + `partnership_interest_other` «وضح نوع اهتمامك بالشراكة» إلزامي عند other فقط ولا تُرسل قيمة قديمة مخفية. الخيارات تصف اهتمام المتقدم فقط — لا تعني Master Franchise ولا Exclusive/Specific Territory ولا Area Development/Multi-Unit Rights ولا صيغة مضمونة ولا سوقًا متاحًا.",
+   "sources": [
+    "M47 §4"
+   ],
+   "status": "APPROVED",
+   "reason": "Owner: PF-06 — PARTNERSHIP INTEREST TYPE",
+   "impact": "FRAN-042 · PO-048 (UPDATE) · G26-CF-03",
+   "date": "2026-10-02"
+  },
+  {
+   "temp_id": "G26-ND-06",
+   "area": "16 Franchise",
+   "decision": "رسالة نجاح طلب الشراكة V1 (AR/EN) كما أرسلها الـOwner، وقواعدها: لا Success قبل الحفظ الفعلي · رقم الطلب من الخادم بلا بيانات شخصية · لا وعد بمدة رد أو اجتماع أو موافقة · لا صياغة توحي بالقبول · لا تحويل لـNewsletter.",
+   "sources": [
+    "M47 §5"
+   ],
+   "status": "APPROVED",
+   "reason": "Owner: APPLICATION SUCCESS MESSAGE + SUCCESS STATE RULES",
+   "impact": "FRAN-047 · G26-CF-01",
+   "date": "2026-10-02"
+  },
+  {
+   "temp_id": "G26-ND-07",
+   "area": "16 Franchise",
+   "decision": "COMMERCIAL / FINANCIAL SAFETY: ممنوع نشر Franchise Fee · Royalty · Marketing Fee · Initial Investment · Investment Range · CapEx · Operating Cost · ROI · Payback · Expected Revenue/Profit · Profit Margin · Minimum Capital/Net Worth · Territory/Renewal Fee · Contract Duration · Exclusive/Guaranteed Territory · Minimum Store Area · Opening Cost · Guaranteed Return/Success بلا موافقة صريحة من Franchise Master؛ الصياغة العامة المعتمدة عند الحاجة: «تتم مناقشة التفاصيل التجارية والاستثمارية مع المتقدمين المؤهلين خلال المراحل اللاحقة من عملية التقييم.» ممنوع «أرباح/عائد/نجاح مضمون» و«أفضل فرصة استثمار». تقديم الطلب لا يعني حجز سوق أو مدينة أو حصرية أو Territory أو Master Franchise أو Development Rights.",
+   "sources": [
+    "M47 §5"
+   ],
+   "status": "APPROVED",
+   "reason": "Owner: COMMERCIAL / FINANCIAL SAFETY RULE · NO GUARANTEES · NO TERRITORY PROMISE",
+   "impact": "FRAN-003/008/022/017 · config/content.php (حارس العبارات)",
+   "date": "2026-10-02"
+  }
+ ],
+ "pending_owner": [
+  {
+   "id": "G26-PO-01",
+   "item": "النص الإنجليزي لقسمين من صفحة الفرنشايز وصلا بالعربية فقط: (1) «لماذا تصبح شريكًا مع SHELTER؟» — العنوان والمقدمة · (2) «ما الذي نبحث عنه في الشريك؟» — العنوان والنص والمعايير السبعة. القسمان محفوظان ومخفيان؛ الصفحة منشورة بدونهما.",
+   "category": "NON-BLOCKING",
+   "type": "CONTENT NEEDED",
+   "blocks": "إظهار القسمين فقط",
+   "refs": [
+    "D-317",
+    "FRAN-018",
+    "FRAN-026",
+    "FRAN-030"
+   ],
+   "count": "نصان",
+   "notes": "لا تُترجم بلا اعتماد (LANGUAGE-PARITY)"
+  }
+ ],
+ "technical_flags": [
+  {
+   "id": "G26-TF-01",
+   "topic": "زر «تعرّف على SHELTER» ينزل لقسم «من هي SHELTER؟» في نفس الصفحة",
+   "detail": "يبقي الزائر في صفحة التحويل بدل نقله لصفحة «من نحن» (غير منشورة بعد).",
+   "recommendation": "قرار تقني منفذ ومختبر",
+   "needs_owner": false,
+   "refs": [
+    "FRAN-012"
+   ]
+  },
+  {
+   "id": "G26-TF-02",
+   "topic": "النصان الإلزاميان مخزنان كنسخ (consent_versions) وكل طلب يحفظ سطرًا لكل نص",
+   "detail": "partnership-ack-v1 (scope partnership_ack) وpartnership-consent-v1 (scope partnerships)؛ application_consents بمفتاح (الطلب، النسخة) مع وقت القبول. تسمية الـCheckbox هي النص المعتمد نفسه. privacy_policy_version غير منطبق حتى نشر سياسة الخصوصية بنسخ.",
+   "recommendation": "قرار تقني منفذ ومختبر",
+   "needs_owner": false,
+   "refs": [
+    "FRAN-048",
+    "FRAN-050"
+   ]
+  },
+  {
+   "id": "G26-TF-03",
+   "topic": "نوع الاهتمام: قائمة Radio عمودية (6 خيارات)",
+   "detail": "كل الخيارات ظاهرة بضغطة واحدة على الهاتف؛ وصف «أخرى» يظهر بـCSS :has بلا JavaScript، والـJS يعطله عند تغيير الاختيار، والخادم يحذف أي وصف مع خيار غير «أخرى».",
+   "recommendation": "قرار تقني منفذ ومختبر",
+   "needs_owner": false,
+   "refs": [
+    "FRAN-042"
+   ]
+  },
+  {
+   "id": "G26-TF-04",
+   "topic": "حارس العبارات التجارية المحظورة",
+   "detail": "config/content.php: عبارة مثل «أرباح مضمونة» أو «Guaranteed ROI» في أي نص من الصفحة (بأي لغة) تُبقيها غير منشورة وتسجل تحذيرًا بلا بيانات شخصية. شبكة أمان خلف مراجعة الـOwner.",
+   "recommendation": "قرار تقني منفذ ومختبر",
+   "needs_owner": false,
+   "refs": [
+    "FRAN-022"
+   ]
+  },
+  {
+   "id": "G26-TF-05",
+   "topic": "اسم الصفحة مقابل الـH1",
+   "detail": "pages.name_ar/en = اسم الصفحة (العنوان، الـBreadcrumb، الـFooter، البحث)؛ title = الـH1 بسطريه كما كتبه الـOwner.",
+   "recommendation": "قرار تقني منفذ ومختبر",
+   "needs_owner": false,
+   "refs": [
+    "FRAN-011"
+   ]
+  }
+ ],
+ "cost_api_dependencies": [],
+ "dropped": []
+}
