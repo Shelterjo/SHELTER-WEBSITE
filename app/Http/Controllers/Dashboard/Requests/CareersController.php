@@ -13,6 +13,8 @@ use App\Services\Core\AuditLogger;
 use App\Services\Recruitment\IdentityVault;
 use App\Services\Requests\ApplicationInbox;
 use App\Services\Requests\CareersQuery;
+use App\Services\Requests\CareersView;
+use App\Services\Requests\RecruitmentSettings;
 use Carbon\CarbonImmutable;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -29,9 +31,18 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
  */
 final class CareersController extends Controller
 {
-    public function index(Request $request, CareersQuery $query): View
+    /** Saved searches per Owner (a short list stays readable). */
+    private const SAVED_MAX = 20;
+
+    public function index(Request $request, CareersQuery $query, CareersView $view): View
     {
+        $owner = $this->owner($request);
         $filters = CareersQuery::filters($request->query());
+        if ($request->query('per') !== null) {
+            $view->rememberPerPage($owner, $filters['per']); // the last choice is remembered (CAREERS-063)
+        } else {
+            $filters['per'] = $view->perPage($owner);
+        }
         $page = $query->paginate($filters, max(1, (int) $request->query('page', '1')));
 
         return view('dashboard.requests.careers.index', [
@@ -43,7 +54,60 @@ final class CareersController extends Controller
             'last' => $page->lastPage(),
             'cities' => JordanCity::query()->where('is_active', true)->orderBy('name_ar')->get(),
             'advanced' => array_filter(array_intersect_key($filters, array_flip(['city', 'gender', 'nationality', 'education', 'experience', 'job', 'from', 'to']))) !== [],
+            'columns' => $view->columns($owner),
+            'ordered' => $view->ordered($owner),
+            'density' => $view->density($owner),
+            'saved' => DB::table('recruitment_saved_filters')->where('owner_id', $owner->id)->orderBy('sort')->orderBy('id')->get()
+                ->map(fn ($row): array => ['id' => (int) $row->id, 'name' => (string) $row->name, 'query' => (array) json_decode((string) $row->filter_json, true)])->all(),
+            'staleBefore' => now()->subDays(RecruitmentSettings::staleDays()),
         ]);
+    }
+
+    /** The Owner's table view: columns shown and their order, density; or back to the default (CAREERS-061/062). */
+    public function view(Request $request, CareersView $view): RedirectResponse
+    {
+        $view->update($this->owner($request), $request->all());
+        $back = $request->string('back')->toString();
+
+        return redirect()->to(str_starts_with($back, route('dashboard.careers.index')) ? $back : route('dashboard.careers.index'))->with('view_open', true);
+    }
+
+    /** Saves the current search under a name (CAREERS-060). */
+    public function saveFilter(Request $request): RedirectResponse
+    {
+        $owner = $this->owner($request);
+        $name = trim($request->string('name')->toString());
+        if ($name === '' || mb_strlen($name) > 120) {
+            return back()->withErrors(['saved_name' => __('dashboard.requests.saved.errors.name')]);
+        }
+        if (DB::table('recruitment_saved_filters')->where('owner_id', $owner->id)->count() >= self::SAVED_MAX) {
+            return back()->withErrors(['saved_name' => __('dashboard.requests.saved.errors.max', ['max' => self::SAVED_MAX])]);
+        }
+        $query = array_filter(CareersQuery::filters((array) $request->input('filters', [])), fn ($v, string $k): bool => $v !== '' && $v !== null && $k !== 'per', ARRAY_FILTER_USE_BOTH);
+        DB::table('recruitment_saved_filters')->insert(['owner_id' => $owner->id, 'name' => $name, 'filter_json' => json_encode($query, JSON_UNESCAPED_UNICODE),
+            'sort' => 0, 'created_at' => now(), 'updated_at' => now()]);
+
+        return redirect()->route('dashboard.careers.index', $query)->with('status', __('dashboard.requests.saved.done'));
+    }
+
+    public function destroyFilter(Request $request, int $filter): RedirectResponse
+    {
+        DB::table('recruitment_saved_filters')->where('owner_id', $this->owner($request)->id)->where('id', $filter)->delete();
+
+        return back()->with('status', __('dashboard.requests.saved.removed'));
+    }
+
+    /** Quick view (CAREERS-065): the essentials in a side panel; opening it counts as seeing the application. */
+    public function quick(Request $request, Application $application, ApplicationInbox $inbox): View|RedirectResponse
+    {
+        $this->job($application);
+        if ($request->header('X-Quick-View') !== '1') {
+            return redirect()->route('dashboard.careers.show', $application); // opened directly: the full page
+        }
+        $inbox->markViewed($application, $this->owner($request));
+        $application->load(['job.city', 'attachments']);
+
+        return view('dashboard.requests.careers._quick', ['application' => $application, 'statuses' => ApplicationInbox::statuses('JOB')]);
     }
 
     public function show(Request $request, Application $application, ApplicationInbox $inbox): View

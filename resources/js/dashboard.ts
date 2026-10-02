@@ -22,6 +22,12 @@ if (bulk !== null || document.querySelector('button[data-print]') !== null) {
     });
 }
 
+// Job applications list: live search and quick view (own chunk).
+const careersResults = document.querySelector<HTMLElement>('[data-careers-results]');
+if (careersResults !== null) {
+    void import('./dashboard/careers-list').then(({ installCareersList }) => installCareersList(careersResults));
+}
+
 // Phones: the navigation is one scrollable row — bring the current screen's item into view (RTL handled by the browser).
 const nav = document.querySelector<HTMLElement>('.ui-shell__nav');
 const current = nav?.querySelector<HTMLElement>('[aria-current="page"]');

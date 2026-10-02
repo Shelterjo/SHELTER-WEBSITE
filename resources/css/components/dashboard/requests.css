@@ -338,3 +338,86 @@
     margin: 0;
     overflow-wrap: anywhere;
 }
+
+/* Saved searches: the chip and its remove button side by side. */
+.ui-saved-filter {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+}
+
+.ui-saved-filter form {
+    display: contents;
+}
+
+/* "Save this search" and "Table view" — two folding panels above the results. */
+.ui-inbox-tools {
+    display: grid;
+    gap: var(--space-2);
+    margin-block-end: var(--space-4);
+}
+
+.ui-inbox-results {
+    min-inline-size: 0;
+}
+
+/* Table view: each column with its show/hide tick and, when shown, up / down (keyboard and touch friendly). */
+.ui-column-list {
+    display: grid;
+    gap: var(--space-1);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.ui-column-list__item {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2);
+    border-block-end: var(--border-default) solid var(--color-border);
+}
+
+.ui-column-list__moves {
+    display: inline-flex;
+    gap: var(--space-1);
+}
+
+/* Compact density: less padding, same text size (CAREERS-062). */
+.ui-inbox-table--compact th,
+.ui-inbox-table--compact td {
+    padding-block: var(--space-1);
+}
+
+/* Quick view panel content. */
+.ui-quick {
+    display: grid;
+    gap: var(--space-4);
+}
+
+/* Settings → cities: one line per city with its on/off action. */
+.ui-city-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, calc(var(--touch-target) * 5)), 1fr));
+    gap: var(--space-1) var(--space-3);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.ui-city-list__item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2);
+}
+
+.ui-city-list__name {
+    min-inline-size: 0;
+}
+
+.ui-city-list__name--off {
+    color: var(--color-muted);
+    text-decoration: line-through;
+}

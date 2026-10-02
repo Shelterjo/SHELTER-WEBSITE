@@ -16,6 +16,7 @@ use App\Http\Controllers\Dashboard\HomeController;
 use App\Http\Controllers\Dashboard\RecoveryCodesController;
 use App\Http\Controllers\Dashboard\Requests\CareersBulkController;
 use App\Http\Controllers\Dashboard\Requests\CareersController;
+use App\Http\Controllers\Dashboard\Requests\CareersSettingsController;
 use App\Http\Controllers\Dashboard\Requests\FeedbackController;
 use App\Http\Controllers\Dashboard\Requests\PartnershipsController;
 use App\Http\Middleware\DashboardLocale;
@@ -84,6 +85,15 @@ Route::prefix('dashboard')->middleware(DashboardLocale::class)->group(function (
 
         // Requests — job applications (CAREERS-052…073). Identity numbers and permanent deletion need a fresh re-confirmation.
         Route::get('requests/careers', [CareersController::class, 'index'])->name('careers.index');
+        Route::post('requests/careers/view', [CareersController::class, 'view'])->name('careers.view');
+        Route::post('requests/careers/filters', [CareersController::class, 'saveFilter'])->name('careers.filters.store');
+        Route::delete('requests/careers/filters/{filter}', [CareersController::class, 'destroyFilter'])->whereNumber('filter')->name('careers.filters.destroy');
+        Route::get('requests/careers/settings', [CareersSettingsController::class, 'show'])->name('careers.settings');
+        Route::put('requests/careers/settings/stale', [CareersSettingsController::class, 'stale'])->name('careers.settings.stale');
+        Route::post('requests/careers/settings/locations', [CareersSettingsController::class, 'storeLocation'])->name('careers.settings.locations.store');
+        Route::put('requests/careers/settings/locations/{location}', [CareersSettingsController::class, 'updateLocation'])->whereNumber('location')->name('careers.settings.locations.update');
+        Route::post('requests/careers/settings/cities', [CareersSettingsController::class, 'storeCity'])->name('careers.settings.cities.store');
+        Route::put('requests/careers/settings/cities/{city}', [CareersSettingsController::class, 'updateCity'])->whereNumber('city')->name('careers.settings.cities.update');
         Route::post('requests/careers/bulk', [CareersBulkController::class, 'bulk'])->name('careers.bulk');
         Route::post('requests/careers/bulk/apply', [CareersBulkController::class, 'apply'])->name('careers.bulk.apply');
         Route::middleware('confirmed')->group(function (): void {
@@ -93,6 +103,7 @@ Route::prefix('dashboard')->middleware(DashboardLocale::class)->group(function (
         });
         Route::whereNumber(['application', 'note', 'attachment'])->group(function (): void {
             Route::get('requests/careers/{application}', [CareersController::class, 'show'])->name('careers.show');
+            Route::get('requests/careers/{application}/quick', [CareersController::class, 'quick'])->name('careers.quick');
             Route::post('requests/careers/{application}/status', [CareersController::class, 'status'])->name('careers.status');
             Route::post('requests/careers/{application}/restore', [CareersController::class, 'restore'])->name('careers.restore');
             Route::post('requests/careers/{application}/notes', [CareersController::class, 'addNote'])->name('careers.notes.store');
