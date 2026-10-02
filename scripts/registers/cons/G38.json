@@ -1,0 +1,282 @@
+{
+ "group": "G38",
+ "notes": "M50 / D-327: Dashboard D7 — إغلاق فجوات «تعديل كل شيء بلا كود»: نصوص الموقع ووصف Google، الإعدادات، بيانات الفروع، أقسام المنيو، الإجراءات الجماعية، نصوص الموافقة، صور الفعاليات والأقسام.",
+ "requirements": [],
+ "updates_to_existing": [
+  {
+   "id": "MENU-062",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D7 (M50)",
+   "change": "إجراءات جماعية: تحديد أصناف ← إظهار/إخفاء، نقل لقسم (ومنها الموسم = Set seasonal)، التوفر في فرع (مع سبب، ويبقى سعر الفرع) — بتأكيد واحد، ولكل صنف نسخته وسجله، وسجل ملخص. لا تغيير جماعي للأسعار.",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Http/Controllers/Dashboard/Data/MenuBulkController.php",
+    "app/Services/Dashboard/MenuManager.php",
+    "resources/views/dashboard/menu/bulk.blade.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/MenuBulkTest.php"
+   ]
+  },
+  {
+   "id": "MENU-039",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D7 (M50)",
+   "change": "الترتيب المعتمد يظهر للعميل والموسم أعلاه عند تفعيله؛ ويمكن للـOwner تغييره من «أقسام المنيو» (أعلى/أسفل) ويُسجل كقرار منه. المجموعة (SWEETS) تأخذ مكان أول قسم منها.",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Services/Menu/MenuSections.php",
+    "app/Services/Menu/Page/MenuPage.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/MenuSectionsTest.php"
+   ]
+  },
+  {
+   "id": "MDH-005",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D7 (M50)",
+   "change": "كيان الفرع بحقوله المركزية قابل للتعديل من الـDashboard: الاسمان، العنوان لكل لغة، رابط الخرائط، الإحداثيات، الظهور، الخدمات وطرق الدفع — الحفظ = اعتماد الحقيقة، والموقع يقرأ المعتمد فقط.",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Services/Dashboard/BranchEditor.php",
+    "app/Services/Site/BranchDirectory.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/BranchDetailsTest.php"
+   ]
+  },
+  {
+   "id": "BRANCH-010",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D7 (M50)",
+   "change": "+ بيانات الفرع (الاسمان، العنوان، الخريطة، الإحداثيات، الظهور، الخدمات). المعاينة قبل النشر موجودة للساعات؛ بيانات الفرع تُحفظ مباشرة مع سجل ونسخة.",
+   "new_impl": "PARTIAL",
+   "tested": "YES",
+   "code_refs": [
+    "app/Services/Dashboard/BranchEditor.php",
+    "resources/views/dashboard/branches/show.blade.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/BranchDetailsTest.php"
+   ]
+  },
+  {
+   "id": "SEO-008",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D7 (M50)",
+   "change": "صفحة كل فرع: الاسم، العنوان (عند اعتماده)، زر الاتجاهات برابط الخرائط، الساعات، وSchema CafeOrCoffeeShop مع PostalAddress وGeoCoordinates وhasMap عند الاعتماد فقط، ووصف Google قابل للكتابة. المتبقي: إدخال العنوان والرابط الفعليين (PO-010) ومطابقة GBP.",
+   "new_impl": "PARTIAL",
+   "tested": "YES",
+   "code_refs": [
+    "app/Support/StructuredData.php",
+    "resources/views/site/branch.blade.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/BranchDetailsTest.php"
+   ]
+  },
+  {
+   "id": "SEO-040",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D7 (M50)",
+   "change": "وصف Google لكل صفحة فارغ حتى يكتبه الـOwner (لا وصف مخترع)، وعناوين الصفحات تتغير فقط من «نصوص الموقع» بقراره.",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Services/Content/SiteTexts.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/SiteTextsTest.php"
+   ]
+  },
+  {
+   "id": "CAREERS-038",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D7 (M50)",
+   "change": "+ «نصوص الموافقة» في الإعدادات: أي تعديل = نسخة جديدة نشطة بسبب إلزامي، والقديمة لا تتغير وتبقى مرتبطة بكل طلب وافق عليها.",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Services/Dashboard/ConsentEditor.php",
+    "resources/views/dashboard/consents.blade.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/ConsentsTest.php"
+   ]
+  },
+  {
+   "id": "OPS-023",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D7 (M50)",
+   "change": "الوضع الآمن من الإعدادات: يوقف الإعلانات والعروض وبلوك الرئيسية فورًا، والتنبيه العاجل يبقى نصًا؛ المنيو والفروع والتواصل والنماذج تبقى؛ إطفاؤه يعيد كل شيء؛ يظهر تنبيه في «يحدث الآن». (لا حركة موسمية ولا تكاملات اختيارية مبنية بعد.)",
+   "new_impl": "TESTED",
+   "tested": "YES",
+   "code_refs": [
+    "app/Services/Experiences/Placements.php",
+    "app/Services/Dashboard/SettingsEditor.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/SettingsTest.php"
+   ]
+  },
+  {
+   "id": "OPS-024",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D7 (M50)",
+   "change": "مبني: «أوقف الآن» لكل حملة/إعلان، والوضع الآمن، وإغلاق أي نموذج فورًا — بتأكيد هوية حديث وسجل. المتبقي: مفتاح الحركة الموسمية ومفاتيح التكاملات (غير مبنية بعد).",
+   "new_impl": "PARTIAL",
+   "tested": "YES",
+   "code_refs": [
+    "app/Services/Dashboard/SettingsEditor.php",
+    "app/Http/Controllers/Dashboard/LiveController.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/SettingsTest.php",
+    "tests/Feature/Dashboard/AnnouncementsTest.php"
+   ]
+  },
+  {
+   "id": "CMS-001",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D7 (M50)",
+   "change": "+ نصوص الموقع (62 نصًا وعناوين/أوصاف Google)، الإعدادات (فتح/إغلاق النماذج، الوضع الآمن، عدّ البحث، سنة التأسيس)، بيانات الفروع، أقسام المنيو، الإجراءات الجماعية، نصوص الموافقة، صور الفعاليات والأقسام. يبقى بالكود: أسئلة النماذج (مجمّدة بقرار)، عناصر القائمة الرئيسية.",
+   "new_impl": "PARTIAL",
+   "tested": "YES",
+   "code_refs": [
+    "app/Services/Content/SiteTexts.php",
+    "app/Services/Dashboard/SettingsEditor.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/SiteTextsTest.php",
+    "tests/Feature/Dashboard/SettingsTest.php"
+   ]
+  },
+  {
+   "id": "CMS-011",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D7 (M50)",
+   "change": "نصوص الموقع من قائمة محددة فقط (لا تمس التصميم ولا الأسماء المحمية)، والصور من المعتمدة فقط عبر نفس أداة الاختيار.",
+   "new_impl": "PARTIAL",
+   "tested": "YES",
+   "code_refs": [
+    "app/Services/Content/SiteTexts.php",
+    "resources/views/dashboard/media/_picker.blade.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/SiteTextsTest.php"
+   ]
+  },
+  {
+   "id": "DX-011",
+   "type": "UPDATE",
+   "source": "BUILD — DASHBOARD D7 (M50)",
+   "change": "+ الوسائط للفعاليات: صورة معتمدة تظهر في صفحة الفعالية فقط ما دامت الحقوق تسمح.",
+   "new_impl": "PARTIAL",
+   "tested": "YES",
+   "code_refs": [
+    "app/Services/Dashboard/EventEditor.php",
+    "app/Services/Experiences/Events.php"
+   ],
+   "test_refs": [
+    "tests/Feature/Dashboard/EventEditorTest.php"
+   ]
+  }
+ ],
+ "conflicts": [],
+ "new_decisions": [],
+ "pending_owner": [],
+ "technical_flags": [
+  {
+   "id": "G38-TF-01",
+   "topic": "نصوص الموقع",
+   "detail": "طبقة فوق ملفات اللغة (OverridingTranslationLoader) لقائمة محددة من 62 مفتاحًا فقط؛ الفارغ = الصياغة الأصلية والصف يبقى (نسخة وسجل)؛ المتغيرات (:name، :brand) إلزامية؛ أي عطل = الصياغة الأصلية. وصف Google لكل صفحة يبدأ فارغًا ولا يُخترع.",
+   "recommendation": "قرار تقني منفذ ومختبر",
+   "needs_owner": false,
+   "refs": [
+    "CMS-001",
+    "SEO-040"
+   ]
+  },
+  {
+   "id": "G38-TF-02",
+   "topic": "مفاتيح النماذج",
+   "detail": "الـOwner يغلق أي نموذج فورًا (feature flag)؛ الفتح على الموقع الحي يحتاج أيضًا بوابة الإطلاق (env) ونص الموافقة والبيانات اللازمة — حماية بيانات المتقدمين (M36).",
+   "recommendation": "قرار تقني منفذ ومختبر",
+   "needs_owner": false,
+   "refs": [
+    "OPS-024",
+    "CAREERS-038"
+   ]
+  },
+  {
+   "id": "G38-TF-03",
+   "topic": "الوضع الآمن",
+   "detail": "يوقف الأماكن الديناميكية (الشريط وبلوك الرئيسية) إلا التنبيه العاجل كنص (SAFE-MODE §2)؛ يعتمد على تأكيد الهوية الحديث (confirmed).",
+   "recommendation": "قرار تقني منفذ ومختبر",
+   "needs_owner": false,
+   "refs": [
+    "OPS-023"
+   ]
+  },
+  {
+   "id": "G38-TF-04",
+   "topic": "بيانات الفرع",
+   "detail": "روابط خرائط Google بـhttps فقط من نطاقاتها؛ الإحداثيات معًا أو لا شيء وتُخزن بسبع خانات حتى تطابق الحقيقة المعتمدة؛ الفرع المخفي يختفي وصفحته 404؛ الخدمات نعم/لا/لم يُحدد ويظهر «نعم» فقط؛ Schema للعنوان والموقع عند الاعتماد فقط.",
+   "recommendation": "قرار تقني منفذ ومختبر",
+   "needs_owner": false,
+   "refs": [
+    "MDH-005",
+    "SEO-008",
+    "D-061"
+   ]
+  },
+  {
+   "id": "G38-TF-05",
+   "topic": "أقسام المنيو",
+   "detail": "الإخفاء = status hidden (أصنافه تخرج من المنيو والبحث بلا حذف)؛ الترتيب أعلى/أسفل بين الأقسام العادية والموسم ثابت أعلاها؛ قسم جديد برقم CAT التالي في آخر المنيو؛ اسم إنجليزي فريد.",
+   "recommendation": "قرار تقني منفذ ومختبر",
+   "needs_owner": false,
+   "refs": [
+    "MENU-039",
+    "MENU-060"
+   ]
+  },
+  {
+   "id": "G38-TF-06",
+   "topic": "نصوص الموافقة",
+   "detail": "لا تعديل في مكانها أبدًا: كل تغيير نسخة جديدة نشطة بسبب إلزامي، والسابقة غير نشطة وتبقى كما هي مرتبطة بطلباتها.",
+   "recommendation": "قرار تقني منفذ ومختبر",
+   "needs_owner": false,
+   "refs": [
+    "CAREERS-038"
+   ]
+  },
+  {
+   "id": "G38-TF-07",
+   "topic": "صور الفعاليات والأقسام",
+   "detail": "عمود media_id على experiences وpage_sections؛ الاختيار من الصور المعتمدة فقط، والرسم فقط ما دامت MediaRights تسمح بالموقع؛ مركز الصور يذكر أين تُستخدم.",
+   "recommendation": "قرار تقني منفذ ومختبر",
+   "needs_owner": false,
+   "refs": [
+    "DX-011",
+    "MEDIA-RIGHTS"
+   ]
+  },
+  {
+   "id": "G38-TF-08",
+   "topic": "الإجراءات الجماعية للمنيو",
+   "detail": "حتى 200 صنف للمرة؛ صفحة تأكيد واحدة؛ التوفر في فرع يحتفظ بسعر الفرع؛ لا أسعار جماعية (G8 M25-089).",
+   "recommendation": "قرار تقني منفذ ومختبر",
+   "needs_owner": false,
+   "refs": [
+    "MENU-062"
+   ]
+  }
+ ],
+ "cost_api_dependencies": [],
+ "dropped": []
+}

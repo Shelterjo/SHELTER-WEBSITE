@@ -73,8 +73,8 @@
 | متطلبات | **1350**: REQUIREMENT 491, RULE 442, DECISION 209, DELIVERABLE 109, GATE 99 |
 | حسب الحالة | APPROVED 900, FROZEN 294, APPROVED WITH CONDITIONS 73, PENDING OWNER INPUT 34, DEFERRED 22, SUPERSEDED 18, PENDING VERIFICATION 9 |
 | حسب الأولوية | P0 691, P1 572, P2 69, P3 18 |
-| حسب التنفيذ | NOT STARTED 838, PARTIAL 224, IMPLEMENTED — NOT TESTED 124, TESTED 110, FROZEN 43, NEEDS FIX 8, IMPLEMENTED — NOT YET VERIFIED 2, CONFLICT 1 |
-| مُختبر | NO 689, N/A 340, YES 190, PROTOTYPE 131 |
+| حسب التنفيذ | NOT STARTED 830, PARTIAL 226, IMPLEMENTED — NOT TESTED 124, TESTED 116, FROZEN 43, NEEDS FIX 8, IMPLEMENTED — NOT YET VERIFIED 2, CONFLICT 1 |
+| مُختبر | NO 684, N/A 338, YES 198, PROTOTYPE 130 |
 
 ## فهرس المجالات
 | # | المجال | متطلبات | P0 | معتمد/مجمّد | معلّق | تنفيذ (منفذ أو مجمّد) |
@@ -85,7 +85,7 @@
 | 04 | [Responsive Design](master-requirements/04-responsive-design.md) | 29 | 7 | 29 | 0 | 1 |
 | 05 | [Navigation](master-requirements/05-navigation.md) | 15 | 1 | 12 | 3 | 1 |
 | 06 | [Homepage](master-requirements/06-homepage.md) | 5 | 1 | 4 | 1 | 0 |
-| 07 | [Menu](master-requirements/07-menu.md) | 62 | 27 | 53 | 6 | 25 |
+| 07 | [Menu](master-requirements/07-menu.md) | 62 | 27 | 53 | 6 | 27 |
 | 08 | [Products](master-requirements/08-products.md) | 36 | 19 | 34 | 1 | 19 |
 | 09 | [Search](master-requirements/09-search.md) | 9 | 1 | 9 | 0 | 2 |
 | 10 | [Branches & Locations](master-requirements/10-branches-locations.md) | 31 | 13 | 26 | 4 | 1 |
@@ -101,7 +101,7 @@
 | 20 | [GA4 / GTM](master-requirements/20-ga4-gtm.md) | 23 | 2 | 18 | 3 | 3 |
 | 21 | [Search Console](master-requirements/21-search-console.md) | 13 | 5 | 12 | 1 | 1 |
 | 22 | [Google Business Profile & Maps](master-requirements/22-google-business-profile-maps.md) | 15 | 8 | 13 | 1 | 0 |
-| 23 | [SEO](master-requirements/23-seo.md) | 41 | 21 | 39 | 1 | 3 |
+| 23 | [SEO](master-requirements/23-seo.md) | 41 | 21 | 39 | 1 | 4 |
 | 24 | [AEO / GEO / AI Search](master-requirements/24-aeo-geo-ai-search.md) | 3 | 0 | 3 | 0 | 0 |
 | 25 | [Schema](master-requirements/25-schema.md) | 10 | 3 | 10 | 0 | 0 |
 | 26 | [Performance](master-requirements/26-performance.md) | 23 | 4 | 23 | 0 | 1 |
@@ -122,10 +122,10 @@
 | 41 | [Tooling](master-requirements/41-tooling.md) | 47 | 19 | 40 | 1 | 11 |
 | 42 | [Privacy & Legal](master-requirements/42-privacy-legal.md) | 14 | 9 | 14 | 0 | 2 |
 | 43 | [UX Principles](master-requirements/43-ux-principles.md) | 6 | 1 | 6 | 0 | 0 |
-| 44 | [Careers & Recruitment](master-requirements/44-careers-recruitment.md) | 99 | 60 | 98 | 1 | 28 |
+| 44 | [Careers & Recruitment](master-requirements/44-careers-recruitment.md) | 99 | 60 | 98 | 1 | 29 |
 | 45 | [Dynamic Experience Engine](master-requirements/45-dynamic-experience-engine.md) | 38 | 14 | 38 | 0 | 12 |
-| 46 | [Platform Quality & Operations](master-requirements/46-platform-quality-operations.md) | 56 | 39 | 56 | 0 | 3 |
-| 47 | [Master Data & Channel Sync](master-requirements/47-master-data-channel-sync.md) | 36 | 34 | 36 | 0 | 5 |
+| 46 | [Platform Quality & Operations](master-requirements/46-platform-quality-operations.md) | 56 | 39 | 56 | 0 | 4 |
+| 47 | [Master Data & Channel Sync](master-requirements/47-master-data-channel-sync.md) | 36 | 34 | 36 | 0 | 6 |
 | 48 | [Design System & UI Consistency](master-requirements/48-design-system-ui-consistency.md) | 29 | 29 | 29 | 0 | 1 |
 | 49 | [Infrastructure, Release & Operations](master-requirements/49-infrastructure-release-operations.md) | 46 | 38 | 46 | 0 | 9 |
 | 50 | [Build Mode & Delivery Governance](master-requirements/50-build-mode-delivery-governance.md) | 26 | 19 | 26 | 0 | 5 |
@@ -322,7 +322,7 @@
 | `MENU-036` | 11 فئة مصدرية مجمّدة بمعرّفات ثابتة CAT-001 → CAT-011 | FROZEN | P0 | FROZEN |
 | `MENU-037` | فصل اسم عرض الفئة عن الـSlug والـInternal ID | APPROVED | P1 | PARTIAL |
 | `MENU-038` | التهجئة المعتمدة: SPECIALITY COFFEE (وليس SPECIALTY) | FROZEN | P1 | FROZEN |
-| `MENU-039` | ترتيب الفئات للعميل | FROZEN | P1 | NOT STARTED |
+| `MENU-039` | ترتيب الفئات للعميل | FROZEN | P1 | TESTED |
 | `MENU-040` | SWEETS / حلويات: دمج CAKE + COOKIES بصريًا فقط | FROZEN | P1 | NOT STARTED |
 | `MENU-041` | SPRING: الأصناف الخمسة متاحة حاليًا — مع بقاء Seasonal Metadata | APPROVED | P1 | FROZEN |
 | `MENU-042` | تواريخ موسم SPRING = MISSING (لا تمنع العرض) | PENDING OWNER INPUT | P2 | NOT STARTED |
@@ -345,7 +345,7 @@
 | `MENU-059` | أي Intelligent Recommendation System لاحقًا وليس في V1 | DEFERRED | P3 | NOT STARTED |
 | `MENU-060` | Menu Editor في الـDashboard | APPROVED | P0 | PARTIAL |
 | `MENU-061` | إدارة التوفر لكل صنف في DRIVE وHOUSE من الـMenu Editor | APPROVED | P0 | NOT STARTED |
-| `MENU-062` | Bulk Actions للمنيو | APPROVED | P1 | NOT STARTED |
+| `MENU-062` | Bulk Actions للمنيو | APPROVED | P1 | TESTED |
 
 ## 08 · Products — [التفاصيل](master-requirements/08-products.md)
 
@@ -843,7 +843,7 @@
 | `SEO-005` | الظهور على Intent حقيقي وليس الاسم فقط | APPROVED | P1 | NOT STARTED |
 | `SEO-006` | ممنوع Keyword Stuffing | APPROVED | P1 | NOT STARTED |
 | `SEO-007` | Internal Linking قوية في Coffee Knowledge Hub | APPROVED | P1 | NOT STARTED |
-| `SEO-008` | Local SEO لكل فرع (NAP، Maps، الساعات، Schema، Metadata) | APPROVED | P1 | NOT STARTED |
+| `SEO-008` | Local SEO لكل فرع (NAP، Maps، الساعات، Schema، Metadata) | APPROVED | P1 | PARTIAL |
 | `SEO-009` | URL Migration Map رسمية قبل تغيير الموقع القديم | APPROVED | P0 | PARTIAL |
 | `SEO-010` | تصنيف كل URL قديم ذي قيمة: KEEP · REBUILD · REDIRECT · REMOVE | APPROVED | P0 | PARTIAL |
 | `SEO-011` | 301 بقفزة واحدة لكل URL ذي قيمة يتغير — بلا خسارة SEO أو Backlinks | APPROVED | P0 | NOT STARTED |
@@ -875,7 +875,7 @@
 | `SEO-037` | SEO Preview (Google) + Social Preview | APPROVED | P1 | NOT STARTED |
 | `SEO-038` | SEO HEALTH CENTER: GOOD/WARNING/CRITICAL + Issue/Page/Severity/Fix | APPROVED | P0 | NOT STARTED |
 | `SEO-039` | قائمة فحوص SEO Health | APPROVED | P0 | NOT STARTED |
-| `SEO-040` | لا تغييرات SEO تلقائية — موافقة الـOwner على أي تعديل حساس | APPROVED | P0 | NOT STARTED |
+| `SEO-040` | لا تغييرات SEO تلقائية — موافقة الـOwner على أي تعديل حساس | APPROVED | P0 | TESTED |
 | `SEO-041` | DoD (بحث): SEO Clean · Google/AEO/GEO Ready · Redirects/Schema Correct | APPROVED | P0 | NOT STARTED |
 
 ## 24 · AEO / GEO / AI Search — [التفاصيل](master-requirements/24-aeo-geo-ai-search.md)
@@ -1410,7 +1410,7 @@
 | `CAREERS-035` | حجم الملفات: لا حدود Business مخترعة — حدود تقنية آمنة من فحص البيئة | FROZEN | P0 | NOT STARTED |
 | `CAREERS-036` | CV Auto-Detection محلي/Server-side — وعند عدم الثقة يُسأل المتقدم | FROZEN | P0 | NOT STARTED |
 | `CAREERS-037` | تخزين خاص للـCVs والمرفقات — لا Public URL، والوصول بعد Authentication + Owner authorization | FROZEN | P0 | NOT STARTED |
-| `CAREERS-038` | حقل 19: الإقرار والموافقة — Checkbox إلزامي بنص معتمد وسجل مُنسخ (versioned) | FROZEN | P0 | NOT STARTED |
+| `CAREERS-038` | حقل 19: الإقرار والموافقة — Checkbox إلزامي بنص معتمد وسجل مُنسخ (versioned) | FROZEN | P0 | TESTED |
 | `CAREERS-039` | Server-side validation إلزامي عند Submit | APPROVED | P0 | NOT STARTED |
 | `CAREERS-040` | رقم طلب فريد Server-side (صيغة مقترحة JOB-2026-00125) | FROZEN | P0 | TESTED |
 | `CAREERS-041` | صفحة النجاح بالعربي — بلا Email ولا WhatsApp تلقائي | FROZEN | P0 | NOT STARTED |
@@ -1542,8 +1542,8 @@
 | `OPS-020` | لا Auto Translation + Auto Publish — AI يقترح والـOwner يراجع وينشر | APPROVED | P0 | PARTIAL |
 | `OPS-021` | GLOBAL CONTENT CALENDAR — تقويم واحد: LIVE NOW · STARTS NEXT · EXPIRES NEXT | APPROVED | P0 | NOT STARTED |
 | `OPS-022` | EXPERIENCE COLLISION DETECTOR — ربط التقويم بمحرك التجارب ومنع Visual Chaos | APPROVED | P0 | NOT STARTED |
-| `OPS-023` | WEBSITE SAFE MODE — إيقاف كل الطبقات الديناميكية مع بقاء الموقع الأساسي | APPROVED | P0 | NOT STARTED |
-| `OPS-024` | EMERGENCY CONTROLS — أربعة مفاتيح مع Confirmation + Audit | APPROVED | P0 | NOT STARTED |
+| `OPS-023` | WEBSITE SAFE MODE — إيقاف كل الطبقات الديناميكية مع بقاء الموقع الأساسي | APPROVED | P0 | TESTED |
+| `OPS-024` | EMERGENCY CONTROLS — أربعة مفاتيح مع Confirmation + Audit | APPROVED | P0 | PARTIAL |
 | `OPS-025` | REAL USER MONITORING — جمع Web Vitals حقيقية Privacy-safe | APPROVED | P0 | NOT STARTED |
 | `OPS-026` | عرض RUM: GOOD · NEEDS IMPROVEMENT · POOR بـp75 لكل صفحة/جهاز/متصفح/لغة | APPROVED | P0 | NOT STARTED |
 | `OPS-027` | PERFORMANCE ALERTS — تراجع حقيقي بلا تخمين للسبب | APPROVED | P1 | NOT STARTED |
@@ -1585,7 +1585,7 @@
 | `MDH-002` | سلطة المصدر: SHELTER MASTER DATA > أي نسخة خارجية (إلا Adopt صريح) | FROZEN | P0 | PARTIAL |
 | `MDH-003` | SHELTER MASTER DATA HUB في الـDashboard — مخزن واحد يضم Global Data Registry | FROZEN | P0 | NOT STARTED |
 | `MDH-004` | كيان BRAND: الاسمان · سنة التأسيس · السنوية · الأوصاف الرسمية | FROZEN | P0 | NOT STARTED |
-| `MDH-005` | كيان BRANCH (BR-DRIVE · BR-HOUSE) بحقوله المركزية | FROZEN | P0 | NOT STARTED |
+| `MDH-005` | كيان BRANCH (BR-DRIVE · BR-HOUSE) بحقوله المركزية | FROZEN | P0 | TESTED |
 | `MDH-006` | كيان HOURS مركزي بخمسة أنواع — مصدر جدول واحد لكل القنوات | FROZEN | P0 | TESTED |
 | `MDH-007` | أولوية Emergency > Temporary > Special/Holiday > Regular + effective_hours واحدة | FROZEN | P0 | TESTED |
 | `MDH-008` | CONTACT + SOCIAL Registry: الأرقام حسب الدور · واتساب · البريد · روابط السوشال | FROZEN | P0 | TESTED |
