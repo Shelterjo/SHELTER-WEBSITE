@@ -78,7 +78,7 @@ class LocalSeoTest extends TestCase
         $this->assertSame('MISSING', app(FactRegistry::class)->current($drive->factKey('landmark_en'))?->status->value, 'not invented');
         $enDrive = $this->page('/en/jo/locations/irbid/drive/');
         $this->assertStringNotContainsString('قصر النخيل', $enDrive, 'no Arabic line standing in for the missing English one');
-        $this->assertStringContainsString('href="https://share.google/Cko3RPFoBGY21bco4"', $enDrive, 'the Directions button (D-335)');
+        $this->assertStringContainsString('href="https://maps.app.goo.gl/zNfDbkxcT1aMdQiWA"', $enDrive, 'the Directions button (D-336)');
 
         // The card names the city once: «كوفي هاوس · إربد سيتي سنتر…», not «… في إربد · إربد سيتي سنتر…».
         $cards = $this->page('/ar/jo/locations/');

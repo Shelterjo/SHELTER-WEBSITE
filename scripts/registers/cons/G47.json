@@ -1,0 +1,61 @@
+{
+  "group": "G47",
+  "notes": "M60: الـOwner: «اعتمد الموقع والاسم لكل فرع حسب Google Business» — SHELTER COFFEE DRIVE: https://maps.app.goo.gl/zNfDbkxcT1aMdQiWA · SHELTER COFFEE HOUSE: https://maps.app.goo.gl/k31BVoaAb1fcAF9e6 (أُزيل مُعرّف المشاركة ?g_st=ic تقنيًا).",
+  "requirements": [],
+  "updates_to_existing": [
+    {
+      "id": "D-335",
+      "type": "SUPERSEDE",
+      "source": "M60",
+      "change": "رابطا Google Business Profile من الـOwner (D-336) بدل روابط share.google من الموقع القديم."
+    },
+    {
+      "id": "GBP-013",
+      "type": "UPDATE",
+      "source": "M60",
+      "change": "✅ روابط GBP الرسمية للفرعين من الـOwner (D-336) — مُدخلة ومعتمدة ومختبرة: زر «الاتجاهات» وhasMap.",
+      "new_status": "APPROVED",
+      "new_impl": "TESTED",
+      "tested": "YES",
+      "code_refs": [
+        "database/seeders/data/master-data.php (approved.maps_url)"
+      ],
+      "test_refs": [
+        "tests/Feature/Site/LocationsPagesTest.php",
+        "tests/Feature/Site/LocalSeoTest.php",
+        "tests/Feature/MasterData/MasterDataSeederTest.php"
+      ]
+    },
+    {
+      "id": "PO-010",
+      "type": "UPDATE",
+      "source": "M60",
+      "change": "رابطا Maps = روابط Google Business من الـOwner (D-336، بدل D-335). الاسمان متطابقان مع GBP. المتبقي: نص العنوان AR/EN والإحداثيات كما في GBP — تعذّرت قراءتها من بيئة العمل (Google محجوب)؛ تُنسخ من GBP أو تُقرأ بعد الوصول (PO-009)."
+    },
+    {
+      "id": "D-020",
+      "type": "UPDATE",
+      "source": "M60",
+      "change": "اسما الفرعين SHELTER COFFEE DRIVE / SHELTER COFFEE HOUSE مطابقان لـGoogle Business (D-336) — لا تغيير."
+    }
+  ],
+  "conflicts": [],
+  "new_decisions": [
+    {
+      "temp_id": "G47-ND-01",
+      "area": "Branches / Google Business",
+      "decision": "الموقع والاسم لكل فرع حسب Google Business: SHELTER COFFEE DRIVE ← https://maps.app.goo.gl/zNfDbkxcT1aMdQiWA · SHELTER COFFEE HOUSE ← https://maps.app.goo.gl/k31BVoaAb1fcAF9e6 (يحل محل D-335). الاسمان كما هما (D-020) ومطابقان لـGBP. الرابط يشغّل زر «الاتجاهات» وhasMap.",
+      "sources": [
+        "M60"
+      ],
+      "status": "APPROVED",
+      "reason": "توجيه صريح من الـOwner (M60)",
+      "impact": "D-335 (SUPERSEDED) · GBP-013 · PO-010 · docs/google/GOOGLE-BUSINESS-PROFILE-SOURCE-OF-TRUTH.md · database/seeders/data/master-data.php",
+      "date": "2026-10-02"
+    }
+  ],
+  "pending_owner": [],
+  "technical_flags": [],
+  "cost_api_dependencies": [],
+  "dropped": []
+}

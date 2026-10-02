@@ -17,10 +17,10 @@
 | NOT STARTED | 829 | 61% |
 | PARTIAL | 227 | 16% |
 | IMPLEMENTED — NOT TESTED | 123 | 9% |
-| TESTED | 116 | 8% |
+| TESTED | 117 | 8% |
 | FROZEN | 43 | 3% |
 | NEEDS FIX | 8 | 0% |
-| IMPLEMENTED — NOT YET VERIFIED | 3 | 0% |
+| IMPLEMENTED — NOT YET VERIFIED | 2 | 0% |
 | CONFLICT | 1 | 0% |
 
 - **مُنفذ أو مجمّد** (وثائق، بيانات، أدوات): **285 من 1350** (21%).
@@ -173,7 +173,7 @@
 | `GBP-003` | GBP الرسمي لكل فرع = OFFICIAL OPERATIONAL SOURCE (تابع للـOwner) | PARTIAL | doc: docs/google/GOOGLE-BUSINESS-PROFILE-SOURCE-OF-TRUTH.md (الجداول جاهزة؛ بيانات GBP لم تصل) | تعبئة عمود GBP لكل حقل × فرع بعد G-01/G-02 · أول Sync. | P0 | GBP-008, BRANCH-018 | جدول SoT مكتمل لكل الحقول مع حالة لكل حقل. | P01 |
 | `GBP-004` | GBP لا يتجاوز الـOwner: الاختلاف = CONFLICT — OWNER REVIEW REQUIRED | NOT STARTED | spec: docs/google/GOOGLE-ECOSYSTEM-POLICY.md §2، §5 · docs/google/BRANCH-DATA-SYNC.md (تصنيف CONFLICT) | تطبيق في كل Sync. | P0 | BRANCH-018 | تقرير Sync يصنف كل اختلاف عن بيانات الـOwner كـCONFLICT ولا يغيّر شيئًا. | P01 |
 | `GBP-005` | هاتف الفروع في GBP والـSchema = 0799009436؛ المختلف = CONFLICT | NOT STARTED | recorded: DECISION-LOG D-060 · docs/google/GOOGLE-BUSINESS-PROFILE-SOURCE-OF-TRUTH.md (Phone shown publicly) | مقارنة عند وصول بيانات GBP. | P0 | GBP-008, BRANCH-018 | Sync: هاتف GBP لكل فرع = 0799009436 أو تقرير CONFLICT؛ Schema telephone = +962799009436. | P01 |
-| `GBP-013` | روابط Google Maps لـDRIVE وHOUSE = MISSING — VERIFY | IMPLEMENTED — NOT YET VERIFIED | recorded: docs/google/GOOGLE-BUSINESS-PROFILE-SOURCE-OF-TRUTH.md (Google Maps URL = MISSING) · 04 CR-026، CR-034 | استلام/تحقق الرابطين واعتمادهما. | P0 | GBP-008 | Sync: الرابط يفتح الملف الرسمي الصحيح لكل فرع. | P01 |
+| `GBP-013` | روابط Google Maps لـDRIVE وHOUSE = MISSING — VERIFY | TESTED | recorded: docs/google/GOOGLE-BUSINESS-PROFILE-SOURCE-OF-TRUTH.md (Google Maps URL = MISSING) · 04 CR-026، CR-034 | استلام/تحقق الرابطين واعتمادهما. | P0 | GBP-008 | Sync: الرابط يفتح الملف الرسمي الصحيح لكل فرع. | P01 |
 | `GOV-027` | Content Approval Register (الأعمدة والحالات) | NEEDS FIX | docs/phase-01-discovery/04-content-approval-register.md | تحديث الحالات المتأخرة (OBS-02)؛ توحيد الحالات مع M27 §7؛ ربطه بـMASTER-REQUIREMENTS وPENDING-OWNER-INPUT | P0 | GOV-024, GOV-074 | مطابقة كل صف مع DECISION-LOG: لا صف يخالف قرارًا معتمدًا؛ Last Updated محدث | P01 |
 | `GOV-028` | قائمة المعلومات التي تحتاج موافقة الـOwner (Phase 01 بند 5) | NEEDS FIX | docs/phase-01-discovery/03-verify-with-owner.md (VQ-01…VQ-27)؛ 04-content-approval-register.md | تحديث حالات VQ المحسومة؛ نقل المفتوح منها إلى PENDING-OWNER-INPUT (أقسام BLOCKING / VERIFICATION NEEDED…) | P0 | GOV-074 | كل VQ إما مغلق بمرجع قرار أو موجود في PENDING-OWNER-INPUT | P01 |
 | `GOV-039` | PHASE 01 — DISCOVERY & OWNER INTERVIEW فقط وقيودها | IMPLEMENTED — NOT TESTED | DECISION-LOG D-002؛ phase-01 README (لا Coding · لا Framework · لا Plugins · لا تغييرات Cloudflare/Cloudways/DNS · لا نشر)؛ لا تغيير على أي نظام حي (00 §header) | إغلاق Phase 01 رسميًا عبر بوابة الخروج (Exit Criteria) بموافقة الـOwner | P0 | GOV-040, GOV-030 | تدقيق: لا commit لكود موقع/Framework، لا تغيير Cloudflare/Cloudways/DNS/Google، لا نشر — حتى اعتماد الخروج | P01 |

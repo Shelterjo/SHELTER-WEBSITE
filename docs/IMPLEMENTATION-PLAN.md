@@ -58,7 +58,7 @@
 | Phase | الاسم | المتطلبات | P0 | P1 | P2/P3 | معلّق على الـOwner |
 |---|---|---|---|---|---|---|
 | P00 | Governance & Master Source of Truth | 123 | 82 | 33 | 8 | 1 |
-| P01 | Discovery completion | 92 | 48 | 37 | 7 | 11 |
+| P01 | Discovery completion | 92 | 48 | 37 | 7 | 10 |
 | P02 | Menu IA & Wireframes | 52 | 16 | 34 | 2 | 2 |
 | P03 | Site-wide IA, Sitemap, URL & SEO architecture | 112 | 31 | 74 | 7 | 12 |
 | P04 | Owner Dashboard & CMS architecture | 122 | 68 | 48 | 6 | 2 |

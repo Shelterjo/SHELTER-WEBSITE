@@ -26,8 +26,8 @@
 ## الملفات المرتبطة
 | الملف | الدور |
 |---|---|
-| [`MASTER-DECISION-REGISTER.md`](MASTER-DECISION-REGISTER.md) | الحالة الحالية لكل قرار (458 قرارًا) |
-| [`governance/DECISION-LOG.md`](governance/DECISION-LOG.md) | السجل الزمني (D-000 ← D-335) |
+| [`MASTER-DECISION-REGISTER.md`](MASTER-DECISION-REGISTER.md) | الحالة الحالية لكل قرار (459 قرارًا) |
+| [`governance/DECISION-LOG.md`](governance/DECISION-LOG.md) | السجل الزمني (D-000 ← D-336) |
 | [`CONFLICT-REGISTER.md`](CONFLICT-REGISTER.md) | 219 تعارضًا وطريقة حسمها |
 | [`PENDING-OWNER-INPUT.md`](PENDING-OWNER-INPUT.md) | 66 بندًا فقط تحتاجك |
 | [`REQUIREMENTS-TRACEABILITY-MATRIX.md`](REQUIREMENTS-TRACEABILITY-MATRIX.md) | متطلب ← قرار ← تصميم ← كود ← اختبار |
@@ -71,9 +71,9 @@
 | المقياس | العدد |
 |---|---|
 | متطلبات | **1350**: REQUIREMENT 491, RULE 442, DECISION 209, DELIVERABLE 109, GATE 99 |
-| حسب الحالة | APPROVED 900, FROZEN 294, APPROVED WITH CONDITIONS 73, PENDING OWNER INPUT 34, DEFERRED 22, SUPERSEDED 18, PENDING VERIFICATION 9 |
+| حسب الحالة | APPROVED 901, FROZEN 294, APPROVED WITH CONDITIONS 73, PENDING OWNER INPUT 34, DEFERRED 22, SUPERSEDED 18, PENDING VERIFICATION 8 |
 | حسب الأولوية | P0 691, P1 572, P2 69, P3 18 |
-| حسب التنفيذ | NOT STARTED 829, PARTIAL 227, IMPLEMENTED — NOT TESTED 123, TESTED 116, FROZEN 43, NEEDS FIX 8, IMPLEMENTED — NOT YET VERIFIED 3, CONFLICT 1 |
+| حسب التنفيذ | NOT STARTED 829, PARTIAL 227, IMPLEMENTED — NOT TESTED 123, TESTED 117, FROZEN 43, NEEDS FIX 8, IMPLEMENTED — NOT YET VERIFIED 2, CONFLICT 1 |
 | مُختبر | NO 684, N/A 336, YES 200, PROTOTYPE 130 |
 
 ## فهرس المجالات
@@ -100,7 +100,7 @@
 | 19 | [Analytics](master-requirements/19-analytics.md) | 45 | 15 | 43 | 2 | 3 |
 | 20 | [GA4 / GTM](master-requirements/20-ga4-gtm.md) | 23 | 2 | 18 | 3 | 3 |
 | 21 | [Search Console](master-requirements/21-search-console.md) | 13 | 5 | 12 | 1 | 1 |
-| 22 | [Google Business Profile & Maps](master-requirements/22-google-business-profile-maps.md) | 15 | 8 | 13 | 1 | 1 |
+| 22 | [Google Business Profile & Maps](master-requirements/22-google-business-profile-maps.md) | 15 | 8 | 14 | 0 | 1 |
 | 23 | [SEO](master-requirements/23-seo.md) | 41 | 21 | 39 | 1 | 4 |
 | 24 | [AEO / GEO / AI Search](master-requirements/24-aeo-geo-ai-search.md) | 3 | 0 | 3 | 0 | 0 |
 | 25 | [Schema](master-requirements/25-schema.md) | 10 | 3 | 10 | 0 | 0 |
@@ -828,7 +828,7 @@
 | `GBP-010` | الفريق ينفذ فعليًا اتساق Business Profile وMaps (وليس تعليمات فقط) | APPROVED WITH CONDITIONS | P1 | NOT STARTED |
 | `GBP-011` | رابط Maps الرسمي لكل فرع في صفحته — لا نفس الرابط للفرعين | APPROVED | P0 | NOT STARTED |
 | `GBP-012` | لا Pin يدوي إذا كان GBP الرسمي موجودًا | APPROVED | P1 | NOT STARTED |
-| `GBP-013` | روابط Google Maps لـDRIVE وHOUSE = MISSING — VERIFY | PENDING VERIFICATION | P0 | IMPLEMENTED — NOT YET VERIFIED |
+| `GBP-013` | روابط Google Maps لـDRIVE وHOUSE = MISSING — VERIFY | APPROVED | P0 | TESTED |
 | `GBP-014` | قبل الإطلاق: ملفا GBP للفرعين Verified | APPROVED | P0 | NOT STARTED |
 | `GBP-015` | Google Reviews تُقرأ كمرجع لفهم تجربة العملاء فقط | APPROVED | P1 | NOT STARTED |
 

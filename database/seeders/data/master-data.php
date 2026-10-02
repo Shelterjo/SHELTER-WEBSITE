@@ -25,28 +25,28 @@ return [
     'branches' => [
         [
             'code' => 'BR-DRIVE', 'slug' => 'drive', 'type' => 'drive_thru', 'sort' => 1, 'is_public' => true, // D-008, D-053
-            'name_ar' => 'شلتر كوفي درايف', 'name_en' => 'SHELTER COFFEE DRIVE', 'names_ref' => 'D-020',
+            'name_ar' => 'شلتر كوفي درايف', 'name_en' => 'SHELTER COFFEE DRIVE', 'names_ref' => 'D-020', // = the Google Business name (D-336)
             // D-020: Sat–Thu 07:00–02:00, Fri 08:00–02:00.
             'hours' => array_merge(
                 array_map(fn (int $d): array => [$d, '07:00', '02:00'], $satToThu),
                 [[5, '08:00', '02:00']],
             ),
             'hours_ref' => 'D-020',
-            // D-020: the detailed address and the coordinates are NOT approved yet (PO-010; the Maps link is, D-335).
+            // D-020: the detailed address and the coordinates are NOT approved yet (PO-010; the Maps link is, D-336).
             'missing' => ['address_ar' => 'PO-010', 'address_en' => 'PO-010', 'latitude' => 'PO-010', 'longitude' => 'PO-010'],
             // Owner-approved values the seeder writes once (never over an Owner edit):
             // D-334 (Owner «أ» to PO-079): the location description as written in M57 §1 — a landmark, not the street
             // address (PO-010); its English wording was not given → PO-081.
-            // D-335 (Owner «ج» to PO-010): the Google Maps link, the "main branch" link of the Owner's own site (موقعنا).
+            // D-336 (supersedes D-335): the Google Business Profile link the Owner sent for SHELTER COFFEE DRIVE.
             'approved' => [
                 'landmark_ar' => ['value' => 'بجانب منطقة قصر النخيل / أرابيلا', 'ref' => 'D-334'],
                 'landmark_en' => ['value' => null, 'ref' => 'PO-081'],
-                'maps_url' => ['value' => 'https://share.google/Cko3RPFoBGY21bco4', 'ref' => 'D-335'],
+                'maps_url' => ['value' => 'https://maps.app.goo.gl/zNfDbkxcT1aMdQiWA', 'ref' => 'D-336'],
             ],
         ],
         [
             'code' => 'BR-HOUSE', 'slug' => 'house', 'type' => 'coffee_house', 'sort' => 2, 'is_public' => true,
-            'name_ar' => 'شلتر كوفي هاوس', 'name_en' => 'SHELTER COFFEE HOUSE', 'names_ref' => 'D-020',
+            'name_ar' => 'شلتر كوفي هاوس', 'name_en' => 'SHELTER COFFEE HOUSE', 'names_ref' => 'D-020', // = the Google Business name (D-336)
             // D-020: Sat–Wed 09:00–22:00, Thu–Fri 09:00–23:00.
             'hours' => array_merge(
                 array_map(fn (int $d): array => [$d, '09:00', '22:00'], [6, 0, 1, 2, 3]),
@@ -55,11 +55,11 @@ return [
             'hours_ref' => 'D-020',
             'missing' => ['address_ar' => 'PO-010', 'address_en' => 'PO-010', 'latitude' => 'PO-010', 'longitude' => 'PO-010'],
             // D-334 (Owner «أ» to PO-079; M57 §1, D-020): Irbid City Center, first floor, next to Jordan Islamic Bank.
-            // D-335 (Owner «ج» to PO-010): the Google Maps link, the "City Centre" link of the Owner's own site (موقعنا).
+            // D-336 (supersedes D-335): the Google Business Profile link the Owner sent for SHELTER COFFEE HOUSE.
             'approved' => [
                 'landmark_ar' => ['value' => 'إربد سيتي سنتر، الطابق الأول، بجانب البنك الإسلامي الأردني', 'ref' => 'D-334'],
                 'landmark_en' => ['value' => 'Irbid City Center, First Floor, next to Jordan Islamic Bank', 'ref' => 'D-334'],
-                'maps_url' => ['value' => 'https://share.google/d7T2jt7BKhidMHG4A', 'ref' => 'D-335'],
+                'maps_url' => ['value' => 'https://maps.app.goo.gl/k31BVoaAb1fcAF9e6', 'ref' => 'D-336'],
             ],
         ],
     ],

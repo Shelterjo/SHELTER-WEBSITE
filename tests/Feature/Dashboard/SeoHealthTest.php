@@ -44,7 +44,7 @@ class SeoHealthTest extends TestCase
         $this->assertNotNull($row);
         $checks = $row['checks'];
         $this->assertTrue($checks['names'] && $checks['hours'] && $checks['phone']);
-        $this->assertTrue($checks['maps'] && $checks['city_ar'], 'D-335 Maps link, D-334 spelling');
+        $this->assertTrue($checks['maps'] && $checks['city_ar'], 'D-336 Maps link, D-334 spelling');
         $this->assertFalse($checks['address'] || $checks['landmark'] || $checks['coordinates'], 'street address and coordinates (PO-010), English location line (PO-081)');
 
         $this->put('/dashboard/data/branches/'.$drive->id.'/details', [

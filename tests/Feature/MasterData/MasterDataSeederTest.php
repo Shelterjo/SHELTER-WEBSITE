@@ -52,7 +52,7 @@ class MasterDataSeederTest extends TestCase
         $this->assertNull($data->branchField($house, 'address_ar'));
         $this->assertNull($data->branchField($house, 'latitude'));
         // D-335: the Maps link is approved (the Owner's «ج» to PO-010); the street address is not yet.
-        $this->assertSame('https://share.google/d7T2jt7BKhidMHG4A', $data->branchField($house, 'maps_url'));
+        $this->assertSame('https://maps.app.goo.gl/k31BVoaAb1fcAF9e6', $data->branchField($house, 'maps_url'));
         $this->assertNull($data->contact(ContactKind::Email));
         $this->assertSame(10 * 2, BranchAttribute::query()->whereNull('value')->count());
     }

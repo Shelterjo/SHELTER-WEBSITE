@@ -9,7 +9,7 @@
 >
 > **المعرّفات:**
 > - **`D-xxx`:** سجل القرارات.
->   - **D-150…D-335:** قرارات صريحة من الـOwner في الرسائل M01–M27 لم تكن مسجلة، وأُضيفت في هذا التدقيق.
+>   - **D-150…D-336:** قرارات صريحة من الـOwner في الرسائل M01–M27 لم تكن مسجلة، وأُضيفت في هذا التدقيق.
 > - **`F-xx` / `R-xx`:** المنيو.
 > - **`DB-xx`:** القرارات المفتوحة قبل التصميم.
 > - **`GEP-§n` / `GIO-§n`:** سياسة Google وملكية التنفيذ.
@@ -26,8 +26,8 @@
 | PENDING VERIFICATION | 8 |
 | DEFERRED | 4 |
 | REJECTED | 0 |
-| SUPERSEDED | 21 |
-| **المجموع** | **458** |
+| SUPERSEDED | 22 |
+| **المجموع** | **459** |
 
 ## FROZEN — مجمّد — لا يُفتح إلا بتعارض حقيقي (81)
 
@@ -350,7 +350,7 @@
 | `D-332` | SEO / Content | اعتماد وصف Google (Meta Description) لتسع صفحات وسطر صفحة الجذر بالعربي والإنجليزي — المجموعة الموصى بها من الدفعة 01: الرئيسية C · المنيو C · الفروع A · الفرع A (مع :name) · تواصل C · الفعاليات C · التوظيف B · الجوائز C · SHELTER Family B · سطر الجذر C. النصوص هي الصياغة الافتراضية في ملفات اللغة ويستطيع الـOwner تعديلها من لوحة التحكم ← نصوص الموقع (الحقل الفارغ يعيد النص المعتمد). بلا سنة تأسيس أو أعداد أو أسعار أو أرقام هواتف أو صيغ تفضيل. |  | Owner: «أ» — اعتماد المجموعة الموصى بها كما هي | M55, M56 · 2026-10-02 (سُجّل في التدقيق) | PO-020 (الدفعة 01) · P-07 (شق الـMeta؛ الـTitle ما زال PENDING) · CONTENT-013 (RG-04) · SEO-008 · lang/{ar,en}/site.php · tests/Feature/Site/ApprovedMetaTextsTest.php · docs/copy/META-DESCRIPTIONS-DRAFT-01.md |
 | `D-333` | SEO / Local | M57 — SEO المحلي لإربد: (1) خريطة كلمات ← صفحات بلا تكرار من بحث حقيقي (docs/seo/LOCAL-SEO-MAP.md)؛ (2) عنوان Google فريد لكل صفحة يحمل اسم العلامة وإربد من حقائق معتمدة وعبارة D-332، قابل للتعديل مع تنبيه؛ (3) صفحة الفرع وبطاقته تعرض نوع الفرع والمدينة ووصف الموقع من Master Data (يظهر فقط بعد الاعتماد)؛ (4) البيانات المنظمة مترابطة بـ@id (Organization ← WebSite وكل فرع) مع العنوان على مستوى المدينة وأيام الاستثناء القادمة؛ (5) Hooks قياس تدفع إلى dataLayer فقط إن وُجد، بلا PII؛ (6) شاشة «الظهور في Google» للـOwner للقراءة فقط. ممنوع: Doorway pages، صفحات أحياء/جامعات، «أفضل/أول» بلا دليل، «كوفي شوب»، مقالات ترتيب المنافسين. |  | توجيه صريح من الـOwner (M57) | M57 · 2026-10-02 (سُجّل في التدقيق) | SEO-008 · PO-009 · PO-010 · PO-011 · PO-020 · PO-041 · PO-043 · PO-079 · PO-080 · docs/seo/* · tests/Feature/Site/LocalSeoTest.php · tests/Feature/Dashboard/SeoHealthTest.php |
 | `D-334` | Branches / Master Data | اعتماد بيانات الموقع كما كتبها الـOwner في M57 §1 وإدخالها في Master Data: وصف موقع DRIVE «بجانب منطقة قصر النخيل / أرابيلا»؛ وصف موقع HOUSE «إربد سيتي سنتر، الطابق الأول، بجانب البنك الإسلامي الأردني» / «Irbid City Center, First Floor, next to Jordan Islamic Bank»؛ كتابة المدينة «إربد». وصف الموقع معلم قريب وليس العنوان التفصيلي (PO-010) ولا يُستخدم streetAddress. |  | Owner: «أ» — اعتماد القيم كما هي | M57, M58 · 2026-10-02 (سُجّل في التدقيق) | PO-079 (RESOLVED) · CF-M-036 (RESOLVED) · SEO-008 · database/seeders/data/master-data.php · صفحتا الفرعين وبطاقاتهما |
-| `D-335` | Branches / Master Data | اعتماد رابطي Google Maps للفرعين الآن (العنوان النصي لاحقًا): DRIVE https://share.google/Cko3RPFoBGY21bco4 · HOUSE https://share.google/d7T2jt7BKhidMHG4A — الربط كما في صفحة «موقعنا» بموقع الـOwner (الفرع الرئيسي / سيتي سنتر). يظهر زر «الاتجاهات» في صفحة كل فرع وشريط الموبايل، وhasMap في البيانات المنظمة. محرر الفرع يقبل روابط share.google. |  | Owner: «ج» — الروابط الآن والعنوان النصي لاحقًا | M59 · 2026-10-02 (سُجّل في التدقيق) | PO-010 (جزئيًا) · GBP-013 · SEO-008 · database/seeders/data/master-data.php |
+| `D-336` | Branches / Google Business | الموقع والاسم لكل فرع حسب Google Business: SHELTER COFFEE DRIVE ← https://maps.app.goo.gl/zNfDbkxcT1aMdQiWA · SHELTER COFFEE HOUSE ← https://maps.app.goo.gl/k31BVoaAb1fcAF9e6 (يحل محل D-335). الاسمان كما هما (D-020) ومطابقان لـGBP. الرابط يشغّل زر «الاتجاهات» وhasMap. |  | توجيه صريح من الـOwner (M60) | M60 · 2026-10-02 (سُجّل في التدقيق) | D-335 (SUPERSEDED) · GBP-013 · PO-010 · docs/google/GOOGLE-BUSINESS-PROFILE-SOURCE-OF-TRUTH.md · database/seeders/data/master-data.php |
 | `DB-01` | Brand | حُسم: الاسم (D-007)، الفروع (D-008، D-020)، سنة التأسيس 2019 (D-018) | الحقائق التأسيسية مطلوبة قبل أي Sitemap |  | #1 of 22 in DECISION-LOG open table (P0/P1/P2 priority in 05) · P0 | BRAND-001، ABOUT-003 |
 | `DB-10` | Products | البنية تدعم العرض الكامل للأسعار (D-078) |  |  | #12 of 22 in DECISION-LOG open table (P0/P1/P2 priority in 05) · P2 | MENU-014 |
 | `DB-21` | CMS | المصدر الوحيد للمنيو: A الآن + جاهزية C (حُسم بـD-085) | سؤال مفتوح: مصدر المنيو SSOT |  | #13 of 22 in DECISION-LOG open table (P0/P1/P2 priority in 05) | CMS-003 |
@@ -408,7 +408,7 @@
 | `AC-RULE-04` | Security | Cloudways: لا API Key (تحكم كامل بالسيرفر) — معلومات ولقطات فقط (AC-11 REQUESTED)؛ Remote Desktop Commander (AC-13) لا يُستخدم إلا بطلب صريح من الـOwner |  |  | standing rule (doc header) | قاعدة صاغها الفريق تطبيقًا لمبدأ Least privilege المعتمد من الـOwner (M12 §33، M25 §65، D-051) — الطلبات نفسها لم يُرد عليها ↻ M28 §02: الـAudit يحتاج معلومات أعمق من اللقطات (DB users، SSH/SFTP، حدود الرفع، المساحة)؛ يبقى «لا Cloudways API Key»، ويُطلب وصول قراءة بأقل صلاحية (PO-064). |
 | `D-012` | Homepage | ترتيب الجمهور (7 فئات) مدخل فقط؛ لا قرارات تصميم نهائية قبل شرح أثره على الـUX والـHomepage (شُرح في 09 AR-04 — بانتظار نقاش R4) |  | R1-06 | #13 of 150 (log row order) · 2026-10-01 | HOME-004 |
 | `D-019` | URL/Global | Option C (Brand Layer + Market Layer) مبدئي وغير مجمّد؛ ترتيب اللغة/الدولة حُسم بـP3 (D-031) |  | رد الـOwner على AR-01 | #20 of 150 (log row order) · 2026-10-01 | WEB-007، WEB-010 |
-| `D-020` | Branches | معتمد: الأسماء AR/EN، وصف موقع DRIVE، موقع HOUSE (الطابق الأول، بجانب البنك الإسلامي الأردني)، الساعات العادية (DRIVE السبت–الخميس 07:00–02:00، الجمعة 08:00–02:00 · HOUSE السبت–الأربعاء 09:00–22:00، الخميس–الجمعة 09:00–23:00)، لا فرق لساعات الدرايف، تعارض ساعات المول يُعرض ولا يُغيّر. غير معتمد بعد (PENDING VERIFICATION): العنوان التفصيلي AR/EN، اسم المول الرسمي، روابط Google Maps — من GBP ثم الـOwner |  | R2-01 | #21 of 150 (log row order) · 2026-10-01 | BRANCH-003…006، HOURS-001…004، GBP-013. ملاحظة: "رقم الفرع MISSING" الوارد في R2-01 حُسم بـD-057 |
+| `D-020` | Branches | معتمد: الأسماء AR/EN، وصف موقع DRIVE، موقع HOUSE (الطابق الأول، بجانب البنك الإسلامي الأردني)، الساعات العادية (DRIVE السبت–الخميس 07:00–02:00، الجمعة 08:00–02:00 · HOUSE السبت–الأربعاء 09:00–22:00، الخميس–الجمعة 09:00–23:00)، لا فرق لساعات الدرايف، تعارض ساعات المول يُعرض ولا يُغيّر. غير معتمد بعد (PENDING VERIFICATION): العنوان التفصيلي AR/EN، اسم المول الرسمي، روابط Google Maps — من GBP ثم الـOwner |  | R2-01 | #21 of 150 (log row order) · 2026-10-01 | BRANCH-003…006، HOURS-001…004، GBP-013. ملاحظة: "رقم الفرع MISSING" الوارد في R2-01 حُسم بـD-057 ↻ M60: اسما الفرعين SHELTER COFFEE DRIVE / SHELTER COFFEE HOUSE مطابقان لـGoogle Business (D-336) — لا تغيير. |
 | `D-021` | Hours | متطلب نظام ساعات: Regular + Special/Holiday Override + Temporary Closure/Emergency Notice بحقول Start Date · End Date · Reason · Branch · Publish Status؛ رمضان/العيد لا يغيّر الأساسية. شرط: الـUX والـCMS يُناقشان مع الـOwner قبل التنفيذ (DB-18 مفتوح) |  | R2-02 | #22 of 150 (log row order) · 2026-10-01 | HOURS-005…008؛ M25 §26 أضاف تحرير من الـDashboard وحساب Next Opening (D-202) ↻ M33 §06, §07: البنية والأولوية حسمهما M33 (D-280)؛ نقاش الـUX فقط باقٍ (PO-007) |
 | `D-027` | Navigation | CTA الموبايل مبدئيًا: 1) Menu 2) Locations/Directions؛ الحالة والساعات داخل Branch Card؛ الشكل البصري في UX/UI |  | رد الـOwner على AR-03 | #28 of 150 (log row order) · 2026-10-01 | NAV-006، BRAND-018 |
 | `D-031` | URL/Global | P3 مبدئي: /ar/ · /en/ · /ar/jo/… · /en/jo/…؛ الشرط (1) حُسم بـD-052 (الجذر Gateway/x-default، لا 301 إلى /ar/، لا geo redirect)؛ الشرط (2) قاعدة دائمة (ar/en، ISO jo، xx للتوثيق فقط)؛ قبل الـFreeze: اعتماد خطة 13 (canonical، hreflang، x-default ROOT-02، alternates، redirects) + قرارات 10 §6 |  | رد الـOwner على `10` | #32 of 150 (log row order) · 2026-10-01 | WEB-008، WEB-011، SEO-034 — ملاحظة: السجل يكتب superseded_by D-052 وهذا غير دقيق؛ D-052 يحسم الشرط (1) فقط ولا يلغي P3 |
@@ -500,7 +500,7 @@
 
 — لا يوجد.
 
-## SUPERSEDED — مُستبدل (التاريخ محفوظ) (21)
+## SUPERSEDED — مُستبدل (التاريخ محفوظ) (22)
 
 | Decision ID | Area | القرار القديم (OLD) | SUPERSEDED BY | القرار الحالي المعتمد | السبب | الترتيب | الأثر |
 |---|---|---|---|---|---|---|---|
@@ -523,10 +523,11 @@
 | `D-113` | Products | مراجعة كل زوج؛ لا دمج؛ لا تجميد لمعرّفات DUP-04 | D-124 · D-134 | أزواج DUP-04 الخمسة = DIFFERENT PRODUCTS؛ المعرّفات مجمّدة | R3 — P0 Owner Decisions | #114 of 150 (log row order) · 2026-10-01 | PROD-012, MENU-047 |
 | `D-115` | Menu | ACTIVE PRODUCT — MISSING CURRENT MENU DATA | D-140 | Cold Brew · Lotus Cheesecake · Ice Cream · Single Espresso = ACTIVE — DATA INCOMPLETE (D-140) | R3 — P0 Owner Decisions | #116 of 150 (log row order) · 2026-10-01 | MENU-033 |
 | `D-123` | Governance | قبل v1.0 تُعرض بنود محددة فقط؛ لا Menu IA ولا UX/UI | D-134 / D-141 | نُفذ: v1.0 صدرت (D-134) واعتُمدت (D-135) وفُتحت Menu IA (D-141) | R3 — P0 Owner Decisions | #124 of 150 (log row order) · 2026-10-01 | مانع Menu IA رُفع (M21-022)؛ مانع UX/UI مستمر عبر D-142 |
+| `D-335` | Branches / Master Data | اعتماد رابطي Google Maps للفرعين الآن (العنوان النصي لاحقًا): DRIVE https://share.google/Cko3RPFoBGY21bco4 · HOUSE https://share.google/d7T2jt7BKhidMHG4A — الربط كما في صفحة «موقعنا» بموقع الـOwner (الفرع الرئيسي / سيتي سنتر). يظهر زر «الاتجاهات» في صفحة كل فرع وشريط الموبايل، وhasMap في البيانات المنظمة. محرر الفرع يقبل روابط share.google. | M60 | رابطا Google Business Profile من الـOwner (D-336) بدل روابط share.google من الموقع القديم. | Owner: «ج» — الروابط الآن والعنوان النصي لاحقًا | M59 · 2026-10-02 (سُجّل في التدقيق) | PO-010 (جزئيًا) · GBP-013 · SEO-008 · database/seeders/data/master-data.php |
 | `GEP-§3` | GBP/Maps | فرعان رسميان على Google (DRIVE، HOUSE)؛ GBP لكل فرع = OFFICIAL OPERATIONAL SOURCE للحقول الأحد عشر | M33 §23 | SUPERSEDED (جزئيًا) BY D-278: وصف GBP كمصدر تشغيلي رسمي؛ تبقى قائمة الملفين الرسميين DRIVE/HOUSE (GBP-002) |  | policy section order · 2026-10-01 | GBP-002، GBP-003 |
 | `GEP-§26` |  | menu_view · menu_category_click · product_view · branch_view · directions_click · phone_click · whatsapp_click · social_click · campaign_view · campaign_click · event_view · blog_view · language_switch · search_use | M12 §9 → M25 §9 → M27 §18 (D-204) | القائمة الحالية = M27 §18 (14 حدثًا) + branch_view/social_click/event_view بانتظار قرار. |  |  | تحديث GOOGLE-ECOSYSTEM-POLICY §26 (إضافي — غير وارد في G6-docs). |
 
-## تحديثات من المواصفات الجديدة (M28–M30) على قرارات وبنود قائمة (57)
+## تحديثات من المواصفات الجديدة (M28–M30) على قرارات وبنود قائمة (59)
 
 | المعرّف | النوع | التغيير | المصدر |
 |---|---|---|---|
@@ -587,3 +588,5 @@
 | `D-007` | UPDATE | البحث: «كافيه» هي الكلمة الأكثر استخدامًا في إربد؛ استخدامها للـSEO مشروط بموافقتك (PO-080). «كوفي شوب» تُتجنب (سياق أخبار شيشة/مخالفات). | M57 |
 | `CF-M-036` | RESOLVE | «إربد» بالهمزة تحت الألف — اعتمدها الـOwner (D-334) | M58 |
 | `D-008` | UPDATE | صياغة وصف موقع DRIVE المعتمدة الآن «بجانب منطقة قصر النخيل / أرابيلا» (M57 §1، D-334) بدل «صالة قصر النخيل». | M58 |
+| `D-335` | SUPERSEDE | رابطا Google Business Profile من الـOwner (D-336) بدل روابط share.google من الموقع القديم. | M60 |
+| `D-020` | UPDATE | اسما الفرعين SHELTER COFFEE DRIVE / SHELTER COFFEE HOUSE مطابقان لـGoogle Business (D-336) — لا تغيير. | M60 |

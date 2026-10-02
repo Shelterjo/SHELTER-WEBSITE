@@ -10,16 +10,16 @@
 
 > **D-048** _(تاريخي — `SUPERSEDED` بـM33)_: الـGBP الرسمي لكل فرع = **OFFICIAL OPERATIONAL SOURCE** للحقول أدناه — **لكنه لا يتغلب على بيانات الـOwner المعتمدة** (§5 من السياسة).
 > **الحالة:** بيانات الـGBP **لم تصلنا بعد** (G-01 و G-02). لا تعديل على أي ملف **بدون موافقة الـOwner** (§44 من السياسة): أي تغيير = Proposal → Owner Approval → Change، وبعد الموافقة ومنح الصلاحية ينفّذه الفريق (D-051، D-055). "لا تعديل للملف" في D-043 = قيد مرحلة الاستكشاف بدون موافقة. _(آلية الموافقة محدّثة: انظر البانر أعلاه.)_
-> **آخر تحديث:** 2026-10-01
+> **آخر تحديث:** 2026-10-02 — D-336: رابطا GBP للفرعين واسماهما من الـOwner. العنوان النصي والإحداثيات من GBP لم تُقرأ (Google محجوب في بيئة العمل) → PO-010.
 
 ## SHELTER COFFEE DRIVE — شلتر كوفي درايف
 
 | الحقل | Owner-approved | GBP الرسمي | الموقع القديم | الـSchema القديمة | الحالة |
 |---|---|---|---|---|---|
-| Official branch name | `SHELTER COFFEE DRIVE` / `شلتر كوفي درايف` (D-020) | MISSING | "شلتر كافيه" (عام) | اسم غير مكشوف | ⏳ بانتظار GBP |
+| Official branch name | `SHELTER COFFEE DRIVE` / `شلتر كوفي درايف` (D-020) | `SHELTER COFFEE DRIVE` (الـOwner، D-336) | "شلتر كافيه" (عام) | اسم غير مكشوف | ✅ متطابق |
 | Address | وصف: "إربد — بجانب صالة قصر النخيل / منطقة أرابيلا" (ليس صياغة نهائية) | MISSING | "شارع عوض رشيدات" / "شارع الجامعة" (متعارض) | **بدون عنوان** (خطأ Semrush #45) | ⏳ |
 | Map pin / Coordinates | — | MISSING | `locations.kml` (غير مقروء) | غير مكشوف | ⏳ |
-| Google Maps URL | MISSING (D-020) | MISSING | `share.google/Cko3RPFoBGY21bco4` (غير مؤكد) | — | ⏳ |
+| Google Maps URL | `https://maps.app.goo.gl/zNfDbkxcT1aMdQiWA` (D-336) | نفس الرابط (أرسله الـOwner من GBP) | `share.google/Cko3RPFoBGY21bco4` (قديم — SUPERSEDED) | — | ✅ |
 | Opening hours | السبت–الخميس 07:00 ص – 02:00 ص · الجمعة 08:00 ص – 02:00 ص (D-020) | MISSING | "7:00 ص – 2:00 ل" | غير مكشوف | ⏳ مقارنة |
 | Special hours | نظام D-021 | MISSING | — | — | ⏳ |
 | Phone shown publicly | **0799009436** (D-057، D-060) | MISSING | 0799009436 | غير مكشوف | ⏳ مقارنة مع GBP — أي اختلاف = `OUT OF SYNC` / CONFLICT DETECTED ← قرار الـOwner |
@@ -31,10 +31,10 @@
 
 | الحقل | Owner-approved | GBP الرسمي | الموقع القديم | الـSchema القديمة | الحالة |
 |---|---|---|---|---|---|
-| Official branch name | `SHELTER COFFEE HOUSE` / `شلتر كوفي هاوس` (D-020) | MISSING | "شلتر كافيه — إربد ستي سنتر" | غير مكشوف | ⏳ |
+| Official branch name | `SHELTER COFFEE HOUSE` / `شلتر كوفي هاوس` (D-020) | `SHELTER COFFEE HOUSE` (الـOwner، D-336) | "شلتر كافيه — إربد ستي سنتر" | غير مكشوف | ✅ متطابق |
 | Address | Irbid City Center، الطابق الأول، بجانب البنك الإسلامي الأردني (D-020) — **اسم المول الرسمي يُؤخذ من GBP** | MISSING | الطابق الأول / الثاني (متعارض) | بدون عنوان | ⏳ |
 | Map pin / Coordinates | — | MISSING | — | — | ⏳ |
-| Google Maps URL | MISSING | MISSING | `share.google/d7T2jt7BKhidMHG4A` (غير مؤكد) | — | ⏳ |
+| Google Maps URL | `https://maps.app.goo.gl/k31BVoaAb1fcAF9e6` (D-336) | نفس الرابط (أرسله الـOwner من GBP) | `share.google/d7T2jt7BKhidMHG4A` (قديم — SUPERSEDED) | — | ✅ |
 | Opening hours | السبت–الأربعاء 09:00 ص – 10:00 م · الخميس–الجمعة 09:00 ص – 11:00 م (D-020) | MISSING | متعارض (الجمعة 9 ص أو 2 ظ) | — | ⏳ مقارنة |
 | Special hours (بما فيها ساعات المول) | نظام D-021 — أي تعارض مع المول يُعرض | MISSING | — | — | ⏳ |
 | Phone shown publicly | **0799009436** (D-057، D-060) | MISSING | — | — | ⏳ مقارنة مع GBP — أي اختلاف = `OUT OF SYNC` / CONFLICT DETECTED ← قرار الـOwner |
