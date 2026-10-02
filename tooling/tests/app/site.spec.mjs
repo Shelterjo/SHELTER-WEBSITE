@@ -67,6 +67,12 @@ test.describe('public site @app', () => {
         return r.right > window.innerWidth + 1 || r.left < -1;
       }).slice(0, 3).map((el) => `${el.tagName.toLowerCase()}.${[...el.classList].join('.')}`));
       expect(wide, 'elements outside the viewport').toEqual([]);
+      // Text cut by its own box (UX-006 DR-02 / DR-04): hero lines that mask Arabic letters, labels wider than their button.
+      const clipped = await page.evaluate(() => [...document.querySelectorAll('.ui-hero__line, .ui-action-bar .ui-button, .ui-shaltoor__launcher')]
+        .filter((el) => el.getBoundingClientRect().width > 0 && getComputedStyle(el).visibility !== 'hidden')
+        .filter((el) => el.scrollHeight > el.clientHeight + 1 || el.scrollWidth > el.clientWidth + 1)
+        .slice(0, 3).map((el) => `${el.className} ${el.scrollWidth}×${el.scrollHeight} > ${el.clientWidth}×${el.clientHeight}`));
+      expect(clipped, 'text clipped inside its box').toEqual([]);
       expect(errors, 'script errors').toEqual([]);
     });
 

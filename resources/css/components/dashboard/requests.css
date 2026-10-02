@@ -158,6 +158,14 @@
     margin: 0;
 }
 
+/* A checklist line: the status pill keeps its own column and the label wraps beside it, never above or below it
+   (UX-006 DR-06 — a wrapped pill looked like it belonged to the line before). */
+.ui-record__status--check {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: start;
+}
+
 .ui-record__form {
     display: grid;
     gap: var(--space-3);

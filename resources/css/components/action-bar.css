@@ -23,6 +23,24 @@
     flex: 1 1 0;
 }
 
+/* Under 360px three labelled actions do not fit side by side ("Directions", "WhatsApp" at 320px — UX-006 DR-04):
+   the icon goes above a smaller label, still one 44px+ row, nothing leaves its button. */
+@media (max-width: 359.98px) {
+    .ui-action-bar__inner {
+        gap: var(--space-1);
+        padding-inline: var(--space-2);
+    }
+
+    .ui-action-bar__inner > .ui-button {
+        flex-direction: column;
+        gap: 0;
+        padding-inline: var(--space-1);
+        font-size: var(--text-xs);
+        line-height: var(--leading-tight);
+        white-space: nowrap;
+    }
+}
+
 /* Keyboard focus and in-page jumps stop above the bar, never under it (WCAG 2.2 — 2.4.11 Focus Not Obscured;
    FINAL-QA QA-035). The bar is one touch-target row plus its padding. */
 @media (max-width: 1023.98px) {

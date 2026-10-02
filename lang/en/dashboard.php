@@ -813,7 +813,7 @@ return [
         'welcome_en' => 'Welcome (English)',
         'suggestions_ar' => 'Quick suggestions (Arabic)',
         'suggestions_en' => 'Quick suggestions (English)',
-        'default_hint' => 'Default: :text',
+        'default_hint' => 'Left empty, the default shown inside the field is used.',
         'save' => 'Save',
         'stats_title' => 'What visitors asked',
         'period' => 'Period',

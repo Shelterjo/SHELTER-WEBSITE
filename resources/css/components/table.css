@@ -78,6 +78,14 @@
     font-weight: var(--weight-medium);
 }
 
+/* Every value of a stacked cell stays in the value column, one under the other: a second line (an Arabic name, a
+   badge, a code) never drops under the label and over its neighbour (UX-006 DR-05). */
+.ui-table--stack th > *,
+.ui-table--stack td > * {
+    grid-column: 2;
+    min-inline-size: 0;
+}
+
 .ui-table--stack th.ui-table__numeric,
 .ui-table--stack td.ui-table__numeric {
     text-align: start;

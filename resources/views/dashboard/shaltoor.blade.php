@@ -43,17 +43,17 @@
                 <p class="ui-note">{{ __($S.'texts_help') }}</p>
                 <div class="ui-editor__pair">
                     @foreach (['ar', 'en'] as $lang)
-                        <x-ui.field :label="__($S.'welcome_'.$lang)" :for="'welcome_'.$lang" :hint="__($S.'default_hint', ['text' => $defaults[$lang]])" :error="$bag->first('welcome_'.$lang)" optional>
+                        <x-ui.field :label="__($S.'welcome_'.$lang)" :for="'welcome_'.$lang" :hint="__($S.'default_hint')" :error="$bag->first('welcome_'.$lang)" optional>
                             <x-ui.textarea :id="'welcome_'.$lang" :name="'welcome_'.$lang" rows="3" maxlength="400" :dir="$lang === 'ar' ? 'rtl' : 'ltr'" :lang="$lang"
-                                :value="$fresh ? old('welcome_'.$lang) : $welcome[$lang]" />
+                                :placeholder="$defaults[$lang]" :value="$fresh ? old('welcome_'.$lang) : $welcome[$lang]" />
                         </x-ui.field>
                     @endforeach
                 </div>
                 <div class="ui-editor__pair">
                     @foreach (['ar', 'en'] as $lang)
-                        <x-ui.field :label="__($S.'suggestions_'.$lang)" :for="'suggestions_'.$lang" :hint="__($S.'default_hint', ['text' => implode(' · ', $defaultSuggestions[$lang])])" :error="$bag->first('suggestions_'.$lang)" optional>
+                        <x-ui.field :label="__($S.'suggestions_'.$lang)" :for="'suggestions_'.$lang" :hint="__($S.'default_hint')" :error="$bag->first('suggestions_'.$lang)" optional>
                             <x-ui.textarea :id="'suggestions_'.$lang" :name="'suggestions_'.$lang" rows="5" :dir="$lang === 'ar' ? 'rtl' : 'ltr'" :lang="$lang"
-                                :value="$fresh ? old('suggestions_'.$lang) : $suggestions[$lang]" />
+                                :placeholder="implode(PHP_EOL, $defaultSuggestions[$lang])" :value="$fresh ? old('suggestions_'.$lang) : $suggestions[$lang]" />
                         </x-ui.field>
                     @endforeach
                 </div>

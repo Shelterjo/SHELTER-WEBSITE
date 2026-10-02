@@ -32,7 +32,7 @@
             <h3 class="ui-record__title">{{ $row['name'] }}</h3>
             <ul class="ui-stack ui-stack--sm" role="list">
                 @foreach ($row['checks'] as $check => $ok)
-                    <li class="ui-record__status">
+                    <li class="ui-record__status ui-record__status--check">
                         @if ($ok)
                             <x-ui.badge variant="success" icon="circle-check">{{ __($S.'ok') }}</x-ui.badge>
                         @else

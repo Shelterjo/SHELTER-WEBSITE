@@ -9,7 +9,7 @@
 >
 > **المعرّفات:**
 > - **`D-xxx`:** سجل القرارات.
->   - **D-150…D-347:** قرارات صريحة من الـOwner في الرسائل M01–M27 لم تكن مسجلة، وأُضيفت في هذا التدقيق.
+>   - **D-150…D-348:** قرارات صريحة من الـOwner في الرسائل M01–M27 لم تكن مسجلة، وأُضيفت في هذا التدقيق.
 > - **`F-xx` / `R-xx`:** المنيو.
 > - **`DB-xx`:** القرارات المفتوحة قبل التصميم.
 > - **`GEP-§n` / `GIO-§n`:** سياسة Google وملكية التنفيذ.
@@ -20,14 +20,14 @@
 | الفئة | العدد |
 |---|---|
 | FROZEN | 81 |
-| APPROVED | 290 |
+| APPROVED | 291 |
 | APPROVED WITH CONDITIONS | 45 |
 | PENDING OWNER INPUT | 18 |
 | PENDING VERIFICATION | 8 |
 | DEFERRED | 4 |
 | REJECTED | 0 |
 | SUPERSEDED | 24 |
-| **المجموع** | **470** |
+| **المجموع** | **471** |
 
 ## FROZEN — مجمّد — لا يُفتح إلا بتعارض حقيقي (81)
 
@@ -115,7 +115,7 @@
 | `F-22` | Products | هوية الأصناف: كل قرارات D-109 → D-134 كما هي |  |  | F #22 · 2026-10-01 (موجز Menu IA/UX/Wireframe — D-142) | PROD-009…016/021/022 |
 | `F-23` | Governance | Production: لا كود Production · لا نشر · لا Redirects · لا تغييرات Google · لا صور غير معتمدة · لا نصوص منتجات من عندنا |  |  | F #23 · 2026-10-01 (موجز Menu IA/UX/Wireframe — D-142) | GOV-026، GOV-047، CONTENT-004 |
 
-## APPROVED — معتمد (290)
+## APPROVED — معتمد (291)
 
 | Decision ID | Area | القرار الحالي المعتمد | القرار القديم (إن وجد) | السبب | الترتيب في المحادثة | أثر التنفيذ |
 |---|---|---|---|---|---|---|
@@ -358,8 +358,9 @@
 | `D-343` | Release / Infrastructure | بوابة ما قبل Cloudways (M66): فحص المشروع كاملًا كأنه سيُطلق للعملاء مباشرة — المحتوى والعربية والإنجليزية والتطابق، والبيانات مقابل Master Data، والمنيو والفروع، والثيم والألوان والخطوط والمسافات والزوايا والظلال والأيقونات، والهيدر والفوتر، وكل زر ورابط ونموذج، والتوظيف والفرنشايز والتواصل والوسائط والجوائز والفعاليات والحملات، والحركة وتقليلها، والاستجابة على 14 عرضًا، والموبايل والتابلت والديسكتوب، وRTL/LTR، ولوحة المالك، والمصادقة والصلاحيات، وقاعدة البيانات والـMigrations والـSeeders والتخزين والمسارات وحساسية الأحرف وتوافق Linux، ومتغيرات البيئة، وعدم وجود أسرار في Git، وبناء الإنتاج، والأمان، والوصولية، والأداء، وSEO وSEO إربد والـSchema والـSitemap وخطة الروابط القديمة، والتحليلات، وسجل التدقيق والنسخ وحارس النشر، والمتصفحات، والشبكة البطيئة، ومحاكاة الفشل، وتنظيف بيانات الاختبار، وGit. ثم إصلاح كل ما هو تقني، وإعادة الاختبار، وبناء نظيف من الصفر. المخرجات: docs/CLOUDWAYS-DEPLOYMENT-RUNBOOK.md (لا يُنفذ) وdocs/PRE-CLOUDWAYS-FINAL-AUDIT.md مع دليل لكل P0/P1. لا P0 ولا P1 عند الاعتماد؛ P2 يُصلح قدر الإمكان؛ P3 تجميلي فقط ويُذكر. الاعتماد: READY أو NOT READY FOR CLOUDWAYS DEPLOYMENT، ثم توقف حتى «START CLOUDWAYS DEPLOYMENT». Cloudflare بعد نجاح Cloudways واختبارات الـOrigin. |  | توجيه صريح من الـOwner (M66) | M66 · 2026-10-02 (سُجّل في التدقيق) | D-342 · D-339 · PO-064 · docs/CLOUDWAYS-DEPLOYMENT-RUNBOOK.md · docs/PRE-CLOUDWAYS-FINAL-AUDIT.md · DX-007 ↻ M67: الاعتماد النهائي يضم أيضًا: Public Route Architecture · URL/Path Consistency · Deep Links · Navigation · Typography/Button/Form/Design System · Motion Experience/Performance/Reduced Motion · Usability · Mobile Usability · Brand Consistency · Visual Polish · No Dead Ends (D-344)، ثم بنود M68 (D-345) وشلتور (D-346) ومساعد المالك (D-347). |
 | `D-344` | Release / UX / Design System | بوابة إضافية قبل Cloudways (M67): بنية المسارات العامة المعتمدة (D-031: /ar/ و/en/ ثم /jo/ للسوق) تُراجع لكل صفحة (AR/EN، canonical، الحالة، H1، العنوان، الفهرسة، الـSitemap، مصدر التنقل، التحويلات) في docs/PUBLIC-ROUTE-MAP.md؛ مصطلح واحد لكل مفهوم؛ روابط الخطأ = 404 بالعلامة؛ لا تحويل لكل شيء إلى الرئيسية. الحركة مقصودة وراقية ومن Tokens (transform/opacity، احترام تقليل الحركة)، والموقع لا يبدو جامدًا. خطوط وأوزان وسلّم أحجام وأزرار ونماذج وبطاقات موحدة من نظام التصميم، وأي إصلاح يمر عبر Tokens والمكونات المشتركة. سهولة الاستخدام: اختبار 3 ثوانٍ و10 ثوانٍ، عمق النقرات، منطقة الإبهام، أهداف لمس 44px، بلا طريق مسدود. تقرير PRE-CLOUDWAYS-FINAL-AUDIT يضم أقسام DESIGN SYSTEM CONSISTENCY وMOTION EXPERIENCE وUSABILITY. |  | توجيه صريح من الـOwner (M67) | M67 · 2026-10-02 (سُجّل في التدقيق) | D-343 · docs/PUBLIC-ROUTE-MAP.md · docs/PRE-CLOUDWAYS-FINAL-AUDIT.md |
 | `D-345` | Integrations / Ecosystem | المنظومة الرقمية (M68): تدقيق أدوات UX/UI (ui-ux-pro-max، Motion؛ shadcn وGSAP وLenis وLottie فقط عند الحاجة الحقيقية)؛ طبقة وسوم واحدة عبر GTM (لا سكربتات متفرقة)؛ Consent (Essential/Analytics/Marketing) قبل أي تتبع غير أساسي؛ Pixel وCAPI وGoogle Ads وSnap Pixel عند الحاجة الفعلية فقط؛ روابط السوشال من كيان مركزي (المنصة، الرابط، الحالة، تاريخ التحقق، الإظهار) وبروابط موثقة فقط (غير المعروف = PENDING OWNER INPUT)، مع Snapchat؛ أيقونات من مكتبة التصميم الموحدة؛ Master Data مرجع واحد يغذي القنوات عبر Adapters؛ فشل أي خدمة خارجية لا يُسقط الموقع ولا يكون صامتًا. مخرجات: DIGITAL-INTEGRATIONS-RECOMMENDATIONS.md وTRACKING-AND-COOKIES-INVENTORY.md وdocs/SHELTER-DIGITAL-ECOSYSTEM.md وdocs/OWNER-CONNECTION-CHECKLIST.md. ترتيب الربط: GitHub QA ← Cloudways Origin ← اختبار الـOrigin ← الدومين/DNS ← Cloudflare ← SSL ← Search Console ← Google Business/Maps ← GTM ← GA4 ← Meta ← البكسلات الاختيارية ← المراقبة ← تدقيق الإنتاج. الـOwner يُطلب منه إجراء واحد في كل خطوة. |  | توجيه صريح من الـOwner (M68) | M68 · 2026-10-02 (سُجّل في التدقيق) | PO-009 · PO-011 · PO-012 · PO-013 · PO-064 · CONTACT-026 · docs/OWNER-CONNECTION-CHECKLIST.md |
-| `D-346` | AI / Website Assistant | «شلتور» (SHALTOOR) المساعد الرسمي لزوار الموقع (M69): يجيب من بيانات SHELTER المعتمدة فقط (Master Data، المنيو والأسعار والتوفر، الفروع والساعات والاستثناءات بتوقيت عمّان، التواصل حسب الغرض، الفعاليات والعروض الفعالة، الوظائف والشراكة العامة)؛ لا يخمّن، ويوجّه للتواصل حين لا يعرف؛ عربي (ويفهم اللهجة الأردنية) وإنجليزي؛ إجابات قابلة للتنفيذ (الاتجاهات، اتصال، واتساب، المنيو، الوظائف، الشراكة)؛ لا معلومات خاصة أو داخلية، ولا أرقام مالية للفرنشايز؛ أرقام التحويل من Master Data؛ طبقة مزوّد AI قابلة للتبديل والمفتاح على الخادم فقط — الربط PENDING OWNER AUTHORIZATION؛ البيانات المنظمة أولًا والـAI عند الحاجة فقط؛ تحميل كسول؛ حد للطلبات؛ تخزين أدنى بلا PII؛ أحداث تحليلات بلا نص المحادثة؛ قسم «شلتور» في لوحة التحكم (تشغيل/إيقاف، رسالة الترحيب، الاقتراحات، الأسئلة غير المجابة). المرجع: docs/SHALTOOR-ASSISTANT-SPEC.md. |  | توجيه صريح من الـOwner (M69) | M69 · 2026-10-02 (سُجّل في التدقيق) | PRIV (سياسة الخصوصية PO-019) · ANL · SEC · docs/SHALTOOR-ASSISTANT-SPEC.md |
+| `D-346` | AI / Website Assistant | «شلتور» (SHALTOOR) المساعد الرسمي لزوار الموقع (M69): يجيب من بيانات SHELTER المعتمدة فقط (Master Data، المنيو والأسعار والتوفر، الفروع والساعات والاستثناءات بتوقيت عمّان، التواصل حسب الغرض، الفعاليات والعروض الفعالة، الوظائف والشراكة العامة)؛ لا يخمّن، ويوجّه للتواصل حين لا يعرف؛ عربي (ويفهم اللهجة الأردنية) وإنجليزي؛ إجابات قابلة للتنفيذ (الاتجاهات، اتصال، واتساب، المنيو، الوظائف، الشراكة)؛ لا معلومات خاصة أو داخلية، ولا أرقام مالية للفرنشايز؛ أرقام التحويل من Master Data؛ طبقة مزوّد AI قابلة للتبديل والمفتاح على الخادم فقط — الربط PENDING OWNER AUTHORIZATION؛ البيانات المنظمة أولًا والـAI عند الحاجة فقط؛ تحميل كسول؛ حد للطلبات؛ تخزين أدنى بلا PII؛ أحداث تحليلات بلا نص المحادثة؛ قسم «شلتور» في لوحة التحكم (تشغيل/إيقاف، رسالة الترحيب، الاقتراحات، الأسئلة غير المجابة). المرجع: docs/SHALTOOR-ASSISTANT-SPEC.md. |  | توجيه صريح من الـOwner (M69) | M69 · 2026-10-02 (سُجّل في التدقيق) | PRIV (سياسة الخصوصية PO-019) · ANL · SEC · docs/SHALTOOR-ASSISTANT-SPEC.md ↻ M71: أيقونة شلتور = صورة الـOwner المعتمدة (D-348) بدل أيقونة الرسائل العامة، حين يصل الملف. |
 | `D-347` | AI / Owner Dashboard | «مساعد الذكاء الاصطناعي» في لوحة التحكم للمالك فقط (M70): وكيل ذكاء للموقع يقرأ ويحلل ويقارن الفترات ويكتشف المشاكل والفرص ويقترح (العنوان، ما وجدته، الدليل، لماذا يهم، الإجراء، الأثر المتوقع، الثقة، الفترة، المصادر) مع قبول/رفض/لاحقًا/غير مناسب؛ مصادر حقيقية فقط وحالة كل مصدر (متصل/غير متصل/فشل/قديم) ولا يتكلم عن مصدر غير متصل؛ يحسب أولًا (SQL/قواعد) ثم يشرح الـAI؛ يفصل الملاحظة عن الفرضية ولا يدّعي سببية؛ لا ينشر ولا يغيّر أسعارًا أو ساعات أو بيانات تواصل أو فهرسة أو أمانًا أو تتبعًا بلا موافقة؛ طبقة صلاحيات أدوات منفصلة تمامًا عن شلتور؛ تسجيل في سجل التدقيق؛ «حلل الآن» وتحليل مجدول. V1: الملخص، اسأل الـAI، رؤى التحليلات وSEO والبحث وشلتور والصحة التقنية، التوصيات، يحتاج انتباهك، رأي المالك، سجل التدقيق. المرجع: docs/OWNER-AI-ASSISTANT-SPEC.md. |  | توجيه صريح من الـOwner (M70) | M70 · 2026-10-02 (سُجّل في التدقيق) | DASH · ANL · SEC · PRIV · MON-007 · docs/OWNER-AI-ASSISTANT-SPEC.md |
+| `D-348` | AI / Website Assistant / Media | صورة «شلتور» التي أرسلها الـOwner (M71) هي أيقونة البوت المعتمدة: تظهر صورةً رمزية دائرية (الوجه والشماغ) في زر فتح المحادثة وفي رأس نافذة المحادثة، والصورة كاملة داخل النافذة عند الترحيب. المعالجة تقنية فقط: قصّ وتصغير وضغط (WebP + PNG احتياطي) دون تعديل الرسم أو الألوان أو توليد بديل. الخلفية البيضاء تبقى داخل الدائرة (لا إزالة خلفية بخدمة خارجية). حتى يصل الملف تبقى أيقونة Lucide الحالية. |  | صورة مرسلة من الـOwner مع تحديد استخدامها صراحةً («هذه ايقونة البوت») | M71 · 2026-10-02 (سُجّل في التدقيق) | D-346 · resources/views/components/ui/shaltoor.blade.php · public/brand/ · docs/SHALTOOR-ASSISTANT-SPEC.md |
 | `DB-01` | Brand | حُسم: الاسم (D-007)، الفروع (D-008، D-020)، سنة التأسيس 2019 (D-018) | الحقائق التأسيسية مطلوبة قبل أي Sitemap |  | #1 of 22 in DECISION-LOG open table (P0/P1/P2 priority in 05) · P0 | BRAND-001، ABOUT-003 |
 | `DB-10` | Products | البنية تدعم العرض الكامل للأسعار (D-078) |  |  | #12 of 22 in DECISION-LOG open table (P0/P1/P2 priority in 05) · P2 | MENU-014 |
 | `DB-21` | CMS | المصدر الوحيد للمنيو: A الآن + جاهزية C (حُسم بـD-085) | سؤال مفتوح: مصدر المنيو SSOT |  | #13 of 22 in DECISION-LOG open table (P0/P1/P2 priority in 05) | CMS-003 |
@@ -538,7 +539,7 @@
 | `GEP-§3` | GBP/Maps | فرعان رسميان على Google (DRIVE، HOUSE)؛ GBP لكل فرع = OFFICIAL OPERATIONAL SOURCE للحقول الأحد عشر | M33 §23 | SUPERSEDED (جزئيًا) BY D-278: وصف GBP كمصدر تشغيلي رسمي؛ تبقى قائمة الملفين الرسميين DRIVE/HOUSE (GBP-002) |  | policy section order · 2026-10-01 | GBP-002، GBP-003 |
 | `GEP-§26` |  | menu_view · menu_category_click · product_view · branch_view · directions_click · phone_click · whatsapp_click · social_click · campaign_view · campaign_click · event_view · blog_view · language_switch · search_use | M12 §9 → M25 §9 → M27 §18 (D-204) | القائمة الحالية = M27 §18 (14 حدثًا) + branch_view/social_click/event_view بانتظار قرار. |  |  | تحديث GOOGLE-ECOSYSTEM-POLICY §26 (إضافي — غير وارد في G6-docs). |
 
-## تحديثات من المواصفات الجديدة (M28–M30) على قرارات وبنود قائمة (72)
+## تحديثات من المواصفات الجديدة (M28–M30) على قرارات وبنود قائمة (73)
 
 | المعرّف | النوع | التغيير | المصدر |
 |---|---|---|---|
@@ -614,3 +615,4 @@
 | `D-342` | UPDATE | D-343 يكمّلها: البوابة صارت «FINAL PRE-CLOUDWAYS MASTER AUDIT» (146 بندًا) بمخرجين إلزاميين (Runbook + تقرير الفحص النهائي)، والاعتماد النهائي «READY FOR CLOUDWAYS DEPLOYMENT»، وأمر البدء «START CLOUDWAYS DEPLOYMENT». Cloudflare يأتي بعد نجاح نشر Cloudways واختبارات الـOrigin. | M66 |
 | `D-339` | UPDATE | رابط الفحص على Cloudways لا يُنشأ إلا بعد أمر الـOwner «START CLOUDWAYS DEPLOYMENT» (D-343). | M66 |
 | `D-343` | UPDATE | الاعتماد النهائي يضم أيضًا: Public Route Architecture · URL/Path Consistency · Deep Links · Navigation · Typography/Button/Form/Design System · Motion Experience/Performance/Reduced Motion · Usability · Mobile Usability · Brand Consistency · Visual Polish · No Dead Ends (D-344)، ثم بنود M68 (D-345) وشلتور (D-346) ومساعد المالك (D-347). | M67 |
+| `D-346` | UPDATE | أيقونة شلتور = صورة الـOwner المعتمدة (D-348) بدل أيقونة الرسائل العامة، حين يصل الملف. | M71 |
