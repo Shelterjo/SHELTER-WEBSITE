@@ -54,6 +54,10 @@ class LocalSeoTest extends TestCase
         $en = $this->page('/en/jo/locations/irbid/house/');
         $this->assertStringContainsString('<p class="ui-page-intro__lead">Coffee house in Irbid</p>', $en);
         $this->assertStringContainsString('<title>SHELTER COFFEE HOUSE — Coffee house in Irbid | Opening Hours</title>', $en);
+        // D-338: «كافيه» is how the Google title words the coffee house; the page itself keeps «كوفي هاوس» (D-007).
+        $house = $this->page('/ar/jo/locations/irbid/house/');
+        $this->assertStringContainsString('<title>شلتر كوفي هاوس — كافيه في إربد | ساعات الدوام</title>', $house);
+        $this->assertStringContainsString('<p class="ui-page-intro__lead">كوفي هاوس في إربد</p>', $house);
         // D-334: «إربد» is the approved spelling (CF-M-036).
         $this->assertStringContainsString('<p class="ui-page-intro__lead">درايف ثرو في إربد</p>', $this->page('/ar/jo/locations/irbid/drive/'));
 

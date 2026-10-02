@@ -56,7 +56,7 @@ return [
     'home' => [
         'feature' => ['announcement' => 'إعلان', 'campaign' => 'عرض', 'event' => 'فعالية'],
         // M57: the approved positioning line (D-332) in the Google title and the opening line; one short sentence.
-        'title' => 'شلتر كوفي — قهوة مختصة ودرايف ثرو في إربد',
+        'title' => 'شلتر كوفي — كافيه قهوة مختصة ودرايف ثرو في إربد', // «كافيه» in Google titles/descriptions: D-338
         'lead' => 'قهوة مختصة ودرايف ثرو في إربد. تصفّح المنيو، واعرف أيّ فرع مفتوح الآن ومتى يُغلق.',
         'cta_menu' => 'تصفّح المنيو',
         'cta_locations' => 'الفروع والمواعيد',
@@ -88,6 +88,8 @@ return [
         'back' => 'كل الفروع',
         // What kind of branch (master-data type, D-008) and where: «درايف ثرو في إربد».
         'kinds' => ['drive_thru' => 'درايف ثرو', 'coffee_house' => 'كوفي هاوس'],
+        // The kind as the Google title says it (D-338: «كافيه» in titles and descriptions only; the page keeps «كوفي هاوس»).
+        'title_kinds' => ['drive_thru' => 'درايف ثرو', 'coffee_house' => 'كافيه'],
         'kind_in_city' => ':kind في :city',
     ],
 
@@ -191,15 +193,15 @@ return [
     // docs/copy/META-DESCRIPTIONS-DRAFT-01.md). The Owner may reword any of them (dashboard → Site texts); empty = this text.
     // Google titles (M57 §15) for pages whose on-page heading stays short; Owner-editable in Site texts.
     'titles' => [
-        'locations' => 'فروع شلتر كوفي في إربد — ساعات الدوام',
+        'locations' => 'فروع شلتر كوفي في إربد — كافيه ودرايف ثرو | ساعات الدوام',
         'contact' => 'تواصل مع شلتر كوفي — إربد',
         'events' => 'فعاليات شلتر كوفي في إربد',
         'careers' => 'وظائف شلتر كوفي في إربد',
     ],
     'meta' => [
-        'home' => 'شلتر كوفي في إربد: قهوة مختصة وV60 ومشروبات ساخنة وباردة وحلويات، في فرع درايف ثرو وفرع كوفي هاوس. تصفّح المنيو وساعات الدوام.',
+        'home' => 'شلتر كوفي، كافيه قهوة مختصة في إربد: V60 ومشروبات ساخنة وباردة وحلويات، بفرع درايف ثرو وفرع كوفي هاوس. تصفّح المنيو وساعات الدوام.',
         'menu' => 'منيو شلتر كوفي في إربد: قهوة مختصة وV60، إسبريسو ولاتيه، مشروبات باردة، فرابيه، سموذي، شاي، كيك وكوكيز، مع الأسعار لكل فرع.',
-        'locations' => 'فرعا شلتر كوفي في إربد، الدرايف والهاوس: ساعات الدوام وأيّ فرع مفتوح الآن.',
+        'locations' => 'فرعا شلتر كوفي في إربد: الدرايف ثرو، والكافيه في سيتي سنتر. ساعات الدوام وأيّ فرع مفتوح الآن.',
         'branch' => ':name في إربد: ساعات الدوام، وهل الفرع مفتوح الآن، والمنيو بأسعار الفرع، وطرق التواصل.',
         'contact' => 'أرقام التواصل مع شلتر كوفي في إربد: التواصل العام والفروع، الشكاوى والاقتراحات، والكيترنج وطلبات الشركات والفعاليات.',
         'events' => 'فعاليات وحملات شلتر كوفي في إربد: ما يجري الآن وما هو قادم، بالتواريخ والفروع المشاركة.',

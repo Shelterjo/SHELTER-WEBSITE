@@ -81,6 +81,7 @@ return [
         'back' => 'All locations',
         // What kind of branch (master-data type, D-008) and where: “Drive-thru in Irbid”.
         'kinds' => ['drive_thru' => 'Drive-thru', 'coffee_house' => 'Coffee house'],
+        'title_kinds' => ['drive_thru' => 'Drive-thru', 'coffee_house' => 'Coffee house'],
         'kind_in_city' => ':kind in :city',
     ],
 

@@ -109,18 +109,19 @@ final class BranchDirectory
             services: $this->said($branch, 'service'),
             payments: $this->said($branch, 'payment'),
             kind: self::kind($branch->type, $locale),
+            titleKind: self::kind($branch->type, $locale, 'site.branch.title_kinds'),
             city: $this->data->cityName($branch->city, $locale),
             landmark: self::text($this->data->branchField($branch, 'landmark_'.$locale)),
             special: $special,
         );
     }
 
-    private static function kind(?BranchType $type, string $locale): ?string
+    private static function kind(?BranchType $type, string $locale, string $labels = 'site.branch.kinds'): ?string
     {
         if ($type === null) {
             return null;
         }
-        $key = 'site.branch.kinds.'.$type->value;
+        $key = $labels.'.'.$type->value;
         $label = __($key, [], $locale);
 
         return is_string($label) && $label !== $key ? $label : null;

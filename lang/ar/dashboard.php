@@ -650,7 +650,7 @@ return [
             'site_locations_title' => 'عنوان صفحة الفروع',
             'site_meta_locations' => 'وصف صفحة الفروع في Google',
             'site_locations_lead' => 'السطر تحت العنوان',
-            'site_branch_title' => 'عنوان صفحة كل فرع في Google (:name = اسم الفرع، :kind = نوعه: درايف ثرو أو كوفي هاوس)',
+            'site_branch_title' => 'عنوان صفحة كل فرع في Google (:name = اسم الفرع، :kind = نوعه في Google: درايف ثرو أو كافيه)',
             'site_titles_locations' => 'عنوان صفحة الفروع في Google',
             'site_titles_contact' => 'عنوان صفحة التواصل في Google',
             'site_titles_events' => 'عنوان صفحة الفعاليات في Google',

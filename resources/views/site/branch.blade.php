@@ -1,7 +1,7 @@
 @extends('layouts.site')
 @php($description = filled($description ?? null) ? $description : __('site.meta.branch', ['name' => $branch->name]))
 
-@section('title', __('site.branch.title', ['name' => $branch->name, 'kind' => $branch->kind ?? '']))
+@section('title', __('site.branch.title', ['name' => $branch->name, 'kind' => $branch->titleKind ?? $branch->kind ?? '']))
 
 @section('content')
     <div class="ui-page ui-page--with-bar" data-track-view="branch_view" data-track-branch="{{ $branch->branch->slug }}" data-track-placement="branch_page">

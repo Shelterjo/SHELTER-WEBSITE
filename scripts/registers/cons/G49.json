@@ -1,0 +1,62 @@
+{
+  "group": "G49",
+  "notes": "M62: (1) جواب الـOwner على PO-080: «ج» — «كافيه» في عناوين وأوصاف Google. (2) توجيه: بعد إنهاء كل شيء نكمل Cloudflare وCloudways، وقبل النشر يريد رابطًا يفحص منه الموقع كاملًا.",
+  "requirements": [],
+  "updates_to_existing": [
+    {
+      "id": "PO-080",
+      "type": "RESOLVE",
+      "source": "M62",
+      "change": "✅ 2026-10-02 → «ج» (D-338): «كافيه» في عناوين وأوصاف Google حيث يُبحث فعلًا: عنوان ووصف الرئيسية، عنوان ووصف صفحة الفروع، وعنوان صفحة HOUSE («كافيه في إربد»). النصوص الظاهرة في الصفحات تبقى «كوفي» (D-007). مطبّق ومختبر."
+    },
+    {
+      "id": "D-007",
+      "type": "UPDATE",
+      "source": "M62",
+      "change": "«كافيه» معتمدة لعناوين وأوصاف Google فقط (D-338)؛ النصوص الظاهرة والاسم تبقى «كوفي»؛ «كوفي شوب» ممنوعة."
+    },
+    {
+      "id": "D-332",
+      "type": "UPDATE",
+      "source": "M62",
+      "change": "وصفا الرئيسية والفروع بالعربي حُدّثا لإدخال «كافيه» (D-338): «شلتر كوفي، كافيه قهوة مختصة في إربد: V60 …» و«فرعا شلتر كوفي في إربد: الدرايف ثرو، والكافيه في سيتي سنتر. …»."
+    },
+    {
+      "id": "PO-064",
+      "type": "UPDATE",
+      "source": "M62",
+      "change": "الـOwner: بعد إنهاء العمل الحالي نكمل Cloudways وCloudflare، وقبل النشر رابط لفحص الموقع كاملًا (D-339) — رابط الـStaging الافتراضي من Cloudways هو هذا الرابط."
+    }
+  ],
+  "conflicts": [],
+  "new_decisions": [
+    {
+      "temp_id": "G49-ND-01",
+      "area": "SEO / Content",
+      "decision": "«كافيه» تُستخدم في عناوين وأوصاف Google: عنوان الرئيسية «شلتر كوفي — كافيه قهوة مختصة ودرايف ثرو في إربد»، وصف الرئيسية، عنوان الفروع «فروع شلتر كوفي في إربد — كافيه ودرايف ثرو | ساعات الدوام»، وصف الفروع، وعنوان HOUSE «شلتر كوفي هاوس — كافيه في إربد | ساعات الدوام». لا تُستخدم في النصوص الظاهرة ولا في اسم العلامة، ولا تُكرر في بقية الصفحات (بلا حشو).",
+      "sources": [
+        "M62"
+      ],
+      "status": "APPROVED",
+      "reason": "Owner: «ج»",
+      "impact": "PO-080 (RESOLVED) · D-007 · D-332 · lang/ar/site.php · docs/seo/LOCAL-SEO-MAP.md",
+      "date": "2026-10-02"
+    },
+    {
+      "temp_id": "G49-ND-02",
+      "area": "Release / Infrastructure",
+      "decision": "قبل أي نشر للإنتاج: رابط فحص كامل للموقع للـOwner — نسخة Staging على Cloudways (تطبيق مستقل، الرابط الافتراضي، بلا DNS، غير مفهرس، WordPress الحالي لا يُلمس). بعد الفحص والموافقة: Cloudflare (Full strict، DNSSEC) والإنتاج حسب بوابة PHASE 7.",
+      "sources": [
+        "M62"
+      ],
+      "status": "APPROVED",
+      "reason": "توجيه صريح من الـOwner (M62)",
+      "impact": "PO-064 · PO-073 · DEPLOY-002 · docs/platform/ENVIRONMENTS.md · docs/platform/ACCESS-SETUP.md §4",
+      "date": "2026-10-02"
+    }
+  ],
+  "pending_owner": [],
+  "technical_flags": [],
+  "cost_api_dependencies": [],
+  "dropped": []
+}

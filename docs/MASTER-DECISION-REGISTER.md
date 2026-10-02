@@ -9,7 +9,7 @@
 >
 > **المعرّفات:**
 > - **`D-xxx`:** سجل القرارات.
->   - **D-150…D-337:** قرارات صريحة من الـOwner في الرسائل M01–M27 لم تكن مسجلة، وأُضيفت في هذا التدقيق.
+>   - **D-150…D-339:** قرارات صريحة من الـOwner في الرسائل M01–M27 لم تكن مسجلة، وأُضيفت في هذا التدقيق.
 > - **`F-xx` / `R-xx`:** المنيو.
 > - **`DB-xx`:** القرارات المفتوحة قبل التصميم.
 > - **`GEP-§n` / `GIO-§n`:** سياسة Google وملكية التنفيذ.
@@ -20,14 +20,14 @@
 | الفئة | العدد |
 |---|---|
 | FROZEN | 81 |
-| APPROVED | 282 |
+| APPROVED | 284 |
 | APPROVED WITH CONDITIONS | 45 |
 | PENDING OWNER INPUT | 18 |
 | PENDING VERIFICATION | 8 |
 | DEFERRED | 4 |
 | REJECTED | 0 |
 | SUPERSEDED | 22 |
-| **المجموع** | **460** |
+| **المجموع** | **462** |
 
 ## FROZEN — مجمّد — لا يُفتح إلا بتعارض حقيقي (81)
 
@@ -115,7 +115,7 @@
 | `F-22` | Products | هوية الأصناف: كل قرارات D-109 → D-134 كما هي |  |  | F #22 · 2026-10-01 (موجز Menu IA/UX/Wireframe — D-142) | PROD-009…016/021/022 |
 | `F-23` | Governance | Production: لا كود Production · لا نشر · لا Redirects · لا تغييرات Google · لا صور غير معتمدة · لا نصوص منتجات من عندنا |  |  | F #23 · 2026-10-01 (موجز Menu IA/UX/Wireframe — D-142) | GOV-026، GOV-047، CONTENT-004 |
 
-## APPROVED — معتمد (282)
+## APPROVED — معتمد (284)
 
 | Decision ID | Area | القرار الحالي المعتمد | القرار القديم (إن وجد) | السبب | الترتيب في المحادثة | أثر التنفيذ |
 |---|---|---|---|---|---|---|
@@ -130,7 +130,7 @@
 | `D-004` | Governance | ترتيب الأولويات التقنية UX → Accuracy → Speed → Mobile → Accessibility → SEO/AEO/GEO → Security → Maintainability → Visual → Motion؛ لا يغير قرارًا تجاريًا |  | تعليمات الـOwner | #5 of 150 (log row order) · 2026-10-01 | GOV-018 |
 | `D-005` | Brand | ممنوع AI / Vibe-coding look؛ تصميم Bespoke لـSHELTER (مؤكد في M23 §73، M25 §48، M27 §19). نص الـOwner يقيّد Glassmorphism بـ«Everywhere / showcase / excessive» |  | تعليمات الـOwner | #6 of 150 (log row order) · 2026-10-01 | BRAND-006، BRAND-020 |
 | `D-006` | Menu | المنيو الرسمي من الـOwner هو المرجع؛ القديم للمقارنة فقط (مطبق في Inventory v1.0) |  | تعليمات الـOwner | #7 of 150 (log row order) · 2026-10-01 | MENU-005/006 |
-| `D-007` | Brand | الاسم الرسمي SHELTER COFFEE / شلتر كوفي؛ «كوفي» مفضلة؛ «كافيه/كافية» للـSEO فقط بموافقة |  | R1-01 | #8 of 150 (log row order) · 2026-10-01 | BRAND-001 ↻ M57: البحث: «كافيه» هي الكلمة الأكثر استخدامًا في إربد؛ استخدامها للـSEO مشروط بموافقتك (PO-080). «كوفي شوب» تُتجنب (سياق أخبار شيشة/مخالفات). |
+| `D-007` | Brand | الاسم الرسمي SHELTER COFFEE / شلتر كوفي؛ «كوفي» مفضلة؛ «كافيه/كافية» للـSEO فقط بموافقة |  | R1-01 | #8 of 150 (log row order) · 2026-10-01 | BRAND-001 ↻ M57: البحث: «كافيه» هي الكلمة الأكثر استخدامًا في إربد؛ استخدامها للـSEO مشروط بموافقتك (PO-080). «كوفي شوب» تُتجنب (سياق أخبار شيشة/مخالفات). ↻ M62: «كافيه» معتمدة لعناوين وأوصاف Google فقط (D-338)؛ النصوص الظاهرة والاسم تبقى «كوفي»؛ «كوفي شوب» ممنوعة. |
 | `D-008` | Branches | الفروع العامة = فرعان: SHELTER COFFEE DRIVE (الرئيسي، بجانب صالة قصر النخيل / أرابيلا، Drive Thru) وSHELTER COFFEE HOUSE (Irbid City Center، الطابق الأول). مشغل الحلويات ليس فرعًا. لا فرع Franchise عامل. أي فرع آخر لا يُعتبر نشطًا قبل سؤال الـOwner |  | R1-02 | #9 of 150 (log row order) · 2026-10-01 | BRANCH-002…004، BRANCH-007، GBP-002 ↻ M29 §03, §16: DRIVE وHOUSE = «Current public customer-facing concepts» وليست باقات فرنشايز معتمدة؛ لا «اختر نموذج الفرنشايز» بلا Franchise Master (FRAN-016). ↻ M58: صياغة وصف موقع DRIVE المعتمدة الآن «بجانب منطقة قصر النخيل / أرابيلا» (M57 §1، D-334) بدل «صالة قصر النخيل». |
 | `D-010` | URL/Global | Architecture جاهزة عالميًا: دولة ← مدينة ← فرع، فروع مملوكة وFranchise، بدون إعادة بناء؛ لا قائمة دول/مدن معتمدة؛ لا اختراع خطة توسع؛ لا عرض لأي دولة/فرع مستقبلي قبل معلومات وموافقة الـOwner |  | R1-04 | #11 of 150 (log row order) · 2026-10-01 | WEB-002، WEB-003، WEB-004 ↻ M29 §04, §13, §24: مسموح في صفحة الفرنشايز رسالة نمو عامة («أسواق جديدة»، Jordan + International Growth) بلا أي دولة/مدينة/Territory؛ القاعدة قائمة لكل ما هو محدد (CF-M-131). |
 | `D-011` | URL/Global | shelterjo.com الحالي وليس بالضرورة النهائي؛ لا تغيير دومين ولا Migration الآن؛ لا ارتباط بالأردن يصعب نقله؛ قابلية 301 صحيحة لاحقًا بلا خسارة SEO (1:1 — M04) |  | R1-05 | #12 of 150 (log row order) · 2026-10-01 | WEB-005، WEB-006، SEO-017 |
@@ -347,11 +347,13 @@
 | `D-329` | Brand / Design System | PO-071 → ج: الخط العربي للموقع ولوحة التحكم الآن Noto Kufi Arabic (مجاني للويب — SIL OFL 1.1، مستضاف على الموقع نفسه بلا خدمة خارجية) بنفس طابع GE SS Two؛ يعود GE SS Two عند تأكيد ترخيص الويب. |  | Owner: «ج» على الخيار الموصى به | M52 · 2026-10-02 (سُجّل في التدقيق) | D-309 (جزء الخط فقط) · PO-071 (NON-BLOCKING) · QA-039 (محلول) · resources/css/fonts.css · design-system/tokens/tokens.json |
 | `D-330` | SEO / Brand | PO-077 → أ: صورة المشاركة الافتراضية للموقع بطاقة 1200×630 من الشعار المعتمد على خلفية العلامة #131313 (بلا صور أو نصوص جديدة)؛ تظهر بعد اعتماد الـOwner لشكلها النهائي، وصورة الصفحة المعتمدة (مثل صورة الفعالية) تتقدم عليها. |  | Owner: «أ» على الخيار الموصى به | M53 · 2026-10-02 (سُجّل في التدقيق) | SEO-035 · QA-041 · AST-007 · config shelter.share_image |
 | `D-331` | SEO / Brand | اعتماد بطاقة المشاركة 1200×630 كما صُممت (الشعار الأبيض المعتمد على #131313، سداسي الشعار الخفيف، SHELTER COFFEE بخط Poppins) صورةً افتراضية لمعاينة روابط الموقع. |  | Owner: «أ» — اعتماد كما هي | M54 · 2026-10-02 (سُجّل في التدقيق) | PO-077 (RESOLVED) · AST-007 Approved · SEO-035 · config shelter.share_image |
-| `D-332` | SEO / Content | اعتماد وصف Google (Meta Description) لتسع صفحات وسطر صفحة الجذر بالعربي والإنجليزي — المجموعة الموصى بها من الدفعة 01: الرئيسية C · المنيو C · الفروع A · الفرع A (مع :name) · تواصل C · الفعاليات C · التوظيف B · الجوائز C · SHELTER Family B · سطر الجذر C. النصوص هي الصياغة الافتراضية في ملفات اللغة ويستطيع الـOwner تعديلها من لوحة التحكم ← نصوص الموقع (الحقل الفارغ يعيد النص المعتمد). بلا سنة تأسيس أو أعداد أو أسعار أو أرقام هواتف أو صيغ تفضيل. |  | Owner: «أ» — اعتماد المجموعة الموصى بها كما هي | M55, M56 · 2026-10-02 (سُجّل في التدقيق) | PO-020 (الدفعة 01) · P-07 (شق الـMeta؛ الـTitle ما زال PENDING) · CONTENT-013 (RG-04) · SEO-008 · lang/{ar,en}/site.php · tests/Feature/Site/ApprovedMetaTextsTest.php · docs/copy/META-DESCRIPTIONS-DRAFT-01.md |
+| `D-332` | SEO / Content | اعتماد وصف Google (Meta Description) لتسع صفحات وسطر صفحة الجذر بالعربي والإنجليزي — المجموعة الموصى بها من الدفعة 01: الرئيسية C · المنيو C · الفروع A · الفرع A (مع :name) · تواصل C · الفعاليات C · التوظيف B · الجوائز C · SHELTER Family B · سطر الجذر C. النصوص هي الصياغة الافتراضية في ملفات اللغة ويستطيع الـOwner تعديلها من لوحة التحكم ← نصوص الموقع (الحقل الفارغ يعيد النص المعتمد). بلا سنة تأسيس أو أعداد أو أسعار أو أرقام هواتف أو صيغ تفضيل. |  | Owner: «أ» — اعتماد المجموعة الموصى بها كما هي | M55, M56 · 2026-10-02 (سُجّل في التدقيق) | PO-020 (الدفعة 01) · P-07 (شق الـMeta؛ الـTitle ما زال PENDING) · CONTENT-013 (RG-04) · SEO-008 · lang/{ar,en}/site.php · tests/Feature/Site/ApprovedMetaTextsTest.php · docs/copy/META-DESCRIPTIONS-DRAFT-01.md ↻ M62: وصفا الرئيسية والفروع بالعربي حُدّثا لإدخال «كافيه» (D-338): «شلتر كوفي، كافيه قهوة مختصة في إربد: V60 …» و«فرعا شلتر كوفي في إربد: الدرايف ثرو، والكافيه في سيتي سنتر. …». |
 | `D-333` | SEO / Local | M57 — SEO المحلي لإربد: (1) خريطة كلمات ← صفحات بلا تكرار من بحث حقيقي (docs/seo/LOCAL-SEO-MAP.md)؛ (2) عنوان Google فريد لكل صفحة يحمل اسم العلامة وإربد من حقائق معتمدة وعبارة D-332، قابل للتعديل مع تنبيه؛ (3) صفحة الفرع وبطاقته تعرض نوع الفرع والمدينة ووصف الموقع من Master Data (يظهر فقط بعد الاعتماد)؛ (4) البيانات المنظمة مترابطة بـ@id (Organization ← WebSite وكل فرع) مع العنوان على مستوى المدينة وأيام الاستثناء القادمة؛ (5) Hooks قياس تدفع إلى dataLayer فقط إن وُجد، بلا PII؛ (6) شاشة «الظهور في Google» للـOwner للقراءة فقط. ممنوع: Doorway pages، صفحات أحياء/جامعات، «أفضل/أول» بلا دليل، «كوفي شوب»، مقالات ترتيب المنافسين. |  | توجيه صريح من الـOwner (M57) | M57 · 2026-10-02 (سُجّل في التدقيق) | SEO-008 · PO-009 · PO-010 · PO-011 · PO-020 · PO-041 · PO-043 · PO-079 · PO-080 · docs/seo/* · tests/Feature/Site/LocalSeoTest.php · tests/Feature/Dashboard/SeoHealthTest.php |
 | `D-334` | Branches / Master Data | اعتماد بيانات الموقع كما كتبها الـOwner في M57 §1 وإدخالها في Master Data: وصف موقع DRIVE «بجانب منطقة قصر النخيل / أرابيلا»؛ وصف موقع HOUSE «إربد سيتي سنتر، الطابق الأول، بجانب البنك الإسلامي الأردني» / «Irbid City Center, First Floor, next to Jordan Islamic Bank»؛ كتابة المدينة «إربد». وصف الموقع معلم قريب وليس العنوان التفصيلي (PO-010) ولا يُستخدم streetAddress. |  | Owner: «أ» — اعتماد القيم كما هي | M57, M58 · 2026-10-02 (سُجّل في التدقيق) | PO-079 (RESOLVED) · CF-M-036 (RESOLVED) · SEO-008 · database/seeders/data/master-data.php · صفحتا الفرعين وبطاقاتهما |
 | `D-336` | Branches / Google Business | الموقع والاسم لكل فرع حسب Google Business: SHELTER COFFEE DRIVE ← https://maps.app.goo.gl/zNfDbkxcT1aMdQiWA · SHELTER COFFEE HOUSE ← https://maps.app.goo.gl/k31BVoaAb1fcAF9e6 (يحل محل D-335). الاسمان كما هما (D-020) ومطابقان لـGBP. الرابط يشغّل زر «الاتجاهات» وhasMap. |  | توجيه صريح من الـOwner (M60) | M60 · 2026-10-02 (سُجّل في التدقيق) | D-335 (SUPERSEDED) · GBP-013 · PO-010 · docs/google/GOOGLE-BUSINESS-PROFILE-SOURCE-OF-TRUTH.md · database/seeders/data/master-data.php |
 | `D-337` | Branches / Master Data | نص عنوان كل فرع (AR/EN) يُدخله الـOwner بنفسه من لوحة التحكم مطابقًا لـGoogle Business؛ لا يُدخله Claude. الحفظ في المحرر = اعتماد، ويظهر في صفحة الفرع وفي streetAddress بالبيانات المنظمة. |  | Owner: «ب» — يدخله بنفسه | M61 · 2026-10-02 (سُجّل في التدقيق) | PO-010 · PO-064 (الوصول للوحة) · SEO-008 |
+| `D-338` | SEO / Content | «كافيه» تُستخدم في عناوين وأوصاف Google: عنوان الرئيسية «شلتر كوفي — كافيه قهوة مختصة ودرايف ثرو في إربد»، وصف الرئيسية، عنوان الفروع «فروع شلتر كوفي في إربد — كافيه ودرايف ثرو \| ساعات الدوام»، وصف الفروع، وعنوان HOUSE «شلتر كوفي هاوس — كافيه في إربد \| ساعات الدوام». لا تُستخدم في النصوص الظاهرة ولا في اسم العلامة، ولا تُكرر في بقية الصفحات (بلا حشو). |  | Owner: «ج» | M62 · 2026-10-02 (سُجّل في التدقيق) | PO-080 (RESOLVED) · D-007 · D-332 · lang/ar/site.php · docs/seo/LOCAL-SEO-MAP.md |
+| `D-339` | Release / Infrastructure | قبل أي نشر للإنتاج: رابط فحص كامل للموقع للـOwner — نسخة Staging على Cloudways (تطبيق مستقل، الرابط الافتراضي، بلا DNS، غير مفهرس، WordPress الحالي لا يُلمس). بعد الفحص والموافقة: Cloudflare (Full strict، DNSSEC) والإنتاج حسب بوابة PHASE 7. |  | توجيه صريح من الـOwner (M62) | M62 · 2026-10-02 (سُجّل في التدقيق) | PO-064 · PO-073 · DEPLOY-002 · docs/platform/ENVIRONMENTS.md · docs/platform/ACCESS-SETUP.md §4 |
 | `DB-01` | Brand | حُسم: الاسم (D-007)، الفروع (D-008، D-020)، سنة التأسيس 2019 (D-018) | الحقائق التأسيسية مطلوبة قبل أي Sitemap |  | #1 of 22 in DECISION-LOG open table (P0/P1/P2 priority in 05) · P0 | BRAND-001، ABOUT-003 |
 | `DB-10` | Products | البنية تدعم العرض الكامل للأسعار (D-078) |  |  | #12 of 22 in DECISION-LOG open table (P0/P1/P2 priority in 05) · P2 | MENU-014 |
 | `DB-21` | CMS | المصدر الوحيد للمنيو: A الآن + جاهزية C (حُسم بـD-085) | سؤال مفتوح: مصدر المنيو SSOT |  | #13 of 22 in DECISION-LOG open table (P0/P1/P2 priority in 05) | CMS-003 |
@@ -528,7 +530,7 @@
 | `GEP-§3` | GBP/Maps | فرعان رسميان على Google (DRIVE، HOUSE)؛ GBP لكل فرع = OFFICIAL OPERATIONAL SOURCE للحقول الأحد عشر | M33 §23 | SUPERSEDED (جزئيًا) BY D-278: وصف GBP كمصدر تشغيلي رسمي؛ تبقى قائمة الملفين الرسميين DRIVE/HOUSE (GBP-002) |  | policy section order · 2026-10-01 | GBP-002، GBP-003 |
 | `GEP-§26` |  | menu_view · menu_category_click · product_view · branch_view · directions_click · phone_click · whatsapp_click · social_click · campaign_view · campaign_click · event_view · blog_view · language_switch · search_use | M12 §9 → M25 §9 → M27 §18 (D-204) | القائمة الحالية = M27 §18 (14 حدثًا) + branch_view/social_click/event_view بانتظار قرار. |  |  | تحديث GOOGLE-ECOSYSTEM-POLICY §26 (إضافي — غير وارد في G6-docs). |
 
-## تحديثات من المواصفات الجديدة (M28–M30) على قرارات وبنود قائمة (59)
+## تحديثات من المواصفات الجديدة (M28–M30) على قرارات وبنود قائمة (61)
 
 | المعرّف | النوع | التغيير | المصدر |
 |---|---|---|---|
@@ -591,3 +593,5 @@
 | `D-008` | UPDATE | صياغة وصف موقع DRIVE المعتمدة الآن «بجانب منطقة قصر النخيل / أرابيلا» (M57 §1، D-334) بدل «صالة قصر النخيل». | M58 |
 | `D-335` | SUPERSEDE | رابطا Google Business Profile من الـOwner (D-336) بدل روابط share.google من الموقع القديم. | M60 |
 | `D-020` | UPDATE | اسما الفرعين SHELTER COFFEE DRIVE / SHELTER COFFEE HOUSE مطابقان لـGoogle Business (D-336) — لا تغيير. | M60 |
+| `D-007` | UPDATE | «كافيه» معتمدة لعناوين وأوصاف Google فقط (D-338)؛ النصوص الظاهرة والاسم تبقى «كوفي»؛ «كوفي شوب» ممنوعة. | M62 |
+| `D-332` | UPDATE | وصفا الرئيسية والفروع بالعربي حُدّثا لإدخال «كافيه» (D-338): «شلتر كوفي، كافيه قهوة مختصة في إربد: V60 …» و«فرعا شلتر كوفي في إربد: الدرايف ثرو، والكافيه في سيتي سنتر. …». | M62 |
