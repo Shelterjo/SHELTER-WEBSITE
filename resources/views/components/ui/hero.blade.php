@@ -14,12 +14,13 @@
     'titleId' => 'hero-title',
     'lang' => null,
 ])
-<section {{ $attributes->class('ui-hero')->merge(['aria-labelledby' => $titleId, 'data-ui-hero' => true]) }}>
+<section {{ $attributes->class(['ui-hero', 'ui-hero--split' => isset($aside)])->merge(['aria-labelledby' => $titleId, 'data-ui-hero' => true]) }}>
     <svg class="ui-hero__mark" viewBox="0 0 120 138" aria-hidden="true" focusable="false">
         <path pathLength="1" d="M60 1 119 35v68L60 137 1 103V35Z" fill="none" stroke="currentColor" stroke-width="1.75" vector-effect="non-scaling-stroke" />
         <path pathLength="1" d="M60 13 108 41v56L60 125 12 97V41Z" fill="none" stroke="currentColor" stroke-width="1.75" vector-effect="non-scaling-stroke" />
     </svg>
-    <div class="ui-container ui-hero__inner">
+    <div class="ui-container ui-hero__layout">
+    <div class="ui-hero__inner">
         @if (filled($eyebrow))
             <p class="ui-eyebrow ui-hero__eyebrow" data-ui-hero-item><span @if ($eyebrowLang) lang="{{ $eyebrowLang }}" dir="{{ $eyebrowLang === 'ar' ? 'rtl' : 'ltr' }}" @endif>{{ $eyebrow }}</span></p>
         @endif
@@ -34,5 +35,9 @@
         @if ($slot->isNotEmpty())
             <div class="ui-hero__actions" data-ui-hero-item>{{ $slot }}</div>
         @endif
+    </div>
+    @isset($aside)
+        <div class="ui-hero__aside">{{ $aside }}</div>
+    @endisset
     </div>
 </section>

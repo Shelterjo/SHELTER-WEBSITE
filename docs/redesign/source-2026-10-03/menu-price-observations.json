@@ -1,0 +1,834 @@
+[
+  {
+    "price_text": "3.50 د.أ",
+    "preceding_text": [
+      "كيكة العسل",
+      "كيكة عسل بمزيج حلو وناعم من العسل و القرفة"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "3.50 د.أ",
+    "preceding_text": [
+      "كيكة الكروكان",
+      "لوز سكر، كريمة بسكويت"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "3.50 د.أ",
+    "preceding_text": [
+      "كيك الريد فيلفيت",
+      "كيك الريد فيلفيت: ناعم، لذيذ، وفاخر"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "3.50 د.أ",
+    "preceding_text": [
+      "كيكة البراوني",
+      "مذاق البراوني و الشوكلاتة الغني"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "3.50 د.أ",
+    "preceding_text": [
+      "جيرمن كيك",
+      "كيك الشوكولاتة الغني والكثيف، تجربة شوكولاتية فاخرة"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "3.00 د.أ",
+    "preceding_text": [
+      "تيراميسو",
+      "حلوى إيطالية مصنوعة من معجنات ليدي فينجر مغموسة في القهوة، مع طبقة من خليط البيض المخفوق"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "1.00 د.أ",
+    "preceding_text": [
+      "كيك إنجليزي",
+      "دقيق، زبدة، سكر، بيض"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "3.50 د.أ",
+    "preceding_text": [
+      "كيكة الجزر",
+      "كريمية طري لذيذة بنكهة الجوز الفاخر من شلتر"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "2 د.أ",
+    "preceding_text": [
+      "ليزي كيك",
+      "بسكويت، حليب، كاكاو، زبدة"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "3.50 د.أ",
+    "preceding_text": [
+      "تشيز كيك سان سيباستيان",
+      "تشيز كيك سان سيباستيان: غني بالنكهة وكريمي بشكل لا يقاوم"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "4.00 د.أ",
+    "preceding_text": [
+      "سان بيري تشيز كيك",
+      "تشيز كيك سان سيباستيان فاخر مع توت العليق الطازج"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "3.00 د.أ",
+    "preceding_text": [
+      "تشيز كيك الفراولة",
+      "جبنة كريمية، بسكويت هش، مذاق الفراولة الطازجة"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "3.00 د.أ",
+    "preceding_text": [
+      "تشيز كيك التوت",
+      "مذاق التوت الفاخر و التشيز كيك، كريمي طري"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "1.00 د.أ",
+    "preceding_text": [
+      "كيك إنجليزي بالشوكلاتة",
+      "دقيق، شوكولاتة، زبدة، بيض"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "2.75 د.أ",
+    "preceding_text": [
+      "المشروبات الباردة",
+      "قهوة مثلجة"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "3.50 د.أ",
+    "preceding_text": [
+      "2.75 د.أ",
+      "كابوتشينو بارد"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "3.50 د.أ",
+    "preceding_text": [
+      "3.50 د.أ",
+      "شوكولاتة مثلجة"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "3.50 د.أ",
+    "preceding_text": [
+      "3.50 د.أ",
+      "وايت موكا مثلجة"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "3.75 د.أ",
+    "preceding_text": [
+      "3.50 د.أ",
+      "لوتس مثلج"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "3.75 د.أ",
+    "preceding_text": [
+      "3.75 د.أ",
+      "كروكونات مثلجة"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "3.75 د.أ",
+    "preceding_text": [
+      "3.75 د.أ",
+      "نوتيلا مثلجة"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "3.25 د.أ",
+    "preceding_text": [
+      "3.75 د.أ",
+      "ريد بول شلتر"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "2.50 د.أ",
+    "preceding_text": [
+      "3.25 د.أ",
+      "شلتر مشروب طاقة"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "3.25 د.أ",
+    "preceding_text": [
+      "2.50 د.أ",
+      "مكس الشاي المثلج"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "3.00 د.أ",
+    "preceding_text": [
+      "3.25 د.أ",
+      "شاي مثلج بالليمون"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "3.50 د.أ",
+    "preceding_text": [
+      "3.00 د.أ",
+      "سبانش لاتيه"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "3.00 د.أ",
+    "preceding_text": [
+      "3.50 د.أ",
+      "لاتيه بارد"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "3.50 د.أ",
+    "preceding_text": [
+      "3.00 د.أ",
+      "لاتيه كراميل بارد"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "3.50 د.أ",
+    "preceding_text": [
+      "3.50 د.أ",
+      "موكا مثلجة"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "3.50 د.أ",
+    "preceding_text": [
+      "3.50 د.أ",
+      "كراميل ماكياتو مثلج"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "3.75 د.أ",
+    "preceding_text": [
+      "3.50 د.أ",
+      "بيستاشيو مثلج"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "3.50 د.أ",
+    "preceding_text": [
+      "3.75 د.أ",
+      "شيكين مثلج"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "3.00 د.أ",
+    "preceding_text": [
+      "3.50 د.أ",
+      "ريد بول + نكهة"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "1.50 د.أ",
+    "preceding_text": [
+      "3.00 د.أ",
+      "مشروب غازي + نكهة"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "3.00 د.أ",
+    "preceding_text": [
+      "1.50 د.أ",
+      "شاي مثلج بالخوخ"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "2.00 د.أ",
+    "preceding_text": [
+      "المشروبات الساخنة",
+      "دبل شوت إسبرسو"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "2.00 د.أ",
+    "preceding_text": [
+      "2.00 د.أ",
+      "قهوة أمريكية"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "2.00 د.أ",
+    "preceding_text": [
+      "2.00 د.أ",
+      "شوكولاتة ساخنة"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "2.50 د.أ",
+    "preceding_text": [
+      "2.00 د.أ",
+      "مستكة"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "1.50 د.أ",
+    "preceding_text": [
+      "2.50 د.أ",
+      "قهوة تركية"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "1.50 د.أ",
+    "preceding_text": [
+      "1.50 د.أ",
+      "نسكافيه"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "2.00 د.أ",
+    "preceding_text": [
+      "1.50 د.أ",
+      "أمريكانو"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "2.50 د.أ",
+    "preceding_text": [
+      "2.00 د.أ",
+      "لاتيه"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "2.75 د.أ",
+    "preceding_text": [
+      "2.50 د.أ",
+      "كراميل لاتيه"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "3.00 د.أ",
+    "preceding_text": [
+      "2.75 د.أ",
+      "سبانش لاتيه"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "2.75 د.أ",
+    "preceding_text": [
+      "3.00 د.أ",
+      "لاتيه بندق"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "2.50 د.أ",
+    "preceding_text": [
+      "2.75 د.أ",
+      "كابتشينو"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "3.00 د.أ",
+    "preceding_text": [
+      "2.50 د.أ",
+      "كراميل ماكياتو"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "3.00 د.أ",
+    "preceding_text": [
+      "3.00 د.أ",
+      "موكا"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "2.75 د.أ",
+    "preceding_text": [
+      "3.00 د.أ",
+      "فانيلا لاتيه"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "3.00 د.أ",
+    "preceding_text": [
+      "2.75 د.أ",
+      "موكا بيضاء"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "3.00 د.أ",
+    "preceding_text": [
+      "3.00 د.أ",
+      "لاتيه أيرلندي"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "3.50 د.أ",
+    "preceding_text": [
+      "3.00 د.أ",
+      "ماتشا لاتيه"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "3.25 د.أ",
+    "preceding_text": [
+      "3.50 د.أ",
+      "قهوة فرنسية"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "2.75 د.أ",
+    "preceding_text": [
+      "3.25 د.أ",
+      "قهوة ايرلندية"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "2.50 د.أ",
+    "preceding_text": [
+      "2.75 د.أ",
+      "أفوجاتو"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "3.50 د.أ",
+    "preceding_text": [
+      "2.50 د.أ",
+      "نوتيلا ساخنه"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "3.50 د.أ",
+    "preceding_text": [
+      "3.50 د.أ",
+      "بيستاشيو ساخن"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "3.50 د.أ",
+    "preceding_text": [
+      "3.50 د.أ",
+      "لوتس ساخن"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "2.50 د.أ",
+    "preceding_text": [
+      "3.50 د.أ",
+      "ريد اي"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "3.25 د.أ",
+    "preceding_text": [
+      "2.50 د.أ",
+      "ديد اي"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "2.00 د.أ",
+    "preceding_text": [
+      "3.25 د.أ",
+      "شاي مع حليب"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "2.50 د.أ",
+    "preceding_text": [
+      "2.00 د.أ",
+      "فلات وايت"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "2.50 د.أ",
+    "preceding_text": [
+      "2.50 د.أ",
+      "إسبرسو كون بانا"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "2.75 د.أ",
+    "preceding_text": [
+      "2.50 د.أ",
+      "بلاك اي"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "3.50 د.أ",
+    "preceding_text": [
+      "2.75 د.أ",
+      "قهوة عيون النمر"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "2.0 د.أ",
+    "preceding_text": [
+      "3.50 د.أ",
+      "شاي"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "2.50 د.أ",
+    "preceding_text": [
+      "2.0 د.أ",
+      "كورتادو"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "3.50 د.أ",
+    "preceding_text": [
+      "الفرابيه",
+      "كراميل"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "3.50 د.أ",
+    "preceding_text": [
+      "3.50 د.أ",
+      "لوتس"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "3.50 د.أ",
+    "preceding_text": [
+      "3.50 د.أ",
+      "سنيكرز"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "3.50 د.أ",
+    "preceding_text": [
+      "3.50 د.أ",
+      "توكس"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "3.50 د.أ",
+    "preceding_text": [
+      "3.50 د.أ",
+      "إسبرسو"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "3.50 د.أ",
+    "preceding_text": [
+      "3.50 د.أ",
+      "شوكولاتة"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "3.50 د.أ",
+    "preceding_text": [
+      "3.50 د.أ",
+      "فانيلا"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "3.50 د.أ",
+    "preceding_text": [
+      "3.50 د.أ",
+      "وايت موكا"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "3.50 د.أ",
+    "preceding_text": [
+      "3.50 د.أ",
+      "شلتر"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "3.50 د.أ",
+    "preceding_text": [
+      "3.50 د.أ",
+      "موكا"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "3.50 د.أ",
+    "preceding_text": [
+      "الميلك شيك",
+      "كراميل"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "3.50 د.أ",
+    "preceding_text": [
+      "3.50 د.أ",
+      "لوتس"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "3.50 د.أ",
+    "preceding_text": [
+      "3.50 د.أ",
+      "سنيكرز"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "3.5 د.أ",
+    "preceding_text": [
+      "3.50 د.أ",
+      "توكس"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "3.50 د.أ",
+    "preceding_text": [
+      "3.5 د.أ",
+      "نوتيلا"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "3.75 د.أ",
+    "preceding_text": [
+      "3.50 د.أ",
+      "توت مكس كبير"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "3.75 د.أ",
+    "preceding_text": [
+      "3.75 د.أ",
+      "فراولة كبيرة"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "4.00 د.أ",
+    "preceding_text": [
+      "3.75 د.أ",
+      "فيريرو مع نوتيلا"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "3.50 د.أ",
+    "preceding_text": [
+      "4.00 د.أ",
+      "شوكولاتة"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "3.50 د.أ",
+    "preceding_text": [
+      "3.50 د.أ",
+      "فانيلا"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "3.50 د.أ",
+    "preceding_text": [
+      "3.50 د.أ",
+      "شلتر"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "3.50 د.أ",
+    "preceding_text": [
+      "3.50 د.أ",
+      "فيريرو روشيه"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "3.50 د.أ",
+    "preceding_text": [
+      "3.50 د.أ",
+      "أوريو"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "4.00 د.أ",
+    "preceding_text": [
+      "3.50 د.أ",
+      "بيستاشيو"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "3.75 د.أ",
+    "preceding_text": [
+      "4.00 د.أ",
+      "توت كبير"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "3.50 د.أ",
+    "preceding_text": [
+      "3.75 د.أ",
+      "تشيز كيك"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "3.50 د.أ",
+    "preceding_text": [
+      "السموذي",
+      "مانجو"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "3.5 د.أ",
+    "preceding_text": [
+      "3.50 د.أ",
+      "ليمون"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "3.50 د.أ",
+    "preceding_text": [
+      "3.5 د.أ",
+      "أناناس"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "3.5 د.أ",
+    "preceding_text": [
+      "3.50 د.أ",
+      "سموذي مكس"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "3.5 د.أ",
+    "preceding_text": [
+      "3.5 د.أ",
+      "الخوخ مع البرتقال"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "3.50 د.أ",
+    "preceding_text": [
+      "3.5 د.أ",
+      "ليمون مع نعناع"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "3.50 د.أ",
+    "preceding_text": [
+      "3.50 د.أ",
+      "الفراولة"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "3.50 د.أ",
+    "preceding_text": [
+      "3.50 د.أ",
+      "توت"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "3.50 د.أ",
+    "preceding_text": [
+      "3.50 د.أ",
+      "البرتقال وباشن"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  },
+  {
+    "price_text": "3.5 د.أ",
+    "preceding_text": [
+      "3.50 د.أ",
+      "الفراولة مع باشن"
+    ],
+    "status": "OLD WEBSITE — NOT MASTER PRICE"
+  }
+]

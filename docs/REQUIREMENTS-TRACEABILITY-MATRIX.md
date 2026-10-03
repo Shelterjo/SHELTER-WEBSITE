@@ -1359,3 +1359,10 @@
 | `BUILD-024` | الدور والمبادئ الختامية: Lead Engineer + System Architect + UX Quality Owner | M36 FINAL, M36 FU-1, M36 FU-2 | D-298 | CLAUDE.md §Build mode |  |  | PARTIAL | N/A |
 | `BUILD-025` | منصة البناء (ADR-001): Laravel 13 + MySQL/MariaDB على تطبيق Cloudways Flexible جديد، Blade | M36 §16, M36 §24 | D-300, ADR-001, DB-08 | docs/adr/ADR-001-platform.md · docs/architecture/PLATFORM-ARCHITECTURE.md |  |  | IMPLEMENTED — NOT TESTED | NO |
 | `BUILD-026` | تحويل البوابات: مراجعات المعمارية التقنية والـWireframes غير مانعة (READY FOR REVIEW)، وبوابات الإنتاج والحقائق تبقى | M36 §01, M36 §05, M36 §11, M36 §24 | D-299 | CLAUDE.md §Build mode · docs/PROGRESS.md |  |  | IMPLEMENTED — NOT TESTED | N/A |
+
+
+## 2026-10-03 — Owner redesign request / current-site extraction
+
+D-350 / M75: Owner requested website rebuild with Figma, UI UX Designer and GitHub. First visual implementation draft is in `docs/redesign/README.md`; full runtime validation pending. Existing approved business data and release gates remain in force.
+
+D-351 / M76: Owner supplied www.shelterjo.com and requested extraction. Public page text, menu observations, asset inventory and source images captured. This authorizes extraction; it does not approve conflicting historical facts or every old image for publication. Conflicts are documented in `docs/redesign/source-2026-10-03/README.md`.

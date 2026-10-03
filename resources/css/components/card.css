@@ -10,10 +10,12 @@
     padding: var(--space-4);
     border: var(--border-default) solid var(--color-border);
     border-radius: var(--radius-lg);
-    background: var(--color-bg);
+    background: var(--color-surface);
     color: var(--color-text);
     box-shadow: var(--shadow-none);
-    transition: box-shadow var(--motion-fast) var(--easing-standard);
+    transition:
+        box-shadow var(--motion-fast) var(--easing-standard),
+        border-color var(--motion-fast) var(--easing-standard);
 }
 
 .ui-card--raised {

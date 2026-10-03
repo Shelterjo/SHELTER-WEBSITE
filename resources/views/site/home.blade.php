@@ -17,6 +17,18 @@
         @if ($locationsUrl)
             <x-ui.button size="lg" :variant="$menuUrl ? 'outline' : 'primary'" :href="$locationsUrl" :icon-end="$menuUrl ? null : 'arrow-right'">{{ __('site.home.cta_locations') }}</x-ui.button>
         @endif
+        @if (count($branches) > 0)
+            <x-slot:aside>
+                <section class="ui-home-branches" aria-labelledby="home-branches">
+                    <x-ui.section-heading id="home-branches" :title="__('site.home.branches_title')" :lead="__('site.home.branches_lead')" />
+                    <ul class="ui-branch-list" role="list">
+                        @foreach ($branches as $branch)
+                            <li><x-ui.branch-card :branch="$branch" :details-label="__('site.locations.details')" /></li>
+                        @endforeach
+                    </ul>
+                </section>
+            </x-slot:aside>
+        @endif
     </x-ui.hero>
 
     {{-- The home feature placement (DX-010): the campaign or announcement the engine picks now — or nothing (DX-012) —
@@ -43,17 +55,5 @@
         </section>
     @endif
 
-    @if (count($branches) > 0)
-        <section class="ui-band" aria-labelledby="home-branches" data-ui-reveal>
-            <div class="ui-container">
-                <x-ui.section-heading id="home-branches" :title="__('site.home.branches_title')" :lead="__('site.home.branches_lead')"
-                    :href="$locationsUrl" :link-label="__('site.home.branches_link')" />
-                <ul class="ui-branch-list" role="list">
-                    @foreach ($branches as $branch)
-                        <li><x-ui.branch-card :branch="$branch" :details-label="__('site.locations.details')" /></li>
-                    @endforeach
-                </ul>
-            </div>
-        </section>
-    @endif
+
 @endsection

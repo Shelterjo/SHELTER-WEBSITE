@@ -619,3 +619,10 @@
 | `D-346` | UPDATE | أيقونة شلتور = صورة الـOwner المعتمدة (D-348) بدل أيقونة الرسائل العامة، حين يصل الملف. | M71 |
 | `D-342` | UPDATE | التوقيت فقط: الـOwner أذن ببدء ربط البنية التحتية الآن (Staging) بالتوازي مع ما تبقى من أعمال الجاهزية، بدل انتظار رسالة الجاهزية وعبارة START (D-349). شروط الإنتاج كما هي. | M74 |
 | `D-343` | UPDATE | شهادة الجاهزية والتقرير النهائي يستمران ويصدران على الـStaging؛ لا يُنقل الدومين للإنتاج قبلهما وقبل موافقة الـOwner الصريحة. | M74 |
+
+
+## 2026-10-03 — Owner redesign request / current-site extraction
+
+D-350 / M75: Owner requested website rebuild with Figma, UI UX Designer and GitHub. First visual implementation draft is in `docs/redesign/README.md`; full runtime validation pending. Existing approved business data and release gates remain in force.
+
+D-351 / M76: Owner supplied www.shelterjo.com and requested extraction. Public page text, menu observations, asset inventory and source images captured. This authorizes extraction; it does not approve conflicting historical facts or every old image for publication. Conflicts are documented in `docs/redesign/source-2026-10-03/README.md`.

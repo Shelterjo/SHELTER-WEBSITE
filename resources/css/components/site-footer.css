@@ -3,6 +3,7 @@
 
 .ui-site-footer {
     margin-block-start: auto;
+    background: var(--color-surface);
     padding-block: var(--space-12) var(--space-8);
     border-block-start: var(--border-default) solid var(--color-border);
     color: var(--color-muted);

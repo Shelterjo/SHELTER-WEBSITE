@@ -6,7 +6,8 @@
     position: relative;
     overflow: hidden;
     isolation: isolate;
-    padding-block: var(--space-16) var(--space-12);
+    padding-block: var(--space-10) var(--space-12);
+    background: radial-gradient(ellipse at 25% 0%, var(--color-surface), transparent 65%);
 }
 
 .ui-hero__mark {
@@ -126,5 +127,86 @@
     .ui-hero__mark {
         inset-inline-end: 0;
         inline-size: var(--container-narrow);
+    }
+}
+
+/* The homepage places the next useful decision beside the brand, not beneath a tall decorative hero. */
+.ui-hero__layout {
+    display: grid;
+    gap: var(--space-10);
+    align-items: center;
+}
+
+.ui-hero__inner,
+.ui-hero__aside {
+    min-inline-size: 0;
+}
+
+.ui-hero--split .ui-hero__mark {
+    display: none;
+}
+
+.ui-home-branches {
+    padding: var(--space-5);
+    border: var(--border-default) solid var(--color-border);
+    border-radius: var(--radius-xl);
+    background: var(--color-surface);
+}
+
+.ui-home-branches .ui-section-heading {
+    margin-block-end: var(--space-5);
+}
+
+.ui-home-branches .ui-section-heading__title {
+    font-size: var(--text-xl);
+}
+
+.ui-home-branches .ui-section-heading__lead {
+    font-size: var(--text-sm);
+}
+
+.ui-home-branches .ui-branch--row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-3);
+    padding-block: var(--space-5);
+}
+
+.ui-home-branches .ui-branch__name {
+    font-size: var(--text-lg);
+}
+
+.ui-home-branches .ui-branch__place,
+.ui-home-branches .ui-branch__today {
+    font-size: var(--text-sm);
+}
+
+.ui-home-branches li:last-child .ui-branch--row {
+    border-block-end: 0;
+    padding-block-end: 0;
+}
+
+@media (max-width: 599px) {
+    .ui-hero__actions {
+        inline-size: 100%;
+    }
+
+    .ui-hero__actions > .ui-button {
+        flex: 1 1 100%;
+        padding-block: var(--space-3);
+    }
+}
+
+@media (min-width: 1024px) {
+    .ui-hero--split {
+        padding-block: var(--space-12) var(--space-16);
+    }
+
+    .ui-hero--split .ui-hero__layout {
+        grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+        gap: var(--space-16);
+    }
+
+    .ui-home-branches {
+        padding: var(--space-8);
     }
 }
