@@ -118,3 +118,7 @@
 | **5 — Integrations** | NOT STARTED → **BLOCKED** على الصلاحيات | PO-009…013 (PO-008 ✅) |
 | **6 — Quality / Operations** | **IN PROGRESS** — اختبار وإصلاح شامل محلي **TESTED** (M51)؛ التشغيل والمراقبة على السيرفر بعد الـStaging | PO-064 |
 | **7 — Release** | NOT STARTED | **موافقة الإنتاج** |
+
+
+## 2026-10-03 — Codex redesign branch
+First visual draft + public-site capture complete. Static token/brand checks passed. Runtime and responsive verification pending; see `redesign/README.md`. Not ready for production.

@@ -250,3 +250,23 @@
 .ui-nav-drawer {
     max-inline-size: var(--container-drawer);
 }
+
+@media (min-width: 1024px) {
+    .ui-site-header__inner {
+        min-block-size: var(--space-24);
+        gap: var(--space-6);
+    }
+
+    .ui-site-header__list {
+        gap: var(--space-2);
+        padding: var(--space-1);
+        border: var(--border-default) solid var(--color-border);
+        border-radius: var(--radius-pill);
+        background: var(--color-surface);
+    }
+
+    .ui-site-header__list .ui-nav-link {
+        padding-inline: var(--space-4);
+        border-radius: var(--radius-pill);
+    }
+}

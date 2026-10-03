@@ -1,0 +1,159 @@
+{
+  "captured_at": "2026-10-03T01:24:07.878998+00:00",
+  "source": "https://www.shelterjo.com/",
+  "status": "SOURCE ONLY — COMPARE WITH MASTER DATA",
+  "pages": [
+    {
+      "url": "https://www.shelterjo.com/",
+      "title": "شلتر كافيه إربد - قهوة مختصة ودرايف ثرو | كافيهات اربد",
+      "error": null,
+      "file": "page-00.json"
+    },
+    {
+      "url": "https://www.shelterjo.com/%D8%A7%D9%84%D8%AA%D9%88%D8%B8%D9%8A%D9%81-%D9%81%D9%8A-%D8%B4%D9%84%D8%AA%D8%B1-%D9%83%D8%A7%D9%81%D9%8A%D8%A9/",
+      "title": "فرص عمل شلتر كافيه اربد | انضم للفريق",
+      "error": null,
+      "file": "page-01.json"
+    },
+    {
+      "url": "https://www.shelterjo.com/%D8%A7%D9%84%D8%B4%D8%B1%D9%88%D8%B7-%D9%88%D8%A7%D9%84%D8%A7%D8%AD%D9%83%D8%A7%D9%85-%D9%84%D9%85%D9%88%D9%82%D8%B9-%D8%B4%D9%84%D8%AA%D8%B1-%D9%83%D8%A7%D9%81%D9%8A%D8%A9/",
+      "title": "الشروط والأحكام - شلتر كافية اربد",
+      "error": null,
+      "file": "page-02.json"
+    },
+    {
+      "url": "https://www.shelterjo.com/%D8%A7%D9%84%D9%82%D8%A7%D8%A6%D9%85%D8%A9-%D8%B4%D9%84%D8%AA%D8%B1-%D9%83%D8%A7%D9%81%D9%8A%D8%A9-%D9%85%D8%AD%D8%A7%D9%81%D8%B8%D8%A9-%D8%A7%D8%B1%D8%A8%D8%AF/",
+      "title": "القائمة - شلتر كافيه اربد | 40+ مشروب مختص",
+      "error": null,
+      "file": "page-03.json"
+    },
+    {
+      "url": "https://www.shelterjo.com/%D9%85%D9%86-%D9%87%D9%88-%D8%B4%D9%84%D8%AA%D8%B1-%D9%83%D8%A7%D9%81%D9%8A%D8%A9-%D9%81%D9%8A-%D8%A7%D8%B1%D8%A8%D8%AF/",
+      "title": "من نحن - شلتر كافيه اربد | قصة قهوة مختصة",
+      "error": null,
+      "file": "page-04.json"
+    },
+    {
+      "url": "https://www.shelterjo.com/%D9%85%D9%88%D9%82%D8%B9-%D8%B4%D9%84%D8%AA%D8%B1-%D9%83%D8%A7%D9%81%D9%8A%D8%A9-%D9%85%D8%AD%D8%A7%D9%81%D8%B8%D8%A9-%D8%A7%D8%B1%D8%A8%D8%AF/",
+      "title": "موقع شلتر كافيه اربد | شارع الجامعة - قصر النخيل",
+      "error": null,
+      "file": "page-05.json"
+    },
+    {
+      "url": "https://www.shelterjo.com/best-cafes-irbid-2026/",
+      "title": "دليل كافيهات إربد 2026 — قهوة مختصة، كوفي هاوس ودرايف ثرو - شلتر كافية",
+      "error": null,
+      "file": "page-06.json"
+    },
+    {
+      "url": "https://www.shelterjo.com/blog/",
+      "title": "مدونة شلتر كافية - مقالات عن القهوة المختصة",
+      "error": null,
+      "file": "page-07.json"
+    },
+    {
+      "url": "https://www.shelterjo.com/coffee-house-vs-cafe/",
+      "title": "الفرق بين كوفي هاوس وكافيه — وأيّهما يناسبك في إربد - شلتر كافية",
+      "error": null,
+      "file": "page-08.json"
+    },
+    {
+      "url": "https://www.shelterjo.com/drive-thru-shelter-irbid-how-it-works/",
+      "title": "كيف يعمل الدرايف ثرو في شلتر كافيه إربد — خطوة بخطوة",
+      "error": null,
+      "file": "page-09.json"
+    },
+    {
+      "url": "https://www.shelterjo.com/family/",
+      "title": "عائلة شلتر كافيه - فريق درايف ثرو القهوة المختصة",
+      "error": null,
+      "file": "page-10.json"
+    },
+    {
+      "url": "https://www.shelterjo.com/franchise-shelter-coffee/",
+      "title": "فرنشايز شلتر كافية - فرص الشراكة والاستثمار",
+      "error": null,
+      "file": "page-11.json"
+    },
+    {
+      "url": "https://www.shelterjo.com/%D8%A3%D9%88%D9%84-%D8%AE%D8%AF%D9%85%D8%A9-%D8%B3%D9%8A%D8%A7%D8%B1%D8%A7%D8%AA-%D9%81%D9%8A-%D8%A7%D9%84%D8%B4%D9%85%D8%A7%D9%84-%D9%83%D8%A7%D9%81%D9%8A%D9%87-%D8%B4%D9%84%D8%AA%D8%B1/",
+      "title": "كافيه شلتر اربد - أول خدمة درايف ثرو في شمال الأردن",
+      "error": null,
+      "file": "page-12.json"
+    },
+    {
+      "url": "https://www.shelterjo.com/%D9%82%D9%87%D9%88%D8%A9-%D9%85%D8%AE%D8%AA%D8%B5%D8%A9-%D8%A7%D8%B1%D8%A8%D8%AF-%D8%AF%D9%84%D9%8A%D9%84-%D8%B4%D9%84%D8%AA%D8%B1/",
+      "title": "قهوة مختصة اربد - دليل شلتر كافيه الشامل 2026",
+      "error": null,
+      "file": "page-13.json"
+    },
+    {
+      "url": "https://www.shelterjo.com/author/info/",
+      "title": "Info, Author at شلتر كافية",
+      "error": null,
+      "file": "page-14.json"
+    },
+    {
+      "url": "https://www.shelterjo.com/best-drive-thru-coffee-irbid/",
+      "title": "درايف ثرو قهوة اربد - شلتر كافيه الخيار الأول للسيارات",
+      "error": null,
+      "file": "page-15.json"
+    },
+    {
+      "url": "https://www.shelterjo.com/category/specialty-coffee/",
+      "title": "قهوة مختصة Archives - شلتر كافية",
+      "error": null,
+      "file": "page-16.json"
+    },
+    {
+      "url": "https://www.shelterjo.com/category/uncategorized/",
+      "title": "Uncategorized Archives - شلتر كافية",
+      "error": null,
+      "file": "page-17.json"
+    },
+    {
+      "url": "https://www.shelterjo.com/shelter-menu-irbid-2026/",
+      "title": "منيو شلتر كافيه اربد 2026 | القائمة الشاملة",
+      "error": null,
+      "file": "page-18.json"
+    },
+    {
+      "url": "https://www.shelterjo.com/shelter-spring-drinks-2026-irbid/",
+      "title": "قائمة الربيع 2026 في شلتر كافيه اربد | 5 مشروبات جديدة",
+      "error": null,
+      "file": "page-19.json"
+    },
+    {
+      "url": "https://www.shelterjo.com/specialty-coffee-beans-origins/",
+      "title": "حبوب القهوة المختصة - دليل أصول الحبوب | شلتر كافيه اربد",
+      "error": null,
+      "file": "page-20.json"
+    },
+    {
+      "url": "https://www.shelterjo.com/specialty-coffee-brewing-methods/",
+      "title": "طرق تحضير القهوة المختصة - دليل شلتر كافيه اربد الكامل",
+      "error": null,
+      "file": "page-21.json"
+    },
+    {
+      "url": "https://www.shelterjo.com/specialty-vs-commercial-coffee/",
+      "title": "الفرق بين القهوة المختصة والقهوة العادية - شلتر كافيه اربد",
+      "error": null,
+      "file": "page-22.json"
+    },
+    {
+      "url": "https://www.shelterjo.com/locations/",
+      "title": "Locations الأرشيف - شلتر كافية",
+      "error": null,
+      "file": "page-23.json"
+    },
+    {
+      "url": "https://www.shelterjo.com/specialty-coffee-irbid-guide/",
+      "title": "قهوة مختصة اربد - دليل شلتر كافيه الشامل 2026",
+      "error": null,
+      "file": "page-24.json"
+    }
+  ],
+  "unique_first_party_images": 98,
+  "unvisited_discovered_urls": []
+}

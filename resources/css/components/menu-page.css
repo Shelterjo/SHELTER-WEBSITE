@@ -14,7 +14,11 @@
 .ui-menu__tools {
     display: grid;
     gap: var(--space-6);
-    margin-block-end: var(--space-6);
+    margin-block-end: var(--space-8);
+    padding: var(--space-5);
+    border: var(--border-default) solid var(--color-border);
+    border-radius: var(--radius-xl);
+    background: var(--color-surface);
 }
 
 .ui-menu__branch {
@@ -100,7 +104,7 @@
 
 .ui-menu__content {
     display: grid;
-    gap: var(--space-12);
+    gap: var(--space-16);
     min-inline-size: 0;
 }
 
@@ -127,7 +131,7 @@
 
 .ui-menu__section-title {
     margin: 0;
-    font-size: var(--text-2xl);
+    font-size: var(--text-3xl);
     font-weight: var(--weight-bold);
     line-height: var(--leading-tight);
 }

@@ -397,3 +397,10 @@
 | DB-18 | نموذج الساعات الخاصة (UX + CMS) | `09` AR-07 | `PROPOSED` — نقاش قبل التنفيذ (D-021) |
 | DB-13 | الروابط الخارجية السبام | لا إجراء قبل Search Console | `PROPOSED` |
 | DB-14 | HubSpot و Newsletter | — | `PROPOSED` |
+
+
+## 2026-10-03 — Owner redesign request / current-site extraction
+
+D-350 / M75: Owner requested website rebuild with Figma, UI UX Designer and GitHub. First visual implementation draft is in `docs/redesign/README.md`; full runtime validation pending. Existing approved business data and release gates remain in force.
+
+D-351 / M76: Owner supplied www.shelterjo.com and requested extraction. Public page text, menu observations, asset inventory and source images captured. This authorizes extraction; it does not approve conflicting historical facts or every old image for publication. Conflicts are documented in `docs/redesign/source-2026-10-03/README.md`.

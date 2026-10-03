@@ -1746,3 +1746,10 @@
 | M14-052 | ملاحظة المستشار للـOwner خارج الـblock وليست تعليمات لـClaude؛ الانتقال إلى R3 مغطى في GOV-041 (M14-050) |
 | M25-040 | أمثلة توضيحية فقط (ICED SPANISH LATTE 120 product views · SPECIALITY COFFEE 350 category clicks · "cold brew" 45 searches · Zero result "matcha" 15) — أرقام وهمية لا تُستخدم كبيانات ولا كدليل على توفر/غياب منتجات؛ مذكورة في notes الخاصة بـANL-035. |
 | M25-082 | example-only: Blocks الرئيسية («مثلاً» Hero · Campaign · About · Menu Preview · Branches · Coffee Story · Blog · CTA · Footer) لشرح الـPage Editor — ليست اعتمادًا لبنية الرئيسية؛ موثقة في conflict «مثال Blocks الرئيسية» وفي HOME-002 |
+
+
+## 2026-10-03 — Owner redesign request / current-site extraction
+
+D-350 / M75: Owner requested website rebuild with Figma, UI UX Designer and GitHub. First visual implementation draft is in `docs/redesign/README.md`; full runtime validation pending. Existing approved business data and release gates remain in force.
+
+D-351 / M76: Owner supplied www.shelterjo.com and requested extraction. Public page text, menu observations, asset inventory and source images captured. This authorizes extraction; it does not approve conflicting historical facts or every old image for publication. Conflicts are documented in `docs/redesign/source-2026-10-03/README.md`.
